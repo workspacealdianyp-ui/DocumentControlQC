@@ -2115,3 +2115,74 @@ input:focus-visible, select:focus-visible, textarea:focus-visible {
    gives the ellipsis something to measure against. */
 .detail-hero-main { width: 100%; overflow: hidden; }
 .detail-hero-main p { max-width: 100%; }
+
+/* ═══════════════════════════════════════════════════════════════
+   JOBS: the same register, one row per job
+   Product and type used to sit in two columns that repeated each
+   other on almost every row; they are one cell now, identifier over
+   qualifier, the way the job and customer cells already read.
+   ═══════════════════════════════════════════════════════════════ */
+
+.jobs-table { min-width: 940px; }
+
+/* Column widths, so a long product description cannot starve the
+   dates and the progress bar of room. */
+.jobs-table th:nth-child(1), .jobs-table td:nth-child(1) { width: 15%; }
+.jobs-table th:nth-child(2), .jobs-table td:nth-child(2) { width: 27%; }
+.jobs-table th:nth-child(3), .jobs-table td:nth-child(3) { width: 18%; }
+.jobs-table th:nth-child(4), .jobs-table td:nth-child(4) { width: 11%; }
+.jobs-table th:nth-child(5), .jobs-table td:nth-child(5) { width: 11%; }
+.jobs-table th:nth-child(6), .jobs-table td:nth-child(6) { width: 11%; }
+.jobs-table th:nth-child(7), .jobs-table td:nth-child(7) { width: 7%; }
+
+/* One line each. Rows stayed a uniform height only if the long values
+   clip rather than wrap — "WATER TRUCK 20KL" over two lines was what
+   made the old list ragged. */
+.jobs-desc, .jobs-cust, .jobs-product .mon-sub, .jobs-table .mon-sub {
+  display: block;
+  max-width: 100%;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.jobs-desc {
+  font-size: 12.5px; font-weight: 450; color: var(--text);
+  letter-spacing: -0.005em;
+}
+.jobs-cust { font-size: 12.5px; font-weight: 400; color: var(--text); }
+.jobs-table .num {
+  font-family: var(--mono); font-size: 11.5px; font-weight: 350;
+  color: var(--text-2); white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Progress: the bar carries the shape, the fraction carries the fact.
+   Colour only when the job is finished — everything else is graphite,
+   so a screen of jobs does not read as a screen of alarms. */
+.jobs-prog { display: flex; align-items: center; gap: 9px; }
+.jobs-prog-bar {
+  flex: 1 1 auto; min-width: 42px; height: 4px;
+  border-radius: 999px;
+  background: var(--surface-3);
+  overflow: hidden;
+}
+.jobs-prog-bar span {
+  display: block; height: 100%;
+  border-radius: inherit;
+  background: var(--ink);
+  transition: width .25s ease;
+}
+.jobs-prog-n {
+  flex: 0 0 auto;
+  font-family: var(--mono); font-size: 11px; font-weight: 400;
+  color: var(--text-2); font-variant-numeric: tabular-nums;
+}
+tr:has(.chip-done) .jobs-prog-bar span { background: var(--done); }
+
+/* The status chip is the row's verdict; give it the width to stay on
+   one line next to the bar. */
+.jobs-table .chip { white-space: nowrap; }
+
+@media (max-width: 720px) {
+  .jobs-table { min-width: 720px; }
+  .jobs-table th:nth-child(5), .jobs-table td:nth-child(5),
+  .jobs-table th:nth-child(4), .jobs-table td:nth-child(4) { width: auto; }
+}
