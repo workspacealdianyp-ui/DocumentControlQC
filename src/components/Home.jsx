@@ -23,11 +23,11 @@ const KIND_LABEL = { vessel: 'Pressure Vessel', tank: 'Storage Tank', spool: 'Pi
 
 // customer visual helpers — gradient pairs (bar = gradient, avatar = frosted start tint)
 const CUST_GRADIENTS = [
-  ['#5b87f7', '#8fb3ff'],
-  ['#0c8f74', '#3bd09a'],
-  ['#8a6df0', '#b79bff'],
-  ['#e0922e', '#f4c264'],
-  ['#e8696b', '#ff9f86'],
+  ['#14181a', '#5e6866'],
+  ['#232a29', '#6b7370'],
+  ['#14181a', '#5e6866'],
+  ['#232a29', '#6b7370'],
+  ['#14181a', '#5e6866'],
 ]
 const custInitials = (name = '') => name.replace(/\b(pt|cv|tbk|persero)\b\.?/gi, '').trim().split(/\s+/).filter(Boolean).slice(0, 2).map((w) => w[0]).join('').toUpperCase() || '–'
 
@@ -190,7 +190,7 @@ export default function Home() {
   return (
     <div className="page">
       <div className="home-greet">
-        <h2>{greet}, {first} 👋</h2>
+        <h2>{greet}, {first}</h2>
         <p>{today} · Here's the state of your inspections.</p>
       </div>
 

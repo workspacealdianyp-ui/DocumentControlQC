@@ -7,56 +7,67 @@
    Phone <640 · Tablet 640–1023 (bottom nav) · Desktop ≥1024 (sidebar)
    ════════════════════════════════════════════════════════════════════ */
 :root {
-  --ink: #0f1b2d;          /* near-black steel */
-  --ink-2: #1b2b44;
-  --steel: #1e40af;        /* primary steel-blue */
-  --steel-deep: #18338c;
-  --steel-soft: #e7edfb;
-  --amber: #f59e0b;        /* calibration / action accent */
-  --amber-deep: #c97e08;
-  --amber-soft: #fdf0d5;
+  /* ── Enamel instrument panel ──────────────────────────────────
+     Grounded in the thing this app is about: the painted face of a
+     gauge. Off-white enamel, graphite scale marks, one red index.
+     Colour is scarce on purpose — when something turns red here,
+     it means the needle is in the red zone.                       */
 
-  --paper: #f4f7fb;        /* app canvas */
-  --surface: #ffffff;
-  --surface-2: #f1f5fa;
-  --surface-3: #e7eef6;
-  --line: #d6dee9;         /* hairline */
-  --line-2: #c2cedd;
-  --text: #14233b;
-  --text-2: #51637c;
-  --text-3: #8595ab;
+  --ink: #14181a;          /* graphite — scale marks and type */
+  --ink-2: #232a29;
+  --steel: #1b2220;        /* primary action: graphite, not blue */
+  --steel-deep: #0e1211;
+  --steel-soft: #e3e7df;   /* focus halo, enamel-tinted */
+  --amber: #c8102e;        /* THE INDEX — needle red, used sparingly */
+  --amber-deep: #9e0c24;
+  --amber-soft: #fbe7ea;
 
-  /* semantic status */
-  --done: #15803d;     --done-bg: #e3f4e9;
-  --inprog: #b45309;   --inprog-bg: #fbeed6;
-  --notstart: #64748b; --notstart-bg: #eaef3;
-  --overdue: #c4321f;  --overdue-bg: #fbe4df;
-  --na: #94a3b3;       --na-bg: #eef1f6;
-  --danger: #c4321f;
+  --paper: #f4f6f1;        /* enamel canvas (cool green-grey, not cream) */
+  --surface: #ffffff;      /* instrument face */
+  --surface-2: #f4f6f1;
+  --surface-3: #eaede6;
+  --line: #dde1d8;         /* hairline */
+  --line-2: #c4cabe;       /* scale mark */
+  --text: #14181a;
+  --text-2: #5e6866;
+  --text-3: #929b96;
 
-  --mono: 'Fira Code', ui-monospace, 'SF Mono', monospace;
-  --sans: 'Fira Sans', system-ui, -apple-system, sans-serif;
+  /* semantic status — materials, not a rainbow */
+  --done: #1c6b58;     --done-bg: #e4ede9;   /* verdigris */
+  --inprog: #8a6a12;   --inprog-bg: #f2eee1; /* brass */
+  --notstart: #6b7370; --notstart-bg: #eef0ec;
+  --overdue: #c8102e;  --overdue-bg: #fbe7ea;
+  --na: #9aa29e;       --na-bg: #f2f4f1;
+  --danger: #c8102e;
 
-  --r: 10px;
-  --r-lg: 16px;
-  --tick: 0 1px 0 var(--line); /* hairline base */
-  --sh: 0 1px 2px rgba(15, 27, 45, 0.05), 0 8px 24px rgba(15, 27, 45, 0.06);
-  --sh-2: 0 8px 30px rgba(15, 27, 45, 0.1);
-  --sh-pop: 0 18px 50px rgba(15, 27, 45, 0.2);
+  --mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', monospace;
+  --sans: 'Archivo', system-ui, -apple-system, sans-serif;
 
-  /* ── glassmorphism ── */
-  --glass: rgba(255, 255, 255, 0.55);
-  --glass-2: rgba(255, 255, 255, 0.42);
-  --glass-strong: rgba(255, 255, 255, 0.72);
-  --glass-line: rgba(255, 255, 255, 0.7);
-  --glass-line-2: rgba(150, 170, 200, 0.28);
-  --blur: saturate(160%) blur(20px);
-  --sh-glass: 0 1px 0 rgba(255,255,255,0.6) inset, 0 10px 30px rgba(20, 40, 80, 0.1);
+  --r: 3px;                /* panels are seated, not pillowed */
+  --r-lg: 4px;
+  --tick: 0 1px 0 var(--line);
+
+  /* seats, not shadows: a hairline bezel plus a faint inner light */
+  --sh: 0 0 0 1px var(--line), 0 1px 0 rgba(20, 24, 26, 0.02);
+  --sh-2: 0 0 0 1px var(--line-2), 0 2px 6px rgba(20, 24, 26, 0.05);
+  --sh-pop: 0 0 0 1px var(--line-2), 0 12px 28px rgba(20, 24, 26, 0.14);
+
+  /* glass tokens retired — repointed to opaque enamel so every
+     existing rule that referenced them becomes a solid panel */
+  --glass: #ffffff;
+  --glass-2: var(--surface-2);
+  --glass-strong: #ffffff;
+  --glass-line: var(--line);
+  --glass-line-2: var(--line-2);
+  --blur: none;
+  --sh-glass: 0 0 0 1px var(--line);
+
   --appbar-h: 56px;
   --bottomnav-h: 62px;
   --tap: 46px;
   --z-nav: 60; --z-pop: 90; --z-modal: 100; --z-print: 300;
 }
+
 
 * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 html, body { margin: 0; padding: 0; }
@@ -97,7 +108,7 @@ textarea { min-height: 84px; resize: vertical; line-height: 1.55; }
 input[type='number'], .num input { font-family: var(--mono); }
 select {
   appearance: none; cursor: pointer; font-weight: 500;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%231e40af' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%2314181a' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
   background-repeat: no-repeat; background-position: right 13px center; padding-right: 40px;
 }
 select:hover:not(:disabled) { border-color: var(--steel); }
@@ -109,23 +120,26 @@ table { border-collapse: collapse; }
 .content { flex: 1; padding: 58px 14px calc(var(--bottomnav-h) + 24px); max-width: 100%; }
 @media (min-width: 1024px) { .content { padding: 24px 28px 52px; } }
 
-/* ── aurora background: soft drifting light behind the glass ── */
+/* ── canvas: flat enamel, with the scale ruled faintly into it ──
+   The drifting pastel blobs are gone. What replaces them is the
+   subject's own texture: a millimetre grid, barely visible, the way
+   graph paper sits under a drawing. It does not move, because a
+   measuring surface that drifts is a contradiction.               */
 .app-bg {
   position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden;
-  background: linear-gradient(160deg, #eef3fb 0%, #f5f1fb 48%, #eef9f5 100%);
+  background-color: var(--paper);
+  background-image:
+    repeating-linear-gradient(90deg, rgba(20,24,26,0.028) 0 1px, transparent 1px 24px),
+    repeating-linear-gradient(0deg,  rgba(20,24,26,0.028) 0 1px, transparent 1px 24px);
 }
-.aurora { position: absolute; border-radius: 50%; filter: blur(70px); opacity: 0.55; mix-blend-mode: normal; will-change: transform; }
-.aurora-1 { width: 620px; height: 560px; top: -200px; left: -120px;
-  background: radial-gradient(circle at 35% 35%, #6fa8ff, transparent 66%); animation: drift1 26s ease-in-out infinite; }
-.aurora-2 { width: 560px; height: 560px; top: -120px; right: -160px;
-  background: radial-gradient(circle at 50% 50%, #b79bff, transparent 66%); opacity: 0.5; animation: drift2 32s ease-in-out infinite; }
-.aurora-3 { width: 640px; height: 600px; bottom: -260px; right: 6%;
-  background: radial-gradient(circle at 50% 50%, #6ee7c2, transparent 68%); opacity: 0.48; animation: drift3 36s ease-in-out infinite; }
-.aurora-4 { width: 480px; height: 480px; bottom: -180px; left: 8%;
-  background: radial-gradient(circle at 50% 50%, #ffc6e0, transparent 68%); opacity: 0.42; animation: drift2 30s ease-in-out infinite reverse; }
-@keyframes drift1 { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(70px, 50px) scale(1.12); } }
-@keyframes drift2 { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(-60px, 60px) scale(1.1); } }
-@keyframes drift3 { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(-50px, -60px) scale(1.14); } }
+/* every 5th line reads heavier, like a real rule */
+.app-bg::after {
+  content: ''; position: absolute; inset: 0;
+  background-image:
+    repeating-linear-gradient(90deg, rgba(20,24,26,0.042) 0 1px, transparent 1px 120px),
+    repeating-linear-gradient(0deg,  rgba(20,24,26,0.042) 0 1px, transparent 1px 120px);
+}
+.aurora { display: none; }
 
 /* ─────────────────── floating actions (top-right) ─────────────────── */
 .float-actions { position: fixed; top: 12px; right: 12px; z-index: var(--z-nav); display: flex; gap: 8px; }
@@ -205,7 +219,7 @@ table { border-collapse: collapse; }
 .sidebar-toggle:hover { background: rgba(255,255,255,0.5); }
 .sidebar-toggle:hover .sidebar-toggle-ico { color: var(--steel); }
 .sidebar-logo { width: 38px; height: 38px; border-radius: 11px; flex-shrink: 0;
-  background: linear-gradient(135deg, var(--steel), #4f86e8); display: grid; place-items: center; color: #fff;
+  background: var(--steel); display: grid; place-items: center; color: #fff;
   box-shadow: 0 4px 14px rgba(30,64,175,0.35); }
 .brand-word { flex: 1; min-width: 0; font-family: var(--mono); font-size: 14px; font-weight: 600; letter-spacing: 0.02em; white-space: nowrap; color: var(--text); transition: opacity 0.2s, max-width 0.2s; }
 .sidebar-toggle-ico { flex-shrink: 0; color: var(--text-3); display: grid; place-items: center; transition: color 0.14s; }
@@ -222,7 +236,7 @@ table { border-collapse: collapse; }
 .nav-ico { width: 36px; height: 36px; border-radius: 10px; display: grid; place-items: center; flex-shrink: 0;
   background: rgba(255,255,255,0.5); color: var(--text-2); transition: all 0.14s; }
 .nav-item:hover .nav-ico { background: #fff; color: var(--steel); }
-.nav-item.active .nav-ico { background: linear-gradient(135deg, var(--steel), #4f86e8); color: #fff; box-shadow: 0 4px 12px rgba(30,64,175,0.35); }
+.nav-item.active .nav-ico { background: var(--steel); color: #fff; box-shadow: 0 4px 12px rgba(30,64,175,0.35); }
 
 /* footer group — settings + role, then profile */
 .sidebar-foot { padding: 4px; display: flex; flex-direction: column; gap: 4px; border-top: 1px solid var(--glass-line-2); margin-top: 4px; padding-top: 8px; }
@@ -233,7 +247,7 @@ table { border-collapse: collapse; }
 .sidebar-profile { display: flex; align-items: center; gap: 11px; width: 100%; margin-top: 4px; padding: 9px 11px;
   background: rgba(255,255,255,0.5); border: 1px solid var(--glass-line-2); border-radius: 12px; cursor: pointer; text-align: left; transition: all 0.14s; }
 .sidebar-profile:hover { background: #fff; transform: translateY(-1px); box-shadow: var(--sh); }
-.sidebar-avatar { width: 38px; height: 38px; border-radius: 50%; flex-shrink: 0; background: linear-gradient(135deg, var(--ink), #2b4368); color: #fff; font-family: var(--mono); font-weight: 600; font-size: 13px; display: grid; place-items: center; }
+.sidebar-avatar { width: 38px; height: 38px; border-radius: 50%; flex-shrink: 0; background: var(--ink); color: #fff; font-family: var(--mono); font-weight: 600; font-size: 13px; display: grid; place-items: center; }
 .sidebar-profile-text { display: flex; flex-direction: column; min-width: 0; line-height: 1.2; }
 .sidebar-profile-text strong { font-size: 13px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .sidebar-profile-text small { font-size: 10px; color: var(--text-3); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -455,7 +469,7 @@ td.th-action { display: flex; gap: 6px; justify-content: flex-end; align-items: 
 /* ─────────────────────────── forms ─────────────────────────── */
 .form-page { max-width: 1180px; }
 .form-hero {
-  background: linear-gradient(120deg, rgba(111,168,255,0.22), rgba(183,155,255,0.2) 45%, rgba(110,231,194,0.2));
+  background: var(--surface-3);
   border: 1px solid var(--glass-line); backdrop-filter: var(--blur); -webkit-backdrop-filter: var(--blur);
   color: var(--text); border-radius: var(--r-lg); padding: 16px 20px; margin-bottom: 16px;
   display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; flex-wrap: wrap; box-shadow: var(--sh-glass);
@@ -634,7 +648,7 @@ td.th-action { display: flex; gap: 6px; justify-content: flex-end; align-items: 
 /* ── formal Berita Acara (auto minutes on the result section) ── */
 .berita { margin-top: 18px; border: 1px solid var(--line-2); border-radius: var(--r-lg); overflow: hidden; background: var(--surface); box-shadow: var(--sh); }
 .berita.ba-bad { border-color: var(--overdue); }
-.ba-head { padding: 14px 16px 12px; border-bottom: 2px solid var(--ink); background: linear-gradient(120deg, rgba(111,168,255,0.14), rgba(110,231,194,0.12)); }
+.ba-head { padding: 14px 16px 12px; border-bottom: 2px solid var(--ink); background: var(--surface-2); }
 .berita.ba-bad .ba-head { background: var(--overdue-bg); border-bottom-color: var(--overdue); }
 .ba-eyebrow { font-family: var(--mono); font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-3); }
 .ba-head h4 { font-family: var(--mono); font-size: 15px; margin-top: 4px; color: var(--text); text-transform: uppercase; letter-spacing: 0.04em; }
@@ -720,7 +734,7 @@ td.th-action { display: flex; gap: 6px; justify-content: flex-end; align-items: 
 .panel-monitor { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; color: var(--text); background: var(--surface); border: 1px solid var(--line-2); border-radius: 999px; padding: 6px 13px; cursor: pointer; transition: background .15s, border-color .15s; }
 .panel-monitor:hover { background: var(--surface-2); border-color: var(--text-3); }
 .showcase-body { flex: 1; display: grid; grid-template-columns: 1.35fr 1fr; gap: 18px; align-items: stretch; position: relative; z-index: 1; min-height: 232px; }
-.showcase-stage { position: relative; border-radius: var(--r); overflow: hidden; min-height: 232px; border: 1px solid var(--glass-line-2); background: radial-gradient(75% 75% at 50% 40%, rgba(91,135,247,0.09), transparent 72%); }
+.showcase-stage { position: relative; border-radius: var(--r); overflow: hidden; min-height: 232px; border: 1px solid var(--glass-line-2); background: var(--surface-2); }
 .unit3d { position: absolute; inset: 0; cursor: grab; touch-action: none; }
 .unit3d:active { cursor: grabbing; }
 .unit3d canvas { display: block; }
@@ -735,7 +749,7 @@ td.th-action { display: flex; gap: 6px; justify-content: flex-end; align-items: 
 .sc-meta b { color: var(--text-3); font-weight: 700; min-width: 56px; display: inline-block; font-size: 10px; text-transform: uppercase; letter-spacing: 0.04em; }
 .sc-prog { display: flex; flex-direction: column; gap: 4px; margin-top: 2px; }
 .sc-prog-bar { height: 6px; border-radius: 999px; background: var(--surface-3); overflow: hidden; border: 1px solid var(--line-2); }
-.sc-prog-bar span { display: block; height: 100%; background: linear-gradient(90deg, #5b87f7, #3bd09a); transition: width .5s ease; }
+.sc-prog-bar span { display: block; height: 100%; background: var(--steel); transition: width .5s ease; }
 .sc-prog-lab { font-family: var(--mono); font-size: 10.5px; color: var(--text-3); }
 .showcase-info .btn-primary { align-self: flex-start; margin-top: 4px; }
 .sc-dots { display: flex; gap: 7px; margin-top: auto; padding-top: 10px; }
@@ -765,11 +779,11 @@ td.th-action { display: flex; gap: 6px; justify-content: flex-end; align-items: 
 
 /* hero — glass readout */
 .hero-card { background: var(--glass-strong); color: var(--text); display: flex; gap: 20px; align-items: stretch; flex-wrap: wrap; padding: 22px; border: 1px solid var(--glass-line); position: relative; overflow: hidden; }
-.hero-card::after { content: ''; position: absolute; width: 280px; height: 280px; top: -120px; right: -70px; background: radial-gradient(circle, rgba(30,64,175,0.16), transparent 70%); pointer-events: none; }
+.hero-card::after { content: ''; position: absolute; width: 280px; height: 280px; top: -120px; right: -70px; background: none; pointer-events: none; }
 .hero-left { flex: 1; min-width: 220px; display: flex; flex-direction: column; position: relative; z-index: 1; padding-top: 6px; }
 .hero-label { font-family: var(--mono); font-size: 10.5px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-3); }
 .hero-big { font-family: var(--mono); font-size: 52px; font-weight: 700; letter-spacing: -0.03em; line-height: 1.05; margin: 2px 0;
-  background: linear-gradient(120deg, var(--steel), #1f9d63); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  color: var(--ink); font-variant-numeric: tabular-nums; }
 .hero-sub { font-size: 12.5px; color: var(--text-2); margin-bottom: 16px; }
 .hero-legend { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 14px; margin-bottom: 18px; }
 .hero-legend span { font-size: 12px; color: var(--text-2); display: flex; align-items: center; gap: 7px; white-space: nowrap; }
@@ -784,7 +798,7 @@ td.th-action { display: flex; gap: 6px; justify-content: flex-end; align-items: 
 .donut-center strong { font-size: 25px; font-weight: 700; color: var(--text); }
 .donut-center small { font-size: 9.5px; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.05em; }
 .spark { display: flex; align-items: flex-end; gap: 3px; height: 40px; margin-bottom: 6px; }
-.spark-bar { flex: 1; background: linear-gradient(180deg, var(--steel), #4f86e8); border-radius: 3px 3px 0 0; min-width: 4px; transition: height 0.3s; }
+.spark-bar { flex: 1; background: var(--steel); border-radius: 3px 3px 0 0; min-width: 4px; transition: height 0.3s; }
 
 /* mini stats — glass cells */
 .mini-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px; }
@@ -827,7 +841,7 @@ td.th-action { display: flex; gap: 6px; justify-content: flex-end; align-items: 
   background: rgba(255,255,255,0.5); border: 1px solid var(--glass-line); border-radius: 12px; padding: 11px 13px; transition: all 0.14s; }
 .draft-row:hover { background: #fff; transform: translateX(2px); box-shadow: var(--sh); }
 .draft-row .deliv-ico { width: 38px; height: 38px; border-radius: 11px; flex-shrink: 0; display: grid; place-items: center;
-  font-family: var(--mono); font-size: 10px; font-weight: 700; background: linear-gradient(135deg, var(--ink), #2b4368); color: #fff; }
+  font-family: var(--mono); font-size: 10px; font-weight: 700; background: var(--ink); color: #fff; }
 .draft-row .alert-ico { width: 38px; height: 38px; border-radius: 11px; }
 .draft-row .act-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px; }
 .draft-row .act-main strong { font-family: var(--mono); font-size: 13px; font-weight: 600; color: var(--text); }
@@ -1096,3 +1110,197 @@ td.th-action { display: flex; gap: 6px; justify-content: flex-end; align-items: 
 .cc2-pend-done { font-size: 11px; color: var(--done); font-weight: 600; }
 
 @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+
+/* ═══════════════════════════════════════════════════════════════
+   ENAMEL INSTRUMENT PANEL — finishing layer
+   Loaded last on purpose: these rules match the specificity of the
+   ones above and simply win, so nothing earlier had to be unpicked.
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Type: Archivo carries the width axis. Headings are set wide and
+   heavy so they read like an engraved nameplate rather than a title. */
+h1, h2, h3, h4 {
+  font-family: var(--sans);
+  font-weight: 600;
+  font-stretch: 108%;
+  letter-spacing: -0.005em;
+}
+h2 { font-size: 18px; }
+h3 { font-size: 14.5px; }
+
+/* Anything that is a measurement, an identifier or a date is set in
+   the mono face with tabular figures — columns of numbers must align
+   or they cannot be compared, which is the whole job of this screen. */
+.num, td.num, .mono, .hero-big, .hero-label,
+input[type='number'], .num input {
+  font-family: var(--mono);
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'zero' 1;   /* slashed zero: 0 vs O */
+}
+
+/* Small uppercase labels get real tracking; at 10-11px, letterspacing
+   is what makes them legible rather than what makes them look designed. */
+.hero-label, .section-title, .kv-label, .ps-label {
+  letter-spacing: 0.08em;
+}
+
+/* ── Seats, not shadows. A panel sits in a hairline bezel with one
+   pixel of light along its top edge, the way an inset instrument
+   face catches the light. No blur anywhere. */
+.card, .panel, .sheet, .modal-card, .popover {
+  box-shadow: var(--sh), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+/* ── THE SIGNATURE: the tick rule.
+   A vernier scale, minor marks every 6px and a major mark every 5th.
+   It already existed here as a divider; promoted now to the app's
+   structural device, because measurement is what this app is for. */
+.tickrule {
+  height: 9px;
+  background-color: transparent;
+  background-image:
+    repeating-linear-gradient(90deg, var(--line-2) 0 1px, transparent 1px 6px),
+    repeating-linear-gradient(90deg, var(--ink) 0 1px, transparent 1px 30px);
+  background-size: 100% 4px, 100% 8px;
+  background-position: 0 100%, 0 100%;
+  background-repeat: repeat-x;
+  border-bottom: 1px solid var(--line);
+}
+
+/* Section headings carry the same scale into the gap beside them. */
+.section-title::after {
+  height: 8px;
+  background-image:
+    repeating-linear-gradient(90deg, var(--line-2) 0 1px, transparent 1px 6px),
+    repeating-linear-gradient(90deg, var(--line-2) 0 1px, transparent 1px 30px);
+  background-size: 100% 3px, 100% 7px;
+  background-position: 0 100%, 0 100%;
+  background-repeat: repeat-x;
+  opacity: 0.9;
+}
+
+/* ── Status reads as a gauge mark: a coloured index bar on the left of
+   a quiet enamel chip. Weight, not hue, does the shouting — only
+   "overdue" is allowed the needle red. */
+.chip {
+  border-radius: 2px;
+  border-color: var(--line);
+  font-size: 11px;
+  letter-spacing: 0.02em;
+  position: relative;
+  overflow: hidden;          /* keeps the index bar inside the corners */
+}
+/* The index bar only belongs on chips that carry a label. A compact
+   chip is the icon alone, and a 3px bar beside a 11px glyph is noise. */
+.chip:not(.chip-compact) {
+  padding-left: 12px;
+}
+.chip:not(.chip-compact)::before {
+  content: '';
+  position: absolute; left: 0; top: 0; bottom: 0;
+  width: 3px;
+  background: currentColor;
+}
+/* Out of tolerance is the one state allowed to raise its voice. */
+.chip-overdue { font-weight: 600; border-color: var(--overdue); }
+/* N/A stays hollow and dashed — nothing was measured, so nothing is claimed. */
+.chip-na { border-style: dashed; border-color: var(--na); }
+.chip-na::before { opacity: 0.45; }
+
+/* ── Controls: square-ish, decisive, graphite. The primary button is
+   near-black because the one saturated colour in this interface is
+   reserved for "out of tolerance". */
+.btn { border-radius: var(--r); font-weight: 550; letter-spacing: 0.005em; }
+.btn-primary { background: var(--steel); border-color: var(--steel); }
+.btn-primary:hover:not(:disabled) { background: var(--steel-deep); border-color: var(--steel-deep); }
+
+input, select, textarea { border-radius: var(--r); }
+input:focus-visible, select:focus-visible, textarea:focus-visible {
+  border-color: var(--ink);
+  box-shadow: 0 0 0 3px var(--steel-soft);
+}
+
+/* ── Rows respond on hover with a graphite index mark rather than a
+   fill, so scanning a long table never repaints the whole row. */
+tbody tr { transition: background-color 0.12s ease; }
+tbody tr:hover { background: var(--surface-2); }
+
+/* ── Motion: one deliberate easing, and none at all if it is unwanted. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ── Print: the certificate is the real artifact. Drop the enamel,
+   drop the grid, let it be ink on paper. */
+@media print {
+  .app-bg, .app-bg::after, .tickrule { display: none !important; }
+  .card, .panel { box-shadow: none !important; border: 1px solid #000 !important; }
+}
+
+/* ── Customer cards: the dials were five different hues, which said
+   "these are five categories" when they are five instances of the
+   same measurement. One needle colour, as on a real instrument;
+   the reading itself is what differs. */
+.cc2-kpis div { border-radius: 2px; }
+.cc2-kpis .k-blue,
+.cc2-kpis .k-green,
+.cc2-kpis .k-violet {
+  background: var(--surface-2);
+  border-color: var(--line);
+}
+.cc2-kpis .k-blue b,
+.cc2-kpis .k-green b,
+.cc2-kpis .k-violet b { color: var(--ink); }
+/* On-time is the one reading worth grading, so it alone earns colour. */
+.cc2-kpis .k-green b { color: var(--done); }
+
+.cc2-pend-chips i {
+  color: var(--text-2);
+  background: var(--surface-3);
+  border-radius: 2px;
+}
+
+/* ── The tick rule, where it can actually be seen.
+   `.tickrule` turned out to be dead CSS — no component ever rendered
+   it — so the scale is attached to the section headings that do
+   exist. Every panel heading now trails off into a measuring scale,
+   which is the one visual idea this interface is built on. */
+.widget-title,
+.section-title {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+.widget-title::after {
+  content: '';
+  flex: 1;
+  height: 7px;
+  align-self: center;
+  background-image:
+    repeating-linear-gradient(90deg, var(--line-2) 0 1px, transparent 1px 6px),
+    repeating-linear-gradient(90deg, var(--line-2) 0 1px, transparent 1px 30px);
+  background-size: 100% 3px, 100% 7px;
+  background-position: 0 100%, 0 100%;
+  background-repeat: repeat-x;
+}
+/* A heading that already sits in a flex row with a control beside it
+   should not stretch — the scale would push the control off. */
+.widget-head .widget-title { flex: 1; }
+
+/* ── Mobile overflow fix (pre-existing).
+   A grid item defaults to min-width:auto, so it refuses to shrink
+   below its content's intrinsic width. The two-column showcase body
+   was therefore forcing its card — and the whole page — wider than
+   the viewport. Letting the items shrink, and stacking the showcase
+   on narrow screens, removes the sideways scroll. */
+.bento > *,
+.showcase-body > * { min-width: 0; }
+
+@media (max-width: 720px) {
+  .showcase-body { grid-template-columns: 1fr; }
+}
