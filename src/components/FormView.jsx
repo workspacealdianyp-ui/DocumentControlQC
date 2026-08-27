@@ -668,7 +668,7 @@ export default function FormView({ job, formKey, query }) {
 
   return (
     <div className="page form-page form-page-pad">
-      <button className="btn btn-ghost back-btn btn-sm" onClick={() => navigate(`/job/${job.jobNo}`)}><IconBack size={14} /> Job {job.jobNo}</button>
+      <button className="btn btn-ghost back-btn btn-sm" onClick={() => navigate(`/job/${job.jobNo}`)}><IconBack size={14} /> {schema.title}</button>
 
       <div className="form-hero">
         <div>

@@ -174,7 +174,7 @@ export default function ReportDetail({ schema, report, job, deliverable, status,
 
   return (
     <div className="page form-page form-page-pad">
-      <button className="btn btn-ghost back-btn btn-sm" onClick={onBack}><IconBack size={14} /> Job {job.jobNo}</button>
+      <button className="btn btn-ghost back-btn btn-sm" onClick={onBack}><IconBack size={14} /> {schema.title}</button>
 
       <div className="detail-hero">
         <div className="detail-hero-main">
@@ -200,8 +200,8 @@ export default function ReportDetail({ schema, report, job, deliverable, status,
 
         {/* The verdict as a stamp across the corner, the way it lands on
             the paper copy. Decorative angle, real text for screen readers. */}
-        <div className={`detail-stamp ${r.released ? 'is-acc' : 'is-rej'}`}>
-          {r.released ? 'ACCEPT' : 'REJECT'}
+        <div className={`detail-ribbon ${r.released ? 'is-acc' : 'is-rej'}`}>
+          <span>{r.released ? 'ACCEPT' : 'REJECT'}</span>
         </div>
       </div>
 
@@ -215,12 +215,7 @@ export default function ReportDetail({ schema, report, job, deliverable, status,
               onClick={() => setPage(i)}>{s.title}</button>
           ))}
         </nav>
-      ) : (
-        <div className={`detail-idstrip${stuck ? ' is-stuck' : ''}`}>
-          <strong>{v.reportId}</strong>
-          <span className={`report-state state-${status}`}>{statusLabel}</span>
-        </div>
-      )}
+      ) : null}
 
       <div className="detail-sections">
         {shown.map((s) => (

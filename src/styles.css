@@ -1802,3 +1802,66 @@ input:focus-visible, select:focus-visible, textarea:focus-visible {
    has to clear half the rotated height, not the upright height. */
 .detail-hero { min-height: 156px; }
 .detail-stamp { bottom: 30px; right: 26px; }
+
+/* ═══════════════════════════════════════════════════════════════
+   Corner ribbon verdict, and no sticky document strip
+   ═══════════════════════════════════════════════════════════════ */
+
+/* The strip that repeated the document number while scrolling is gone;
+   the hero already says which document this is. In Pages mode the file
+   tabs still stick, because those are navigation. */
+.detail-idstrip, .detail-stamp { display: none; }
+
+.detail-hero { min-height: 132px; }
+
+/* A band across the lower-right corner, anchored at 45 degrees and
+   clipped by the hero's own edges. The verdict is a property of the
+   whole document, so it belongs on the corner of the sheet rather than
+   in a row competing with the actions. */
+.detail-ribbon {
+  position: absolute;
+  right: -58px; bottom: 26px;
+  width: 200px;
+  padding: 5px 0;
+  transform: rotate(-45deg);
+  text-align: center;
+  pointer-events: none;
+  box-shadow: 0 1px 4px rgba(20, 20, 24, 0.16);
+}
+.detail-ribbon span {
+  font-family: var(--mono);
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 0.2em;
+  color: #fff;
+}
+.detail-ribbon.is-acc { background: var(--done); }
+.detail-ribbon.is-rej { background: var(--overdue); }
+
+/* On a narrow screen the corner is too small to carry a band, so the
+   verdict becomes an ordinary chip in the flow. */
+@media (max-width: 860px) {
+  .detail-ribbon {
+    position: static; transform: none; width: auto;
+    align-self: start; border-radius: 3px;
+    padding: 4px 12px; margin-top: 8px; box-shadow: none;
+  }
+}
+
+/* The band cut too deep a corner and ran under the Edit button. A
+   shorter band tucked closer to the corner tip keeps the actions clear. */
+.detail-hero { min-height: 148px; }
+.detail-ribbon { width: 148px; right: -40px; bottom: 12px; }
+
+/* The back link now names the report rather than the job. It sits above
+   the hero heading that carries the same words, so it is set small and
+   muted: it reads as the trail you came along, not a second title. */
+.back-btn {
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 350;
+  letter-spacing: -0.003em;
+  color: var(--text-2);
+  padding: 4px 8px 4px 4px;
+  gap: 5px;
+}
+.back-btn:hover { color: var(--text); background: var(--surface-2); }
