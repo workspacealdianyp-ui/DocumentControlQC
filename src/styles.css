@@ -13,31 +13,31 @@
      Colour is scarce on purpose — when something turns red here,
      it means the needle is in the red zone.                       */
 
-  --ink: #14181a;          /* graphite — scale marks and type */
-  --ink-2: #232a29;
-  --steel: #1b2220;        /* primary action: graphite, not blue */
-  --steel-deep: #0e1211;
-  --steel-soft: #e3e7df;   /* focus halo, enamel-tinted */
+  --ink: #17171a;          /* graphite — scale marks and type */
+  --ink-2: #2a2a2e;
+  --steel: #1a1a1e;        /* primary action: graphite, not blue */
+  --steel-deep: #0d0d10;
+  --steel-soft: #e6e6e2;   /* focus halo, enamel-tinted */
   --amber: #c8102e;        /* THE INDEX — needle red, used sparingly */
   --amber-deep: #9e0c24;
   --amber-soft: #fbe7ea;
 
-  --paper: #f4f6f1;        /* enamel canvas (cool green-grey, not cream) */
-  --surface: #ffffff;      /* instrument face */
-  --surface-2: #f4f6f1;
-  --surface-3: #eaede6;
-  --line: #dde1d8;         /* hairline */
-  --line-2: #c4cabe;       /* scale mark */
-  --text: #14181a;
-  --text-2: #5e6866;
-  --text-3: #929b96;
+  --paper: #fafaf8;        /* ivory canvas */
+  --surface: #ffffff;      /* panels */
+  --surface-2: #f5f5f3;
+  --surface-3: #ededea;
+  --line: #e5e5e1;         /* hairline */
+  --line-2: #d0d0ca;       /* scale mark */
+  --text: #17171a;
+  --text-2: #63636b;
+  --text-3: #9a9aa0;
 
   /* semantic status — materials, not a rainbow */
   --done: #1c6b58;     --done-bg: #e4ede9;   /* verdigris */
   --inprog: #8a6a12;   --inprog-bg: #f2eee1; /* brass */
-  --notstart: #6b7370; --notstart-bg: #eef0ec;
+  --notstart: #6d6d74; --notstart-bg: #f0f0ed;
   --overdue: #c8102e;  --overdue-bg: #fbe7ea;
-  --na: #9aa29e;       --na-bg: #f2f4f1;
+  --na: #9d9da3;       --na-bg: #f4f4f1;
   --danger: #c8102e;
 
   --mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', monospace;
@@ -1279,3 +1279,68 @@ input:focus-visible, select:focus-visible, textarea:focus-visible {
 /* The job panel had a striped rule down its left edge. It encodes
    nothing, so it goes. */
 .job-hero::before { display: none; }
+
+/* ═══════════════════════════════════════════════════════════════
+   SIDEBAR: two states, one rail
+   Expanded shows icon plus label. Collapsed keeps the same icons in
+   the same order at the same vertical rhythm, so the rail is the
+   expanded panel with the words taken away, not a different menu.
+   State persists in localStorage, so the choice survives a reload.
+   ═══════════════════════════════════════════════════════════════ */
+
+.sidebar { transition: width 0.16s ease; }
+.sidebar::before { border-radius: 10px; }
+
+/* Groups are separated by a dashed rule. Dashed rather than solid
+   because these are soft groupings, not a hard division. */
+.sidebar-foot {
+  border-top: 0;
+  margin-top: 18px;
+  padding-top: 12px;
+  position: relative;
+}
+.sidebar-foot::before {
+  content: '';
+  position: absolute; top: 0; left: 8px; right: 8px;
+  border-top: 1px dashed var(--line-2);
+}
+/* Same rule under the brand, so the header reads as its own group. */
+.sidebar-top { position: relative; padding-bottom: 12px; }
+.sidebar-top::after {
+  content: '';
+  position: absolute; bottom: 4px; left: 8px; right: 8px;
+  border-top: 1px dashed var(--line-2);
+}
+
+/* Active item: a solid dark pill, white glyph. The only heavy mark
+   in the rail, so it is unambiguous which page you are on. */
+.nav-item.active {
+  background: var(--ink);
+  color: #fff;
+  font-weight: 550;
+}
+.nav-item.active:hover { background: var(--ink); }
+.nav-item.active .nav-ico { color: #fff; }
+
+/* ── Collapsed rail ────────────────────────────────────────────── */
+.shell.side-min .sidebar { width: 60px; padding: 8px 6px; }
+.shell.side-min .sidebar-top { padding: 4px 0 12px; }
+.shell.side-min .sidebar-top::after,
+.shell.side-min .sidebar-foot::before { left: 4px; right: 4px; }
+
+.shell.side-min .sidebar ul { padding: 0 4px; }
+.shell.side-min .nav-item,
+.shell.side-min .sidebar-role,
+.shell.side-min .sidebar-profile,
+.shell.side-min .sidebar-toggle {
+  justify-content: center;
+  gap: 0;
+  padding: 8px 0;
+  border-radius: 7px;
+}
+/* The pill becomes a square around the glyph rather than a full-width
+   bar, because at 60px a full-width bar is just a coloured rail. */
+.shell.side-min .nav-item.active { background: var(--ink); }
+.shell.side-min .sidebar-foot { margin-top: 14px; padding-top: 12px; }
+.shell.side-min .sidebar-role { display: none; }
+.shell.side-min .sidebar-avatar { width: 26px; height: 26px; }
