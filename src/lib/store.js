@@ -1,4 +1,5 @@
 import { COMPANY } from './company.js'
+import { SEED_REPORTS } from '../data/seedReports.js'
 // Front-end persistence layer (localStorage). PRD v1 scope = no back-end.
 const KEYS = {
   session: 'qc.session',
@@ -26,7 +27,19 @@ export const setSession = (s) => write(KEYS.session, s)
 export const clearSession = () => localStorage.removeItem(KEYS.session)
 
 // ---- Reports (drafts + submitted inspection forms) ----
-export const getReports = () => read(KEYS.reports, [])
+// First run installs the demo fixture so the app opens with filled forms
+// instead of empty ones. The flag is separate from the reports key, so
+// clearing your reports afterwards does not bring the fixture back.
+const SEEDED_KEY = 'qc.seeded.v1'
+function ensureSeed() {
+  try {
+    if (localStorage.getItem(SEEDED_KEY)) return
+    localStorage.setItem(SEEDED_KEY, '1')
+    if (!localStorage.getItem(KEYS.reports)) write(KEYS.reports, SEED_REPORTS)
+  } catch { /* private mode: run without the fixture */ }
+}
+
+export const getReports = () => { ensureSeed(); return read(KEYS.reports, []) }
 
 export function saveReport(report) {
   const all = getReports()
