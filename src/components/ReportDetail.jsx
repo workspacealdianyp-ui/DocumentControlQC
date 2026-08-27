@@ -4,7 +4,7 @@ import { dimRowStatus, dimDeviation } from '../data/formSchemas.js'
 import { MR } from '../lib/compute.js'
 import { fmtDate } from '../lib/status.js'
 import { buildResume } from '../lib/resume.js'
-import { IconBack, IconPrint, IconPen, IconChevronR } from './Icons.jsx'
+import { IconBack, IconPrint, IconPen, IconChevronR, IconApprove } from './Icons.jsx'
 
 // read-only detail view of a submitted/approved report — shows the entered data, never edits
 const lbl = (f, v) => (typeof f.label === 'function' ? f.label(v) : f.label)
@@ -180,28 +180,32 @@ export default function ReportDetail({ schema, report, job, deliverable, status,
         <div className="detail-hero-main">
           <h2>{schema.title}</h2>
           <p>{v.reportId} · {deliverable} · {job.jobNo} · {job.productDesc}</p>
-          <p className={`detail-hero-verdict ${r.released ? 'is-acc' : 'is-rej'}`}>{r.headline}</p>
         </div>
 
-        <div className="detail-hero-actions">
-          <span className={`report-state state-${status}`}>{statusLabel}</span>
-          {role.canOverride && status === 'submitted' && <button className="btn btn-primary btn-sm" onClick={onApprove}>Approve</button>}
-          <button className="btn btn-secondary btn-sm" onClick={onPdf}><IconPrint size={13} /> PDF Report</button>
-          {role.canOverride && <button className="btn btn-ghost btn-sm" onClick={onEdit}><IconPen size={13} /> Edit</button>}
+        {/* State: where the document stands, and what was decided. Two
+            badges of the same shape, so they read as one kind of fact. */}
+        <div className="detail-badges">
+          <span className={`dbadge state-${status}`}>{statusLabel}</span>
+          <span className={`dbadge verdict ${r.released ? 'is-acc' : 'is-rej'}`}>
+            {r.released ? 'Accept' : 'Reject'}
+          </span>
+          <span className="detail-verdict-note">{r.headline}</span>
         </div>
 
-        {/* Read the whole record, or one section at a time. */}
-        <div className="detail-viewsw" role="group" aria-label="Section view">
-          <button className={view === 'all' ? 'on' : ''} aria-pressed={view === 'all'}
-            onClick={() => setViewMode('all')}>All</button>
-          <button className={view === 'paged' ? 'on' : ''} aria-pressed={view === 'paged'}
-            onClick={() => setViewMode('paged')}>Pages</button>
-        </div>
-
-        {/* The verdict as a stamp across the corner, the way it lands on
-            the paper copy. Decorative angle, real text for screen readers. */}
-        <div className={`detail-ribbon ${r.released ? 'is-acc' : 'is-rej'}`}>
-          <span>{r.released ? 'ACCEPT' : 'REJECT'}</span>
+        {/* Controls: one row, one height, one weight. Nothing here is
+            more important than its neighbour. */}
+        <div className="detail-controls">
+          <div className="detail-viewsw" role="group" aria-label="Section view">
+            <button className={view === 'all' ? 'on' : ''} aria-pressed={view === 'all'}
+              onClick={() => setViewMode('all')}>All</button>
+            <button className={view === 'paged' ? 'on' : ''} aria-pressed={view === 'paged'}
+              onClick={() => setViewMode('paged')}>Pages</button>
+          </div>
+          {role.canOverride && status === 'submitted' && (
+            <button className="dbtn is-primary" onClick={onApprove}><IconApprove size={14} /> Approve</button>
+          )}
+          <button className="dbtn" onClick={onPdf}><IconPrint size={14} /> PDF Report</button>
+          {role.canOverride && <button className="dbtn" onClick={onEdit}><IconPen size={14} /> Edit</button>}
         </div>
       </div>
 

@@ -2032,3 +2032,86 @@ input:focus-visible, select:focus-visible, textarea:focus-visible {
 /* The page action sat under the floating bell, same collision as the
    report bar had. Reserve room for it at desktop. */
 @media (min-width: 1024px) { .mon-head { padding-right: 72px; } }
+
+/* ═══════════════════════════════════════════════════════════════
+   REPORT HERO v3: badges, then one uniform control row
+   ═══════════════════════════════════════════════════════════════ */
+
+.detail-ribbon, .detail-hero-actions { display: none; }
+
+.detail-hero {
+  display: flex; flex-direction: column; gap: 14px;
+  min-height: 0;
+  padding: 18px 20px;
+  overflow: visible;
+}
+.detail-hero-main h2 { font-size: 18px; margin-bottom: 4px; }
+.detail-hero-main p {
+  font-family: var(--mono); font-size: 11.5px; color: var(--text-2);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.detail-hero-verdict { display: none; }
+
+/* ── Badges. Same pill, same height; only the colour differs, because
+   the two facts are the same kind of fact. */
+.detail-badges { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.dbadge {
+  display: inline-flex; align-items: center;
+  height: 24px; padding: 0 11px;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  font-family: var(--mono); font-size: 10.5px; font-weight: 600;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  white-space: nowrap;
+}
+.dbadge.state-approved { color: var(--done); background: var(--done-bg); }
+.dbadge.state-submitted { color: var(--inprog); background: var(--inprog-bg); }
+.dbadge.state-draft { color: var(--notstart); background: var(--notstart-bg); }
+.dbadge.verdict.is-acc { color: #fff; background: var(--done); border-color: var(--done); }
+.dbadge.verdict.is-rej { color: #fff; background: var(--overdue); border-color: var(--overdue); }
+
+.detail-verdict-note { font-size: 12px; font-weight: 350; color: var(--text-2); }
+
+/* ── Controls. One height, one radius, one border. The segmented view
+   switch is built to the same spec so it sits in the row as an equal. */
+.detail-controls { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+
+.dbtn {
+  display: inline-flex; align-items: center; gap: 7px;
+  height: 32px; padding: 0 13px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--surface);
+  font-family: var(--sans); font-size: 12.5px; font-weight: 400;
+  color: var(--text);
+  transition: background-color .12s ease, border-color .12s ease;
+}
+.dbtn:hover { background: var(--surface-2); border-color: var(--line-2); }
+.dbtn.is-primary { background: var(--ink); border-color: var(--ink); color: #fff; font-weight: 450; }
+.dbtn.is-primary:hover { background: var(--steel-deep); border-color: var(--steel-deep); }
+
+.detail-hero .detail-viewsw {
+  height: 32px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  overflow: hidden;
+  align-self: auto; justify-self: auto;
+}
+.detail-hero .detail-viewsw button {
+  height: 100%; padding: 0 14px;
+  font-family: var(--sans); font-size: 12.5px; font-weight: 400;
+  background: var(--surface); color: var(--text-2);
+}
+.detail-hero .detail-viewsw button:hover { background: var(--surface-2); color: var(--text); }
+.detail-hero .detail-viewsw button.on { background: var(--ink); color: #fff; font-weight: 450; }
+
+/* A flex item defaults to min-width:auto, so the nowrap meta line was
+   forcing the hero wider than the viewport (450px inside 390px). Letting
+   the children shrink lets the ellipsis do its job. */
+.detail-hero > * { min-width: 0; }
+
+/* Stretch alone was not constraining the block: the nowrap line still
+   sized it to max-content (450px inside a 362px hero). A definite width
+   gives the ellipsis something to measure against. */
+.detail-hero-main { width: 100%; overflow: hidden; }
+.detail-hero-main p { max-width: 100%; }
