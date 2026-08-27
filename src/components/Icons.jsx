@@ -48,3 +48,15 @@ export const STATUS_ICONS = {
 // the control actually does, unlike a hamburger.
 export const IconPanel = (p) => <I {...p}><rect x="3" y="4" width="18" height="16" rx="2" /><line x1="9" y1="4" x2="9" y2="20" /></I>
 export const IconChevronD = (p) => <I {...p}><polyline points="6 9 12 15 18 9" /></I>
+
+// Brand mark: two concentric open rings cut by a diagonal, from the
+// supplied logo. Drawn by hand because it is a specific mark, not a
+// glyph any icon set carries.
+export const IconBoltz = ({ size = 24, ...p }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor"
+    strokeWidth="2" strokeLinecap="round" aria-hidden="true" {...p}>
+    <path d="M18.1 5.6a8.6 8.6 0 1 0 1.0 11.6" />
+    <path d="M15.1 9.4a4.3 4.3 0 1 0 0.5 5.4" />
+    <line x1="19.8" y1="3.2" x2="5.0" y2="20.8" />
+  </svg>
+)

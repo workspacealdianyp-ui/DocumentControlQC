@@ -209,7 +209,7 @@ table { border-collapse: collapse; }
 .brand-word { flex: 1; min-width: 0; font-family: var(--mono); font-size: 14px; font-weight: 600; letter-spacing: 0.02em; white-space: nowrap; color: var(--text); transition: opacity 0.2s, max-width 0.2s; }
 .sidebar-toggle-ico { flex-shrink: 0; color: var(--text-3); display: grid; place-items: center; transition: color 0.14s; }
 
-.sidebar ul { list-style: none; margin: 6px 0 0; padding: 0 4px; flex: 1; display: flex; flex-direction: column; gap: 4px; }
+.sidebar > ul { list-style: none; margin: 6px 0 0; padding: 0 4px; flex: 1; display: flex; flex-direction: column; gap: 4px; }
 .nav-item {
   display: flex; align-items: center; gap: 12px; width: 100%; background: none; border: 0;
   color: var(--text-2); padding: 9px 11px; border-radius: 12px;
@@ -1163,7 +1163,7 @@ h3 { font-size: 14px; }
 .sidebar-logo { width: 26px; height: 26px; border-radius: 5px; box-shadow: none; }
 .brand-word { font-size: 13px; font-weight: 600; letter-spacing: -0.01em; }
 
-.sidebar ul { gap: 1px; padding: 0 6px; }
+.sidebar > ul { gap: 1px; padding: 0 6px; }
 .nav-item {
   gap: 10px;
   padding: 7px 9px;
@@ -1328,7 +1328,7 @@ input:focus-visible, select:focus-visible, textarea:focus-visible {
 .shell.side-min .sidebar-top::after,
 .shell.side-min .sidebar-foot::before { left: 4px; right: 4px; }
 
-.shell.side-min .sidebar ul { padding: 0 4px; }
+.shell.side-min .sidebar > ul { padding: 0 4px; }
 .shell.side-min .nav-item,
 .shell.side-min .sidebar-role,
 .shell.side-min .sidebar-profile,
@@ -1360,7 +1360,7 @@ input:focus-visible, select:focus-visible, textarea:focus-visible {
 
 /* ── Rhythm. 1px between items read as a stack, not a list. Each row
    now has room to be its own target. */
-.sidebar ul { gap: 3px; }
+.sidebar > ul { gap: 3px; }   /* direct child only: the submenu ul sets its own */
 .nav-item { padding: 9px 10px; }
 .sidebar-foot { gap: 3px; margin-top: 22px; padding-top: 14px; }
 .sidebar-role { padding: 8px 10px; }
@@ -1450,3 +1450,73 @@ input:focus-visible, select:focus-visible, textarea:focus-visible {
 .sidebar-role { font-size: 11.5px; font-weight: 300; }
 .sidebar-profile strong { font-size: 12px; font-weight: 400; }
 .sidebar-profile-text small { font-size: 10.5px; font-weight: 300; }
+
+/* ═══════════════════════════════════════════════════════════════
+   SIDEBAR: full-bleed rail, branch connectors, type
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── The rail runs the full height from the left edge and is separated
+   by a single border, rather than floating as a rounded card inset
+   from the window. One less shape on screen. */
+.sidebar { padding: 10px 8px; border-right: 1px solid var(--line); background: var(--surface); }
+.sidebar::before { display: none; }
+.shell.side-min .sidebar { padding: 10px 6px; }
+
+/* ── Type. Menu one step up in weight, submenu one pixel down in size,
+   so the parent leads and the children follow without competing. */
+.nav-item { font-weight: 350; }
+.nav-item.active { font-weight: 450; }
+.nav-subitem { font-size: 11.5px; font-weight: 300; }
+.nav-subitem.active { font-weight: 400; }
+.brand-word { font-size: 12.5px; font-weight: 500; letter-spacing: -0.01em; }
+
+/* ── Branch connectors. The guide was one straight line the highlight
+   ran over. Each child now gets its own elbow curving in from the
+   trunk, and the highlight starts clear of it. */
+.nav-sub { padding-left: 21px; }
+.nav-sub::before { display: none; }        /* the old single straight rule */
+.nav-sub li { position: relative; }
+
+/* Elbow: down from the item's top edge, then curving right into it. */
+.nav-sub li::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0;
+  width: 11px; height: 50%;
+  border-left: 1px solid var(--line-2);
+  border-bottom: 1px solid var(--line-2);
+  border-bottom-left-radius: 9px;
+  pointer-events: none;
+}
+/* Trunk: carries on down to the next child, so the branches read as
+   one tree rather than three detached hooks. Last child has nothing
+   below it, so it gets no tail. */
+.nav-sub li:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  left: 0; top: 50%; bottom: 0;
+  border-left: 1px solid var(--line-2);
+  pointer-events: none;
+}
+
+/* The highlight now begins to the right of the elbow, so it can never
+   sit on top of the connector. */
+.nav-subitem {
+  margin-left: 15px;
+  padding: 6px 10px;
+  border-radius: 5px;
+}
+
+/* The 1px flex gap cut the trunk between branches. Spacing moves into
+   the items so the line runs unbroken from the first child to the last. */
+.nav-sub { gap: 0; }
+.nav-subitem { margin-top: 1px; margin-bottom: 1px; }
+
+/* Margins on the button collapsed out through the li and reopened the
+   trunk. Spacing lives in the padding instead, so the list items are
+   contiguous and the connector is one unbroken line. */
+.nav-subitem { margin-top: 0; margin-bottom: 0; padding: 7px 10px; }
+
+/* The parent list rules are now scoped to the direct child, so the
+   submenu declares its own list reset. */
+.nav-sub { list-style: none; margin: 3px 0 4px; }

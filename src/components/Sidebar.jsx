@@ -1,8 +1,6 @@
 import { useState } from 'react'
 import { useApp, navigate } from '../App.jsx'
-import { ROLES } from '../lib/constants.js'
-import { BrandMark } from './BrandLogo.jsx'
-import { IconHome, IconList, IconFile, IconGrid, IconGear, IconPanel, IconChevronD } from './Icons.jsx'
+import { IconBoltz, IconHome, IconList, IconFile, IconGrid, IconGear, IconPanel, IconChevronD } from './Icons.jsx'
 
 // Sub-items map to the `kategori` values that actually exist in the job
 // list, so each one filters to a real set rather than a made-up label.
@@ -32,8 +30,8 @@ export default function Sidebar({ page, onToggle, collapsed }) {
       {/* top: clicking the brand icon hides/shows the sidebar */}
       <div className="sidebar-top">
         <button className="sidebar-toggle" onClick={onToggle} aria-label="Hide or show sidebar" title="Hide / show menu">
-          <span className="sidebar-logo"><BrandMark size={19} color="#fff" /></span>
-          <span className="brand-word">Quality Control</span>
+          <span className="sidebar-logo"><IconBoltz size={17} /></span>
+          <span className="brand-word">QC Boltz</span>
           <span className="sidebar-toggle-ico"><IconPanel size={16} /></span>
         </button>
       </div>
@@ -89,11 +87,6 @@ export default function Sidebar({ page, onToggle, collapsed }) {
             <span className="nav-label">Settings</span>
           </button>
         )}
-        <div className="sidebar-role" title={ROLES[session.role].label}>
-          <span className="nav-ico"><RoleDot /></span>
-          <span className="nav-label">{ROLES[session.role].label}</span>
-        </div>
-
         <button className="sidebar-profile" onClick={() => navigate('/profile')} title={session.name}>
           <span className="sidebar-avatar">{initials}</span>
           <span className="sidebar-profile-text">
@@ -104,8 +97,4 @@ export default function Sidebar({ page, onToggle, collapsed }) {
       </div>
     </nav>
   )
-}
-
-function RoleDot() {
-  return <span className="role-dot" aria-hidden="true" />
 }
