@@ -9,6 +9,7 @@ export const SEED_REPORTS = [
   "jobNo": "1000200002",
   "deliverable": "Leak & Hydro Test",
   "status": "approved",
+  "inspector": "Inspector One",
   "values": {
    "reportId": "MFG/LHT/1000200002/01",
    "inspDate": "2026-02-08",
@@ -85,6 +86,7 @@ export const SEED_REPORTS = [
   "results": [],
   "coats": [],
   "photos": [],
+  "createdAt": "2026-02-08T08:05:00.000Z",
   "updatedAt": "2026-02-08T09:43:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
@@ -98,6 +100,7 @@ export const SEED_REPORTS = [
   "jobNo": "1000200020",
   "deliverable": "Leak & Hydro Test",
   "status": "draft",
+  "inspector": "Inspector Two",
   "values": {
    "reportId": "MFG/LHT/1000200020/02",
    "inspDate": "2026-03-11",
@@ -174,6 +177,7 @@ export const SEED_REPORTS = [
   "results": [],
   "coats": [],
   "photos": [],
+  "createdAt": "2026-03-11T08:05:00.000Z",
   "updatedAt": "2026-03-11T09:14:00.000Z",
   "synced": false
  },
@@ -184,6 +188,7 @@ export const SEED_REPORTS = [
   "jobNo": "1000200026",
   "deliverable": "Leak & Hydro Test",
   "status": "submitted",
+  "inspector": "Inspector One",
   "values": {
    "reportId": "MFG/LHT/1000200026/03",
    "inspDate": "2026-04-14",
@@ -260,6 +265,7 @@ export const SEED_REPORTS = [
   "results": [],
   "coats": [],
   "photos": [],
+  "createdAt": "2026-04-14T08:05:00.000Z",
   "updatedAt": "2026-04-14T09:11:00.000Z",
   "synced": true,
   "syncedAt": "2026-04-14T09:11:00.000Z"
@@ -271,6 +277,7 @@ export const SEED_REPORTS = [
   "jobNo": "1000200027",
   "deliverable": "Painting",
   "status": "approved",
+  "inspector": "Inspector One",
   "values": {
    "reportId": "MFG/BPR/1000200027/01",
    "inspDate": "2026-05-17",
@@ -328,6 +335,7 @@ export const SEED_REPORTS = [
    }
   ],
   "photos": [],
+  "createdAt": "2026-05-17T08:05:00.000Z",
   "updatedAt": "2026-05-17T09:53:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
@@ -341,6 +349,7 @@ export const SEED_REPORTS = [
   "jobNo": "1000200028",
   "deliverable": "Painting",
   "status": "draft",
+  "inspector": "Inspector Two",
   "values": {
    "reportId": "MFG/BPR/1000200028/02",
    "inspDate": "2026-06-20",
@@ -398,6 +407,7 @@ export const SEED_REPORTS = [
    }
   ],
   "photos": [],
+  "createdAt": "2026-06-20T08:05:00.000Z",
   "updatedAt": "2026-06-20T09:25:00.000Z",
   "synced": false
  },
@@ -408,6 +418,7 @@ export const SEED_REPORTS = [
   "jobNo": "1000200029",
   "deliverable": "Painting",
   "status": "submitted",
+  "inspector": "Inspector One",
   "values": {
    "reportId": "MFG/BPR/1000200029/03",
    "inspDate": "2026-07-23",
@@ -465,6 +476,7 @@ export const SEED_REPORTS = [
    }
   ],
   "photos": [],
+  "createdAt": "2026-07-23T08:05:00.000Z",
   "updatedAt": "2026-07-23T09:47:00.000Z",
   "synced": true,
   "syncedAt": "2026-07-23T09:47:00.000Z"
@@ -476,6 +488,7 @@ export const SEED_REPORTS = [
   "jobNo": "1000200030",
   "deliverable": "NDE Report",
   "status": "approved",
+  "inspector": "Inspector One",
   "values": {
    "reportId": "MFG/MT/1000200030/01",
    "inspDate": "2026-01-26",
@@ -540,6 +553,7 @@ export const SEED_REPORTS = [
   ],
   "coats": [],
   "photos": [],
+  "createdAt": "2026-01-26T08:05:00.000Z",
   "updatedAt": "2026-01-26T09:15:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
@@ -553,6 +567,7 @@ export const SEED_REPORTS = [
   "jobNo": "1000200037",
   "deliverable": "NDE Report",
   "status": "draft",
+  "inspector": "Inspector Two",
   "values": {
    "reportId": "MFG/MT/1000200037/02",
    "inspDate": "2026-02-07",
@@ -617,6 +632,7 @@ export const SEED_REPORTS = [
   ],
   "coats": [],
   "photos": [],
+  "createdAt": "2026-02-07T08:05:00.000Z",
   "updatedAt": "2026-02-07T09:44:00.000Z",
   "synced": false
  },
@@ -627,6 +643,7 @@ export const SEED_REPORTS = [
   "jobNo": "1000200042",
   "deliverable": "NDE Report",
   "status": "submitted",
+  "inspector": "Inspector One",
   "values": {
    "reportId": "MFG/MT/1000200042/03",
    "inspDate": "2026-03-10",
@@ -691,6 +708,7 @@ export const SEED_REPORTS = [
   ],
   "coats": [],
   "photos": [],
+  "createdAt": "2026-03-10T08:05:00.000Z",
   "updatedAt": "2026-03-10T09:47:00.000Z",
   "synced": true,
   "syncedAt": "2026-03-10T09:47:00.000Z"
@@ -702,6 +720,7 @@ export const SEED_REPORTS = [
   "jobNo": "1000200051",
   "deliverable": "NDE Report",
   "status": "approved",
+  "inspector": "Inspector One",
   "values": {
    "reportId": "MFG/PT/1000200051/01",
    "inspDate": "2026-04-13",
@@ -761,6 +780,7 @@ export const SEED_REPORTS = [
   ],
   "coats": [],
   "photos": [],
+  "createdAt": "2026-04-13T08:05:00.000Z",
   "updatedAt": "2026-04-13T09:51:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
@@ -774,6 +794,7 @@ export const SEED_REPORTS = [
   "jobNo": "1000200059",
   "deliverable": "NDE Report",
   "status": "draft",
+  "inspector": "Inspector Two",
   "values": {
    "reportId": "MFG/PT/1000200059/02",
    "inspDate": "2026-05-16",
@@ -833,6 +854,7 @@ export const SEED_REPORTS = [
   ],
   "coats": [],
   "photos": [],
+  "createdAt": "2026-05-16T08:05:00.000Z",
   "updatedAt": "2026-05-16T09:32:00.000Z",
   "synced": false
  },
@@ -843,6 +865,7 @@ export const SEED_REPORTS = [
   "jobNo": "1000200065",
   "deliverable": "NDE Report",
   "status": "submitted",
+  "inspector": "Inspector One",
   "values": {
    "reportId": "MFG/PT/1000200065/03",
    "inspDate": "2026-06-19",
@@ -902,6 +925,7 @@ export const SEED_REPORTS = [
   ],
   "coats": [],
   "photos": [],
+  "createdAt": "2026-06-19T08:05:00.000Z",
   "updatedAt": "2026-06-19T09:47:00.000Z",
   "synced": true,
   "syncedAt": "2026-06-19T09:47:00.000Z"
@@ -913,6 +937,7 @@ export const SEED_REPORTS = [
   "jobNo": "1000200069",
   "deliverable": "NDE Report",
   "status": "approved",
+  "inspector": "Inspector One",
   "values": {
    "reportId": "MFG/UT/1000200069/01",
    "inspDate": "2026-07-22",
@@ -989,6 +1014,7 @@ export const SEED_REPORTS = [
   ],
   "coats": [],
   "photos": [],
+  "createdAt": "2026-07-22T08:05:00.000Z",
   "updatedAt": "2026-07-22T09:45:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
@@ -1002,6 +1028,7 @@ export const SEED_REPORTS = [
   "jobNo": "1000200073",
   "deliverable": "NDE Report",
   "status": "draft",
+  "inspector": "Inspector Two",
   "values": {
    "reportId": "MFG/UT/1000200073/02",
    "inspDate": "2026-01-25",
@@ -1078,6 +1105,7 @@ export const SEED_REPORTS = [
   ],
   "coats": [],
   "photos": [],
+  "createdAt": "2026-01-25T08:05:00.000Z",
   "updatedAt": "2026-01-25T09:43:00.000Z",
   "synced": false
  },
@@ -1088,6 +1116,7 @@ export const SEED_REPORTS = [
   "jobNo": "1000200076",
   "deliverable": "NDE Report",
   "status": "submitted",
+  "inspector": "Inspector One",
   "values": {
    "reportId": "MFG/UT/1000200076/03",
    "inspDate": "2026-02-06",
@@ -1164,6 +1193,7 @@ export const SEED_REPORTS = [
   ],
   "coats": [],
   "photos": [],
+  "createdAt": "2026-02-06T08:05:00.000Z",
   "updatedAt": "2026-02-06T09:45:00.000Z",
   "synced": true,
   "syncedAt": "2026-02-06T09:45:00.000Z"
@@ -1175,6 +1205,7 @@ export const SEED_REPORTS = [
   "jobNo": "1000200086",
   "deliverable": "Pre-Shipment",
   "status": "approved",
+  "inspector": "Inspector One",
   "values": {
    "reportId": "MFG/VG/1000200086/01",
    "inspDate": "2026-03-09",
@@ -1219,6 +1250,7 @@ export const SEED_REPORTS = [
   ],
   "coats": [],
   "photos": [],
+  "createdAt": "2026-03-09T08:05:00.000Z",
   "updatedAt": "2026-03-09T09:17:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
@@ -1232,6 +1264,7 @@ export const SEED_REPORTS = [
   "jobNo": "1000200087",
   "deliverable": "Pre-Shipment",
   "status": "draft",
+  "inspector": "Inspector Two",
   "values": {
    "reportId": "MFG/VG/1000200087/02",
    "inspDate": "2026-04-12",
@@ -1276,6 +1309,7 @@ export const SEED_REPORTS = [
   ],
   "coats": [],
   "photos": [],
+  "createdAt": "2026-04-12T08:05:00.000Z",
   "updatedAt": "2026-04-12T09:17:00.000Z",
   "synced": false
  },
@@ -1286,6 +1320,7 @@ export const SEED_REPORTS = [
   "jobNo": "1000200100",
   "deliverable": "Pre-Shipment",
   "status": "submitted",
+  "inspector": "Inspector One",
   "values": {
    "reportId": "MFG/VG/1000200100/03",
    "inspDate": "2026-05-15",
@@ -1330,6 +1365,7 @@ export const SEED_REPORTS = [
   ],
   "coats": [],
   "photos": [],
+  "createdAt": "2026-05-15T08:05:00.000Z",
   "updatedAt": "2026-05-15T09:28:00.000Z",
   "synced": true,
   "syncedAt": "2026-05-15T09:28:00.000Z"
@@ -1341,6 +1377,7 @@ export const SEED_REPORTS = [
   "jobNo": "1000200101",
   "deliverable": "Dimension Report",
   "status": "approved",
+  "inspector": "Inspector One",
   "values": {
    "reportId": "MFG/DIM/1000200101/01",
    "inspDate": "2026-06-18",
@@ -1388,6 +1425,7 @@ export const SEED_REPORTS = [
   ],
   "coats": [],
   "photos": [],
+  "createdAt": "2026-06-18T08:05:00.000Z",
   "updatedAt": "2026-06-18T09:35:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
@@ -1401,6 +1439,7 @@ export const SEED_REPORTS = [
   "jobNo": "1000200107",
   "deliverable": "Dimension Report",
   "status": "draft",
+  "inspector": "Inspector Two",
   "values": {
    "reportId": "MFG/DIM/1000200107/02",
    "inspDate": "2026-07-21",
@@ -1448,6 +1487,7 @@ export const SEED_REPORTS = [
   ],
   "coats": [],
   "photos": [],
+  "createdAt": "2026-07-21T08:05:00.000Z",
   "updatedAt": "2026-07-21T09:48:00.000Z",
   "synced": false
  },
@@ -1458,6 +1498,7 @@ export const SEED_REPORTS = [
   "jobNo": "1000200114",
   "deliverable": "Dimension Report",
   "status": "submitted",
+  "inspector": "Inspector One",
   "values": {
    "reportId": "MFG/DIM/1000200114/03",
    "inspDate": "2026-01-24",
@@ -1506,6 +1547,7 @@ export const SEED_REPORTS = [
   ],
   "coats": [],
   "photos": [],
+  "createdAt": "2026-01-24T08:05:00.000Z",
   "updatedAt": "2026-01-24T09:16:00.000Z",
   "synced": true,
   "syncedAt": "2026-01-24T09:16:00.000Z"

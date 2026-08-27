@@ -9,6 +9,15 @@ import StatusChip from './StatusChip.jsx'
 import SummaryReport, { reportResult } from './SummaryReport.jsx'
 import { IconBack, IconDoc, IconPrint } from './Icons.jsx'
 
+const KAT_LABEL = { SUPEQ: 'Support Equipment', TRAILER: 'Trailer', 'NON TRAILER': 'Non Trailer' }
+
+// COGM arrives as a bare integer; grouped digits are the difference
+// between reading it and counting it.
+const fmtNum = (v) => {
+  const n = Number(v)
+  return v == null || v === '' || Number.isNaN(n) ? v : n.toLocaleString('en-GB')
+}
+
 const Meta = ({ label, value }) => (
   <div className="meta-item">
     <span className="meta-label">{label}</span>
@@ -83,32 +92,40 @@ export default function JobDetail({ job }) {
 
   return (
     <div className="page">
-      <button className="btn btn-ghost back-btn btn-sm" onClick={() => navigate('/')}>
-        <IconBack size={14} /> Dashboard
+      {/* Back to the category this job belongs to, so returning keeps the
+          list where the reader left it. */}
+      <button className="btn btn-ghost back-btn btn-sm"
+        onClick={() => navigate(job.kategori ? `/jobs?kat=${encodeURIComponent(job.kategori)}` : '/jobs')}>
+        <IconBack size={14} /> {KAT_LABEL[job.kategori] || 'Jobs'}
       </button>
 
-      {/* Hero */}
-      <div className="job-hero">
-        <div className="job-hero-info">
-          <div className="job-card-top">
+      {/* Hero. Was the one dark panel in a light app; it reads as a card
+          now, with the ring carrying the only colour. */}
+      <div className={`jd-hero${p.applicable && p.done === p.applicable ? ' is-complete' : ''}`}>
+        <div className="jd-hero-main">
+          <div className="jd-hero-id">
             <h2>{job.jobNo}</h2>
-            {job.type && <span className="jc-type">{job.type}</span>}
+            {job.kategori && <span className="jd-kat">{KAT_LABEL[job.kategori] || job.kategori}</span>}
           </div>
-          <p>{job.productDesc}</p>
-          <p style={{ opacity: 0.75, fontSize: 12 }}>{job.customerName}</p>
+          <p className="jd-product">{job.productDesc}</p>
+          <p className="jd-cust">
+            {job.customerName}
+            {job.arasSN && <span className="jd-sn">{job.arasSN}</span>}
+          </p>
         </div>
         <ProgressRing done={p.done} total={p.applicable} />
       </div>
 
-      {/* Metadata */}
-      <div className="card">
+      {/* Metadata. Category, customer and serial live in the hero now, so
+          this card carries only what the hero does not already say — and
+          the type only when it differs from the product description. */}
+      <div className="card jd-meta-card">
         <div className="meta-grid">
-          <Meta label="No" value={job.no} />
-          <Meta label="Category" value={job.kategori} />
+          {job.type && job.type.toUpperCase() !== (job.productDesc || '').toUpperCase() &&
+            <Meta label="Type" value={job.type} />}
           <Meta label="WBS No." value={job.wbsNo} />
-          <Meta label="Serial No. (ARAS SN)" value={job.arasSN} />
           <Meta label="Customer ID" value={job.customerId} />
-          <Meta label="COGM" value={job.cogm} />
+          <Meta label="COGM" value={fmtNum(job.cogm)} />
           <Meta label="Date PB" value={fmtDate(job.datePB)} />
           <Meta label="PDI Release" value={fmtDate(job.datePdiRelease)} />
         </div>
@@ -123,7 +140,7 @@ export default function JobDetail({ job }) {
           const last = reps.length ? reps[reps.length - 1] : null
           const tappable = !!d.form && (role.canEdit || !!last)
           const sub = cell.ref
-            || (last ? `${last.reportId} · ${fmtDate(last.updatedAt)} · ${last.inspector}` : null)
+            || (last ? [last.reportId, fmtDate(last.updatedAt), last.inspector].filter(Boolean).join(' · ') : null)
             || (d.form ? (role.canEdit ? 'Tap to fill the inspection form' : 'No report yet') : 'Document deliverable, tracked manually')
           const Row = tappable ? 'button' : 'div'
           return (
@@ -136,7 +153,7 @@ export default function JobDetail({ job }) {
               </span>
               <span className="deliv-end">
                 <StatusChip status={cell.status} />
-                {tappable && <Chevron />}
+                {tappable ? <Chevron /> : <span className="deliv-chevron-gap" aria-hidden="true" />}
               </span>
             </Row>
           )
@@ -176,7 +193,7 @@ export default function JobDetail({ job }) {
               <span className="deliv-ico"><IconDoc size={17} /></span>
               <span className="deliv-main">
                 <strong>{r.reportId}</strong>
-                <small>{FORM_SCHEMAS[r.formKey]?.title} · {r.deliverable} · {fmtDateTime(r.updatedAt)} · {r.inspector}</small>
+                <small>{[FORM_SCHEMAS[r.formKey]?.title, r.deliverable, fmtDateTime(r.updatedAt), r.inspector].filter(Boolean).join(' · ')}</small>
               </span>
               <span className="deliv-end">
                 <span className={`report-state state-${r.status}`}>{r.status}</span>

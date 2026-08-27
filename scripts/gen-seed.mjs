@@ -178,9 +178,13 @@ for (const [key, schema] of Object.entries(FORM_SCHEMAS)) {
     }
 
     const status = hasReject ? 'submitted' : n === 0 ? 'approved' : 'draft'
+    // inspector is read off the report itself in several places (the job
+    // detail row, the activity feed, "my drafts"); values.inspector alone
+    // left those rendering undefined.
     const rep = { id: `seed-${key}-${n + 1}`, reportId: values.reportId, formKey: key,
-      jobNo: job.jobNo, deliverable: schema.deliverable, status, values,
+      jobNo: job.jobNo, deliverable: schema.deliverable, status, inspector, values,
       readings, results, coats, photos,
+      createdAt: `${date}T08:05:00.000Z`,
       updatedAt: `${date}T09:${String(int(10, 55)).padStart(2, '0')}:00.000Z`,
       synced: status !== 'draft' }
     if (status === 'approved') { rep.approvedBy = QA; rep.approvedAt = `${date}T15:20:00.000Z` }

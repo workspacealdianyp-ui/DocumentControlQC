@@ -2186,3 +2186,79 @@ tr:has(.chip-done) .jobs-prog-bar span { background: var(--done); }
   .jobs-table th:nth-child(5), .jobs-table td:nth-child(5),
   .jobs-table th:nth-child(4), .jobs-table td:nth-child(4) { width: auto; }
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   JOB DETAIL v2: a light hero
+   The old hero was the one dark panel in the app — a black slab under
+   an ivory page. It is a card now, and the ring keeps the only colour.
+   ═══════════════════════════════════════════════════════════════ */
+
+.jd-hero {
+  display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
+  padding: 20px 22px;
+  margin-bottom: 14px;
+  border: 1px solid var(--line); border-radius: var(--r-lg);
+  background: var(--surface);
+  box-shadow: var(--sh);
+}
+.jd-hero-main { flex: 1 1 260px; min-width: 0; display: flex; flex-direction: column; gap: 6px; }
+.jd-hero-id { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.jd-hero-id h2 {
+  margin: 0;
+  font-family: var(--mono); font-size: 22px; font-weight: 500;
+  letter-spacing: -0.01em; color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
+.jd-kat {
+  display: inline-flex; align-items: center;
+  padding: 3px 9px; border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--surface-2);
+  font-size: 11px; font-weight: 400; color: var(--text-2);
+  white-space: nowrap;
+}
+.jd-product {
+  margin: 0;
+  font-size: 14px; font-weight: 450; color: var(--text);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.jd-cust {
+  margin: 0; display: flex; align-items: center; gap: 9px; flex-wrap: wrap;
+  font-size: 12.5px; font-weight: 350; color: var(--text-2);
+}
+/* The serial sits behind a hairline so it reads as a second fact, not a
+   continuation of the customer name. */
+.jd-sn {
+  padding-left: 9px; border-left: 1px solid var(--line-2);
+  font-family: var(--mono); font-size: 11.5px; color: var(--text-3);
+}
+
+.jd-hero .ring-wrap { flex: 0 0 auto; }
+.jd-hero .ring-track { stroke: var(--surface-3); }
+.jd-hero .ring-bar { stroke: var(--ink); }
+.jd-hero .ring-label strong { color: var(--text); font-weight: 500; }
+.jd-hero .ring-label small { color: var(--text-3); }
+
+/* Colour is the exception: green only once every applicable report is in. */
+.jd-hero.is-complete .ring-bar { stroke: var(--done); }
+.jd-hero.is-complete .ring-label strong { color: var(--done); }
+
+.jd-meta-card { padding: 16px 18px; }
+/* Five or six items divide evenly into three columns; the default four
+   left a lone "PDI release" stranded on a row of its own. */
+@media (min-width: 640px) { .jd-meta-card .meta-grid { grid-template-columns: repeat(3, 1fr); } }
+
+/* Rows without a form have no chevron; without a placeholder their chips
+   landed 16px further right than everyone else's. */
+.deliv-chevron-gap { display: block; width: 16px; height: 16px; }
+.deliv-end { min-width: 132px; justify-content: flex-end; }
+
+@media (max-width: 640px) {
+  .jd-hero { padding: 16px; gap: 14px; }
+  .jd-hero-id h2 { font-size: 19px; }
+  .jd-hero .ring-wrap { margin: 0 auto; }
+  /* On a phone the reserved chip column costs the title the room it
+     needs to stay on one line; the title wins at this width. */
+  .deliv-end { min-width: 0; }
+  .deliv-chevron-gap { display: none; }
+}
