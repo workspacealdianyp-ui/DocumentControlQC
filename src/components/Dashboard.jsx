@@ -1,274 +1,252 @@
-import { useMemo, useState, useEffect, useRef } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { useApp, navigate } from '../App.jsx'
-import { DELIVERABLES, STATUS } from '../lib/constants.js'
-import { buildContext, computeKpis, filterJobs, jobStatuses, jobProgress, exportMatrixCsv, fmtDate } from '../lib/status.js'
-import { getFilters, setFilters as persistFilters, setOverride } from '../lib/store.js'
-import StatusChip from './StatusChip.jsx'
-import { STATUS_ICONS, IconDownload, IconSearch, IconGrid, IconList, IconAlert } from './Icons.jsx'
+import { FORM_SCHEMAS } from '../data/formSchemas.js'
+import { getReports, approveReport, deleteReport } from '../lib/store.js'
+import { fmtDate } from '../lib/status.js'
+import { reportResult } from './SummaryReport.jsx'
+import { IconSearch, IconChevronR, IconApprove, IconTrash, IconPrint, IconPlus } from './Icons.jsx'
 
-const EMPTY_FILTERS = { search: '', customers: [], kategoris: [], types: [], statuses: [], dateFrom: '', dateTo: '' }
+/* Monitoring is a register of documents, so it is laid out as one: a
+   status filter across the top, a table with a row per report, and
+   pagination. Counts live on the tabs because "how many are still
+   sitting in draft" is the question this screen exists to answer. */
 
-function MultiSelect({ label, options, value, onChange }) {
+const TABS = [
+  { id: 'all', label: 'All reports' },
+  { id: 'draft', label: 'Draft' },
+  { id: 'submitted', label: 'Submitted' },
+  { id: 'approved', label: 'Approved' },
+  { id: 'reject', label: 'Rejected' },
+]
+
+const PAGE_SIZES = [10, 15, 25, 50]
+
+const matchTab = (r, tab) =>
+  tab === 'all' ? true
+    : tab === 'reject' ? reportResult(r) === 'Reject'
+      : r.status === tab
+
+function RowMenu({ report, onOpen, onApprove, onDelete, canManage }) {
   const [open, setOpen] = useState(false)
   const ref = useRef(null)
   useEffect(() => {
-    const fn = (e) => { if (ref.current && !ref.current.contains(e.target)) setOpen(false) }
-    document.addEventListener('mousedown', fn)
-    return () => document.removeEventListener('mousedown', fn)
-  }, [])
-  const toggle = (opt) =>
-    onChange(value.includes(opt) ? value.filter((v) => v !== opt) : [...value, opt])
+    if (!open) return
+    const away = (e) => { if (ref.current && !ref.current.contains(e.target)) setOpen(false) }
+    document.addEventListener('mousedown', away)
+    return () => document.removeEventListener('mousedown', away)
+  }, [open])
   return (
-    <div className="mselect" ref={ref}>
-      <button className={`mselect-btn${value.length ? ' has-value' : ''}`} onClick={() => setOpen(!open)} aria-expanded={open}>
-        {label}{value.length > 0 && <span className="mselect-count">{value.length}</span>}
-      </button>
+    <div className="rowmenu" ref={ref}>
+      <button className="rowmenu-btn" aria-haspopup="menu" aria-expanded={open}
+        aria-label={`Actions for ${report.reportId}`} onClick={() => setOpen((v) => !v)}>⋮</button>
       {open && (
-        <div className="mselect-pop">
-          {options.map((opt) => (
-            <label key={opt} className="mselect-opt">
-              <input type="checkbox" checked={value.includes(opt)} onChange={() => toggle(opt)} />
-              <span>{opt}</span>
-            </label>
-          ))}
+        <div className="rowmenu-pop" role="menu">
+          <button role="menuitem" onClick={() => { setOpen(false); onOpen() }}><IconPrint size={13} /> Open report</button>
+          {canManage && report.status === 'submitted' && (
+            <button role="menuitem" onClick={() => { setOpen(false); onApprove() }}><IconApprove size={13} /> Approve</button>
+          )}
+          {canManage && (
+            <button role="menuitem" className="is-danger" onClick={() => { setOpen(false); onDelete() }}><IconTrash size={13} /> Delete</button>
+          )}
         </div>
       )}
     </div>
-  )
-}
-
-function CellPopover({ x, y, current, onPick, onClose }) {
-  const ref = useRef(null)
-  useEffect(() => {
-    const fn = (e) => { if (ref.current && !ref.current.contains(e.target)) onClose() }
-    document.addEventListener('mousedown', fn)
-    return () => document.removeEventListener('mousedown', fn)
-  }, [onClose])
-  const vw = window.innerWidth
-  const left = Math.min(x, vw - 200)
-  return (
-    <div className="cell-pop" style={{ left, top: y }} ref={ref} role="menu">
-      <div className="cell-pop-title">Set status (Admin)</div>
-      {Object.keys(STATUS).map((s) => {
-        const Icon = STATUS_ICONS[s]
-        return (
-          <button key={s} className={`cell-pop-opt${current === s ? ' current' : ''}`} onClick={() => onPick(s)}>
-            <Icon size={13} /> {STATUS[s].label}
-          </button>
-        )
-      })}
-      <button className="cell-pop-opt clear" onClick={() => onPick(null)}>Clear override</button>
-    </div>
-  )
-}
-
-function JobCard({ job, ctx, onOpen }) {
-  const p = jobProgress(job, ctx)
-  const pct = p.applicable ? Math.round((p.done / p.applicable) * 100) : 0
-  return (
-    <button className="job-card" onClick={onOpen}>
-      <div className="job-card-top">
-        <span className="jc-no">{job.jobNo}</span>
-        {job.type && <span className="jc-type">{job.type}</span>}
-        {p.overdue && (
-          <span className="jc-flag chip chip-overdue" title="Has overdue reports">
-            <IconAlert size={11} /> Overdue
-          </span>
-        )}
-      </div>
-      <span className="jc-desc">{job.productDesc}</span>
-      <span className="jc-customer">{job.customerName}</span>
-      <div className="jc-progress-row">
-        <div className="progress"><div className="progress-bar" style={{ width: `${pct}%` }} /></div>
-        <span className="progress-num">{p.done}/{p.applicable}</span>
-      </div>
-      <div className="deliv-strip" aria-label="Deliverable statuses">
-        {DELIVERABLES.map((d) => {
-          const s = p.statuses[d.key].status
-          return (
-            <span key={d.key} className={`dchip dchip-${s}`}
-              title={`${d.label}: ${STATUS[s].label}`}>{d.short}</span>
-          )
-        })}
-      </div>
-    </button>
   )
 }
 
 export default function Dashboard() {
-  const { jobs, meta, role, tick, refresh, notify } = useApp()
-  const [filters, setF] = useState(() => ({ ...EMPTY_FILTERS, ...(getFilters() || {}) }))
-  const [limit, setLimit] = useState(36)
-  const [popover, setPopover] = useState(null)
-  const [loading, setLoading] = useState(true)
-  const [view, setView] = useState(() => (window.innerWidth >= 1024 ? 'matrix' : 'cards'))
+  const { jobs, role, tick, refresh, notify } = useApp()
+  const [tab, setTab] = useState('all')
+  const [q, setQ] = useState('')
+  const [size, setSize] = useState(15)
+  const [page, setPage] = useState(1)
+  const [sort, setSort] = useState({ key: 'updatedAt', dir: 'desc' })
+  const [picked, setPicked] = useState(() => new Set())
 
-  useEffect(() => { const t = setTimeout(() => setLoading(false), 300); return () => clearTimeout(t) }, [])
-  useEffect(() => { persistFilters(filters) }, [filters])
+  const reports = useMemo(() => getReports(), [tick])
+  const jobIndex = useMemo(() => new Map(jobs.map((j) => [j.jobNo, j])), [jobs])
 
-  const ctx = useMemo(() => buildContext(), [tick])
-  const filtered = useMemo(() => filterJobs(jobs, filters, ctx), [jobs, filters, ctx])
-  const kpis = useMemo(() => computeKpis(filtered, ctx), [filtered, ctx])
-  const visible = filtered.slice(0, limit)
-  const hasFilter = filters.search || filters.customers.length || filters.kategoris.length ||
-    filters.types.length || filters.statuses.length || filters.dateFrom || filters.dateTo
+  const counts = useMemo(
+    () => Object.fromEntries(TABS.map((t) => [t.id, reports.filter((r) => matchTab(r, t.id)).length])),
+    [reports])
 
-  const upd = (patch) => { setF((f) => ({ ...f, ...patch })); setLimit(36) }
+  const rows = useMemo(() => {
+    const ql = q.trim().toLowerCase()
+    let out = reports.filter((r) => matchTab(r, tab))
+    if (ql) {
+      out = out.filter((r) => {
+        const job = jobIndex.get(r.jobNo)
+        return `${r.reportId} ${r.jobNo} ${r.deliverable} ${job?.customerName || ''} ${job?.productDesc || ''}`
+          .toLowerCase().includes(ql)
+      })
+    }
+    const val = (r) => {
+      if (sort.key === 'reportId') return r.reportId || ''
+      if (sort.key === 'job') return r.jobNo || ''
+      if (sort.key === 'form') return FORM_SCHEMAS[r.formKey]?.title || ''
+      if (sort.key === 'status') return r.status || ''
+      return r.updatedAt || ''
+    }
+    return [...out].sort((a, b) => {
+      const x = val(a), y = val(b)
+      return (x < y ? -1 : x > y ? 1 : 0) * (sort.dir === 'asc' ? 1 : -1)
+    })
+  }, [reports, tab, q, sort, jobIndex])
 
-  const onCell = (e, job, dKey, st) => {
-    if (!role.canOverride) return
-    e.stopPropagation()
-    const rect = e.currentTarget.getBoundingClientRect()
-    setPopover({ jobNo: job.jobNo, dKey, current: st, x: rect.left, y: rect.bottom + 4 })
+  const pages = Math.max(1, Math.ceil(rows.length / size))
+  const at = Math.min(page, pages)
+  const shown = rows.slice((at - 1) * size, at * size)
+
+  // Any change to what is being listed sends you back to the first page,
+  // otherwise you land on an empty page you did not ask for.
+  useEffect(() => { setPage(1); setPicked(new Set()) }, [tab, q, size])
+
+  const toggleSort = (key) =>
+    setSort((s) => ({ key, dir: s.key === key && s.dir === 'asc' ? 'desc' : 'asc' }))
+  const sortMark = (key) => (sort.key !== key ? '' : sort.dir === 'asc' ? ' ↑' : ' ↓')
+
+  const allOnPage = shown.length > 0 && shown.every((r) => picked.has(r.id))
+  const togglePage = () => setPicked((p) => {
+    const n = new Set(p)
+    shown.forEach((r) => (allOnPage ? n.delete(r.id) : n.add(r.id)))
+    return n
+  })
+
+  const open = (r) => {
+    const job = jobIndex.get(r.jobNo)
+    if (!job) { notify(`Job ${r.jobNo} is no longer in the list`); return }
+    navigate(`/job/${r.jobNo}/form/${r.formKey}?d=${encodeURIComponent(r.deliverable)}&rid=${r.id}`)
+  }
+
+  // Page numbers with an ellipsis once there are more than five.
+  const pageList = () => {
+    if (pages <= 5) return Array.from({ length: pages }, (_, i) => i + 1)
+    if (at <= 3) return [1, 2, 3, '…', pages]
+    if (at >= pages - 2) return [1, '…', pages - 2, pages - 1, pages]
+    return [1, '…', at, '…', pages]
   }
 
   return (
-    <div className="page">
-      {/* KPI cards */}
-      <div className="kpis">
-        <div className="kpi kpi-blue"><span className="kpi-val">{kpis.totalJobs}</span><span className="kpi-label">Total Jobs</span></div>
-        <div className="kpi kpi-green"><span className="kpi-val">{kpis.pctComplete}%</span><span className="kpi-label">Reports Complete</span></div>
-        <div className="kpi kpi-amber"><span className="kpi-val">{kpis.jobsInProgress}</span><span className="kpi-label">Jobs In Progress</span></div>
-        <div className="kpi kpi-red"><span className="kpi-val">{kpis.jobsOverdue}</span><span className="kpi-label">Jobs Overdue</span></div>
-        <div className="kpi"><span className="kpi-val">{kpis.notStarted}</span><span className="kpi-label">Reports Not Started</span></div>
+    <div className="page mon">
+      <div className="mon-head">
+        <h2>Monitoring</h2>
+        <button className="btn btn-primary btn-sm" onClick={() => navigate('/jobs')}>
+          <IconPlus size={14} /> New report
+        </button>
       </div>
 
-      {/* Search */}
-      <div className="searchbar">
-        <IconSearch size={16} />
-        <input
-          placeholder="Search Job No, WBS, Serial No, Customer…"
-          value={filters.search}
-          onChange={(e) => upd({ search: e.target.value })}
-          aria-label="Filter search"
-        />
-      </div>
-
-      {/* Filter chips row */}
-      <div className="filters-row">
-        <MultiSelect label="Customer" options={meta.customers} value={filters.customers} onChange={(v) => upd({ customers: v })} />
-        <MultiSelect label="Category" options={meta.kategoris} value={filters.kategoris} onChange={(v) => upd({ kategoris: v })} />
-        <MultiSelect label="Type" options={meta.types} value={filters.types} onChange={(v) => upd({ types: v })} />
-        <MultiSelect
-          label="Status"
-          options={Object.keys(STATUS).map((s) => STATUS[s].label)}
-          value={filters.statuses.map((s) => STATUS[s].label)}
-          onChange={(labels) => upd({ statuses: Object.keys(STATUS).filter((k) => labels.includes(STATUS[k].label)) })}
-        />
-        <div className="filter-dates">
-          <input type="date" value={filters.dateFrom} onChange={(e) => upd({ dateFrom: e.target.value })} aria-label="Date PB from" />
-          <span>–</span>
-          <input type="date" value={filters.dateTo} onChange={(e) => upd({ dateTo: e.target.value })} aria-label="Date PB to" />
-        </div>
-        {hasFilter && <button className="clear-filters" onClick={() => setF({ ...EMPTY_FILTERS })}>Clear all</button>}
-      </div>
-
-      {/* View toggle + export (desktop) */}
-      <div className="page-head" style={{ marginBottom: 12 }}>
-        <p className="page-sub">{filtered.length} job{filtered.length === 1 ? '' : 's'}</p>
-        <div className="page-head-actions">
-          <div className="view-toggle" role="tablist" aria-label="View mode">
-            <button className={view === 'cards' ? 'active' : ''} onClick={() => setView('cards')} role="tab" aria-selected={view === 'cards'}>
-              <IconGrid size={14} /> Cards
-            </button>
-            <button className={view === 'matrix' ? 'active' : ''} onClick={() => setView('matrix')} role="tab" aria-selected={view === 'matrix'}>
-              <IconList size={14} /> Matrix
-            </button>
-          </div>
-          <button className="btn btn-secondary btn-sm" onClick={() => exportMatrixCsv(filtered, ctx)}>
-            <IconDownload size={14} /> CSV
+      <div className="mon-tabs" role="tablist" aria-label="Report status">
+        {TABS.map((t) => (
+          <button key={t.id} role="tab" aria-selected={tab === t.id}
+            className={`mon-tab${tab === t.id ? ' on' : ''}`} onClick={() => setTab(t.id)}>
+            {t.label}<span className="mon-tab-n">{counts[t.id]}</span>
           </button>
-        </div>
+        ))}
       </div>
 
-      {loading ? (
-        <div className="skeleton-block" aria-busy="true">
-          {Array.from({ length: 6 }).map((_, i) => <div key={i} className="skeleton-row" />)}
-        </div>
-      ) : filtered.length === 0 ? (
-        <div className="card empty-state">
-          <p><strong>No jobs match the current filters.</strong></p>
-          <p>Try clearing a filter or changing the search terms.</p>
-          <button className="btn btn-secondary" onClick={() => setF({ ...EMPTY_FILTERS })}>Clear filters</button>
-        </div>
-      ) : view === 'cards' ? (
-        <>
-          <div className="job-cards">
-            {visible.map((job) => (
-              <JobCard key={job.jobNo} job={job} ctx={ctx} onOpen={() => navigate(`/job/${job.jobNo}`)} />
-            ))}
+      <div className="card mon-card">
+        <div className="mon-bar">
+          <div className="mon-search">
+            <IconSearch size={15} />
+            <input value={q} onChange={(e) => setQ(e.target.value)}
+              placeholder="Search report, job, customer…" aria-label="Search reports" />
           </div>
-          {filtered.length > limit && (
-            <div className="matrix-more" style={{ border: 0, justifyContent: 'center' }}>
-              <span>Showing {limit} of {filtered.length}</span>
-              <button className="btn btn-secondary btn-sm" onClick={() => setLimit(limit + 60)}>Show more</button>
-            </div>
-          )}
-        </>
-      ) : (
-        <div className="matrix-wrap">
-          <table className="matrix" role="grid" aria-label="Job by report-type status matrix">
+          <div className="mon-showing">
+            <label>Showing
+              <select value={size} onChange={(e) => setSize(+e.target.value)} aria-label="Rows per page">
+                {PAGE_SIZES.map((n) => <option key={n} value={n}>{n}</option>)}
+              </select>
+            </label>
+            <span>of {rows.length} results</span>
+          </div>
+        </div>
+
+        <div className="mon-tablewrap">
+          <table className="mon-table">
             <thead>
               <tr>
-                <th className="sticky-col">Job</th>
-                {DELIVERABLES.map((d) => (
-                  <th key={d.key} title={d.label}><span className="col-short">{d.short}</span></th>
-                ))}
+                <th className="mon-check">
+                  <input type="checkbox" checked={allOnPage} onChange={togglePage}
+                    aria-label="Select all rows on this page" />
+                </th>
+                <th><button onClick={() => toggleSort('reportId')}>Report{sortMark('reportId')}</button></th>
+                <th><button onClick={() => toggleSort('job')}>Job / Customer{sortMark('job')}</button></th>
+                <th><button onClick={() => toggleSort('form')}>Form{sortMark('form')}</button></th>
+                <th>Result</th>
+                <th><button onClick={() => toggleSort('updatedAt')}>Updated{sortMark('updatedAt')}</button></th>
+                <th><button onClick={() => toggleSort('status')}>Status{sortMark('status')}</button></th>
+                <th className="mon-act">Action</th>
               </tr>
             </thead>
             <tbody>
-              {visible.map((job) => {
-                const sts = jobStatuses(job, ctx)
+              {shown.map((r) => {
+                const job = jobIndex.get(r.jobNo)
+                const verdict = reportResult(r)
                 return (
-                  <tr key={job.jobNo} onClick={() => navigate(`/job/${job.jobNo}`)} tabIndex={0}
-                    onKeyDown={(e) => e.key === 'Enter' && navigate(`/job/${job.jobNo}`)}>
-                    <td className="sticky-col">
-                      <div className="job-cell">
-                        <strong>{job.jobNo}</strong>
-                        <span className="job-desc">{job.productDesc}</span>
-                        <small>{job.customerName}</small>
-                      </div>
+                  <tr key={r.id} onClick={() => open(r)} className={picked.has(r.id) ? 'is-picked' : ''}>
+                    <td className="mon-check" onClick={(e) => e.stopPropagation()}>
+                      <input type="checkbox" checked={picked.has(r.id)}
+                        aria-label={`Select ${r.reportId}`}
+                        onChange={() => setPicked((p) => {
+                          const n = new Set(p); n.has(r.id) ? n.delete(r.id) : n.add(r.id); return n
+                        })} />
                     </td>
-                    {DELIVERABLES.map((d) => {
-                      const cell = sts[d.key]
-                      const tip = `${d.label}: ${STATUS[cell.status].label}` +
-                        (cell.report ? `\nUpdated ${fmtDate(cell.report.updatedAt)} · ${cell.report.inspector}` : '') +
-                        (cell.ref ? `\nRef: ${cell.ref}` : '') +
-                        (role.canOverride ? '\nClick to override' : '')
-                      return (
-                        <td key={d.key} className={`cell cell-${cell.status}${role.canOverride ? ' editable' : ''}`}
-                          onClick={(e) => onCell(e, job, d.key, cell.status)} title={tip}>
-                          <StatusChip status={cell.status} compact title={tip} />
-                        </td>
-                      )
-                    })}
+                    <td>
+                      <span className="mon-primary">{r.reportId}</span>
+                      <span className="mon-sub">Inspected {fmtDate(r.values?.inspDate) || '—'}</span>
+                    </td>
+                    <td>
+                      <span className="mon-primary">{r.jobNo}</span>
+                      <span className="mon-sub">{job?.customerName || 'Job not in list'}</span>
+                    </td>
+                    <td>
+                      <span className="mon-primary">{FORM_SCHEMAS[r.formKey]?.code || r.formKey}</span>
+                      <span className="mon-sub">{r.deliverable}</span>
+                    </td>
+                    <td>
+                      <span className={`chip chip-${verdict === 'Reject' ? 'overdue' : 'done'}`}>
+                        {verdict === 'Reject' ? 'Reject' : 'Accept'}
+                      </span>
+                    </td>
+                    <td className="num">{fmtDate(r.updatedAt)}</td>
+                    <td>
+                      <span className={`report-state state-${r.status}`}>
+                        {r.status === 'approved' ? 'Approved' : r.status === 'submitted' ? 'Submitted' : 'Draft'}
+                      </span>
+                    </td>
+                    <td className="mon-act" onClick={(e) => e.stopPropagation()}>
+                      <RowMenu report={r} canManage={role.canOverride}
+                        onOpen={() => open(r)}
+                        onApprove={() => { approveReport(r.id, 'QA Lead'); refresh(); notify(`${r.reportId} approved`) }}
+                        onDelete={() => { deleteReport(r.id); refresh(); notify(`${r.reportId} deleted`) }} />
+                    </td>
                   </tr>
                 )
               })}
+              {!shown.length && (
+                <tr><td colSpan={8} className="mon-empty">
+                  {q ? `No report matches “${q}”.` : 'No report in this status yet.'}
+                </td></tr>
+              )}
             </tbody>
           </table>
-          {filtered.length > limit && (
-            <div className="matrix-more">
-              <span>Showing {limit} of {filtered.length} jobs</span>
-              <button className="btn btn-secondary btn-sm" onClick={() => setLimit(limit + 100)}>Show more</button>
-              <button className="btn btn-ghost btn-sm" onClick={() => setLimit(filtered.length)}>Show all</button>
-            </div>
-          )}
         </div>
-      )}
 
-      {popover && (
-        <CellPopover
-          {...popover}
-          onClose={() => setPopover(null)}
-          onPick={(s) => {
-            setOverride(popover.jobNo, popover.dKey, s)
-            setPopover(null)
-            refresh()
-            notify(s ? `Status set to ${STATUS[s].label}` : 'Override cleared')
-          }}
-        />
-      )}
+        {pages > 1 && (
+          <nav className="mon-pager" aria-label="Pagination">
+            <button onClick={() => setPage(at - 1)} disabled={at === 1} aria-label="Previous page">
+              <IconChevronR size={14} style={{ transform: 'rotate(180deg)' }} />
+            </button>
+            {pageList().map((n, i) => n === '…'
+              ? <span key={`gap${i}`} className="mon-gap">…</span>
+              : <button key={n} className={n === at ? 'on' : ''} aria-current={n === at ? 'page' : undefined}
+                  onClick={() => setPage(n)}>{n}</button>)}
+            <button onClick={() => setPage(at + 1)} disabled={at === pages} aria-label="Next page">
+              <IconChevronR size={14} />
+            </button>
+          </nav>
+        )}
+      </div>
     </div>
   )
 }

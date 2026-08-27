@@ -1865,3 +1865,170 @@ input:focus-visible, select:focus-visible, textarea:focus-visible {
   gap: 5px;
 }
 .back-btn:hover { color: var(--text); background: var(--surface-2); }
+
+/* ═══════════════════════════════════════════════════════════════
+   MONITORING: a register of documents
+   ═══════════════════════════════════════════════════════════════ */
+
+.mon-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 14px; }
+.mon-head h2 { font-size: 19px; }
+
+/* Status tabs carry their own counts, because the count is the answer
+   this screen is usually asked for. */
+.mon-tabs {
+  display: flex; gap: 2px; align-items: center;
+  margin-bottom: 14px; padding-bottom: 8px;
+  overflow-x: auto; scrollbar-width: none;
+  border-bottom: 1px solid var(--line);
+}
+.mon-tabs::-webkit-scrollbar { display: none; }
+.mon-tab {
+  flex: 0 0 auto;
+  display: inline-flex; align-items: center; gap: 7px;
+  border: 0; background: none;
+  padding: 7px 11px; border-radius: 6px;
+  font-family: var(--sans); font-size: 12.5px; font-weight: 350;
+  color: var(--text-2); white-space: nowrap;
+  transition: background-color .12s ease, color .12s ease;
+}
+.mon-tab:hover { background: var(--surface-2); color: var(--text); }
+.mon-tab.on { background: var(--surface-2); color: var(--text); font-weight: 500; }
+.mon-tab-n {
+  font-family: var(--mono); font-size: 10.5px; font-weight: 500;
+  padding: 1px 6px; border-radius: 999px;
+  background: var(--surface-3); color: var(--text-2);
+  font-variant-numeric: tabular-nums;
+}
+.mon-tab.on .mon-tab-n { background: var(--ink); color: #fff; }
+
+.mon-card { padding: 0; overflow: hidden; }
+
+.mon-bar {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  flex-wrap: wrap;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--line);
+}
+.mon-search {
+  display: flex; align-items: center; gap: 8px;
+  flex: 1 1 260px; max-width: 340px;
+  padding: 0 10px;
+  border: 1px solid var(--line); border-radius: 5px;
+  background: var(--surface);
+  color: var(--text-3);
+}
+.mon-search input {
+  border: 0; padding: 8px 0; min-height: 0; background: none;
+  font-size: 12.5px; font-weight: 350;
+}
+.mon-search input:focus-visible { outline: none; box-shadow: none; }
+.mon-search:focus-within { border-color: var(--ink); box-shadow: 0 0 0 3px var(--steel-soft); }
+
+.mon-showing {
+  display: flex; align-items: center; gap: 7px;
+  font-size: 12px; font-weight: 350; color: var(--text-2);
+}
+.mon-showing label { display: inline-flex; align-items: center; gap: 6px; }
+.mon-showing select {
+  width: auto; min-height: 0;
+  padding: 4px 26px 4px 9px;
+  font-size: 12px; font-weight: 400;
+  background-position: right 8px center;
+}
+
+/* ── Table. Two lines per cell where a row needs an identifier and the
+   thing it belongs to; one line where a value stands alone. */
+.mon-tablewrap { overflow-x: auto; }
+.mon-table { width: 100%; min-width: 880px; }
+.mon-table th {
+  background: var(--surface-2);
+  border-bottom: 1px solid var(--line);
+  padding: 0;
+  text-align: left;
+}
+.mon-table th button {
+  width: 100%; text-align: left;
+  border: 0; background: none;
+  padding: 9px 12px;
+  font-family: var(--sans); font-size: 11px; font-weight: 500;
+  color: var(--text-2);
+  transition: color .12s ease;
+}
+.mon-table th button:hover { color: var(--text); }
+.mon-table th:not(:has(button)) {
+  padding: 9px 12px;
+  font-family: var(--sans); font-size: 11px; font-weight: 500; color: var(--text-2);
+}
+.mon-table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--line);
+  vertical-align: middle;
+  font-size: 12.5px;
+}
+.mon-table tbody tr { cursor: pointer; transition: background-color .12s ease; }
+.mon-table tbody tr:hover { background: var(--surface-2); }
+.mon-table tbody tr.is-picked { background: var(--surface-3); }
+.mon-table tbody tr:last-child td { border-bottom: 0; }
+
+.mon-primary { display: block; font-family: var(--mono); font-size: 12px; font-weight: 500; color: var(--text); }
+.mon-sub { display: block; margin-top: 2px; font-size: 11px; font-weight: 350; color: var(--text-3); }
+
+.mon-check { width: 38px; }
+.mon-check input { width: 14px; height: 14px; min-height: 0; accent-color: var(--ink); cursor: pointer; }
+.mon-act { width: 62px; text-align: right; }
+.mon-empty { padding: 34px 12px; text-align: center; color: var(--text-3); font-size: 12.5px; }
+
+/* ── Row menu. */
+.rowmenu { position: relative; display: inline-block; }
+.rowmenu-btn {
+  border: 0; background: none; color: var(--text-3);
+  padding: 2px 8px; border-radius: 5px; font-size: 16px; line-height: 1;
+  transition: background-color .12s ease, color .12s ease;
+}
+.rowmenu-btn:hover { background: var(--surface-3); color: var(--text); }
+.rowmenu-pop {
+  position: absolute; right: 0; top: 100%; z-index: var(--z-pop);
+  min-width: 168px; padding: 4px;
+  border: 1px solid var(--line); border-radius: 6px;
+  background: var(--surface);
+  box-shadow: 0 8px 22px -12px rgba(20, 20, 24, 0.4);
+  display: flex; flex-direction: column; gap: 1px;
+}
+.rowmenu-pop button {
+  display: flex; align-items: center; gap: 8px;
+  width: 100%; text-align: left;
+  border: 0; background: none;
+  padding: 7px 9px; border-radius: 4px;
+  font-family: var(--sans); font-size: 12.5px; font-weight: 350; color: var(--text);
+}
+.rowmenu-pop button:hover { background: var(--surface-2); }
+.rowmenu-pop button.is-danger { color: var(--overdue); }
+.rowmenu-pop button.is-danger:hover { background: var(--overdue-bg); }
+
+/* ── Pagination. */
+.mon-pager {
+  display: flex; align-items: center; justify-content: center; gap: 3px;
+  padding: 12px; border-top: 1px solid var(--line);
+}
+.mon-pager button {
+  min-width: 30px; height: 30px;
+  display: inline-flex; align-items: center; justify-content: center;
+  border: 1px solid transparent; border-radius: 5px;
+  background: none;
+  font-family: var(--mono); font-size: 12px; font-weight: 400; color: var(--text-2);
+  transition: background-color .12s ease, color .12s ease, border-color .12s ease;
+}
+.mon-pager button:hover:not(:disabled) { background: var(--surface-2); color: var(--text); }
+.mon-pager button.on { background: var(--ink); border-color: var(--ink); color: #fff; font-weight: 500; }
+.mon-pager button:disabled { opacity: 0.35; }
+.mon-gap { padding: 0 4px; color: var(--text-3); font-size: 12px; }
+
+@media (max-width: 720px) {
+  .mon-bar { padding: 10px; }
+  .mon-search { max-width: none; }
+  .mon-showing { width: 100%; justify-content: space-between; }
+}
+
+/* The page action sat under the floating bell, same collision as the
+   report bar had. Reserve room for it at desktop. */
+@media (min-width: 1024px) { .mon-head { padding-right: 72px; } }
