@@ -51,7 +51,7 @@ export default function FloatingActions({ route }) {
           <div className="usermenu notif-sheet" role="dialog" aria-label="Notifications">
             <div className="um-name" style={{ marginBottom: 10 }}>Notifications</div>
             {notifs.length === 0 ? (
-              <p className="page-sub" style={{ margin: 0 }}>All clear — nothing needs attention.</p>
+              <p className="page-sub" style={{ margin: 0 }}>All clear. Nothing needs attention.</p>
             ) : (
               notifs.map((n, i) => (
                 <button key={i} className="notif-row" onClick={() => { navigate(n.to); setNotifOpen(false) }}>

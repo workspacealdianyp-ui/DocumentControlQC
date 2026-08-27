@@ -102,7 +102,7 @@ function EngineField({ f, values, report, set, locked, invalid, onRequestSign, s
     case 'select':
       control = (
         <select value={v[f.id] || ''} disabled={disabled} className={invalid ? 'invalid' : undefined} onChange={(e) => set(f.id, e.target.value)}>
-          <option value="">— Select —</option>
+          <option value="">Select</option>
           {f.options.map((o) => <option key={o} value={o}>{o}</option>)}
         </select>
       )
@@ -137,7 +137,7 @@ function EngineField({ f, values, report, set, locked, invalid, onRequestSign, s
     case 'jobsearch':
       control = (
         <select value={v.jobNo || ''} disabled={locked} onChange={(e) => onJobChange(e.target.value)}>
-          {jobs.map((j) => <option key={j.jobNo} value={j.jobNo}>{j.jobNo} — {j.productDesc?.slice(0, 48)}</option>)}
+          {jobs.map((j) => <option key={j.jobNo} value={j.jobNo}>{j.jobNo} · {j.productDesc?.slice(0, 48)}</option>)}
         </select>
       )
       break
@@ -243,7 +243,7 @@ function RecordingSection({ report, update, setValue, locked }) {
         </div>
       )}
       {started && (
-        <div className="rec-locked-note">🔒 Equipment locked — test in progress</div>
+        <div className="rec-locked-note">Equipment locked. Test in progress.</div>
       )}
 
       {rows.map((row, i) => {
@@ -340,7 +340,7 @@ function ResultsSection({ sec, report, update, locked, showErrors }) {
           <div key={i} className={`rowcard${isRej ? ' rej' : ''}`}>
             <div className="rowcard-head">
               <span className="rec-cp">#{i + 1}</span>
-              {isRej && <span className="chip chip-overdue" style={{ padding: '2px 9px' }}><IconAlert size={11} /> {sec.rejValue} — evidence required</span>}
+              {isRej && <span className="chip chip-overdue" style={{ padding: '2px 9px' }}><IconAlert size={11} /> {sec.rejValue}. Evidence required</span>}
               {sec.autoJudge === 'dim' && judged && <span className={`chip ${judged === 'Accept' ? 'chip-done' : 'chip-overdue'}`} style={{ padding: '2px 9px' }}>{judged}</span>}
               {!locked && <button type="button" className="row-x" onClick={() => update({ results: rows.filter((_, j) => j !== i) })} aria-label="Delete row"><IconTrash size={14} /></button>}
             </div>
@@ -393,7 +393,7 @@ function DftSection({ report, update, locked, showErrors }) {
             <div className="rowcard-body">
               <div className="field field-full"><label>Identification Area<span className="req">*</span></label>
                 <input value={c.area || ''} disabled={locked} className={showErrors && !c.area ? 'invalid' : undefined} placeholder="e.g. Shell External — Zone A" onChange={(e) => setCoat(i, { area: e.target.value })} /></div>
-              <div className="field field-full"><label>Sampling points — 5 per 1 m² <span className="lbl-unit">(µm)</span></label>
+              <div className="field field-full"><label>Sampling points, 5 per 1 m² <span className="lbl-unit">(µm)</span></label>
                 <div className="dft-pts">
                   {[0, 1, 2, 3, 4].map((j) => (
                     <input key={j} inputMode="decimal" placeholder={`T${j + 1}`} value={(c.pts && c.pts[j]) != null ? c.pts[j] : ''} disabled={locked}
@@ -673,7 +673,7 @@ export default function FormView({ job, formKey, query }) {
       <div className="form-hero">
         <div>
           <h2>{schema.title}</h2>
-          <p>{v.reportId} · {deliverable} · {job.jobNo} — {job.productDesc}</p>
+          <p>{v.reportId} · {deliverable} · {job.jobNo} · {job.productDesc}</p>
         </div>
         <div className="form-hero-right">
           <span className={`report-state state-${reportStatus}`}>{reportStatus === 'new' ? 'New' : reportStatus === 'draft' ? 'Draft' : reportStatus === 'approved' ? 'Approved' : 'Submitted'}</span>
@@ -684,7 +684,7 @@ export default function FormView({ job, formKey, query }) {
         </div>
       </div>
 
-      {readOnly && <div className="readonly-note">Read-only{submitted ? ' — this report has been submitted' : ' — your role cannot edit reports'}.</div>}
+      {readOnly && <div className="readonly-note">Read-only{submitted ? '. This report has been submitted' : '. Your role cannot edit reports'}.</div>}
 
       <div className="form-body">
         <div className="form-main">

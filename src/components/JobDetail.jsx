@@ -124,7 +124,7 @@ export default function JobDetail({ job }) {
           const tappable = !!d.form && (role.canEdit || !!last)
           const sub = cell.ref
             || (last ? `${last.reportId} · ${fmtDate(last.updatedAt)} · ${last.inspector}` : null)
-            || (d.form ? (role.canEdit ? 'Tap to fill the inspection form' : 'No report yet') : 'Document deliverable — tracked manually')
+            || (d.form ? (role.canEdit ? 'Tap to fill the inspection form' : 'No report yet') : 'Document deliverable, tracked manually')
           const Row = tappable ? 'button' : 'div'
           return (
             <Row key={d.key} className={`deliv-row${tappable ? ' tappable' : ''}`}
@@ -236,7 +236,7 @@ export default function JobDetail({ job }) {
         <div className="modal-backdrop" onClick={() => setNdePicker(false)}>
           <div className="modal" onClick={(e) => e.stopPropagation()} role="dialog" aria-label="Choose NDE method">
             <div className="sheet-handle" />
-            <h3>NDE Report — choose method</h3>
+            <h3>NDE Report: choose method</h3>
             <p className="page-sub">The NDE deliverable can be fulfilled by MT, PT, or UT examination.</p>
             <div className="nde-options">
               {NDE_FORMS.map((f) => (

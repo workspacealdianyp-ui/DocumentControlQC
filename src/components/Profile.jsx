@@ -69,7 +69,7 @@ export default function Profile() {
           <div className="empty-state"><p><strong>No reports yet.</strong></p></div>
         ) : (
           <>
-            {offline.length > 0 && <div className="sync-group">Stored offline — pending upload</div>}
+            {offline.length > 0 && <div className="sync-group">Stored offline, pending upload</div>}
             {offline.map((r) => <SyncRow key={r.id} r={r} isOffline />)}
             {uploaded.length > 0 && <div className="sync-group up">Uploaded</div>}
             {uploaded.map((r) => <SyncRow key={r.id} r={r} isOffline={false} />)}

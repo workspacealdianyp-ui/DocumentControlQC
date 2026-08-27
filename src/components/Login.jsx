@@ -39,7 +39,7 @@ export default function Login() {
         <button className="btn btn-primary btn-block" onClick={() => login(selected)}>
           Sign in as {selected.name.split(' ')[0]}
         </button>
-        <p className="login-note">Front-end demo — no authentication back-end (PRD v1 scope).</p>
+        <p className="login-note">Front-end demo. No authentication back-end.</p>
       </div>
     </div>
   )

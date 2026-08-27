@@ -20,7 +20,7 @@ export default function JobsPage() {
         <IconSearch size={16} />
         <input placeholder="Search jobs…" value={q} onChange={(e) => { setQ(e.target.value); setLimit(80) }} />
       </div>
-      <p className="page-sub" style={{ marginBottom: 12 }}>{filtered.length} of {jobs.length} jobs — tap a row for detail &amp; forms</p>
+      <p className="page-sub" style={{ marginBottom: 12 }}>{filtered.length} of {jobs.length} jobs. Tap a row for detail &amp; forms</p>
 
       <div className="card table-card table-scroll">
         <table className="data-table">

@@ -148,7 +148,7 @@ export default function ReportDetail({ schema, report, job, deliverable, status,
       <div className="form-hero">
         <div>
           <h2>{schema.title}</h2>
-          <p>{v.reportId} · {deliverable} · {job.jobNo} — {job.productDesc}</p>
+          <p>{v.reportId} · {deliverable} · {job.jobNo} · {job.productDesc}</p>
         </div>
         <div className="form-hero-right">
           <span className={`report-state state-${status}`}>{status === 'approved' ? 'Approved' : 'Submitted'}</span>

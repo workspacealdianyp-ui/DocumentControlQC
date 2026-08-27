@@ -120,25 +120,10 @@ table { border-collapse: collapse; }
 .content { flex: 1; padding: 58px 14px calc(var(--bottomnav-h) + 24px); max-width: 100%; }
 @media (min-width: 1024px) { .content { padding: 24px 28px 52px; } }
 
-/* ── canvas: flat enamel, with the scale ruled faintly into it ──
-   The drifting pastel blobs are gone. What replaces them is the
-   subject's own texture: a millimetre grid, barely visible, the way
-   graph paper sits under a drawing. It does not move, because a
-   measuring surface that drifts is a contradiction.               */
-.app-bg {
-  position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden;
-  background-color: var(--paper);
-  background-image:
-    repeating-linear-gradient(90deg, rgba(20,24,26,0.028) 0 1px, transparent 1px 24px),
-    repeating-linear-gradient(0deg,  rgba(20,24,26,0.028) 0 1px, transparent 1px 24px);
-}
-/* every 5th line reads heavier, like a real rule */
-.app-bg::after {
-  content: ''; position: absolute; inset: 0;
-  background-image:
-    repeating-linear-gradient(90deg, rgba(20,24,26,0.042) 0 1px, transparent 1px 120px),
-    repeating-linear-gradient(0deg,  rgba(20,24,26,0.042) 0 1px, transparent 1px 120px);
-}
+/* ── Canvas. One flat tone. The millimetre grid that used to sit
+   here was decoration drawn to make the page look designed, which is
+   exactly the tell this redesign is removing. */
+.app-bg { position: fixed; inset: 0; z-index: -1; pointer-events: none; background: var(--paper); }
 .aurora { display: none; }
 
 /* ─────────────────── floating actions (top-right) ─────────────────── */
@@ -1112,195 +1097,185 @@ td.th-action { display: flex; gap: 6px; justify-content: flex-end; align-items: 
 @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
 
 /* ═══════════════════════════════════════════════════════════════
-   ENAMEL INSTRUMENT PANEL — finishing layer
-   Loaded last on purpose: these rules match the specificity of the
-   ones above and simply win, so nothing earlier had to be unpicked.
+   CLEAN LAYER
+   Nothing here decorates. Every rule either removes something that
+   was drawing attention to itself, or fixes something that was
+   genuinely broken. Loaded last so it wins on equal specificity.
    ═══════════════════════════════════════════════════════════════ */
 
-/* ── Type: Archivo carries the width axis. Headings are set wide and
-   heavy so they read like an engraved nameplate rather than a title. */
-h1, h2, h3, h4 {
-  font-family: var(--sans);
-  font-weight: 600;
-  font-stretch: 108%;
-  letter-spacing: -0.005em;
-}
+/* ── Type. Headings get weight and size, not tracking and caps.
+   Numbers stay mono so columns line up, which is the one place the
+   monospace earns its keep. */
+h1, h2, h3, h4 { font-family: var(--sans); font-weight: 600; letter-spacing: -0.011em; }
 h2 { font-size: 18px; }
-h3 { font-size: 14.5px; }
+h3 { font-size: 14px; }
 
-/* Anything that is a measurement, an identifier or a date is set in
-   the mono face with tabular figures — columns of numbers must align
-   or they cannot be compared, which is the whole job of this screen. */
-.num, td.num, .mono, .hero-big, .hero-label,
-input[type='number'], .num input {
+.num, td.num, .mono, .hero-big, input[type='number'], .num input {
   font-family: var(--mono);
   font-variant-numeric: tabular-nums;
-  font-feature-settings: 'zero' 1;   /* slashed zero: 0 vs O */
 }
 
-/* Small uppercase labels get real tracking; at 10-11px, letterspacing
-   is what makes them legible rather than what makes them look designed. */
-.hero-label, .section-title, .kv-label, .ps-label {
-  letter-spacing: 0.08em;
+/* Panel headings were uppercase mono with wide tracking, on every
+   panel, which is the templated rhythm this pass is removing. */
+.widget-title, .section-title {
+  font-family: var(--sans);
+  font-size: 12.5px;
+  font-weight: 600;
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--text-2);
+}
+.section-title::after { display: none; }
+
+/* ── Surfaces. A hairline is enough to separate two planes. */
+.card, .panel-hero, .sheet, .modal-card, .popover {
+  box-shadow: none;
+  border: 1px solid var(--line);
+  background: var(--surface);
 }
 
-/* ── Seats, not shadows. A panel sits in a hairline bezel with one
-   pixel of light along its top edge, the way an inset instrument
-   face catches the light. No blur anywhere. */
-.card, .panel, .sheet, .modal-card, .popover {
-  box-shadow: var(--sh), inset 0 1px 0 rgba(255, 255, 255, 0.9);
-}
-
-/* ── THE SIGNATURE: the tick rule.
-   A vernier scale, minor marks every 6px and a major mark every 5th.
-   It already existed here as a divider; promoted now to the app's
-   structural device, because measurement is what this app is for. */
-.tickrule {
-  height: 9px;
-  background-color: transparent;
-  background-image:
-    repeating-linear-gradient(90deg, var(--line-2) 0 1px, transparent 1px 6px),
-    repeating-linear-gradient(90deg, var(--ink) 0 1px, transparent 1px 30px);
-  background-size: 100% 4px, 100% 8px;
-  background-position: 0 100%, 0 100%;
-  background-repeat: repeat-x;
-  border-bottom: 1px solid var(--line);
-}
-
-/* Section headings carry the same scale into the gap beside them. */
-.section-title::after {
-  height: 8px;
-  background-image:
-    repeating-linear-gradient(90deg, var(--line-2) 0 1px, transparent 1px 6px),
-    repeating-linear-gradient(90deg, var(--line-2) 0 1px, transparent 1px 30px);
-  background-size: 100% 3px, 100% 7px;
-  background-position: 0 100%, 0 100%;
-  background-repeat: repeat-x;
-  opacity: 0.9;
-}
-
-/* ── Status reads as a gauge mark: a coloured index bar on the left of
-   a quiet enamel chip. Weight, not hue, does the shouting — only
-   "overdue" is allowed the needle red. */
+/* ── Chips. No index bar, no uppercase. State reads from the word. */
 .chip {
-  border-radius: 2px;
-  border-color: var(--line);
-  font-size: 11px;
-  letter-spacing: 0.02em;
-  position: relative;
-  overflow: hidden;          /* keeps the index bar inside the corners */
+  border-radius: 3px;
+  border: 1px solid transparent;
+  font-family: var(--sans);
+  font-size: 11.5px;
+  font-weight: 500;
+  text-transform: none;
+  letter-spacing: 0;
 }
-/* The index bar only belongs on chips that carry a label. A compact
-   chip is the icon alone, and a 3px bar beside a 11px glyph is noise. */
-.chip:not(.chip-compact) {
-  padding-left: 12px;
-}
-.chip:not(.chip-compact)::before {
-  content: '';
-  position: absolute; left: 0; top: 0; bottom: 0;
-  width: 3px;
-  background: currentColor;
-}
-/* Out of tolerance is the one state allowed to raise its voice. */
-.chip-overdue { font-weight: 600; border-color: var(--overdue); }
-/* N/A stays hollow and dashed — nothing was measured, so nothing is claimed. */
-.chip-na { border-style: dashed; border-color: var(--na); }
-.chip-na::before { opacity: 0.45; }
+.chip::before { display: none; }
+.chip-na { border-style: solid; }
 
-/* ── Controls: square-ish, decisive, graphite. The primary button is
-   near-black because the one saturated colour in this interface is
-   reserved for "out of tolerance". */
-.btn { border-radius: var(--r); font-weight: 550; letter-spacing: 0.005em; }
+/* ── Sidebar: narrower, quieter, grouped.
+   The icon tiles were 36px rounded boxes with their own background,
+   hover fill and active shadow. Four of those stacked is a wall of
+   chrome around four words. The icon is now just the icon. */
+.sidebar { width: 196px; padding: 8px; }
+.sidebar::before {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  box-shadow: none;
+  backdrop-filter: none; -webkit-backdrop-filter: none;
+}
+
+.sidebar-top { padding: 6px 6px 10px; }
+.sidebar-logo { width: 26px; height: 26px; border-radius: 5px; box-shadow: none; }
+.brand-word { font-size: 13px; font-weight: 600; letter-spacing: -0.01em; }
+
+.sidebar ul { gap: 1px; padding: 0 6px; }
+.nav-item {
+  gap: 10px;
+  padding: 7px 9px;
+  border-radius: 5px;
+  font-size: 13.5px;
+  font-weight: 450;
+  transition: background-color 0.12s ease, color 0.12s ease;
+}
+.nav-item:hover { background: var(--surface-2); color: var(--text); }
+.nav-item.active { background: var(--surface-2); color: var(--text); font-weight: 600; box-shadow: none; }
+.nav-item.active::before { display: none; }
+
+/* The icon: no tile, no fill, no shadow. It sits on the rail. */
+.nav-ico, .sidebar-role .nav-ico {
+  width: 18px; height: 18px;
+  border-radius: 0;
+  background: none;
+  color: var(--text-3);
+  transition: color 0.12s ease;
+}
+.nav-item:hover .nav-ico { background: none; color: var(--text-2); }
+.nav-item.active .nav-ico { background: none; color: var(--text); box-shadow: none; }
+
+/* ── The spacer. Primary navigation and account controls are two
+   different kinds of thing, so the rail says so with space and a
+   single hairline rather than by stacking them together. */
+.sidebar-foot {
+  margin-top: 20px;
+  padding: 10px 6px 6px;
+  border-top: 1px solid var(--line);
+  gap: 1px;
+}
+.sidebar-role { padding: 6px 9px; font-size: 12px; gap: 10px; }
+.sidebar-profile {
+  margin-top: 10px; padding: 7px 9px; border-radius: 5px;
+  border: 0; background: none; box-shadow: none;
+}
+.sidebar-profile:hover { background: var(--surface-2); }
+.sidebar-avatar { width: 26px; height: 26px; font-size: 10.5px; }
+
+/* ── Controls. */
+.btn { border-radius: 4px; font-weight: 550; }
 .btn-primary { background: var(--steel); border-color: var(--steel); }
 .btn-primary:hover:not(:disabled) { background: var(--steel-deep); border-color: var(--steel-deep); }
-
-input, select, textarea { border-radius: var(--r); }
+input, select, textarea { border-radius: 4px; }
 input:focus-visible, select:focus-visible, textarea:focus-visible {
-  border-color: var(--ink);
-  box-shadow: 0 0 0 3px var(--steel-soft);
+  border-color: var(--ink); box-shadow: 0 0 0 3px var(--steel-soft);
 }
 
-/* ── Rows respond on hover with a graphite index mark rather than a
-   fill, so scanning a long table never repaints the whole row. */
-tbody tr { transition: background-color 0.12s ease; }
-tbody tr:hover { background: var(--surface-2); }
+/* ── No decorative status dots (they signalled nothing). */
+.panel-led { display: none; }
 
-/* ── Motion: one deliberate easing, and none at all if it is unwanted. */
+/* ── Mobile: grid items default to min-width:auto and refuse to
+   shrink below their content, which pushed the page wider than the
+   viewport. Pre-existing, fixed here. */
+.bento > *, .showcase-body > * { min-width: 0; }
+@media (max-width: 720px) { .showcase-body { grid-template-columns: 1fr; } }
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important; animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important; scroll-behavior: auto !important;
   }
 }
-
-/* ── Print: the certificate is the real artifact. Drop the enamel,
-   drop the grid, let it be ink on paper. */
 @media print {
-  .app-bg, .app-bg::after, .tickrule { display: none !important; }
-  .card, .panel { box-shadow: none !important; border: 1px solid #000 !important; }
+  .app-bg { display: none !important; }
+  .card, .panel-hero { box-shadow: none !important; border: 1px solid #000 !important; }
 }
 
-/* ── Customer cards: the dials were five different hues, which said
-   "these are five categories" when they are five instances of the
-   same measurement. One needle colour, as on a real instrument;
-   the reading itself is what differs. */
-.cc2-kpis div { border-radius: 2px; }
-.cc2-kpis .k-blue,
-.cc2-kpis .k-green,
-.cc2-kpis .k-violet {
-  background: var(--surface-2);
-  border-color: var(--line);
+/* ── Sidebar brand: the rail is narrower now, so the wordmark has to
+   yield to the toggle icon instead of running underneath it. */
+.sidebar-toggle { gap: 8px; padding: 6px 8px; border-radius: 5px; }
+.brand-word {
+  font-family: var(--sans);
+  flex: 1; min-width: 0;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
 }
-.cc2-kpis .k-blue b,
-.cc2-kpis .k-green b,
-.cc2-kpis .k-violet b { color: var(--ink); }
-/* On-time is the one reading worth grading, so it alone earns colour. */
+.sidebar-toggle-ico { flex-shrink: 0; }
+
+/* ── Customer cards. Blue, green and violet tiles said "three
+   categories" when they are three readings of one account. Neutral
+   tiles, and only the on-time percentage is graded. */
+.cc2-kpis div { border-radius: 3px; }
+.cc2-kpis .k-blue, .cc2-kpis .k-green, .cc2-kpis .k-violet {
+  background: var(--surface-2); border-color: var(--line);
+}
+.cc2-kpis .k-blue b, .cc2-kpis .k-violet b { color: var(--ink); }
 .cc2-kpis .k-green b { color: var(--done); }
+.cc2-pend-chips i { color: var(--text-2); background: var(--surface-3); border-radius: 3px; }
 
-.cc2-pend-chips i {
-  color: var(--text-2);
-  background: var(--surface-3);
-  border-radius: 2px;
+/* ── "Unit spotlight" was a wide-tracked caps eyebrow above a panel
+   that already announces itself. Quiet it to a plain label. */
+.panel-kicker {
+  font-family: var(--sans); font-size: 12.5px; font-weight: 600;
+  text-transform: none; letter-spacing: 0; color: var(--text-2);
 }
 
-/* ── The tick rule, where it can actually be seen.
-   `.tickrule` turned out to be dead CSS — no component ever rendered
-   it — so the scale is attached to the section headings that do
-   exist. Every panel heading now trails off into a measuring scale,
-   which is the one visual idea this interface is built on. */
-.widget-title,
-.section-title {
-  display: flex;
-  align-items: baseline;
-  gap: 10px;
-}
-.widget-title::after {
-  content: '';
-  flex: 1;
-  height: 7px;
-  align-self: center;
-  background-image:
-    repeating-linear-gradient(90deg, var(--line-2) 0 1px, transparent 1px 6px),
-    repeating-linear-gradient(90deg, var(--line-2) 0 1px, transparent 1px 30px);
-  background-size: 100% 3px, 100% 7px;
-  background-position: 0 100%, 0 100%;
-  background-repeat: repeat-x;
-}
-/* A heading that already sits in a flex row with a control beside it
-   should not stretch — the scale would push the control off. */
-.widget-head .widget-title { flex: 1; }
+/* Trim the chrome around the wordmark rather than widening the rail:
+   the ask was a smaller sidebar, so the padding gives way, not the width. */
+.sidebar-top { padding: 4px 2px 10px; }
+.sidebar-toggle { gap: 7px; padding: 5px 6px; }
+.brand-word { font-size: 12.5px; }
 
-/* ── Mobile overflow fix (pre-existing).
-   A grid item defaults to min-width:auto, so it refuses to shrink
-   below its content's intrinsic width. The two-column showcase body
-   was therefore forcing its card — and the whole page — wider than
-   the viewport. Letting the items shrink, and stacking the showcase
-   on narrow screens, removes the sideways scroll. */
-.bento > *,
-.showcase-body > * { min-width: 0; }
+/* ── Remaining blue outer glows from the old palette. They tint a
+   colour the interface no longer uses, and a glow is decoration by
+   definition (skill 9.A). Replaced with nothing. */
+.seg-btn.active,
+.choice-chip.active,
+.qa-tile:hover,
+.nav-item.active .nav-ico { box-shadow: none; }
+.qa-tile:hover { transform: none; background: var(--surface-2); color: var(--text); }
 
-@media (max-width: 720px) {
-  .showcase-body { grid-template-columns: 1fr; }
-}
+/* The job panel had a striped rule down its left edge. It encodes
+   nothing, so it goes. */
+.job-hero::before { display: none; }

@@ -252,7 +252,7 @@ export default function Home() {
 
         {/* ── document stats 2×2 ── */}
         <section className="card bento-docs">
-          <h3 className="widget-title">My Documents</h3>
+          <h3 className="widget-title">My documents</h3>
           <div className="mini-stats">
             <button onClick={() => navigate('/reports')}><strong>{stats.total}</strong><span>Total</span></button>
             <button onClick={() => navigate('/reports?f=draft')}><strong className="ms-amber">{stats.draft}</strong><span>Draft</span></button>
@@ -295,7 +295,7 @@ export default function Home() {
 
         {/* ── quick actions ── */}
         <section className="bento-qa">
-          <h3 className="widget-title" style={{ margin: '4px 0 12px' }}>Quick Actions — New Report</h3>
+          <h3 className="widget-title" style={{ margin: '4px 0 12px' }}>New report</h3>
           <div className="qa-grid">
             {FORM_ORDER.map((k, i) => (
               <button key={k} className={`qa-tile ${QA_TINTS[i]}`} onClick={() => setNewForm(k)}>
@@ -340,7 +340,7 @@ export default function Home() {
         {/* ── top customers — KPI cards ── */}
         <section className="card bento-customers cust-card">
           <div className="widget-head">
-            <h3 className="widget-title">Top Customers</h3>
+            <h3 className="widget-title">Top customers</h3>
             <span className="count-pill">{custData.length}</span>
           </div>
 
@@ -377,9 +377,9 @@ export default function Home() {
 
         {/* ── recent activity ── */}
         <section className="card table-card bento-activity">
-          <h3 className="widget-title" style={{ padding: '16px 18px 4px' }}>Recent Activity</h3>
+          <h3 className="widget-title" style={{ padding: '16px 18px 4px' }}>Recent activity</h3>
           {activity.length === 0 ? (
-            <div className="widget-empty" style={{ padding: '8px 18px 20px' }}><p>No activity yet — create your first report.</p></div>
+            <div className="widget-empty" style={{ padding: '8px 18px 20px' }}><p>No activity yet. Create your first report.</p></div>
           ) : (
             <div className="activity-list">
               {activity.map(({ report: r, verb, at }) => (
