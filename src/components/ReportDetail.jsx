@@ -176,63 +176,55 @@ export default function ReportDetail({ schema, report, job, deliverable, status,
     <div className="page form-page form-page-pad">
       <button className="btn btn-ghost back-btn btn-sm" onClick={onBack}><IconBack size={14} /> Job {job.jobNo}</button>
 
-      <div className="form-hero">
-        <div>
+      <div className="detail-hero">
+        <div className="detail-hero-main">
           <h2>{schema.title}</h2>
           <p>{v.reportId} · {deliverable} · {job.jobNo} · {job.productDesc}</p>
+          <p className={`detail-hero-verdict ${r.released ? 'is-acc' : 'is-rej'}`}>{r.headline}</p>
         </div>
-        <div className="form-hero-right">
+
+        <div className="detail-hero-actions">
           <span className={`report-state state-${status}`}>{statusLabel}</span>
           {role.canOverride && status === 'submitted' && <button className="btn btn-primary btn-sm" onClick={onApprove}>Approve</button>}
           <button className="btn btn-secondary btn-sm" onClick={onPdf}><IconPrint size={13} /> PDF Report</button>
           {role.canOverride && <button className="btn btn-ghost btn-sm" onClick={onEdit}><IconPen size={13} /> Edit</button>}
         </div>
+
+        {/* Read the whole record, or one section at a time. */}
+        <div className="detail-viewsw" role="group" aria-label="Section view">
+          <button className={view === 'all' ? 'on' : ''} aria-pressed={view === 'all'}
+            onClick={() => setViewMode('all')}>All</button>
+          <button className={view === 'paged' ? 'on' : ''} aria-pressed={view === 'paged'}
+            onClick={() => setViewMode('paged')}>Pages</button>
+        </div>
+
+        {/* The verdict as a stamp across the corner, the way it lands on
+            the paper copy. Decorative angle, real text for screen readers. */}
+        <div className={`detail-stamp ${r.released ? 'is-acc' : 'is-rej'}`}>
+          {r.released ? 'ACCEPT' : 'REJECT'}
+        </div>
       </div>
 
-      <div className={`detail-verdict ${r.released ? 'is-acc' : 'is-rej'}`}>
-        <span className="detail-verdict-tag">{r.released ? 'ACCEPT' : 'REJECT'}</span>
-        <span className="detail-verdict-text">{r.headline}</span>
-      </div>
-
-      {/* Sentinel: once this leaves the viewport the bar below has stuck. */}
+      {/* Sentinel: once this leaves the viewport the strip below has stuck. */}
       <div ref={sentinel} aria-hidden="true" className="detail-sentinel" />
 
-      <div className={`detail-bar${stuck ? ' is-stuck' : ''}`}>
-        <div className="detail-bar-id">
-          <strong>{v.reportId}</strong>
-          <span className={`report-state state-${status}`}>{statusLabel}</span>
-        </div>
-        <div className="detail-bar-tools">
-          {view === 'paged' && (
-            <div className="detail-pager">
-              <button className="btn btn-ghost btn-sm" onClick={() => setPage(at - 1)} disabled={at === 0}
-                aria-label="Previous section"><IconChevronR size={14} style={{ transform: 'rotate(180deg)' }} /></button>
-              <span className="detail-pager-at">{at + 1} / {secs.length}</span>
-              <button className="btn btn-ghost btn-sm" onClick={() => setPage(at + 1)} disabled={at === secs.length - 1}
-                aria-label="Next section"><IconChevronR size={14} /></button>
-            </div>
-          )}
-          <div className="detail-viewsw" role="group" aria-label="Section view">
-            <button className={view === 'all' ? 'on' : ''} aria-pressed={view === 'all'}
-              onClick={() => setViewMode('all')}>All</button>
-            <button className={view === 'paged' ? 'on' : ''} aria-pressed={view === 'paged'}
-              onClick={() => setViewMode('paged')}>Paged</button>
-          </div>
-        </div>
-      </div>
-
-      {view === 'paged' && (
-        <nav className="detail-tabs" aria-label="Sections">
+      {view === 'paged' ? (
+        <nav className={`detail-filetabs${stuck ? ' is-stuck' : ''}`} aria-label="Sections">
           {secs.map((s, i) => (
             <button key={s.id} className={i === at ? 'on' : ''} aria-current={i === at ? 'true' : undefined}
               onClick={() => setPage(i)}>{s.title}</button>
           ))}
         </nav>
+      ) : (
+        <div className={`detail-idstrip${stuck ? ' is-stuck' : ''}`}>
+          <strong>{v.reportId}</strong>
+          <span className={`report-state state-${status}`}>{statusLabel}</span>
+        </div>
       )}
 
       <div className="detail-sections">
         {shown.map((s) => (
-          <section className="card detail-card" key={s.id}>
+          <section className={`card detail-card${view === "paged" ? " is-paged" : ""}`} key={s.id}>
             <h3>{s.title}{s.subtitle ? <small>{s.subtitle}</small> : null}</h3>
             {s.id === 'approvals' ? <DetailSignatures fields={s.fields} v={v} />
               : s.type === 'recording' ? <DetailRecording report={report} />

@@ -1617,3 +1617,188 @@ input:focus-visible, select:focus-visible, textarea:focus-visible {
    Table headers keep their own case; size and colour carry the
    hierarchy instead. */
 .detail-table th { text-transform: none; letter-spacing: 0.01em; font-size: 11px; font-weight: 600; }
+
+/* ═══════════════════════════════════════════════════════════════
+   REPORT DETAIL v2: one hero box, corner stamp, file tabs
+   Replaces the separate bar and the numeric pager.
+   ═══════════════════════════════════════════════════════════════ */
+
+.detail-bar, .detail-pager, .detail-tabs, .detail-verdict { display: none; }
+
+/* ── The hero carries everything about the document: what it is, what
+   was decided, what you can do with it, and how you want to read it.
+   Four corners, four jobs. */
+.detail-hero {
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: start;
+  gap: 14px 20px;
+  padding: 18px 20px 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  margin-bottom: 14px;
+}
+.detail-hero-main { min-width: 0; }
+.detail-hero-main h2 { font-size: 18px; margin-bottom: 3px; }
+.detail-hero-main p {
+  font-family: var(--mono); font-size: 11.5px; color: var(--text-2);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.detail-hero-actions {
+  display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+  justify-self: end;
+  /* clear of the stamp, which occupies the lower right */
+  position: relative; z-index: 1;
+}
+.detail-hero .detail-viewsw {
+  grid-column: 1; justify-self: start; align-self: end;
+  position: relative; z-index: 1;
+}
+
+/* ── The stamp. Angled across the lower-right corner, the way a QC
+   stamp lands on the paper copy. The angle is decoration; the words
+   are real text, so it still reads to a screen reader. */
+.detail-stamp {
+  position: absolute;
+  right: -18px; bottom: 6px;
+  transform: rotate(-8deg);
+  display: flex; flex-direction: column; align-items: center; gap: 1px;
+  padding: 7px 26px;
+  border: 2px solid currentColor;
+  border-radius: 4px;
+  pointer-events: none;
+  opacity: 0.92;
+}
+.detail-stamp.is-acc { color: var(--done); }
+.detail-stamp.is-rej { color: var(--overdue); }
+.detail-stamp-word {
+  font-family: var(--mono); font-size: 17px; font-weight: 600;
+  letter-spacing: 0.16em; line-height: 1;
+}
+.detail-stamp-sub {
+  font-family: var(--sans); font-size: 9.5px; font-weight: 400;
+  letter-spacing: 0.02em; opacity: 0.78;
+  max-width: 210px; text-align: center;
+}
+
+/* ── File tabs. The active tab has no bottom edge, so it joins the
+   sheet below it, the way a tab joins its folder. */
+.detail-filetabs {
+  position: sticky; top: 0; z-index: var(--z-nav);
+  display: flex; gap: 3px; align-items: flex-end;
+  padding: 8px 2px 0;
+  margin-bottom: -1px;
+  overflow-x: auto; scrollbar-width: none;
+  background: var(--paper);
+  transition: box-shadow .16s ease;
+}
+.detail-filetabs::-webkit-scrollbar { display: none; }
+.detail-filetabs.is-stuck { box-shadow: 0 6px 12px -10px rgba(20, 20, 24, 0.35); }
+
+.detail-filetabs button {
+  flex: 0 0 auto;
+  position: relative;
+  border: 1px solid var(--line);
+  border-bottom-color: var(--line);
+  border-radius: 7px 7px 0 0;
+  background: var(--surface-2);
+  padding: 7px 14px 8px;
+  font-family: var(--sans); font-size: 12px; font-weight: 350;
+  color: var(--text-2); white-space: nowrap;
+  transition: background-color .16s ease, color .16s ease,
+              padding .16s ease, transform .16s ease;
+}
+.detail-filetabs button:hover { background: var(--surface); color: var(--text); }
+.detail-filetabs button.on {
+  background: var(--surface);
+  color: var(--text);
+  font-weight: 450;
+  border-bottom-color: var(--surface);   /* joins the sheet below */
+  padding-top: 9px;
+  padding-bottom: 9px;
+  z-index: 1;
+}
+
+/* In All mode the same slot carries the document number, so something
+   identifying the record is on screen at every scroll position. */
+.detail-idstrip {
+  position: sticky; top: 0; z-index: var(--z-nav);
+  display: flex; align-items: center; gap: 10px;
+  padding: 9px 2px;
+  background: var(--paper);
+  transition: box-shadow .16s ease;
+}
+.detail-idstrip.is-stuck { box-shadow: 0 6px 12px -10px rgba(20, 20, 24, 0.35); }
+.detail-idstrip strong { font-family: var(--mono); font-size: 12.5px; font-weight: 500; }
+
+/* The sheet under the tabs squares off its top-left so the joint reads
+   as one piece of paper rather than two stacked cards. */
+.detail-card.is-paged { border-radius: 0 8px 8px 8px; }
+
+/* Section change animates in, which is what makes the tabs feel like
+   turning to a different sheet rather than a repaint. */
+@keyframes detail-sheet-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: none; }
+}
+.detail-card.is-paged { animation: detail-sheet-in .22s cubic-bezier(0.22, 0.61, 0.36, 1); }
+
+@media (prefers-reduced-motion: reduce) {
+  .detail-card.is-paged { animation: none; }
+  .detail-filetabs button { transition: none; }
+}
+
+@media (max-width: 860px) {
+  .detail-hero { grid-template-columns: minmax(0, 1fr); }
+  .detail-hero-actions { justify-self: start; }
+  .detail-stamp { position: static; transform: none; align-self: start; margin-top: 4px; }
+  .detail-stamp-sub { max-width: none; }
+}
+
+/* The stamp reads as a stamp at a real angle, not a nudge. Thirty
+   degrees, and the hero gains the height to carry it without the
+   corner clipping the words. */
+.detail-hero { min-height: 118px; }
+.detail-stamp {
+  right: -10px; bottom: 2px;
+  transform: rotate(-30deg);
+  transform-origin: 100% 100%;
+  padding: 6px 22px;
+}
+.detail-stamp-word { font-size: 16px; letter-spacing: 0.14em; }
+.detail-stamp-sub { max-width: 178px; font-size: 9px; }
+@media (max-width: 860px) { .detail-stamp { transform: none; } }
+
+/* The rotated box was overflowing the hero and getting clipped. The
+   stamp is now the verdict word alone, which is what a stamp is; the
+   sentence sits under the document meta where it can be read straight. */
+.detail-hero { min-height: 146px; }
+.detail-stamp {
+  right: 22px; bottom: 14px;
+  transform: rotate(-30deg);
+  transform-origin: 50% 50%;
+  display: block;
+  padding: 6px 20px;
+  border-width: 2.5px;
+  border-radius: 3px;
+  font-family: var(--mono); font-size: 16px; font-weight: 600;
+  letter-spacing: 0.16em; line-height: 1;
+}
+.detail-stamp-word, .detail-stamp-sub { display: none; }
+
+.detail-hero-verdict { font-family: var(--sans); font-size: 12px; margin-top: 7px; }
+.detail-hero-verdict.is-acc { color: var(--done); }
+.detail-hero-verdict.is-rej { color: var(--overdue); }
+
+@media (max-width: 860px) {
+  .detail-hero { min-height: 0; }
+  .detail-stamp { position: static; transform: rotate(-3deg); align-self: start; margin-top: 6px; }
+}
+
+/* Rotating about the centre grows the box symmetrically, so the offset
+   has to clear half the rotated height, not the upright height. */
+.detail-hero { min-height: 156px; }
+.detail-stamp { bottom: 30px; right: 26px; }
