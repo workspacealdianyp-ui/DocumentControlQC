@@ -1,0 +1,188 @@
+import { useState } from 'react'
+import { createPortal } from 'react-dom'
+import { dimRowStatus, dimDeviation } from '../data/formSchemas.js'
+import { MR } from '../lib/compute.js'
+import { fmtDate } from '../lib/status.js'
+import { buildResume } from '../lib/resume.js'
+import { IconBack, IconPrint, IconPen } from './Icons.jsx'
+
+// read-only detail view of a submitted/approved report — shows the entered data, never edits
+const lbl = (f, v) => (typeof f.label === 'function' ? f.label(v) : f.label)
+const showField = (f, v) => (typeof f.showIf === 'function' ? f.showIf(v) : true)
+
+const dval = (f, v, report) => {
+  if (f.type === 'computed') return (f.compute ? f.compute(v, report) : '') || '—'
+  if (f.type === 'sign') return v[f.id]?.name || '—'
+  if (f.type === 'date') return fmtDate(v[f.id] ?? f.default)
+  const val = v[f.id] ?? f.default
+  if (val === undefined || val === null || val === '') return '—'
+  const unit = f.unitFrom ? (v[f.unitFrom] || '') : (f.unit || '')
+  return unit && (f.type === 'number' || f.type === 'text') ? `${val} ${unit}` : String(val)
+}
+
+function DetailPairs({ fields, v, report }) {
+  const vis = fields.filter((f) => !['sign', 'photos', 'photos-inline', 'jobsearch'].includes(f.type) && showField(f, v))
+  if (!vis.length) return null
+  return (
+    <div className="detail-grid">
+      {vis.map((f) => (
+        <div className="detail-item" key={f.id}>
+          <span className="detail-label">{lbl(f, v)}</span>
+          <span className="detail-value">{dval(f, v, report)}</span>
+        </div>
+      ))}
+    </div>
+  )
+}
+
+function DetailRecording({ report }) {
+  const rows = report.readings || []
+  const v = report.values || {}
+  const twoG = v.gauges !== '1 Gauge', useRec = v.useRecorder !== 'Not used', useTemp = v.useTemp !== 'Not used'
+  const pu = v.pressureUnit || 'PsiG'
+  const cols = [['pg1', `${twoG ? 'PG 1' : 'PG'} (${pu})`]]
+  if (twoG) cols.push(['pg2', `PG 2 (${pu})`])
+  if (useRec) cols.push(['rec', `Rec. (${pu})`])
+  if (useTemp) cols.push(['water', 'Water °C'], ['ambient', 'Amb °C'])
+  return (
+    <div className="detail-table-wrap">
+      <table className="detail-table">
+        <thead><tr><th>CP</th><th>Time</th>{cols.map(([k, l]) => <th key={k}>{l}</th>)}<th>Remark</th></tr></thead>
+        <tbody>
+          {rows.map((r, i) => (
+            <tr key={i}><td>{i + 1}</td><td>{r.time || '—'}</td>{cols.map(([k]) => <td key={k}>{r[k] || '—'}</td>)}<td className="detail-left">{r.remark || '—'}</td></tr>
+          ))}
+          {!rows.length && <tr><td colSpan={cols.length + 3} className="detail-empty">No checkpoints recorded</td></tr>}
+        </tbody>
+      </table>
+    </div>
+  )
+}
+
+function DetailResults({ sec, report }) {
+  const rows = report.results || []
+  const v = report.values || {}
+  const cols = sec.columns.filter((c) => showField(c, v))
+  return (
+    <div className="detail-table-wrap">
+      <table className="detail-table">
+        <thead><tr><th>No</th>{cols.map((c) => <th key={c.id}>{c.label}{c.unit ? ` (${c.unit})` : ''}</th>)}{sec.autoJudge === 'dim' && <><th>Dev</th><th>Status</th></>}</tr></thead>
+        <tbody>
+          {rows.map((row, i) => {
+            const judged = sec.autoJudge === 'dim' ? dimRowStatus(row) : row[sec.judgeKey]
+            const rej = judged === 'Reject' || judged === 'NG' || judged === 'Rej'
+            return (
+              <tr key={i}><td>{i + 1}</td>{cols.map((c) => <td key={c.id} className={c.id === 'partId' || c.id === 'description' || c.id === 'point' || c.id === 'remark' ? 'detail-left' : ''}>{row[c.id] || '—'}</td>)}{sec.autoJudge === 'dim' && <><td>{dimDeviation(row) || '—'}</td><td className={rej ? 'detail-rej' : 'detail-acc'}>{judged || '—'}</td></>}</tr>
+            )
+          })}
+          {!rows.length && <tr><td colSpan={cols.length + 1} className="detail-empty">No rows recorded</td></tr>}
+        </tbody>
+      </table>
+    </div>
+  )
+}
+
+function DetailDft({ report }) {
+  const coats = report.coats || []
+  return (
+    <div className="detail-table-wrap">
+      <table className="detail-table">
+        <thead><tr><th>Coat</th><th className="detail-left">Identification Area</th><th>Pts (µm)</th><th>Avg</th><th>Std</th><th>Status</th></tr></thead>
+        <tbody>
+          {coats.map((c, i) => {
+            const avg = MR.dftAvg(c.pts), std = parseFloat(c.std)
+            const st = avg == null || isNaN(std) ? '—' : avg >= std ? 'ACC.' : 'REJ.'
+            return <tr key={i}><td>{c.coat}</td><td className="detail-left">{c.area || '—'}</td><td>{(c.pts || []).filter(Boolean).join(', ') || '—'}</td><td>{avg ?? '—'}</td><td>{c.std || '—'}</td><td className={st === 'REJ.' ? 'detail-rej' : 'detail-acc'}>{st}</td></tr>
+          })}
+          {!coats.length && <tr><td colSpan={6} className="detail-empty">No coats recorded</td></tr>}
+        </tbody>
+      </table>
+    </div>
+  )
+}
+
+function DetailPhotos({ photos, onZoom }) {
+  const ps = photos || []
+  if (!ps.length) return <p className="detail-empty">No photos attached</p>
+  return (
+    <div className="detail-photos">
+      {ps.map((p, i) => (
+        <figure key={i} onClick={() => p.img && onZoom(p)}>
+          {p.img && <img src={p.img} alt={p.label || ''} />}
+          <figcaption>{p.label || `Photo ${i + 1}`}</figcaption>
+        </figure>
+      ))}
+    </div>
+  )
+}
+
+function DetailSignatures({ fields, v }) {
+  const vis = fields.filter((f) => showField(f, v))
+  return (
+    <div className="detail-signs">
+      {vis.map((f) => {
+        const s = v[f.id]
+        return (
+          <div className="detail-sign" key={f.id}>
+            <span className="detail-sign-role">{f.label}</span>
+            {s
+              ? <>{s.img ? <img className="detail-sign-img" src={s.img} alt="" /> : <div className="detail-sign-script">{s.name}</div>}<span className="detail-sign-name">{s.name}</span><span className="detail-sign-date">{fmtDate(s.at)}</span></>
+              : <span className="detail-sign-pending">Pending</span>}
+          </div>
+        )
+      })}
+    </div>
+  )
+}
+
+export default function ReportDetail({ schema, report, job, deliverable, status, role, onBack, onPdf, onApprove, onEdit }) {
+  const v = report.values || {}
+  const [zoom, setZoom] = useState(null)
+  const secs = schema.sections.filter((s) => !s.noPrint && s.id !== 'setup')
+  const r = buildResume(schema, report, job)
+
+  return (
+    <div className="page form-page form-page-pad">
+      <button className="btn btn-ghost back-btn btn-sm" onClick={onBack}><IconBack size={14} /> Job {job.jobNo}</button>
+
+      <div className="form-hero">
+        <div>
+          <h2>{schema.title}</h2>
+          <p>{v.reportId} · {deliverable} · {job.jobNo} — {job.productDesc}</p>
+        </div>
+        <div className="form-hero-right">
+          <span className={`report-state state-${status}`}>{status === 'approved' ? 'Approved' : 'Submitted'}</span>
+          {role.canOverride && status === 'submitted' && <button className="btn btn-primary btn-sm" onClick={onApprove}>Approve</button>}
+          <button className="btn btn-secondary btn-sm" onClick={onPdf}><IconPrint size={13} /> PDF Report</button>
+          {role.canOverride && <button className="btn btn-ghost btn-sm" onClick={onEdit}><IconPen size={13} /> Edit</button>}
+        </div>
+      </div>
+
+      <div className={`detail-verdict ${r.released ? 'is-acc' : 'is-rej'}`}>
+        <span className="detail-verdict-tag">{r.released ? 'ACCEPT' : 'REJECT'}</span>
+        <span className="detail-verdict-text">{r.headline}</span>
+      </div>
+
+      <div className="detail-sections">
+        {secs.map((s) => (
+          <section className="card detail-card" key={s.id}>
+            <h3>{s.title}{s.subtitle ? <small> — {s.subtitle}</small> : null}</h3>
+            {s.id === 'approvals' ? <DetailSignatures fields={s.fields} v={v} />
+              : s.type === 'recording' ? <DetailRecording report={report} />
+                : s.type === 'results' ? <DetailResults sec={s} report={report} />
+                  : s.type === 'dft' ? <DetailDft report={report} />
+                    : s.type === 'photos' ? <DetailPhotos photos={report.photos} onZoom={setZoom} />
+                      : <DetailPairs fields={s.fields} v={v} report={report} />}
+          </section>
+        ))}
+      </div>
+
+      {zoom && createPortal(
+        <div className="photo-lightbox" onClick={() => setZoom(null)}>
+          <button className="photo-lightbox-x" onClick={() => setZoom(null)}>×</button>
+          <img src={zoom.img} alt={zoom.label || ''} onClick={(e) => e.stopPropagation()} />
+          {zoom.label && <div className="photo-lightbox-cap">{zoom.label}</div>}
+        </div>, document.body)}
+    </div>
+  )
+}
