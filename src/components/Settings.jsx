@@ -75,6 +75,9 @@ export default function Settings() {
 
       <h3 className="section-title">Roles</h3>
       <div className="card">
+        {/* Four columns of prose do not fit a phone; let the table scroll
+            inside its card rather than the whole page sideways. */}
+        <div className="table-scroll">
         <table className="data-table">
           <thead><tr><th>Role</th><th>Edit forms</th><th>Override status / locked fields</th><th>Manage (settings, delete)</th></tr></thead>
           <tbody>
@@ -88,6 +91,7 @@ export default function Settings() {
             ))}
           </tbody>
         </table>
+        </div>
       </div>
     </div>
   )

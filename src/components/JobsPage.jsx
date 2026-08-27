@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { useApp, navigate } from '../App.jsx'
 import { buildContext, jobProgress, fmtDate, exportMatrixCsv } from '../lib/status.js'
 import { IconSearch, IconChevronR, IconDownload } from './Icons.jsx'
+import { useStuck } from '../lib/sticky.js'
 
 /* Jobs is a register, laid out like Monitoring so the app has one table
    pattern rather than two. The category tabs mirror the sidebar
@@ -43,6 +44,7 @@ export default function JobsPage({ kat }) {
   const [size, setSize] = useState(15)
   const [page, setPage] = useState(1)
   const [sort, setSort] = useState({ key: 'jobNo', dir: 'asc' })
+  const [sentinel, stuck] = useStuck()
 
   const ctx = useMemo(() => buildContext(), [tick])
   const progress = useMemo(
@@ -112,7 +114,7 @@ export default function JobsPage({ kat }) {
         ))}
       </div>
 
-      <div className="card mon-card">
+      <div className={`card mon-card${stuck ? ' is-stuck' : ''}`}>
         <div className="mon-bar">
           <div className="mon-search">
             <IconSearch size={15} />
@@ -129,6 +131,10 @@ export default function JobsPage({ kat }) {
           </div>
         </div>
 
+        {/* Sits at the table's own top edge, so the toolbar starts
+            dissolving exactly as the column header lands rather than
+            leaving a blank strip between the two. */}
+        <div ref={sentinel} className="mon-sentinel" aria-hidden="true" />
         <div className="mon-tablewrap">
           <table className="mon-table jobs-table">
             <thead>

@@ -5,6 +5,7 @@ import { getReports, approveReport, deleteReport } from '../lib/store.js'
 import { fmtDate } from '../lib/status.js'
 import { reportResult } from './SummaryReport.jsx'
 import { IconSearch, IconChevronR, IconApprove, IconTrash, IconPrint, IconPlus } from './Icons.jsx'
+import { useStuck } from '../lib/sticky.js'
 
 /* Monitoring is a register of documents, so it is laid out as one: a
    status filter across the top, a table with a row per report, and
@@ -62,6 +63,7 @@ export default function Dashboard() {
   const [page, setPage] = useState(1)
   const [sort, setSort] = useState({ key: 'updatedAt', dir: 'desc' })
   const [picked, setPicked] = useState(() => new Set())
+  const [sentinel, stuck] = useStuck()
 
   const reports = useMemo(() => getReports(), [tick])
   const jobIndex = useMemo(() => new Map(jobs.map((j) => [j.jobNo, j])), [jobs])
@@ -144,7 +146,7 @@ export default function Dashboard() {
         ))}
       </div>
 
-      <div className="card mon-card">
+      <div className={`card mon-card${stuck ? ' is-stuck' : ''}`}>
         <div className="mon-bar">
           <div className="mon-search">
             <IconSearch size={15} />
@@ -161,6 +163,10 @@ export default function Dashboard() {
           </div>
         </div>
 
+        {/* Sits at the table's own top edge, so the toolbar starts
+            dissolving exactly as the column header lands rather than
+            leaving a blank strip between the two. */}
+        <div ref={sentinel} className="mon-sentinel" aria-hidden="true" />
         <div className="mon-tablewrap">
           <table className="mon-table">
             <thead>
