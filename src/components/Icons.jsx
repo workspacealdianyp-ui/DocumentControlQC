@@ -43,3 +43,8 @@ export const STATUS_ICONS = {
   overdue: IconAlert,
   na: IconNa,
 }
+
+// Sidebar collapse control: a panel with its rail filled, which is what
+// the control actually does, unlike a hamburger.
+export const IconPanel = (p) => <I {...p}><rect x="3" y="4" width="18" height="16" rx="2" /><line x1="9" y1="4" x2="9" y2="20" /></I>
+export const IconChevronD = (p) => <I {...p}><polyline points="6 9 12 15 18 9" /></I>

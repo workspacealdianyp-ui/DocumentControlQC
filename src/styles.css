@@ -1344,3 +1344,109 @@ input:focus-visible, select:focus-visible, textarea:focus-visible {
 .shell.side-min .sidebar-foot { margin-top: 14px; padding-top: 12px; }
 .shell.side-min .sidebar-role { display: none; }
 .shell.side-min .sidebar-avatar { width: 26px; height: 26px; }
+
+/* ═══════════════════════════════════════════════════════════════
+   SIDEBAR: weight, rhythm, submenu, motion
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Weight. Nav labels were sitting at 450/550 with the active item
+   at full bold, which made the whole rail shout. Navigation is not
+   content: it should recede until you look at it. */
+.brand-word { font-weight: 500; font-size: 13px; letter-spacing: -0.006em; }
+.nav-item { font-weight: 400; font-size: 13.5px; letter-spacing: -0.003em; }
+.nav-item.active { font-weight: 500; }
+.sidebar-profile strong { font-weight: 500; font-size: 12.5px; }
+.sidebar-role { font-weight: 400; }
+
+/* ── Rhythm. 1px between items read as a stack, not a list. Each row
+   now has room to be its own target. */
+.sidebar ul { gap: 3px; }
+.nav-item { padding: 9px 10px; }
+.sidebar-foot { gap: 3px; margin-top: 22px; padding-top: 14px; }
+.sidebar-role { padding: 8px 10px; }
+.sidebar-profile { margin-top: 8px; padding: 9px 10px; }
+
+/* ── Submenu. Indented under the parent and tied to it by a vertical
+   hairline, so the relationship is visible without a second icon set. */
+.nav-sub {
+  list-style: none;
+  margin: 3px 0 4px;
+  padding: 0 0 0 19px;
+  position: relative;
+  display: flex; flex-direction: column; gap: 1px;
+}
+.nav-sub::before {
+  content: '';
+  position: absolute; left: 19px; top: 4px; bottom: 4px;
+  border-left: 1px solid var(--line);
+}
+.nav-subitem {
+  display: block; width: 100%; text-align: left;
+  background: none; border: 0;
+  padding: 7px 10px 7px 14px;
+  margin-left: 1px;
+  border-radius: 5px;
+  color: var(--text-2);
+  font-size: 13px; font-weight: 400;
+  white-space: nowrap;
+  transition: background-color 0.12s ease, color 0.12s ease;
+}
+.nav-subitem:hover { background: var(--surface-2); color: var(--text); }
+.nav-subitem.active { color: var(--text); font-weight: 500; background: var(--surface-2); }
+
+/* The caret is a control in its own right: it opens the group without
+   navigating, so it gets its own hit area and focus ring. */
+.nav-caret {
+  margin-left: auto;
+  display: grid; place-items: center;
+  width: 20px; height: 20px;
+  border-radius: 4px;
+  color: var(--text-3);
+  transition: transform 0.18s ease, background-color 0.12s ease;
+}
+.nav-caret.open { transform: rotate(180deg); }
+.nav-caret:hover { background: var(--surface-3); }
+.nav-item.active .nav-caret { color: rgba(255, 255, 255, 0.65); }
+.nav-item.active .nav-caret:hover { background: rgba(255, 255, 255, 0.14); }
+
+/* ── Motion. The rail was snapping: 160ms linear-ish on width alone,
+   while the labels vanished instantly via display:none. Now the width
+   eases on a decelerating curve and the labels collapse with it, so it
+   reads as one drawer opening rather than two things happening. */
+.sidebar { transition: width 0.26s cubic-bezier(0.22, 0.61, 0.36, 1); }
+.brand-word, .nav-label, .sidebar-profile-text, .sidebar-role .nav-label {
+  overflow: hidden;
+  white-space: nowrap;
+  max-width: 200px;
+  opacity: 1;
+  transition: max-width 0.26s cubic-bezier(0.22, 0.61, 0.36, 1),
+              opacity 0.16s ease 0.06s;
+}
+.shell.side-min .brand-word,
+.shell.side-min .nav-label,
+.shell.side-min .sidebar-profile-text {
+  display: block;          /* replaces display:none so it can animate */
+  max-width: 0;
+  opacity: 0;
+  transition: max-width 0.26s cubic-bezier(0.22, 0.61, 0.36, 1),
+              opacity 0.12s ease;
+}
+.shell.side-min .sidebar-toggle-ico { display: none; }
+.shell.side-min .nav-caret { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .sidebar, .brand-word, .nav-label, .sidebar-profile-text, .nav-caret { transition: none; }
+}
+
+/* ── Lighter and smaller. The rail is a signpost, not a paragraph:
+   at 300-400 weight it stays legible while receding from the content
+   it points at. Requires the 300 stop on Archivo's weight axis, which
+   index.html now requests. */
+.brand-word { font-size: 12px; font-weight: 400; }
+.nav-item { font-size: 12.5px; font-weight: 300; }
+.nav-item.active { font-weight: 400; }
+.nav-subitem { font-size: 12px; font-weight: 300; }
+.nav-subitem.active { font-weight: 400; }
+.sidebar-role { font-size: 11.5px; font-weight: 300; }
+.sidebar-profile strong { font-size: 12px; font-weight: 400; }
+.sidebar-profile-text small { font-size: 10.5px; font-weight: 300; }

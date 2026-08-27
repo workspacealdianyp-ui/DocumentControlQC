@@ -1,18 +1,31 @@
+import { useState } from 'react'
 import { useApp, navigate } from '../App.jsx'
 import { ROLES } from '../lib/constants.js'
 import { BrandMark } from './BrandLogo.jsx'
-import { IconHome, IconList, IconFile, IconGrid, IconGear, IconMenu } from './Icons.jsx'
+import { IconHome, IconList, IconFile, IconGrid, IconGear, IconPanel, IconChevronD } from './Icons.jsx'
+
+// Sub-items map to the `kategori` values that actually exist in the job
+// list, so each one filters to a real set rather than a made-up label.
+const JOB_CATEGORIES = [
+  { label: 'Support Equipment', kat: 'SUPEQ' },
+  { label: 'Trailer', kat: 'TRAILER' },
+  { label: 'Non Trailer', kat: 'NON TRAILER' },
+]
 
 const NAV = [
   { id: 'home', label: 'Home', to: '/', icon: IconHome },
-  { id: 'jobs', label: 'Jobs', to: '/jobs', icon: IconList },
+  { id: 'jobs', label: 'Jobs', to: '/jobs', icon: IconList, sub: JOB_CATEGORIES },
   { id: 'reports', label: 'Reports', to: '/reports', icon: IconFile },
   { id: 'monitor', label: 'Monitor', to: '/monitor', icon: IconGrid },
 ]
 
-export default function Sidebar({ page, onToggle }) {
+export default function Sidebar({ page, onToggle, collapsed }) {
   const { role, session } = useApp()
   const initials = session.name.split(' ').map((w) => w[0]).slice(0, 2).join('')
+  const activeKat = new URLSearchParams(window.location.hash.split('?')[1] || '').get('kat')
+  // Open the group when you are already inside it; otherwise remember
+  // whatever the user last chose.
+  const [openGroup, setOpenGroup] = useState(page === 'jobs' || page === 'job' || page === 'form')
 
   return (
     <nav className="sidebar" aria-label="Primary">
@@ -21,7 +34,7 @@ export default function Sidebar({ page, onToggle }) {
         <button className="sidebar-toggle" onClick={onToggle} aria-label="Hide or show sidebar" title="Hide / show menu">
           <span className="sidebar-logo"><BrandMark size={19} color="#fff" /></span>
           <span className="brand-word">Quality Control</span>
-          <span className="sidebar-toggle-ico"><IconMenu size={16} /></span>
+          <span className="sidebar-toggle-ico"><IconPanel size={16} /></span>
         </button>
       </div>
 
@@ -31,11 +44,38 @@ export default function Sidebar({ page, onToggle }) {
           const active = page === n.id || (n.id === 'jobs' && (page === 'job' || page === 'form'))
           return (
             <li key={n.id}>
-              <button className={`nav-item${active ? ' active' : ''}`} onClick={() => navigate(n.to)}
+              <button className={`nav-item${active ? ' active' : ''}`}
+                onClick={() => { navigate(n.to); if (n.sub) setOpenGroup(true) }}
                 aria-current={active ? 'page' : undefined} title={n.label}>
                 <span className="nav-ico"><n.icon size={18} /></span>
                 <span className="nav-label">{n.label}</span>
+                {n.sub && !collapsed && (
+                  <span
+                    className={`nav-caret${openGroup ? ' open' : ''}`}
+                    role="button" tabIndex={0}
+                    aria-label={openGroup ? `Collapse ${n.label}` : `Expand ${n.label}`}
+                    aria-expanded={openGroup}
+                    onClick={(e) => { e.stopPropagation(); setOpenGroup((v) => !v) }}
+                    onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); e.stopPropagation(); setOpenGroup((v) => !v) } }}
+                  ><IconChevronD size={13} /></span>
+                )}
               </button>
+              {n.sub && !collapsed && openGroup && (
+                <ul className="nav-sub">
+                  {n.sub.map((sItem) => {
+                    const on = active && activeKat === sItem.kat
+                    return (
+                      <li key={sItem.kat}>
+                        <button className={`nav-subitem${on ? ' active' : ''}`}
+                          aria-current={on ? 'page' : undefined}
+                          onClick={() => navigate(`/jobs?kat=${encodeURIComponent(sItem.kat)}`)}>
+                          {sItem.label}
+                        </button>
+                      </li>
+                    )
+                  })}
+                </ul>
+              )}
             </li>
           )
         })}

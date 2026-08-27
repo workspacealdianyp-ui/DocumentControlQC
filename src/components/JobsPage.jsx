@@ -3,16 +3,22 @@ import { useApp, navigate } from '../App.jsx'
 import { buildContext, jobProgress, fmtDate } from '../lib/status.js'
 import { IconSearch } from './Icons.jsx'
 
-export default function JobsPage() {
+export default function JobsPage({ kat }) {
   const { jobs, tick } = useApp()
   const [q, setQ] = useState('')
   const [limit, setLimit] = useState(80)
   const ctx = useMemo(() => buildContext(), [tick])
 
   const ql = q.trim().toLowerCase()
+  // The sidebar's Jobs sub-items pass a `kategori` through the hash, so
+  // the narrowed set is a real, linkable view rather than a UI-only mode.
+  const scoped = kat ? jobs.filter((j) => j.kategori === kat) : jobs
+  // Show the readable name, not the code the data stores it under.
+  const KAT_LABEL = { SUPEQ: 'Support Equipment', TRAILER: 'Trailer', 'NON TRAILER': 'Non Trailer' }
+  const katLabel = kat ? (KAT_LABEL[kat] || kat) : null
   const filtered = ql
-    ? jobs.filter((j) => `${j.jobNo} ${j.wbsNo} ${j.arasSN} ${j.customerName} ${j.productDesc} ${j.type}`.toLowerCase().includes(ql))
-    : jobs
+    ? scoped.filter((j) => `${j.jobNo} ${j.wbsNo} ${j.arasSN} ${j.customerName} ${j.productDesc} ${j.type}`.toLowerCase().includes(ql))
+    : scoped
 
   return (
     <div className="page">
@@ -20,7 +26,7 @@ export default function JobsPage() {
         <IconSearch size={16} />
         <input placeholder="Search jobs…" value={q} onChange={(e) => { setQ(e.target.value); setLimit(80) }} />
       </div>
-      <p className="page-sub" style={{ marginBottom: 12 }}>{filtered.length} of {jobs.length} jobs. Tap a row for detail &amp; forms</p>
+      <p className="page-sub" style={{ marginBottom: 12 }}>{filtered.length} of {scoped.length} jobs{katLabel ? ` in ${katLabel}` : ''}. Tap a row for detail &amp; forms</p>
 
       <div className="card table-card table-scroll">
         <table className="data-table">

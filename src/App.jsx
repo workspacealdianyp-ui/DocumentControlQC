@@ -115,13 +115,13 @@ export default function App() {
     <AppContext.Provider value={ctxValue}>
       <AppBackground />
       <div className={`shell${sideMin ? ' side-min' : ''}`}>
-        <Sidebar page={route.page} onToggle={toggleSidebar} />
+        <Sidebar page={route.page} onToggle={toggleSidebar} collapsed={sideMin} />
         <div className="main">
           <FloatingActions route={route} />
           <main className="content" key={route.page + (route.jobNo || '') + (route.formKey || '')}>
             {route.page === 'home' && <Home />}
             {route.page === 'monitor' && <Dashboard />}
-            {route.page === 'jobs' && <JobsPage />}
+            {route.page === 'jobs' && <JobsPage kat={route.query.kat} />}
             {route.page === 'job' && <JobDetail job={job} />}
             {route.page === 'form' && <FormView job={job} formKey={route.formKey} query={route.query} />}
             {route.page === 'reports' && <Reports query={route.query} />}
