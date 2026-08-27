@@ -1,10 +1,10 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { dimRowStatus, dimDeviation } from '../data/formSchemas.js'
 import { MR } from '../lib/compute.js'
 import { fmtDate } from '../lib/status.js'
 import { buildResume } from '../lib/resume.js'
-import { IconBack, IconPrint, IconPen } from './Icons.jsx'
+import { IconBack, IconPrint, IconPen, IconChevronR } from './Icons.jsx'
 
 // read-only detail view of a submitted/approved report — shows the entered data, never edits
 const lbl = (f, v) => (typeof f.label === 'function' ? f.label(v) : f.label)
@@ -135,11 +135,42 @@ function DetailSignatures({ fields, v }) {
   )
 }
 
+const VIEW_KEY = 'qc.detailView'
+
 export default function ReportDetail({ schema, report, job, deliverable, status, role, onBack, onPdf, onApprove, onEdit }) {
   const v = report.values || {}
   const [zoom, setZoom] = useState(null)
   const secs = schema.sections.filter((s) => !s.noPrint && s.id !== 'setup')
   const r = buildResume(schema, report, job)
+
+  // Read the whole record at once, or one section at a time. Which one you
+  // prefer depends on whether you are auditing or scanning, so it is a
+  // setting rather than a decision made for you.
+  const [view, setView] = useState(() => {
+    try { return localStorage.getItem(VIEW_KEY) === 'paged' ? 'paged' : 'all' } catch { return 'all' }
+  })
+  const setViewMode = (mode) => {
+    setView(mode)
+    try { localStorage.setItem(VIEW_KEY, mode) } catch { /* private mode */ }
+  }
+  const [page, setPage] = useState(0)
+  const at = Math.min(page, secs.length - 1)
+  useEffect(() => { setPage(0) }, [report.id])
+
+  // The bar condenses once the hero has scrolled away. An observer on a
+  // sentinel does this without listening to every scroll frame.
+  const sentinel = useRef(null)
+  const [stuck, setStuck] = useState(false)
+  useEffect(() => {
+    const el = sentinel.current
+    if (!el || typeof IntersectionObserver === 'undefined') return
+    const io = new IntersectionObserver(([e]) => setStuck(!e.isIntersecting), { rootMargin: '-4px 0px 0px 0px' })
+    io.observe(el)
+    return () => io.disconnect()
+  }, [])
+
+  const shown = view === 'paged' ? [secs[at]] : secs
+  const statusLabel = status === 'approved' ? 'Approved' : 'Submitted'
 
   return (
     <div className="page form-page form-page-pad">
@@ -151,7 +182,7 @@ export default function ReportDetail({ schema, report, job, deliverable, status,
           <p>{v.reportId} · {deliverable} · {job.jobNo} · {job.productDesc}</p>
         </div>
         <div className="form-hero-right">
-          <span className={`report-state state-${status}`}>{status === 'approved' ? 'Approved' : 'Submitted'}</span>
+          <span className={`report-state state-${status}`}>{statusLabel}</span>
           {role.canOverride && status === 'submitted' && <button className="btn btn-primary btn-sm" onClick={onApprove}>Approve</button>}
           <button className="btn btn-secondary btn-sm" onClick={onPdf}><IconPrint size={13} /> PDF Report</button>
           {role.canOverride && <button className="btn btn-ghost btn-sm" onClick={onEdit}><IconPen size={13} /> Edit</button>}
@@ -163,10 +194,46 @@ export default function ReportDetail({ schema, report, job, deliverable, status,
         <span className="detail-verdict-text">{r.headline}</span>
       </div>
 
+      {/* Sentinel: once this leaves the viewport the bar below has stuck. */}
+      <div ref={sentinel} aria-hidden="true" className="detail-sentinel" />
+
+      <div className={`detail-bar${stuck ? ' is-stuck' : ''}`}>
+        <div className="detail-bar-id">
+          <strong>{v.reportId}</strong>
+          <span className={`report-state state-${status}`}>{statusLabel}</span>
+        </div>
+        <div className="detail-bar-tools">
+          {view === 'paged' && (
+            <div className="detail-pager">
+              <button className="btn btn-ghost btn-sm" onClick={() => setPage(at - 1)} disabled={at === 0}
+                aria-label="Previous section"><IconChevronR size={14} style={{ transform: 'rotate(180deg)' }} /></button>
+              <span className="detail-pager-at">{at + 1} / {secs.length}</span>
+              <button className="btn btn-ghost btn-sm" onClick={() => setPage(at + 1)} disabled={at === secs.length - 1}
+                aria-label="Next section"><IconChevronR size={14} /></button>
+            </div>
+          )}
+          <div className="detail-viewsw" role="group" aria-label="Section view">
+            <button className={view === 'all' ? 'on' : ''} aria-pressed={view === 'all'}
+              onClick={() => setViewMode('all')}>All</button>
+            <button className={view === 'paged' ? 'on' : ''} aria-pressed={view === 'paged'}
+              onClick={() => setViewMode('paged')}>Paged</button>
+          </div>
+        </div>
+      </div>
+
+      {view === 'paged' && (
+        <nav className="detail-tabs" aria-label="Sections">
+          {secs.map((s, i) => (
+            <button key={s.id} className={i === at ? 'on' : ''} aria-current={i === at ? 'true' : undefined}
+              onClick={() => setPage(i)}>{s.title}</button>
+          ))}
+        </nav>
+      )}
+
       <div className="detail-sections">
-        {secs.map((s) => (
+        {shown.map((s) => (
           <section className="card detail-card" key={s.id}>
-            <h3>{s.title}{s.subtitle ? <small> — {s.subtitle}</small> : null}</h3>
+            <h3>{s.title}{s.subtitle ? <small>{s.subtitle}</small> : null}</h3>
             {s.id === 'approvals' ? <DetailSignatures fields={s.fields} v={v} />
               : s.type === 'recording' ? <DetailRecording report={report} />
                 : s.type === 'results' ? <DetailResults sec={s} report={report} />

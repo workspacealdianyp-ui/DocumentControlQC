@@ -1520,3 +1520,100 @@ input:focus-visible, select:focus-visible, textarea:focus-visible {
 /* The parent list rules are now scoped to the direct child, so the
    submenu declares its own list reset. */
 .nav-sub { list-style: none; margin: 3px 0 4px; }
+
+/* ═══════════════════════════════════════════════════════════════
+   REPORT DETAIL: sticky bar, view switch, section tabs
+   ═══════════════════════════════════════════════════════════════ */
+
+.detail-sentinel { height: 1px; margin: 0; }
+
+/* The bar carries what you need while reading a long record: which
+   document this is and whether it is approved. It sits inline at the
+   top of the page and pins once the hero scrolls past. */
+.detail-bar {
+  position: sticky; top: 0; z-index: var(--z-nav);
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  flex-wrap: wrap;
+  margin: 14px 0 10px;
+  padding: 9px 12px;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  background: var(--paper);
+  transition: background-color .16s ease, border-color .16s ease, box-shadow .16s ease;
+}
+.detail-bar.is-stuck {
+  background: var(--surface);
+  border-color: var(--line);
+  box-shadow: 0 1px 0 var(--line);
+}
+
+.detail-bar-id { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.detail-bar-id strong {
+  font-family: var(--mono); font-size: 12.5px; font-weight: 500;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.detail-bar-tools { display: flex; align-items: center; gap: 10px; }
+
+/* All vs Paged. Two states, so a switch rather than a dropdown. */
+.detail-viewsw { display: inline-flex; border: 1px solid var(--line); border-radius: 5px; overflow: hidden; }
+.detail-viewsw button {
+  border: 0; background: var(--surface);
+  padding: 5px 11px;
+  font-family: var(--sans); font-size: 11.5px; font-weight: 350;
+  color: var(--text-2);
+  transition: background-color .12s ease, color .12s ease;
+}
+.detail-viewsw button + button { border-left: 1px solid var(--line); }
+.detail-viewsw button:hover { background: var(--surface-2); color: var(--text); }
+.detail-viewsw button.on { background: var(--ink); color: #fff; font-weight: 450; }
+
+.detail-pager { display: inline-flex; align-items: center; gap: 2px; }
+.detail-pager-at {
+  font-family: var(--mono); font-size: 11.5px; color: var(--text-2);
+  min-width: 42px; text-align: center; font-variant-numeric: tabular-nums;
+}
+
+/* Section tabs, shown only in paged mode. They scroll sideways rather
+   than wrapping, so the bar keeps one line whatever the form. */
+.detail-tabs {
+  display: flex; gap: 4px;
+  margin: 0 0 12px;
+  padding-bottom: 6px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  border-bottom: 1px solid var(--line);
+}
+.detail-tabs::-webkit-scrollbar { display: none; }
+.detail-tabs button {
+  flex: 0 0 auto;
+  border: 0; background: none;
+  padding: 6px 10px;
+  border-radius: 5px;
+  font-family: var(--sans); font-size: 12px; font-weight: 350;
+  color: var(--text-2); white-space: nowrap;
+  transition: background-color .12s ease, color .12s ease;
+}
+.detail-tabs button:hover { background: var(--surface-2); color: var(--text); }
+.detail-tabs button.on { background: var(--surface-2); color: var(--text); font-weight: 450; }
+
+/* Cards: tighten the rhythm so a long record reads as one document. */
+.detail-sections { display: flex; flex-direction: column; gap: 12px; }
+.detail-card { padding: 16px 18px; }
+.detail-card h3 { margin-bottom: 12px; font-size: 13.5px; }
+
+@media (max-width: 720px) {
+  .detail-bar { padding: 8px 10px; }
+  .detail-bar-tools { width: 100%; justify-content: space-between; }
+}
+
+/* The sticky bar and the floating bell both sat at --z-nav and the bar
+   ran underneath the bell. The bell wins, and the bar reserves room so
+   its controls never slide under it. */
+.float-actions { z-index: calc(var(--z-nav) + 1); }
+@media (min-width: 1024px) { .detail-bar.is-stuck { padding-right: 72px; } }
+
+/* `text-transform: uppercase` turns the micro sign into a capital Mu,
+   so "Pts (µm)" was rendering as "PTS (MM)" and reading as millimetres.
+   Table headers keep their own case; size and colour carry the
+   hierarchy instead. */
+.detail-table th { text-transform: none; letter-spacing: 0.01em; font-size: 11px; font-weight: 600; }

@@ -83,7 +83,7 @@ export function buildResume(schema, report, job) {
 
   // ── verdict line ──
   const released = verdict === 'Accept'
-  const headline = released ? 'Acceptable — conforms to requirements' : 'Non-conforming — see findings'
+  const headline = released ? 'Acceptable. Conforms to requirements' : 'Non-conforming. See findings'
 
   const dateStr = v.inspDate ? new Date(v.inspDate).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) : '—'
   let paragraph = `On ${dateStr}, ${unit} owned by ${customer} was inspected and tested by ${COMPANY.legalName} (${COMPANY.department}). `
