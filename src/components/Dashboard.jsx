@@ -1,11 +1,12 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { Fragment, useEffect, useMemo, useRef, useState } from 'react'
 import { useApp, navigate } from '../App.jsx'
 import { FORM_SCHEMAS } from '../data/formSchemas.js'
 import { getReports, approveReport, deleteReport } from '../lib/store.js'
 import { fmtDate } from '../lib/status.js'
 import { reportResult } from './SummaryReport.jsx'
 import { StateBadge } from './StatusChip.jsx'
-import { IconSearch, IconChevronR, IconApprove, IconTrash, IconPrint, IconPlus, IconXCircle } from './Icons.jsx'
+import { IconChevronR, IconApprove, IconTrash, IconPrint, IconPlus, IconXCircle, IconFilter, IconGroup } from './Icons.jsx'
+import { SearchField, ToolButton, PopCheck, PopRadio, PopFooter } from './RegisterBar.jsx'
 import { useStuck } from '../lib/sticky.js'
 
 /* Monitoring is a register of documents, so it is laid out as one: a
@@ -22,6 +23,15 @@ const TABS = [
 ]
 
 const PAGE_SIZES = [10, 15, 25, 50]
+
+const VERDICTS = [{ id: 'Accept', label: 'Accept' }, { id: 'Reject', label: 'Reject' }]
+
+const GROUPS = [
+  { id: 'none', label: 'No grouping', of: null },
+  { id: 'job', label: 'Job', of: (r) => r.jobNo || '—' },
+  { id: 'form', label: 'Form', of: (r) => FORM_SCHEMAS[r.formKey]?.title || '—' },
+  { id: 'deliverable', label: 'Deliverable', of: (r) => r.deliverable || '—' },
+]
 
 const matchTab = (r, tab) =>
   tab === 'all' ? true
@@ -64,6 +74,9 @@ export default function Dashboard() {
   const [page, setPage] = useState(1)
   const [sort, setSort] = useState({ key: 'updatedAt', dir: 'desc' })
   const [picked, setPicked] = useState(() => new Set())
+  const [forms, setForms] = useState(() => new Set())
+  const [verdicts, setVerdicts] = useState(() => new Set())
+  const [group, setGroup] = useState('none')
   const [sentinel, stuck] = useStuck()
 
   const reports = useMemo(() => getReports(), [tick])
@@ -73,16 +86,38 @@ export default function Dashboard() {
     () => Object.fromEntries(TABS.map((t) => [t.id, reports.filter((r) => matchTab(r, t.id)).length])),
     [reports])
 
-  const rows = useMemo(() => {
+  // Tab and search, before the tool filters: the counts in the filter
+  // panel have to stay put as you tick boxes.
+  const scoped = useMemo(() => {
     const ql = q.trim().toLowerCase()
-    let out = reports.filter((r) => matchTab(r, tab))
-    if (ql) {
-      out = out.filter((r) => {
-        const job = jobIndex.get(r.jobNo)
-        return `${r.reportId} ${r.jobNo} ${r.deliverable} ${job?.customerName || ''} ${job?.productDesc || ''}`
-          .toLowerCase().includes(ql)
-      })
+    const base = reports.filter((r) => matchTab(r, tab))
+    if (!ql) return base
+    return base.filter((r) => {
+      const job = jobIndex.get(r.jobNo)
+      return `${r.reportId} ${r.jobNo} ${r.deliverable} ${job?.customerName || ''} ${job?.productDesc || ''}`
+        .toLowerCase().includes(ql)
+    })
+  }, [reports, tab, q, jobIndex])
+
+  const formList = useMemo(() => {
+    const m = new Map()
+    for (const r of scoped) {
+      const k = r.formKey
+      m.set(k, { key: k, label: FORM_SCHEMAS[k]?.title || k, n: (m.get(k)?.n || 0) + 1 })
     }
+    return [...m.values()].sort((a, b) => a.label.localeCompare(b.label))
+  }, [scoped])
+
+  const verdictCounts = useMemo(() => {
+    const m = { Accept: 0, Reject: 0 }
+    for (const r of scoped) m[reportResult(r) === 'Reject' ? 'Reject' : 'Accept']++
+    return m
+  }, [scoped])
+
+  const rows = useMemo(() => {
+    let out = scoped
+    if (forms.size) out = out.filter((r) => forms.has(r.formKey))
+    if (verdicts.size) out = out.filter((r) => verdicts.has(reportResult(r) === 'Reject' ? 'Reject' : 'Accept'))
     const val = (r) => {
       if (sort.key === 'reportId') return r.reportId || ''
       if (sort.key === 'job') return r.jobNo || ''
@@ -90,11 +125,18 @@ export default function Dashboard() {
       if (sort.key === 'status') return r.status || ''
       return r.updatedAt || ''
     }
+    const of = GROUPS.find((g) => g.id === group)?.of
     return [...out].sort((a, b) => {
+      // The group key outranks the sort, or a group ends up scattered
+      // down the list by whatever column you sorted on.
+      if (of) {
+        const ga = of(a), gb = of(b)
+        if (ga !== gb) return ga < gb ? -1 : 1
+      }
       const x = val(a), y = val(b)
       return (x < y ? -1 : x > y ? 1 : 0) * (sort.dir === 'asc' ? 1 : -1)
     })
-  }, [reports, tab, q, sort, jobIndex])
+  }, [scoped, sort, forms, verdicts, group])
 
   const pages = Math.max(1, Math.ceil(rows.length / size))
   const at = Math.min(page, pages)
@@ -102,7 +144,7 @@ export default function Dashboard() {
 
   // Any change to what is being listed sends you back to the first page,
   // otherwise you land on an empty page you did not ask for.
-  useEffect(() => { setPage(1); setPicked(new Set()) }, [tab, q, size])
+  useEffect(() => { setPage(1); setPicked(new Set()) }, [tab, q, size, forms, verdicts, group])
 
   const toggleSort = (key) =>
     setSort((s) => ({ key, dir: s.key === key && s.dir === 'asc' ? 'desc' : 'asc' }))
@@ -149,10 +191,39 @@ export default function Dashboard() {
 
       <div className={`card mon-card${stuck ? ' is-stuck' : ''}`}>
         <div className="mon-bar">
-          <div className="mon-search">
-            <IconSearch size={15} />
-            <input value={q} onChange={(e) => setQ(e.target.value)}
-              placeholder="Search report, job, customer…" aria-label="Search reports" />
+          <div className="rb-group">
+            <SearchField value={q} onChange={setQ} label="Search reports"
+              placeholder="Search report, job, customer…" />
+            <ToolButton icon={IconFilter} label="Filter" count={forms.size + verdicts.size}>
+              {() => (
+                <>
+                  <div className="rb-pop-legend">Result</div>
+                  {VERDICTS.map((v) => (
+                    <PopCheck key={v.id} label={v.label} on={verdicts.has(v.id)} hint={verdictCounts[v.id]}
+                      onChange={(on) => setVerdicts((s0) => {
+                        const n = new Set(s0); on ? n.add(v.id) : n.delete(v.id); return n
+                      })} />
+                  ))}
+                  <div className="rb-pop-legend">Form</div>
+                  {formList.map((f) => (
+                    <PopCheck key={f.key} label={f.label} on={forms.has(f.key)} hint={f.n}
+                      onChange={(on) => setForms((s0) => {
+                        const n = new Set(s0); on ? n.add(f.key) : n.delete(f.key); return n
+                      })} />
+                  ))}
+                  <PopFooter>
+                    <button className="btn btn-ghost btn-sm" disabled={!forms.size && !verdicts.size}
+                      onClick={() => { setForms(new Set()); setVerdicts(new Set()) }}>Clear</button>
+                  </PopFooter>
+                </>
+              )}
+            </ToolButton>
+            <ToolButton icon={IconGroup} label="Group rows" count={group === 'none' ? 0 : 1}>
+              {({ close }) => GROUPS.map((g) => (
+                <PopRadio key={g.id} label={g.label} on={group === g.id}
+                  onChange={() => { setGroup(g.id); close() }} />
+              ))}
+            </ToolButton>
           </div>
           <div className="mon-showing">
             <label>Showing
@@ -186,11 +257,23 @@ export default function Dashboard() {
               </tr>
             </thead>
             <tbody>
-              {shown.map((r) => {
+              {shown.map((r, i) => {
                 const job = jobIndex.get(r.jobNo)
                 const verdict = reportResult(r)
+                const of = GROUPS.find((g) => g.id === group)?.of
+                const key = of ? of(r) : null
+                const first = of && (i === 0 || of(shown[i - 1]) !== key)
                 return (
-                  <tr key={r.id} onClick={() => open(r)} className={picked.has(r.id) ? 'is-picked' : ''}>
+                  <Fragment key={r.id}>
+                  {first && (
+                    <tr className="mon-grouprow">
+                      <td colSpan={8}>
+                        <span>{key}</span>
+                        <small>{rows.filter((x) => of(x) === key).length}</small>
+                      </td>
+                    </tr>
+                  )}
+                  <tr onClick={() => open(r)} className={picked.has(r.id) ? 'is-picked' : ''}>
                     <td className="mon-check" onClick={(e) => e.stopPropagation()}>
                       <input type="checkbox" checked={picked.has(r.id)}
                         aria-label={`Select ${r.reportId}`}
@@ -227,11 +310,14 @@ export default function Dashboard() {
                         onDelete={() => { deleteReport(r.id); refresh(); notify(`${r.reportId} deleted`) }} />
                     </td>
                   </tr>
+                  </Fragment>
                 )
               })}
               {!shown.length && (
                 <tr><td colSpan={8} className="mon-empty">
-                  {q ? `No report matches “${q}”.` : 'No report in this status yet.'}
+                  {q ? `No report matches “${q}”.`
+                     : (forms.size || verdicts.size) ? 'Nothing matches that filter.'
+                     : 'No report in this status yet.'}
                 </td></tr>
               )}
             </tbody>

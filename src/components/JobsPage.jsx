@@ -1,7 +1,8 @@
-import { useEffect, useMemo, useState } from 'react'
+import { Fragment, useEffect, useMemo, useState } from 'react'
 import { useApp, navigate } from '../App.jsx'
 import { buildContext, jobProgress, fmtDate, exportMatrixCsv } from '../lib/status.js'
-import { IconSearch, IconChevronR, IconDownload, STATUS_ICONS } from './Icons.jsx'
+import { IconChevronR, IconDownload, IconFilter, IconGroup, STATUS_ICONS } from './Icons.jsx'
+import { SearchField, ToolButton, PopCheck, PopRadio, PopFooter } from './RegisterBar.jsx'
 import { useStuck } from '../lib/sticky.js'
 
 /* Jobs is a register, laid out like Monitoring so the app has one table
@@ -17,6 +18,23 @@ const KATS = [
 ]
 
 const PAGE_SIZES = [10, 15, 25, 50]
+
+const STATES = [
+  { id: 'done', label: 'Complete' },
+  { id: 'inprogress', label: 'In progress' },
+  { id: 'overdue', label: 'Overdue' },
+  { id: 'notstarted', label: 'Not started' },
+  { id: 'na', label: 'N/A' },
+]
+
+// Grouping sorts by the key first, then the table draws a header row
+// wherever the value changes, so a group stays whole on the page.
+const GROUPS = [
+  { id: 'none', label: 'No grouping', of: null },
+  { id: 'customer', label: 'Customer', of: (j) => j.customerName || '—' },
+  { id: 'kategori', label: 'Category', of: (j) => j.kategori || '—' },
+  { id: 'type', label: 'Type', of: (j) => j.type || '—' },
+]
 
 // The type column used to repeat the product description on nearly
 // every row ("BULL BAR" over "BULL BAR"). Show the qualifier only when
@@ -44,6 +62,8 @@ export default function JobsPage({ kat }) {
   const [size, setSize] = useState(15)
   const [page, setPage] = useState(1)
   const [sort, setSort] = useState({ key: 'jobNo', dir: 'asc' })
+  const [states, setStates] = useState(() => new Set())
+  const [group, setGroup] = useState('none')
   const [sentinel, stuck] = useStuck()
 
   const ctx = useMemo(() => buildContext(), [tick])
@@ -54,13 +74,26 @@ export default function JobsPage({ kat }) {
     KATS.map((k) => [k.kat || 'all', k.kat ? jobs.filter((j) => j.kategori === k.kat).length : jobs.length])
   ), [jobs])
 
-  const rows = useMemo(() => {
+  // Category and search, before the status filter: the counts in the
+  // filter panel have to stay put as you tick boxes, or they read as a
+  // moving target.
+  const scoped = useMemo(() => {
     const ql = q.trim().toLowerCase()
-    let out = kat ? jobs.filter((j) => j.kategori === kat) : jobs
-    if (ql) {
-      out = out.filter((j) => `${j.jobNo} ${j.wbsNo} ${j.arasSN} ${j.customerName} ${j.productDesc} ${j.type}`
-        .toLowerCase().includes(ql))
-    }
+    const base = kat ? jobs.filter((j) => j.kategori === kat) : jobs
+    if (!ql) return base
+    return base.filter((j) => `${j.jobNo} ${j.wbsNo} ${j.arasSN} ${j.customerName} ${j.productDesc} ${j.type}`
+      .toLowerCase().includes(ql))
+  }, [jobs, kat, q])
+
+  const stateCounts = useMemo(() => {
+    const m = {}
+    for (const j of scoped) { const id = jobState(progress.get(j.jobNo)).id; m[id] = (m[id] || 0) + 1 }
+    return m
+  }, [scoped, progress])
+
+  const rows = useMemo(() => {
+    let out = scoped
+    if (states.size) out = out.filter((j) => states.has(jobState(progress.get(j.jobNo)).id))
     const val = (j) => {
       if (sort.key === 'product') return j.productDesc || ''
       if (sort.key === 'customer') return j.customerName || ''
@@ -72,17 +105,24 @@ export default function JobsPage({ kat }) {
       }
       return j.jobNo || ''
     }
+    const of = GROUPS.find((g) => g.id === group)?.of
     return [...out].sort((a, b) => {
+      // The group key outranks the sort, otherwise a group would be
+      // scattered down the list by whatever column you sorted on.
+      if (of) {
+        const ga = of(a), gb = of(b)
+        if (ga !== gb) return ga < gb ? -1 : 1
+      }
       const x = val(a), y = val(b)
       return (x < y ? -1 : x > y ? 1 : 0) * (sort.dir === 'asc' ? 1 : -1)
     })
-  }, [jobs, kat, q, sort, progress])
+  }, [scoped, sort, progress, states, group])
 
   const pages = Math.max(1, Math.ceil(rows.length / size))
   const at = Math.min(page, pages)
   const shown = rows.slice((at - 1) * size, at * size)
 
-  useEffect(() => { setPage(1) }, [kat, q, size])
+  useEffect(() => { setPage(1) }, [kat, q, size, states, group])
 
   const toggleSort = (key) =>
     setSort((s) => ({ key, dir: s.key === key && s.dir === 'asc' ? 'desc' : 'asc' }))
@@ -116,10 +156,32 @@ export default function JobsPage({ kat }) {
 
       <div className={`card mon-card${stuck ? ' is-stuck' : ''}`}>
         <div className="mon-bar">
-          <div className="mon-search">
-            <IconSearch size={15} />
-            <input value={q} onChange={(e) => setQ(e.target.value)}
-              placeholder="Search job, WBS, serial, customer…" aria-label="Search jobs" />
+          <div className="rb-group">
+            <SearchField value={q} onChange={setQ} label="Search jobs"
+              placeholder="Search job, WBS, serial, customer…" />
+            <ToolButton icon={IconFilter} label="Filter by status" count={states.size}>
+              {() => (
+                <>
+                  {STATES.map((st) => (
+                    <PopCheck key={st.id} label={st.label} on={states.has(st.id)}
+                      hint={stateCounts[st.id] || 0}
+                      onChange={(v) => setStates((s0) => {
+                        const n = new Set(s0); v ? n.add(st.id) : n.delete(st.id); return n
+                      })} />
+                  ))}
+                  <PopFooter>
+                    <button className="btn btn-ghost btn-sm" disabled={!states.size}
+                      onClick={() => setStates(new Set())}>Clear</button>
+                  </PopFooter>
+                </>
+              )}
+            </ToolButton>
+            <ToolButton icon={IconGroup} label="Group rows" count={group === 'none' ? 0 : 1}>
+              {({ close }) => GROUPS.map((g) => (
+                <PopRadio key={g.id} label={g.label} on={group === g.id}
+                  onChange={() => { setGroup(g.id); close() }} />
+              ))}
+            </ToolButton>
           </div>
           <div className="mon-showing">
             <label>Showing
@@ -149,12 +211,24 @@ export default function JobsPage({ kat }) {
               </tr>
             </thead>
             <tbody>
-              {shown.map((job) => {
+              {shown.map((job, i) => {
                 const p = progress.get(job.jobNo)
+                const of = GROUPS.find((g) => g.id === group)?.of
+                const key = of ? of(job) : null
+                const first = of && (i === 0 || of(shown[i - 1]) !== key)
                 const pct = p.applicable ? Math.round((p.done / p.applicable) * 100) : 0
                 const st = jobState(p)
                 return (
-                  <tr key={job.jobNo} tabIndex={0}
+                  <Fragment key={job.jobNo}>
+                  {first && (
+                    <tr className="mon-grouprow">
+                      <td colSpan={7}>
+                        <span>{key}</span>
+                        <small>{rows.filter((r) => of(r) === key).length}</small>
+                      </td>
+                    </tr>
+                  )}
+                  <tr tabIndex={0}
                     onClick={() => navigate(`/job/${job.jobNo}`)}
                     onKeyDown={(e) => e.key === 'Enter' && navigate(`/job/${job.jobNo}`)}>
                     <td>
@@ -184,11 +258,14 @@ export default function JobsPage({ kat }) {
                       </span>
                     </td>
                   </tr>
+                  </Fragment>
                 )
               })}
               {!shown.length && (
                 <tr><td colSpan={7} className="mon-empty">
-                  {q ? `No job matches “${q}”.` : 'No job in this category.'}
+                  {q ? `No job matches “${q}”.`
+                     : states.size ? 'No job has that status here.'
+                     : 'No job in this category.'}
                 </td></tr>
               )}
             </tbody>
