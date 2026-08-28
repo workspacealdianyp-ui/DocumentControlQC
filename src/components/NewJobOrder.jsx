@@ -11,6 +11,18 @@ import { IconBack, IconPlus, IconTrash, IconCheck, IconDoc, IconPen, IconCloudUp
 
 const blankUnit = () => ({ jobNo: '', wbsNo: '', unitNo: '', productDesc: '', type: '' })
 
+/* Declared here, not inside the screen. A component defined in a render
+   body is a brand-new component type on every render, so React unmounts
+   the old subtree and mounts a fresh one — which threw away the <input>
+   and its focus after every single keystroke. */
+const F = ({ label, children, hint }) => (
+  <label className="jo-field">
+    <span>{label}</span>
+    {children}
+    {hint && <small>{hint}</small>}
+  </label>
+)
+
 // The deliverables split by whether this build can actually fill them
 // in. Only the fillable ones are on by default, because those are the
 // forms we have; the rest are documents someone attaches by hand.
@@ -105,14 +117,6 @@ export default function NewJobOrder() {
   const toggle = (key) => setRequired((s) => {
     const n = new Set(s); n.has(key) ? n.delete(key) : n.add(key); return n
   })
-
-  const F = ({ label, children, hint }) => (
-    <label className="jo-field">
-      <span>{label}</span>
-      {children}
-      {hint && <small>{hint}</small>}
-    </label>
-  )
 
   return (
     <div className="page jo">

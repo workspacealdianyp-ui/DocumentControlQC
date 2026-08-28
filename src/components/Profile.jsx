@@ -6,6 +6,22 @@ import { getReports, syncReports } from '../lib/store.js'
 import { ncrReports, fmtDateTime } from '../lib/status.js'
 import { IconBack, IconCloudUp, IconCloudOff, IconGear, IconLogout } from './Icons.jsx'
 
+/* Module scope, not the render body: a component declared inside a render
+   is a new component type every time, so React throws away the old subtree
+   and mounts a fresh one on each keystroke or tick. */
+const SyncRow = ({ r, isOffline }) => (
+  <div className="sync-row">
+    <span className={`sync-ico ${isOffline ? 'off' : 'up'}`}>
+      {isOffline ? <IconCloudOff size={15} /> : <IconCloudUp size={15} />}
+    </span>
+    <span className="act-main">
+      <strong>{r.reportId}</strong>
+      <small>{FORM_SCHEMAS[r.formKey]?.title} · Job {r.jobNo} · {r.status}</small>
+    </span>
+    <span className="act-time">{isOffline ? 'offline' : fmtDateTime(r.syncedAt)}</span>
+  </div>
+)
+
 export default function Profile() {
   const { session, role, tick, refresh, notify, logout } = useApp()
 
@@ -23,19 +39,6 @@ export default function Profile() {
     refresh()
     notify(`${offline.length} report${offline.length === 1 ? '' : 's'} uploaded`)
   }
-
-  const SyncRow = ({ r, isOffline }) => (
-    <div className="sync-row">
-      <span className={`sync-ico ${isOffline ? 'off' : 'up'}`}>
-        {isOffline ? <IconCloudOff size={15} /> : <IconCloudUp size={15} />}
-      </span>
-      <span className="act-main">
-        <strong>{r.reportId}</strong>
-        <small>{FORM_SCHEMAS[r.formKey]?.title} · Job {r.jobNo} · {r.status}</small>
-      </span>
-      <span className="act-time">{isOffline ? 'offline' : fmtDateTime(r.syncedAt)}</span>
-    </div>
-  )
 
   return (
     <div className="page form-page">
