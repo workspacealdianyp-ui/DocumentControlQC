@@ -13,7 +13,7 @@ const showField = (f, v) => (typeof f.showIf === 'function' ? f.showIf(v) : true
 const dval = (f, v, report) => {
   if (f.type === 'computed') return (f.compute ? f.compute(v, report) : '') || '—'
   if (f.type === 'sign') return v[f.id]?.name || '—'
-  if (f.type === 'date') return fmtDate(v[f.id] ?? f.default)
+  if (f.type === 'date' || f.fmt === 'date') return fmtDate(v[f.id] ?? f.default)
   const val = v[f.id] ?? f.default
   if (val === undefined || val === null || val === '') return '—'
   const unit = f.unitFrom ? (v[f.unitFrom] || '') : (f.unit || '')

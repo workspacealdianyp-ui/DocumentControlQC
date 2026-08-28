@@ -75,10 +75,10 @@ export function buildResume(schema, report, job) {
     const rej = rows.filter((r) => dimRowStatus(r) === 'Reject').length
     stats.push(
       { label: 'Dimensions', value: String(rows.length) },
-      { label: 'Out of Tol.', value: String(rej) },
+      { label: 'Out of Limit', value: String(rej) },
     )
     facts.push(`${rows.length} dimension${rows.length === 1 ? '' : 's'} were measured against the drawing`)
-    facts.push(rej === 0 ? 'and all fell within tolerance' : `with ${rej} dimension${rej === 1 ? '' : 's'} outside tolerance`)
+    facts.push(rej === 0 ? 'and all fell within their min–max limits' : `with ${rej} dimension${rej === 1 ? '' : 's'} outside the stated min–max limits`)
   }
 
   // ── verdict line ──

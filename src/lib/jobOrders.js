@@ -88,3 +88,19 @@ export const requiredFor = (job) =>
 // Every job number in play, so a new one cannot collide with a bundled
 // job or with another order.
 export const takenJobNos = () => new Set(allJobs().map((j) => String(j.jobNo)))
+
+/* The identity a report's first page shows.
+
+   One function, so the values are written the same way whether a report
+   is being created, loaded, or re-pointed at a different job. Nothing
+   here is typed by an inspector: the job order is the master record and
+   the report only quotes it. */
+export const jobIdentity = (job) => ({
+  jobNo: job?.jobNo || '',
+  poNo: job?.poNo || '',
+  wbsNo: job?.wbsNo || '',
+  jobDesc: job?.productDesc || '',
+  sn: job?.arasSN || job?.unitNo || '',
+  unit: job?.unitNo || job?.arasSN || '',
+  customer: job?.customerName || '',
+})

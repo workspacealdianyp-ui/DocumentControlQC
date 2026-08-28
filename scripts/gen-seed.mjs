@@ -133,8 +133,10 @@ for (const [key, schema] of Object.entries(FORM_SCHEMAS)) {
     // one in three carries a rejected line so the NCR path is visible
     const hasReject = n === 2
 
+    // page 1 is the job's identity, quoted from the job itself
     const values = { reportId: `MFG/${schema.code}/${job.jobNo}/0${n + 1}`, inspDate: date, inspector,
-      jobNo: job.jobNo, jobDesc: job.productDesc, sn: job.arasSN, customer: job.customerName }
+      jobNo: job.jobNo, poNo: job.poNo || '', wbsNo: job.wbsNo || '', jobDesc: job.productDesc,
+      sn: job.arasSN, unit: job.unitNo || job.arasSN || '', customer: job.customerName }
     const results = [], readings = [], coats = [], photos = []
 
     for (const sec of schema.sections) {
@@ -154,8 +156,11 @@ for (const [key, schema] of Object.entries(FORM_SCHEMAS)) {
           if (bad) force.remark = 'Indication exceeds acceptance. NCR raised.'
           if (sec.autoJudge === 'dim') {
             const nominal = +dec(200, 2400, 0)
-            Object.assign(force, { nominal: String(nominal), tolerance: '±3',
-              actual: String((nominal + (bad ? 7 : 1)).toFixed(0)) })
+            Object.assign(force, {
+              nominal: String(nominal),
+              min: String(nominal - 3), max: String(nominal + 3),
+              actual: String((nominal + (bad ? 7 : 1)).toFixed(0)),
+            })
           }
           results.push(buildRow(sec.columns || [], ctx, force))
         }

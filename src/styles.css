@@ -503,9 +503,10 @@ td.th-action { display: flex; gap: 6px; justify-content: flex-end; align-items: 
 .readonly-note, .locked-note, .grid-err { background: var(--inprog-bg); border: 1px solid var(--inprog); color: var(--inprog); font-size: 13px; font-weight: 500; border-radius: var(--r); padding: 11px 14px; margin-bottom: 14px; }
 .grid-err { background: var(--overdue-bg); border-color: var(--overdue); color: var(--overdue); }
 
-/* two-column body + right stepper */
+/* two-column body + right rail (sections, then actions) */
 .form-body { display: grid; grid-template-columns: 1fr; gap: 16px; align-items: start; }
-@media (min-width: 980px) { .form-body { grid-template-columns: minmax(0,1fr) 240px; } .form-stepper { position: sticky; top: 20px; } }
+.form-rail { display: flex; flex-direction: column; gap: 12px; order: 2; min-width: 0; }
+@media (min-width: 980px) { .form-body { grid-template-columns: minmax(0,1fr) 248px; } .form-rail { position: sticky; top: 20px; } }
 .form-main { min-width: 0; }
 .form-section { margin-bottom: 14px; }
 .form-section-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--line); }
@@ -513,8 +514,8 @@ td.th-action { display: flex; gap: 6px; justify-content: flex-end; align-items: 
 .form-section-head small { color: var(--text-3); font-size: 12px; }
 .step-count { font-family: var(--mono); font-size: 11px; font-weight: 500; color: var(--text-3); background: var(--surface-2); border: 1px solid var(--line); border-radius: 3px; padding: 4px 9px; white-space: nowrap; flex-shrink: 0; }
 
-/* vertical stepper */
-.form-stepper { padding: 14px 12px; order: 2; }
+/* vertical stepper — first in the rail, the actions sit under it */
+.form-stepper { padding: 14px 12px; }
 .stepper-title { display: block; font-family: var(--mono); font-size: 10.5px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-3); padding: 2px 6px 12px; }
 .stepper-list { list-style: none; margin: 0; padding: 0; position: relative; }
 .stepper-list::before { content: ''; position: absolute; left: 20px; top: 14px; bottom: 14px; width: 1px; background: var(--line-2); }
@@ -935,11 +936,27 @@ td.th-action { display: flex; gap: 6px; justify-content: flex-end; align-items: 
 .chart-dot { fill: var(--amber); }
 .chart-tick { font-family: var(--mono); font-size: 9px; fill: var(--text-3); }
 
-.form-actions { position: fixed; bottom: var(--bottomnav-h); left: 0; right: 0; z-index: 50; display: flex; gap: 10px; padding: 12px 14px calc(12px + env(safe-area-inset-bottom)); background: var(--surface); border-top: 1px solid var(--line-2); }
-.form-actions .btn { flex: 1; }
-@media (min-width: 1024px) { .form-actions { position: sticky; bottom: 0; left: auto; right: auto; background: none; border-top: 0; padding: 16px 0 8px; justify-content: flex-end; } .form-actions .btn { flex: 0 0 auto; min-width: 160px; } }
-.form-page-pad { padding-bottom: 92px; }
-@media (min-width: 1024px) { .form-page-pad { padding-bottom: 0; } }
+/* On a phone the actions are a fixed bar under the thumb; from the
+   tablet width up they become the lower half of the right rail, so
+   every control on the screen is in one column on one side. */
+.form-actions { position: fixed; bottom: var(--bottomnav-h); left: 0; right: 0; z-index: 50; display: flex; flex-wrap: wrap; gap: 8px; padding: 10px 12px calc(10px + env(safe-area-inset-bottom)); background: var(--surface); border-top: 1px solid var(--line-2); }
+/* Four actions do not fit one phone row without cropping a label, so
+   they wrap into two even rows instead of being clipped. */
+.form-actions .btn { flex: 1 1 calc(50% - 4px); min-width: 0; }
+@media (min-width: 980px) {
+  .form-actions {
+    position: static; z-index: auto;
+    flex-direction: column; gap: 8px;
+    padding: 12px; border-top: 0;
+    border: 1px solid var(--line); border-radius: var(--r-lg);
+    background: var(--surface); box-shadow: var(--sh-1);
+  }
+  .form-actions .btn { flex: 0 0 auto; width: 100%; justify-content: center; }
+  /* the PDF and Approve buttons read as a second group, not a fifth step */
+  .form-actions .btn:nth-child(n+3) { font-weight: 400; }
+}
+.form-page-pad { padding-bottom: 148px; }
+@media (min-width: 980px) { .form-page-pad { padding-bottom: 0; } }
 
 /* ════════════════ READ-ONLY REPORT DETAIL VIEW ════════════════ */
 .detail-verdict { display: flex; align-items: center; gap: 12px; margin: 14px 0 18px; padding: 12px 16px; border-radius: var(--r); border: 1px solid var(--line); background: var(--glass); backdrop-filter: var(--blur); box-shadow: var(--sh-glass); }
@@ -2072,11 +2089,21 @@ input:focus-visible, select:focus-visible, textarea:focus-visible {
 
 .detail-ribbon, .detail-hero-actions { display: none; }
 
+/* Title and state on the left, every control on the right — one side
+   to read, one side to press. Below the tablet width there is no
+   "right", so the column simply stacks. */
 .detail-hero {
-  display: flex; flex-direction: column; gap: 14px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 14px;
   min-height: 0;
   padding: 18px 20px;
   overflow: visible;
+}
+@media (min-width: 860px) {
+  .detail-hero { grid-template-columns: minmax(0, 1fr) auto; align-items: start; column-gap: 20px; }
+  .detail-hero-main, .detail-badges { grid-column: 1; }
+  .detail-controls { grid-column: 2; grid-row: 1 / span 2; justify-content: flex-end; }
 }
 .detail-hero-main h2 { font-size: 18px; margin-bottom: 4px; }
 .detail-hero-main p {
@@ -2107,7 +2134,7 @@ input:focus-visible, select:focus-visible, textarea:focus-visible {
 
 /* ── Controls. One height, one radius, one border. The segmented view
    switch is built to the same spec so it sits in the row as an equal. */
-.detail-controls { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.detail-controls { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; justify-content: flex-start; }
 
 .dbtn {
   display: inline-flex; align-items: center; gap: 7px;
@@ -3204,4 +3231,44 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber); outline-
 @media (max-width: 720px) {
   .jo-publish { flex-direction: column; align-items: stretch; }
   .jo-publish .btn { width: 100%; }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   PAGE 1 — JOB IDENTITY
+   Read, not filled. One control (the job), then the job order's own
+   words. Values are set in the mono face so they read as quoted
+   record rather than as something a person wrote here.
+   ═══════════════════════════════════════════════════════════════ */
+
+.ident { display: flex; flex-direction: column; gap: 18px; }
+
+.ident-pick {
+  display: flex; flex-direction: column; gap: 7px;
+  padding: 14px 15px;
+  border: 1px solid var(--line-2);
+  border-left: 3px solid var(--steel);
+  border-radius: var(--r);
+  background: var(--steel-soft);
+}
+.ident-pick label {
+  font-family: var(--mono); font-size: 11px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.06em; color: var(--steel-deep);
+}
+.ident-pick select { max-width: 520px; }
+.ident-pick small { font-size: 11.5px; color: var(--text-2); line-height: 1.45; }
+
+.ident-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 22px; margin: 0; }
+@media (max-width: 640px) { .ident-grid { grid-template-columns: 1fr; } }
+.ident-item {
+  display: flex; flex-direction: column; gap: 3px;
+  padding: 9px 0; min-width: 0;
+  border-bottom: 1px solid var(--line);
+}
+.ident-item dt {
+  font-family: var(--mono); font-size: 10.5px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-3);
+}
+.ident-item dd {
+  margin: 0; font-family: var(--mono); font-size: 13px; font-weight: 500; color: var(--text);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
 }

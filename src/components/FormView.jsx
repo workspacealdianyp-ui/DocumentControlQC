@@ -1,11 +1,12 @@
 import { useMemo, useState, useEffect, useRef } from 'react'
 import { createPortal } from 'react-dom'
 import { useApp, navigate } from '../App.jsx'
-import { FORM_SCHEMAS, dimRowStatus, dimDeviation } from '../data/formSchemas.js'
+import { FORM_SCHEMAS, dimRowStatus, dimDeviation, dimBreach } from '../data/formSchemas.js'
 import { getReport, saveReport, nextReportId, approveReport } from '../lib/store.js'
 import { MR } from '../lib/compute.js'
 import { fmtDate } from '../lib/status.js'
 import { buildResume } from '../lib/resume.js'
+import { jobIdentity } from '../lib/jobOrders.js'
 import PrintReport from './PrintReport.jsx'
 import ReportDetail from './ReportDetail.jsx'
 import SignaturePad from './SignaturePad.jsx'
@@ -79,10 +80,12 @@ function DwellTimer({ value, onChange, disabled }) {
 }
 
 // ───────────────────────── one field ─────────────────────────
-function EngineField({ f, values, report, set, locked, invalid, onRequestSign, signLocked, session, jobs, onJobChange }) {
+function EngineField({ f, values, reqValues, report, set, locked, invalid, onRequestSign, signLocked, session, jobs, onJobChange }) {
   const v = values
   const disabled = locked || (f.adminOnly && false)
-  const required = isReq(f, v)
+  // Required-ness is answered against the computed values too: "NCR notes
+  // when the status is Reject" has to see a status nothing typed.
+  const required = isReq(f, reqValues || v)
   const label = lbl(f, v)
   const half = f.half
   const unit = f.unitFrom ? (v[f.unitFrom] || '') : f.unit // unit can follow another field (e.g. pressureUnit)
@@ -170,6 +173,42 @@ function EngineField({ f, values, report, set, locked, invalid, onRequestSign, s
       </label>
       {control}
       {f.hint && <small className="field-desc">{f.hint}</small>}
+    </div>
+  )
+}
+
+/* ───────────────────────── job identity (page 1) ─────────────────────────
+
+   Page 1 is a statement of which job this report belongs to, so it is
+   read, not filled. The only control is the job picker: change it and
+   every line under it is rewritten from that job. Anything an inspector
+   could type here would be a second, unverified copy of the job order. */
+function IdentitySection({ sec, values, jobs, job, locked, onJobChange }) {
+  const jobField = sec.fields.find((f) => f.type === 'jobsearch')
+  const rest = sec.fields.filter((f) => f.type !== 'jobsearch')
+  const show = (f) => {
+    const raw = values[f.id]
+    if (raw === undefined || raw === null || raw === '') return '—'
+    return f.fmt === 'date' ? fmtDate(raw) : String(raw)
+  }
+  return (
+    <div className="ident">
+      <div className="ident-pick">
+        <label htmlFor="ident-job">{lbl(jobField, values)}</label>
+        <select id="ident-job" value={values.jobNo || ''} disabled={locked}
+          onChange={(e) => onJobChange(e.target.value)}>
+          {jobs.map((j) => <option key={j.jobNo} value={j.jobNo}>{j.jobNo} · {j.productDesc?.slice(0, 48)}</option>)}
+        </select>
+        <small>{locked ? 'The job is fixed once the report is submitted.' : 'Every field below is taken from this job and cannot be edited.'}</small>
+      </div>
+      <dl className="ident-grid">
+        {rest.map((f) => (
+          <div className="ident-item" key={f.id}>
+            <dt>{lbl(f, values)}</dt>
+            <dd>{show(f)}</dd>
+          </div>
+        ))}
+      </dl>
     </div>
   )
 }
@@ -336,12 +375,19 @@ function ResultsSection({ sec, report, update, locked, showErrors }) {
       {rows.map((row, i) => {
         const judged = sec.autoJudge === 'dim' ? dimRowStatus(row) : row[sec.judgeKey]
         const isRej = judged === sec.rejValue
+        const breach = sec.autoJudge === 'dim' ? dimBreach(row) : null
         return (
           <div key={i} className={`rowcard${isRej ? ' rej' : ''}`}>
             <div className="rowcard-head">
               <span className="rec-cp">#{i + 1}</span>
-              {isRej && <span className="chip chip-overdue" style={{ padding: '2px 9px' }}><IconAlert size={11} /> {sec.rejValue}. Evidence required</span>}
-              {sec.autoJudge === 'dim' && judged && <span className={`chip ${judged === 'Accept' ? 'chip-done' : 'chip-overdue'}`} style={{ padding: '2px 9px' }}>{judged}</span>}
+              {/* A dimension judges itself: outside its limits is a reject,
+                  stated with the amount rather than just a colour. */}
+              {sec.autoJudge === 'dim' && judged && (
+                <span className={`chip ${judged === 'Accept' ? 'chip-done' : 'chip-overdue'}`} style={{ padding: '2px 9px' }}>
+                  {judged === 'Reject' ? <><IconAlert size={11} /> Auto-reject{breach ? ` · ${breach.by} mm over ${breach.side}` : ''}</> : 'Auto-accept'}
+                </span>
+              )}
+              {isRej && sec.autoJudge !== 'dim' && <span className="chip chip-overdue" style={{ padding: '2px 9px' }}><IconAlert size={11} /> {sec.rejValue}. Evidence required</span>}
               {!locked && <button type="button" className="row-x" onClick={() => update({ results: rows.filter((_, j) => j !== i) })} aria-label="Delete row"><IconTrash size={14} /></button>}
             </div>
             <div className="rowcard-body">
@@ -357,9 +403,13 @@ function ResultsSection({ sec, report, update, locked, showErrors }) {
                       : c.type === 'number'
                         ? <NumberInput value={row[c.id]} disabled={locked} invalid={missing} onChange={(x) => setRow(i, c.id, x)} />
                         : <input value={row[c.id] || ''} disabled={locked} className={missing ? 'invalid' : undefined} placeholder={c.placeholder} onChange={(e) => setRow(i, c.id, e.target.value)} />}
-                    {/* dimensional auto deviation hint */}
-                    {sec.autoJudge === 'dim' && c.id === 'actual' && dimDeviation(row) !== '' && (
-                      <small className="field-desc">Deviation: {dimDeviation(row)} mm</small>
+                    {/* what the measurement means, next to the measurement */}
+                    {sec.autoJudge === 'dim' && c.id === 'actual' && (dimDeviation(row) !== '' || breach) && (
+                      <small className={breach ? 'fld-err' : 'field-desc'}>
+                        {breach
+                          ? `${breach.by} mm ${breach.side === 'max' ? 'above max' : 'below min'} ${breach.limit} — rejected`
+                          : `Deviation ${dimDeviation(row)} mm · within limits`}
+                      </small>
                     )}
                   </div>
                 )
@@ -470,12 +520,9 @@ export default function FormView({ job, formKey, query }) {
       if (!e.values.reportId) e.values.reportId = e.reportId
       if (!e.values.inspector) e.values.inspector = e.inspector || session.name
       if (!e.values.inspDate) e.values.inspDate = (e.createdAt || new Date().toISOString()).slice(0, 10)
-      if (job) {
-        e.values.jobNo = e.values.jobNo || job.jobNo
-        e.values.jobDesc = e.values.jobDesc || job.productDesc
-        e.values.sn = e.values.sn || job.arasSN
-        e.values.customer = e.values.customer || job.customerName
-      }
+      // The identity is the job order's to state, so it is re-read on
+      // every open rather than trusted from the saved copy.
+      if (job) Object.assign(e.values, jobIdentity(job))
       return e
     }
     const values = {}
@@ -483,10 +530,10 @@ export default function FormView({ job, formKey, query }) {
       for (const f of sec.fields || []) if (f.default !== undefined) values[f.id] = f.default
     }
     if (job) {
-      Object.assign(values, {
+      Object.assign(values, jobIdentity(job), {
         reportId: nextReportId(schema.code, job.jobNo),
         inspDate: new Date().toISOString().slice(0, 10),
-        inspector: session.name, jobNo: job.jobNo, jobDesc: job.productDesc, sn: job.arasSN, customer: job.customerName,
+        inspector: session.name,
       })
     }
     return { id: null, reportId: values.reportId, formKey, jobNo: job?.jobNo, deliverable, status: 'new', values, readings: [], results: [], coats: [], photos: [] }
@@ -509,18 +556,24 @@ export default function FormView({ job, formKey, query }) {
   const readOnly = !role.canEdit || (submitted && !role.canOverride)
   const v = report.values
 
+  /* The job this report is actually against. The route says which job it
+     was opened from; page 1 can point it at another one, and from that
+     moment the picked job is the job — where it saves, what it prints,
+     and where Back goes. */
+  const cur = jobs.find((j) => j.jobNo === v.jobNo) || job
+
   // a submitted/approved report opens as a read-only DETAIL view, not the edit form
   if (submitted && !forceEdit) {
     return (
       <>
         <ReportDetail
-          schema={schema} report={report} job={job} deliverable={deliverable} status={reportStatus} role={role}
-          onBack={() => navigate(`/job/${job.jobNo}`)}
+          schema={schema} report={report} job={cur} deliverable={deliverable} status={reportStatus} role={role}
+          onBack={() => navigate(`/job/${cur.jobNo}`)}
           onPdf={() => setShowPdf(true)}
           onApprove={() => { approveReport(report.id, session.name); setReport((r) => ({ ...r, status: 'approved' })); refresh(); notify(`${report.values.reportId} approved`) }}
           onEdit={() => setForceEdit(true)}
         />
-        {showPdf && createPortal(<PrintReport schema={schema} report={report} job={job} deliverable={deliverable} status={reportStatus} onClose={() => setShowPdf(false)} />, document.body)}
+        {showPdf && createPortal(<PrintReport schema={schema} report={report} job={cur} deliverable={deliverable} status={reportStatus} onClose={() => setShowPdf(false)} />, document.body)}
       </>
     )
   }
@@ -532,13 +585,31 @@ export default function FormView({ job, formKey, query }) {
     if (schema.derive) Object.assign(next, schema.derive(id, val, next) || {})
     return { ...r, values: next }
   })
+  // Picking a different job re-states the whole first page, report ID
+  // included — the old number belongs to the job it was raised against.
   const onJobChange = (jobNo) => {
     const j = jobs.find((x) => x.jobNo === jobNo)
-    setReport((r) => ({ ...r, jobNo, values: { ...r.values, jobNo, jobDesc: j?.productDesc || '', sn: j?.arasSN || '', customer: j?.customerName || '' } }))
+    if (!j) return
+    setReport((r) => ({
+      ...r, jobNo,
+      values: { ...r.values, ...jobIdentity(j), reportId: r.id ? r.values.reportId : nextReportId(schema.code, jobNo) },
+    }))
   }
 
   // equipment lock: a lockable section freezes once the test has started
   const sectionLocked = (sec) => readOnly || (sec.lockable && !!v.testStarted)
+
+  /* Values as the form actually reads them: what was entered, plus what
+     the form works out for itself. A computed field is never stored, so
+     a rule written against one — NCR notes are required once the status
+     reads Reject — could not see it before. */
+  const vAll = (() => {
+    const out = { ...v }
+    for (const s of schema.sections) {
+      for (const f of s.fields || []) if (f.type === 'computed' && f.compute) out[f.id] = f.compute(v, report)
+    }
+    return out
+  })()
 
   // ── validation ──
   const validate = () => {
@@ -553,8 +624,12 @@ export default function FormView({ job, formKey, query }) {
             const req = c.req === 'M'
             if (req && !row[c.id]) errs[`${sec.id}.${i}.${c.id}`] = true
           })
+          if (sec.autoJudge === 'dim') {
+            const lo = parseFloat(row.min), hi = parseFloat(row.max)
+            if (!isNaN(lo) && !isNaN(hi) && lo > hi) errs[`${sec.id}.${i}.max`] = true
+          }
           const judged = sec.autoJudge === 'dim' ? dimRowStatus(row) : row[sec.judgeKey]
-          if (judged === sec.rejValue && !row.discontinuity && !row.defectType && !row.remark) errs[`${sec.id}.${i}.evid`] = true
+          if (judged === sec.rejValue && !row.discontinuity && !row.defectType && !row.remark && !row.note) errs[`${sec.id}.${i}.evid`] = true
         })
       } else if (sec.type === 'dft') {
         ;(report.coats || []).forEach((c, i) => { if (!c.area) errs[`dft.${i}.area`] = true; if (!c.std) errs[`dft.${i}.std`] = true })
@@ -564,7 +639,7 @@ export default function FormView({ job, formKey, query }) {
           if (['computed', 'auto', 'readonly', 'photos', 'photos-inline'].includes(f.type)) continue
           // signatures: only the Inspector is mandatory at submit — QC/SPV signs at approval
           if (f.type === 'sign') { if (f.id === 'signInspector' && !v[f.id]) errs[f.id] = true; continue }
-          if (isReq(f, v) && (v[f.id] === undefined || v[f.id] === '')) errs[f.id] = true
+          if (isReq(f, vAll) && (v[f.id] === undefined || v[f.id] === '')) errs[f.id] = true
         }
       }
     }
@@ -586,7 +661,7 @@ export default function FormView({ job, formKey, query }) {
         if (!showField(f, v)) return false
         if (['computed', 'auto', 'readonly', 'photos', 'photos-inline'].includes(f.type)) return false
         if (f.type === 'sign') return f.id === 'signInspector' ? !v[f.id] : false
-        return isReq(f, v) && (v[f.id] === undefined || v[f.id] === '')
+        return isReq(f, vAll) && (v[f.id] === undefined || v[f.id] === '')
       })
     }
     return false
@@ -597,7 +672,7 @@ export default function FormView({ job, formKey, query }) {
     (sec.id === 'approvals' && (sec.fields || []).some((f) => e[f.id]))
 
   const persist = (status) => {
-    const rep = { ...report, id: report.id || `${Date.now()}-${Math.random().toString(36).slice(2, 7)}`, reportId: v.reportId, formKey, jobNo: job.jobNo, deliverable, inspector: v.inspector || session.name, status, createdAt: report.createdAt || new Date().toISOString(), synced: false }
+    const rep = { ...report, id: report.id || `${Date.now()}-${Math.random().toString(36).slice(2, 7)}`, reportId: v.reportId, formKey, jobNo: cur.jobNo, deliverable, inspector: v.inspector || session.name, status, createdAt: report.createdAt || new Date().toISOString(), synced: false }
     saveReport(rep); setReport(rep); refresh(); return rep
   }
   const onDraft = () => { persist('draft'); notify('Draft saved — status In Progress') }
@@ -611,7 +686,7 @@ export default function FormView({ job, formKey, query }) {
       setTimeout(() => document.querySelector('.invalid,[aria-invalid="true"],.field-err')?.scrollIntoView({ behavior: 'smooth', block: 'center' }), 120)
       return
     }
-    persist('submitted'); notify('Report submitted — deliverable marked Done'); setTimeout(() => navigate(`/job/${job.jobNo}`), 600)
+    persist('submitted'); notify('Report submitted — deliverable marked Done'); setTimeout(() => navigate(`/job/${cur.jobNo}`), 600)
   }
 
   // navigate between sections, flagging any incomplete section left behind
@@ -641,6 +716,9 @@ export default function FormView({ job, formKey, query }) {
   const secLocked = sectionLocked(sec)
 
   const renderBody = () => {
+    if (sec.id === 'header') {
+      return <IdentitySection sec={sec} values={v} jobs={jobs} job={cur} locked={readOnly} onJobChange={onJobChange} />
+    }
     if (sec.id === 'approvals' || sec.fields) {
       return (
         <>
@@ -649,13 +727,13 @@ export default function FormView({ job, formKey, query }) {
               const signLocked = f.type === 'sign' && f.id !== 'signInspector' && !v.signInspector
               const invalid = errors[f.id]
               return (
-                <EngineField key={f.id} f={f} values={v} report={report} set={setValue} locked={f.adminOnly && !role.canOverride && f.id !== 'jobNo' ? secLocked : secLocked}
+                <EngineField key={f.id} f={f} values={v} reqValues={vAll} report={report} set={setValue} locked={f.adminOnly && !role.canOverride && f.id !== 'jobNo' ? secLocked : secLocked}
                   invalid={invalid} onRequestSign={setSignField} signLocked={signLocked} session={session} jobs={jobs} onJobChange={onJobChange} />
               )
             })}
           </div>
           {/* formal Berita Acara appears automatically on the Test Result section */}
-          {sec.id === 'result' && <BeritaAcara schema={schema} report={report} job={job} inspector={v.inspector || session.name} />}
+          {sec.id === 'result' && <BeritaAcara schema={schema} report={report} job={cur} inspector={v.inspector || session.name} />}
         </>
       )
     }
@@ -668,19 +746,17 @@ export default function FormView({ job, formKey, query }) {
 
   return (
     <div className="page form-page form-page-pad">
-      <button className="btn btn-ghost back-btn btn-sm" onClick={() => navigate(`/job/${job.jobNo}`)}><IconBack size={14} /> {schema.title}</button>
+      <button className="btn btn-ghost back-btn btn-sm" onClick={() => navigate(`/job/${cur.jobNo}`)}><IconBack size={14} /> {schema.title}</button>
 
       <div className="form-hero">
         <div>
           <h2>{schema.title}</h2>
-          <p>{v.reportId} · {deliverable} · {job.jobNo} · {job.productDesc}</p>
+          <p>{v.reportId} · {deliverable} · {cur.jobNo} · {cur.productDesc}</p>
         </div>
+        {/* State only. Every action lives in the rail on the right, so
+            there is one place to look for something to press. */}
         <div className="form-hero-right">
           <span className={`report-state state-${reportStatus}`}>{reportStatus === 'new' ? 'New' : reportStatus === 'draft' ? 'Draft' : reportStatus === 'approved' ? 'Approved' : 'Submitted'}</span>
-          {role.canOverride && reportStatus === 'submitted' && existing && (
-            <button className="btn btn-primary btn-sm" onClick={() => { approveReport(report.id, session.name); setReport((r) => ({ ...r, status: 'approved' })); refresh(); notify(`${v.reportId} approved`) }}>Approve</button>
-          )}
-          {reportStatus !== 'new' && <button className="btn btn-secondary btn-sm" onClick={() => setShowPdf(true)}><IconPrint size={13} /> PDF Report</button>}
         </div>
       </div>
 
@@ -695,20 +771,10 @@ export default function FormView({ job, formKey, query }) {
             </header>
             {renderBody()}
           </section>
-
-          <div className="form-actions">
-            <button className="btn btn-secondary" onClick={() => goStep(step - 1)} disabled={step === 0}>Back</button>
-            {!readOnly && <button className="btn btn-secondary" onClick={onDraft}>Save Draft</button>}
-            {/* preview the PDF straight from the last step */}
-            {step === schema.sections.length - 1 && <button className="btn btn-secondary" onClick={() => setShowPdf(true)}><IconPrint size={14} /> Preview PDF</button>}
-            {step < schema.sections.length - 1
-              ? <button className="btn btn-primary" onClick={() => goStep(step + 1)}>Next</button>
-              : !readOnly ? <button className="btn btn-accent" onClick={onSubmit}>Submit Report</button>
-                : <button className="btn btn-primary" onClick={() => navigate(`/job/${job.jobNo}`)}>Done</button>}
-          </div>
         </div>
 
-        <aside className="form-stepper card">
+        <aside className="form-rail">
+          <div className="form-stepper card">
           <span className="stepper-title">Sections</span>
           <ol className="stepper-list">
             {schema.sections.map((s, i) => {
@@ -724,10 +790,27 @@ export default function FormView({ job, formKey, query }) {
               )
             })}
           </ol>
+          </div>
+
+          {/* Paging, saving, printing, submitting: one column, in the
+              order they are reached. On a phone this same block is the
+              fixed bar at the bottom of the screen, where a thumb is. */}
+          <div className="form-actions">
+            {step < schema.sections.length - 1
+              ? <button className="btn btn-primary" onClick={() => goStep(step + 1)}>Next</button>
+              : !readOnly ? <button className="btn btn-accent" onClick={onSubmit}>Submit Report</button>
+                : <button className="btn btn-primary" onClick={() => navigate(`/job/${cur.jobNo}`)}>Done</button>}
+            <button className="btn btn-secondary" onClick={() => goStep(step - 1)} disabled={step === 0}>Back</button>
+            {!readOnly && <button className="btn btn-secondary" onClick={onDraft}>Save Draft</button>}
+            <button className="btn btn-secondary" onClick={() => setShowPdf(true)}><IconPrint size={14} /> PDF Report</button>
+            {role.canOverride && reportStatus === 'submitted' && existing && (
+              <button className="btn btn-primary" onClick={() => { approveReport(report.id, session.name); setReport((r) => ({ ...r, status: 'approved' })); refresh(); notify(`${v.reportId} approved`) }}>Approve</button>
+            )}
+          </div>
         </aside>
       </div>
 
-      {showPdf && createPortal(<PrintReport schema={schema} report={report} job={job} deliverable={deliverable} status={reportStatus} onClose={() => setShowPdf(false)} />, document.body)}
+      {showPdf && createPortal(<PrintReport schema={schema} report={report} job={cur} deliverable={deliverable} status={reportStatus} onClose={() => setShowPdf(false)} />, document.body)}
       {signField && createPortal(
         <SignaturePad name={signField === 'signInspector' ? (v.inspector || session.name) : session.name} onClose={() => setSignField(null)} onSave={(sig) => { setValue(signField, sig); setSignField(null) }} />,
         document.body

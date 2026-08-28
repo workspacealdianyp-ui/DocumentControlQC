@@ -28,7 +28,7 @@ const fmtFull = (iso) => {
 const fmt = (f, v, report) => {
   if (f.type === 'computed') return (f.compute ? f.compute(v, report) : '') || '—'
   if (f.type === 'sign') return v[f.id]?.name || '—'
-  if (f.type === 'date') return f.id === 'inspDate' ? fmtFull(v[f.id] ?? f.default) : fmtLong(v[f.id] ?? f.default)
+  if (f.type === 'date' || f.fmt === 'date') return f.id === 'inspDate' ? fmtFull(v[f.id] ?? f.default) : fmtLong(v[f.id] ?? f.default)
   const val = v[f.id] ?? f.default
   if (val === undefined || val === null || val === '') return '—'
   // unit comes either from a sibling value (unitFrom, e.g. pressureUnit) or a fixed f.unit
@@ -38,7 +38,7 @@ const fmt = (f, v, report) => {
 
 // fields that only print when they actually carry a value
 const EMPTYISH = new Set(['', '-', '–', '—', 'n/a', 'na'])
-const HIDE_IF_BLANK = new Set(['designPressure', 'mawp', 'map'])
+const HIDE_IF_BLANK = new Set(['designPressure', 'mawp', 'map', 'poNo', 'wbsNo'])
 const isBlank = (f, v) => { const val = v[f.id] ?? f.default; return val == null || EMPTYISH.has(String(val).trim().toLowerCase()) }
 
 function Pairs({ fields, v, report }) {
@@ -316,7 +316,7 @@ export default function PrintReport({ schema, report, job, deliverable, status, 
           {kop}{foot}
           <tbody><tr><td className="ps-runcell ps-body">
             <div className="ps-blk ps-keep">
-              {headerSec && <Pairs fields={[...generalFields, { id: '_wbs', label: 'WBS No.', type: 'text' }]} v={{ ...v, _wbs: job?.wbsNo }} report={report} />}
+              {headerSec && <Pairs fields={generalFields} v={v} report={report} />}
             </div>
 
             {mainSecs.map((s) => {

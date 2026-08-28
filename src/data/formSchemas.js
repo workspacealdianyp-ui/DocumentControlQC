@@ -9,17 +9,24 @@
 //   modifiers: half, required, showIf(v), compute(v), default, unit, placeholder, hint, locks
 import { MR } from '../lib/compute.js'
 
-// shared header (auto-populated from Job No.)
+/* Shared first page: the job's identity, not a form.
+
+   Everything here comes from the job order the QC head published, so
+   nothing on it is typed. The one control is the job itself — pick a
+   different job and every other line follows it, which is the only way
+   these values can stay true to the master record. */
 const headerSection = {
-  id: 'header', title: 'Header Info', subtitle: 'Auto-filled from Job No.',
+  id: 'header', title: 'Job Identity', subtitle: 'Taken from the job order — pick the job, everything else follows',
   fields: [
-    { id: 'reportId', label: 'Report ID', type: 'auto' },
-    { id: 'inspDate', label: 'Inspection / Testing Date', type: 'date', required: true, adminOnly: true },
-    { id: 'inspector', label: 'Inspector Name', type: 'user', required: true, adminOnly: true },
     { id: 'jobNo', label: 'Job Number', type: 'jobsearch', required: true },
+    { id: 'reportId', label: 'Report ID', type: 'auto' },
+    { id: 'inspDate', label: 'Inspection / Testing Date', type: 'auto', fmt: 'date' },
+    { id: 'inspector', label: 'Inspector Name', type: 'auto' },
+    { id: 'poNo', label: 'PO Number', type: 'auto' },
+    { id: 'wbsNo', label: 'WBS Number', type: 'auto' },
     { id: 'jobDesc', label: 'Job Desc.', type: 'auto' },
     { id: 'sn', label: 'SN / MSN', type: 'auto' },
-    { id: 'unit', label: 'Unit', type: 'text', default: 'Unit 01' },
+    { id: 'unit', label: 'Unit No.', type: 'auto' },
     { id: 'customer', label: 'Customer', type: 'auto' },
   ],
 }
@@ -286,14 +293,15 @@ export const FORM_SCHEMAS = {
         { id: 'drawingNo', label: 'Drawing No. / Rev', type: 'text', req: 'M', half: true },
         { id: 'drawingFile', label: 'Drawing Attachment', type: 'photos-inline', hint: 'Upload reference drawing' },
       ]},
-      { id: 'results', title: 'Measurement Grid', subtitle: 'Deviation & status auto from nominal/tolerance/actual', type: 'results',
+      { id: 'results', title: 'Measurement Grid', subtitle: 'Actual outside Min–Max is rejected automatically', type: 'results',
         judgeKey: 'rowStatus', accValue: 'Accept', rejValue: 'Reject', autoJudge: 'dim',
         columns: [
           { id: 'description', label: 'Description', type: 'text', req: 'M', placeholder: 'e.g. Overall Length' },
           { id: 'itemNo', label: 'Item No.', type: 'text', half: true },
           { id: 'nominal', label: 'Nominal', type: 'number', unit: 'mm', half: true },
-          { id: 'tolerance', label: 'Tolerance', type: 'text', half: true, placeholder: '±0.5 or +1.0/-0.0' },
-          { id: 'actual', label: 'Actual', type: 'number', unit: 'mm', half: true },
+          { id: 'min', label: 'Min', type: 'number', unit: 'mm', half: true, req: 'M', placeholder: 'lower limit' },
+          { id: 'max', label: 'Max', type: 'number', unit: 'mm', half: true, req: 'M', placeholder: 'upper limit' },
+          { id: 'actual', label: 'Actual', type: 'number', unit: 'mm', half: true, req: 'M' },
           { id: 'note', label: 'Note', type: 'text' },
         ]},
       { id: 'photos', title: 'Photo Evidence', type: 'photos' },
@@ -316,16 +324,45 @@ function resultsHasRej(rep, rejValue) {
 function dimHasRej(rep) {
   return (rep?.results || []).some((r) => dimRowStatus(r) === 'Reject')
 }
-export function dimRowStatus(row) {
-  const n = parseFloat(row.nominal), a = parseFloat(row.actual)
-  if (isNaN(n) || isNaN(a)) return ''
-  const dev = a - n
+/* The measured limits of a dimension row.
+
+   Min and max are the limits themselves, in millimetres, as the drawing
+   states them — an inspector reads those off the drawing and does not
+   have to do the ± arithmetic in their head. Reports written before this
+   change carry a tolerance string around the nominal instead, so that
+   shape is still resolved rather than left unjudged. */
+export function dimLimits(row) {
+  const lo = parseFloat(row.min), hi = parseFloat(row.max)
+  if (!isNaN(lo) || !isNaN(hi)) return { lo: isNaN(lo) ? null : lo, hi: isNaN(hi) ? null : hi }
+  const n = parseFloat(row.nominal)
   const tol = String(row.tolerance || '').trim()
-  let lo = null, hi = null, m
-  if ((m = tol.match(/^±?\s*(\d+(?:\.\d+)?)$/))) { hi = +m[1]; lo = -hi }
-  else if ((m = tol.match(/^\+\s*(\d+(?:\.\d+)?)\s*\/\s*-\s*(\d+(?:\.\d+)?)$/))) { hi = +m[1]; lo = -m[2] }
-  if (lo == null) return ''
-  return dev >= lo && dev <= hi ? 'Accept' : 'Reject'
+  let m
+  if (isNaN(n) || !tol) return { lo: null, hi: null }
+  if ((m = tol.match(/^±?\s*(\d+(?:\.\d+)?)$/))) return { lo: n - +m[1], hi: n + +m[1] }
+  if ((m = tol.match(/^\+\s*(\d+(?:\.\d+)?)\s*\/\s*-\s*(\d+(?:\.\d+)?)$/))) return { lo: n - +m[2], hi: n + +m[1] }
+  return { lo: null, hi: null }
+}
+
+/* How far outside the limits the measurement fell, or null when it is
+   inside them. Named rather than just flagged: "1.40 mm over max" is
+   what an inspector has to write on the NCR anyway. */
+export function dimBreach(row) {
+  const a = parseFloat(row.actual)
+  if (isNaN(a)) return null
+  const { lo, hi } = dimLimits(row)
+  if (lo != null && a < lo) return { side: 'min', limit: lo, by: +(lo - a).toFixed(3) }
+  if (hi != null && a > hi) return { side: 'max', limit: hi, by: +(a - hi).toFixed(3) }
+  return null
+}
+
+// Auto-judgement: a measurement outside its limits is rejected outright,
+// with no one having to decide it.
+export function dimRowStatus(row) {
+  const a = parseFloat(row.actual)
+  if (isNaN(a)) return ''
+  const { lo, hi } = dimLimits(row)
+  if (lo == null && hi == null) return ''
+  return dimBreach(row) ? 'Reject' : 'Accept'
 }
 export function dimDeviation(row) {
   const n = parseFloat(row.nominal), a = parseFloat(row.actual)
