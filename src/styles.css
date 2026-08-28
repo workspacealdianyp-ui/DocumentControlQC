@@ -2,7 +2,7 @@
    QC INSPECTION MONITOR — "Instrument Panel" design system
    Reads like a calibrated test instrument: gridded, hairline-ruled,
    monospaced numerics (Fira Code) + humanist body (Fira Sans).
-   Steel-blue primary · amber calibration accent · paper-light.
+   Charcoal + white + construction orange · paper-light.
    Signature: measurement-tick rule on section headers/hero.
    Phone <640 · Tablet 640–1023 (bottom nav) · Desktop ≥1024 (sidebar)
    ════════════════════════════════════════════════════════════════════ */
@@ -18,9 +18,14 @@
   --steel: #1a1a1e;        /* primary action: graphite, not blue */
   --steel-deep: #0d0d10;
   --steel-soft: #e6e6e2;   /* focus halo, enamel-tinted */
-  --amber: #c8102e;        /* THE INDEX — needle red, used sparingly */
-  --amber-deep: #9e0c24;
-  --amber-soft: #fbe7ea;
+  /* THE INDEX. Construction orange, measured off the reference
+     (#f86000 dominant). It marks the thing to click and the thing you
+     are on. Note it is deliberately NOT the same token as --overdue:
+     red here means a reading is out of tolerance, and an accent that
+     shares that colour would make every button look like an alarm. */
+  --amber: #f86300;
+  --amber-deep: #c74d00;
+  --amber-soft: #fff1e8;
 
   --paper: #fafaf8;        /* ivory canvas */
   --surface: #ffffff;      /* panels */
@@ -2564,3 +2569,83 @@ tr:has(.chip-done) .jobs-prog-bar span { background: var(--done); }
 @media (prefers-reduced-motion: reduce) {
   .set-switch, .set-switch .set-knob, .set-box { transition: none; }
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   ACCENT: construction orange
+   Taken from the heavy-machinery reference, where orange marks one
+   thing at a time: the action you are meant to take, or the item you
+   are on. Everything else stays charcoal and white, so the orange
+   keeps meaning something.
+   ═══════════════════════════════════════════════════════════════ */
+
+.btn-primary,
+.btn-primary:disabled {
+  background: var(--amber); border-color: var(--amber); color: #fff;
+}
+.btn-primary:hover:not(:disabled) { background: var(--amber-deep); border-color: var(--amber-deep); }
+.btn-primary:focus-visible { outline-color: var(--amber-deep); }
+
+.dbtn.is-primary { background: var(--amber); border-color: var(--amber); color: #fff; }
+.dbtn.is-primary:hover { background: var(--amber-deep); border-color: var(--amber-deep); }
+
+/* Active states across the registers and settings. */
+.mon-tab.on .mon-tab-n { background: var(--amber); color: #fff; }
+.mon-pager button.on { background: var(--amber); border-color: var(--amber); color: #fff; }
+.set-link.on { box-shadow: inset 2px 0 0 var(--amber); }
+.set-seg button.on { background: var(--amber); color: #fff; }
+.detail-hero .detail-viewsw button.on { background: var(--amber); color: #fff; }
+.set-check input:focus-visible + .set-box { border-color: var(--amber); box-shadow: 0 0 0 3px var(--amber-soft); }
+
+/* Progress reads as work in hand until it is finished, then as passed. */
+.jobs-prog-bar span { background: var(--amber); }
+tr:has(.chip-done) .jobs-prog-bar span { background: var(--done); }
+
+/* The brand mark is the one orange thing in the rail, the way the
+   reference puts it in an otherwise dark navigation bar. */
+.sidebar-logo { background: var(--amber); color: #fff; }
+
+@media (max-width: 899px) {
+  .set-link.on { box-shadow: inset 0 -2px 0 var(--amber); }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   DISPLAY TYPE: content headings only
+   The reference sets its headings in a condensed industrial grotesque.
+   That goes on the content — page titles, panel titles, section titles,
+   card titles — and stops there: the sidebar, the bottom nav and the
+   floating actions keep Archivo, so navigation still reads as chrome
+   rather than competing with the page.
+   ═══════════════════════════════════════════════════════════════ */
+
+:root { --display: 'Barlow Condensed', 'Archivo', system-ui, sans-serif; }
+
+.page h2, .page h3, .page h4,
+.set-rail h2, .set-panel h3,
+.section-title, .modal h3, .empty-state strong {
+  font-family: var(--display);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+/* Condensed sets narrower at the same size, so the headings come up a
+   step to hold the same weight on the page. */
+.page h2, .set-rail h2 { font-size: 26px; }
+.mon-head h2 { font-size: 23px; }
+.set-panel > h3 { font-size: 20px; }
+.section-title { font-size: 15px; }
+.page h4, .set-tool-head h4 { font-size: 14.5px; }
+.detail-hero h2 { font-size: 21px; }
+
+/* Identifiers are read digit by digit and stay monospaced: the job
+   number in the hero is a number, not a title. */
+.jd-hero-id h2 { font-family: var(--mono); font-weight: 500; letter-spacing: -0.01em; }
+.widget-title { font-family: var(--mono); }
+
+/* Progress reads in the accent everywhere it appears, not just in the
+   job list: the spotlight bar and the job-detail ring were still
+   graphite from before the palette moved. */
+.sc-prog-bar span { background: var(--amber); }
+.progress-bar { background: var(--amber); }
+.jd-hero .ring-bar { stroke: var(--amber); }
+.jd-hero .ring-label strong { color: var(--text); }
+.jd-hero.is-complete .ring-bar { stroke: var(--done); }

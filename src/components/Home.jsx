@@ -22,12 +22,15 @@ const unitKind = (desc = '') => {
 const KIND_LABEL = { vessel: 'Pressure Vessel', tank: 'Storage Tank', spool: 'Pipe Spool', skid: 'Skid Package' }
 
 // customer visual helpers — gradient pairs (bar = gradient, avatar = frosted start tint)
+// One needle colour, the reading differs. The construction orange from
+// the design reference, warming toward the tip so a full ring reads as
+// a complete sweep rather than a flat band.
 const CUST_GRADIENTS = [
-  ['#14181a', '#5e6866'],
-  ['#232a29', '#6b7370'],
-  ['#14181a', '#5e6866'],
-  ['#232a29', '#6b7370'],
-  ['#14181a', '#5e6866'],
+  ['#f86300', '#ff8f3d'],
+  ['#e05800', '#f8842c'],
+  ['#f86300', '#ff8f3d'],
+  ['#e05800', '#f8842c'],
+  ['#f86300', '#ff8f3d'],
 ]
 const custInitials = (name = '') => name.replace(/\b(pt|cv|tbk|persero)\b\.?/gi, '').trim().split(/\s+/).filter(Boolean).slice(0, 2).map((w) => w[0]).join('').toUpperCase() || '–'
 
