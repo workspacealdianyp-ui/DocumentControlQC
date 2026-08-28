@@ -1,11 +1,12 @@
 import { useMemo, useState, useEffect } from 'react'
 import { useApp, navigate } from '../App.jsx'
 import { FORM_SCHEMAS } from '../data/formSchemas.js'
-import { getReports, deleteReport, approveReport } from '../lib/store.js'
+import { getReports, deleteReport } from '../lib/store.js'
 import { ncrReports, fmtDateTime } from '../lib/status.js'
 import { reportResult } from './SummaryReport.jsx'
 import { StateBadge } from './StatusChip.jsx'
-import { IconTrash, IconDownload, IconSearch, IconDoc, IconApprove, IconCloudUp, IconCloudOff, IconAlert } from './Icons.jsx'
+import { IconTrash, IconDownload, IconDoc, IconCloudUp, IconCloudOff, IconAlert, IconFilter, IconGroup } from './Icons.jsx'
+import { SearchField, ToolButton, PopCheck, PopRadio, PopFooter } from './RegisterBar.jsx'
 
 const TABS = [
   { id: 'all', label: 'All' },
@@ -15,14 +16,25 @@ const TABS = [
   { id: 'ncr', label: 'NCR' },
 ]
 
+// Same tools as the other two registers. Reports has always grouped by
+// form type; that is the default now rather than the only option.
+const GROUPS = [
+  { id: 'form', label: 'Form', of: (r) => FORM_SCHEMAS[r.formKey]?.title || r.formKey },
+  { id: 'job', label: 'Job', of: (r) => `Job ${r.jobNo}` },
+  { id: 'inspector', label: 'Inspector', of: (r) => r.inspector || 'Unassigned' },
+  { id: 'none', label: 'No grouping', of: null },
+]
+
 export default function Reports({ query }) {
-  const { role, session, tick, refresh, notify } = useApp()
+  const { role, tick, refresh, notify } = useApp()
   const [tab, setTab] = useState(query?.f && TABS.some((t) => t.id === query.f) ? query.f : 'all')
   useEffect(() => {
     if (query?.f && TABS.some((t) => t.id === query.f)) setTab(query.f)
   }, [query?.f])
   const [q, setQ] = useState('')
   const [newestFirst, setNewestFirst] = useState(true)
+  const [forms, setForms] = useState(() => new Set())
+  const [group, setGroup] = useState('form')
 
   const all = useMemo(() => getReports(), [tick])
   const ncrs = useMemo(() => ncrReports(), [tick])
@@ -31,28 +43,47 @@ export default function Reports({ query }) {
   const matchQ = (r) => !ql || `${r.reportId} ${r.jobNo} ${r.inspector} ${FORM_SCHEMAS[r.formKey]?.title}`.toLowerCase().includes(ql)
 
   const base = tab === 'ncr' ? ncrs : all.filter((r) => tab === 'all' || r.status === tab)
-  const shown = base.filter(matchQ).slice().sort((a, b) => {
-    const cmp = (b.updatedAt || '').localeCompare(a.updatedAt || '')
-    return newestFirst ? cmp : -cmp
-  })
+  // Tab and search, before the form filter: the counts in the filter
+  // panel have to stay put as you tick boxes.
+  const scoped = base.filter(matchQ)
 
-  // Categorized by report type (Improve §5.3), ordered by date inside each group
+  const counts = useMemo(() => ({
+    all: all.length,
+    draft: all.filter((r) => r.status === 'draft').length,
+    submitted: all.filter((r) => r.status === 'submitted').length,
+    approved: all.filter((r) => r.status === 'approved').length,
+    ncr: ncrs.length,
+  }), [all, ncrs])
+
+  const formList = useMemo(() => {
+    const m = new Map()
+    for (const r of scoped) {
+      const k = r.formKey
+      m.set(k, { key: k, label: FORM_SCHEMAS[k]?.title || k, n: (m.get(k)?.n || 0) + 1 })
+    }
+    return [...m.values()].sort((a, b) => a.label.localeCompare(b.label))
+  }, [scoped])
+
+  const shown = scoped
+    .filter((r) => !forms.size || forms.has(r.formKey))
+    .slice()
+    .sort((a, b) => {
+      const cmp = (b.updatedAt || '').localeCompare(a.updatedAt || '')
+      return newestFirst ? cmp : -cmp
+    })
+
   const groups = useMemo(() => {
+    const of = GROUPS.find((g) => g.id === group)?.of
+    if (!of) return [[null, shown]]
     const m = new Map()
     for (const r of shown) {
-      const key = FORM_SCHEMAS[r.formKey]?.title || r.formKey
+      const key = of(r)
       if (!m.has(key)) m.set(key, [])
       m.get(key).push(r)
     }
     return [...m.entries()]
-  }, [shown])
+  }, [shown, group])
 
-  const onApprove = (e, r) => {
-    e.stopPropagation()
-    approveReport(r.id, session.name)
-    refresh()
-    notify(`${r.reportId} approved`)
-  }
   const onDelete = (e, r) => {
     e.stopPropagation()
     if (confirm(`Delete report ${r.reportId}?`)) {
@@ -81,22 +112,58 @@ export default function Reports({ query }) {
 
   return (
     <div className="page">
-      <div className="searchbar">
-        <IconSearch size={16} />
-        <input placeholder="Search report no, job, inspector…" value={q} onChange={(e) => setQ(e.target.value)} />
+      <div className="mon-head">
+        <h2>Reports</h2>
+        <button className="btn btn-secondary btn-sm" onClick={exportCsv}>
+          <IconDownload size={14} /> Export CSV
+        </button>
       </div>
 
-      <div className="filters-row">
+      <div className="mon-tabs" role="tablist" aria-label="Report status">
         {TABS.map((t) => (
-          <button key={t.id} className={`mselect-btn${tab === t.id ? ' has-value' : ''}`} onClick={() => setTab(t.id)}>
-            {t.label}
-            {t.id === 'ncr' && ncrs.length > 0 && <span className="mselect-count" style={{ background: 'var(--overdue)' }}>{ncrs.length}</span>}
+          <button key={t.id} role="tab" aria-selected={tab === t.id}
+            className={`mon-tab${tab === t.id ? ' on' : ''}`} onClick={() => setTab(t.id)}>
+            {t.label}<span className={`mon-tab-n${t.id === 'ncr' && counts.ncr ? ' is-alarm' : ''}`}>{counts[t.id]}</span>
           </button>
         ))}
-        <button className="mselect-btn" onClick={() => setNewestFirst(!newestFirst)} title="Toggle sort order">
-          {newestFirst ? 'Newest ↓' : 'Oldest ↑'}
-        </button>
-        <button className="mselect-btn" onClick={exportCsv}><IconDownload size={13} /> CSV</button>
+      </div>
+
+      <div className="rb-bar">
+        <div className="rb-group">
+          <SearchField value={q} onChange={setQ} label="Search reports"
+            placeholder="Search report no, job, inspector…" />
+          <ToolButton icon={IconFilter} label="Filter by form" count={forms.size}>
+            {() => (
+              <>
+                {formList.map((f) => (
+                  <PopCheck key={f.key} label={f.label} on={forms.has(f.key)} hint={f.n}
+                    onChange={(on) => setForms((s0) => {
+                      const n = new Set(s0); on ? n.add(f.key) : n.delete(f.key); return n
+                    })} />
+                ))}
+                {!formList.length && <p className="rb-pop-empty">Nothing to filter here.</p>}
+                <PopFooter>
+                  <button className="btn btn-ghost btn-sm" disabled={!forms.size}
+                    onClick={() => setForms(new Set())}>Clear</button>
+                </PopFooter>
+              </>
+            )}
+          </ToolButton>
+          <ToolButton icon={IconGroup} label="Group and sort" count={group === 'form' ? 0 : 1}>
+            {({ close }) => (
+              <>
+                {GROUPS.map((g) => (
+                  <PopRadio key={g.id} label={g.label} on={group === g.id}
+                    onChange={() => { setGroup(g.id); close() }} />
+                ))}
+                <div className="rb-pop-legend">Order</div>
+                <PopRadio label="Newest first" on={newestFirst} onChange={() => setNewestFirst(true)} />
+                <PopRadio label="Oldest first" on={!newestFirst} onChange={() => setNewestFirst(false)} />
+              </>
+            )}
+          </ToolButton>
+        </div>
+        <span className="mon-count">{shown.length} report{shown.length === 1 ? '' : 's'}</span>
       </div>
 
       {shown.length === 0 ? (
@@ -121,11 +188,20 @@ export default function Reports({ query }) {
         </div>
       ) : (
         groups.map(([groupName, reps]) => (
-          <div key={groupName}>
-            <h3 className="section-title">{groupName} <span className="group-count">{reps.length}</span></h3>
+          <div key={groupName || 'all'}>
+            {groupName && (
+              <h3 className="section-title">{groupName} <span className="group-count">{reps.length}</span></h3>
+            )}
             <div className="card table-card deliv-list" style={{ marginBottom: 6 }}>
               {reps.map((r) => (
-                <button key={r.id} className="deliv-row tappable" onClick={() => openReport(r)}>
+                /* A div, not a button. It used to be a <button> with a
+                   <span role="button"> inside it — invalid markup, and on
+                   a phone the nested control was laid out over the report
+                   number instead of beside it. Now the row carries the
+                   open action and Delete is a real sibling button. */
+                <div key={r.id} className="deliv-row tappable" role="button" tabIndex={0}
+                  onClick={() => openReport(r)}
+                  onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openReport(r) } }}>
                   <span className="deliv-ico"><IconDoc size={17} /></span>
                   <span className="deliv-main">
                     <strong>{r.reportId}</strong>
@@ -136,18 +212,14 @@ export default function Reports({ query }) {
                   </span>
                   <span className="deliv-end">
                     <StateBadge status={r.status} />
-                    {role.canOverride && r.status === 'submitted' && (
-                      <span className="btn btn-primary btn-sm" role="button" onClick={(e) => onApprove(e, r)}>
-                        <IconApprove size={13} /> Approve
-                      </span>
-                    )}
                     {role.canManage && (
-                      <span className="btn btn-ghost btn-icon" role="button" aria-label="Delete report" onClick={(e) => onDelete(e, r)}>
+                      <button className="btn btn-ghost btn-icon" aria-label={`Delete ${r.reportId}`}
+                        onClick={(e) => onDelete(e, r)}>
                         <IconTrash size={13} />
-                      </span>
+                      </button>
                     )}
                   </span>
-                </button>
+                </div>
               ))}
             </div>
           </div>

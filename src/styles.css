@@ -3026,3 +3026,64 @@ tr:has(.chip-done) .jobs-prog-bar span { background: var(--done); }
 .mon-count { font-family: var(--sans); font-size: 12.5px; font-weight: 500; color: var(--text); }
 .mon-showing { gap: 10px; }
 .mon-showing select { border-radius: 8px; padding: 5px 26px 5px 10px; }
+
+/* ═══════════════════════════════════════════════════════════════
+   REPORTS: the same toolbar, outside a card
+   Reports is a grouped card list rather than a table, so the toolbar
+   stands on the page instead of sitting on a card's top edge. Same
+   parts, same shapes.
+   ═══════════════════════════════════════════════════════════════ */
+
+.rb-bar {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 12px; flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+.rb-pop-empty { padding: 10px 9px; font-size: 12.5px; color: var(--text-3); }
+
+/* NCR is a count of things that went wrong, so it is the one tab count
+   that carries the alarm colour rather than the accent. */
+.mon-tab-n.is-alarm { background: var(--overdue); color: #fff; }
+.mon-tab.on .mon-tab-n.is-alarm { background: var(--overdue); color: #fff; }
+
+/* The report row is a div carrying role=button now, so it needs the box
+   the <button> was giving it, and the focus ring a button had for free. */
+div.deliv-row { width: 100%; text-align: left; cursor: default; }
+div.deliv-row.tappable { cursor: pointer; }
+div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber); outline-offset: -2px; }
+
+/* The overlap: the actions column could not be pushed, so it landed on
+   top of the report number. It holds its own width and the text column
+   gives way instead. */
+.deliv-main { flex: 1 1 auto; min-width: 0; }
+.deliv-end { flex: 0 0 auto; }
+.deliv-main strong { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; display: block; }
+
+@media (max-width: 560px) {
+  /* On a phone the badge goes under the text rather than fighting it
+     for a row that is only 390px wide. */
+  .deliv-row { flex-wrap: wrap; row-gap: 8px; }
+  .deliv-main { flex: 1 1 100%; order: 2; }
+  .deliv-ico { order: 1; }
+  .deliv-end { order: 3; flex: 1 1 100%; justify-content: flex-start; padding-left: 52px; }
+}
+
+/* ── Nav row: the item and its caret are siblings now, so the row is
+   what carries the active pill and the two controls divide it. */
+.nav-row { display: flex; align-items: center; border-radius: 5px; }
+.nav-row > .nav-item { flex: 1 1 auto; min-width: 0; border-radius: 5px 0 0 5px; }
+.nav-row:has(> .nav-caret) > .nav-item { padding-right: 4px; }
+.nav-row:not(:has(> .nav-caret)) > .nav-item { border-radius: 5px; }
+.nav-caret {
+  flex: 0 0 auto; margin: 0 5px 0 0;
+  border: 0; background: none; padding: 0;
+  cursor: pointer;
+}
+/* The pill belongs to the whole row, so the caret sits on it rather
+   than beside it in a different colour. */
+.nav-row.active { background: var(--ink); }
+.nav-row.active > .nav-item.active { background: none; }
+.nav-row.active .nav-caret { color: rgba(255, 255, 255, 0.7); }
+.nav-row.active .nav-caret:hover { background: rgba(255, 255, 255, 0.16); }
+.nav-caret:focus-visible { outline: 2px solid var(--amber); outline-offset: 1px; }
+.shell.side-min .nav-row > .nav-item { border-radius: 5px; }

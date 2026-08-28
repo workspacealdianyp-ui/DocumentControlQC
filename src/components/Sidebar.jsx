@@ -42,22 +42,26 @@ export default function Sidebar({ page, onToggle, collapsed }) {
           const active = page === n.id || (n.id === 'jobs' && (page === 'job' || page === 'form'))
           return (
             <li key={n.id}>
-              <button className={`nav-item${active ? ' active' : ''}`}
-                onClick={() => { navigate(n.to); if (n.sub) setOpenGroup(true) }}
-                aria-current={active ? 'page' : undefined} title={n.label}>
-                <span className="nav-ico"><n.icon size={18} /></span>
-                <span className="nav-label">{n.label}</span>
+              {/* Two controls side by side, not one inside the other: go
+                  to the section, or open its sub-items. The caret used to
+                  be a role=button span nested in the nav button, which is
+                  invalid and made the two hit areas fight. */}
+              <div className={`nav-row${active ? ' active' : ''}`}>
+                <button className={`nav-item${active ? ' active' : ''}`}
+                  onClick={() => { navigate(n.to); if (n.sub) setOpenGroup(true) }}
+                  aria-current={active ? 'page' : undefined} title={n.label}>
+                  <span className="nav-ico"><n.icon size={18} /></span>
+                  <span className="nav-label">{n.label}</span>
+                </button>
                 {n.sub && !collapsed && (
-                  <span
+                  <button type="button"
                     className={`nav-caret${openGroup ? ' open' : ''}`}
-                    role="button" tabIndex={0}
                     aria-label={openGroup ? `Collapse ${n.label}` : `Expand ${n.label}`}
                     aria-expanded={openGroup}
-                    onClick={(e) => { e.stopPropagation(); setOpenGroup((v) => !v) }}
-                    onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); e.stopPropagation(); setOpenGroup((v) => !v) } }}
-                  ><IconChevronD size={13} /></span>
+                    onClick={() => setOpenGroup((v) => !v)}
+                  ><IconChevronD size={13} /></button>
                 )}
-              </button>
+              </div>
               {n.sub && !collapsed && openGroup && (
                 <ul className="nav-sub">
                   {n.sub.map((sItem) => {
