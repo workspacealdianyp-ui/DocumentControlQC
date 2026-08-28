@@ -125,7 +125,7 @@ export default function App() {
             {route.page === 'job' && <JobDetail job={job} />}
             {route.page === 'form' && <FormView job={job} formKey={route.formKey} query={route.query} />}
             {route.page === 'reports' && <Reports query={route.query} />}
-            {route.page === 'settings' && <Settings />}
+            {route.page === 'settings' && <Settings section={route.query.s} />}
             {route.page === 'profile' && <Profile />}
           </main>
         </div>

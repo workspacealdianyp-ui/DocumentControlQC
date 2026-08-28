@@ -2329,3 +2329,238 @@ tr:has(.chip-done) .jobs-prog-bar span { background: var(--done); }
 @media (prefers-reduced-motion: reduce) {
   .mon-bar { transition: none; }
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   SETTINGS: a rail of sections, one panel at a time
+   Laid out from the reference: the page title and grouped links sit in
+   a left column, the panel fills the right. Measurement and Measurement
+   Tools are separate sections — one sets the units, the other lists the
+   instruments.
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Grid items default to min-width:auto, so at 390px the panel sized to
+   the roles table's own min-content (527px in a 390px viewport) instead
+   of letting the table scroll inside its card. */
+.set-shell { display: grid; grid-template-columns: 1fr; gap: 24px; }
+.set-shell > *, .set-two > *, .set-panel { min-width: 0; }
+@media (min-width: 900px) {
+  .set-shell { grid-template-columns: 194px minmax(0, 1fr); gap: 40px; align-items: start; }
+}
+
+/* ── Rail ── */
+.set-rail h2 { font-size: 27px; font-weight: 500; letter-spacing: -0.02em; margin: 0; }
+.set-rail-sub {
+  margin: 5px 0 22px;
+  font-size: 11.5px; font-weight: 350; color: var(--text-3); line-height: 1.5;
+}
+.set-rail-sub span { display: block; }
+@media (min-width: 900px) {
+  .set-rail { position: sticky; top: 24px; }
+}
+.set-group { margin-bottom: 20px; }
+.set-group-label {
+  display: block; margin-bottom: 8px;
+  font-size: 10.5px; font-weight: 500; color: var(--text-3);
+  letter-spacing: 0.04em;
+}
+.set-rail ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 1px; }
+.set-rail li { margin: 0; }
+.set-link {
+  width: 100%; text-align: left;
+  border: 0; background: none;
+  padding: 6px 9px; border-radius: 5px;
+  font-family: var(--sans); font-size: 12.5px; font-weight: 350;
+  color: var(--text-2);
+  transition: background-color .12s ease, color .12s ease;
+}
+.set-link:hover { background: var(--surface-2); color: var(--text); }
+/* The active section is named, not decorated: weight and a single index
+   mark, the same vocabulary as the main rail. */
+.set-link.on {
+  background: var(--surface-2); color: var(--text); font-weight: 500;
+  box-shadow: inset 2px 0 0 var(--ink);
+}
+
+/* ── Panel ── */
+/* A settings form reads worse the wider it gets: at 1440px the inputs
+   ran to 1120px and the two columns sat 700px apart. Cap the panel, and
+   cap each control, so a field is the width of its longest value. */
+.set-body { max-width: 1060px; }
+.set-panel > h3 { font-size: 17px; font-weight: 500; margin: 0 0 6px; letter-spacing: -0.01em; }
+.set-panel-desc {
+  margin: 0 0 22px; max-width: 62ch;
+  font-size: 12.5px; font-weight: 350; line-height: 1.55; color: var(--text-2);
+}
+.set-legend {
+  margin: 0 0 9px;
+  font-size: 10.5px; font-weight: 500; color: var(--text-3);
+  letter-spacing: 0.04em; text-transform: uppercase;
+}
+.set-rows + .set-legend, .set-fields + .set-legend { margin-top: 24px; }
+
+.set-two { display: grid; grid-template-columns: 1fr; gap: 28px; }
+@media (min-width: 1100px) { .set-two { grid-template-columns: 1fr 1fr; gap: 36px; } }
+
+/* ── Toggle row ── */
+.set-rows { display: flex; flex-direction: column; gap: 8px; }
+.set-row {
+  display: flex; align-items: center; gap: 12px;
+  padding: 11px 13px;
+  border: 1px solid var(--line); border-radius: 7px;
+  background: var(--surface);
+  transition: border-color .12s ease;
+}
+.set-row:hover { border-color: var(--line-2); }
+.set-row.is-disabled { background: var(--surface-2); }
+.set-row.is-disabled .set-row-text strong { color: var(--text-2); }
+.set-row-ico {
+  flex: 0 0 auto; width: 32px; height: 32px;
+  display: grid; place-items: center;
+  border: 1px solid var(--line); border-radius: 6px;
+  background: var(--surface-2); color: var(--text-2);
+}
+.set-row-text { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; gap: 1px; }
+.set-row-text strong { font-size: 12.5px; font-weight: 450; color: var(--text); }
+.set-row-text small { font-size: 11px; font-weight: 350; color: var(--text-3); line-height: 1.4; }
+
+.set-switch {
+  flex: 0 0 auto;
+  width: 38px; height: 21px; padding: 0;
+  border: 1px solid var(--line-2); border-radius: 999px;
+  background: var(--surface-3);
+  position: relative; cursor: pointer;
+  transition: background-color .16s ease, border-color .16s ease;
+}
+.set-switch .set-knob {
+  position: absolute; top: 2px; left: 2px;
+  width: 15px; height: 15px; border-radius: 50%;
+  background: var(--surface);
+  box-shadow: 0 1px 2px rgba(20, 20, 24, 0.25);
+  transition: transform .16s ease;
+}
+.set-switch.on { background: var(--done); border-color: var(--done); }
+.set-switch.on .set-knob { transform: translateX(17px); }
+.set-switch:disabled { opacity: 0.4; cursor: not-allowed; }
+
+/* ── Check row ── */
+.set-check {
+  display: flex; align-items: center; gap: 12px;
+  padding: 10px 13px;
+  border: 1px solid var(--line); border-radius: 7px;
+  background: var(--surface);
+  cursor: pointer;
+  transition: border-color .12s ease, background-color .12s ease;
+}
+.set-check:hover { border-color: var(--line-2); background: var(--surface-2); }
+.set-check-ico { flex: 0 0 auto; color: var(--text-3); display: grid; place-items: center; }
+.set-check-label { flex: 1 1 auto; min-width: 0; font-size: 12.5px; font-weight: 350; color: var(--text); }
+/* The real input carries the state and the keyboard; the drawn box is
+   what you see. Keeping the input in the layout (rather than display:none)
+   is what lets :focus-visible reach the box. */
+.set-check input {
+  position: absolute; width: 1px; height: 1px; min-height: 0;
+  opacity: 0; margin: 0; padding: 0;
+}
+.set-box {
+  flex: 0 0 auto; width: 17px; height: 17px;
+  display: grid; place-items: center;
+  border: 1px solid var(--line-2); border-radius: 4px;
+  background: var(--surface); color: transparent;
+  transition: background-color .12s ease, border-color .12s ease, color .12s ease;
+}
+.set-check.on .set-box { background: var(--done); border-color: var(--done); color: #fff; }
+.set-check input:focus-visible + .set-box { box-shadow: 0 0 0 3px var(--steel-soft); border-color: var(--ink); }
+
+/* ── Fields ── */
+.set-fields { display: flex; flex-direction: column; gap: 14px; }
+.set-field { display: grid; grid-template-columns: 1fr; gap: 5px; }
+@media (min-width: 620px) {
+  .set-field { grid-template-columns: 132px minmax(0, 1fr); gap: 14px; align-items: start; }
+  .set-field-label { padding-top: 8px; text-align: right; }
+}
+.set-field-label { font-size: 12px; font-weight: 400; color: var(--text-2); }
+.set-field-ctrl { min-width: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+.set-field-ctrl > input, .set-field-ctrl > select,
+.set-input-icon { flex: 1 1 100%; min-width: 0; max-width: 340px; }
+.set-field-ctrl > select { max-width: 260px; }
+.set-two .set-field-ctrl > input, .set-two .set-field-ctrl > select { max-width: 100%; }
+.set-field-ctrl input[readonly] { background: var(--surface-2); color: var(--text-2); cursor: default; }
+.set-field-hint { flex: 1 1 100%; font-size: 11px; font-weight: 350; color: var(--text-3); line-height: 1.45; }
+.set-field-lock { position: absolute; left: 314px; top: 10px; color: var(--text-3); pointer-events: none; }
+.set-field-ctrl { position: relative; }
+
+.set-input-icon { position: relative; flex: 1 1 100%; display: flex; }
+.set-input-icon input { flex: 1 1 auto; min-width: 0; padding-right: 32px; }
+.set-input-icon svg { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); color: var(--text-3); }
+
+/* ── Segmented unit picker ── */
+.set-seg {
+  display: inline-flex; flex: 0 0 auto;
+  border: 1px solid var(--line); border-radius: 6px; overflow: hidden;
+}
+.set-seg button {
+  border: 0; background: var(--surface);
+  padding: 0 13px; height: 32px;
+  font-family: var(--sans); font-size: 12.5px; font-weight: 400; color: var(--text-2);
+  transition: background-color .12s ease, color .12s ease;
+}
+.set-seg button + button { border-left: 1px solid var(--line); }
+.set-seg button:hover { background: var(--surface-2); color: var(--text); }
+.set-seg button.on { background: var(--ink); color: #fff; font-weight: 450; }
+
+/* ── Summary note ── */
+.set-note {
+  margin-top: 20px; padding: 13px 15px;
+  border: 1px solid var(--line); border-left: 2px solid var(--ink); border-radius: 6px;
+  background: var(--surface-2);
+}
+.set-note strong { display: block; font-size: 11px; font-weight: 500; color: var(--text-2); margin-bottom: 4px; }
+.set-note p { margin: 0; font-size: 12.5px; font-weight: 350; line-height: 1.55; color: var(--text); }
+.set-note b { font-family: var(--mono); font-size: 12px; font-weight: 500; }
+
+/* ── Instrument register ── */
+.set-tools { display: grid; grid-template-columns: 1fr; gap: 14px; }
+@media (min-width: 1100px) { .set-tools { grid-template-columns: 1fr 1fr; } }
+.set-tool {
+  padding: 15px;
+  border: 1px solid var(--line); border-radius: 7px;
+  background: var(--surface);
+}
+.set-tool-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 10px; }
+.set-tool-head h4 { margin: 0; font-size: 13px; font-weight: 500; }
+.set-tool-n {
+  font-family: var(--mono); font-size: 10.5px; font-weight: 500;
+  padding: 1px 7px; border-radius: 999px;
+  background: var(--surface-3); color: var(--text-2);
+}
+.asset-empty { color: var(--text-3); font-size: 11.5px; font-style: italic; }
+
+/* ── Storage actions ── */
+.set-actions .set-row-text { flex: 1 1 auto; }
+.set-row.is-danger { border-color: var(--overdue-bg); }
+.set-row.is-danger .set-row-ico { color: var(--overdue); background: var(--overdue-bg); border-color: var(--overdue-bg); }
+.set-danger-btn { color: var(--overdue); }
+.set-danger-btn:hover { border-color: var(--overdue); color: var(--overdue); }
+
+/* Stacked, the rail put 445px of navigation above the panel on a 844px
+   phone. Below the two-column breakpoint it becomes a horizontal strip
+   instead, each group keeping its label above its own row of links. */
+@media (max-width: 899px) {
+  .set-nav {
+    display: flex; gap: 18px; align-items: flex-start;
+    overflow-x: auto; scrollbar-width: none;
+    padding-bottom: 10px; border-bottom: 1px solid var(--line);
+  }
+  .set-nav::-webkit-scrollbar { display: none; }
+  .set-group { flex: 0 0 auto; margin-bottom: 0; }
+  .set-rail ul { flex-direction: row; gap: 2px; }
+  .set-link { white-space: nowrap; padding: 6px 11px; }
+  .set-link.on { box-shadow: inset 0 -2px 0 var(--ink); border-radius: 5px 5px 0 0; }
+  .set-rail-sub { margin-bottom: 16px; }
+  .set-rail-sub span { display: inline; }
+  .set-rail-sub span::before { content: ' · '; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .set-switch, .set-switch .set-knob, .set-box { transition: none; }
+}

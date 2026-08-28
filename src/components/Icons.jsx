@@ -46,6 +46,12 @@ export const STATUS_ICONS = {
 
 // Sidebar collapse control: a panel with its rail filled, which is what
 // the control actually does, unlike a hamburger.
+export const IconMail = (p) => <I {...p}><rect x="2.5" y="5" width="19" height="14" rx="2" /><polyline points="3 6.5 12 13 21 6.5" /></I>
+export const IconRuler = (p) => <I {...p}><rect x="2" y="8" width="20" height="8" rx="1.5" /><line x1="7" y1="8" x2="7" y2="12" /><line x1="12" y1="8" x2="12" y2="13" /><line x1="17" y1="8" x2="17" y2="12" /></I>
+export const IconGauge = (p) => <I {...p}><path d="M4 18a8 8 0 1 1 16 0" /><line x1="12" y1="18" x2="16" y2="11" /><circle cx="12" cy="18" r="1.2" /></I>
+export const IconLock = (p) => <I {...p}><rect x="4.5" y="10.5" width="15" height="10" rx="2" /><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3" /></I>
+export const IconBuilding = (p) => <I {...p}><rect x="4" y="3" width="16" height="18" rx="1.5" /><line x1="9" y1="7.5" x2="9" y2="7.5" /><line x1="15" y1="7.5" x2="15" y2="7.5" /><line x1="9" y1="12" x2="9" y2="12" /><line x1="15" y1="12" x2="15" y2="12" /><path d="M10 21v-4h4v4" /></I>
+export const IconDatabase = (p) => <I {...p}><ellipse cx="12" cy="6" rx="8" ry="3" /><path d="M4 6v6c0 1.7 3.6 3 8 3s8-1.3 8-3V6" /><path d="M4 12v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6" /></I>
 export const IconPanel = (p) => <I {...p}><rect x="3" y="4" width="18" height="16" rx="2" /><line x1="9" y1="4" x2="9" y2="20" /></I>
 export const IconChevronD = (p) => <I {...p}><polyline points="6 9 12 15 18 9" /></I>
 
