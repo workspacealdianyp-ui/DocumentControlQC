@@ -4,7 +4,7 @@ import { dimRowStatus, dimDeviation } from '../data/formSchemas.js'
 import { MR } from '../lib/compute.js'
 import { fmtDate } from '../lib/status.js'
 import { buildResume } from '../lib/resume.js'
-import { IconBack, IconPrint, IconPen, IconChevronR, IconApprove } from './Icons.jsx'
+import { IconBack, IconPrint, IconPen, IconChevronR, IconApprove, IconSend, IconXCircle } from './Icons.jsx'
 
 // read-only detail view of a submitted/approved report — shows the entered data, never edits
 const lbl = (f, v) => (typeof f.label === 'function' ? f.label(v) : f.label)
@@ -185,8 +185,12 @@ export default function ReportDetail({ schema, report, job, deliverable, status,
         {/* State: where the document stands, and what was decided. Two
             badges of the same shape, so they read as one kind of fact. */}
         <div className="detail-badges">
-          <span className={`dbadge state-${status}`}>{statusLabel}</span>
+          <span className={`dbadge state-${status}`}>
+            {status === 'approved' ? <IconApprove size={13} /> : <IconSend size={13} />}
+            {statusLabel}
+          </span>
           <span className={`dbadge verdict ${r.released ? 'is-acc' : 'is-rej'}`}>
+            {r.released ? <IconApprove size={13} /> : <IconXCircle size={13} />}
             {r.released ? 'Accept' : 'Reject'}
           </span>
           <span className="detail-verdict-note">{r.headline}</span>

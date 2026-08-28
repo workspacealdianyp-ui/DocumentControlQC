@@ -4,7 +4,8 @@ import { FORM_SCHEMAS } from '../data/formSchemas.js'
 import { getReports, approveReport, deleteReport } from '../lib/store.js'
 import { fmtDate } from '../lib/status.js'
 import { reportResult } from './SummaryReport.jsx'
-import { IconSearch, IconChevronR, IconApprove, IconTrash, IconPrint, IconPlus } from './Icons.jsx'
+import { StateBadge } from './StatusChip.jsx'
+import { IconSearch, IconChevronR, IconApprove, IconTrash, IconPrint, IconPlus, IconXCircle } from './Icons.jsx'
 import { useStuck } from '../lib/sticky.js'
 
 /* Monitoring is a register of documents, so it is laid out as one: a
@@ -211,14 +212,13 @@ export default function Dashboard() {
                     </td>
                     <td>
                       <span className={`chip chip-${verdict === 'Reject' ? 'overdue' : 'done'}`}>
+                        {verdict === 'Reject' ? <IconXCircle size={13} /> : <IconApprove size={13} />}
                         {verdict === 'Reject' ? 'Reject' : 'Accept'}
                       </span>
                     </td>
                     <td className="num">{fmtDate(r.updatedAt)}</td>
                     <td>
-                      <span className={`report-state state-${r.status}`}>
-                        {r.status === 'approved' ? 'Approved' : r.status === 'submitted' ? 'Submitted' : 'Draft'}
-                      </span>
+                      <StateBadge status={r.status} />
                     </td>
                     <td className="mon-act" onClick={(e) => e.stopPropagation()}>
                       <RowMenu report={r} canManage={role.canOverride}

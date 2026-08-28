@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useApp, navigate } from '../App.jsx'
 import { buildContext, jobProgress, fmtDate, exportMatrixCsv } from '../lib/status.js'
-import { IconSearch, IconChevronR, IconDownload } from './Icons.jsx'
+import { IconSearch, IconChevronR, IconDownload, STATUS_ICONS } from './Icons.jsx'
 import { useStuck } from '../lib/sticky.js'
 
 /* Jobs is a register, laid out like Monitoring so the app has one table
@@ -177,7 +177,12 @@ export default function JobsPage({ kat }) {
                         <span className="jobs-prog-n">{p.done}/{p.applicable}</span>
                       </div>
                     </td>
-                    <td><span className={`chip chip-${st.id}`}>{st.label}</span></td>
+                    <td>
+                      <span className={`chip chip-${st.id}`}>
+                        {(() => { const G = STATUS_ICONS[st.id]; return <G size={13} /> })()}
+                        {st.label}
+                      </span>
+                    </td>
                   </tr>
                 )
               })}

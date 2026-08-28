@@ -5,7 +5,7 @@ import { DELIVERABLES, NDE_FORMS } from '../lib/constants.js'
 import { FORM_SCHEMAS } from '../data/formSchemas.js'
 import { buildContext, jobProgress, fmtDate, fmtDateTime } from '../lib/status.js'
 import { reportsFor } from '../lib/store.js'
-import StatusChip from './StatusChip.jsx'
+import StatusChip, { StateBadge } from './StatusChip.jsx'
 import SummaryReport, { reportResult } from './SummaryReport.jsx'
 import { IconBack, IconDoc, IconPrint } from './Icons.jsx'
 
@@ -196,7 +196,7 @@ export default function JobDetail({ job }) {
                 <small>{[FORM_SCHEMAS[r.formKey]?.title, r.deliverable, fmtDateTime(r.updatedAt), r.inspector].filter(Boolean).join(' · ')}</small>
               </span>
               <span className="deliv-end">
-                <span className={`report-state state-${r.status}`}>{r.status}</span>
+                <StateBadge status={r.status} />
                 <Chevron />
               </span>
             </button>

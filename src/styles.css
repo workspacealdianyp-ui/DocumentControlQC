@@ -45,6 +45,16 @@
   --na: #9d9da3;       --na-bg: #f4f4f1;
   --danger: #c8102e;
 
+  /* Badges are drawn as three tones of one hue: pale ground, mid rule,
+     dark text. The rule is what makes a tinted pill read as an object
+     rather than a smudge, so each status gets its own. */
+  --done-line:     #b0dcc7;
+  --inprog-line:   #ffd0ae;
+  --notstart-line: #dcdcd8;
+  --overdue-line:  #f6c1c9;
+  --na-line:       #e0e0dc;
+  --review: #1c4f8a;   --review-bg: #e9f1fb;   --review-line: #bcd4ee;
+
   --mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', monospace;
   --sans: 'Archivo', system-ui, -apple-system, sans-serif;
 
@@ -2649,3 +2659,75 @@ tr:has(.chip-done) .jobs-prog-bar span { background: var(--done); }
 .jd-hero .ring-bar { stroke: var(--amber); }
 .jd-hero .ring-label strong { color: var(--text); }
 .jd-hero.is-complete .ring-bar { stroke: var(--done); }
+
+/* ═══════════════════════════════════════════════════════════════
+   STATUS BADGES
+   Built to the shared reference: a rounded pill carrying a glyph that
+   says what the state IS, set in three tones of one hue — pale ground,
+   mid rule, dark text. The glyph is the point. A tick, a broken ring
+   and a struck ring are told apart at a glance and without colour,
+   which a row of identical dots never manages.
+   ═══════════════════════════════════════════════════════════════ */
+
+.chip, .report-state {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 4px 10px 4px 8px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  background: none;
+  font-family: var(--sans);
+  font-size: 12px; font-weight: 450; line-height: 1.35;
+  letter-spacing: 0; text-transform: none;
+  white-space: nowrap;
+  transition: border-color .12s ease, box-shadow .12s ease;
+}
+.chip > svg, .report-state > svg { flex: 0 0 auto; opacity: 0.9; }
+
+/* Icon-only variant keeps the same shape, just square. */
+.chip-compact { padding: 5px; gap: 0; }
+
+.chip-done      { color: var(--done);     background: var(--done-bg);     border-color: var(--done-line); }
+.chip-inprogress{ color: var(--amber-deep); background: var(--amber-soft); border-color: var(--inprog-line); }
+.chip-notstarted{ color: var(--notstart); background: var(--notstart-bg); border-color: var(--notstart-line); }
+.chip-overdue   { color: var(--overdue);  background: var(--overdue-bg);  border-color: var(--overdue-line); }
+/* Not applicable is the one dashed rule: the row exists but nothing is
+   expected in it, and a dashed edge says that before the words do. */
+.chip-na { color: var(--na); background: var(--na-bg); border-color: var(--na-line); border-style: dashed; }
+
+.state-draft     { color: var(--inprog);  background: var(--inprog-bg);   border-color: var(--inprog-line); }
+.state-submitted { color: var(--review);  background: var(--review-bg);   border-color: var(--review-line); }
+.state-approved  { color: var(--done);    background: var(--done-bg);     border-color: var(--done-line); }
+.state-new       { color: var(--notstart); background: var(--notstart-bg); border-color: var(--notstart-line); }
+
+/* The reference lifts the badge under the pointer. Ours sit in rows you
+   can click, so the lift follows the row rather than the badge. */
+.mon-table tbody tr:hover .chip,
+.mon-table tbody tr:hover .report-state,
+.deliv-row.tappable:hover .chip,
+.deliv-row.tappable:hover .report-state {
+  border-color: currentColor;
+  box-shadow: 0 1px 3px -1px rgba(20, 20, 24, 0.18);
+}
+
+/* The report hero badges are the same object at a larger size. */
+.dbadge {
+  gap: 6px; padding: 0 11px 0 9px;
+  border-radius: 8px;
+  font-family: var(--sans); font-size: 12px; font-weight: 450;
+  letter-spacing: 0; text-transform: none;
+  border: 1px solid transparent;
+}
+.dbadge > svg { flex: 0 0 auto; opacity: 0.9; }
+.dbadge.state-approved  { color: var(--done);   background: var(--done-bg);   border-color: var(--done-line); }
+.dbadge.state-submitted { color: var(--review); background: var(--review-bg); border-color: var(--review-line); }
+.dbadge.state-draft     { color: var(--inprog); background: var(--inprog-bg); border-color: var(--inprog-line); }
+/* The verdict is the one badge that fills: it is the answer the whole
+   document exists to give, so it does not whisper. */
+.dbadge.verdict.is-acc { color: #fff; background: var(--done);    border-color: var(--done); }
+.dbadge.verdict.is-rej { color: #fff; background: var(--overdue); border-color: var(--overdue); }
+
+/* The compact strip on a job card follows the same three tones. */
+.dchip-done      { color: var(--done);       background: var(--done-bg);    box-shadow: inset 0 0 0 1px var(--done-line); }
+.dchip-inprogress{ color: var(--amber-deep); background: var(--amber-soft); box-shadow: inset 0 0 0 1px var(--inprog-line); }
+.dchip-notstarted{ color: var(--notstart);   background: var(--notstart-bg); box-shadow: inset 0 0 0 1px var(--notstart-line); }
+.dchip-overdue   { color: var(--overdue);    background: var(--overdue-bg); box-shadow: inset 0 0 0 1px var(--overdue-line); }

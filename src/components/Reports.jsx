@@ -4,6 +4,7 @@ import { FORM_SCHEMAS } from '../data/formSchemas.js'
 import { getReports, deleteReport, approveReport } from '../lib/store.js'
 import { ncrReports, fmtDateTime } from '../lib/status.js'
 import { reportResult } from './SummaryReport.jsx'
+import { StateBadge } from './StatusChip.jsx'
 import { IconTrash, IconDownload, IconSearch, IconDoc, IconApprove, IconCloudUp, IconCloudOff, IconAlert } from './Icons.jsx'
 
 const TABS = [
@@ -114,7 +115,7 @@ export default function Reports({ query }) {
                 <small>{(r.values?.ncr || 'Non-conforming result recorded').slice(0, 110)}</small>
                 <small>{FORM_SCHEMAS[r.formKey]?.title} · Job {r.jobNo} · {r.inspector} · {fmtDateTime(r.updatedAt)}</small>
               </span>
-              <span className={`report-state state-${r.status}`}>{r.status}</span>
+              <StateBadge status={r.status} />
             </button>
           ))}
         </div>
@@ -134,7 +135,7 @@ export default function Reports({ query }) {
                     </small>
                   </span>
                   <span className="deliv-end">
-                    <span className={`report-state state-${r.status}`}>{r.status}</span>
+                    <StateBadge status={r.status} />
                     {role.canOverride && r.status === 'submitted' && (
                       <span className="btn btn-primary btn-sm" role="button" onClick={(e) => onApprove(e, r)}>
                         <IconApprove size={13} /> Approve
