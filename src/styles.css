@@ -55,8 +55,26 @@
   --na-line:       #e0e0dc;
   --review: #1c4f8a;   --review-bg: #e9f1fb;   --review-line: #bcd4ee;
 
-  --mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', monospace;
-  --sans: 'Archivo', system-ui, -apple-system, sans-serif;
+  /* ── Type. Two Microsoft families that were drawn to sit together,
+     each doing the job it is best at, with free fallbacks so the design
+     holds on a machine that has neither.
+
+     Aptos      the interface — headings, labels, tables, buttons. A
+                neo-grotesque: even, unambiguous, precise, which is what
+                an instrument panel wants.
+     Calibri    the prose — descriptions, hints, help text. Humanist,
+                rounded terminals, tall x-height: easier on a sentence
+                you actually have to read.
+     Aptos Mono numbers, identifiers, measurements.
+
+     Carlito is metric-compatible with Calibri: identical widths, so the
+     layout is the same whether or not Calibri is installed. Inter
+     stands in for Aptos, and Consolas for Aptos Mono, on machines
+     without Office. */
+  --display: 'Aptos Display', 'Aptos', 'Segoe UI Variable Display', 'Inter', system-ui, sans-serif;
+  --sans:    'Aptos', 'Segoe UI Variable Text', 'Segoe UI', 'Inter', system-ui, -apple-system, sans-serif;
+  --prose:   'Calibri', 'Carlito', 'Aptos', 'Segoe UI', system-ui, sans-serif;
+  --mono:    'Aptos Mono', 'Consolas', 'IBM Plex Mono', ui-monospace, 'SF Mono', monospace;
 
   --r: 3px;                /* panels are seated, not pillowed */
   --r-lg: 4px;
@@ -2627,7 +2645,6 @@ tr:has(.chip-done) .jobs-prog-bar span { background: var(--done); }
    rather than competing with the page.
    ═══════════════════════════════════════════════════════════════ */
 
-:root { --display: 'Barlow Condensed', 'Archivo', system-ui, sans-serif; }
 
 .page h2, .page h3, .page h4,
 .set-rail h2, .set-panel h3,
@@ -2731,3 +2748,67 @@ tr:has(.chip-done) .jobs-prog-bar span { background: var(--done); }
 .dchip-inprogress{ color: var(--amber-deep); background: var(--amber-soft); box-shadow: inset 0 0 0 1px var(--inprog-line); }
 .dchip-notstarted{ color: var(--notstart);   background: var(--notstart-bg); box-shadow: inset 0 0 0 1px var(--notstart-line); }
 .dchip-overdue   { color: var(--overdue);    background: var(--overdue-bg); box-shadow: inset 0 0 0 1px var(--overdue-line); }
+
+/* ═══════════════════════════════════════════════════════════════
+   TYPE SCALE
+   Aptos is a wider face than the condensed one it replaces, so the
+   headings come back down a step and take their emphasis from weight
+   and tracking instead of size. Big sizes track tight, small labels
+   track open: that is what makes a heading read as one shape and a
+   caption read as separate words.
+   ═══════════════════════════════════════════════════════════════ */
+
+.page h2, .page h3, .page h4,
+.set-rail h2, .set-panel h3,
+.section-title, .modal h3, .empty-state strong {
+  font-family: var(--display);
+  letter-spacing: -0.011em;
+}
+
+.page h2, .set-rail h2 { font-size: 25px; font-weight: 700; letter-spacing: -0.021em; line-height: 1.15; }
+.mon-head h2           { font-size: 22px; font-weight: 700; letter-spacing: -0.019em; }
+.detail-hero h2        { font-size: 20px; font-weight: 700; letter-spacing: -0.017em; }
+.set-panel > h3        { font-size: 18px; font-weight: 600; letter-spacing: -0.014em; }
+.page h3, .modal h3    { font-weight: 600; }
+.section-title         { font-size: 14.5px; font-weight: 600; letter-spacing: -0.006em; }
+.page h4, .set-tool-head h4 { font-size: 14px; font-weight: 600; letter-spacing: -0.008em; }
+
+/* Identifiers are read one character at a time and stay monospaced. */
+.jd-hero-id h2 { font-family: var(--mono); font-weight: 600; letter-spacing: -0.012em; }
+.widget-title  { font-family: var(--mono); }
+
+/* ── Prose. Every place the interface stops labelling and starts
+   explaining gets Calibri: a full sentence, set a little larger and
+   looser than a label, because it is meant to be read rather than
+   scanned. */
+.set-panel-desc, .set-field-hint, .set-row-text small,
+.page-sub, .set-note p, .detail-verdict-note,
+.empty-state p, .set-check-label, .nde-option span,
+.modal .page-sub {
+  font-family: var(--prose);
+}
+.set-panel-desc   { font-size: 13.5px; line-height: 1.58; }
+.set-row-text small { font-size: 12px; line-height: 1.45; }
+.set-field-hint   { font-size: 11.5px; line-height: 1.5; }
+.page-sub         { font-size: 13.5px; line-height: 1.5; }
+.set-note p       { font-size: 13px; line-height: 1.6; }
+.detail-verdict-note { font-size: 13px; }
+.set-check-label  { font-size: 13px; }
+
+/* ── Labels. Small text that names a thing rather than explaining it
+   keeps the interface face and opens up a little, so it does not turn
+   into a grey smear at 11px. */
+.set-group-label, .set-legend, .meta-label, .mon-table th,
+.mon-table th button, .detail-label {
+  letter-spacing: 0.02em;
+}
+.set-group-label, .set-legend { font-size: 11px; }
+.mon-table th button, .mon-table th:not(:has(button)) { font-size: 11.5px; font-weight: 600; }
+.meta-label { font-size: 10px; }
+
+/* Aptos and Carlito both carry proper tabular figures; ask for them
+   wherever a column of numbers has to line up. */
+.num, td.num, .mono, .hero-big, .mon-primary, .jobs-prog-n,
+.detail-table td, .data-table td, input[type='number'] {
+  font-variant-numeric: tabular-nums;
+}
