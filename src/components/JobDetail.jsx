@@ -5,18 +5,12 @@ import { DELIVERABLES, NDE_FORMS } from '../lib/constants.js'
 import { FORM_SCHEMAS } from '../data/formSchemas.js'
 import { buildContext, jobProgress, fmtDate, fmtDateTime } from '../lib/status.js'
 import { reportsFor } from '../lib/store.js'
+import { requiredFor } from '../lib/jobOrders.js'
 import StatusChip, { StateBadge } from './StatusChip.jsx'
 import SummaryReport, { reportResult } from './SummaryReport.jsx'
 import { IconBack, IconDoc, IconPrint } from './Icons.jsx'
 
 const KAT_LABEL = { SUPEQ: 'Support Equipment', TRAILER: 'Trailer', 'NON TRAILER': 'Non Trailer' }
-
-// COGM arrives as a bare integer; grouped digits are the difference
-// between reading it and counting it.
-const fmtNum = (v) => {
-  const n = Number(v)
-  return v == null || v === '' || Number.isNaN(n) ? v : n.toLocaleString('en-GB')
-}
 
 const Meta = ({ label, value }) => (
   <div className="meta-item">
@@ -75,6 +69,9 @@ export default function JobDetail({ job }) {
   }
 
   const p = jobProgress(job, ctx)
+  // What this job was actually raised for. Showing the other five as
+  // greyed N/A rows was noise an inspector had to read past.
+  const wanted = requiredFor(job)
 
   const openDeliv = (d, cell, last) => {
     if (!d.form) return
@@ -110,7 +107,7 @@ export default function JobDetail({ job }) {
           <p className="jd-product">{job.productDesc}</p>
           <p className="jd-cust">
             {job.customerName}
-            {job.arasSN && <span className="jd-sn">{job.arasSN}</span>}
+            {(job.unitNo || job.arasSN) && <span className="jd-sn">{job.unitNo || job.arasSN}</span>}
           </p>
         </div>
         <ProgressRing done={p.done} total={p.applicable} />
@@ -121,11 +118,12 @@ export default function JobDetail({ job }) {
           the type only when it differs from the product description. */}
       <div className="card jd-meta-card">
         <div className="meta-grid">
+          {job.poNo && <Meta label="PO No." value={job.poNo} />}
           {job.type && job.type.toUpperCase() !== (job.productDesc || '').toUpperCase() &&
             <Meta label="Type" value={job.type} />}
           <Meta label="WBS No." value={job.wbsNo} />
+          <Meta label="Unit No." value={job.unitNo || job.arasSN} />
           <Meta label="Customer ID" value={job.customerId} />
-          <Meta label="COGM" value={fmtNum(job.cogm)} />
           <Meta label="Date PB" value={fmtDate(job.datePB)} />
           <Meta label="PDI Release" value={fmtDate(job.datePdiRelease)} />
         </div>
@@ -134,7 +132,7 @@ export default function JobDetail({ job }) {
       {/* Required reports — app-style rows */}
       <h3 className="section-title">Required Reports</h3>
       <div className="card table-card deliv-list">
-        {DELIVERABLES.map((d) => {
+        {DELIVERABLES.filter((d) => wanted.includes(d.key)).map((d) => {
           const cell = p.statuses[d.key]
           const reps = reportsFor(job.jobNo, d.key)
           const last = reps.length ? reps[reps.length - 1] : null

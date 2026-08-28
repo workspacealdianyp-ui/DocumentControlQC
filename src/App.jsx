@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState, createContext, useContext } from 'react'
 import joblist from './data/joblist.json'
+import { allJobs } from './lib/jobOrders.js'
 import { ROLES } from './lib/constants.js'
 import { getSession, setSession, clearSession } from './lib/store.js'
 import Login from './components/Login.jsx'
@@ -13,6 +14,7 @@ import JobDetail from './components/JobDetail.jsx'
 import FormView from './components/FormView.jsx'
 import Reports from './components/Reports.jsx'
 import Settings from './components/Settings.jsx'
+import NewJobOrder from './components/NewJobOrder.jsx'
 import Profile from './components/Profile.jsx'
 
 export const AppContext = createContext(null)
@@ -25,7 +27,10 @@ function parseHash() {
   const query = Object.fromEntries(new URLSearchParams(qs || ''))
   if (parts.length === 0) return { page: 'home', query }
   if (parts[0] === 'monitor') return { page: 'monitor', query }
-  if (parts[0] === 'jobs') return { page: 'jobs', query }
+  if (parts[0] === 'jobs') {
+    if (parts[1] === 'new') return { page: 'joborder', query }
+    return { page: 'jobs', query }
+  }
   if (parts[0] === 'reports') return { page: 'reports', query }
   if (parts[0] === 'settings') return { page: 'settings', query }
   if (parts[0] === 'profile') return { page: 'profile', query }
@@ -77,7 +82,9 @@ export default function App() {
     return () => clearTimeout(t)
   }, [toast])
 
-  const jobs = joblist.jobs
+  // Jobs an admin created here, then the bundled sample list. tick
+  // makes a freshly published order show up without a reload.
+  const jobs = useMemo(() => allJobs(), [tick])
   const jobIndex = useMemo(() => {
     const m = new Map()
     for (const j of jobs) m.set(j.jobNo, j)
@@ -122,6 +129,7 @@ export default function App() {
             {route.page === 'home' && <Home />}
             {route.page === 'monitor' && <Dashboard />}
             {route.page === 'jobs' && <JobsPage kat={route.query.kat} />}
+            {route.page === 'joborder' && <NewJobOrder />}
             {route.page === 'job' && <JobDetail job={job} />}
             {route.page === 'form' && <FormView job={job} formKey={route.formKey} query={route.query} />}
             {route.page === 'reports' && <Reports query={route.query} />}

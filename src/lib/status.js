@@ -8,6 +8,9 @@ const TODAY = new Date()
 // then Overdue rule: not done + applicable + PDI already released in the past.
 export function cellStatus(job, delivKey, ctx) {
   const { overrides, reportIndex } = ctx
+  // An order says outright which reports it wants; anything outside that
+  // list is not applicable to this job, whatever else is recorded.
+  if (job.required && !job.required.includes(delivKey)) return { status: 'na', source: 'order' }
   const ov = overrides[job.jobNo]?.[delivKey]
   if (ov) return { status: ov, source: 'override' }
 

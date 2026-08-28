@@ -1,7 +1,7 @@
 import { Fragment, useEffect, useMemo, useState } from 'react'
 import { useApp, navigate } from '../App.jsx'
 import { buildContext, jobProgress, fmtDate, exportMatrixCsv } from '../lib/status.js'
-import { IconChevronR, IconDownload, IconFilter, IconGroup, STATUS_ICONS } from './Icons.jsx'
+import { IconChevronR, IconDownload, IconFilter, IconGroup, IconPlus, STATUS_ICONS } from './Icons.jsx'
 import { SearchField, ToolButton, PopCheck, PopRadio, PopFooter } from './RegisterBar.jsx'
 import { useStuck } from '../lib/sticky.js'
 
@@ -18,6 +18,10 @@ const KATS = [
 ]
 
 const PAGE_SIZES = [10, 15, 25, 50]
+
+// Most PO numbers are typed with their own prefix, so only add one when
+// it is missing rather than printing "PO PO-2026-0142".
+const poLabel = (n) => (/^p\.?o\b/i.test(n) ? n : `PO ${n}`)
 
 const STATES = [
   { id: 'done', label: 'Complete' },
@@ -57,7 +61,7 @@ function jobState(p) {
 }
 
 export default function JobsPage({ kat }) {
-  const { jobs, tick } = useApp()
+  const { jobs, tick, role } = useApp()
   const [q, setQ] = useState('')
   const [size, setSize] = useState(15)
   const [page, setPage] = useState(1)
@@ -139,9 +143,16 @@ export default function JobsPage({ kat }) {
     <div className="page mon">
       <div className="mon-head">
         <h2>Jobs</h2>
-        <button className="btn btn-secondary btn-sm" onClick={() => exportMatrixCsv(rows, ctx)}>
-          <IconDownload size={14} /> Export CSV
-        </button>
+        <div className="mon-head-actions">
+          <button className="btn btn-secondary btn-sm" onClick={() => exportMatrixCsv(rows, ctx)}>
+            <IconDownload size={14} /> Export CSV
+          </button>
+          {role.canManage && (
+            <button className="btn btn-primary btn-sm" onClick={() => navigate('/jobs/new')}>
+              <IconPlus size={14} /> New job order
+            </button>
+          )}
+        </div>
       </div>
 
       <div className="mon-tabs" role="tablist" aria-label="Job category">
@@ -236,7 +247,7 @@ export default function JobsPage({ kat }) {
                     onKeyDown={(e) => e.key === 'Enter' && navigate(`/job/${job.jobNo}`)}>
                     <td>
                       <span className="mon-primary">{job.jobNo}</span>
-                      <span className="mon-sub">{job.wbsNo || '—'}</span>
+                      <span className="mon-sub">{job.poNo ? poLabel(job.poNo) : job.wbsNo || '—'}</span>
                     </td>
                     <td className="jobs-product">
                       <span className="jobs-desc">{job.productDesc}</span>
