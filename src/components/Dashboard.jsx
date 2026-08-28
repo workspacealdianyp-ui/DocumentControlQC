@@ -225,13 +225,16 @@ export default function Dashboard() {
               ))}
             </ToolButton>
           </div>
+          {/* The count is the fact; the page size only matters once there
+              is more than one page of them, so it stays out of the way
+              until then. */}
           <div className="mon-showing">
-            <label>Showing
+            <span className="mon-count">{rows.length} results</span>
+            {rows.length > PAGE_SIZES[0] && (
               <select value={size} onChange={(e) => setSize(+e.target.value)} aria-label="Rows per page">
-                {PAGE_SIZES.map((n) => <option key={n} value={n}>{n}</option>)}
+                {PAGE_SIZES.map((n) => <option key={n} value={n}>{n} / page</option>)}
               </select>
-            </label>
-            <span>of {rows.length} results</span>
+            )}
           </div>
         </div>
 

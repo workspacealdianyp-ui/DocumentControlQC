@@ -2983,3 +2983,46 @@ tr:has(.chip-done) .jobs-prog-bar span { background: var(--done); }
   .rb-search, .rb-search-btn, .rb-btn, .rb-opt { transition: none; }
   .rb-pop { animation: none; }
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   TOOLBAR CORRECTIONS
+   ═══════════════════════════════════════════════════════════════ */
+
+/* The panel is a portal on fixed coordinates now, so it can leave the
+   card instead of being sliced off when the table is short. */
+.rb-pop { position: fixed; top: auto; left: auto; right: auto; }
+
+/* The search button was carrying a drop shadow AND an inner highlight
+   AND a gradient. One of the three is enough to seat it. */
+.rb-search-btn {
+  background: var(--ink);
+  box-shadow: none;
+}
+.rb-search-btn:hover { background: var(--ink-2); }
+.rb-search.has-value .rb-search-btn { background: var(--amber); border-color: var(--amber); }
+.rb-search.has-value .rb-search-btn:hover { background: var(--amber-deep); border-color: var(--amber-deep); }
+
+/* Same for the well: keep the recess, drop the outer glow. */
+.rb-search {
+  background: linear-gradient(180deg, #f0f0ef 0%, #f9f9f8 55%, #fdfdfc 100%);
+  box-shadow: inset 0 1px 2px rgba(20, 20, 24, 0.09), inset 0 -1px 0 rgba(255, 255, 255, 0.85);
+}
+.rb-search:focus-within {
+  box-shadow: inset 0 1px 2px rgba(20, 20, 24, 0.07), 0 0 0 3px var(--amber-soft);
+}
+.rb-btn { box-shadow: none; background: var(--surface); }
+
+/* ── One button model. Every button in the app now takes the toolbar's
+   shape — 10px radius, one hairline, no drop shadow — so a page action
+   like New report reads as a member of the same set as the filter and
+   group squares beside it rather than a different species. */
+.btn { border-radius: 10px; font-weight: 500; box-shadow: none; }
+.btn-sm { min-height: 34px; padding: 0 13px; font-size: 13px; border-radius: 9px; }
+.btn-icon { border-radius: 9px; }
+
+/* The page action sits on the same 40px baseline as the tool squares. */
+.mon-head .btn { min-height: 40px; padding: 0 16px; font-size: 13.5px; border-radius: 10px; }
+
+.mon-count { font-family: var(--sans); font-size: 12.5px; font-weight: 500; color: var(--text); }
+.mon-showing { gap: 10px; }
+.mon-showing select { border-radius: 8px; padding: 5px 26px 5px 10px; }
