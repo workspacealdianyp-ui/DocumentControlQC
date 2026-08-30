@@ -1138,11 +1138,15 @@ td.th-action { display: flex; gap: 6px; justify-content: flex-end; align-items: 
 
 .ps-hold-list { font-size: 8.5pt; line-height: 1.5; text-align: justify; }
 
+/* Measured at the width it prints at: the preview shrinks with the
+   window, and a sheet measured while narrow reads as far too tall. Held
+   for one synchronous measurement pass, never painted. */
+.pf-measuring .print-sheet { width: 210mm !important; max-width: none !important; }
+
 @media print {
-  /* A4 portrait, real page margins; page counter in the bottom-right */
-  /* Each sheet prints its own "Page X of Y" in its footer, and the data
-     book's contents page points at those numbers, so the margin-box
-     counter is left off rather than printing a second, different one. */
+  /* A4 portrait with real page margins. Each sheet carries its own
+     "Page X of Y" in its footer — the number the contents page points
+     at — so nothing else here numbers the pages. */
   @page {
     size: A4 portrait;
     margin: 12mm 10mm 14mm;

@@ -1,9 +1,9 @@
 import { COMPANY } from '../lib/company.js'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { MR } from '../lib/compute.js'
 import { dimRowStatus, dimDeviation } from '../data/formSchemas.js'
 import { buildResume } from '../lib/resume.js'
-import { useFitToPage } from '../lib/pagefit.js'
+import { useFitToPage, pageSpans, sameFit, oneEach, tighten } from '../lib/pagefit.js'
 import { IconPrint } from './Icons.jsx'
 
 // Formal industrial inspection report — bordered A4, generated from the report model.
@@ -186,8 +186,9 @@ function Observations({ report }) {
   )
 }
 
-function ResultsTable({ sec, report }) {
-  const rows = report.results || []
+function ResultsTable({ sec, report, from = 0, to }) {
+  const all = report.results || []
+  const rows = all.slice(from, to ?? all.length)
   const v = report.values || {}
   const cols = sec.columns.filter((c) => showField(c, v))
   return (
@@ -200,7 +201,7 @@ function ResultsTable({ sec, report }) {
         const judged = sec.autoJudge === 'dim' ? dimRowStatus(row) : row[sec.judgeKey]
         return (
           <tr key={i}>
-            <td>{i + 1}</td>
+            <td>{from + i + 1}</td>
             {cols.map((c) => {
               const val = row[c.id] || (c.rejOnly && judged !== sec.rejValue ? '—' : (row[c.id] || '—'))
               const cls = val === sec.rejValue || val === 'Reject' || val === 'NG' || val === 'Rej' ? 'ps-result-rej' : (val === sec.accValue || val === 'Accept' || val === 'OK' || val === 'Acc') ? 'ps-result-acc' : ''
@@ -210,7 +211,7 @@ function ResultsTable({ sec, report }) {
           </tr>
         )
       })}
-      {!rows.length && <tr><td colSpan={cols.length + 1} className="ps-na">No rows recorded</td></tr>}
+      {!all.length && <tr><td colSpan={cols.length + 1} className="ps-na">No rows recorded</td></tr>}
     </tbody></table>
   )
 }
@@ -253,26 +254,67 @@ function Signatures({ fields, v }) {
    there are any, then the statement — so the data book has to ask the
    layout rather than guess, or its contents page would point at the
    wrong sheets. */
-function sheetPlan(schema, report) {
+/* A result table can be longer than the paper. Scaling a sixty-row
+   dimensional report down to fit would make it unreadable, and letting it
+   flow makes the page count something we can only estimate — so it is
+   split across sheets instead, the way a printed data book continues a
+   table: the same head, "continued", and the row numbering carrying on.
+
+   The first sheet shares its page with the identity block and the rest of
+   the form, so it takes fewer rows than the ones after it. These are
+   deliberately shy of what fits; the zoom-to-fit pass absorbs the
+   difference when a row wraps to two lines. */
+const ROWS_FIRST = 14
+const ROWS_MORE = 26
+
+function resultChunks(schema, report, rowFit = 1) {
+  const sec = schema.sections.find((s) => s.type === 'results' && !s.noPrint)
+  const n = sec ? (report.results || []).length : 0
+  // A row is as tall as its longest cell wraps, which differs by form, so
+  // these are a starting guess that the measured fit corrects.
+  const first = Math.max(4, Math.round(ROWS_FIRST * rowFit))
+  const more = Math.max(4, Math.round(ROWS_MORE * rowFit))
+  if (!sec || n <= first) return [[0, n]]
+  const out = [[0, first]]
+  for (let at = first; at < n; at += more) out.push([at, Math.min(at + more, n)])
+  return out
+}
+
+function sheetPlan(schema, report, rowFit) {
   const bodySecs = schema.sections.filter((s) => s.id !== 'header' && s.id !== 'approvals' && !s.noPrint && s.id !== 'setup')
   // documentation / photos belong with the attachments, not the data
   const photoSecs = bodySecs.filter((s) => s.type === 'photos')
   const mainSecs = bodySecs.filter((s) => s.type !== 'photos')
   const hasChart = schema.key === 'hydrotest' && (report.readings || []).length >= 2
-  return { photoSecs, mainSecs, hasChart, hasAttach: hasChart || photoSecs.length > 0 }
+  const chunks = resultChunks(schema, report, rowFit)
+  return { photoSecs, mainSecs, hasChart, hasAttach: hasChart || photoSecs.length > 0, chunks }
 }
 
-export const reportSheetCount = (schema, report) => (sheetPlan(schema, report).hasAttach ? 3 : 2)
+export function reportSheetCount(schema, report, rowFit) {
+  const { hasAttach, chunks } = sheetPlan(schema, report, rowFit)
+  // form + continuation sheets + attachments + statement
+  return 1 + (chunks.length - 1) + (hasAttach ? 1 : 0) + 1
+}
 
 export default function PrintReport({ schema, report, job, deliverable, status, onClose }) {
   const wrap = useRef(null)
+  const [fit, setFit] = useState(null)
+  const [rowFit, setRowFit] = useState(1)
   useEffect(() => {
     document.body.classList.add('printing')
     const onKey = (e) => e.key === 'Escape' && onClose()
     window.addEventListener('keydown', onKey)
     return () => { document.body.classList.remove('printing'); window.removeEventListener('keydown', onKey) }
   }, [onClose])
-  useFitToPage(wrap, [report.id, report.reportId])
+  /* Number the pages from what the paper did, not from a guess — and if a
+     sheet would not fit even reduced, put fewer rows on it and let the
+     next pass confirm. */
+  useFitToPage(wrap, [report.id, report.reportId, rowFit], (f) => {
+    setFit((p) => (sameFit(p, f) ? p : f))
+    setRowFit((r) => tighten(r, f))
+  })
+  const sheets = reportSheetCount(schema, report, rowFit)
+  const { spans, total } = pageSpans(fit && fit.length === sheets ? fit : oneEach(sheets))
 
   return (
     <div className="print-overlay" ref={wrap}>
@@ -280,7 +322,8 @@ export default function PrintReport({ schema, report, job, deliverable, status, 
         <button className="btn btn-primary" onClick={() => window.print()}><IconPrint size={15} /> Print / Save as PDF</button>
         <button className="btn btn-secondary" onClick={onClose}>Close preview</button>
       </div>
-      <ReportSheets schema={schema} report={report} job={job} deliverable={deliverable} status={status} />
+      <ReportSheets schema={schema} report={report} job={job} deliverable={deliverable} status={status}
+        pageMap={spans} pageTotal={total} rowFit={rowFit} />
     </div>
   )
 }
@@ -290,13 +333,13 @@ export default function PrintReport({ schema, report, job, deliverable, status, 
    Standing on its own — rather than inside the preview overlay — is what
    lets the data book bind these same pages behind its cover and contents,
    numbered as part of the book instead of as a loose document. */
-export function ReportSheets({ schema, report, job, deliverable, status, pageFrom = 0, pageTotal, sectionNo }) {
+export function ReportSheets({ schema, report, job, deliverable, status, pageMap, pageTotal, sectionNo, breakFirst, rowFit }) {
   // pressureUnit may not be persisted if left at its default — fall back so units always print
   const v = schema.key === 'hydrotest' ? { pressureUnit: 'PsiG', ...(report.values || {}) } : (report.values || {})
   const isDraft = status !== 'submitted' && status !== 'approved'
   const headerSec = schema.sections.find((s) => s.id === 'header')
   const approvalSec = schema.sections.find((s) => s.id === 'approvals')
-  const { photoSecs, mainSecs, hasChart, hasAttach } = sheetPlan(schema, report)
+  const { photoSecs, mainSecs, hasChart, hasAttach, chunks } = sheetPlan(schema, report, rowFit)
   // General block drops Report ID (already in the kop) and Inspector (covered by the signature)
   const generalFields = (headerSec?.fields || []).filter((f) => f.id !== 'reportId' && f.id !== 'inspector')
 
@@ -320,15 +363,24 @@ export function ReportSheets({ schema, report, job, deliverable, status, pageFro
   )
   /* Every page says which page it is and of how many — on its own that
      is the report's own count, and inside the data book it is the
-     book's, which is what the contents page points at. */
-  const foot = (i, ofPages) => (
-    <tfoot><tr><td className="ps-runcell">
-      <div className="ps-footer">
-        <span>{schema.formNo} — Generated by QC Inspection Monitor</span>
-        <span>Job {job?.jobNo} · {v.reportId} · Page {(pageFrom || 1) + i} of {ofPages}</span>
-      </div>
-    </td></tr></tfoot>
-  )
+     book's, which is what the contents page points at.
+
+     The footer sits in a <tfoot>, so a sheet the printer had to break
+     repeats it on both halves. Such a sheet states its span rather than
+     a single number, which is true on either page. */
+  const foot = (i) => {
+    const [from, to] = pageMap?.[i] || [i + 1, i + 1]
+    return (
+      <tfoot><tr><td className="ps-runcell">
+        <div className="ps-footer">
+          <span>{schema.formNo} — Generated by QC Inspection Monitor</span>
+          <span>
+            Job {job?.jobNo} · {v.reportId} · Page {from === to ? from : `${from}–${to}`} of {pageTotal}
+          </span>
+        </div>
+      </td></tr></tfoot>
+    )
+  }
   // shown on continuation pages so they read as one continuous, genuine document
   const contNote = (
     <div className="ps-cont-note">
@@ -358,7 +410,7 @@ export function ReportSheets({ schema, report, job, deliverable, status, pageFro
           <div key={sec.id} className="ps-blk ps-keep">
             {isTable && <div className="ps-blk-head">{sec.title}</div>}
             {sec.type === 'recording' ? <RecordingTable report={report} />
-              : sec.type === 'results' ? <ResultsTable sec={sec} report={report} />
+              : sec.type === 'results' ? <ResultsTable sec={sec} report={report} from={0} to={chunks[0][1]} />
                 : sec.type === 'dft' ? <DftTable report={report} />
                   : <Pairs fields={sec.id === 'general' ? sec.fields.filter((f) => f.id !== 'testDesc') : sec.fields} v={v} report={report} />}
           </div>
@@ -372,6 +424,18 @@ export function ReportSheets({ schema, report, job, deliverable, status, pageFro
       )}
     </>
   )
+
+  // 1b — the rest of a result table that did not fit on the form sheet
+  const resultsSec = mainSecs.find((sec) => sec.type === 'results')
+  chunks.slice(1).forEach(([from, to]) => bodies.push(
+    <>
+      {contNote}
+      <div className="ps-blk ps-keep">
+        <div className="ps-blk-head">{resultsSec.title} <em>(continued — rows {from + 1}–{to})</em></div>
+        <ResultsTable sec={resultsSec} report={report} from={from} to={to} />
+      </div>
+    </>
+  ))
 
   // 2 — attachments: the pressure chart and the photographic evidence
   if (hasAttach) bodies.push(
@@ -423,10 +487,10 @@ export function ReportSheets({ schema, report, job, deliverable, status, pageFro
   )
 
   return bodies.map((bodyEl, i) => (
-    <div key={i} className={`print-sheet${i > 0 || pageFrom ? ' ps-sheet-break' : ''}`}>
+    <div key={i} className={`print-sheet${i > 0 || breakFirst ? ' ps-sheet-break' : ''}`}>
       {isDraft && <div className="ps-watermark" aria-hidden="true">DRAFT</div>}
       <table className="ps-doc">
-        {kop}{foot(i, pageTotal || bodies.length)}
+        {kop}{foot(i)}
         <tbody><tr><td className="ps-runcell ps-body">{bodyEl}</td></tr></tbody>
       </table>
     </div>
