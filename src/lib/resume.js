@@ -3,7 +3,7 @@ import { COMPANY } from './company.js'
 // Returns { verdict, headline, stats:[{label,value}], paragraph }.
 import { MR } from './compute.js'
 import { dimRowStatus } from '../data/formSchemas.js'
-import { reportResult } from '../components/SummaryReport.jsx'
+import { reportResult } from './verdict.js'
 
 const cap = (s) => (s ? s.charAt(0).toUpperCase() + s.slice(1) : s)
 

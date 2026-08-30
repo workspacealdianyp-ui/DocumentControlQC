@@ -7,7 +7,8 @@ import { buildContext, jobProgress, fmtDate, fmtDateTime } from '../lib/status.j
 import { reportsFor } from '../lib/store.js'
 import { requiredFor } from '../lib/jobOrders.js'
 import StatusChip, { StateBadge } from './StatusChip.jsx'
-import SummaryReport, { reportResult } from './SummaryReport.jsx'
+import MdrReport from './MdrReport.jsx'
+import { reportResult } from '../lib/verdict.js'
 import { IconBack, IconDoc, IconPrint } from './Icons.jsx'
 
 const KAT_LABEL = { SUPEQ: 'Support Equipment', TRAILER: 'Trailer', 'NON TRAILER': 'Non Trailer' }
@@ -162,9 +163,9 @@ export default function JobDetail({ job }) {
       <div className="page-head" style={{ marginTop: 24, marginBottom: 10 }}>
         <h3 className="section-title" style={{ margin: 0 }}>Documents ({docs.length})</h3>
         <button className="btn btn-primary btn-sm" disabled={!docs.some((d) => d.status === 'approved')}
-          title={docs.some((d) => d.status === 'approved') ? 'Generate a summary from approved documents' : 'Needs at least one approved document'}
+          title={docs.some((d) => d.status === 'approved') ? 'Compile the Manufacturing Data Report from approved documents' : 'Needs at least one approved document'}
           onClick={() => { setSumSel(docs.filter((d) => d.status === 'approved').map((d) => d.id)); setSumPicker(true) }}>
-          <IconPrint size={13} /> Generate Summary
+          <IconPrint size={13} /> Generate MDR
         </button>
       </div>
 
@@ -202,13 +203,17 @@ export default function JobDetail({ job }) {
         )}
       </div>
 
-      {/* Summary doc picker — approved only */}
+      {/* MDR document picker — approved only */}
       {sumPicker && (
         <div className="modal-backdrop" onClick={() => setSumPicker(false)}>
-          <div className="modal" onClick={(e) => e.stopPropagation()} role="dialog" aria-label="Generate summary">
+          <div className="modal" onClick={(e) => e.stopPropagation()} role="dialog" aria-label="Generate Manufacturing Data Report">
             <div className="sheet-handle" />
-            <h3>Generate Summary</h3>
-            <p className="page-sub">Select the documents to include. Only <strong>approved</strong> documents can be summarized.</p>
+            <h3>Generate MDR</h3>
+            <p className="page-sub">
+              Choose the documents to bind into the Manufacturing Data Report. Each one is reproduced in
+              full, on its own page, behind a cover and a table of contents. Only{' '}
+              <strong>approved</strong> documents can be issued.
+            </p>
             <div className="unit-list" style={{ margin: '14px 0' }}>
               {docs.map((r) => {
                 const ok = r.status === 'approved'
@@ -242,7 +247,7 @@ export default function JobDetail({ job }) {
       )}
 
       {summary && createPortal(
-        <SummaryReport job={job} reports={summary} session={session} onClose={() => setSummary(null)} />,
+        <MdrReport job={job} reports={summary} session={session} onClose={() => setSummary(null)} />,
         document.body
       )}
 

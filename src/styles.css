@@ -1094,12 +1094,58 @@ td.th-action { display: flex; gap: 6px; justify-content: flex-end; align-items: 
 .ps-photo { max-height: 44mm; max-width: 90%; object-fit: contain; border: 0.5pt solid #999; }
 .ps-photo-cap { font-size: 7.5pt; color: #333; margin-top: 1mm; }
 
+/* ═══════════════════════════════════════════════════════════════
+   MDR — cover, contents and section tabs
+   The data book's front matter. Everything here is print furniture:
+   it exists so a bound stack of reports reads as one controlled
+   document rather than a pile of paper.
+   ═══════════════════════════════════════════════════════════════ */
+
+.ps-cover { display: flex; flex-direction: column; min-height: 271mm; }
+.ps-cover table { border: 1.3pt solid #000; }
+
+.ps-cover-top { text-align: center; padding-bottom: 6mm; border-bottom: 2.2pt solid #000; }
+.ps-cover-logo { margin-bottom: 3mm; }
+.ps-cover-co { font-family: 'Fira Sans', Arial, sans-serif; font-size: 15pt; font-weight: 800; letter-spacing: 0.06em; }
+.ps-cover-dept { font-family: 'Fira Code', monospace; font-size: 8pt; letter-spacing: 0.22em; color: #444; margin-top: 1.5mm; }
+
+.ps-cover-mid { text-align: center; padding: 16mm 0 14mm; }
+.ps-cover-kicker { font-family: 'Fira Code', monospace; font-size: 7.5pt; letter-spacing: 0.3em; text-transform: uppercase; color: #666; }
+.ps-cover-title { font-family: 'Fira Sans', Arial, sans-serif; font-size: 34pt; font-weight: 800; line-height: 1.06; letter-spacing: -0.01em; margin: 4mm 0 5mm; text-transform: uppercase; }
+.ps-cover-sub { font-size: 10.5pt; color: #333; }
+
+.ps-cover-id { margin-top: 2mm; }
+.ps-cover-id .ps-value { font-size: 9.5pt; font-weight: 700; }
+.ps-cover-id .ps-docno { font-family: 'Fira Code', monospace; font-size: 9pt; letter-spacing: 0.02em; }
+
+.ps-cover-verdict { margin-top: 9mm; }
+.ps-cover-signs { margin-top: 9mm; }
+.ps-cover-foot { margin-top: auto; padding-top: 8mm; text-align: center; font-family: 'Fira Code', monospace; font-size: 7.5pt; color: #555; }
+
+/* Contents. The page column is the point of the page, so it is the one
+   column set in the mono face and never allowed to wrap. */
+.ps-meta-wide { width: 58mm; }
+.ps-meta-cell td.ps-docno { font-family: 'Fira Code', monospace; font-size: 6.8pt; white-space: nowrap; }
+.ps-toc td:last-child, .ps-toc th:last-child { font-family: 'Fira Code', monospace; font-weight: 700; white-space: nowrap; }
+.ps-toc td:nth-child(3) { font-family: 'Fira Code', monospace; font-size: 7.4pt; white-space: nowrap; }
+.ps-toc-note { margin-top: 3mm; font-size: 8pt; color: #555; font-style: italic; }
+
+/* The tab that opens each section, standing in for the divider card in
+   a printed data book. */
+.ps-tab { display: flex; align-items: baseline; gap: 4mm; margin-bottom: 3.5mm; padding-bottom: 2mm; border-bottom: 2.2pt solid #000; }
+.ps-tab-no { font-family: 'Fira Code', monospace; font-size: 8pt; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; background: #111; color: #fff; padding: 1.2mm 3mm; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+.ps-tab-title { font-family: 'Fira Sans', Arial, sans-serif; font-size: 12pt; font-weight: 800; letter-spacing: 0.01em; }
+
+.ps-hold-list { font-size: 8.5pt; line-height: 1.5; text-align: justify; }
+
 @media print {
   /* A4 portrait, real page margins; page counter in the bottom-right */
+  /* Each sheet prints its own "Page X of Y" in its footer, and the data
+     book's contents page points at those numbers, so the margin-box
+     counter is left off rather than printing a second, different one. */
   @page {
     size: A4 portrait;
     margin: 12mm 10mm 14mm;
-    @bottom-right { content: "Page " counter(page) " of " counter(pages); font-family: 'Fira Code', monospace; font-size: 7.5pt; color: #555; }
   }
   body { background: #fff !important; }
   body.printing .shell, body.printing .toast { display: none !important; }
