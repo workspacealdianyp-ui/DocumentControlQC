@@ -2,9 +2,10 @@ import { useEffect, useState } from 'react'
 import { COMPANY } from '../lib/company.js'
 import { useApp, navigate } from '../App.jsx'
 import { storageUsage, fmtBytes } from '../lib/storage.js'
+import { getThemePref, resolveTheme, setThemePref, watchSystemTheme } from '../lib/theme.js'
 import {
   IconBoltz, IconHome, IconList, IconFile, IconGrid, IconGear, IconPanel,
-  IconChevronD, IconSearch, IconPlus, IconDatabase, IconUser,
+  IconChevronD, IconSearch, IconPlus, IconDatabase, IconUser, IconAlertCircle,
 } from './Icons.jsx'
 
 /* The rail, drawn to the supplied reference: a workspace header, a
@@ -28,6 +29,15 @@ const NAV = [
   { id: 'monitor', label: 'Monitor', to: '/monitor', icon: IconGrid },
 ]
 
+const ThemeGlyph = ({ mode }) => (
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+    strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    {mode === 'dark'
+      ? <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" />
+      : <><circle cx="12" cy="12" r="4" /><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" /></>}
+  </svg>
+)
+
 export default function Sidebar({ page, onToggle, collapsed, onSearch }) {
   const { role, session, tick } = useApp()
   const initials = session.name.split(' ').map((w) => w[0]).slice(0, 2).join('')
@@ -43,9 +53,16 @@ export default function Sidebar({ page, onToggle, collapsed, onSearch }) {
 
   const manage = [
     role.canManage && { id: 'joborder', label: 'New job order', to: '/jobs/new', icon: IconPlus },
-    role.canManage && { id: 'settings', label: 'Settings', to: '/settings', icon: IconGear },
     { id: 'profile', label: 'Profile', to: '/profile', icon: IconUser },
   ].filter(Boolean)
+
+  /* Light or dark. The switch shows what is on screen right now, and
+     following the machine is a third state rather than a hidden default,
+     so a person can see which of the three they are in. */
+  const [themePref, setPref] = useState(getThemePref)
+  const [mode, setMode] = useState(() => resolveTheme())
+  useEffect(() => watchSystemTheme(setMode), [])
+  const chooseTheme = (pref) => { setPref(pref); setMode(setThemePref(pref)) }
 
   const item = (n) => {
     const active = page === n.id || (n.id === 'jobs' && (page === 'job' || page === 'form'))
@@ -93,7 +110,12 @@ export default function Sidebar({ page, onToggle, collapsed, onSearch }) {
     <nav className="sidebar" aria-label="Primary">
       {/* who you are working in, and the control that folds the rail away */}
       <div className="rail-head">
-        <button className="rail-brand" onClick={() => navigate('/')} title={COMPANY.name}>
+        {/* Folded, the fold control has nowhere to sit, so the mark takes
+            the job: it is the only thing left to click. Open, it is the
+            way home. */}
+        <button className="rail-brand" title={collapsed ? 'Show menu' : COMPANY.name}
+          aria-label={collapsed ? 'Show menu' : COMPANY.name}
+          onClick={() => (collapsed ? onToggle() : navigate('/'))}>
           <span className="rail-logo"><IconBoltz size={17} /></span>
           <span className="rail-brand-text">
             <strong>{COMPANY.name}</strong>
@@ -139,6 +161,53 @@ export default function Sidebar({ page, onToggle, collapsed, onSearch }) {
               Manage storage
             </button>
           )}
+        </div>
+
+        <ul className="rail-list rail-util">
+          {role.canManage && (
+            <li>
+              <button className={`nav-item${page === 'settings' ? ' active' : ''}`}
+                onClick={() => navigate('/settings')} title="Settings"
+                aria-current={page === 'settings' ? 'page' : undefined}>
+                <span className="nav-ico"><IconGear size={17} /></span>
+                <span className="nav-label">Settings</span>
+              </button>
+            </li>
+          )}
+          <li>
+            <button className={`nav-item${page === 'help' ? ' active' : ''}`}
+              onClick={() => navigate('/help')} title="Help & support"
+              aria-current={page === 'help' ? 'page' : undefined}>
+              <span className="nav-ico"><IconAlertCircle size={17} /></span>
+              <span className="nav-label">Help &amp; support</span>
+            </button>
+          </li>
+        </ul>
+
+        <div className="rail-theme" role="group" aria-label="Appearance">
+          {/* Folded, the track has no room and no label to explain it, so
+              the glyph is the control. Open, it is also the control — one
+              behaviour, two sizes. */}
+          <button type="button" className="rail-theme-ico"
+            aria-label={mode === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+            title={mode === 'dark' ? 'Dark mode' : 'Light mode'}
+            onClick={() => chooseTheme(mode === 'dark' ? 'light' : 'dark')}>
+            <ThemeGlyph mode={mode} />
+          </button>
+          <span className="rail-theme-label">{mode === 'dark' ? 'Dark mode' : 'Light mode'}</span>
+          <button type="button" role="switch" aria-checked={mode === 'dark'}
+            aria-label={mode === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+            className={`rail-switch${mode === 'dark' ? ' on' : ''}`}
+            onClick={() => chooseTheme(mode === 'dark' ? 'light' : 'dark')}>
+            <span />
+          </button>
+          <button type="button"
+            className={`rail-theme-sys${themePref === 'system' ? ' on' : ''}`}
+            aria-pressed={themePref === 'system'}
+            title="Follow the system setting"
+            onClick={() => chooseTheme(themePref === 'system' ? mode : 'system')}>
+            Auto
+          </button>
         </div>
 
         <button className="rail-profile" onClick={() => navigate('/profile')} title={session.name}>

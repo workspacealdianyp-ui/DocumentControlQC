@@ -10,6 +10,21 @@
       href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400..700&display=swap"
       rel="stylesheet"
     />
+    <script>
+      // Applied before first paint so a dark session never flashes white.
+      // Mirrors src/lib/theme.js; that module owns it from then on.
+      (function () {
+        try {
+          var p = localStorage.getItem('qc.theme');
+          if (p !== 'light' && p !== 'dark') p = 'system';
+          var m = p === 'system'
+            ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
+            : p;
+          document.documentElement.setAttribute('data-theme', m);
+          document.documentElement.style.colorScheme = m;
+        } catch (e) { /* private mode: the default light theme stands */ }
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

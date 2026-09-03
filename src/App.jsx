@@ -7,6 +7,8 @@ import Login from './components/Login.jsx'
 import Sidebar from './components/Sidebar.jsx'
 import BottomNav from './components/BottomNav.jsx'
 import Topbar from './components/Topbar.jsx'
+import Help from './components/Help.jsx'
+import { applyTheme, watchSystemTheme } from './lib/theme.js'
 import Home from './components/Home.jsx'
 import Dashboard from './components/Dashboard.jsx'
 import JobsPage from './components/JobsPage.jsx'
@@ -33,6 +35,7 @@ function parseHash() {
   }
   if (parts[0] === 'reports') return { page: 'reports', query }
   if (parts[0] === 'settings') return { page: 'settings', query }
+  if (parts[0] === 'help') return { page: 'help', query }
   if (parts[0] === 'profile') return { page: 'profile', query }
   if (parts[0] === 'job' && parts[1]) {
     if (parts[2] === 'form' && parts[3]) return { page: 'form', jobNo: parts[1], formKey: parts[3], query }
@@ -77,6 +80,13 @@ export default function App() {
     const onHash = () => setRoute(parseHash())
     window.addEventListener('hashchange', onHash)
     return () => window.removeEventListener('hashchange', onHash)
+  }, [])
+
+  // The boot script in index.html sets the theme; this keeps it applied
+  // across a hot reload and follows the machine while "Auto" is chosen.
+  useEffect(() => {
+    applyTheme()
+    return watchSystemTheme(() => {})
   }, [])
 
   // The rail promises ⌘K, so it has to answer — and Escape closes it.
@@ -154,6 +164,7 @@ export default function App() {
             {route.page === 'form' && <FormView job={job} formKey={route.formKey} query={route.query} />}
             {route.page === 'reports' && <Reports query={route.query} />}
             {route.page === 'settings' && <Settings section={route.query.s} />}
+            {route.page === 'help' && <Help />}
             {route.page === 'profile' && <Profile />}
           </main>
         </div>

@@ -1,10 +1,11 @@
 import { COMPANY } from '../lib/company.js'
-import { useMemo } from 'react'
 import { useApp, navigate } from '../App.jsx'
 import { FORM_SCHEMAS } from '../data/formSchemas.js'
 import { getReports, syncReports } from '../lib/store.js'
 import { ncrReports, fmtDateTime } from '../lib/status.js'
-import { IconBack, IconCloudUp, IconCloudOff, IconGear, IconLogout } from './Icons.jsx'
+import { useEffect, useMemo, useState } from 'react'
+import { getThemePref, resolveTheme, setThemePref, watchSystemTheme } from '../lib/theme.js'
+import { IconBack, IconCloudUp, IconCloudOff, IconGear, IconLogout, IconAlertCircle } from './Icons.jsx'
 
 /* Module scope, not the render body: a component declared inside a render
    is a new component type every time, so React throws away the old subtree
@@ -31,6 +32,12 @@ export default function Profile() {
   const uploaded = useMemo(() => getReports().filter((r) => r.synced), [tick])
 
   const initials = session.name.split(' ').map((w) => w[0]).slice(0, 2).join('')
+
+  // The rail carries this on a desktop, and there is no rail on a phone.
+  const [themePref, setPref] = useState(getThemePref)
+  const [mode, setMode] = useState(() => resolveTheme())
+  useEffect(() => watchSystemTheme(setMode), [])
+  const chooseTheme = (pref) => { setPref(pref); setMode(setThemePref(pref)) }
   const approvedMine = mine.filter((r) => r.status === 'approved').length
 
   const syncAll = () => {
@@ -60,6 +67,20 @@ export default function Profile() {
       </div>
 
       {/* Sync status */}
+      <h3 className="section-title" style={{ marginTop: 24, marginBottom: 10 }}>Appearance</h3>
+      <div className="card prof-theme">
+        <div className="prof-theme-text">
+          <strong>{mode === 'dark' ? 'Dark' : 'Light'} mode</strong>
+          <small>{themePref === 'system' ? 'Following this device' : 'Chosen for this browser'}</small>
+        </div>
+        <div className="set-seg" role="group" aria-label="Appearance">
+          {[['light', 'Light'], ['dark', 'Dark'], ['system', 'Auto']].map(([v, label]) => (
+            <button key={v} className={themePref === v ? 'on' : ''} aria-pressed={themePref === v}
+              onClick={() => chooseTheme(v)}>{label}</button>
+          ))}
+        </div>
+      </div>
+
       <div className="page-head" style={{ marginTop: 24, marginBottom: 10 }}>
         <h3 className="section-title" style={{ margin: 0 }}>Sync Status</h3>
         <button className="btn btn-primary btn-sm" onClick={syncAll} disabled={!offline.length}>
@@ -87,6 +108,9 @@ export default function Profile() {
             <IconGear size={15} /> Settings & instrument register
           </button>
         )}
+        <button className="btn btn-secondary" onClick={() => navigate('/help')}>
+          <IconAlertCircle size={15} /> Help &amp; support
+        </button>
         <button className="btn btn-secondary" style={{ color: 'var(--danger)' }} onClick={logout}>
           <IconLogout size={15} /> Sign out
         </button>

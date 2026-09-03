@@ -18,6 +18,7 @@ const PAGE_TITLES = {
   joborder: ['New job order', 'Purchase order, units, reports'],
   reports: ['Reports', 'Documents & NCR'],
   settings: ['Settings', ''],
+  help: ['Help & support', 'How this build works'],
   profile: ['Profile', 'Account & sync'],
 }
 

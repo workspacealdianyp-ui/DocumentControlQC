@@ -97,6 +97,131 @@
    touch screens keep a 44px target. */
 @media (min-width: 1024px) { :root { --tap: 38px; } }
 
+/* ════════════════════════════════════════════════════════════════════
+   DARK
+   The same design at night, not a different one: the roles hold and
+   only their values move. The ground goes dark, the hairline stays a
+   hairline, and the orange keeps its two jobs — the brand and the data.
+
+   Two things are deliberately unchanged. The dark chip that carries the
+   primary action stays dark, one step lighter than the card it sits on,
+   so every white glyph and label printed on it is still legible without
+   rewriting sixty rules. And the status colours keep their hues, with
+   their grounds re-mixed for a dark surface, because a QC reader learns
+   those colours and should not have to relearn them after sunset.
+   ════════════════════════════════════════════════════════════════════ */
+:root[data-theme="dark"] {
+  --ink: #2c2c34;          /* the dark chip: buttons, avatars, matrix heads */
+  --ink-2: #363640;
+  --steel: #2c2c34;
+  --steel-deep: #3d3d48;   /* hover goes lighter in the dark */
+  --steel-soft: rgba(255, 255, 255, 0.12);
+
+  --amber: #ff7a1f;        /* lifted a little: #f86300 goes muddy on black */
+  --amber-deep: #ff9349;
+  --amber-soft: #2a1a0e;
+  --amber-tint: #33200f;
+
+  --paper: #0f0f12;
+  --surface: #17171b;
+  --surface-2: #1e1e23;
+  --surface-3: #26262c;
+  --line: #292930;
+  --line-2: #3a3a43;
+  --text: #ededf0;
+  --text-2: #a5a5af;
+  --text-3: #74747f;
+
+  --done: #4ec98a;     --done-bg: #12281d;
+  --inprog: #e0a83c;   --inprog-bg: #2b2312;
+  --notstart: #9a9aa4; --notstart-bg: #222228;
+  --overdue: #ff6b7d;  --overdue-bg: #2e151a;
+  --na: #74747f;       --na-bg: #1e1e23;
+  --danger: #ff6b7d;
+  --review: #7fb0ff;   --review-bg: #142132;   --review-line: #274669;
+
+  --done-line:     #235c3e;
+  --inprog-line:   #57451c;
+  --notstart-line: #33333b;
+  --overdue-line:  #5d2b33;
+  --na-line:       #2f2f37;
+
+  --up: #4ec98a;   --up-bg: #12281d;
+  --down: #ff6b7d; --down-bg: #2e151a;
+
+  --glass: var(--surface);
+  --glass-2: var(--surface-2);
+  --glass-strong: var(--surface);
+  --glass-line: var(--line);
+  --glass-line-2: var(--line-2);
+
+  --sh: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --sh-1: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --sh-2: 0 2px 10px rgba(0, 0, 0, 0.45);
+  --sh-pop: 0 14px 36px rgba(0, 0, 0, 0.6), 0 0 0 1px var(--line-2);
+}
+
+/* The one place the accent must not lift: on an orange ground the label
+   is still white, and #ff7a1f with white text is thinner than the
+   daylight orange, so it keeps the deeper tone behind it. */
+:root[data-theme="dark"] .btn-accent,
+:root[data-theme="dark"] .btn-accent:disabled { background: #e85f00; border-color: #e85f00; }
+
+/* The search well is lit from above by a painted gradient rather than a
+   token, so it needs its own night version: the same recess, dug into a
+   dark ground instead of a light one. */
+:root[data-theme="dark"] .rb-search {
+  background: linear-gradient(180deg, #121216 0%, #17171c 42%, #1c1c22 100%);
+  box-shadow:
+    inset 0 1px 2px rgba(0, 0, 0, 0.55),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.05);
+}
+:root[data-theme="dark"] .rb-search:focus-within {
+  box-shadow:
+    inset 0 1px 2px rgba(0, 0, 0, 0.5),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.05),
+    0 0 0 3px var(--amber-soft);
+}
+:root[data-theme="dark"] .rb-btn { box-shadow: none; }
+:root[data-theme="dark"] .report-state { background: rgba(255, 255, 255, 0.06); }
+
+/* --steel and --ink name the dark chip, so the handful of rules that
+   borrowed them for a foreground go pale instead of dark at night. */
+:root[data-theme="dark"] .bottomnav button.active,
+:root[data-theme="dark"] .btn-secondary:hover,
+:root[data-theme="dark"] .mselect-btn:hover,
+:root[data-theme="dark"] .photo-add:hover,
+:root[data-theme="dark"] .rec-group-label,
+:root[data-theme="dark"] .ms-blue { color: var(--text); }
+:root[data-theme="dark"] .btn-secondary:hover,
+:root[data-theme="dark"] .mselect-btn:hover,
+:root[data-theme="dark"] .photo-add:hover,
+:root[data-theme="dark"] .job-card:hover,
+:root[data-theme="dark"] .alert-card:hover,
+:root[data-theme="dark"] .login-user:hover,
+:root[data-theme="dark"] select:hover:not(:disabled) { border-color: var(--line-2); }
+:root[data-theme="dark"] .ncr-ico {
+  background: var(--surface-3); color: var(--text-2); border-color: var(--line-2);
+}
+/* The browser paints its own check mark; on a dark ground a graphite
+   one is a hole, so it takes the accent. */
+:root[data-theme="dark"] input[type="checkbox"],
+:root[data-theme="dark"] input[type="radio"],
+:root[data-theme="dark"] .mon-check input,
+:root[data-theme="dark"] .mselect-opt input,
+:root[data-theme="dark"] .sum-row input { accent-color: var(--amber); }
+:root[data-theme="dark"] input:focus-visible,
+:root[data-theme="dark"] select:focus-visible,
+:root[data-theme="dark"] textarea:focus-visible { border-color: var(--amber); }
+
+/* Photographs and signatures are shot on white paper; dimming them a
+   little stops a scanned form burning a hole in a dark page. */
+:root[data-theme="dark"] .photo-thumb img,
+:root[data-theme="dark"] .detail-photos img,
+:root[data-theme="dark"] .sign-img,
+:root[data-theme="dark"] .detail-sign-img { filter: brightness(0.92); }
+
+
 * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 html, body { margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
@@ -360,6 +485,42 @@ table { border-collapse: collapse; }
 }
 .rail-store-btn:hover { background: var(--ink); border-color: var(--ink); color: #fff; }
 
+/* ── utilities and appearance, under the storage card */
+.rail-util { margin-bottom: 2px; }
+.rail-theme {
+  display: flex; align-items: center; gap: 7px;
+  padding: 4px 6px 4px 8px; min-height: 34px;
+}
+.rail-theme-ico {
+  flex-shrink: 0; width: 20px; height: 20px; padding: 0; border: 0; background: none;
+  color: var(--text-3); display: grid; place-items: center; border-radius: var(--r-sm);
+}
+.rail-theme-ico:hover { color: var(--text); }
+.rail-theme-label { flex: 1; min-width: 0; font-size: 13px; font-weight: 500; color: var(--text-2);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+/* The switch reads the state it is in, not the state it would go to. */
+.rail-switch {
+  flex-shrink: 0; width: 32px; height: 18px; padding: 2px; border: 0;
+  border-radius: var(--r-pill); background: var(--surface-3);
+  transition: background-color .16s ease;
+}
+.rail-switch span {
+  display: block; width: 14px; height: 14px; border-radius: 50%;
+  background: var(--surface); box-shadow: 0 1px 2px rgba(0,0,0,.25);
+  transition: transform .16s ease;
+}
+.rail-switch.on { background: var(--amber); }
+.rail-switch.on span { transform: translateX(14px); }
+.rail-switch:focus-visible { outline: 2px solid var(--amber); outline-offset: 2px; }
+/* "Auto" is a third state, so it is a control rather than a hidden default. */
+.rail-theme-sys {
+  flex-shrink: 0; border: 1px solid var(--line); background: none; border-radius: var(--r-sm);
+  padding: 2px 5px; font-size: 9.5px; font-weight: 600; letter-spacing: 0.03em;
+  text-transform: uppercase; color: var(--text-3);
+}
+.rail-theme-sys:hover { color: var(--text-2); border-color: var(--line-2); }
+.rail-theme-sys.on { color: var(--amber-deep); border-color: var(--amber); background: var(--amber-soft); }
+
 .rail-profile { display: flex; align-items: center; gap: 9px; width: 100%; padding: 6px; border: 0; background: none; border-radius: var(--r); text-align: left; }
 .rail-profile:hover { background: var(--surface-2); }
 .rail-avatar { width: 30px; height: 30px; border-radius: var(--r-pill); flex-shrink: 0; background: var(--ink); color: #fff; font-weight: 600; font-size: 11.5px; display: grid; place-items: center; }
@@ -371,7 +532,12 @@ table { border-collapse: collapse; }
 .shell.side-min .sidebar { width: 68px; padding: 12px 8px; }
 .shell.side-min .rail-brand-text, .shell.side-min .rail-fold, .shell.side-min .nav-label,
 .shell.side-min .rail-search span, .shell.side-min .rail-search kbd,
-.shell.side-min .rail-label, .shell.side-min .rail-store, .shell.side-min .rail-profile-text { display: none; }
+.shell.side-min .rail-label, .shell.side-min .rail-store, .shell.side-min .rail-profile-text,
+.shell.side-min .rail-theme-label, .shell.side-min .rail-theme-sys { display: none; }
+.shell.side-min .rail-theme { justify-content: center; padding: 4px 0; gap: 0; }
+.shell.side-min .rail-switch { display: none; }
+.shell.side-min .rail-theme-ico { width: 30px; height: 30px; }
+.shell.side-min .rail-theme-ico:hover { background: var(--surface-2); }
 .shell.side-min .rail-head { justify-content: center; }
 .shell.side-min .rail-brand { justify-content: center; padding: 0; }
 .shell.side-min .rail-search { justify-content: center; padding: 0; }
@@ -933,7 +1099,7 @@ td.th-action { display: flex; gap: 6px; justify-content: flex-end; align-items: 
 .hero-left { flex: 1; min-width: 220px; display: flex; flex-direction: column; position: relative; z-index: 1; padding-top: 6px; }
 .hero-label { font-family: var(--mono); font-size: 10.5px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-3); }
 .hero-big { font-family: var(--mono); font-size: 52px; font-weight: 700; letter-spacing: -0.03em; line-height: 1.05; margin: 2px 0;
-  color: var(--ink); font-variant-numeric: tabular-nums; }
+  color: var(--text); font-variant-numeric: tabular-nums; }
 .hero-sub { font-size: 12.5px; color: var(--text-2); margin-bottom: 16px; }
 .hero-legend { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 14px; margin-bottom: 18px; }
 .hero-legend span { font-size: 12px; color: var(--text-2); display: flex; align-items: center; gap: 7px; white-space: nowrap; }
@@ -952,13 +1118,13 @@ td.th-action { display: flex; gap: 6px; justify-content: flex-end; align-items: 
 
 /* mini stats — glass cells */
 .mini-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px; }
-.mini-stats button { background: rgba(255,255,255,0.5); border: 1px solid var(--glass-line); border-radius: 12px; padding: 13px; display: flex; flex-direction: column; gap: 2px; align-items: flex-start; transition: all 0.14s; }
-.mini-stats button:hover { background: #fff; transform: translateY(-2px); box-shadow: var(--sh); }
+.mini-stats button { background: var(--surface-2); border: 1px solid var(--glass-line); border-radius: 12px; padding: 13px; display: flex; flex-direction: column; gap: 2px; align-items: flex-start; transition: all 0.14s; }
+.mini-stats button:hover { background: var(--surface); transform: translateY(-2px); box-shadow: var(--sh); }
 .mini-stats strong { font-family: var(--mono); font-size: 22px; font-weight: 700; }
 .mini-stats span { font-family: var(--mono); font-size: 10px; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.04em; }
 .ms-amber { color: var(--inprog); } .ms-blue { color: var(--steel); } .ms-mint { color: var(--done); }
-.alert-strip { display: flex; align-items: center; gap: 11px; width: 100%; background: rgba(255,255,255,0.5); border: 1px solid var(--glass-line); border-radius: 12px; padding: 12px 14px; text-align: left; transition: all 0.14s; }
-.alert-strip:hover { background: #fff; box-shadow: var(--sh); }
+.alert-strip { display: flex; align-items: center; gap: 11px; width: 100%; background: var(--surface-2); border: 1px solid var(--glass-line); border-radius: 12px; padding: 12px 14px; text-align: left; transition: all 0.14s; }
+.alert-strip:hover { background: var(--surface); box-shadow: var(--sh); }
 
 /* qa tiles — glass */
 .qa-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
@@ -988,8 +1154,8 @@ td.th-action { display: flex; gap: 6px; justify-content: flex-end; align-items: 
 /* ── draft / needs-attention rows (glass) ── */
 .draft-list { display: flex; flex-direction: column; gap: 8px; }
 .draft-row { display: flex; align-items: center; gap: 11px; width: 100%; text-align: left;
-  background: rgba(255,255,255,0.5); border: 1px solid var(--glass-line); border-radius: 12px; padding: 11px 13px; transition: all 0.14s; }
-.draft-row:hover { background: #fff; transform: translateX(2px); box-shadow: var(--sh); }
+  background: var(--surface-2); border: 1px solid var(--glass-line); border-radius: 12px; padding: 11px 13px; transition: all 0.14s; }
+.draft-row:hover { background: var(--surface); transform: translateX(2px); box-shadow: var(--sh); }
 .draft-row .deliv-ico { width: 38px; height: 38px; border-radius: 11px; flex-shrink: 0; display: grid; place-items: center;
   font-family: var(--mono); font-size: 10px; font-weight: 700; background: var(--ink); color: #fff; }
 .draft-row .alert-ico { width: 38px; height: 38px; border-radius: 11px; }
@@ -1002,8 +1168,8 @@ td.th-action { display: flex; gap: 6px; justify-content: flex-end; align-items: 
 /* ── top customers (glass rows + bars) ── */
 .cust-list { display: flex; flex-direction: column; gap: 12px; }
 .cust-row { display: grid; grid-template-columns: 1fr auto; gap: 5px 8px; align-items: center;
-  background: rgba(255,255,255,0.42); border: 1px solid var(--glass-line); border-radius: 12px; padding: 11px 13px; transition: all 0.14s; }
-.cust-row:hover { background: #fff; box-shadow: var(--sh); }
+  background: var(--surface-2); border: 1px solid var(--glass-line); border-radius: 12px; padding: 11px 13px; transition: all 0.14s; }
+.cust-row:hover { background: var(--surface); box-shadow: var(--sh); }
 .cust-name { font-size: 13px; font-weight: 600; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .cust-meta { font-family: var(--mono); font-size: 11px; color: var(--text-2); white-space: nowrap; }
 .cust-row .progress { grid-column: 1 / -1; height: 7px; }
@@ -1414,7 +1580,7 @@ input:focus-visible, select:focus-visible, textarea:focus-visible {
 .cc2-kpis .k-blue, .cc2-kpis .k-green, .cc2-kpis .k-violet {
   background: var(--surface-2); border-color: var(--line);
 }
-.cc2-kpis .k-blue b, .cc2-kpis .k-violet b { color: var(--ink); }
+.cc2-kpis .k-blue b, .cc2-kpis .k-violet b { color: var(--text); }
 .cc2-kpis .k-green b { color: var(--done); }
 .cc2-pend-chips i { color: var(--text-2); background: var(--surface-3); border-radius: 3px; }
 
@@ -2794,13 +2960,13 @@ tr:has(.chip-done) .jobs-prog-bar span { background: var(--done); }
   width: 40px; height: 40px;
   display: grid; place-items: center;
   border: 1px solid var(--line-2); border-radius: 10px;
-  background: linear-gradient(180deg, #ffffff 0%, #f3f3f1 100%);
+  background: var(--surface);
   color: var(--text-2);
   box-shadow: 0 1px 0 rgba(255, 255, 255, 0.7), 0 1px 2px rgba(20, 20, 24, 0.06);
   transition: border-color .14s ease, color .14s ease, background .14s ease;
 }
-.rb-btn:hover { color: var(--text); border-color: var(--line-2); background: #fff; }
-.rb-btn.is-open { border-color: var(--ink); color: var(--text); background: #fff; }
+.rb-btn:hover { color: var(--text); border-color: var(--line-2); background: var(--surface-2); }
+.rb-btn.is-open { border-color: var(--line-2); color: var(--text); background: var(--surface-2); }
 .rb-btn.is-on { border-color: var(--amber); color: var(--amber-deep); background: var(--amber-soft); }
 /* The count is what stops a filter being invisible once the panel closes. */
 .rb-count {
@@ -2988,6 +3154,75 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber); outline-
 .nav-row.active .nav-caret:hover { background: rgba(0, 0, 0, 0.05); }
 .nav-caret:focus-visible { outline: 2px solid var(--amber); outline-offset: 1px; }
 .shell.side-min .nav-row > .nav-item { border-radius: var(--r); }
+
+.prof-theme { display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap; }
+.prof-theme-text { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.prof-theme-text strong { font-size: 13.5px; font-weight: 600; }
+.prof-theme-text small { font-size: 12px; color: var(--text-3); }
+
+/* ═══════════════════════════════════════════════════════════════
+   HELP
+   Three questions a new inspector or an auditor actually asks, in the
+   order they ask them: where the work happens, how a document gets
+   issued, and what this build does with what they record.
+   ═══════════════════════════════════════════════════════════════ */
+.help { max-width: 940px; }
+.help-lede { margin-bottom: 22px; max-width: 68ch; }
+.help-sec { margin-bottom: 28px; }
+.help-sec > h3 { font-size: 14px; font-weight: 600; margin: 0 0 12px; }
+
+.help-cards { display: grid; grid-template-columns: 1fr; gap: 12px; }
+@media (min-width: 760px) { .help-cards { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.help-card {
+  display: flex; flex-direction: column; align-items: flex-start; gap: 8px; min-width: 0;
+  padding: 15px 16px; text-align: left;
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg);
+  transition: border-color .12s, box-shadow .12s;
+}
+.help-card:hover { border-color: var(--line-2); box-shadow: var(--sh-2); }
+.help-card-ico {
+  width: 28px; height: 28px; border-radius: var(--r-sm);
+  background: var(--amber-soft); color: var(--amber-deep); display: grid; place-items: center;
+}
+.help-card strong { font-size: 13.5px; font-weight: 600; }
+.help-card span:last-child { font-size: 12.5px; line-height: 1.5; color: var(--text-2); }
+
+.help-steps { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 2px; }
+.help-steps li { display: flex; gap: 12px; align-items: flex-start; padding: 11px 12px; border-radius: var(--r); }
+.help-steps li:hover { background: var(--surface-2); }
+.help-step-n {
+  flex-shrink: 0; width: 22px; height: 22px; border-radius: var(--r-sm);
+  background: var(--ink); color: #fff; display: grid; place-items: center;
+  font-size: 11px; font-weight: 600; font-variant-numeric: tabular-nums;
+}
+.help-step-text { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.help-step-text strong { font-size: 13.5px; font-weight: 600; }
+.help-step-text small { font-size: 12.5px; line-height: 1.5; color: var(--text-2); }
+
+.help-roles { padding: 0; overflow: hidden; }
+.help-roles .detail-table { min-width: 0; }
+.help-roles tr.is-you td { background: var(--amber-soft); }
+.help-you {
+  margin-left: 8px; padding: 1px 6px; border-radius: var(--r-pill);
+  background: var(--amber); color: #fff; font-size: 9.5px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.06em;
+}
+
+.help-notes { display: flex; flex-direction: column; gap: 10px; }
+.help-note {
+  display: flex; gap: 12px; align-items: flex-start;
+  padding: 14px 15px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg);
+}
+.help-note-ico {
+  flex-shrink: 0; width: 28px; height: 28px; border-radius: var(--r-sm);
+  background: var(--surface-2); color: var(--text-2); display: grid; place-items: center;
+}
+.help-note strong { display: block; font-size: 13.5px; font-weight: 600; margin-bottom: 3px; }
+.help-note p { font-size: 12.5px; line-height: 1.55; color: var(--text-2); max-width: 78ch; }
+.help-note kbd {
+  font-family: inherit; font-size: 11px; font-weight: 600; color: var(--text-2);
+  background: var(--surface-2); border: 1px solid var(--line); border-radius: 4px; padding: 1px 5px;
+}
 
 /* ═══════════════════════════════════════════════════════════════
    NEW JOB ORDER
