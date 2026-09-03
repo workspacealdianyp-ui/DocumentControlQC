@@ -173,20 +173,18 @@ export default function Dashboard() {
 
   return (
     <div className="page mon">
-      <div className="mon-head">
-        <h2>Monitoring</h2>
+      <div className="page-bar">
+        <div className="mon-tabs" role="tablist" aria-label="Report status">
+          {TABS.map((t) => (
+            <button key={t.id} role="tab" aria-selected={tab === t.id}
+              className={`mon-tab${tab === t.id ? ' on' : ''}`} onClick={() => setTab(t.id)}>
+              {t.label}<span className="mon-tab-n">{counts[t.id]}</span>
+            </button>
+          ))}
+        </div>
         <button className="btn btn-primary btn-sm" onClick={() => navigate('/jobs')}>
           <IconPlus size={14} /> New report
         </button>
-      </div>
-
-      <div className="mon-tabs" role="tablist" aria-label="Report status">
-        {TABS.map((t) => (
-          <button key={t.id} role="tab" aria-selected={tab === t.id}
-            className={`mon-tab${tab === t.id ? ' on' : ''}`} onClick={() => setTab(t.id)}>
-            {t.label}<span className="mon-tab-n">{counts[t.id]}</span>
-          </button>
-        ))}
       </div>
 
       <div className={`card mon-card${stuck ? ' is-stuck' : ''}`}>

@@ -141,8 +141,18 @@ export default function JobsPage({ kat }) {
 
   return (
     <div className="page mon">
-      <div className="mon-head">
-        <h2>Jobs</h2>
+      {/* One row: which slice of the register on the left, what you can
+          do with it on the right — the page title is in the top bar. */}
+      <div className="page-bar">
+        <div className="mon-tabs" role="tablist" aria-label="Job category">
+          {KATS.map((k) => (
+            <button key={k.kat || 'all'} role="tab" aria-selected={(kat || null) === k.kat}
+              className={`mon-tab${(kat || null) === k.kat ? ' on' : ''}`}
+              onClick={() => navigate(k.kat ? `/jobs?kat=${encodeURIComponent(k.kat)}` : '/jobs')}>
+              {k.label}<span className="mon-tab-n">{counts[k.kat || 'all']}</span>
+            </button>
+          ))}
+        </div>
         <div className="mon-head-actions">
           <button className="btn btn-secondary btn-sm" onClick={() => exportMatrixCsv(rows, ctx)}>
             <IconDownload size={14} /> Export CSV
@@ -153,16 +163,6 @@ export default function JobsPage({ kat }) {
             </button>
           )}
         </div>
-      </div>
-
-      <div className="mon-tabs" role="tablist" aria-label="Job category">
-        {KATS.map((k) => (
-          <button key={k.kat || 'all'} role="tab" aria-selected={(kat || null) === k.kat}
-            className={`mon-tab${(kat || null) === k.kat ? ' on' : ''}`}
-            onClick={() => navigate(k.kat ? `/jobs?kat=${encodeURIComponent(k.kat)}` : '/jobs')}>
-            {k.label}<span className="mon-tab-n">{counts[k.kat || 'all']}</span>
-          </button>
-        ))}
       </div>
 
       <div className={`card mon-card${stuck ? ' is-stuck' : ''}`}>

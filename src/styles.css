@@ -1,106 +1,101 @@
 /* ════════════════════════════════════════════════════════════════════
-   QC INSPECTION MONITOR — "Instrument Panel" design system
-   Reads like a calibrated test instrument: gridded, hairline-ruled,
-   monospaced numerics (Fira Code) + humanist body (Fira Sans).
-   Charcoal + white + construction orange · paper-light.
-   Signature: measurement-tick rule on section headers/hero.
-   Phone <640 · Tablet 640–1023 (bottom nav) · Desktop ≥1024 (sidebar)
+   QC INSPECTION MONITOR — product-dashboard design system
+   Modelled on the supplied reference: a white rail, a warm off-white
+   canvas, white cards on a hairline, generous 10–12px radii, one
+   neutral grotesk throughout, and a single orange that marks the thing
+   you are on and the thing to press.
+   Phone <640 · Tablet 640–1023 (bottom nav) · Desktop ≥1024 (rail)
    ════════════════════════════════════════════════════════════════════ */
 :root {
-  /* ── Enamel instrument panel ──────────────────────────────────
-     Grounded in the thing this app is about: the painted face of a
-     gauge. Off-white enamel, graphite scale marks, one red index.
-     Colour is scarce on purpose — when something turns red here,
-     it means the needle is in the red zone.                       */
+  /* ── Ink ─────────────────────────────────────────────────────── */
+  --ink: #16161a;
+  --ink-2: #26262b;
+  --steel: #16161a;        /* primary action: near-black, as the reference */
+  --steel-deep: #000000;
+  --steel-soft: #f1f1ee;   /* focus halo */
 
-  --ink: #17171a;          /* graphite — scale marks and type */
-  --ink-2: #2a2a2e;
-  --steel: #1a1a1e;        /* primary action: graphite, not blue */
-  --steel-deep: #0d0d10;
-  --steel-soft: #e6e6e2;   /* focus halo, enamel-tinted */
-  /* THE INDEX. Construction orange, measured off the reference
-     (#f86000 dominant). It marks the thing to click and the thing you
-     are on. Note it is deliberately NOT the same token as --overdue:
-     red here means a reading is out of tolerance, and an accent that
-     shares that colour would make every button look like an alarm. */
+  /* THE ACCENT. One orange, used for the active rail item, the primary
+     mark on a chart, and the one button per screen that matters. It is
+     deliberately not the alarm colour: red means a reading is out of
+     tolerance, and an accent sharing that hue makes every button shout. */
   --amber: #f86300;
-  --amber-deep: #c74d00;
-  --amber-soft: #fff1e8;
+  --amber-deep: #d45200;
+  --amber-soft: #fff2e9;
+  --amber-tint: #fbe9dd;   /* the rail's active pill */
 
-  --paper: #fafaf8;        /* ivory canvas */
-  --surface: #ffffff;      /* panels */
-  --surface-2: #f5f5f3;
-  --surface-3: #ededea;
-  --line: #e5e5e1;         /* hairline */
-  --line-2: #d0d0ca;       /* scale mark */
-  --text: #17171a;
-  --text-2: #63636b;
-  --text-3: #9a9aa0;
+  /* ── Ground ──────────────────────────────────────────────────── */
+  --paper: #f6f6f4;        /* canvas behind the cards */
+  --surface: #ffffff;      /* cards, rail */
+  --surface-2: #f7f7f5;    /* hover, inset wells */
+  --surface-3: #efefec;
+  --line: #eaeae6;         /* hairline */
+  --line-2: #dcdcd7;
+  --text: #16161a;
+  --text-2: #6e6e76;
+  --text-3: #a0a0a8;
 
-  /* semantic status — materials, not a rainbow */
-  --done: #1c6b58;     --done-bg: #e4ede9;   /* verdigris */
-  --inprog: #8a6a12;   --inprog-bg: #f2eee1; /* brass */
-  --notstart: #6d6d74; --notstart-bg: #f0f0ed;
-  --overdue: #c8102e;  --overdue-bg: #fbe7ea;
-  --na: #9d9da3;       --na-bg: #f4f4f1;
+  /* ── Status. Materials, not a rainbow. ───────────────────────── */
+  --done: #17864c;     --done-bg: #e8f5ed;
+  --inprog: #9a6a08;   --inprog-bg: #fdf3e0;
+  --notstart: #6e6e76; --notstart-bg: #f1f1ee;
+  --overdue: #c8102e;  --overdue-bg: #fdecef;
+  --na: #a0a0a8;       --na-bg: #f4f4f1;
   --danger: #c8102e;
+  --review: #1c4f8a;   --review-bg: #eaf1fb;   --review-line: #c3d7f0;
 
-  /* Badges are drawn as three tones of one hue: pale ground, mid rule,
-     dark text. The rule is what makes a tinted pill read as an object
-     rather than a smudge, so each status gets its own. */
-  --done-line:     #b0dcc7;
-  --inprog-line:   #ffd0ae;
-  --notstart-line: #dcdcd8;
-  --overdue-line:  #f6c1c9;
-  --na-line:       #e0e0dc;
-  --review: #1c4f8a;   --review-bg: #e9f1fb;   --review-line: #bcd4ee;
+  /* the rule that makes a tinted pill read as an object, not a smudge */
+  --done-line:     #b6e0c6;
+  --inprog-line:   #f3ddb0;
+  --notstart-line: #e0e0da;
+  --overdue-line:  #f6c3cb;
+  --na-line:       #e4e4de;
 
-  /* ── Type. Two Microsoft families that were drawn to sit together,
-     each doing the job it is best at, with free fallbacks so the design
-     holds on a machine that has neither.
+  /* deltas on a metric tile: up is good news, down is not */
+  --up: #17864c;   --up-bg: #e8f5ed;
+  --down: #c8102e; --down-bg: #fdecef;
 
-     Aptos      the interface — headings, labels, tables, buttons. A
-                neo-grotesque: even, unambiguous, precise, which is what
-                an instrument panel wants.
-     Calibri    the prose — descriptions, hints, help text. Humanist,
-                rounded terminals, tall x-height: easier on a sentence
-                you actually have to read.
-     Aptos Mono numbers, identifiers, measurements.
+  /* ── Type. One neutral grotesk, as the reference uses. Inter is the
+     face; the system stack carries the design on a machine without it.
+     Numbers are set with tabular figures wherever they are compared. */
+  --display: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --sans:    'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --prose:   'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --mono:    'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
 
-     Carlito is metric-compatible with Calibri: identical widths, so the
-     layout is the same whether or not Calibri is installed. Inter
-     stands in for Aptos, and Consolas for Aptos Mono, on machines
-     without Office. */
-  --display: 'Aptos Display', 'Aptos', 'Segoe UI Variable Display', 'Inter', system-ui, sans-serif;
-  --sans:    'Aptos', 'Segoe UI Variable Text', 'Segoe UI', 'Inter', system-ui, -apple-system, sans-serif;
-  --prose:   'Calibri', 'Carlito', 'Aptos', 'Segoe UI', system-ui, sans-serif;
-  --mono:    'Aptos Mono', 'Consolas', 'IBM Plex Mono', ui-monospace, 'SF Mono', monospace;
-
-  --r: 3px;                /* panels are seated, not pillowed */
-  --r-lg: 4px;
+  /* ── Shape. Soft, seated rectangles — never pill-shaped cards. */
+  --r-sm: 6px;
+  --r: 8px;
+  --r-lg: 12px;
+  --r-pill: 999px;
   --tick: 0 1px 0 var(--line);
 
-  /* seats, not shadows: a hairline bezel plus a faint inner light */
-  --sh: 0 0 0 1px var(--line), 0 1px 0 rgba(20, 24, 26, 0.02);
-  --sh-2: 0 0 0 1px var(--line-2), 0 2px 6px rgba(20, 24, 26, 0.05);
-  --sh-pop: 0 0 0 1px var(--line-2), 0 12px 28px rgba(20, 24, 26, 0.14);
+  /* ── Depth. A hairline does the work; the shadow only lifts. */
+  --sh: 0 1px 2px rgba(16, 16, 20, 0.04);
+  --sh-1: 0 1px 2px rgba(16, 16, 20, 0.04);
+  --sh-2: 0 2px 8px rgba(16, 16, 20, 0.06);
+  --sh-pop: 0 12px 32px rgba(16, 16, 20, 0.14), 0 0 0 1px var(--line);
 
-  /* glass tokens retired — repointed to opaque enamel so every
-     existing rule that referenced them becomes a solid panel */
+  /* legacy glass tokens, repointed to flat surfaces so every rule that
+     still names them resolves to a plain card */
   --glass: #ffffff;
   --glass-2: var(--surface-2);
   --glass-strong: #ffffff;
   --glass-line: var(--line);
   --glass-line-2: var(--line-2);
   --blur: none;
-  --sh-glass: 0 0 0 1px var(--line);
+  --sh-glass: none;
 
   --appbar-h: 56px;
+  --topbar-h: 60px;
   --bottomnav-h: 62px;
-  --tap: 46px;
+  --rail-w: 232px;
+  --tap: 44px;
   --z-nav: 60; --z-pop: 90; --z-modal: 100; --z-print: 300;
 }
 
+/* Pointer-driven screens get the reference's tighter control height;
+   touch screens keep a 44px target. */
+@media (min-width: 1024px) { :root { --tap: 38px; } }
 
 * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 html, body { margin: 0; padding: 0; }
@@ -148,10 +143,10 @@ select:hover:not(:disabled) { border-color: var(--steel); }
 table { border-collapse: collapse; }
 
 /* ─────────────────────────── shell ─────────────────────────── */
-.shell { min-height: 100vh; display: flex; }
+.shell { min-height: 100vh; display: flex; background: var(--paper); }
 .main { flex: 1; min-width: 0; display: flex; flex-direction: column; }
-.content { flex: 1; padding: 58px 14px calc(var(--bottomnav-h) + 24px); max-width: 100%; }
-@media (min-width: 1024px) { .content { padding: 24px 28px 52px; } }
+.content { flex: 1; padding: 16px 14px calc(var(--bottomnav-h) + 24px); max-width: 100%; }
+@media (min-width: 1024px) { .content { padding: 22px 26px 48px; } }
 
 /* ── Canvas. One flat tone. The millimetre grid that used to sit
    here was decoration drawn to make the page look designed, which is
@@ -159,29 +154,71 @@ table { border-collapse: collapse; }
 .app-bg { position: fixed; inset: 0; z-index: -1; pointer-events: none; background: var(--paper); }
 .aurora { display: none; }
 
-/* ─────────────────── floating actions (top-right) ─────────────────── */
-.float-actions { position: fixed; top: 12px; right: 12px; z-index: var(--z-nav); display: flex; gap: 8px; }
-@media (min-width: 1024px) { .float-actions { top: 18px; right: 26px; } }
+/* ─────────────────────────── top bar ───────────────────────────
+   Where you are, then what you can do about it. It sits in the flow at
+   the top of the work area rather than floating over the page, so a
+   control never hovers above the thing it refers to. */
+.topbar {
+  position: sticky; top: 0; z-index: var(--z-nav);
+  height: var(--topbar-h); flex-shrink: 0;
+  display: flex; align-items: center; gap: 12px;
+  padding: 0 14px;
+  background: var(--surface); border-bottom: 1px solid var(--line);
+}
+@media (min-width: 1024px) { .topbar { padding: 0 26px; } }
+
+.topbar-menu {
+  width: 34px; height: 34px; border-radius: var(--r); border: 1px solid var(--line);
+  background: var(--surface); color: var(--text-2); display: grid; place-items: center; flex-shrink: 0;
+}
+.topbar-menu:hover { background: var(--surface-2); color: var(--text); }
+@media (min-width: 1024px) { .topbar-menu { display: none; } }
+
+.topbar-title { min-width: 0; flex: 1; display: flex; flex-direction: column; justify-content: center; line-height: 1.25; }
+.topbar-title h1 {
+  margin: 0; font-family: var(--display); font-size: 16px; font-weight: 600; letter-spacing: -0.01em;
+  color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.topbar-title small {
+  font-size: 11.5px; color: var(--text-3); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+
+.topbar-actions { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+.tb-btn {
+  position: relative; width: 34px; height: 34px; flex-shrink: 0;
+  border-radius: var(--r); border: 1px solid var(--line); background: var(--surface);
+  color: var(--text-2); display: grid; place-items: center; transition: background-color .12s, color .12s, border-color .12s;
+}
+.tb-btn:hover { background: var(--surface-2); color: var(--text); border-color: var(--line-2); }
+/* the rail carries a search field of its own from 1024 up */
+@media (min-width: 1024px) { .tb-search { display: none; } }
+.tb-badge {
+  position: absolute; top: -5px; right: -5px; min-width: 16px; height: 16px; padding: 0 4px;
+  border-radius: var(--r-pill); background: var(--amber); color: #fff;
+  font-size: 9.5px; font-weight: 700; font-variant-numeric: tabular-nums;
+  display: grid; place-items: center; border: 1.5px solid var(--surface);
+}
+.tb-avatar {
+  width: 34px; height: 34px; border-radius: var(--r-pill); flex-shrink: 0;
+  border: 1px solid var(--ink); background: var(--ink); color: #fff;
+  font-size: 12px; font-weight: 600; display: grid; place-items: center; transition: opacity .12s;
+}
+.tb-avatar:hover { opacity: 0.85; }
+
+/* kept for the few places that still ask for a bare icon button */
 .icon-btn {
-  width: 42px; height: 42px; border-radius: 12px; border: 1px solid var(--glass-line);
-  background: var(--glass-strong); backdrop-filter: var(--blur); -webkit-backdrop-filter: var(--blur);
-  color: var(--text-2); display: grid; place-items: center;
-  flex-shrink: 0; box-shadow: var(--sh); position: relative; transition: all 0.14s;
+  width: 34px; height: 34px; border-radius: var(--r); border: 1px solid var(--line);
+  background: var(--surface); color: var(--text-2); display: grid; place-items: center;
+  flex-shrink: 0; position: relative; transition: all 0.12s;
 }
-.icon-btn:hover { border-color: var(--steel); color: var(--steel); background: #fff; }
-.menu-btn { display: none; }
-@media (min-width: 1024px) { .menu-btn { display: grid; } }
+.icon-btn:hover { background: var(--surface-2); color: var(--text); border-color: var(--line-2); }
 .avatar-btn {
-  width: 40px; height: 40px; border-radius: var(--r); border: 1px solid var(--ink); flex-shrink: 0;
-  background: var(--ink); color: #fff; font-family: var(--mono); font-weight: 600; font-size: 13px;
-  display: grid; place-items: center; box-shadow: var(--sh); transition: all 0.12s;
+  width: 34px; height: 34px; border-radius: var(--r-pill); border: 1px solid var(--ink); flex-shrink: 0;
+  background: var(--ink); color: #fff; font-weight: 600; font-size: 12px;
+  display: grid; place-items: center; transition: opacity 0.12s;
 }
-.avatar-btn:hover { background: var(--steel); border-color: var(--steel); }
-.float-badge {
-  position: absolute; top: -4px; right: -4px; min-width: 17px; height: 17px; padding: 0 4px;
-  border-radius: 99px; background: var(--amber); color: var(--ink); font-family: var(--mono);
-  font-size: 9.5px; font-weight: 700; display: grid; place-items: center; border: 1.5px solid var(--surface);
-}
+.avatar-btn:hover { opacity: 0.85; }
+
 .role-badge {
   font-family: var(--mono); font-size: 10px; font-weight: 600; padding: 3px 8px; border-radius: 3px;
   text-transform: uppercase; letter-spacing: 0.08em; white-space: nowrap; border: 1px solid currentColor;
@@ -193,7 +230,7 @@ table { border-collapse: collapse; }
 /* user/notif sheets */
 .usermenu-backdrop { position: fixed; inset: 0; z-index: 80; background: rgba(15, 27, 45, 0.3); }
 .usermenu {
-  position: fixed; z-index: 81; right: 12px; top: calc(var(--appbar-h) + 6px);
+  position: fixed; z-index: 81; right: 12px; top: calc(var(--topbar-h) + 6px);
   background: var(--surface); border: 1px solid var(--line-2); border-radius: var(--r-lg);
   box-shadow: var(--sh-pop); padding: 14px; width: 280px; animation: pop 0.15s ease;
 }
@@ -216,69 +253,131 @@ table { border-collapse: collapse; }
 .bottomnav button.active { color: var(--steel); border-top-color: var(--amber); }
 @media (min-width: 1024px) { .bottomnav { display: none; } }
 
-/* ─────────────────────── sidebar (desktop) ─────────────────────── */
+/* ────────────────────────── the rail ──────────────────────────
+   A white column against the canvas: workspace, search, grouped
+   destinations, and — at the foot — the one number that governs this
+   app, since everything it records lives in this browser. */
 .sidebar {
-  display: none; width: 236px; flex-shrink: 0; position: sticky; top: 0; height: 100vh;
-  flex-direction: column; padding: 10px; gap: 4px;
+  display: none; width: var(--rail-w); flex-shrink: 0;
+  position: sticky; top: 0; height: 100vh;
+  flex-direction: column; gap: 10px; padding: 12px 10px;
+  background: var(--surface); border-right: 1px solid var(--line);
   transition: width 0.18s ease;
 }
 @media (min-width: 1024px) { .sidebar { display: flex; } }
-/* floating glass rail behind the sidebar contents */
-.sidebar::before {
-  content: ''; position: absolute; inset: 8px; border-radius: var(--r-lg); z-index: -1;
-  background: var(--glass); border: 1px solid var(--glass-line);
-  backdrop-filter: var(--blur); -webkit-backdrop-filter: var(--blur);
-  box-shadow: var(--sh-glass);
-}
-.sidebar-top { padding: 6px 4px 8px; }
-/* top icon = hide/show toggle */
-.sidebar-toggle { display: flex; align-items: center; gap: 11px; width: 100%; background: none; border: 0;
-  padding: 6px; border-radius: 12px; cursor: pointer; text-align: left; transition: background 0.14s; }
-.sidebar-toggle:hover { background: rgba(255,255,255,0.5); }
-.sidebar-toggle:hover .sidebar-toggle-ico { color: var(--steel); }
-.sidebar-logo { width: 38px; height: 38px; border-radius: 11px; flex-shrink: 0;
-  background: var(--steel); display: grid; place-items: center; color: #fff;
-  box-shadow: 0 4px 14px rgba(30,64,175,0.35); }
-.brand-word { flex: 1; min-width: 0; font-family: var(--mono); font-size: 14px; font-weight: 600; letter-spacing: 0.02em; white-space: nowrap; color: var(--text); transition: opacity 0.2s, max-width 0.2s; }
-.sidebar-toggle-ico { flex-shrink: 0; color: var(--text-3); display: grid; place-items: center; transition: color 0.14s; }
 
-.sidebar > ul { list-style: none; margin: 6px 0 0; padding: 0 4px; flex: 1; display: flex; flex-direction: column; gap: 4px; }
+/* ── workspace header */
+.rail-head { display: flex; align-items: center; gap: 6px; }
+.rail-brand {
+  flex: 1; min-width: 0; display: flex; align-items: center; gap: 10px;
+  background: none; border: 0; padding: 4px; border-radius: var(--r); text-align: left;
+}
+.rail-brand:hover { background: var(--surface-2); }
+.rail-logo {
+  width: 32px; height: 32px; border-radius: 9px; flex-shrink: 0;
+  background: var(--amber); color: #fff; display: grid; place-items: center;
+}
+.rail-brand-text { display: flex; flex-direction: column; min-width: 0; line-height: 1.25; }
+.rail-brand-text strong { font-size: 13px; font-weight: 600; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.rail-brand-text small { font-size: 10.5px; color: var(--text-3); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.rail-fold {
+  width: 30px; height: 30px; flex-shrink: 0; border: 0; background: none; border-radius: var(--r-sm);
+  color: var(--text-3); display: grid; place-items: center;
+}
+.rail-fold:hover { background: var(--surface-2); color: var(--text); }
+
+/* ── search field */
+.rail-search {
+  display: flex; align-items: center; gap: 8px; width: 100%;
+  height: 34px; padding: 0 8px 0 10px;
+  border: 1px solid var(--line); border-radius: var(--r); background: var(--surface-2);
+  color: var(--text-3); font-size: 13px; text-align: left;
+}
+.rail-search span { flex: 1; }
+.rail-search:hover { background: var(--surface); border-color: var(--line-2); color: var(--text-2); }
+.rail-search kbd {
+  font-family: inherit; font-size: 10px; font-weight: 600; color: var(--text-3);
+  background: var(--surface); border: 1px solid var(--line); border-radius: 4px;
+  padding: 1px 5px; line-height: 1.5;
+}
+
+/* ── grouped destinations */
+.rail-scroll { flex: 1; min-height: 0; overflow-y: auto; display: flex; flex-direction: column; gap: 2px; }
+.rail-label {
+  display: block; padding: 12px 8px 6px;
+  font-size: 9.5px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text-3);
+}
+.rail-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 2px; }
+
+.nav-row { display: flex; align-items: center; gap: 2px; border-radius: var(--r); }
 .nav-item {
-  display: flex; align-items: center; gap: 12px; width: 100%; background: none; border: 0;
-  color: var(--text-2); padding: 9px 11px; border-radius: 12px;
-  font-size: 14px; font-weight: 500; white-space: nowrap; position: relative; transition: all 0.14s;
+  flex: 1; min-width: 0; display: flex; align-items: center; gap: 10px;
+  padding: 0 8px; height: 36px; border: 0; border-radius: var(--r);
+  background: none; color: var(--text-2); font-size: 13.5px; font-weight: 500;
+  text-align: left; transition: background-color .12s, color .12s;
 }
-.nav-item:hover { background: rgba(255,255,255,0.5); color: var(--text); }
-.nav-item.active { background: rgba(255,255,255,0.62); color: var(--steel-deep); font-weight: 600; box-shadow: 0 4px 14px rgba(20,40,80,0.08); }
-.nav-item.active::before { content: ''; position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: 3px; height: 20px; border-radius: 0 3px 3px 0; background: var(--amber); }
-.nav-ico { width: 36px; height: 36px; border-radius: 10px; display: grid; place-items: center; flex-shrink: 0;
-  background: rgba(255,255,255,0.5); color: var(--text-2); transition: all 0.14s; }
-.nav-item:hover .nav-ico { background: #fff; color: var(--steel); }
-.nav-item.active .nav-ico { background: var(--steel); color: #fff; box-shadow: 0 4px 12px rgba(30,64,175,0.35); }
+.nav-item:hover { background: var(--surface-2); color: var(--text); }
+/* Active is a warm tint with the accent on the icon — the reference's
+   move, and it leaves the label legible rather than reversed out. */
+.nav-item.active { background: var(--amber-tint); color: var(--text); font-weight: 600; }
+.nav-item.active .nav-ico { color: var(--amber); }
+.nav-ico { width: 20px; height: 20px; display: grid; place-items: center; flex-shrink: 0; color: var(--text-3); }
+.nav-item:hover .nav-ico { color: var(--text-2); }
+.nav-label { min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.nav-caret {
+  width: 24px; height: 30px; flex-shrink: 0; border: 0; background: none; border-radius: var(--r-sm);
+  color: var(--text-3); display: grid; place-items: center; transition: transform .16s, color .12s;
+}
+.nav-caret:hover { color: var(--text); background: var(--surface-2); }
+.nav-caret.open { transform: rotate(180deg); }
 
-/* footer group — settings + role, then profile */
-.sidebar-foot { padding: 4px; display: flex; flex-direction: column; gap: 4px; border-top: 1px solid var(--glass-line-2); margin-top: 4px; padding-top: 8px; }
-.sidebar-role { display: flex; align-items: center; gap: 12px; padding: 7px 11px; color: var(--text-2); font-size: 12.5px; font-weight: 500; white-space: nowrap; }
-.role-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--steel); box-shadow: 0 0 0 3px var(--steel-soft); }
-.sidebar-role .nav-ico { width: 36px; height: 36px; border-radius: 10px; display: grid; place-items: center; flex-shrink: 0; background: rgba(255,255,255,0.4); }
+.nav-sub { list-style: none; margin: 2px 0 2px; padding: 0 0 0 18px; display: flex; flex-direction: column; gap: 1px; position: relative; }
+.nav-sub::before { content: ''; position: absolute; left: 18px; top: 4px; bottom: 4px; width: 1px; background: var(--line); }
+.nav-subitem {
+  width: 100%; text-align: left; border: 0; background: none;
+  padding: 6px 8px 6px 14px; border-radius: var(--r-sm);
+  font-size: 12.5px; font-weight: 500; color: var(--text-3);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.nav-subitem:hover { background: var(--surface-2); color: var(--text-2); }
+.nav-subitem.active { color: var(--amber-deep); font-weight: 600; }
 
-.sidebar-profile { display: flex; align-items: center; gap: 11px; width: 100%; margin-top: 4px; padding: 9px 11px;
-  background: rgba(255,255,255,0.5); border: 1px solid var(--glass-line-2); border-radius: 12px; cursor: pointer; text-align: left; transition: all 0.14s; }
-.sidebar-profile:hover { background: #fff; transform: translateY(-1px); box-shadow: var(--sh); }
-.sidebar-avatar { width: 38px; height: 38px; border-radius: 50%; flex-shrink: 0; background: var(--ink); color: #fff; font-family: var(--mono); font-weight: 600; font-size: 13px; display: grid; place-items: center; }
-.sidebar-profile-text { display: flex; flex-direction: column; min-width: 0; line-height: 1.2; }
-.sidebar-profile-text strong { font-size: 13px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.sidebar-profile-text small { font-size: 10px; color: var(--text-3); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+/* ── foot: what the storage is doing, and who you are */
+.rail-foot { display: flex; flex-direction: column; gap: 8px; padding-top: 8px; border-top: 1px solid var(--line); }
+.rail-store { padding: 10px; border: 1px solid var(--line); border-radius: var(--r); background: var(--surface-2); }
+.rail-store-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 7px; }
+.rail-store-head span { display: inline-flex; align-items: center; gap: 6px; font-size: 11.5px; font-weight: 600; color: var(--text-2); }
+.rail-store-head strong { font-size: 11.5px; font-weight: 600; color: var(--text); font-variant-numeric: tabular-nums; }
+.rail-store-bar { height: 5px; border-radius: var(--r-pill); background: var(--surface-3); overflow: hidden; }
+.rail-store-bar span { display: block; height: 100%; background: var(--amber); border-radius: inherit; transition: width .3s ease; }
+.rail-store-bar span.is-full { background: var(--overdue); }
+.rail-store small { display: block; margin-top: 6px; font-size: 10.5px; color: var(--text-3); }
+.rail-store-btn {
+  width: 100%; margin-top: 8px; height: 30px; border-radius: var(--r-sm);
+  border: 1px solid var(--line-2); background: var(--surface); color: var(--text);
+  font-size: 11.5px; font-weight: 600;
+}
+.rail-store-btn:hover { background: var(--ink); border-color: var(--ink); color: #fff; }
 
-/* collapsed (icon rail): center every item as a circle/square, hide text */
-.shell.side-min .sidebar { width: 72px; }
-.shell.side-min .brand-word, .shell.side-min .sidebar-toggle-ico, .shell.side-min .nav-label,
-.shell.side-min .sidebar-profile-text { display: none; }
-.shell.side-min .sidebar-toggle, .shell.side-min .nav-item, .shell.side-min .sidebar-role,
-.shell.side-min .sidebar-profile { justify-content: center; gap: 0; padding-left: 0; padding-right: 0; }
-.shell.side-min .nav-item.active::before { display: none; }
-.shell.side-min .sidebar-profile { border-color: transparent; background: none; }
-.shell.side-min .sidebar-profile:hover { background: rgba(255,255,255,0.5); transform: none; box-shadow: none; }
+.rail-profile { display: flex; align-items: center; gap: 9px; width: 100%; padding: 6px; border: 0; background: none; border-radius: var(--r); text-align: left; }
+.rail-profile:hover { background: var(--surface-2); }
+.rail-avatar { width: 30px; height: 30px; border-radius: var(--r-pill); flex-shrink: 0; background: var(--ink); color: #fff; font-weight: 600; font-size: 11.5px; display: grid; place-items: center; }
+.rail-profile-text { display: flex; flex-direction: column; min-width: 0; line-height: 1.25; }
+.rail-profile-text strong { font-size: 12.5px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.rail-profile-text small { font-size: 10.5px; color: var(--text-3); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+/* ── folded: icons only */
+.shell.side-min .sidebar { width: 68px; padding: 12px 8px; }
+.shell.side-min .rail-brand-text, .shell.side-min .rail-fold, .shell.side-min .nav-label,
+.shell.side-min .rail-search span, .shell.side-min .rail-search kbd,
+.shell.side-min .rail-label, .shell.side-min .rail-store, .shell.side-min .rail-profile-text { display: none; }
+.shell.side-min .rail-head { justify-content: center; }
+.shell.side-min .rail-brand { justify-content: center; padding: 0; }
+.shell.side-min .rail-search { justify-content: center; padding: 0; }
+.shell.side-min .nav-item { justify-content: center; padding: 0; gap: 0; }
+.shell.side-min .rail-profile { justify-content: center; padding: 6px 0; }
+.shell.side-min .rail-list { align-items: stretch; }
 
 /* ─────────────────────────── buttons ─────────────────────────── */
 .btn {
@@ -324,16 +423,6 @@ table { border-collapse: collapse; }
 .back-btn { margin-bottom: 12px; }
 
 /* ─────────────────────────── KPI cards ─────────────────────────── */
-.kpis { display: flex; gap: 12px; margin-bottom: 16px; overflow-x: auto; padding-bottom: 4px; scrollbar-width: none; }
-.kpis::-webkit-scrollbar { display: none; }
-.kpi { flex: 0 0 150px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg); padding: 14px 16px; display: flex; flex-direction: column; gap: 4px; position: relative; }
-.kpi::before { content: ''; position: absolute; top: 0; left: 16px; right: 16px; height: 3px; background: var(--line-2); }
-.kpi-blue::before { background: var(--steel); }
-.kpi-green::before { background: var(--done); }
-.kpi-amber::before { background: var(--amber); }
-.kpi-red::before { background: var(--overdue); }
-.kpi-val { font-family: var(--mono); font-size: 26px; font-weight: 600; letter-spacing: -0.02em; white-space: nowrap; }
-.kpi-label { font-size: 11px; color: var(--text-2); font-weight: 500; line-height: 1.3; }
 @media (min-width: 1024px) { .kpis { display: grid; grid-template-columns: repeat(5, 1fr); overflow: visible; } .kpi { flex: initial; } }
 
 /* ─────────────────────── search & filters ─────────────────────── */
@@ -682,12 +771,15 @@ td.th-action { display: flex; gap: 6px; justify-content: flex-end; align-items: 
 .ba-verdict.hold { color: var(--overdue); border-color: var(--overdue); }
 
 /* ─────────────────────────── login ─────────────────────────── */
-.login-wrap { min-height: 100vh; display: grid; place-items: center; padding: 22px; background: var(--ink); position: relative; overflow: hidden; }
-.login-wrap::before { content: ''; position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px); background-size: 48px 48px; }
-.login-card { position: relative; background: var(--surface); border: 1px solid var(--line-2); border-top: 3px solid var(--amber); border-radius: var(--r-lg); box-shadow: var(--sh-pop); padding: 30px 28px; width: min(420px, 94vw); }
+/* The sign-in screen is the same light room as the rest of the app: an
+   off-white ground, one white card, the brand mark in orange. It used to
+   be a dark gridded plate, which belonged to a design the app no longer
+   wears. */
+.login-wrap { min-height: 100vh; display: grid; place-items: center; padding: 22px; background: var(--paper); position: relative; overflow: hidden; }
+.login-card { position: relative; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg); box-shadow: var(--sh-2); padding: 30px 28px; width: min(420px, 94vw); }
 .login-brand { text-align: center; margin-bottom: 22px; }
-.login-logo { width: 58px; height: 58px; border-radius: var(--r-lg); background: var(--ink); display: grid; place-items: center; color: var(--amber); margin: 0 auto 14px; }
-.login-brand h1, .brand-wordmark { font-family: var(--mono); font-size: 20px; font-weight: 600; }
+.login-logo { width: 52px; height: 52px; border-radius: 14px; background: var(--amber); display: grid; place-items: center; color: #fff; margin: 0 auto 14px; }
+.login-brand h1, .brand-wordmark, .brand-word { font-family: var(--display); font-size: 20px; font-weight: 650; letter-spacing: -0.015em; }
 .login-brand p { color: var(--text-2); font-size: 13px; margin: 7px 0 0; }
 .login-users { display: grid; gap: 8px; margin-bottom: 18px; }
 .login-user { display: flex; align-items: center; gap: 12px; width: 100%; background: var(--surface); border: 1px solid var(--line-2); border-radius: var(--r); padding: 11px 13px; text-align: left; min-height: 60px; transition: all 0.12s; }
@@ -736,9 +828,48 @@ td.th-action { display: flex; gap: 6px; justify-content: flex-end; align-items: 
 .search-results small { font-size: 11px; color: var(--text-3); white-space: nowrap; }
 
 /* home */
-.home-greet { margin: 6px 0 18px; }
-.home-greet h2 { font-size: 22px; }
-.home-greet p { margin: 5px 0 0; color: var(--text-2); font-size: 13px; }
+/* The greeting is a caption on the action row now, not a headline: the
+   top bar already says which page this is. */
+.home-greet { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.home-greet strong { font-size: 14px; font-weight: 600; color: var(--text); }
+.home-greet span { font-size: 12px; color: var(--text-3); }
+
+/* ── Metric row. Four readings of the register, each a card: what it
+   measures, the number, and one true supporting fact. There is no
+   month-over-month delta because nothing here records last month. */
+.kpi-row {
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px; margin-bottom: 16px;
+}
+@media (min-width: 900px) { .kpi-row { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+
+.kpi {
+  display: flex; flex-direction: column; gap: 8px; min-width: 0;
+  padding: 14px 15px; text-align: left;
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg);
+  transition: border-color .12s, box-shadow .12s;
+}
+.kpi:hover { border-color: var(--line-2); box-shadow: var(--sh-2); }
+.kpi-top {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 12.5px; font-weight: 500; color: var(--text-2);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.kpi-ico {
+  width: 24px; height: 24px; flex-shrink: 0; border-radius: var(--r-sm);
+  background: var(--surface-2); color: var(--text-2); display: grid; place-items: center;
+}
+.kpi-value {
+  font-size: 26px; font-weight: 650; letter-spacing: -0.02em; color: var(--text);
+  font-variant-numeric: tabular-nums; line-height: 1.1;
+}
+.kpi-foot { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; font-size: 11.5px; color: var(--text-3); }
+.kpi-tag {
+  font-style: normal; font-size: 10.5px; font-weight: 600; padding: 2px 7px;
+  border-radius: var(--r-pill); white-space: nowrap;
+}
+.kpi-tag.up { color: var(--up); background: var(--up-bg); }
+.kpi-tag.down { color: var(--down); background: var(--down-bg); }
 .bento { display: grid; gap: 14px; grid-template-columns: 1fr; }
 
 /* ── hero: inspection readiness panel (the one bold element) ── */
@@ -1247,63 +1378,6 @@ h3 { font-size: 14px; }
 .chip::before { display: none; }
 .chip-na { border-style: solid; }
 
-/* ── Sidebar: narrower, quieter, grouped.
-   The icon tiles were 36px rounded boxes with their own background,
-   hover fill and active shadow. Four of those stacked is a wall of
-   chrome around four words. The icon is now just the icon. */
-.sidebar { width: 196px; padding: 8px; }
-.sidebar::before {
-  background: var(--surface);
-  border: 1px solid var(--line);
-  box-shadow: none;
-  backdrop-filter: none; -webkit-backdrop-filter: none;
-}
-
-.sidebar-top { padding: 6px 6px 10px; }
-.sidebar-logo { width: 26px; height: 26px; border-radius: 5px; box-shadow: none; }
-.brand-word { font-size: 13px; font-weight: 600; letter-spacing: -0.01em; }
-
-.sidebar > ul { gap: 1px; padding: 0 6px; }
-.nav-item {
-  gap: 10px;
-  padding: 7px 9px;
-  border-radius: 5px;
-  font-size: 13.5px;
-  font-weight: 450;
-  transition: background-color 0.12s ease, color 0.12s ease;
-}
-.nav-item:hover { background: var(--surface-2); color: var(--text); }
-.nav-item.active { background: var(--surface-2); color: var(--text); font-weight: 600; box-shadow: none; }
-.nav-item.active::before { display: none; }
-
-/* The icon: no tile, no fill, no shadow. It sits on the rail. */
-.nav-ico, .sidebar-role .nav-ico {
-  width: 18px; height: 18px;
-  border-radius: 0;
-  background: none;
-  color: var(--text-3);
-  transition: color 0.12s ease;
-}
-.nav-item:hover .nav-ico { background: none; color: var(--text-2); }
-.nav-item.active .nav-ico { background: none; color: var(--text); box-shadow: none; }
-
-/* ── The spacer. Primary navigation and account controls are two
-   different kinds of thing, so the rail says so with space and a
-   single hairline rather than by stacking them together. */
-.sidebar-foot {
-  margin-top: 20px;
-  padding: 10px 6px 6px;
-  border-top: 1px solid var(--line);
-  gap: 1px;
-}
-.sidebar-role { padding: 6px 9px; font-size: 12px; gap: 10px; }
-.sidebar-profile {
-  margin-top: 10px; padding: 7px 9px; border-radius: 5px;
-  border: 0; background: none; box-shadow: none;
-}
-.sidebar-profile:hover { background: var(--surface-2); }
-.sidebar-avatar { width: 26px; height: 26px; font-size: 10.5px; }
-
 /* ── Controls. */
 .btn { border-radius: 4px; font-weight: 550; }
 .btn-primary { background: var(--steel); border-color: var(--steel); }
@@ -1333,16 +1407,6 @@ input:focus-visible, select:focus-visible, textarea:focus-visible {
   .card, .panel-hero { box-shadow: none !important; border: 1px solid #000 !important; }
 }
 
-/* ── Sidebar brand: the rail is narrower now, so the wordmark has to
-   yield to the toggle icon instead of running underneath it. */
-.sidebar-toggle { gap: 8px; padding: 6px 8px; border-radius: 5px; }
-.brand-word {
-  font-family: var(--sans);
-  flex: 1; min-width: 0;
-  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
-}
-.sidebar-toggle-ico { flex-shrink: 0; }
-
 /* ── Customer cards. Blue, green and violet tiles said "three
    categories" when they are three readings of one account. Neutral
    tiles, and only the on-time percentage is graded. */
@@ -1361,265 +1425,17 @@ input:focus-visible, select:focus-visible, textarea:focus-visible {
   text-transform: none; letter-spacing: 0; color: var(--text-2);
 }
 
-/* Trim the chrome around the wordmark rather than widening the rail:
-   the ask was a smaller sidebar, so the padding gives way, not the width. */
-.sidebar-top { padding: 4px 2px 10px; }
-.sidebar-toggle { gap: 7px; padding: 5px 6px; }
-.brand-word { font-size: 12.5px; }
-
 /* ── Remaining blue outer glows from the old palette. They tint a
    colour the interface no longer uses, and a glow is decoration by
    definition (skill 9.A). Replaced with nothing. */
 .seg-btn.active,
 .choice-chip.active,
-.qa-tile:hover,
-.nav-item.active .nav-ico { box-shadow: none; }
+.qa-tile:hover { box-shadow: none; }
 .qa-tile:hover { transform: none; background: var(--surface-2); color: var(--text); }
 
 /* The job panel had a striped rule down its left edge. It encodes
    nothing, so it goes. */
 .job-hero::before { display: none; }
-
-/* ═══════════════════════════════════════════════════════════════
-   SIDEBAR: two states, one rail
-   Expanded shows icon plus label. Collapsed keeps the same icons in
-   the same order at the same vertical rhythm, so the rail is the
-   expanded panel with the words taken away, not a different menu.
-   State persists in localStorage, so the choice survives a reload.
-   ═══════════════════════════════════════════════════════════════ */
-
-.sidebar { transition: width 0.16s ease; }
-.sidebar::before { border-radius: 10px; }
-
-/* Groups are separated by a dashed rule. Dashed rather than solid
-   because these are soft groupings, not a hard division. */
-.sidebar-foot {
-  border-top: 0;
-  margin-top: 18px;
-  padding-top: 12px;
-  position: relative;
-}
-.sidebar-foot::before {
-  content: '';
-  position: absolute; top: 0; left: 8px; right: 8px;
-  border-top: 1px dashed var(--line-2);
-}
-/* Same rule under the brand, so the header reads as its own group. */
-.sidebar-top { position: relative; padding-bottom: 12px; }
-.sidebar-top::after {
-  content: '';
-  position: absolute; bottom: 4px; left: 8px; right: 8px;
-  border-top: 1px dashed var(--line-2);
-}
-
-/* Active item: a solid dark pill, white glyph. The only heavy mark
-   in the rail, so it is unambiguous which page you are on. */
-.nav-item.active {
-  background: var(--ink);
-  color: #fff;
-  font-weight: 550;
-}
-.nav-item.active:hover { background: var(--ink); }
-.nav-item.active .nav-ico { color: #fff; }
-
-/* ── Collapsed rail ────────────────────────────────────────────── */
-.shell.side-min .sidebar { width: 60px; padding: 8px 6px; }
-.shell.side-min .sidebar-top { padding: 4px 0 12px; }
-.shell.side-min .sidebar-top::after,
-.shell.side-min .sidebar-foot::before { left: 4px; right: 4px; }
-
-.shell.side-min .sidebar > ul { padding: 0 4px; }
-.shell.side-min .nav-item,
-.shell.side-min .sidebar-role,
-.shell.side-min .sidebar-profile,
-.shell.side-min .sidebar-toggle {
-  justify-content: center;
-  gap: 0;
-  padding: 8px 0;
-  border-radius: 7px;
-}
-/* The pill becomes a square around the glyph rather than a full-width
-   bar, because at 60px a full-width bar is just a coloured rail. */
-.shell.side-min .nav-item.active { background: var(--ink); }
-.shell.side-min .sidebar-foot { margin-top: 14px; padding-top: 12px; }
-.shell.side-min .sidebar-role { display: none; }
-.shell.side-min .sidebar-avatar { width: 26px; height: 26px; }
-
-/* ═══════════════════════════════════════════════════════════════
-   SIDEBAR: weight, rhythm, submenu, motion
-   ═══════════════════════════════════════════════════════════════ */
-
-/* ── Weight. Nav labels were sitting at 450/550 with the active item
-   at full bold, which made the whole rail shout. Navigation is not
-   content: it should recede until you look at it. */
-.brand-word { font-weight: 500; font-size: 13px; letter-spacing: -0.006em; }
-.nav-item { font-weight: 400; font-size: 13.5px; letter-spacing: -0.003em; }
-.nav-item.active { font-weight: 500; }
-.sidebar-profile strong { font-weight: 500; font-size: 12.5px; }
-.sidebar-role { font-weight: 400; }
-
-/* ── Rhythm. 1px between items read as a stack, not a list. Each row
-   now has room to be its own target. */
-.sidebar > ul { gap: 3px; }   /* direct child only: the submenu ul sets its own */
-.nav-item { padding: 9px 10px; }
-.sidebar-foot { gap: 3px; margin-top: 22px; padding-top: 14px; }
-.sidebar-role { padding: 8px 10px; }
-.sidebar-profile { margin-top: 8px; padding: 9px 10px; }
-
-/* ── Submenu. Indented under the parent and tied to it by a vertical
-   hairline, so the relationship is visible without a second icon set. */
-.nav-sub {
-  list-style: none;
-  margin: 3px 0 4px;
-  padding: 0 0 0 19px;
-  position: relative;
-  display: flex; flex-direction: column; gap: 1px;
-}
-.nav-sub::before {
-  content: '';
-  position: absolute; left: 19px; top: 4px; bottom: 4px;
-  border-left: 1px solid var(--line);
-}
-.nav-subitem {
-  display: block; width: 100%; text-align: left;
-  background: none; border: 0;
-  padding: 7px 10px 7px 14px;
-  margin-left: 1px;
-  border-radius: 5px;
-  color: var(--text-2);
-  font-size: 13px; font-weight: 400;
-  white-space: nowrap;
-  transition: background-color 0.12s ease, color 0.12s ease;
-}
-.nav-subitem:hover { background: var(--surface-2); color: var(--text); }
-.nav-subitem.active { color: var(--text); font-weight: 500; background: var(--surface-2); }
-
-/* The caret is a control in its own right: it opens the group without
-   navigating, so it gets its own hit area and focus ring. */
-.nav-caret {
-  margin-left: auto;
-  display: grid; place-items: center;
-  width: 20px; height: 20px;
-  border-radius: 4px;
-  color: var(--text-3);
-  transition: transform 0.18s ease, background-color 0.12s ease;
-}
-.nav-caret.open { transform: rotate(180deg); }
-.nav-caret:hover { background: var(--surface-3); }
-.nav-item.active .nav-caret { color: rgba(255, 255, 255, 0.65); }
-.nav-item.active .nav-caret:hover { background: rgba(255, 255, 255, 0.14); }
-
-/* ── Motion. The rail was snapping: 160ms linear-ish on width alone,
-   while the labels vanished instantly via display:none. Now the width
-   eases on a decelerating curve and the labels collapse with it, so it
-   reads as one drawer opening rather than two things happening. */
-.sidebar { transition: width 0.26s cubic-bezier(0.22, 0.61, 0.36, 1); }
-.brand-word, .nav-label, .sidebar-profile-text, .sidebar-role .nav-label {
-  overflow: hidden;
-  white-space: nowrap;
-  max-width: 200px;
-  opacity: 1;
-  transition: max-width 0.26s cubic-bezier(0.22, 0.61, 0.36, 1),
-              opacity 0.16s ease 0.06s;
-}
-.shell.side-min .brand-word,
-.shell.side-min .nav-label,
-.shell.side-min .sidebar-profile-text {
-  display: block;          /* replaces display:none so it can animate */
-  max-width: 0;
-  opacity: 0;
-  transition: max-width 0.26s cubic-bezier(0.22, 0.61, 0.36, 1),
-              opacity 0.12s ease;
-}
-.shell.side-min .sidebar-toggle-ico { display: none; }
-.shell.side-min .nav-caret { display: none; }
-
-@media (prefers-reduced-motion: reduce) {
-  .sidebar, .brand-word, .nav-label, .sidebar-profile-text, .nav-caret { transition: none; }
-}
-
-/* ── Lighter and smaller. The rail is a signpost, not a paragraph:
-   at 300-400 weight it stays legible while receding from the content
-   it points at. Requires the 300 stop on Archivo's weight axis, which
-   index.html now requests. */
-.brand-word { font-size: 12px; font-weight: 400; }
-.nav-item { font-size: 12.5px; font-weight: 300; }
-.nav-item.active { font-weight: 400; }
-.nav-subitem { font-size: 12px; font-weight: 300; }
-.nav-subitem.active { font-weight: 400; }
-.sidebar-role { font-size: 11.5px; font-weight: 300; }
-.sidebar-profile strong { font-size: 12px; font-weight: 400; }
-.sidebar-profile-text small { font-size: 10.5px; font-weight: 300; }
-
-/* ═══════════════════════════════════════════════════════════════
-   SIDEBAR: full-bleed rail, branch connectors, type
-   ═══════════════════════════════════════════════════════════════ */
-
-/* ── The rail runs the full height from the left edge and is separated
-   by a single border, rather than floating as a rounded card inset
-   from the window. One less shape on screen. */
-.sidebar { padding: 10px 8px; border-right: 1px solid var(--line); background: var(--surface); }
-.sidebar::before { display: none; }
-.shell.side-min .sidebar { padding: 10px 6px; }
-
-/* ── Type. Menu one step up in weight, submenu one pixel down in size,
-   so the parent leads and the children follow without competing. */
-.nav-item { font-weight: 350; }
-.nav-item.active { font-weight: 450; }
-.nav-subitem { font-size: 11.5px; font-weight: 300; }
-.nav-subitem.active { font-weight: 400; }
-.brand-word { font-size: 12.5px; font-weight: 500; letter-spacing: -0.01em; }
-
-/* ── Branch connectors. The guide was one straight line the highlight
-   ran over. Each child now gets its own elbow curving in from the
-   trunk, and the highlight starts clear of it. */
-.nav-sub { padding-left: 21px; }
-.nav-sub::before { display: none; }        /* the old single straight rule */
-.nav-sub li { position: relative; }
-
-/* Elbow: down from the item's top edge, then curving right into it. */
-.nav-sub li::before {
-  content: '';
-  position: absolute;
-  left: 0; top: 0;
-  width: 11px; height: 50%;
-  border-left: 1px solid var(--line-2);
-  border-bottom: 1px solid var(--line-2);
-  border-bottom-left-radius: 9px;
-  pointer-events: none;
-}
-/* Trunk: carries on down to the next child, so the branches read as
-   one tree rather than three detached hooks. Last child has nothing
-   below it, so it gets no tail. */
-.nav-sub li:not(:last-child)::after {
-  content: '';
-  position: absolute;
-  left: 0; top: 50%; bottom: 0;
-  border-left: 1px solid var(--line-2);
-  pointer-events: none;
-}
-
-/* The highlight now begins to the right of the elbow, so it can never
-   sit on top of the connector. */
-.nav-subitem {
-  margin-left: 15px;
-  padding: 6px 10px;
-  border-radius: 5px;
-}
-
-/* The 1px flex gap cut the trunk between branches. Spacing moves into
-   the items so the line runs unbroken from the first child to the last. */
-.nav-sub { gap: 0; }
-.nav-subitem { margin-top: 1px; margin-bottom: 1px; }
-
-/* Margins on the button collapsed out through the li and reopened the
-   trunk. Spacing lives in the padding instead, so the list items are
-   contiguous and the connector is one unbroken line. */
-.nav-subitem { margin-top: 0; margin-bottom: 0; padding: 7px 10px; }
-
-/* The parent list rules are now scoped to the direct child, so the
-   submenu declares its own list reset. */
-.nav-sub { list-style: none; margin: 3px 0 4px; }
 
 /* ═══════════════════════════════════════════════════════════════
    REPORT DETAIL: sticky bar, view switch, section tabs
@@ -1706,11 +1522,8 @@ input:focus-visible, select:focus-visible, textarea:focus-visible {
   .detail-bar-tools { width: 100%; justify-content: space-between; }
 }
 
-/* The sticky bar and the floating bell both sat at --z-nav and the bar
-   ran underneath the bell. The bell wins, and the bar reserves room so
-   its controls never slide under it. */
-.float-actions { z-index: calc(var(--z-nav) + 1); }
-@media (min-width: 1024px) { .detail-bar.is-stuck { padding-right: 72px; } }
+/* The bell no longer floats over this corner — it is in the top bar —
+   so the sticky bar keeps its full width. */
 
 /* `text-transform: uppercase` turns the micro sign into a capital Mu,
    so "Pts (µm)" was rendering as "PTS (MM)" and reading as millimetres.
@@ -1970,8 +1783,17 @@ input:focus-visible, select:focus-visible, textarea:focus-visible {
    MONITORING: a register of documents
    ═══════════════════════════════════════════════════════════════ */
 
-.mon-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 14px; }
+.mon-head { display: flex; align-items: center; justify-content: flex-end; gap: 12px; margin-bottom: 14px; }
 .mon-head h2 { font-size: 19px; }
+
+/* The row under the top bar: which slice of the register on the left,
+   what you can do with it on the right — the reference's second row. */
+.page-bar {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 12px 16px; flex-wrap: wrap; margin-bottom: 14px;
+}
+.page-bar .mon-tabs { margin-bottom: 0; flex: 1 1 auto; min-width: 0; }
+.page-bar .mon-head-actions { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
 
 /* Status tabs carry their own counts, because the count is the answer
    this screen is usually asked for. */
@@ -2131,7 +1953,7 @@ input:focus-visible, select:focus-visible, textarea:focus-visible {
 
 /* The page action sat under the floating bell, same collision as the
    report bar had. Reserve room for it at desktop. */
-@media (min-width: 1024px) { .mon-head { padding-right: 72px; } }
+/* the bell used to float over this corner; it lives in the top bar now */
 
 /* ═══════════════════════════════════════════════════════════════
    REPORT HERO v3: badges, then one uniform control row
@@ -2459,7 +2281,8 @@ tr:has(.chip-done) .jobs-prog-bar span { background: var(--done); }
 
 /* ── Rail ── */
 .set-rail h2 { font-size: 27px; font-weight: 500; letter-spacing: -0.02em; margin: 0; }
-.set-rail-sub {
+.set-rail-sub { margin-top: 2px;
+
   margin: 5px 0 22px;
   font-size: 11.5px; font-weight: 350; color: var(--text-3); line-height: 1.5;
 }
@@ -2496,6 +2319,12 @@ tr:has(.chip-done) .jobs-prog-bar span { background: var(--done); }
    ran to 1120px and the two columns sat 700px apart. Cap the panel, and
    cap each control, so a field is the width of its longest value. */
 .set-body { max-width: 1060px; }
+/* Content sits on a card here as it does everywhere else, rather than
+   floating directly on the canvas. */
+.set-panel {
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: var(--r-lg); padding: 20px 22px;
+}
 .set-panel > h3 { font-size: 17px; font-weight: 500; margin: 0 0 6px; letter-spacing: -0.01em; }
 .set-panel-desc {
   margin: 0 0 22px; max-width: 62ch;
@@ -2683,15 +2512,24 @@ tr:has(.chip-done) .jobs-prog-bar span { background: var(--done); }
    keeps meaning something.
    ═══════════════════════════════════════════════════════════════ */
 
+/* In the reference the orange is never a button: it marks the brand, the
+   item you are on, and the data itself, while the primary action is
+   near-black. Orange keeps one job — "this is where you are, this is
+   what the numbers are doing" — and is not spent on chrome. */
 .btn-primary,
 .btn-primary:disabled {
-  background: var(--amber); border-color: var(--amber); color: #fff;
+  background: var(--ink); border-color: var(--ink); color: #fff;
 }
-.btn-primary:hover:not(:disabled) { background: var(--amber-deep); border-color: var(--amber-deep); }
-.btn-primary:focus-visible { outline-color: var(--amber-deep); }
+.btn-primary:hover:not(:disabled) { background: var(--steel-deep); border-color: var(--steel-deep); }
+.btn-primary:focus-visible { outline-color: var(--ink); }
 
-.dbtn.is-primary { background: var(--amber); border-color: var(--amber); color: #fff; }
-.dbtn.is-primary:hover { background: var(--amber-deep); border-color: var(--amber-deep); }
+/* The one exception: committing a report is the act the whole app exists
+   for, so it keeps the accent. */
+.btn-accent, .btn-accent:disabled { background: var(--amber); border-color: var(--amber); color: #fff; font-weight: 600; }
+.btn-accent:hover:not(:disabled) { background: var(--amber-deep); border-color: var(--amber-deep); color: #fff; }
+
+.dbtn.is-primary { background: var(--ink); border-color: var(--ink); color: #fff; }
+.dbtn.is-primary:hover { background: var(--steel-deep); border-color: var(--steel-deep); }
 
 /* Active states across the registers and settings. */
 .mon-tab.on .mon-tab-n { background: var(--amber); color: #fff; }
@@ -2704,10 +2542,6 @@ tr:has(.chip-done) .jobs-prog-bar span { background: var(--done); }
 /* Progress reads as work in hand until it is finished, then as passed. */
 .jobs-prog-bar span { background: var(--amber); }
 tr:has(.chip-done) .jobs-prog-bar span { background: var(--done); }
-
-/* The brand mark is the one orange thing in the rail, the way the
-   reference puts it in an otherwise dark navigation bar. */
-.sidebar-logo { background: var(--amber); color: #fff; }
 
 @media (max-width: 899px) {
   .set-link.on { box-shadow: inset 0 -2px 0 var(--amber); }
@@ -2942,13 +2776,11 @@ tr:has(.chip-done) .jobs-prog-bar span { background: var(--done); }
   position: absolute; top: 50%; right: 5px; transform: translateY(-50%);
   width: 30px; height: 30px;
   display: grid; place-items: center;
-  border: 1px solid var(--ink); border-radius: 8px;
-  background: linear-gradient(180deg, #3a3a3f 0%, #202024 100%);
-  color: #fff;
-  box-shadow: 0 1px 2px rgba(20, 20, 24, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.14);
-  transition: background .14s ease, transform .08s ease;
+  border: 1px solid var(--ink); border-radius: var(--r-sm);
+  background: var(--ink); color: #fff;
+  transition: background .14s ease, opacity .12s ease;
 }
-.rb-search-btn:hover { background: linear-gradient(180deg, #4a4a50 0%, #2a2a2f 100%); }
+.rb-search-btn:hover { background: var(--ink-2); }
 .rb-search-btn:active { transform: translateY(-50%) scale(0.95); }
 .rb-search.has-value .rb-search-btn {
   border-color: var(--amber-deep);
@@ -3145,25 +2977,17 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber); outline-
   .deliv-end { order: 3; flex: 1 1 100%; justify-content: flex-start; padding-left: 52px; }
 }
 
-/* ── Nav row: the item and its caret are siblings now, so the row is
-   what carries the active pill and the two controls divide it. */
-.nav-row { display: flex; align-items: center; border-radius: 5px; }
-.nav-row > .nav-item { flex: 1 1 auto; min-width: 0; border-radius: 5px 0 0 5px; }
+/* ── Nav row: the item and its caret are siblings, so the row carries
+   the active tint and the two controls divide it between them. */
+.nav-row > .nav-item { flex: 1 1 auto; min-width: 0; border-radius: var(--r) 0 0 var(--r); }
 .nav-row:has(> .nav-caret) > .nav-item { padding-right: 4px; }
-.nav-row:not(:has(> .nav-caret)) > .nav-item { border-radius: 5px; }
-.nav-caret {
-  flex: 0 0 auto; margin: 0 5px 0 0;
-  border: 0; background: none; padding: 0;
-  cursor: pointer;
-}
-/* The pill belongs to the whole row, so the caret sits on it rather
-   than beside it in a different colour. */
-.nav-row.active { background: var(--ink); }
+.nav-row:not(:has(> .nav-caret)) > .nav-item { border-radius: var(--r); }
+.nav-row.active { background: var(--amber-tint); }
 .nav-row.active > .nav-item.active { background: none; }
-.nav-row.active .nav-caret { color: rgba(255, 255, 255, 0.7); }
-.nav-row.active .nav-caret:hover { background: rgba(255, 255, 255, 0.16); }
+.nav-row.active .nav-caret { color: var(--amber-deep); }
+.nav-row.active .nav-caret:hover { background: rgba(0, 0, 0, 0.05); }
 .nav-caret:focus-visible { outline: 2px solid var(--amber); outline-offset: 1px; }
-.shell.side-min .nav-row > .nav-item { border-radius: 5px; }
+.shell.side-min .nav-row > .nav-item { border-radius: var(--r); }
 
 /* ═══════════════════════════════════════════════════════════════
    NEW JOB ORDER

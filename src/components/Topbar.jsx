@@ -1,28 +1,33 @@
-import { COMPANY } from '../lib/company.js'
-import { useState, useEffect, useMemo } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useApp, navigate } from '../App.jsx'
 import { FORM_SCHEMAS } from '../data/formSchemas.js'
 import { getReports } from '../lib/store.js'
 import { buildContext, jobProgress } from '../lib/status.js'
-import { IconSearch, IconBell, IconShield, IconAlert, IconApprove, IconPen, IconMenu } from './Icons.jsx'
+import { IconSearch, IconBell, IconAlert, IconApprove, IconPen, IconMenu } from './Icons.jsx'
+
+/* The bar across the top of the work area: where you are on the left,
+   what you can do about it on the right. It replaces the notification
+   button that used to float over the page, so there is one place to
+   look for the state of things rather than a control hovering over the
+   content it refers to. */
 
 const PAGE_TITLES = {
+  home: ['Dashboard', ''],
   monitor: ['Monitor', 'Job × report status matrix'],
-  jobs: ['Jobs', 'JOBLIST register'],
+  jobs: ['Jobs', 'Job register'],
+  joborder: ['New job order', 'Purchase order, units, reports'],
   reports: ['Reports', 'Documents & NCR'],
-  settings: ['Settings', 'Admin'],
+  settings: ['Settings', ''],
   profile: ['Profile', 'Account & sync'],
 }
 
-export default function Topbar({ route, job, onToggleSidebar }) {
+export default function Topbar({ route, job, onToggleSidebar, searchOpen, onOpenSearch, onCloseSearch }) {
   const { jobs, session, role, tick } = useApp()
-  const [searchOpen, setSearchOpen] = useState(false)
   const [notifOpen, setNotifOpen] = useState(false)
   const [q, setQ] = useState('')
 
-  useEffect(() => { setSearchOpen(false); setNotifOpen(false) }, [route.page, route.jobNo, route.formKey])
+  useEffect(() => { setNotifOpen(false) }, [route.page, route.jobNo, route.formKey])
 
-  const isHome = route.page === 'home'
   let [title, sub] = PAGE_TITLES[route.page] || ['', '']
   if (route.page === 'job' && job) { title = `Job ${job.jobNo}`; sub = job.customerName }
   if (route.page === 'form') { title = FORM_SCHEMAS[route.formKey]?.title || 'Form'; sub = job ? `Job ${job.jobNo}` : '' }
@@ -34,7 +39,6 @@ export default function Topbar({ route, job, onToggleSidebar }) {
 
   // Notifications: overdue jobs, reports awaiting approval (admin), own drafts
   const notifs = useMemo(() => {
-    if (!notifOpen) return []
     const out = []
     const ctx = buildContext()
     const overdue = jobs.reduce((n, j) => n + (jobProgress(j, ctx).overdue ? 1 : 0), 0)
@@ -57,55 +61,51 @@ export default function Topbar({ route, job, onToggleSidebar }) {
       sub: drafts.slice(0, 2).map((r) => r.reportId).join(' · '), to: '/reports?f=draft',
     })
     return out
-  }, [notifOpen, jobs, role, session.name, tick])
+  }, [jobs, role, session.name, tick])
 
   const initials = session.name.split(' ').map((w) => w[0]).slice(0, 2).join('')
 
   return (
     <>
-      <header className="appbar">
-        <button className="icon-btn menu-btn" onClick={onToggleSidebar} aria-label="Toggle sidebar">
+      <header className="topbar">
+        <button className="topbar-menu" onClick={onToggleSidebar} aria-label="Toggle sidebar">
           <IconMenu size={17} />
         </button>
-        {isHome ? (
-          <button className="brand-chip" onClick={() => navigate('/')} aria-label={COMPANY.name}>
-            <span className="brand-logo"><IconShield size={15} /></span>
-            <span className="brand-text">
-              <strong>{COMPANY.name}</strong>
-              <small>QC Inspection</small>
-            </span>
+        <div className="topbar-title">
+          <h1>{title}</h1>
+          {sub && <small>{sub}</small>}
+        </div>
+
+        <div className="topbar-actions">
+          {/* the rail carries the search field on desktop; on a narrow
+              screen there is no rail, so the icon stands in for it */}
+          <button className="tb-btn tb-search" onClick={onOpenSearch} aria-label="Search jobs">
+            <IconSearch size={17} />
           </button>
-        ) : (
-          <div className="appbar-title">
-            <h1>{title}</h1>
-            {sub && <small>{sub}</small>}
-          </div>
-        )}
-        <div className="appbar-spacer" />
-        <button className="icon-btn" onClick={() => setSearchOpen(true)} aria-label="Search">
-          <IconSearch size={18} />
-        </button>
-        <button className="icon-btn notif-btn" onClick={() => setNotifOpen(true)} aria-label="Notifications">
-          <IconBell size={18} />
-        </button>
-        <button className="avatar-btn" onClick={() => navigate('/profile')} aria-label="Profile">
-          {initials}
-        </button>
+          <button className="tb-btn" onClick={() => setNotifOpen((v) => !v)}
+            aria-label="Notifications" aria-expanded={notifOpen}>
+            <IconBell size={17} />
+            {notifs.length > 0 && <span className="tb-badge">{notifs.length}</span>}
+          </button>
+          <button className="tb-avatar" onClick={() => navigate('/profile')} aria-label="Profile" title={session.name}>
+            {initials}
+          </button>
+        </div>
       </header>
 
       {searchOpen && (
         <>
-          <div className="search-sheet-backdrop" onClick={() => setSearchOpen(false)} />
+          <div className="search-sheet-backdrop" onClick={onCloseSearch} />
           <div className="search-sheet" role="dialog" aria-label="Global search">
             <div className="searchbar" style={{ marginBottom: 0 }}>
               <IconSearch size={16} />
               <input autoFocus placeholder="Job No, WBS, Serial No, Customer…"
                 value={q} onChange={(e) => setQ(e.target.value)}
-                onKeyDown={(e) => e.key === 'Escape' && setSearchOpen(false)} />
+                onKeyDown={(e) => e.key === 'Escape' && onCloseSearch()} />
             </div>
             <div className="search-results">
               {hits.map((j) => (
-                <button key={j.jobNo} onClick={() => { navigate(`/job/${j.jobNo}`); setSearchOpen(false); setQ('') }}>
+                <button key={j.jobNo} onClick={() => { navigate(`/job/${j.jobNo}`); onCloseSearch(); setQ('') }}>
                   <strong>{j.jobNo}</strong>
                   <span>{j.productDesc}</span>
                   <small>{j.customerName} · {j.arasSN}</small>

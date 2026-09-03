@@ -4,7 +4,7 @@ import { FORM_SCHEMAS } from '../data/formSchemas.js'
 import { getReports } from '../lib/store.js'
 import { docStats, recentActivity, ncrReports, buildContext, jobStatuses, jobProgress, fmtDate, fmtDateTime } from '../lib/status.js'
 import { DELIVERABLES } from '../lib/constants.js'
-import { IconSearch, IconAlert, IconDoc, IconChevronR, IconPlus, IconPen, IconGrid } from './Icons.jsx'
+import { IconSearch, IconAlert, IconDoc, IconChevronR, IconPlus, IconPen, IconGrid, IconList, IconApprove, IconClock } from './Icons.jsx'
 
 const FORM_ORDER = ['hydrotest', 'blasting', 'mt', 'pt', 'ut', 'visual', 'dimensional']
 const QA_TINTS = ['qa-1', 'qa-2', 'qa-3', 'qa-4', 'qa-1', 'qa-2', 'qa-3']
@@ -190,11 +190,57 @@ export default function Home() {
   const openReport = (r) =>
     navigate(`/job/${r.jobNo}/form/${r.formKey}?d=${encodeURIComponent(r.deliverable)}&rid=${encodeURIComponent(r.id)}`)
 
+  /* The four numbers the register can answer without inventing any:
+     how much work there is, how much of it is finished, how much is
+     moving, and how much is late. No month-over-month deltas — nothing
+     in this app records last month, and a made-up trend on a QC
+     dashboard is worse than no trend. */
+  const pctDone = fleet.applicable ? Math.round((fleet.dist.done / fleet.applicable) * 100) : 0
+  const metrics = [
+    { key: 'jobs', icon: IconList, label: 'Active jobs', value: fleet.customers.length ? jobs.length : 0,
+      foot: `${fleet.customers.length} customer${fleet.customers.length === 1 ? '' : 's'}`, to: '/jobs' },
+    { key: 'done', icon: IconApprove, label: 'Reports complete', value: `${pctDone}%`,
+      foot: `${fleet.dist.done} of ${fleet.applicable} required`, tone: pctDone >= 75 ? 'up' : '', to: '/monitor' },
+    { key: 'prog', icon: IconClock, label: 'In progress', value: fleet.dist.inprogress,
+      foot: `${stats.draft} draft${stats.draft === 1 ? '' : 's'} open`, to: '/reports?f=draft' },
+    { key: 'late', icon: IconAlert, label: 'Overdue', value: fleet.dist.overdue,
+      foot: `${fleet.overdueJobs.length} job${fleet.overdueJobs.length === 1 ? '' : 's'} affected`,
+      tone: fleet.dist.overdue ? 'down' : '', to: '/monitor' },
+  ]
+
   return (
     <div className="page">
-      <div className="home-greet">
-        <h2>{greet}, {first}</h2>
-        <p>{today} · Here's the state of your inspections.</p>
+      {/* the top bar names the page; this row says whose it is and what
+          can be done from here */}
+      <div className="page-bar">
+        <div className="home-greet">
+          <strong>{greet}, {first}</strong>
+          <span>{today}</span>
+        </div>
+        <div className="mon-head-actions">
+          <button className="btn btn-secondary btn-sm" onClick={() => navigate('/monitor')}>
+            <IconGrid size={14} /> Open Monitor
+          </button>
+          <button className="btn btn-primary btn-sm" onClick={() => navigate('/jobs')}>
+            <IconPlus size={14} /> New report
+          </button>
+        </div>
+      </div>
+
+      <div className="kpi-row">
+        {metrics.map((m) => (
+          <button key={m.key} className="kpi" onClick={() => navigate(m.to)}>
+            <span className="kpi-top">
+              <span className="kpi-ico"><m.icon size={14} /></span>
+              {m.label}
+            </span>
+            <strong className="kpi-value">{m.value}</strong>
+            <span className="kpi-foot">
+              <span>{m.foot}</span>
+              {m.tone && <em className={`kpi-tag ${m.tone}`}>{m.tone === 'up' ? 'on track' : 'attention'}</em>}
+            </span>
+          </button>
+        ))}
       </div>
 
       <div className="bento">

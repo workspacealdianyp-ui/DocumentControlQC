@@ -6,7 +6,7 @@ import { getSession, setSession, clearSession } from './lib/store.js'
 import Login from './components/Login.jsx'
 import Sidebar from './components/Sidebar.jsx'
 import BottomNav from './components/BottomNav.jsx'
-import FloatingActions from './components/FloatingActions.jsx'
+import Topbar from './components/Topbar.jsx'
 import Home from './components/Home.jsx'
 import Dashboard from './components/Dashboard.jsx'
 import JobsPage from './components/JobsPage.jsx'
@@ -62,6 +62,9 @@ export default function App() {
   const [tick, setTick] = useState(0) // bump to recompute statuses after store writes
   const [toast, setToast] = useState(null)
   const [sideMin, setSideMin] = useState(() => localStorage.getItem('qc.sideMin') === '1')
+  // Search is opened from two places — the rail's field and the top bar's
+  // icon — so the state that owns it sits above both.
+  const [searchOpen, setSearchOpen] = useState(false)
 
   const toggleSidebar = () => {
     setSideMin((v) => {
@@ -75,6 +78,20 @@ export default function App() {
     window.addEventListener('hashchange', onHash)
     return () => window.removeEventListener('hashchange', onHash)
   }, [])
+
+  // The rail promises ⌘K, so it has to answer — and Escape closes it.
+  useEffect(() => {
+    const onKey = (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') { e.preventDefault(); setSearchOpen(true) }
+      else if (e.key === 'Escape') setSearchOpen(false)
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [])
+
+  // A route change is a new screen; a search sheet left open over it is
+  // a leftover from the last one.
+  useEffect(() => { setSearchOpen(false) }, [route.page, route.jobNo, route.formKey])
 
   useEffect(() => {
     if (!toast) return
@@ -122,9 +139,12 @@ export default function App() {
     <AppContext.Provider value={ctxValue}>
       <AppBackground />
       <div className={`shell${sideMin ? ' side-min' : ''}`}>
-        <Sidebar page={route.page} onToggle={toggleSidebar} collapsed={sideMin} />
+        <Sidebar page={route.page} onToggle={toggleSidebar} collapsed={sideMin}
+          onSearch={() => setSearchOpen(true)} />
         <div className="main">
-          <FloatingActions route={route} />
+          <Topbar route={route} job={job} onToggleSidebar={toggleSidebar}
+            searchOpen={searchOpen} onOpenSearch={() => setSearchOpen(true)}
+            onCloseSearch={() => setSearchOpen(false)} />
           <main className="content" key={route.page + (route.jobNo || '') + (route.formKey || '')}>
             {route.page === 'home' && <Home />}
             {route.page === 'monitor' && <Dashboard />}

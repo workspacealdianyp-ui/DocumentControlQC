@@ -137,7 +137,7 @@ export default function Settings({ section }) {
     <div className="page set">
       <div className="set-shell">
         <aside className="set-rail">
-          <h2>Settings</h2>
+          {/* the top bar already names this page */}
           <p className="set-rail-sub">{COMPANY.name}<span>{role.label}</span></p>
           <nav className="set-nav">
           {SECTIONS.map((g) => {

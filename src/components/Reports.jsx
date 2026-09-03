@@ -112,20 +112,18 @@ export default function Reports({ query }) {
 
   return (
     <div className="page">
-      <div className="mon-head">
-        <h2>Reports</h2>
+      <div className="page-bar">
+        <div className="mon-tabs" role="tablist" aria-label="Report status">
+          {TABS.map((t) => (
+            <button key={t.id} role="tab" aria-selected={tab === t.id}
+              className={`mon-tab${tab === t.id ? ' on' : ''}`} onClick={() => setTab(t.id)}>
+              {t.label}<span className={`mon-tab-n${t.id === 'ncr' && counts.ncr ? ' is-alarm' : ''}`}>{counts[t.id]}</span>
+            </button>
+          ))}
+        </div>
         <button className="btn btn-secondary btn-sm" onClick={exportCsv}>
           <IconDownload size={14} /> Export CSV
         </button>
-      </div>
-
-      <div className="mon-tabs" role="tablist" aria-label="Report status">
-        {TABS.map((t) => (
-          <button key={t.id} role="tab" aria-selected={tab === t.id}
-            className={`mon-tab${tab === t.id ? ' on' : ''}`} onClick={() => setTab(t.id)}>
-            {t.label}<span className={`mon-tab-n${t.id === 'ncr' && counts.ncr ? ' is-alarm' : ''}`}>{counts[t.id]}</span>
-          </button>
-        ))}
       </div>
 
       <div className="rb-bar">
