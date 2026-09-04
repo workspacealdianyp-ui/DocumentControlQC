@@ -436,8 +436,13 @@ table { border-collapse: collapse; }
 .rail-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 2px; }
 
 .nav-row { display: flex; align-items: center; gap: 2px; border-radius: var(--r); }
+/* width, not flex: the main destinations sit inside .nav-row (a flex
+   row shared with the caret) where flex:1 fills it, but the utilities at
+   the foot are a plain button in a list item, where flex means nothing —
+   so those two shrank to their labels and broke both the right edge and,
+   folded, the icon column. */
 .nav-item {
-  flex: 1; min-width: 0; display: flex; align-items: center; gap: 10px;
+  flex: 1; width: 100%; min-width: 0; display: flex; align-items: center; gap: 10px;
   padding: 0 8px; height: 36px; border: 0; border-radius: var(--r);
   background: none; color: var(--text-2); font-size: 13.5px; font-weight: 500;
   text-align: left; transition: background-color .12s, color .12s;
@@ -476,20 +481,37 @@ table { border-collapse: collapse; }
 
 /* ── foot: what the storage is doing, and who you are */
 .rail-foot { display: flex; flex-direction: column; gap: 8px; padding-top: 8px; border-top: 1px solid var(--line); }
-.rail-store { padding: 10px 7px; border: 1px solid var(--line); border-radius: var(--r); background: var(--surface-2); }
+/* The one panel in the rail that is a surface rather than a list: black
+   liquid metal, with a scrim over it so the type has a guaranteed floor
+   of contrast no matter which fold of the highlight it lands on. It
+   reads the same in both themes, so it keeps its own light-on-dark
+   colours rather than borrowing the theme's. */
+.rail-store {
+  padding: 10px 7px; border-radius: var(--r);
+  border: 1px solid #2b2b33;
+  background:
+    linear-gradient(rgba(6, 6, 8, 0.55), rgba(6, 6, 8, 0.55)),
+    url('./assets/metal.svg') center / cover no-repeat,
+    #0a0a0d;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  /* Type over imagery gets a shadow as well as a scrim: the scrim sets
+     the floor, the shadow holds the edge where a fold runs bright. */
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+}
 .rail-store-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 7px; }
-.rail-store-head span { display: inline-flex; align-items: center; gap: 10px; font-size: 11.5px; font-weight: 600; color: var(--text-2); }
-.rail-store-head strong { font-size: 11.5px; font-weight: 600; color: var(--text); font-variant-numeric: tabular-nums; }
-.rail-store-bar { height: 5px; border-radius: var(--r-pill); background: var(--surface-3); overflow: hidden; }
+.rail-store-head span { display: inline-flex; align-items: center; gap: 10px; font-size: 11.5px; font-weight: 600; color: #fff; }
+.rail-store-head .rail-ico { color: rgba(255, 255, 255, 0.82); }
+.rail-store-head strong { font-size: 11.5px; font-weight: 700; color: #fff; font-variant-numeric: tabular-nums; }
+.rail-store-bar { height: 5px; border-radius: var(--r-pill); background: rgba(255, 255, 255, 0.16); overflow: hidden; }
 .rail-store-bar span { display: block; height: 100%; background: var(--amber); border-radius: inherit; transition: width .3s ease; }
-.rail-store-bar span.is-full { background: var(--overdue); }
-.rail-store small { display: block; margin-top: 6px; padding-left: 30px; font-size: 10.5px; color: var(--text-3); }
+.rail-store-bar span.is-full { background: #ff5a6e; }
+.rail-store small { display: block; margin-top: 6px; padding-left: 30px; font-size: 10.5px; color: rgba(255, 255, 255, 0.85); }
 .rail-store-btn {
   width: 100%; margin-top: 8px; height: 30px; border-radius: var(--r-sm);
-  border: 1px solid var(--line-2); background: var(--surface); color: var(--text);
-  font-size: 11.5px; font-weight: 600;
+  border: 1px solid rgba(255, 255, 255, 0.22); background: rgba(255, 255, 255, 0.1); color: #fff;
+  font-size: 11.5px; font-weight: 600; backdrop-filter: blur(2px);
 }
-.rail-store-btn:hover { background: var(--ink); border-color: var(--ink); color: #fff; }
+.rail-store-btn:hover { background: #fff; border-color: #fff; color: #111114; }
 
 /* ── utilities and appearance, under the storage card */
 .rail-util { margin-bottom: 2px; }

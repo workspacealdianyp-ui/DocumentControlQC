@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice">
+  <!-- Black liquid metal, drawn not photographed. See .rail-store in styles.css. -->
+  <defs>
+    <linearGradient id="ground" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1b1b21"/>
+      <stop offset="0.5" stop-color="#020203"/>
+      <stop offset="1" stop-color="#101015"/>
+    </linearGradient>
+    <linearGradient id="sheen" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0"/>
+      <stop offset="0.42" stop-color="#ffffff" stop-opacity="1"/>
+      <stop offset="0.58" stop-color="#cfcfdb" stop-opacity="0.5"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="dim" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0"/>
+      <stop offset="0.5" stop-color="#b4b4c4" stop-opacity="0.62"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="flow" x="-25%" y="-25%" width="150%" height="150%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency="0.0045 0.012" numOctaves="3" seed="11" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="96" xChannelSelector="R" yChannelSelector="G"/>
+      <feGaussianBlur stdDeviation="1.5"/>
+    </filter>
+  </defs>
+
+  <rect width="400" height="260" fill="url(#ground)"/>
+
+  <g filter="url(#flow)">
+    <rect x="-60" y="16" width="520" height="18" fill="url(#sheen)"/>
+    <rect x="-60" y="52" width="520" height="9" fill="url(#sheen)" opacity="0.9"/>
+    <rect x="-60" y="96" width="520" height="40" fill="url(#dim)"/>
+    <rect x="-60" y="150" width="520" height="14" fill="url(#sheen)" opacity="0.95"/>
+    <rect x="-60" y="176" width="520" height="8" fill="url(#sheen)" opacity="0.7"/>
+    <rect x="-60" y="212" width="520" height="20" fill="url(#dim)" opacity="0.8"/>
+    <ellipse cx="95" cy="70" rx="130" ry="26" fill="#ffffff" opacity="0.16"/>
+    <ellipse cx="315" cy="190" rx="140" ry="22" fill="#ffffff" opacity="0.13"/>
+  </g>
+</svg>
