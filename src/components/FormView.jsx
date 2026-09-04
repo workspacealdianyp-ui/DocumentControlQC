@@ -7,6 +7,7 @@ import { MR } from '../lib/compute.js'
 import { fmtDate } from '../lib/status.js'
 import { buildResume } from '../lib/resume.js'
 import { jobIdentity } from '../lib/jobOrders.js'
+import { getSettings } from '../lib/settings.js'
 import PrintReport from './PrintReport.jsx'
 import ReportDetail from './ReportDetail.jsx'
 import SignaturePad from './SignaturePad.jsx'
@@ -860,7 +861,12 @@ export default function FormView({ job, formKey, query }) {
 
       {showPdf && createPortal(<PrintReport schema={schema} report={report} job={cur} deliverable={deliverable} status={reportStatus} onClose={() => setShowPdf(false)} />, document.body)}
       {signField && createPortal(
-        <SignaturePad name={signField === 'signInspector' ? (v.inspector || session.name) : session.name} onClose={() => setSignField(null)} onSave={(sig) => { setValue(signField, sig); setSignField(null) }} />,
+        /* An inspector filing six reports in a shift should draw their
+           name once. The signature saved in Settings is offered here as
+           the starting point; the pad still lets them draw a fresh one. */
+        <SignaturePad name={signField === 'signInspector' ? (v.inspector || session.name) : session.name}
+          saved={signField === 'signInspector' ? getSettings().profile.signature : ''}
+          onClose={() => setSignField(null)} onSave={(sig) => { setValue(signField, sig); setSignField(null) }} />,
         document.body
       )}
     </div>

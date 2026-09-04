@@ -3,6 +3,7 @@ import { createPortal } from 'react-dom'
 import { useApp, navigate } from '../App.jsx'
 import { FORM_SCHEMAS } from '../data/formSchemas.js'
 import { getReports } from '../lib/store.js'
+import { getSettings } from '../lib/settings.js'
 import { buildContext, jobProgress, fmtDate } from '../lib/status.js'
 import { IS_MAC } from '../lib/keys.js'
 import {
@@ -156,6 +157,9 @@ export default function Topbar({ route, job, onToggleSidebar, searchOpen, onOpen
   }, [jobs, role, session.name, tick])
 
   const initials = session.name.split(' ').map((w) => w[0]).slice(0, 2).join('')
+  // A photo set in Settings stands in for the initials wherever the app
+  // draws this person.
+  const photo = getSettings().profile.photo
 
   return (
     <>
@@ -179,8 +183,9 @@ export default function Topbar({ route, job, onToggleSidebar, searchOpen, onOpen
             <IconBell size={17} />
             {notifs.length > 0 && <span className="tb-badge">{notifs.length}</span>}
           </button>
-          <button className="tb-avatar" onClick={() => navigate('/profile')} aria-label="Profile" title={session.name}>
-            {initials}
+          <button className={`tb-avatar${photo ? ' has-photo' : ''}`} onClick={() => navigate('/profile')}
+            aria-label="Profile" title={session.name}>
+            {photo ? <img src={photo} alt="" /> : initials}
           </button>
         </div>
       </header>

@@ -4,6 +4,8 @@ import { allJobs } from './lib/jobOrders.js'
 import { ROLES } from './lib/constants.js'
 import { getSession, setSession, clearSession } from './lib/store.js'
 import Login from './components/Login.jsx'
+import LockScreen from './components/LockScreen.jsx'
+import { hasLock, isOpen } from './lib/lock.js'
 import Sidebar from './components/Sidebar.jsx'
 import BottomNav from './components/BottomNav.jsx'
 import Topbar from './components/Topbar.jsx'
@@ -63,6 +65,7 @@ function AppBackground() {
 export default function App() {
   const [route, setRoute] = useState(parseHash())
   const [session, setSess] = useState(getSession())
+  const [locked, setLocked] = useState(() => hasLock() && !isOpen())
   const [tick, setTick] = useState(0) // bump to recompute statuses after store writes
   const [toast, setToast] = useState(null)
   const [sideMin, setSideMin] = useState(() => localStorage.getItem('qc.sideMin') === '1')
@@ -136,6 +139,18 @@ export default function App() {
     }),
     [jobs, jobIndex, session, tick]
   )
+
+  /* The device lock sits in front of everything, session included: a
+     tablet left on the bench is already signed in, which is the case the
+     passcode is for. */
+  if (locked) {
+    return (
+      <AppContext.Provider value={ctxValue}>
+        <AppBackground />
+        <LockScreen onOpen={() => setLocked(false)} />
+      </AppContext.Provider>
+    )
+  }
 
   if (!session) {
     return (

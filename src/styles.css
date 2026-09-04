@@ -2835,9 +2835,12 @@ tr:has(.chip-done) .jobs-prog-bar span { background: var(--done); }
 }
 .set-field-label { font-size: 12px; font-weight: 400; color: var(--text-2); }
 .set-field-ctrl { min-width: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+/* One width for every control on the panel. Selects were capped at
+   260px and text inputs at 340, so a column of fields stepped in and out
+   for no reason a reader could see. The width is set by the longest
+   value any of them has to hold, which is the timezone option. */
 .set-field-ctrl > input, .set-field-ctrl > select,
-.set-input-icon { flex: 1 1 100%; min-width: 0; max-width: 340px; }
-.set-field-ctrl > select { max-width: 260px; }
+.set-input-icon { flex: 1 1 100%; min-width: 0; width: 100%; max-width: 380px; }
 .set-two .set-field-ctrl > input, .set-two .set-field-ctrl > select { max-width: 100%; }
 .set-field-ctrl input[readonly] { background: var(--surface-2); color: var(--text-2); cursor: default; }
 .set-field-hint { flex: 1 1 100%; font-size: 11px; font-weight: 350; color: var(--text-3); line-height: 1.45; }
@@ -4442,3 +4445,76 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber); outline-
 :root[data-theme="dark"] .asset-list li.cal-over .asset-cal { background: var(--text); border-color: var(--text); color: #16161a; }
 :root[data-theme="dark"] .asset-list li.cal-soon .asset-cal { border-color: var(--text); }
 .set-cal-summary { margin-top: 0; margin-bottom: 18px; }
+
+
+/* ── photo, signature, passcode ───────────────────────────────
+   Three controls the profile panel never had. Each shows what is
+   currently set before it offers to change it, because "Choose a photo"
+   on its own does not tell you whether one is already there. */
+.set-photo, .set-sign, .set-lock {
+  display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+  max-width: 380px; width: 100%;
+}
+.set-photo-acts { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.set-photo-view {
+  flex: none; display: grid; place-items: center; overflow: hidden;
+  width: 52px; height: 52px; border-radius: 10px;
+  border: 1px solid var(--line-2); background: var(--surface-2);
+}
+.set-photo-view img { width: 100%; height: 100%; object-fit: cover; }
+.set-photo-view em {
+  font-family: var(--mono); font-size: 16px; font-weight: 600; font-style: normal; color: var(--text-2);
+}
+
+.set-sign-view {
+  flex: none; height: 44px; max-width: 190px; object-fit: contain;
+  padding: 4px 8px; border: 1px solid var(--line-2); border-radius: 8px; background: var(--surface);
+}
+:root[data-theme="dark"] .set-sign-view { filter: invert(1) hue-rotate(180deg); }
+.set-sign-empty {
+  flex: none; display: grid; place-items: center;
+  height: 44px; padding: 0 12px;
+  border: 1px dashed var(--line-2); border-radius: 8px;
+  font-size: 11.5px; color: var(--text-2);
+}
+.sign-saved-preview {
+  display: block; width: 100%; max-height: 56px; object-fit: contain;
+  margin: 8px 0 2px; padding: 4px;
+  border: 1px solid var(--line); border-radius: 7px; background: var(--surface-2);
+}
+:root[data-theme="dark"] .sign-saved-preview { filter: invert(1) hue-rotate(180deg); }
+
+.set-lock-state {
+  flex: none; display: inline-flex; align-items: center; gap: 6px;
+  padding: 5px 10px; border-radius: 7px;
+  border: 1px solid var(--line-2); background: var(--surface-2);
+  font-family: var(--mono); font-size: 10.5px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-2);
+}
+.set-lock-state.is-on { background: var(--ink); border-color: var(--ink); color: var(--surface); }
+:root[data-theme="dark"] .set-lock-state.is-on { background: var(--text); border-color: var(--text); color: #16161a; }
+
+/* ── the passcode dialog ── */
+.pin-modal { max-width: 420px; width: min(420px, calc(100vw - 28px)); }
+.pin-fields { display: flex; flex-direction: column; gap: 12px; margin: 16px 0 4px; }
+.pin-fields label { display: flex; flex-direction: column; gap: 5px; }
+.pin-fields label > span { font-size: 12px; font-weight: 500; color: var(--text); }
+.pin-fields label > small { font-size: 11.5px; color: var(--text-2); }
+.pin-fields input { width: 100%; letter-spacing: 0.22em; font-family: var(--mono); }
+.pin-err { margin: 10px 0 0; font-size: 12px; color: var(--danger); }
+.pin-note { margin: 12px 0 0; font-size: 11.5px; color: var(--text-2); line-height: 1.5; }
+.pin-acts { display: flex; justify-content: flex-end; gap: 8px; margin-top: 18px; }
+
+/* ── the lock screen ── */
+.lock-card { max-width: 380px; }
+.lock-field { display: flex; flex-direction: column; gap: 6px; margin: 20px 0 4px; text-align: left; }
+.lock-field > span { font-size: 12px; font-weight: 500; color: var(--text); }
+.lock-field input { width: 100%; letter-spacing: 0.28em; font-family: var(--mono); text-align: center; }
+.lock-err { margin: 10px 0 0; font-size: 12px; color: var(--danger); }
+.lock-note { margin: 16px 0 0; font-size: 11.5px; color: var(--text-2); line-height: 1.5; }
+
+/* A photo stands in for the initials wherever the app draws this person. */
+.tb-avatar.has-photo { padding: 0; overflow: hidden; }
+.tb-avatar.has-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.pf-plate.has-photo { padding: 0; overflow: hidden; }
+.pf-plate.has-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }

@@ -6,6 +6,7 @@ import { getReports, syncReports } from '../lib/store.js'
 import { ncrReports, fmtDate, fmtDateTime } from '../lib/status.js'
 import { storageUsage, fmtBytes } from '../lib/storage.js'
 import { getThemePref, resolveTheme, setThemePref, watchSystemTheme } from '../lib/theme.js'
+import { getSettings } from '../lib/settings.js'
 import {
   IconCloudUp, IconCloudOff, IconGear, IconLogout, IconAlertCircle,
   IconCheck, IconClose, IconDatabase, IconFile, IconList, IconBack,
@@ -103,6 +104,7 @@ export default function Profile() {
   }, [mine])
 
   const initials = session.name.split(' ').map((w) => w[0]).slice(0, 2).join('')
+  const photo = useMemo(() => getSettings().profile.photo, [tick])
 
   // The rail carries this on a desktop, and there is no rail on a phone.
   const [themePref, setPref] = useState(getThemePref)
@@ -141,7 +143,9 @@ export default function Profile() {
         </button>
 
         <div className="pf-banner-in">
-          <span className="pf-plate">{initials}</span>
+          <span className={`pf-plate${photo ? ' has-photo' : ''}`}>
+            {photo ? <img src={photo} alt="" /> : initials}
+          </span>
           <div className="pf-who">
             <h2>{session.name}</h2>
             <p className="pf-who-role">{role.label}</p>

@@ -22,6 +22,11 @@ export const DEFAULT_SETTINGS = {
     timezone: 'Asia/Jakarta',
     locale: 'en-GB',
     language: 'en-GB',
+    // Both are data URIs held in this browser. The photo stands in for
+    // the initials wherever an avatar is drawn; the signature is offered
+    // as the default when a form asks the inspector to sign.
+    photo: '',
+    signature: '',
   },
   notify: {
     onSubmit: true,

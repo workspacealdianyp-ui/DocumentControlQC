@@ -4,7 +4,7 @@ import { getSavedSignature, saveSignatureFor } from '../lib/mockSign.js'
 
 // Signature capture: use a saved signature, draw on canvas, OR upload a PNG/JPG.
 // Returns { name, at, img } where img is a data URL.
-export default function SignaturePad({ name, onSave, onClose }) {
+export default function SignaturePad({ name, saved, onSave, onClose }) {
   const canvasRef = useRef(null)
   const drawing = useRef(false)
   const last = useRef(null)
@@ -84,9 +84,10 @@ export default function SignaturePad({ name, onSave, onClose }) {
     onSave({ name, at: new Date().toISOString(), img })
   }
 
+  /* A signature drawn in Settings is this person's actual mark, so it
+     wins over anything else on offer here. */
   const useSaved = () => {
-    const img = getSavedSignature(name)
-    onSave({ name, at: new Date().toISOString(), img })
+    onSave({ name, at: new Date().toISOString(), img: saved || getSavedSignature(name) })
   }
 
   const canSave = !!uploaded || hasInk
@@ -96,11 +97,16 @@ export default function SignaturePad({ name, onSave, onClose }) {
       <div className="modal sign-modal" onClick={(e) => e.stopPropagation()} role="dialog" aria-label="Add signature">
         <div className="sheet-handle" />
         <h3>Signature — {name}</h3>
-        <p className="page-sub">Use your saved signature, draw below, or upload an image.</p>
+        <p className="page-sub">
+          {saved
+            ? 'Apply the signature you drew in Settings, draw a fresh one below, or upload an image.'
+            : 'Use your saved signature, draw below, or upload an image.'}
+        </p>
 
         <button className="btn btn-secondary btn-block" style={{ marginTop: 6 }} onClick={useSaved}>
-          <IconPen size={14} /> Use my saved signature
+          <IconPen size={14} /> {saved ? 'Use the signature from my profile' : 'Use my saved signature'}
         </button>
+        {saved && <img className="sign-saved-preview" src={saved} alt="Signature saved in Settings" />}
 
         {uploaded ? (
           <div className="sign-uploaded">

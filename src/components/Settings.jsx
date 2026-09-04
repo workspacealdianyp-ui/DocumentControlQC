@@ -1,12 +1,14 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { useApp, navigate } from '../App.jsx'
 import { ROLES, DELIVERABLES } from '../lib/constants.js'
-import { COMPANY } from '../lib/company.js'
 import { getAssets, setAssets } from '../lib/store.js'
 import { getSettings, setSettings, resetSettings, UNITS, DEFAULT_SETTINGS } from '../lib/settings.js'
 import { storageUsage, fmtBytes } from '../lib/storage.js'
+import { hasLock, setLock, clearLock, verify } from '../lib/lock.js'
+import SignaturePad from './SignaturePad.jsx'
 import {
-  IconPlus, IconTrash, IconUser, IconBell, IconRuler, IconGauge, IconBuilding,
+  IconPlus, IconTrash, IconUser, IconBell, IconRuler, IconGauge,
   IconShield, IconDatabase, IconMail, IconLock, IconPen, IconCheck, IconDoc,
   IconCloudUp, IconAlert, IconEye, IconDownload, IconSearch, IconClose,
 } from './Icons.jsx'
@@ -27,8 +29,12 @@ const SECTIONS = [
     { id: 'measurement', label: 'Measurement', icon: IconRuler },
     { id: 'tools', label: 'Measurement Tools', icon: IconGauge, admin: true },
   ] },
+  // Company had a panel of its own and not one editable field in it:
+  // the name, short code and department are compiled in from
+  // src/lib/company.js and already appear on the sidebar and every
+  // printed letterhead. A panel that cannot set anything is not a
+  // setting, so it is gone.
   { group: 'Organisation', items: [
-    { id: 'company', label: 'Company', icon: IconBuilding, admin: true },
     { id: 'roles', label: 'Roles & access', icon: IconShield, admin: true },
   ] },
   { group: 'Data', items: [
@@ -44,14 +50,14 @@ const ALL = SECTIONS.flatMap((g) => g.items)
    lives in JSX and an index generated from the DOM would only know about
    the panel already on screen. */
 const INDEX = {
-  profile: ['your name', 'email', 'role', 'timezone', 'date format', 'language', 'signature name'],
+  profile: ['your name', 'email', 'role', 'timezone', 'date format', 'language',
+    'profile photo', 'avatar', 'signature', 'sign', 'passcode', 'password', 'lock this device'],
   notifications: ['report submitted', 'report approved', 'rejected line', 'push to mobile',
     'daily overdue digest', 'auto-delete old drafts', 'keep signatures private', 'which deliverables notify'],
   measurement: ['pressure unit', 'temperature unit', 'length unit', 'coating thickness unit',
     'light intensity unit', 'decimal places', 'warn out of tolerance', 'compute deviation', 'show units'],
   tools: ['pressure gauges', 'barton recorders', 'thermometers', 'hygrometers', 'lightmeters',
     'calibration', 'instrument register', 'add instrument'],
-  company: ['company name', 'legal name', 'short code', 'report number prefix', 'department', 'tagline'],
   roles: ['inspector', 'admin', 'qa lead', 'viewer', 'permissions', 'who can approve', 'who can edit'],
   storage: ['local storage', 'export settings', 'reset settings', 'clear all data', 'how much space'],
 }
@@ -109,6 +115,32 @@ const TOOL_CATS = [
   { key: 'hygrometer', label: 'Hygrometers / Ambient Meters' },
   { key: 'lightmeter', label: 'Lightmeters' },
 ]
+
+
+/* A photo off a phone camera is two to four megabytes, and localStorage
+   gives this origin about five in total. Scale it down and re-encode it
+   before it is ever saved, so a profile picture cannot eat the space the
+   reports need. */
+function shrink(file, max) {
+  return new Promise((resolve, reject) => {
+    const fr = new FileReader()
+    fr.onerror = reject
+    fr.onload = () => {
+      const img = new Image()
+      img.onerror = reject
+      img.onload = () => {
+        const scale = Math.min(1, max / Math.max(img.width, img.height))
+        const w = Math.round(img.width * scale), h = Math.round(img.height * scale)
+        const c = document.createElement('canvas')
+        c.width = w; c.height = h
+        c.getContext('2d').drawImage(img, 0, 0, w, h)
+        resolve(c.toDataURL('image/jpeg', 0.82))
+      }
+      img.src = fr.result
+    }
+    fr.readAsDataURL(file)
+  })
+}
 
 /* ── Row primitives ──────────────────────────────────────────────── */
 
@@ -176,6 +208,10 @@ export default function Settings({ section }) {
   const [assets, setLocalAssets] = useState(getAssets)
   const [draft, setDraft] = useState({})
   const [q, setQ] = useState('')
+  const [signing, setSigning] = useState(false)
+  const [locked, setLocked] = useState(hasLock)
+  const [pin, setPin] = useState(null)      // { mode: 'set' | 'change' | 'remove' }
+  const [pinErr, setPinErr] = useState('')
   const used = storageUsage()
 
   /* Search answers "where do I change X", which is the question people
@@ -241,8 +277,6 @@ export default function Settings({ section }) {
       <div className="set-shell">
         <aside className="set-rail">
           {/* the top bar already names this page */}
-          <p className="set-rail-sub">{COMPANY.name}<span>{role.label}</span></p>
-
           <div className={`set-find${q ? ' has-value' : ''}`}>
             <IconSearch size={14} />
             <input value={q} onChange={(e) => setQ(e.target.value)} type="search"
@@ -340,6 +374,53 @@ export default function Settings({ section }) {
                 <Field label="Role" locked hint="Set at sign-in. Change it by signing in as another role.">
                   <input value={role.label} readOnly />
                 </Field>
+
+                {/* Your face, wherever the app draws an avatar. Held as a
+                    data URI in this browser, so it counts against the
+                    storage budget: a 2 MB camera photo would eat half of
+                    it, and it is scaled down before it is saved. */}
+                <Field label="Photo" hint="Replaces your initials in the top bar and on your profile.">
+                  <div className="set-photo">
+                    <span className="set-photo-view">
+                      {cfg.profile.photo
+                        ? <img src={cfg.profile.photo} alt="" />
+                        : <em>{(cfg.profile.name || session?.name || '?').split(' ').map((w) => w[0]).slice(0, 2).join('')}</em>}
+                    </span>
+                    <div className="set-photo-acts">
+                      <label className="btn btn-secondary btn-sm">
+                        {cfg.profile.photo ? 'Replace' : 'Choose a photo'}
+                        <input type="file" accept="image/*" hidden onChange={(e) => {
+                          const file = e.target.files?.[0]; e.target.value = ''
+                          if (!file) return
+                          shrink(file, 256).then((url) => { patch('profile', 'photo', url); notify('Photo saved to this browser') })
+                        }} />
+                      </label>
+                      {cfg.profile.photo && (
+                        <button className="btn btn-ghost btn-sm"
+                          onClick={() => { patch('profile', 'photo', ''); notify('Photo removed') }}>Remove</button>
+                      )}
+                    </div>
+                  </div>
+                </Field>
+
+                {/* The signature a form offers when it asks you to sign,
+                    so an inspector filing six reports draws it once. */}
+                <Field label="Signature" hint="Offered as the default when a report asks the inspector to sign.">
+                  <div className="set-sign">
+                    {cfg.profile.signature
+                      ? <img className="set-sign-view" src={cfg.profile.signature} alt="Your saved signature" />
+                      : <span className="set-sign-empty">Nothing saved yet</span>}
+                    <div className="set-photo-acts">
+                      <button className="btn btn-secondary btn-sm" onClick={() => setSigning(true)}>
+                        <IconPen size={13} /> {cfg.profile.signature ? 'Draw again' : 'Draw signature'}
+                      </button>
+                      {cfg.profile.signature && (
+                        <button className="btn btn-ghost btn-sm"
+                          onClick={() => { patch('profile', 'signature', ''); notify('Signature removed') }}>Remove</button>
+                      )}
+                    </div>
+                  </div>
+                </Field>
                 <Field label="Timezone" hint="Stamps every submission and approval time.">
                   <select value={cfg.profile.timezone} onChange={(e) => patch('profile', 'timezone', e.target.value)}>
                     <option value="Asia/Jakarta">(UTC+07:00) Asia / Jakarta</option>
@@ -349,6 +430,29 @@ export default function Settings({ section }) {
                     <option value="Europe/London">(UTC+00:00) Europe / London</option>
                   </select>
                 </Field>
+                {/* Signing in picks a role and checks no credential, so
+                    there is no account password to change. What a shared
+                    tablet actually needs is a lock on the device, and
+                    this one closes a real gate in front of the app. */}
+                <Field label="Device passcode"
+                  hint={locked
+                    ? 'Set on this device. The app asks for it when the tab is opened.'
+                    : 'Not set. Anyone opening this browser goes straight in, already signed in.'}>
+                  <div className="set-lock">
+                    <span className={`set-lock-state${locked ? ' is-on' : ''}`}>
+                      <IconLock size={13} /> {locked ? 'Locked' : 'Open'}
+                    </span>
+                    <button className="btn btn-secondary btn-sm" onClick={() => { setPin({ mode: locked ? 'change' : 'set' }); setPinErr('') }}>
+                      {locked ? 'Change passcode' : 'Set a passcode'}
+                    </button>
+                    {locked && (
+                      <button className="btn btn-ghost btn-sm" onClick={() => { setPin({ mode: 'remove' }); setPinErr('') }}>
+                        Remove
+                      </button>
+                    )}
+                  </div>
+                </Field>
+
                 <Field label="Date format">
                   <select value={cfg.profile.locale} onChange={(e) => patch('profile', 'locale', e.target.value)}>
                     <option value="en-GB">28 Aug 2026 (day first)</option>
@@ -553,21 +657,6 @@ export default function Settings({ section }) {
             </Panel>
           )}
 
-          {at.id === 'company' && (
-            <Panel title="Company"
-              desc="Identity on every screen and printed report letterhead. These come from src/lib/company.js, so they are set once at build time rather than per browser.">
-              <div className="set-fields">
-                <Field label="Name" locked><input value={COMPANY.name} readOnly /></Field>
-                <Field label="Legal name" locked><input value={COMPANY.legalName} readOnly /></Field>
-                <Field label="Short code" locked hint="Prefixes every report number, e.g. MFG/LHT/1000200002/01.">
-                  <input value={COMPANY.short} readOnly />
-                </Field>
-                <Field label="Department" locked><input value={COMPANY.department} readOnly /></Field>
-                <Field label="Tagline" locked><input value={COMPANY.tagline} readOnly /></Field>
-              </div>
-            </Panel>
-          )}
-
           {at.id === 'roles' && (
             <Panel title="Roles & access"
               desc="What each role may do. Roles are fixed in this build; a person picks one at sign-in.">
@@ -655,6 +744,102 @@ export default function Settings({ section }) {
         </div>
         )}
       </div>
+
+      {signing && createPortal(
+        <SignaturePad name={cfg.profile.name || session?.name || 'Inspector'}
+          onClose={() => setSigning(false)}
+          onSave={(sig) => {
+            patch('profile', 'signature', sig?.img || '')
+            setSigning(false)
+            notify('Signature saved to this browser')
+          }} />,
+        document.body
+      )}
+
+      {pin && createPortal(<PinDialog mode={pin.mode} err={pinErr}
+        onClose={() => { setPin(null); setPinErr('') }}
+        onSubmit={async ({ current, next }) => {
+          if (pin.mode !== 'set' && !(await verify(current))) { setPinErr('That passcode does not match.'); return }
+          if (pin.mode === 'remove') {
+            await clearLock(current); setLocked(false); notify('Passcode removed from this device')
+          } else {
+            await setLock(next); setLocked(true)
+            notify(pin.mode === 'change' ? 'Passcode changed' : 'Passcode set for this device')
+          }
+          setPin(null); setPinErr('')
+        }} />, document.body)}
+    </div>
+  )
+}
+
+/* Setting, changing and removing all ask for the same two things at
+   most, so they are one dialog rather than three that look alike. */
+function PinDialog({ mode, err, onClose, onSubmit }) {
+  const [current, setCurrent] = useState('')
+  const [next, setNext] = useState('')
+  const [again, setAgain] = useState('')
+  const [busy, setBusy] = useState(false)
+
+  const needsCurrent = mode !== 'set'
+  const needsNew = mode !== 'remove'
+  const short = needsNew && next.length > 0 && next.length < 4
+  const mismatch = needsNew && again.length > 0 && next !== again
+  const ready = (!needsCurrent || current) && (!needsNew || (next.length >= 4 && next === again)) && !busy
+
+  const title = mode === 'set' ? 'Set a device passcode'
+    : mode === 'change' ? 'Change the device passcode' : 'Remove the device passcode'
+
+  return (
+    <div className="modal-backdrop" onClick={onClose}>
+      <form className="modal pin-modal" onClick={(e) => e.stopPropagation()}
+        onSubmit={async (e) => { e.preventDefault(); if (!ready) return; setBusy(true); await onSubmit({ current, next }); setBusy(false) }}>
+        <div className="sheet-handle" />
+        <h3>{title}</h3>
+        <p className="page-sub">
+          {mode === 'remove'
+            ? 'The app will open without asking for anything on this device.'
+            : 'Asked for when this browser opens the app. It is kept as a hash on this device and never leaves it.'}
+        </p>
+
+        <div className="pin-fields">
+          {needsCurrent && (
+            <label><span>Current passcode</span>
+              <input type="password" inputMode="numeric" autoFocus autoComplete="off"
+                value={current} onChange={(e) => setCurrent(e.target.value)} /></label>
+          )}
+          {needsNew && (
+            <>
+              <label><span>New passcode</span>
+                <input type="password" inputMode="numeric" autoFocus={!needsCurrent} autoComplete="new-password"
+                  value={next} onChange={(e) => setNext(e.target.value)} />
+                <small>At least four characters.</small></label>
+              <label><span>Repeat it</span>
+                <input type="password" inputMode="numeric" autoComplete="new-password"
+                  value={again} onChange={(e) => setAgain(e.target.value)} /></label>
+            </>
+          )}
+        </div>
+
+        {(err || short || mismatch) && (
+          <p className="pin-err" role="alert">
+            {err || (short ? 'Use at least four characters.' : 'The two entries do not match.')}
+          </p>
+        )}
+
+        {mode !== 'remove' && (
+          <p className="pin-note">
+            Forgotten it? Clearing this site's data in the browser removes the
+            lock, and every report stored here with it.
+          </p>
+        )}
+
+        <div className="pin-acts">
+          <button type="button" className="btn btn-ghost" onClick={onClose}>Cancel</button>
+          <button type="submit" className="btn btn-primary" disabled={!ready}>
+            {mode === 'remove' ? 'Remove passcode' : 'Save passcode'}
+          </button>
+        </div>
+      </form>
     </div>
   )
 }
