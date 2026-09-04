@@ -17,19 +17,28 @@ import { MR } from '../lib/compute.js'
    these values can stay true to the master record. */
 const headerSection = {
   id: 'header', title: 'Job Identity', subtitle: 'Taken from the job order — pick the job, everything else follows',
+  // `group` splits the read-back into the two things page 1 states: who
+  // filed this report, and which job it is against. They are different
+  // questions and belong under different headings.
   fields: [
-    { id: 'jobNo', label: 'Job Number', type: 'jobsearch', required: true },
-    { id: 'reportId', label: 'Report ID', type: 'auto' },
-    { id: 'inspDate', label: 'Inspection / Testing Date', type: 'auto', fmt: 'date' },
-    { id: 'inspector', label: 'Inspector Name', type: 'auto' },
-    { id: 'poNo', label: 'PO Number', type: 'auto' },
-    { id: 'wbsNo', label: 'WBS Number', type: 'auto' },
-    { id: 'jobDesc', label: 'Job Desc.', type: 'auto' },
-    { id: 'sn', label: 'SN / MSN', type: 'auto' },
-    { id: 'unit', label: 'Unit No.', type: 'auto' },
-    { id: 'customer', label: 'Customer', type: 'auto' },
+    { id: 'jobNo', label: 'Job', type: 'jobsearch', required: true },
+    { id: 'reportId', label: 'Report ID', type: 'auto', group: 'report' },
+    { id: 'inspector', label: 'Inspector Name', type: 'auto', group: 'report' },
+    { id: 'inspDate', label: 'Inspection / Testing Date', type: 'auto', fmt: 'date', group: 'report' },
+    { id: 'poNo', label: 'PO Number', type: 'auto', group: 'job' },
+    { id: 'wbsNo', label: 'WBS Number', type: 'auto', group: 'job' },
+    { id: 'jobDesc', label: 'Job Desc.', type: 'auto', group: 'job' },
+    { id: 'sn', label: 'SN / MSN', type: 'auto', group: 'job' },
+    { id: 'unit', label: 'Unit No.', type: 'auto', group: 'job' },
+    { id: 'customer', label: 'Customer', type: 'auto', group: 'job' },
   ],
 }
+
+// The headings those groups sit under, in the order page 1 reads.
+export const IDENT_GROUPS = [
+  { id: 'report', title: 'Report detail', sub: 'Stamped when the report was raised' },
+  { id: 'job', title: 'Job detail', sub: 'From the job order — the master record' },
+]
 
 const approvals = (roles) => ({
   id: 'approvals', title: 'Approvals',

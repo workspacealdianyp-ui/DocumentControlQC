@@ -1,7 +1,7 @@
 import { useMemo, useState, useEffect, useRef } from 'react'
 import { createPortal } from 'react-dom'
 import { useApp, navigate } from '../App.jsx'
-import { FORM_SCHEMAS, dimRowStatus, dimDeviation, dimBreach } from '../data/formSchemas.js'
+import { FORM_SCHEMAS, IDENT_GROUPS, dimRowStatus, dimDeviation, dimBreach } from '../data/formSchemas.js'
 import { getReport, saveReport, nextReportId, approveReport } from '../lib/store.js'
 import { MR } from '../lib/compute.js'
 import { fmtDate } from '../lib/status.js'
@@ -10,7 +10,8 @@ import { jobIdentity } from '../lib/jobOrders.js'
 import PrintReport from './PrintReport.jsx'
 import ReportDetail from './ReportDetail.jsx'
 import SignaturePad from './SignaturePad.jsx'
-import { IconBack, IconPlus, IconTrash, IconPrint, IconPen, IconCheck, IconClock, IconAlert } from './Icons.jsx'
+import JobPicker from './JobPicker.jsx'
+import { IconBack, IconPlus, IconTrash, IconPrint, IconPen, IconCheck, IconClock, IconAlert, IconSearch, IconChevronD } from './Icons.jsx'
 
 // resolve a field label that may be a function of values
 const lbl = (f, v) => (typeof f.label === 'function' ? f.label(v) : f.label)
@@ -183,32 +184,73 @@ function EngineField({ f, values, reqValues, report, set, locked, invalid, onReq
    read, not filled. The only control is the job picker: change it and
    every line under it is rewritten from that job. Anything an inspector
    could type here would be a second, unverified copy of the job order. */
-function IdentitySection({ sec, values, jobs, job, locked, onJobChange }) {
+function IdentitySection({ sec, values, job, locked, onJobChange }) {
+  const [pick, setPick] = useState(false)
   const jobField = sec.fields.find((f) => f.type === 'jobsearch')
-  const rest = sec.fields.filter((f) => f.type !== 'jobsearch')
   const show = (f) => {
     const raw = values[f.id]
     if (raw === undefined || raw === null || raw === '') return '—'
     return f.fmt === 'date' ? fmtDate(raw) : String(raw)
   }
+  const groups = IDENT_GROUPS
+    .map((g) => ({ ...g, fields: sec.fields.filter((f) => f.group === g.id) }))
+    .filter((g) => g.fields.length)
+  // Anything the schema forgot to group still has to appear, or a field
+  // would go silently missing from page 1.
+  const loose = sec.fields.filter((f) => f.type !== 'jobsearch' && !f.group)
+
   return (
     <div className="ident">
+      {/* The same picker the dashboard uses, behind a bar the width of
+          the page: one question, one control, asked the same way twice. */}
       <div className="ident-pick">
         <label htmlFor="ident-job">{lbl(jobField, values)}</label>
-        <select id="ident-job" value={values.jobNo || ''} disabled={locked}
-          onChange={(e) => onJobChange(e.target.value)}>
-          {jobs.map((j) => <option key={j.jobNo} value={j.jobNo}>{j.jobNo} · {j.productDesc?.slice(0, 48)}</option>)}
-        </select>
+        <button type="button" id="ident-job" className="ident-jobbtn" disabled={locked}
+          aria-haspopup="dialog" onClick={() => setPick(true)}>
+          <span className="ident-jobbtn-ico"><IconSearch size={15} /></span>
+          <span className="ident-jobbtn-txt">
+            <strong>{values.jobNo || 'Choose a job'}</strong>
+            <small>{job ? `${job.wbsNo || 'no WBS'} · ${job.productDesc || '—'} · ${job.customerName || '—'}` : 'Search the register'}</small>
+          </span>
+          {!locked && <IconChevronD size={14} />}
+        </button>
         <small>{locked ? 'The job is fixed once the report is submitted.' : 'Every field below is taken from this job and cannot be edited.'}</small>
       </div>
-      <dl className="ident-grid">
-        {rest.map((f) => (
-          <div className="ident-item" key={f.id}>
-            <dt>{lbl(f, values)}</dt>
-            <dd>{show(f)}</dd>
-          </div>
-        ))}
-      </dl>
+
+      {groups.map((g) => (
+        <section className={`ident-group ident-group-${g.id}`} key={g.id}>
+          <header className="ident-group-head">
+            <h4>{g.title}</h4>
+            {g.sub && <small>{g.sub}</small>}
+          </header>
+          <dl className="ident-grid">
+            {g.fields.map((f) => (
+              <div className="ident-item" key={f.id}>
+                <dt>{lbl(f, values)}</dt>
+                <dd>{show(f)}</dd>
+              </div>
+            ))}
+          </dl>
+        </section>
+      ))}
+
+      {loose.length > 0 && (
+        <dl className="ident-grid">
+          {loose.map((f) => (
+            <div className="ident-item" key={f.id}>
+              <dt>{lbl(f, values)}</dt>
+              <dd>{show(f)}</dd>
+            </div>
+          ))}
+        </dl>
+      )}
+
+      {pick && (
+        <JobPicker title="Choose the job" current={values.jobNo}
+          sub="Everything on this page is rewritten from the job you pick."
+          onPick={(jobNo) => { onJobChange(jobNo); setPick(false) }}
+          onClose={() => setPick(false)} />
+      )}
     </div>
   )
 }
@@ -546,6 +588,10 @@ export default function FormView({ job, formKey, query }) {
   const [forceEdit, setForceEdit] = useState(false) // override roles can switch the detail view into edit mode
 
   useEffect(() => { window.scrollTo({ top: 0, behavior: 'smooth' }) }, [step])
+  // A section counts as visited the moment it is on screen, however you
+  // got there — so walking back from the last step does not un-visit the
+  // ones behind you.
+  useEffect(() => { setTouched((t) => (t.has(step) ? t : new Set(t).add(step))) }, [step])
 
   if (!schema || !job) {
     return <div className="page"><div className="card empty-state"><p><strong>{!schema ? 'Unknown form template.' : 'Job not found.'}</strong></p><button className="btn btn-secondary" onClick={() => navigate('/')}>Back</button></div></div>
@@ -703,13 +749,19 @@ export default function FormView({ job, formKey, query }) {
     }
     setStep(target)
   }
-  // a section shows red if it's been visited/passed and is still incomplete
+  /* What the stepper reports is the section's own state, not how far
+     along the list you have walked. Complete is complete whether it sits
+     before or after where you are standing, so coming back to page 1
+     from the last step still shows every filled section green — and every
+     section you left empty red, which is the whole point of looking. */
   const stepperState = (s, i) => {
-    const passed = touched.has(i) || i < step
-    if (sectionHasErr(s, errors) || (passed && i !== step && sectionIncomplete(s))) return 'err'
     if (i === step) return 'active'
-    if (i < step) return 'done'
-    return 'todo'
+    // A section you have never opened is not "missing" yet — it is just
+    // ahead of you. Attempting to submit ends that grace, because at
+    // that point every section has been asked for.
+    const seen = touched.has(i) || Object.keys(errors).length > 0
+    if (!seen) return 'todo'
+    return sectionHasErr(s, errors) || sectionIncomplete(s) ? 'err' : 'done'
   }
 
   const sec = schema.sections[step]
@@ -717,7 +769,7 @@ export default function FormView({ job, formKey, query }) {
 
   const renderBody = () => {
     if (sec.id === 'header') {
-      return <IdentitySection sec={sec} values={v} jobs={jobs} job={cur} locked={readOnly} onJobChange={onJobChange} />
+      return <IdentitySection sec={sec} values={v} job={cur} locked={readOnly} onJobChange={onJobChange} />
     }
     if (sec.id === 'approvals' || sec.fields) {
       return (

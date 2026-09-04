@@ -2,9 +2,10 @@ import { useMemo, useState, useEffect, lazy, Suspense } from 'react'
 import { useApp, navigate } from '../App.jsx'
 import { FORM_SCHEMAS } from '../data/formSchemas.js'
 import { getReports } from '../lib/store.js'
+import JobPicker from './JobPicker.jsx'
 import { docStats, recentActivity, ncrReports, buildContext, jobStatuses, jobProgress, fmtDate, fmtDateTime } from '../lib/status.js'
 import { DELIVERABLES } from '../lib/constants.js'
-import { IconSearch, IconAlert, IconDoc, IconChevronR, IconPlus, IconPen, IconGrid, IconList, IconApprove, IconClock } from './Icons.jsx'
+import { IconAlert, IconDoc, IconChevronR, IconPlus, IconPen, IconGrid, IconList, IconApprove, IconClock } from './Icons.jsx'
 
 const FORM_ORDER = ['hydrotest', 'blasting', 'mt', 'pt', 'ut', 'visual', 'dimensional']
 const QA_TINTS = ['qa-1', 'qa-2', 'qa-3', 'qa-4', 'qa-1', 'qa-2', 'qa-3']
@@ -66,46 +67,6 @@ const QUICK_LINKS = [
   { label: 'NCR List', sub: 'Document library', icon: 'alert', href: '#' },
   { label: 'QC Site', sub: 'Document library', icon: 'doc', href: '#' },
 ]
-
-/* ── "Add new report": pick the unit (job) first, then go to the form ── */
-function NewReportSheet({ formKey, onClose }) {
-  const { jobs } = useApp()
-  const [q, setQ] = useState('')
-  const schema = FORM_SCHEMAS[formKey]
-  const ql = q.trim().toLowerCase()
-  const hits = (ql
-    ? jobs.filter((j) => `${j.jobNo} ${j.arasSN} ${j.productDesc} ${j.customerName} ${j.type}`.toLowerCase().includes(ql))
-    : jobs
-  ).slice(0, 30)
-  return (
-    <div className="modal-backdrop" onClick={onClose}>
-      <div className="modal" onClick={(e) => e.stopPropagation()} role="dialog" aria-label="Choose unit">
-        <div className="sheet-handle" />
-        <h3>{schema.title}</h3>
-        <p className="page-sub">Choose the unit / job first, then continue to the form.</p>
-        <div className="searchbar" style={{ margin: '14px 0 10px' }}>
-          <IconSearch size={15} />
-          <input autoFocus placeholder="Search Job No, serial, product, customer…" value={q} onChange={(e) => setQ(e.target.value)} />
-        </div>
-        <div className="unit-list">
-          {hits.map((j) => (
-            <button key={j.jobNo} className="unit-row"
-              onClick={() => navigate(`/job/${j.jobNo}/form/${formKey}?d=${encodeURIComponent(schema.deliverable)}`)}>
-              <span className="unit-main">
-                <strong>{j.jobNo}</strong>
-                <small>{j.productDesc}</small>
-                <small className="unit-cust">{j.customerName} · {j.arasSN || 'no SN'}</small>
-              </span>
-              <IconChevronR size={15} />
-            </button>
-          ))}
-          {hits.length === 0 && <div className="empty-state" style={{ padding: 16 }}>No units found.</div>}
-        </div>
-        <button className="btn btn-ghost btn-block" onClick={onClose}>Cancel</button>
-      </div>
-    </div>
-  )
-}
 
 export default function Home() {
   const { session, jobs, tick } = useApp()
@@ -446,7 +407,13 @@ export default function Home() {
         </section>
       </div>
 
-      {newForm && <NewReportSheet formKey={newForm} onClose={() => setNewForm(null)} />}
+      {newForm && (
+        <JobPicker
+          title={FORM_SCHEMAS[newForm].title}
+          sub="Pick the job this report is against — page 1 is then written from it."
+          onPick={(jobNo) => navigate(`/job/${jobNo}/form/${newForm}?d=${encodeURIComponent(FORM_SCHEMAS[newForm].deliverable)}`)}
+          onClose={() => setNewForm(null)} />
+      )}
     </div>
   )
 }

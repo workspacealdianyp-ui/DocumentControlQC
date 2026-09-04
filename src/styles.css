@@ -3452,10 +3452,9 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber); outline-
 .ident { display: flex; flex-direction: column; gap: 18px; }
 
 .ident-pick {
-  display: flex; flex-direction: column; gap: 7px;
+  display: flex; flex-direction: column; gap: 8px;
   padding: 14px 15px;
   border: 1px solid var(--line-2);
-  border-left: 3px solid var(--steel);
   border-radius: var(--r);
   background: var(--steel-soft);
 }
@@ -3463,8 +3462,43 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber); outline-
   font-family: var(--mono); font-size: 11px; font-weight: 600;
   text-transform: uppercase; letter-spacing: 0.06em; color: var(--steel-deep);
 }
-.ident-pick select { max-width: 520px; }
 .ident-pick small { font-size: 11.5px; color: var(--text-2); line-height: 1.45; }
+
+/* The job bar runs the full width of the page rather than stopping
+   short: it is the one control on this page, and a control that ends
+   mid-line reads as half a field. */
+.ident-jobbtn {
+  display: flex; align-items: center; gap: 11px;
+  width: 100%; min-width: 0; padding: 10px 13px;
+  border: 1px solid var(--line-2); border-radius: 10px;
+  background: var(--surface); color: var(--text); text-align: left;
+  cursor: pointer; transition: border-color .14s ease, box-shadow .14s ease;
+}
+.ident-jobbtn:hover:not(:disabled) { border-color: var(--steel); }
+.ident-jobbtn:focus-visible { outline: none; border-color: var(--steel); box-shadow: 0 0 0 3px var(--amber-soft); }
+.ident-jobbtn:disabled { cursor: default; opacity: 0.72; }
+.ident-jobbtn-ico { display: grid; place-items: center; flex: none; color: var(--text-3); }
+.ident-jobbtn-txt { display: flex; flex-direction: column; gap: 2px; min-width: 0; flex: 1 1 auto; }
+.ident-jobbtn-txt strong { font-family: var(--mono); font-size: 14px; font-weight: 600; }
+.ident-jobbtn-txt small {
+  font-size: 11.5px; color: var(--text-2);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+
+/* Two questions, two headings: who filed the report, and which job it
+   is against. */
+.ident-group { display: flex; flex-direction: column; gap: 4px; }
+.ident-group-head { display: flex; flex-direction: column; gap: 2px; padding-bottom: 6px; border-bottom: 2px solid var(--line-2); }
+.ident-group-head h4 {
+  margin: 0; font-family: var(--mono); font-size: 11px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.07em; color: var(--steel-deep);
+}
+.ident-group-head small { font-size: 11.5px; color: var(--text-3); }
+/* Three stamps, one row — a two-column grid would leave the row half
+   empty and make the date look like it belongs to nothing. */
+@media (min-width: 900px) {
+  .ident-group-report .ident-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
 
 .ident-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 22px; margin: 0; }
 @media (max-width: 640px) { .ident-grid { grid-template-columns: 1fr; } }
@@ -3480,4 +3514,43 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber); outline-
 .ident-item dd {
   margin: 0; font-family: var(--mono); font-size: 13px; font-weight: 500; color: var(--text);
   overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+
+
+/* ── job picker ─────────────────────────────────────────────────
+   The dashboard tiles and page 1 of every form ask the same question,
+   so they show the same thing: the register's own search field over a
+   table carrying only what identifies a unit. */
+.modal.jobpick { max-width: 720px; width: min(720px, calc(100vw - 28px)); }
+.jobpick-search { margin: 14px 0 10px; display: flex; }
+.jobpick-search .rb-search { flex: 1 1 auto; }
+.jobpick-scroll {
+  max-height: min(56vh, 440px); overflow: auto;
+  border: 1px solid var(--line); border-radius: var(--r);
+  background: var(--surface);
+}
+.jobpick-table { width: 100%; border-collapse: collapse; table-layout: auto; }
+.jobpick-table thead th {
+  position: sticky; top: 0; z-index: 1;
+  padding: 8px 12px; text-align: left;
+  font-family: var(--mono); font-size: 10.5px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-3);
+  background: var(--surface-2); border-bottom: 1px solid var(--line-2);
+  white-space: nowrap;
+}
+.jobpick-table tbody tr { cursor: pointer; border-bottom: 1px solid var(--line); }
+.jobpick-table tbody tr:last-child { border-bottom: 0; }
+.jobpick-table tbody tr:hover,
+.jobpick-table tbody tr:focus-visible { background: var(--steel-soft); outline: none; }
+.jobpick-table tbody tr.is-current { background: var(--amber-soft); }
+.jobpick-table td { padding: 8px 12px; font-size: 12.5px; color: var(--text); vertical-align: middle; }
+/* The job column sizes to its content; the description takes the slack. */
+.jobpick-table .jp-job { width: 1%; white-space: nowrap; }
+.jobpick-table .jp-job strong { display: block; font-family: var(--mono); font-size: 13px; font-weight: 600; }
+.jobpick-table .jp-job small { display: block; font-family: var(--mono); font-size: 10.5px; color: var(--text-3); }
+.jobpick-table .jp-prod { max-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.jobpick-table .jp-cust { width: 1%; white-space: nowrap; color: var(--text-2); }
+@media (max-width: 560px) {
+  .jobpick-table .jp-cust { display: none; }
+  .jobpick-table thead th:last-child { display: none; }
 }
