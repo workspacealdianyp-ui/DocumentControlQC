@@ -1,13 +1,14 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { useApp, navigate } from '../App.jsx'
 import { ROLES, DELIVERABLES } from '../lib/constants.js'
 import { COMPANY } from '../lib/company.js'
 import { getAssets, setAssets } from '../lib/store.js'
-import { getSettings, setSettings, resetSettings, UNITS } from '../lib/settings.js'
+import { getSettings, setSettings, resetSettings, UNITS, DEFAULT_SETTINGS } from '../lib/settings.js'
+import { storageUsage, fmtBytes } from '../lib/storage.js'
 import {
   IconPlus, IconTrash, IconUser, IconBell, IconRuler, IconGauge, IconBuilding,
   IconShield, IconDatabase, IconMail, IconLock, IconPen, IconCheck, IconDoc,
-  IconCloudUp, IconAlert, IconEye, IconDownload,
+  IconCloudUp, IconAlert, IconEye, IconDownload, IconSearch, IconClose,
 } from './Icons.jsx'
 
 /* Settings is a two-column screen: a rail of sections on the left, one
@@ -36,6 +37,70 @@ const SECTIONS = [
 ]
 
 const ALL = SECTIONS.flatMap((g) => g.items)
+
+/* What each panel actually contains, so the search can answer "where do
+   I change the pressure unit" rather than only matching section names.
+   Written by hand against the controls below, because a control's label
+   lives in JSX and an index generated from the DOM would only know about
+   the panel already on screen. */
+const INDEX = {
+  profile: ['your name', 'email', 'role', 'timezone', 'date format', 'language', 'signature name'],
+  notifications: ['report submitted', 'report approved', 'rejected line', 'push to mobile',
+    'daily overdue digest', 'auto-delete old drafts', 'keep signatures private', 'which deliverables notify'],
+  measurement: ['pressure unit', 'temperature unit', 'length unit', 'coating thickness unit',
+    'light intensity unit', 'decimal places', 'warn out of tolerance', 'compute deviation', 'show units'],
+  tools: ['pressure gauges', 'barton recorders', 'thermometers', 'hygrometers', 'lightmeters',
+    'calibration', 'instrument register', 'add instrument'],
+  company: ['company name', 'legal name', 'short code', 'report number prefix', 'department', 'tagline'],
+  roles: ['inspector', 'admin', 'qa lead', 'viewer', 'permissions', 'who can approve', 'who can edit'],
+  storage: ['local storage', 'export settings', 'reset settings', 'clear all data', 'how much space'],
+}
+
+/* Which panels hold a value you can actually change, and how to count
+   the ones that differ from the shipped default. A settings screen that
+   cannot tell you what you have altered makes you open every panel. */
+const CFG_PANEL = { profile: 'profile', notifications: 'notify', measurement: 'measurement' }
+function changedCount(cfg, id) {
+  const key = CFG_PANEL[id]
+  if (!key) return 0
+  const def = DEFAULT_SETTINGS[key], now = cfg[key]
+  let n = 0
+  for (const k of Object.keys(def)) {
+    if (k === 'watch') {
+      for (const w of Object.keys(def.watch)) if (def.watch[w] !== now.watch?.[w]) n++
+    } else if (def[k] !== now[k]) n++
+  }
+  return n
+}
+
+/* An instrument is registered as free text, and the last thing on the
+   line is normally its calibration date. Read it when it is there and
+   say nothing when it is not: guessing a date would be worse than
+   admitting none was recorded. */
+/* Three shapes turn up in a real register: a full ISO date, a day-first
+   date, and a year-month, which is how a certificate that only names the
+   month gets written down. A year-month is read as the end of that
+   month, which is when it actually lapses. */
+const DATE_RE = /(\d{4}-\d{2}-\d{2})|(\d{1,2}[\/.-]\d{1,2}[\/.-]\d{4})|(\d{4}-\d{2})\s*$/
+function calStatus(text) {
+  const m = String(text).match(DATE_RE)
+  if (!m) return { state: 'none', label: 'No date' }
+  let d
+  if (m[1]) d = new Date(m[1] + 'T00:00:00')
+  else if (m[2]) {
+    const [a, b, c] = m[2].split(/[\/.-]/).map(Number)
+    d = new Date(c, b - 1, a)
+  } else {
+    const [y, mo] = m[3].split('-').map(Number)
+    d = new Date(y, mo, 0)   // day 0 of the next month is the last of this one
+  }
+  if (isNaN(d)) return { state: 'none', label: 'No date' }
+  const days = Math.round((d - new Date()) / 86400000)
+  if (days < 0) return { state: 'over', label: days > -400 ? `Expired ${Math.abs(days)}d ago` : 'Expired' }
+  if (days <= 30) return { state: 'soon', label: `Due in ${days}d` }
+  if (days <= 365) return { state: 'ok', label: `Due in ${Math.round(days / 30)} mo` }
+  return { state: 'ok', label: 'In date' }
+}
 
 const TOOL_CATS = [
   { key: 'pressureGauge', label: 'Pressure Gauges' },
@@ -110,6 +175,22 @@ export default function Settings({ section }) {
   const [cfg, setCfg] = useState(getSettings)
   const [assets, setLocalAssets] = useState(getAssets)
   const [draft, setDraft] = useState({})
+  const [q, setQ] = useState('')
+  const used = storageUsage()
+
+  /* Search answers "where do I change X", which is the question people
+     actually arrive with. It matches the panel name and everything on
+     it, and each hit says which control it found. */
+  const ql = q.trim().toLowerCase()
+  const hits = ql
+    ? ALL.filter((i) => !i.admin || role.canManage)
+        .map((i) => ({
+          item: i,
+          matches: (i.label.toLowerCase().includes(ql) ? ['this section'] : [])
+            .concat((INDEX[i.id] || []).filter((t) => t.includes(ql))),
+        }))
+        .filter((h) => h.matches.length)
+    : null
 
   const wanted = ALL.find((s) => s.id === section)
   const at = wanted && (!wanted.admin || role.canManage) ? wanted : ALL[0]
@@ -119,6 +200,28 @@ export default function Settings({ section }) {
   useEffect(() => {
     if (section && at.id !== section) navigate(`/settings?s=${at.id}`)
   }, [section, at.id])
+
+  /* The marker is placed from the live position of the active link, not
+     from an index, so it stays correct when a group is hidden from a
+     role or the rail wraps. */
+  const navRef = useRef(null)
+  const [mark, setMark] = useState(null)
+  useLayoutEffect(() => {
+    const nav = navRef.current
+    const el = nav?.querySelector('.set-link.on')
+    if (!nav || !el) { setMark(null); return }
+    // offsetTop/offsetLeft are relative to the nav and unaffected by its
+    // horizontal scroll, which the phone rail has and a bounding rect
+    // would have to be re-measured for.
+    const place = () => setMark({
+      transform: `translate3d(${el.offsetLeft}px, ${el.offsetTop}px, 0)`,
+      width: el.offsetWidth, height: el.offsetHeight,
+    })
+    place()
+    const ro = new ResizeObserver(place)
+    ro.observe(nav)
+    return () => ro.disconnect()
+  }, [at.id, role.canManage])
 
   const patch = (panel, key, value) => {
     const next = { ...cfg, [panel]: { ...cfg[panel], [key]: value } }
@@ -139,7 +242,22 @@ export default function Settings({ section }) {
         <aside className="set-rail">
           {/* the top bar already names this page */}
           <p className="set-rail-sub">{COMPANY.name}<span>{role.label}</span></p>
-          <nav className="set-nav">
+
+          <div className={`set-find${q ? ' has-value' : ''}`}>
+            <IconSearch size={14} />
+            <input value={q} onChange={(e) => setQ(e.target.value)} type="search"
+              placeholder="Find a setting" aria-label="Find a setting" spellCheck={false} />
+            {q && (
+              <button type="button" aria-label="Clear" onClick={() => setQ('')}><IconClose size={13} /></button>
+            )}
+          </div>
+
+          <nav className="set-nav" ref={navRef}>
+            {/* One marker that travels between sections rather than a
+                border that appears on one item and vanishes from another.
+                The selection is a single object, so it should read as one
+                object moving. */}
+            <span className="set-mark" style={mark} aria-hidden="true" />
           {SECTIONS.map((g) => {
             const items = g.items.filter((i) => !i.admin || role.canManage)
             if (!items.length) return null
@@ -152,7 +270,16 @@ export default function Settings({ section }) {
                       <button className={`set-link${at.id === i.id ? ' on' : ''}`}
                         aria-current={at.id === i.id ? 'page' : undefined}
                         onClick={() => navigate(`/settings?s=${i.id}`)}>
-                        {i.label}
+                        <span>{i.label}</span>
+                        {/* How many choices on that panel are no longer the
+                            shipped default. Without it you have to open
+                            every panel to find what you changed. */}
+                        {changedCount(cfg, i.id) > 0 && (
+                          <em className="set-changed"
+                            title={`${changedCount(cfg, i.id)} changed from default`}>
+                            {changedCount(cfg, i.id)}
+                          </em>
+                        )}
                       </button>
                     </li>
                   ))}
@@ -163,7 +290,36 @@ export default function Settings({ section }) {
           </nav>
         </aside>
 
-        <div className="set-body">
+        {/* Keyed on the section, so moving between panels remounts the
+            body and the staggered entrance replays. It is the only thing
+            that tells you the right-hand side changed when two panels
+            happen to start with a similar row. */}
+        {hits ? (
+          <div className="set-body">
+            <section className="set-panel">
+              <h3>{hits.length ? `${hits.length} section${hits.length === 1 ? '' : 's'} match${hits.length === 1 ? 'es' : ''} “${q.trim()}”` : `Nothing matches “${q.trim()}”`}</h3>
+              <p className="set-panel-desc">
+                {hits.length
+                  ? 'Open a section to change it. The search covers every control on this screen, not just the section names.'
+                  : 'Try a word from the control itself: “pressure”, “timezone”, “calibration”, “storage”.'}
+              </p>
+              <div className="set-hits">
+                {hits.map(({ item, matches }) => (
+                  <button key={item.id} className="set-hit"
+                    onClick={() => { setQ(''); navigate(`/settings?s=${item.id}`) }}>
+                    <span className="set-hit-ico"><item.icon size={15} /></span>
+                    <span className="set-hit-txt">
+                      <strong>{item.label}</strong>
+                      <small>{matches.slice(0, 4).join(', ')}{matches.length > 4 ? ` and ${matches.length - 4} more` : ''}</small>
+                    </span>
+                    {changedCount(cfg, item.id) > 0 && <em className="set-changed">{changedCount(cfg, item.id)}</em>}
+                  </button>
+                ))}
+              </div>
+            </section>
+          </div>
+        ) : (
+        <div className="set-body" key={at.id}>
           {at.id === 'profile' && (
             <Panel title="Profile"
               desc="How you are identified on the inspection forms you sign. This app has no back-end, so these details stay in this browser and are never sent anywhere.">
@@ -329,7 +485,25 @@ export default function Settings({ section }) {
 
           {at.id === 'tools' && (
             <Panel title="Measurement Tools"
-              desc="The calibrated instruments an inspector can pick on a form. An instrument past its calibration date should be taken off this list rather than left for someone to select.">
+              desc="The calibrated instruments an inspector can pick on a form. Type the ID, what it is, and the calibration date; the date is read back and checked against today.">
+              {(() => {
+                const every = TOOL_CATS.flatMap((c) => assets[c.key] || [])
+                const over = every.filter((a) => calStatus(a).state === 'over').length
+                const soon = every.filter((a) => calStatus(a).state === 'soon').length
+                const none = every.filter((a) => calStatus(a).state === 'none').length
+                return (
+                  <div className="set-note set-cal-summary">
+                    <strong>{every.length} instrument{every.length === 1 ? '' : 's'} registered</strong>
+                    <p>
+                      {over > 0 && <>{over} past calibration and still selectable. </>}
+                      {soon > 0 && <>{soon} due within 30 days. </>}
+                      {none > 0 && <>{none} with no date recorded. </>}
+                      {!over && !soon && !none && every.length > 0 && <>Every one is in date. </>}
+                      {every.length === 0 && <>Nothing registered yet, so no instrument can be picked on a form. </>}
+                    </p>
+                  </div>
+                )
+              })()}
               <div className="set-tools">
                 {TOOL_CATS.map((c) => (
                   <div className="set-tool" key={c.key}>
@@ -338,16 +512,23 @@ export default function Settings({ section }) {
                       <span className="set-tool-n">{(assets[c.key] || []).length}</span>
                     </div>
                     <ul className="asset-list">
-                      {(assets[c.key] || []).map((a, i) => (
-                        <li key={i}>
+                      {(assets[c.key] || []).map((a, i) => {
+                        const cal = calStatus(a)
+                        return (
+                        <li key={i} className={`cal-${cal.state}`}>
                           <span>{a}</span>
+                          {/* An instrument past its calibration date must
+                              not be picked on a form, so the list says so
+                              rather than leaving it to be read off the
+                              end of a free-text line. */}
+                          <em className="asset-cal">{cal.label}</em>
                           <button className="btn btn-ghost btn-icon" aria-label={`Remove ${a}`}
                             onClick={() => {
                               saveAssets({ ...assets, [c.key]: assets[c.key].filter((_, xi) => xi !== i) })
                               notify('Instrument removed')
                             }}><IconTrash size={12} /></button>
                         </li>
-                      ))}
+                      )})}
                       {!(assets[c.key] || []).length && <li className="asset-empty">Nothing registered yet.</li>}
                     </ul>
                     <div className="asset-add">
@@ -415,6 +596,18 @@ export default function Settings({ section }) {
           {at.id === 'storage' && (
             <Panel title="Storage & reset"
               desc="Everything this app holds lives in this browser. Clearing it cannot be undone and does not touch anyone else's copy.">
+              {/* This panel is where the rail's storage card sends you, so
+                  it should open on the number that card was showing. */}
+              <div className="pf-meter set-meter">
+                <div className="pf-meter-top">
+                  <span><IconDatabase size={14} /> Local storage</span>
+                  <strong>{used.pct}%</strong>
+                </div>
+                <div className="pf-meter-bar" role="img" aria-label={`${used.pct}% of local storage used`}>
+                  <span style={{ width: `${Math.max(1, Math.min(100, used.pct))}%` }} />
+                </div>
+                <small>{fmtBytes(used.bytes)} of {fmtBytes(used.budget)} used by reports, photos, signatures and job orders</small>
+              </div>
               <div className="set-rows set-actions">
                 <div className="set-row">
                   <span className="set-row-ico"><IconDownload size={15} /></span>
@@ -460,6 +653,7 @@ export default function Settings({ section }) {
             </Panel>
           )}
         </div>
+        )}
       </div>
     </div>
   )

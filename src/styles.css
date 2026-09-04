@@ -2728,7 +2728,6 @@ tr:has(.chip-done) .jobs-prog-bar span { background: var(--done); }
    mark, the same vocabulary as the main rail. */
 .set-link.on {
   background: var(--surface-2); color: var(--text); font-weight: 500;
-  box-shadow: inset 2px 0 0 var(--ink);
 }
 
 /* ── Panel ── */
@@ -2911,7 +2910,7 @@ tr:has(.chip-done) .jobs-prog-bar span { background: var(--done); }
   .set-group { flex: 0 0 auto; margin-bottom: 0; }
   .set-rail ul { flex-direction: row; gap: 2px; }
   .set-link { white-space: nowrap; padding: 6px 11px; }
-  .set-link.on { box-shadow: inset 0 -2px 0 var(--ink); border-radius: 5px 5px 0 0; }
+  .set-link.on { border-radius: 5px 5px 0 0; }
   .set-rail-sub { margin-bottom: 16px; }
   .set-rail-sub span { display: inline; }
   .set-rail-sub span::before { content: ' · '; }
@@ -2951,18 +2950,18 @@ tr:has(.chip-done) .jobs-prog-bar span { background: var(--done); }
 /* Active states across the registers and settings. */
 .mon-tab.on .mon-tab-n { background: var(--amber); color: #fff; }
 .mon-pager button.on { background: var(--amber); border-color: var(--amber); color: #fff; }
-.set-link.on { box-shadow: inset 2px 0 0 var(--amber); }
+/* .set-link.on carried an amber inset bar here; the travelling marker
+   replaced it, and this page has no accent. */
 .set-seg button.on { background: var(--amber); color: #fff; }
 .detail-hero .detail-viewsw button.on { background: var(--amber); color: #fff; }
-.set-check input:focus-visible + .set-box { border-color: var(--amber); box-shadow: 0 0 0 3px var(--amber-soft); }
+/* the box takes the neutral focus ring defined with the rest of the
+   settings motion, not the app-wide amber one */
 
 /* Progress reads as work in hand until it is finished, then as passed. */
 .jobs-prog-bar span { background: var(--amber); }
 tr:has(.chip-done) .jobs-prog-bar span { background: var(--done); }
 
-@media (max-width: 899px) {
-  .set-link.on { box-shadow: inset 0 -2px 0 var(--amber); }
-}
+
 
 /* ═══════════════════════════════════════════════════════════════
    DISPLAY TYPE: content headings only
@@ -4222,3 +4221,224 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber); outline-
 }
 :root[data-theme="dark"] .pf .sync-group { background: var(--text); color: #16161a; }
 :root[data-theme="dark"] .pf .sync-ico.off { background: var(--text); border-color: var(--text); color: #16161a; }
+
+
+/* ═══════════════════════════════════════════════════════════════
+   SETTINGS
+
+   A settings screen is almost entirely state changes, which is the one
+   thing motion is genuinely for. Every animation here reports one: the
+   selection moved, the panel changed, the value flipped, the box was
+   ticked. Nothing loops, nothing drifts, nothing animates to be seen
+   animating.
+
+   No accent: on and off are told apart by fill and position, not by
+   hue, so the page carries one neutral palette end to end.
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── the marker ───────────────────────────────────────────────
+   The signature move. A border that appears on one item and vanishes
+   from another says two things happened; one bar that travels says the
+   selection moved, which is what actually did. */
+.set-nav { position: relative; }
+.set-mark {
+  position: absolute; left: 0; top: 0; z-index: 1;
+  border-left: 2px solid var(--ink); border-radius: 2px;
+  pointer-events: none;
+  transition:
+    transform .34s cubic-bezier(0.22, 1, 0.36, 1),
+    width .34s cubic-bezier(0.22, 1, 0.36, 1),
+    height .34s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+/* The rail turns into a horizontal scroller below 900px, so the marker
+   turns with it: same object, same travel, the other axis. */
+@media (max-width: 899px) {
+  .set-mark { border-left: 0; border-bottom: 2px solid var(--ink); border-radius: 2px 2px 0 0; }
+}
+/* Before the first measurement there is nothing to point at. */
+.set-mark:not([style*="translate"]) { opacity: 0; }
+
+/* ── the panel arrives ────────────────────────────────────────
+   Staggered by row rather than as a block: the eye follows the order the
+   rows will be read in, and the delay is short enough that the whole
+   panel is settled inside a third of a second. */
+.set-body .set-panel > * {
+  animation: set-rise .32s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.set-body .set-panel > *:nth-child(1) { animation-delay: 0ms; }
+.set-body .set-panel > *:nth-child(2) { animation-delay: 34ms; }
+.set-body .set-panel > *:nth-child(3) { animation-delay: 68ms; }
+.set-body .set-panel > *:nth-child(4) { animation-delay: 96ms; }
+.set-body .set-panel > *:nth-child(n+5) { animation-delay: 120ms; }
+@keyframes set-rise {
+  from { opacity: 0; transform: translate3d(0, 9px, 0); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* ── the switch ───────────────────────────────────────────────
+   The track fills from the side the knob leaves, so the fill and the
+   knob are one movement rather than a colour swap under a sliding dot.
+   The knob overshoots by a hair, which is what a physical toggle does. */
+.set-switch { overflow: hidden; }
+.set-switch::before {
+  content: ''; position: absolute; inset: 0; border-radius: inherit;
+  background: var(--ink);
+  transform: scaleX(0); transform-origin: left center;
+  transition: transform .3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.set-switch.on { background: var(--surface-3); border-color: var(--ink); }
+.set-switch.on::before { transform: scaleX(1); }
+.set-switch .set-knob {
+  z-index: 1;
+  transition: transform .32s cubic-bezier(0.34, 1.45, 0.5, 1);
+}
+:root[data-theme="dark"] .set-switch::before { background: var(--text); }
+:root[data-theme="dark"] .set-switch.on { border-color: var(--text); }
+:root[data-theme="dark"] .set-switch.on .set-knob { background: #16161a; }
+
+/* ── the box ──────────────────────────────────────────────────
+   The tick is drawn rather than switched on. Stroke-dashoffset is not a
+   compositor property, but this is a 17px box ticked by a deliberate
+   click: the repaint is one glyph, once, and no other feedback reads as
+   clearly as a line being drawn. */
+.set-box { position: relative; overflow: hidden; color: var(--surface); }
+.set-box::before {
+  content: ''; position: absolute; inset: 0;
+  background: var(--ink);
+  transform: scale(0); transform-origin: center;
+  transition: transform .24s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.set-box svg { position: relative; z-index: 1; }
+.set-box svg polyline {
+  stroke-dasharray: 26; stroke-dashoffset: 26;
+  transition: stroke-dashoffset .26s cubic-bezier(0.22, 1, 0.36, 1) .07s;
+}
+.set-check.on .set-box { background: var(--surface); border-color: var(--ink); color: var(--surface); }
+.set-check.on .set-box::before { transform: scale(1); }
+.set-check.on .set-box svg polyline { stroke-dashoffset: 0; }
+.set-check input:focus-visible + .set-box { box-shadow: 0 0 0 3px var(--surface-3); border-color: var(--ink); }
+:root[data-theme="dark"] .set-box::before { background: var(--text); }
+:root[data-theme="dark"] .set-check.on .set-box { border-color: var(--text); color: #16161a; }
+:root[data-theme="dark"] .set-box { color: var(--surface); }
+
+/* ── a press that answers ─────────────────────────────────────
+   A row that can be pressed settles under the finger. A row that only
+   holds a control does not, because it is not the thing being pressed. */
+.set-check:active { transform: scale(0.994); }
+.set-check { transition: border-color .12s ease, background-color .12s ease, transform .1s ease; }
+.set-switch:active .set-knob { transform: scaleX(1.12); }
+.set-switch.on:active .set-knob { transform: translateX(17px) scaleX(1.12); }
+
+/* The segmented control on this page follows the same neutral rule as
+   its switches rather than the orange it wears elsewhere. */
+.set .set-seg button.on { background: var(--ink); color: var(--surface); }
+:root[data-theme="dark"] .set .set-seg button.on { background: var(--text); color: #16161a; }
+
+.set-meter {
+  padding: 14px 15px; margin-bottom: 14px;
+  border: 1px solid var(--line); border-radius: 7px; background: var(--surface);
+}
+
+/* Motion here reports state, so under reduced motion the state still has
+   to be legible the instant it changes: everything snaps rather than
+   fades, and nothing is left mid-draw. */
+@media (prefers-reduced-motion: reduce) {
+  .set-mark,
+  .set-switch::before,
+  .set-switch .set-knob,
+  .set-box::before,
+  .set-box svg polyline,
+  .set-check { transition-duration: 1ms; }
+  .set-hit { transition-duration: 1ms; }
+  .set-body .set-panel > * { animation: none; }
+  .set-check:active, .set-switch:active .set-knob { transform: none; }
+  .set-switch.on:active .set-knob { transform: translateX(17px); }
+}
+
+
+/* ── find a setting ───────────────────────────────────────────
+   Seven panels and forty controls is past the point where a person can
+   be expected to guess which section holds the thing they came for. */
+.set-find {
+  position: relative;
+  display: flex; align-items: center; gap: 8px;
+  height: 34px; padding: 0 10px; margin-bottom: 18px;
+  border: 1px solid var(--line-2); border-radius: 7px;
+  background: var(--surface-2); color: var(--text-3);
+  transition: border-color .14s ease, box-shadow .14s ease, background-color .14s ease;
+}
+.set-find:focus-within { background: var(--surface); border-color: var(--ink); box-shadow: 0 0 0 3px var(--surface-3); }
+.set-find input {
+  flex: 1 1 auto; min-width: 0; height: 100%;
+  border: 0; background: none; padding: 0; min-height: 0;
+  font-family: var(--sans); font-size: 12.5px; font-weight: 350; color: var(--text);
+}
+.set-find input:focus-visible { outline: none; box-shadow: none; }
+.set-find input::placeholder { color: var(--text-3); }
+.set-find input::-webkit-search-decoration,
+.set-find input::-webkit-search-cancel-button { -webkit-appearance: none; appearance: none; }
+.set-find button {
+  flex: none; display: grid; place-items: center;
+  width: 20px; height: 20px; padding: 0; border: 0; border-radius: 5px;
+  background: none; color: var(--text-3); cursor: pointer;
+}
+.set-find button:hover { background: var(--line); color: var(--text); }
+
+/* ── what you have changed ────────────────────────────────────
+   A count, not a dot: "3" tells you how much of that panel is no longer
+   the shipped default, which a coloured dot never could. */
+.set-link { display: flex; align-items: center; gap: 8px; }
+.set-link > span { flex: 1 1 auto; min-width: 0; }
+.set-changed {
+  flex: none;
+  min-width: 17px; height: 17px; padding: 0 5px;
+  display: grid; place-items: center;
+  border-radius: 999px;
+  background: var(--ink); color: var(--surface);
+  font-family: var(--mono); font-size: 10px; font-weight: 600; font-style: normal;
+}
+:root[data-theme="dark"] .set-changed { background: var(--text); color: #16161a; }
+
+/* ── search results ── */
+.set-hits { display: flex; flex-direction: column; gap: 7px; margin-top: 16px; }
+.set-hit {
+  display: flex; align-items: center; gap: 12px; width: 100%; text-align: left;
+  padding: 11px 13px;
+  border: 1px solid var(--line); border-radius: 7px; background: var(--surface);
+  cursor: pointer;
+  transition: border-color .12s ease, background-color .12s ease, transform .1s ease;
+}
+.set-hit:hover { border-color: var(--line-2); background: var(--surface-2); }
+.set-hit:active { transform: scale(0.995); }
+.set-hit:focus-visible { outline: none; border-color: var(--ink); box-shadow: 0 0 0 3px var(--surface-3); }
+.set-hit-ico {
+  flex: none; display: grid; place-items: center;
+  width: 30px; height: 30px; border-radius: 8px;
+  background: var(--surface-2); border: 1px solid var(--line); color: var(--text-2);
+}
+.set-hit-txt { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.set-hit-txt strong { font-size: 12.5px; font-weight: 500; color: var(--text); }
+.set-hit-txt small {
+  font-size: 11.5px; color: var(--text-2);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+
+/* ── calibration on the register ──────────────────────────────
+   State by weight and word, not by hue, so this panel keeps the same
+   neutral palette as the rest of the screen. Expired is the loud one
+   because it is the one that must not be picked on a form. */
+.asset-cal {
+  flex: none; margin-left: auto;
+  font-family: var(--mono); font-size: 10px; font-weight: 600; font-style: normal;
+  text-transform: uppercase; letter-spacing: 0.05em;
+  padding: 3px 7px; border-radius: 5px;
+  border: 1px solid var(--line-2); background: var(--surface-2); color: var(--text-3);
+  white-space: nowrap;
+}
+.asset-list li.cal-over .asset-cal { background: var(--ink); border-color: var(--ink); color: var(--surface); }
+.asset-list li.cal-soon .asset-cal { border-color: var(--ink); color: var(--text); background: var(--surface); }
+.asset-list li.cal-over > span { text-decoration: line-through; text-decoration-thickness: 1px; color: var(--text-2); }
+:root[data-theme="dark"] .asset-list li.cal-over .asset-cal { background: var(--text); border-color: var(--text); color: #16161a; }
+:root[data-theme="dark"] .asset-list li.cal-soon .asset-cal { border-color: var(--text); }
+.set-cal-summary { margin-top: 0; margin-bottom: 18px; }
