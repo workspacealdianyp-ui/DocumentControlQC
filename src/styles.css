@@ -298,12 +298,6 @@ table { border-collapse: collapse; }
 }
 @media (min-width: 1024px) { .topbar { padding: 0 26px; } }
 
-.topbar-menu {
-  width: 34px; height: 34px; border-radius: var(--r); border: 1px solid var(--line);
-  background: var(--surface); color: var(--text-2); display: grid; place-items: center; flex-shrink: 0;
-}
-.topbar-menu:hover { background: var(--surface-2); color: var(--text); }
-@media (min-width: 1024px) { .topbar-menu { display: none; } }
 
 .topbar-title { min-width: 0; flex: 1; display: flex; flex-direction: column; justify-content: center; line-height: 1.25; }
 .topbar-title h1 {
@@ -322,7 +316,9 @@ table { border-collapse: collapse; }
 }
 .tb-btn:hover { background: var(--surface-2); color: var(--text); border-color: var(--line-2); }
 /* the rail carries a search field of its own from 1024 up */
-@media (min-width: 1024px) { .tb-search { display: none; } }
+/* Both of these stand in for something the rail carries, so both step
+   aside the moment the rail is on screen. */
+@media (min-width: 1024px) { .tb-search, .tb-theme { display: none; } }
 .tb-badge {
   position: absolute; top: -5px; right: -5px; min-width: 16px; height: 16px; padding: 0 4px;
   border-radius: var(--r-pill); background: var(--amber); color: #fff;

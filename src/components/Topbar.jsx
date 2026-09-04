@@ -4,11 +4,12 @@ import { useApp, navigate } from '../App.jsx'
 import { FORM_SCHEMAS } from '../data/formSchemas.js'
 import { getReports } from '../lib/store.js'
 import { getSettings } from '../lib/settings.js'
+import { resolveTheme, setThemePref, watchSystemTheme } from '../lib/theme.js'
 import { buildContext, jobProgress, fmtDate } from '../lib/status.js'
 import { IS_MAC } from '../lib/keys.js'
 import {
-  IconSearch, IconBell, IconAlert, IconApprove, IconPen, IconMenu,
-  IconList, IconFile, IconGrid, IconPlus, IconGear, IconClose,
+  IconSearch, IconBell, IconAlert, IconApprove, IconPen,
+  IconList, IconFile, IconGrid, IconPlus, IconGear, IconClose, IconTheme,
 } from './Icons.jsx'
 
 /* The bar across the top of the work area: where you are on the left,
@@ -32,9 +33,11 @@ const PAGE_TITLES = {
   profile: ['Profile', 'Account & sync'],
 }
 
-export default function Topbar({ route, job, onToggleSidebar, searchOpen, onOpenSearch, onCloseSearch }) {
+export default function Topbar({ route, job, searchOpen, onOpenSearch, onCloseSearch }) {
   const { jobs, session, role, tick } = useApp()
   const [notifOpen, setNotifOpen] = useState(false)
+  const [mode, setMode] = useState(() => resolveTheme())
+  useEffect(() => watchSystemTheme(setMode), [])
   const [q, setQ] = useState('')
 
   useEffect(() => { setNotifOpen(false) }, [route.page, route.jobNo, route.formKey])
@@ -164,9 +167,9 @@ export default function Topbar({ route, job, onToggleSidebar, searchOpen, onOpen
   return (
     <>
       <header className="topbar">
-        <button className="topbar-menu" onClick={onToggleSidebar} aria-label="Toggle sidebar">
-          <IconMenu size={17} />
-        </button>
+        {/* The sidebar is display:none below 1024px, so the hamburger that
+            used to sit here toggled nothing a phone could see. The bottom
+            nav carries the sections and the avatar carries the account. */}
         <div className="topbar-title">
           <h1>{title}</h1>
           {sub && <small>{sub}</small>}
@@ -177,6 +180,15 @@ export default function Topbar({ route, job, onToggleSidebar, searchOpen, onOpen
               screen there is no rail, so the icon stands in for it */}
           <button className="tb-btn tb-search" onClick={onOpenSearch} aria-label="Search jobs">
             <IconSearch size={17} />
+          </button>
+          {/* Light and dark live in the rail on a desktop and the rail is
+              not here, so on a phone the switch comes to the one bar that
+              is always on screen. */}
+          <button className="tb-btn tb-theme"
+            onClick={() => setMode(setThemePref(mode === 'dark' ? 'light' : 'dark'))}
+            aria-label={mode === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+            title={mode === 'dark' ? 'Dark mode' : 'Light mode'}>
+            <IconTheme mode={mode} size={17} />
           </button>
           <button className="tb-btn" onClick={() => setNotifOpen((v) => !v)}
             aria-label="Notifications" aria-expanded={notifOpen}>

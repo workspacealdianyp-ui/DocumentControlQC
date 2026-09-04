@@ -170,7 +170,7 @@ export default function App() {
         <Sidebar page={route.page} onToggle={toggleSidebar} collapsed={sideMin}
           onSearch={() => setSearchOpen(true)} />
         <div className="main">
-          <Topbar route={route} job={job} onToggleSidebar={toggleSidebar}
+          <Topbar route={route} job={job}
             searchOpen={searchOpen} onOpenSearch={() => setSearchOpen(true)}
             onCloseSearch={() => setSearchOpen(false)} />
           <main className="content" key={route.page + (route.jobNo || '') + (route.formKey || '')}>

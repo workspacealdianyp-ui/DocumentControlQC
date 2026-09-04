@@ -6,7 +6,7 @@ import { getThemePref, resolveTheme, setThemePref, watchSystemTheme } from '../l
 import { CMD_LABEL } from '../lib/keys.js'
 import {
   IconBoltz, IconHome, IconList, IconFile, IconGrid, IconGear, IconPanel,
-  IconChevronD, IconSearch, IconPlus, IconDatabase, IconUser, IconAlertCircle,
+  IconChevronD, IconSearch, IconPlus, IconDatabase, IconUser, IconAlertCircle, IconTheme,
 } from './Icons.jsx'
 
 /* The rail, drawn to the supplied reference: a workspace header, a
@@ -29,15 +29,6 @@ const NAV = [
   { id: 'reports', label: 'Reports', to: '/reports', icon: IconFile },
   { id: 'monitor', label: 'Monitor', to: '/monitor', icon: IconGrid },
 ]
-
-const ThemeGlyph = ({ mode }) => (
-  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-    strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-    {mode === 'dark'
-      ? <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" />
-      : <><circle cx="12" cy="12" r="4" /><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" /></>}
-  </svg>
-)
 
 export default function Sidebar({ page, onToggle, collapsed, onSearch }) {
   const { role, tick } = useApp()
@@ -192,7 +183,7 @@ export default function Sidebar({ page, onToggle, collapsed, onSearch }) {
             aria-label={mode === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
             title={mode === 'dark' ? 'Dark mode' : 'Light mode'}
             onClick={() => chooseTheme(mode === 'dark' ? 'light' : 'dark')}>
-            <ThemeGlyph mode={mode} />
+            <IconTheme mode={mode} size={16} />
           </button>
           <span className="rail-theme-label">{mode === 'dark' ? 'Dark mode' : 'Light mode'}</span>
           <button type="button" role="switch" aria-checked={mode === 'dark'}
