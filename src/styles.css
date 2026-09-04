@@ -3898,3 +3898,327 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber); outline-
 }
 .pick-back:hover { color: var(--text); background: var(--surface-2); }
 .pick-back:focus-visible { outline: none; color: var(--text); box-shadow: 0 0 0 3px var(--amber-soft); }
+
+
+/* ═══════════════════════════════════════════════════════════════
+   PROFILE
+
+   No accent anywhere on this page. The orange that marks an action
+   everywhere else would be decoration here, because nothing on this
+   screen is an action you take often. What is left is the metal the
+   rest of the app is named after, and the figures.
+   ═══════════════════════════════════════════════════════════════ */
+
+.pf { max-width: 1180px; }
+
+/* ── the plate ────────────────────────────────────────────────
+   Brushed steel, drawn in gradients rather than photographed. Three
+   layers move and none of them repaint: each is an oversized element
+   translated on the compositor, so the surface flows at 60fps on a
+   phone that is also holding a 40-row table open behind it. */
+.pf-banner {
+  position: relative; isolation: isolate; overflow: hidden;
+  border: 1px solid var(--line-2); border-radius: var(--r-lg);
+  margin-bottom: 22px;
+  background: var(--surface);
+}
+.pf-metal { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+.pf-metal::before {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(156deg,
+    #b4b7bf 0%, #fdfdfe 8%, #cbced5 17%, #9b9ea8 26%,
+    #f0f1f4 36%, #b6b9c1 47%, #f8f9fb 58%, #a4a7b1 69%,
+    #e6e8ec 80%, #bcbfc7 89%, #f6f7f9 100%);
+}
+/* the seat for the type: the face darkens toward the bottom left, which
+   is where the words are */
+.pf-metal::after {
+  content: ''; position: absolute; inset: 0; z-index: 3;
+  background:
+    linear-gradient(103deg, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0.16) 42%, transparent 72%),
+    linear-gradient(0deg, rgba(28,28,34,0.16) 0%, transparent 58%);
+}
+.pf-metal > span { position: absolute; will-change: transform; }
+
+/* two sheens, different widths and rates, so the surface never repeats
+   on a cycle the eye can catch */
+.pf-sheen-a, .pf-sheen-b {
+  top: -60%; height: 220%; width: 46%;
+  transform: rotate(14deg) translate3d(-160%, 0, 0);
+  animation: pf-drift-a 19s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+}
+.pf-sheen-a {
+  left: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.9) 46%, rgba(255,255,255,0.42) 62%, transparent);
+}
+.pf-sheen-b {
+  left: 0; width: 20%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.72), transparent);
+  animation: pf-drift-b 27s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+}
+@keyframes pf-drift-a {
+  0%   { transform: rotate(14deg) translate3d(-170%, 0, 0); }
+  100% { transform: rotate(14deg) translate3d(430%, 0, 0); }
+}
+@keyframes pf-drift-b {
+  0%   { transform: rotate(14deg) translate3d(620%, 0, 0); }
+  100% { transform: rotate(14deg) translate3d(-220%, 0, 0); }
+}
+
+/* the fall: thin runs of light sliding down the face, the way water
+   runs off a plate that has just been washed down */
+.pf-fall {
+  left: -10%; right: -10%; top: -120%; height: 240%;
+  z-index: 2; opacity: 0.62;
+  background: repeating-linear-gradient(90deg,
+    transparent 0 17px,
+    rgba(255,255,255,0.55) 17px 19px,
+    transparent 19px 44px,
+    rgba(255,255,255,0.3) 44px 45px,
+    transparent 45px 96px);
+  -webkit-mask-image: linear-gradient(180deg, transparent, #000 24%, #000 76%, transparent);
+  mask-image: linear-gradient(180deg, transparent, #000 24%, #000 76%, transparent);
+  animation: pf-fall 11s linear infinite;
+}
+@keyframes pf-fall {
+  0%   { transform: translate3d(0, -26%, 0); }
+  100% { transform: translate3d(0, 26%, 0); }
+}
+
+/* the brush marks themselves: still, because a brushed finish is */
+.pf-grain {
+  inset: 0; z-index: 1; opacity: 0.5;
+  background: repeating-linear-gradient(92deg,
+    rgba(255,255,255,0.4) 0 1px,
+    transparent 1px 2px,
+    rgba(40,40,48,0.05) 2px 3px,
+    transparent 3px 5px);
+}
+
+/* A surface that moves is a surface that has to stop moving on request. */
+@media (prefers-reduced-motion: reduce) {
+  .pf-sheen-a, .pf-sheen-b, .pf-fall { animation: none; }
+  .pf-sheen-a { transform: rotate(14deg) translate3d(120%, 0, 0); }
+  .pf-sheen-b { transform: rotate(14deg) translate3d(330%, 0, 0); }
+}
+
+.pf-back {
+  position: absolute; z-index: 2; top: 13px; left: 13px;
+  display: grid; place-items: center;
+  width: 34px; height: 34px;
+  border: 1px solid rgba(30, 30, 38, 0.16); border-radius: 10px;
+  background: rgba(255, 255, 255, 0.62); color: #1a1a20;
+  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  cursor: pointer; transition: background .14s ease, border-color .14s ease;
+}
+.pf-back:hover { background: rgba(255, 255, 255, 0.9); border-color: rgba(30, 30, 38, 0.3); }
+.pf-back:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(30, 30, 38, 0.3); }
+@supports not (backdrop-filter: blur(6px)) { .pf-back { background: rgba(255, 255, 255, 0.92); } }
+
+.pf-banner-in {
+  position: relative; z-index: 2;
+  display: flex; align-items: flex-end; gap: 18px; flex-wrap: wrap;
+  padding: 58px 22px 20px;
+}
+
+/* the monogram, stamped rather than printed */
+.pf-plate {
+  flex: none;
+  display: grid; place-items: center;
+  width: 76px; height: 76px; border-radius: 10px;
+  background: #17171c; color: #f2f2f5;
+  font-family: var(--mono); font-size: 27px; font-weight: 600; letter-spacing: 0.01em;
+  box-shadow: 0 2px 0 rgba(255,255,255,0.55), 0 10px 24px rgba(20,20,26,0.34);
+}
+
+.pf-who { flex: 1 1 220px; min-width: 0; color: #16161a; }
+.pf-who h2 { margin: 0; font-size: 25px; font-weight: 650; letter-spacing: -0.02em; line-height: 1.15; color: #16161a; }
+.pf-who-role { margin: 3px 0 0; font-size: 13px; font-weight: 500; color: #35353e; }
+.pf-who-co { margin: 1px 0 0; font-size: 12px; color: #4a4a55; }
+
+/* Three facts cut into the plate. Engraving reads as recessed: a dark
+   line with a light one under it. */
+.pf-engraved {
+  flex: 1 1 100%; margin: 16px 0 0;
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+  border-top: 1px solid rgba(28,28,36,0.16);
+  box-shadow: 0 -1px 0 rgba(255,255,255,0.6);
+}
+.pf-engraved > div { padding: 11px 0 1px; min-width: 0; }
+.pf-engraved > div + div { border-left: 1px solid rgba(28,28,36,0.12); padding-left: 14px; }
+.pf-engraved dt {
+  font-family: var(--mono); font-size: 10px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.08em; color: #4c4c57;
+}
+.pf-engraved dd {
+  margin: 2px 0 0; font-family: var(--mono); font-size: 14px; font-weight: 600; color: #17171c;
+  text-shadow: 0 1px 0 rgba(255,255,255,0.6);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+
+/* The plate at night: graphite, same finish, same movement. */
+:root[data-theme="dark"] .pf-metal::before {
+  background: linear-gradient(156deg,
+    #16161c 0%, #45454f 8%, #1d1d24 17%, #0f0f14 26%,
+    #3d3d47 36%, #191920 47%, #4a4a55 58%, #131319 69%,
+    #363640 80%, #1a1a21 89%, #43434d 100%);
+}
+:root[data-theme="dark"] .pf-metal::after {
+  background:
+    linear-gradient(103deg, rgba(255,255,255,0.14) 0%, rgba(255,255,255,0.04) 42%, transparent 72%),
+    linear-gradient(0deg, rgba(0,0,0,0.5) 0%, transparent 60%);
+}
+:root[data-theme="dark"] .pf-sheen-a {
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3) 46%, rgba(255,255,255,0.12) 62%, transparent);
+}
+:root[data-theme="dark"] .pf-sheen-b {
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.24), transparent);
+}
+:root[data-theme="dark"] .pf-fall { opacity: 0.34; }
+:root[data-theme="dark"] .pf-grain {
+  background: repeating-linear-gradient(92deg,
+    rgba(255,255,255,0.1) 0 1px, transparent 1px 2px,
+    rgba(0,0,0,0.22) 2px 3px, transparent 3px 5px);
+}
+:root[data-theme="dark"] .pf-back {
+  background: rgba(20, 20, 26, 0.6); color: #ededf0; border-color: rgba(255,255,255,0.2);
+}
+:root[data-theme="dark"] .pf-back:hover { background: rgba(20, 20, 26, 0.85); border-color: rgba(255,255,255,0.34); }
+:root[data-theme="dark"] .pf-plate { background: #f0f0f3; color: #16161a; box-shadow: 0 2px 0 rgba(255,255,255,0.1), 0 10px 24px rgba(0,0,0,0.5); }
+:root[data-theme="dark"] .pf-who,
+:root[data-theme="dark"] .pf-who h2 { color: #f2f2f5; }
+:root[data-theme="dark"] .pf-who-role { color: #d3d3da; }
+:root[data-theme="dark"] .pf-who-co { color: #a8a8b4; }
+:root[data-theme="dark"] .pf-engraved { border-top-color: rgba(255,255,255,0.14); box-shadow: 0 -1px 0 rgba(0,0,0,0.4); }
+:root[data-theme="dark"] .pf-engraved > div + div { border-left-color: rgba(255,255,255,0.1); }
+:root[data-theme="dark"] .pf-engraved dt { color: #a8a8b4; }
+:root[data-theme="dark"] .pf-engraved dd { color: #f2f2f5; text-shadow: 0 1px 0 rgba(0,0,0,0.5); }
+
+/* ── section headings ─────────────────────────────────────────
+   A sentence instead of the uppercase label the rest of the app uses:
+   seven sections would be seven identical labels, which is a rhythm
+   rather than information. */
+.pf-head {
+  display: flex; align-items: flex-end; justify-content: space-between;
+  gap: 14px; flex-wrap: wrap;
+  margin: 26px 0 12px;
+}
+.pf-head h3 { margin: 0; font-size: 16px; font-weight: 600; letter-spacing: -0.012em; color: var(--text); }
+.pf-head p { margin: 3px 0 0; font-size: 12.5px; color: var(--text-2); max-width: 62ch; }
+
+/* ── the figures ──────────────────────────────────────────────
+   No card around each number. At this density a hairline grid separates
+   them and six more borders would not. */
+.pf-figs {
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px; background: var(--line);
+  border: 1px solid var(--line); border-radius: var(--r-lg); overflow: hidden;
+}
+@media (min-width: 620px) { .pf-figs { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.pf-fig {
+  background: var(--surface); padding: 15px 14px 14px;
+  display: flex; flex-direction: column; gap: 2px; min-width: 0;
+}
+.pf-fig strong {
+  font-family: var(--mono); font-size: 25px; font-weight: 600;
+  letter-spacing: -0.02em; line-height: 1.1; color: var(--text);
+}
+.pf-fig.is-words strong { font-size: 16px; letter-spacing: -0.008em; padding-top: 5px; }
+.pf-fig span { font-size: 12.5px; font-weight: 500; color: var(--text); }
+.pf-fig small {
+  /* --text-3 measures 2.6:1 here, which is below AA for 11.5px. These
+     notes are the only thing explaining each number, so they take the
+     secondary token instead of the tertiary one. */
+  font-size: 11.5px; color: var(--text-2);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+
+/* ── grants ───────────────────────────────────────────────────
+   Allowed and not allowed are told apart by the glyph and the word, not
+   by a colour, so the page keeps its one neutral palette. */
+.pf-grants { display: flex; flex-direction: column; gap: 8px; }
+.pf-grant {
+  display: grid; grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center; gap: 13px;
+  padding: 13px 14px;
+  border: 1px solid var(--line); border-radius: var(--r-lg);
+  background: var(--surface);
+}
+.pf-grant-mark {
+  display: grid; place-items: center;
+  width: 30px; height: 30px; border-radius: 10px;
+  border: 1px solid var(--line-2); background: var(--surface-2); color: var(--text-3);
+}
+.pf-grant.is-on .pf-grant-mark { background: var(--ink); border-color: var(--ink); color: var(--surface); }
+.pf-grant-txt { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.pf-grant-txt strong { font-size: 13.5px; font-weight: 600; color: var(--text); }
+.pf-grant-txt small { font-size: 12px; color: var(--text-2); }
+.pf-grant-state {
+  font-family: var(--mono); font-size: 10.5px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.07em;
+  color: var(--text-3); white-space: nowrap;
+}
+.pf-grant.is-on .pf-grant-state { color: var(--text); }
+.pf-grant:not(.is-on) { background: var(--surface-2); }
+.pf-grant:not(.is-on) .pf-grant-txt strong { color: var(--text-2); }
+@media (max-width: 520px) {
+  .pf-grant { grid-template-columns: auto minmax(0, 1fr); grid-template-areas: "mark txt" "state state"; }
+  .pf-grant-mark { grid-area: mark; }
+  .pf-grant-txt { grid-area: txt; }
+  .pf-grant-state { grid-area: state; padding-left: 43px; }
+}
+
+/* ── where the work is kept ── */
+.pf-store {
+  display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px;
+  padding: 15px 16px;
+  border: 1px solid var(--line); border-radius: var(--r-lg); background: var(--surface);
+}
+@media (min-width: 720px) { .pf-store { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 26px; align-items: center; } }
+.pf-meter-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 8px; }
+.pf-meter-top span { display: inline-flex; align-items: center; gap: 7px; font-size: 12.5px; font-weight: 500; color: var(--text); }
+.pf-meter-top strong { font-family: var(--mono); font-size: 15px; font-weight: 600; color: var(--text); }
+.pf-meter-bar { height: 8px; border-radius: 999px; background: var(--surface-2); border: 1px solid var(--line); overflow: hidden; }
+.pf-meter-bar span { display: block; height: 100%; background: var(--ink); border-radius: inherit; }
+.pf-meter small { display: block; margin-top: 7px; font-size: 11.5px; color: var(--text-3); }
+.pf-store-facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 14px; margin: 0; }
+.pf-store-facts dt {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 11.5px; color: var(--text-2); white-space: nowrap;
+}
+.pf-store-facts dd { margin: 3px 0 0; font-family: var(--mono); font-size: 19px; font-weight: 600; color: var(--text); }
+
+/* ── actions ── */
+.pf-actions { display: flex; flex-direction: column; gap: 10px; margin-top: 26px; }
+@media (min-width: 620px) { .pf-actions { flex-direction: row; flex-wrap: wrap; } }
+.pf-actions .btn { justify-content: flex-start; }
+@media (min-width: 620px) { .pf-actions .btn { flex: 1 1 220px; justify-content: center; } }
+.pf-signout { color: var(--danger); }
+
+/* No accent on this page: the theme switch borrows the neutral chip the
+   buttons use rather than the orange it wears in Settings. */
+.pf .set-seg button.on { background: var(--ink); color: var(--surface); }
+:root[data-theme="dark"] .pf .set-seg button.on { background: var(--text); color: #16161a; }
+
+
+/* On this page the upload state is told by weight rather than hue: what
+   still needs doing is the dark chip, what is finished steps back. The
+   amber and green the rest of the app uses would be the one accent this
+   page is meant to be without. */
+.pf .sync-group {
+  background: var(--ink); color: var(--surface);
+  letter-spacing: 0.07em;
+}
+.pf .sync-group.up { background: var(--surface-2); color: var(--text-2); }
+.pf .sync-ico.off { background: var(--ink); border-color: var(--ink); color: var(--surface); }
+.pf .sync-ico.up { background: var(--surface-2); border-color: var(--line-2); color: var(--text-3); }
+.pf .sync-row .act-time { font-size: 11.5px; color: var(--text-3); white-space: nowrap; }
+
+/* The full list lives in Reports; this is the tail of it. */
+.pf-more {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+  padding: 11px 16px; border-top: 1px solid var(--line);
+  font-size: 12.5px; color: var(--text-2);
+}
+:root[data-theme="dark"] .pf .sync-group { background: var(--text); color: #16161a; }
+:root[data-theme="dark"] .pf .sync-ico.off { background: var(--text); border-color: var(--text); color: #16161a; }
