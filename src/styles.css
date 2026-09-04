@@ -399,7 +399,7 @@ table { border-collapse: collapse; }
 }
 .rail-brand:hover { background: var(--surface-2); }
 .rail-logo {
-  width: 32px; height: 32px; border-radius: 9px; flex-shrink: 0;
+  width: 28px; height: 28px; border-radius: 8px; flex-shrink: 0;
   background: var(--amber); color: #fff; display: grid; place-items: center;
 }
 .rail-brand-text { display: flex; flex-direction: column; min-width: 0; line-height: 1.25; }
@@ -413,12 +413,12 @@ table { border-collapse: collapse; }
 
 /* ── search field */
 .rail-search {
-  display: flex; align-items: center; gap: 8px; width: 100%;
-  height: 34px; padding: 0 8px 0 10px;
+  display: flex; align-items: center; gap: 10px; width: 100%;
+  height: 34px; padding: 0 7px;
   border: 1px solid var(--line); border-radius: var(--r); background: var(--surface-2);
   color: var(--text-3); font-size: 13px; text-align: left;
 }
-.rail-search span { flex: 1; }
+.rail-search-label { flex: 1; }
 .rail-search:hover { background: var(--surface); border-color: var(--line-2); color: var(--text-2); }
 .rail-search kbd {
   font-family: inherit; font-size: 10px; font-weight: 600; color: var(--text-3);
@@ -447,7 +447,13 @@ table { border-collapse: collapse; }
    move, and it leaves the label legible rather than reversed out. */
 .nav-item.active { background: var(--amber-tint); color: var(--text); font-weight: 600; }
 .nav-item.active .nav-ico { color: var(--amber); }
-.nav-ico { width: 20px; height: 20px; display: grid; place-items: center; flex-shrink: 0; color: var(--text-3); }
+/* One icon column. Every leading glyph — nav, search, storage, theme —
+   sits in the same 20px box at the same inset, so the rail has a single
+   straight edge down its left rather than four near-misses. */
+.nav-ico, .rail-ico, .rail-theme-ico {
+  width: 20px; height: 20px; flex-shrink: 0;
+  display: grid; place-items: center; color: var(--text-3);
+}
 .nav-item:hover .nav-ico { color: var(--text-2); }
 .nav-label { min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .nav-caret {
@@ -470,14 +476,14 @@ table { border-collapse: collapse; }
 
 /* ── foot: what the storage is doing, and who you are */
 .rail-foot { display: flex; flex-direction: column; gap: 8px; padding-top: 8px; border-top: 1px solid var(--line); }
-.rail-store { padding: 10px; border: 1px solid var(--line); border-radius: var(--r); background: var(--surface-2); }
+.rail-store { padding: 10px 7px; border: 1px solid var(--line); border-radius: var(--r); background: var(--surface-2); }
 .rail-store-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 7px; }
-.rail-store-head span { display: inline-flex; align-items: center; gap: 6px; font-size: 11.5px; font-weight: 600; color: var(--text-2); }
+.rail-store-head span { display: inline-flex; align-items: center; gap: 10px; font-size: 11.5px; font-weight: 600; color: var(--text-2); }
 .rail-store-head strong { font-size: 11.5px; font-weight: 600; color: var(--text); font-variant-numeric: tabular-nums; }
 .rail-store-bar { height: 5px; border-radius: var(--r-pill); background: var(--surface-3); overflow: hidden; }
 .rail-store-bar span { display: block; height: 100%; background: var(--amber); border-radius: inherit; transition: width .3s ease; }
 .rail-store-bar span.is-full { background: var(--overdue); }
-.rail-store small { display: block; margin-top: 6px; font-size: 10.5px; color: var(--text-3); }
+.rail-store small { display: block; margin-top: 6px; padding-left: 30px; font-size: 10.5px; color: var(--text-3); }
 .rail-store-btn {
   width: 100%; margin-top: 8px; height: 30px; border-radius: var(--r-sm);
   border: 1px solid var(--line-2); background: var(--surface); color: var(--text);
@@ -488,13 +494,10 @@ table { border-collapse: collapse; }
 /* ── utilities and appearance, under the storage card */
 .rail-util { margin-bottom: 2px; }
 .rail-theme {
-  display: flex; align-items: center; gap: 7px;
+  display: flex; align-items: center; gap: 10px;
   padding: 4px 6px 4px 8px; min-height: 34px;
 }
-.rail-theme-ico {
-  flex-shrink: 0; width: 20px; height: 20px; padding: 0; border: 0; background: none;
-  color: var(--text-3); display: grid; place-items: center; border-radius: var(--r-sm);
-}
+.rail-theme-ico { padding: 0; border: 0; background: none; border-radius: var(--r-sm); }
 .rail-theme-ico:hover { color: var(--text); }
 .rail-theme-label { flex: 1; min-width: 0; font-size: 13px; font-weight: 500; color: var(--text-2);
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -521,18 +524,12 @@ table { border-collapse: collapse; }
 .rail-theme-sys:hover { color: var(--text-2); border-color: var(--line-2); }
 .rail-theme-sys.on { color: var(--amber-deep); border-color: var(--amber); background: var(--amber-soft); }
 
-.rail-profile { display: flex; align-items: center; gap: 9px; width: 100%; padding: 6px; border: 0; background: none; border-radius: var(--r); text-align: left; }
-.rail-profile:hover { background: var(--surface-2); }
-.rail-avatar { width: 30px; height: 30px; border-radius: var(--r-pill); flex-shrink: 0; background: var(--ink); color: #fff; font-weight: 600; font-size: 11.5px; display: grid; place-items: center; }
-.rail-profile-text { display: flex; flex-direction: column; min-width: 0; line-height: 1.25; }
-.rail-profile-text strong { font-size: 12.5px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.rail-profile-text small { font-size: 10.5px; color: var(--text-3); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
 /* ── folded: icons only */
 .shell.side-min .sidebar { width: 68px; padding: 12px 8px; }
 .shell.side-min .rail-brand-text, .shell.side-min .rail-fold, .shell.side-min .nav-label,
-.shell.side-min .rail-search span, .shell.side-min .rail-search kbd,
-.shell.side-min .rail-label, .shell.side-min .rail-store, .shell.side-min .rail-profile-text,
+.shell.side-min .rail-search kbd,
+.shell.side-min .rail-label, .shell.side-min .rail-store, .shell.side-min .rail-search-label,
 .shell.side-min .rail-theme-label, .shell.side-min .rail-theme-sys { display: none; }
 .shell.side-min .rail-theme { justify-content: center; padding: 4px 0; gap: 0; }
 .shell.side-min .rail-switch { display: none; }
@@ -542,8 +539,7 @@ table { border-collapse: collapse; }
 .shell.side-min .rail-brand { justify-content: center; padding: 0; }
 .shell.side-min .rail-search { justify-content: center; padding: 0; }
 .shell.side-min .nav-item { justify-content: center; padding: 0; gap: 0; }
-.shell.side-min .rail-profile { justify-content: center; padding: 6px 0; }
-.shell.side-min .rail-list { align-items: stretch; }
+.shell.side-min .shell.side-min .rail-list { align-items: stretch; }
 
 /* ─────────────────────────── buttons ─────────────────────────── */
 .btn {
@@ -981,17 +977,99 @@ td.th-action { display: flex; gap: 6px; justify-content: flex-end; align-items: 
 @media (min-width: 1024px) { .toast { bottom: 24px; } }
 
 /* search sheet */
-.search-sheet-backdrop { position: fixed; inset: 0; z-index: 95; background: rgba(15,27,45,0.35); }
-.search-sheet { position: fixed; z-index: 96; top: 0; left: 0; right: 0; background: var(--surface); border-bottom: 1px solid var(--line-2); padding: 14px 16px 18px; border-radius: 0 0 var(--r-lg) var(--r-lg); box-shadow: var(--sh-pop); animation: down 0.2s ease; }
-@keyframes down { from { transform: translateY(-26px); opacity: 0; } }
-@media (min-width: 1024px) { .search-sheet { left: 50%; right: auto; top: 70px; transform: translateX(-50%); width: 560px; border: 1px solid var(--line-2); border-radius: var(--r-lg); } }
-.search-sheet .searchbar { background: var(--surface-2); box-shadow: none; }
-.search-results { margin-top: 10px; display: flex; flex-direction: column; max-height: 50vh; overflow: auto; }
-.search-results button { display: flex; flex-direction: column; align-items: flex-start; gap: 1px; width: 100%; background: none; border: 0; padding: 11px 12px; text-align: left; border-radius: var(--r); border-bottom: 1px solid var(--line); }
-.search-results button:hover { background: var(--surface-2); }
-.search-results strong { font-family: var(--mono); font-size: 14px; white-space: nowrap; }
-.search-results span { font-size: 12.5px; color: var(--text-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
-.search-results small { font-size: 11px; color: var(--text-3); white-space: nowrap; }
+/* ═══════════════════════════════════════════════════════════════
+   COMMAND PALETTE
+   A panel that floats over the page rather than a sheet nailed to the
+   top of it, and the page stays visible behind — blurred, so you can
+   see you have not navigated away, and read nothing that would compete
+   with what you are typing.
+   ═══════════════════════════════════════════════════════════════ */
+.cmdk { position: fixed; inset: 0; z-index: var(--z-modal); display: grid; place-items: start center; padding: 14px; }
+@media (min-width: 700px) { .cmdk { padding: 12vh 20px 20px; } }
+
+.cmdk-scrim {
+  position: absolute; inset: 0;
+  background: rgba(22, 22, 26, 0.22);
+  backdrop-filter: blur(9px) saturate(0.92);
+  -webkit-backdrop-filter: blur(9px) saturate(0.92);
+  animation: cmdk-fade .16s ease;
+}
+/* Without backdrop-filter the scrim has to carry the separation itself. */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .cmdk-scrim { background: rgba(22, 22, 26, 0.55); }
+}
+
+.cmdk-panel {
+  position: relative; width: min(560px, 100%);
+  display: flex; flex-direction: column; max-height: min(72vh, 620px);
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: 14px; box-shadow: 0 24px 60px rgba(16, 16, 20, 0.22), 0 2px 8px rgba(16, 16, 20, 0.08);
+  overflow: hidden; animation: cmdk-rise .18s cubic-bezier(.2, .8, .3, 1);
+}
+@keyframes cmdk-fade { from { opacity: 0 } to { opacity: 1 } }
+@keyframes cmdk-rise { from { opacity: 0; transform: translateY(-8px) scale(.985) } to { opacity: 1; transform: none } }
+
+.cmdk-field {
+  display: flex; align-items: center; gap: 11px; flex-shrink: 0;
+  padding: 0 14px; height: 52px; border-bottom: 1px solid var(--line);
+  color: var(--text-3);
+}
+.cmdk-field input {
+  flex: 1; min-width: 0; border: 0; background: none; padding: 0; min-height: 0;
+  font-family: var(--sans); font-size: 14.5px; color: var(--text); box-shadow: none !important;
+}
+.cmdk-field input::placeholder { color: var(--text-3); }
+.cmdk-field input:focus-visible { outline: none; border: 0; box-shadow: none !important; }
+.cmdk-esc, .cmdk-foot kbd {
+  font-family: inherit; font-size: 10px; font-weight: 600; color: var(--text-3);
+  background: var(--surface-2); border: 1px solid var(--line); border-radius: 4px;
+  padding: 2px 6px; line-height: 1.4; white-space: nowrap;
+}
+.cmdk-clear {
+  width: 22px; height: 22px; border: 0; border-radius: var(--r-sm); background: none;
+  color: var(--text-3); display: grid; place-items: center; flex-shrink: 0;
+}
+.cmdk-clear:hover { background: var(--surface-2); color: var(--text); }
+
+.cmdk-body { flex: 1; min-height: 0; overflow-y: auto; padding: 8px; }
+.cmdk-sec + .cmdk-sec { margin-top: 4px; }
+.cmdk-sec-label {
+  display: block; padding: 8px 8px 5px;
+  font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-3);
+}
+.cmdk-row {
+  display: flex; align-items: center; gap: 11px; width: 100%;
+  padding: 8px 9px; border: 0; background: none; border-radius: var(--r);
+  text-align: left; color: var(--text);
+}
+.cmdk-row.on { background: var(--surface-2); }
+.cmdk-ico {
+  width: 26px; height: 26px; flex-shrink: 0; border-radius: var(--r-sm);
+  background: var(--surface-2); color: var(--text-2); display: grid; place-items: center;
+}
+.cmdk-row.on .cmdk-ico { background: var(--amber-soft); color: var(--amber-deep); }
+.cmdk-text { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px; }
+.cmdk-text strong { font-size: 13.5px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cmdk-text small { font-size: 11.5px; color: var(--text-3); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cmdk-hint {
+  flex-shrink: 0; font-size: 10px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;
+  color: var(--text-3); background: var(--surface-2); border: 1px solid var(--line);
+  border-radius: var(--r-pill); padding: 2px 8px;
+}
+.cmdk-row.on .cmdk-hint { border-color: var(--line-2); color: var(--text-2); }
+.cmdk-empty { padding: 26px 14px; text-align: center; font-size: 13px; color: var(--text-3); }
+
+.cmdk-foot {
+  flex-shrink: 0; display: flex; align-items: center; gap: 16px;
+  padding: 8px 14px; border-top: 1px solid var(--line); background: var(--surface-2);
+  font-size: 11px; color: var(--text-3);
+}
+.cmdk-foot span { display: inline-flex; align-items: center; gap: 5px; }
+@media (max-width: 560px) { .cmdk-foot span:nth-child(2) { display: none; } }
+
+:root[data-theme="dark"] .cmdk-scrim { background: rgba(0, 0, 0, 0.45); }
+:root[data-theme="dark"] .cmdk-panel { box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6); }
+
 
 /* home */
 /* The greeting is a caption on the action row now, not a headline: the

@@ -9,6 +9,7 @@ import BottomNav from './components/BottomNav.jsx'
 import Topbar from './components/Topbar.jsx'
 import Help from './components/Help.jsx'
 import { applyTheme, watchSystemTheme } from './lib/theme.js'
+import { isPaletteChord } from './lib/keys.js'
 import Home from './components/Home.jsx'
 import Dashboard from './components/Dashboard.jsx'
 import JobsPage from './components/JobsPage.jsx'
@@ -92,7 +93,9 @@ export default function App() {
   // The rail promises ⌘K, so it has to answer — and Escape closes it.
   useEffect(() => {
     const onKey = (e) => {
-      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') { e.preventDefault(); setSearchOpen(true) }
+      // Ctrl+K everywhere, plus the Command key on a Mac and the Windows
+      // key on a PC — the browser reports both as metaKey.
+      if (isPaletteChord(e)) { e.preventDefault(); setSearchOpen((v) => !v) }
       else if (e.key === 'Escape') setSearchOpen(false)
     }
     window.addEventListener('keydown', onKey)

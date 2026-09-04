@@ -3,6 +3,7 @@ import { COMPANY } from '../lib/company.js'
 import { useApp, navigate } from '../App.jsx'
 import { storageUsage, fmtBytes } from '../lib/storage.js'
 import { getThemePref, resolveTheme, setThemePref, watchSystemTheme } from '../lib/theme.js'
+import { CMD_LABEL } from '../lib/keys.js'
 import {
   IconBoltz, IconHome, IconList, IconFile, IconGrid, IconGear, IconPanel,
   IconChevronD, IconSearch, IconPlus, IconDatabase, IconUser, IconAlertCircle,
@@ -39,8 +40,7 @@ const ThemeGlyph = ({ mode }) => (
 )
 
 export default function Sidebar({ page, onToggle, collapsed, onSearch }) {
-  const { role, session, tick } = useApp()
-  const initials = session.name.split(' ').map((w) => w[0]).slice(0, 2).join('')
+  const { role, tick } = useApp()
   const activeKat = new URLSearchParams(window.location.hash.split('?')[1] || '').get('kat')
   // Open the group when you are already inside it; otherwise remember
   // whatever the user last chose.
@@ -128,10 +128,10 @@ export default function Sidebar({ page, onToggle, collapsed, onSearch }) {
       </div>
 
       {/* a field rather than an icon, so the shortcut has somewhere to live */}
-      <button className="rail-search" onClick={onSearch} aria-label="Search jobs">
-        <IconSearch size={15} />
-        <span>Search</span>
-        <kbd>⌘</kbd><kbd>K</kbd>
+      <button className="rail-search" onClick={onSearch} aria-label="Search jobs and reports">
+        <span className="rail-ico"><IconSearch size={16} /></span>
+        <span className="rail-search-label">Search</span>
+        <kbd>{CMD_LABEL}</kbd><kbd>K</kbd>
       </button>
 
       <div className="rail-scroll">
@@ -148,7 +148,7 @@ export default function Sidebar({ page, onToggle, collapsed, onSearch }) {
             this browser, and there is no server behind them. */}
         <div className="rail-store">
           <div className="rail-store-head">
-            <span><IconDatabase size={13} /> Local storage</span>
+            <span><span className="rail-ico"><IconDatabase size={14} /></span> Local storage</span>
             <strong>{used.pct}%</strong>
           </div>
           <div className="rail-store-bar" role="img"
@@ -210,13 +210,6 @@ export default function Sidebar({ page, onToggle, collapsed, onSearch }) {
           </button>
         </div>
 
-        <button className="rail-profile" onClick={() => navigate('/profile')} title={session.name}>
-          <span className="rail-avatar">{initials}</span>
-          <span className="rail-profile-text">
-            <strong>{session.name}</strong>
-            <small>View profile</small>
-          </span>
-        </button>
       </div>
     </nav>
   )

@@ -1,9 +1,14 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { useApp, navigate } from '../App.jsx'
 import { FORM_SCHEMAS } from '../data/formSchemas.js'
 import { getReports } from '../lib/store.js'
-import { buildContext, jobProgress } from '../lib/status.js'
-import { IconSearch, IconBell, IconAlert, IconApprove, IconPen, IconMenu } from './Icons.jsx'
+import { buildContext, jobProgress, fmtDate } from '../lib/status.js'
+import { IS_MAC } from '../lib/keys.js'
+import {
+  IconSearch, IconBell, IconAlert, IconApprove, IconPen, IconMenu,
+  IconList, IconFile, IconGrid, IconPlus, IconGear, IconClose,
+} from './Icons.jsx'
 
 /* The bar across the top of the work area: where you are on the left,
    what you can do about it on the right. It replaces the notification
@@ -33,10 +38,81 @@ export default function Topbar({ route, job, onToggleSidebar, searchOpen, onOpen
   if (route.page === 'job' && job) { title = `Job ${job.jobNo}`; sub = job.customerName }
   if (route.page === 'form') { title = FORM_SCHEMAS[route.formKey]?.title || 'Form'; sub = job ? `Job ${job.jobNo}` : '' }
 
+  /* ── the palette ──────────────────────────────────────────────
+     Empty, it offers what you were last working on and the handful of
+     things people come here to start. Typing searches the register and
+     the documents together, because "1000200002" is as likely to be a
+     report you filed as a job you are looking for. */
+  const inputRef = useRef(null)
+  const [at, setAt] = useState(0)
+  useEffect(() => { if (searchOpen) { setQ(''); setAt(0) } }, [searchOpen])
+
   const ql = q.trim().toLowerCase()
-  const hits = ql.length >= 2
-    ? jobs.filter((j) => `${j.jobNo} ${j.wbsNo} ${j.arasSN} ${j.customerName}`.toLowerCase().includes(ql)).slice(0, 8)
-    : []
+
+  const groups = useMemo(() => {
+    if (!searchOpen) return []
+    const reps = getReports()
+    if (ql.length >= 2) {
+      const jobHits = jobs
+        .filter((j) => `${j.jobNo} ${j.wbsNo} ${j.arasSN} ${j.customerName} ${j.productDesc}`.toLowerCase().includes(ql))
+        .slice(0, 6)
+        .map((j) => ({
+          key: 'j' + j.jobNo, icon: IconList, title: j.jobNo,
+          sub: `${j.productDesc} · ${j.customerName}`, hint: 'Job',
+          to: `/job/${j.jobNo}`,
+        }))
+      const repHits = reps
+        .filter((r) => `${r.reportId} ${r.jobNo} ${r.deliverable} ${r.inspector}`.toLowerCase().includes(ql))
+        .sort((a, b) => (b.updatedAt || '').localeCompare(a.updatedAt || ''))
+        .slice(0, 6)
+        .map((r) => ({
+          key: 'r' + r.id, icon: IconFile, title: r.reportId,
+          sub: `${FORM_SCHEMAS[r.formKey]?.title || r.formKey} · Job ${r.jobNo}`,
+          hint: r.status === 'approved' ? 'Approved' : r.status === 'submitted' ? 'Submitted' : 'Draft',
+          to: `/job/${r.jobNo}/form/${r.formKey}?d=${encodeURIComponent(r.deliverable)}&rid=${encodeURIComponent(r.id)}`,
+        }))
+      return [
+        jobHits.length && { label: 'Jobs', items: jobHits },
+        repHits.length && { label: 'Reports', items: repHits },
+      ].filter(Boolean)
+    }
+    // Recent means recently worked on, which the records already know.
+    const recent = reps
+      .slice()
+      .sort((a, b) => (b.updatedAt || '').localeCompare(a.updatedAt || ''))
+      .slice(0, 3)
+      .map((r) => ({
+        key: 'r' + r.id, icon: IconFile, title: r.reportId,
+        sub: `${FORM_SCHEMAS[r.formKey]?.title || r.formKey} · ${fmtDate(r.updatedAt)}`,
+        to: `/job/${r.jobNo}/form/${r.formKey}?d=${encodeURIComponent(r.deliverable)}&rid=${encodeURIComponent(r.id)}`,
+      }))
+    const actions = [
+      role.canManage && { key: 'a1', icon: IconPlus, title: 'Raise a job order', sub: 'PO, units and the reports each one needs', to: '/jobs/new' },
+      { key: 'a2', icon: IconList, title: 'Open the job register', to: '/jobs' },
+      { key: 'a3', icon: IconGrid, title: 'Open the monitoring matrix', to: '/monitor' },
+      role.canManage && { key: 'a4', icon: IconGear, title: 'Settings', to: '/settings' },
+    ].filter(Boolean)
+    return [
+      recent.length && { label: 'Recent', items: recent },
+      { label: 'Common actions', items: actions },
+    ].filter(Boolean)
+  }, [searchOpen, ql, jobs, role, tick])
+
+  const flat = useMemo(() => groups.flatMap((g) => g.items), [groups])
+
+  const run = (it) => { onCloseSearch(); navigate(it.to) }
+
+  const onKeys = (e) => {
+    if (e.key === 'Escape') { onCloseSearch(); return }
+    if (e.key === 'ArrowDown') { e.preventDefault(); setAt((i) => (flat.length ? (i + 1) % flat.length : 0)) }
+    else if (e.key === 'ArrowUp') { e.preventDefault(); setAt((i) => (flat.length ? (i - 1 + flat.length) % flat.length : 0)) }
+    else if (e.key === 'Enter' && flat[at]) { e.preventDefault(); run(flat[at]) }
+  }
+
+  // Keep the highlighted row in view when the arrows walk past the fold.
+  useEffect(() => {
+    document.querySelector('.cmdk-row.on')?.scrollIntoView({ block: 'nearest' })
+  }, [at, searchOpen])
 
   // Notifications: overdue jobs, reports awaiting approval (admin), own drafts
   const notifs = useMemo(() => {
@@ -94,30 +170,59 @@ export default function Topbar({ route, job, onToggleSidebar, searchOpen, onOpen
         </div>
       </header>
 
-      {searchOpen && (
-        <>
-          <div className="search-sheet-backdrop" onClick={onCloseSearch} />
-          <div className="search-sheet" role="dialog" aria-label="Global search">
-            <div className="searchbar" style={{ marginBottom: 0 }}>
+      {searchOpen && createPortal(
+        <div className="cmdk" role="dialog" aria-modal="true" aria-label="Search">
+          {/* The page stays visible behind the panel but out of focus, so
+              you can see you have not left it. */}
+          <div className="cmdk-scrim" onClick={onCloseSearch} />
+          <div className="cmdk-panel">
+            <div className="cmdk-field">
               <IconSearch size={16} />
-              <input autoFocus placeholder="Job No, WBS, Serial No, Customer…"
-                value={q} onChange={(e) => setQ(e.target.value)}
-                onKeyDown={(e) => e.key === 'Escape' && onCloseSearch()} />
+              <input ref={inputRef} autoFocus value={q} spellCheck={false}
+                placeholder="Search jobs, reports, customers…"
+                aria-label="Search" aria-controls="cmdk-list"
+                onChange={(e) => { setQ(e.target.value); setAt(0) }}
+                onKeyDown={onKeys} />
+              {q
+                ? <button className="cmdk-clear" aria-label="Clear" onClick={() => { setQ(''); setAt(0); inputRef.current?.focus() }}><IconClose size={14} /></button>
+                : <kbd className="cmdk-esc">esc</kbd>}
             </div>
-            <div className="search-results">
-              {hits.map((j) => (
-                <button key={j.jobNo} onClick={() => { navigate(`/job/${j.jobNo}`); onCloseSearch(); setQ('') }}>
-                  <strong>{j.jobNo}</strong>
-                  <span>{j.productDesc}</span>
-                  <small>{j.customerName} · {j.arasSN}</small>
-                </button>
+
+            <div className="cmdk-body" id="cmdk-list" role="listbox">
+              {groups.map((g) => (
+                <div className="cmdk-sec" key={g.label}>
+                  <span className="cmdk-sec-label">{g.label}</span>
+                  {g.items.map((it) => {
+                    const i = flat.indexOf(it)
+                    return (
+                      <button key={it.key} role="option" aria-selected={i === at}
+                        className={`cmdk-row${i === at ? ' on' : ''}`}
+                        onMouseEnter={() => setAt(i)}
+                        onClick={() => run(it)}>
+                        <span className="cmdk-ico"><it.icon size={15} /></span>
+                        <span className="cmdk-text">
+                          <strong>{it.title}</strong>
+                          {it.sub && <small>{it.sub}</small>}
+                        </span>
+                        {it.hint && <span className="cmdk-hint">{it.hint}</span>}
+                      </button>
+                    )
+                  })}
+                </div>
               ))}
-              {ql.length >= 2 && hits.length === 0 && (
-                <div className="empty-state" style={{ padding: '18px' }}>No matching jobs.</div>
+              {!flat.length && (
+                <div className="cmdk-empty">No job, report or customer matches “{q.trim()}”.</div>
               )}
             </div>
+
+            <div className="cmdk-foot">
+              <span><kbd>↑</kbd><kbd>↓</kbd> navigate</span>
+              <span><kbd>↵</kbd> open</span>
+              <span><kbd>esc</kbd> close</span>
+            </div>
           </div>
-        </>
+        </div>,
+        document.body
       )}
 
       {notifOpen && (
