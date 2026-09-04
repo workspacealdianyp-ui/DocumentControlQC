@@ -3876,3 +3876,25 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber); outline-
   .rep-card.is-deliv.is-flat::after { display: none; }
   .rep-card.is-deliv .rep-foot { padding-right: 0; }
 }
+
+
+/* ── the two-step new-report flow ────────────────────────────────
+   Which report, then which job. The first step reuses the dashboard's
+   own tiles, so the choice looks the same wherever it is made. */
+.modal.formpick { max-width: 620px; width: min(620px, calc(100vw - 28px)); }
+.formpick-grid { margin: 14px 0 12px; grid-template-columns: repeat(2, 1fr); }
+@media (min-width: 520px) { .formpick-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (min-width: 700px) { .formpick-grid { grid-template-columns: repeat(4, 1fr); } }
+
+/* The way back to the first step. It reads as a trail, not a button:
+   the decision is still the one in the panel below it. */
+.pick-back {
+  display: inline-flex; align-items: center; gap: 5px;
+  align-self: flex-start; margin: 0 0 8px -5px; padding: 4px 7px;
+  border: 0; border-radius: 8px;
+  background: none; color: var(--text-2);
+  font-family: var(--sans); font-size: 12px; font-weight: 400;
+  cursor: pointer; transition: color .14s ease, background .14s ease;
+}
+.pick-back:hover { color: var(--text); background: var(--surface-2); }
+.pick-back:focus-visible { outline: none; color: var(--text); box-shadow: 0 0 0 3px var(--amber-soft); }

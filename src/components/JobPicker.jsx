@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { useApp } from '../App.jsx'
 import { SearchField } from './RegisterBar.jsx'
+import { IconBack } from './Icons.jsx'
 
 /* Choosing the job, wherever the choice is made.
 
@@ -12,7 +13,7 @@ import { SearchField } from './RegisterBar.jsx'
    the unit is, and whose it is. Nothing else fits on a line a person
    scans, and nothing else is needed to recognise the job. */
 
-export default function JobPicker({ title, sub, current, onPick, onClose }) {
+export default function JobPicker({ title, sub, current, onPick, onClose, onBack }) {
   const { jobs } = useApp()
   const [q, setQ] = useState('')
 
@@ -32,6 +33,13 @@ export default function JobPicker({ title, sub, current, onPick, onClose }) {
     <div className="modal-backdrop" onClick={onClose}>
       <div className="modal jobpick" onClick={(e) => e.stopPropagation()} role="dialog" aria-modal="true" aria-label={title}>
         <div className="sheet-handle" />
+        {/* Reached from the report picker, the way back is a step, not a
+            cancel — closing here would throw away the choice already made. */}
+        {onBack && (
+          <button type="button" className="pick-back" onClick={onBack}>
+            <IconBack size={14} /> Choose a different report
+          </button>
+        )}
         <h3>{title}</h3>
         {sub && <p className="page-sub">{sub}</p>}
 

@@ -1,4 +1,5 @@
 import { useMemo, useState, useEffect, lazy, Suspense } from 'react'
+import { createPortal } from 'react-dom'
 import { useApp, navigate } from '../App.jsx'
 import { FORM_SCHEMAS } from '../data/formSchemas.js'
 import { getReports } from '../lib/store.js'
@@ -68,9 +69,46 @@ const QUICK_LINKS = [
   { label: 'QC Site', sub: 'Document library', icon: 'doc', href: '#' },
 ]
 
+
+/* Which report, then which job.
+
+   "New report" used to drop you in the job register with no hint of what
+   you were there to do. It asks the two questions in the order a person
+   answers them: the kind of report first — that is the decision — then
+   the job it is against, in the same picker the tiles below already use. */
+function FormPicker({ onPick, onClose }) {
+  useEffect(() => {
+    const esc = (e) => { if (e.key === 'Escape') onClose() }
+    document.addEventListener('keydown', esc)
+    return () => document.removeEventListener('keydown', esc)
+  }, [onClose])
+  return createPortal(
+    <div className="modal-backdrop" onClick={onClose}>
+      <div className="modal formpick" onClick={(e) => e.stopPropagation()}
+        role="dialog" aria-modal="true" aria-label="New report">
+        <div className="sheet-handle" />
+        <h3>New report</h3>
+        <p className="page-sub">Pick the kind of report. You choose the job next.</p>
+        <div className="qa-grid formpick-grid">
+          {FORM_ORDER.map((k, i) => (
+            <button key={k} className={`qa-tile ${QA_TINTS[i]}`} onClick={() => onPick(k)}>
+              <span className="qa-plus"><IconPlus size={13} /></span>
+              <strong>{FORM_SCHEMAS[k].code}</strong>
+              <span className="qa-name">{FORM_SCHEMAS[k].title.replace(' Report', '')}</span>
+            </button>
+          ))}
+        </div>
+        <button className="btn btn-ghost btn-block" onClick={onClose}>Cancel</button>
+      </div>
+    </div>,
+    document.body
+  )
+}
+
 export default function Home() {
   const { session, jobs, tick } = useApp()
   const [newForm, setNewForm] = useState(null)
+  const [pickForm, setPickForm] = useState(false)  // the report-kind step ahead of it
   const [slide, setSlide] = useState(0) // current unit in the showcase
   const [custAll, setCustAll] = useState(false) // expand top-customers list
 
@@ -182,7 +220,7 @@ export default function Home() {
           <button className="btn btn-secondary btn-sm" onClick={() => navigate('/monitor')}>
             <IconGrid size={14} /> Open Monitor
           </button>
-          <button className="btn btn-primary btn-sm" onClick={() => navigate('/jobs')}>
+          <button className="btn btn-primary btn-sm" onClick={() => setPickForm(true)}>
             <IconPlus size={14} /> New report
           </button>
         </div>
@@ -308,7 +346,7 @@ export default function Home() {
           <h3 className="widget-title" style={{ margin: '4px 0 12px' }}>New report</h3>
           <div className="qa-grid">
             {FORM_ORDER.map((k, i) => (
-              <button key={k} className={`qa-tile ${QA_TINTS[i]}`} onClick={() => setNewForm(k)}>
+              <button key={k} className={`qa-tile ${QA_TINTS[i]}`} onClick={() => setNewForm({ key: k })}>
                 <span className="qa-plus"><IconPlus size={13} /></span>
                 <strong>{FORM_SCHEMAS[k].code}</strong>
                 <span className="qa-name">{FORM_SCHEMAS[k].title.replace(' Report', '')}</span>
@@ -407,11 +445,17 @@ export default function Home() {
         </section>
       </div>
 
+      {pickForm && (
+        <FormPicker onClose={() => setPickForm(false)}
+          onPick={(k) => { setPickForm(false); setNewForm({ key: k, viaPicker: true }) }} />
+      )}
+
       {newForm && (
         <JobPicker
-          title={FORM_SCHEMAS[newForm].title}
+          title={FORM_SCHEMAS[newForm.key].title}
           sub="Pick the job this report is against — page 1 is then written from it."
-          onPick={(jobNo) => navigate(`/job/${jobNo}/form/${newForm}?d=${encodeURIComponent(FORM_SCHEMAS[newForm].deliverable)}`)}
+          onPick={(jobNo) => navigate(`/job/${jobNo}/form/${newForm.key}?d=${encodeURIComponent(FORM_SCHEMAS[newForm.key].deliverable)}`)}
+          onBack={newForm.viaPicker ? () => { setNewForm(null); setPickForm(true) } : undefined}
           onClose={() => setNewForm(null)} />
       )}
     </div>
