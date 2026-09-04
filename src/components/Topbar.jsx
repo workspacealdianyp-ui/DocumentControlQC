@@ -36,7 +36,13 @@ export default function Topbar({ route, job, onToggleSidebar, searchOpen, onOpen
 
   let [title, sub] = PAGE_TITLES[route.page] || ['', '']
   if (route.page === 'job' && job) { title = `Job ${job.jobNo}`; sub = job.customerName }
-  if (route.page === 'form') { title = FORM_SCHEMAS[route.formKey]?.title || 'Form'; sub = job ? `Job ${job.jobNo}` : '' }
+  // On a form the top bar says where you are — the job — and the
+  // masthead below says what the document is. Naming the report in both
+  // put the same words on screen twice, one line apart.
+  if (route.page === 'form') {
+    title = job ? `Job ${job.jobNo}` : (FORM_SCHEMAS[route.formKey]?.title || 'Form')
+    sub = job ? [job.productDesc, job.customerName].filter(Boolean).join(' · ') : ''
+  }
 
   /* ── the palette ──────────────────────────────────────────────
      Empty, it offers what you were last working on and the handful of

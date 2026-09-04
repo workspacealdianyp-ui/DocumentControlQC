@@ -4,7 +4,8 @@ import { dimRowStatus, dimDeviation } from '../data/formSchemas.js'
 import { MR } from '../lib/compute.js'
 import { fmtDate } from '../lib/status.js'
 import { buildResume } from '../lib/resume.js'
-import { IconBack, IconPrint, IconPen, IconChevronR, IconApprove, IconSend, IconXCircle } from './Icons.jsx'
+import { IconPrint, IconPen, IconChevronR, IconApprove, IconSend, IconXCircle } from './Icons.jsx'
+import Masthead from './Masthead.jsx'
 
 // read-only detail view of a submitted/approved report — shows the entered data, never edits
 const lbl = (f, v) => (typeof f.label === 'function' ? f.label(v) : f.label)
@@ -174,27 +175,23 @@ export default function ReportDetail({ schema, report, job, deliverable, status,
 
   return (
     <div className="page form-page form-page-pad">
-      <button className="btn btn-ghost back-btn btn-sm" onClick={onBack}><IconBack size={14} /> {schema.title}</button>
-
-      <div className="detail-hero">
-        <div className="detail-hero-main">
-          <h2>{schema.title}</h2>
-          <p>{v.reportId} · {deliverable} · {job.jobNo} · {job.productDesc}</p>
-        </div>
-
+      <Masthead schema={schema} reportId={v.reportId} deliverable={deliverable} job={job} onBack={onBack}>
         {/* State: where the document stands, and what was decided. Two
             badges of the same shape, so they read as one kind of fact. */}
-        <div className="detail-badges">
-          <span className={`dbadge state-${status}`}>
-            {status === 'approved' ? <IconApprove size={13} /> : <IconSend size={13} />}
-            {statusLabel}
-          </span>
-          <span className={`dbadge verdict ${r.released ? 'is-acc' : 'is-rej'}`}>
-            {r.released ? <IconApprove size={13} /> : <IconXCircle size={13} />}
-            {r.released ? 'Accept' : 'Reject'}
-          </span>
-          <span className="detail-verdict-note">{r.headline}</span>
-        </div>
+        <span className={`dbadge state-${status}`}>
+          {status === 'approved' ? <IconApprove size={13} /> : <IconSend size={13} />}
+          {statusLabel}
+        </span>
+        <span className={`dbadge verdict ${r.released ? 'is-acc' : 'is-rej'}`}>
+          {r.released ? <IconApprove size={13} /> : <IconXCircle size={13} />}
+          {r.released ? 'Accept' : 'Reject'}
+        </span>
+      </Masthead>
+
+      {/* What the report decided, and what can be done about it. The
+          verdict badge sits on the masthead; this line says why. */}
+      <div className="detail-bar">
+        <span className="detail-verdict-note">{r.headline}</span>
 
         {/* Controls: one row, one height, one weight. Nothing here is
             more important than its neighbour. */}

@@ -11,7 +11,8 @@ import PrintReport from './PrintReport.jsx'
 import ReportDetail from './ReportDetail.jsx'
 import SignaturePad from './SignaturePad.jsx'
 import JobPicker from './JobPicker.jsx'
-import { IconBack, IconPlus, IconTrash, IconPrint, IconPen, IconCheck, IconClock, IconAlert, IconSearch, IconChevronD } from './Icons.jsx'
+import Masthead from './Masthead.jsx'
+import { IconPlus, IconTrash, IconPrint, IconPen, IconCheck, IconClock, IconAlert, IconSearch, IconChevronD } from './Icons.jsx'
 
 // resolve a field label that may be a function of values
 const lbl = (f, v) => (typeof f.label === 'function' ? f.label(v) : f.label)
@@ -798,19 +799,12 @@ export default function FormView({ job, formKey, query }) {
 
   return (
     <div className="page form-page form-page-pad">
-      <button className="btn btn-ghost back-btn btn-sm" onClick={() => navigate(`/job/${cur.jobNo}`)}><IconBack size={14} /> {schema.title}</button>
-
-      <div className="form-hero">
-        <div>
-          <h2>{schema.title}</h2>
-          <p>{v.reportId} · {deliverable} · {cur.jobNo} · {cur.productDesc}</p>
-        </div>
-        {/* State only. Every action lives in the rail on the right, so
-            there is one place to look for something to press. */}
-        <div className="form-hero-right">
-          <span className={`report-state state-${reportStatus}`}>{reportStatus === 'new' ? 'New' : reportStatus === 'draft' ? 'Draft' : reportStatus === 'approved' ? 'Approved' : 'Submitted'}</span>
-        </div>
-      </div>
+      {/* State only. Every action lives in the rail on the right, so
+          there is one place to look for something to press. */}
+      <Masthead schema={schema} reportId={v.reportId} deliverable={deliverable} job={cur}
+        onBack={() => navigate(`/job/${cur.jobNo}`)}>
+        <span className={`report-state state-${reportStatus}`}>{reportStatus === 'new' ? 'New' : reportStatus === 'draft' ? 'Draft' : reportStatus === 'approved' ? 'Approved' : 'Submitted'}</span>
+      </Masthead>
 
       {readOnly && <div className="readonly-note">Read-only{submitted ? '. This report has been submitted' : '. Your role cannot edit reports'}.</div>}
 
