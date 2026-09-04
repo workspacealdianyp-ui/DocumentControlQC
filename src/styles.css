@@ -89,7 +89,7 @@
 
   --appbar-h: 56px;
   --topbar-h: 60px;
-  --bottomnav-h: 62px;
+  --bottomnav-h: 74px;
   --rail-w: 232px;
   --tap: 44px;
   --z-nav: 60; --z-pop: 90; --z-modal: 100; --z-print: 300;
@@ -193,7 +193,6 @@
 
 /* --steel and --ink name the dark chip, so the handful of rules that
    borrowed them for a foreground go pale instead of dark at night. */
-:root[data-theme="dark"] .bottomnav button.active,
 :root[data-theme="dark"] .btn-secondary:hover,
 :root[data-theme="dark"] .mselect-btn:hover,
 :root[data-theme="dark"] .photo-add:hover,
@@ -364,20 +363,90 @@ table { border-collapse: collapse; }
 .usermenu .um-name { font-family: var(--mono); font-weight: 600; font-size: 15px; }
 
 /* ─────────────────── bottom nav (mobile/tablet) ─────────────────── */
+/* ── the bottom rail ──────────────────────────────────────────
+   A floating rail rather than a slab welded to the bottom edge: it has
+   its own shape, so the page scrolls behind it instead of ending at it.
+   Home is lifted out of the rail into its own mark, centred, because it
+   is the way out of wherever you are rather than a fifth register.
+
+   The mark is a rounded square, not a circle. Every other mark in this
+   app is one - the form codes, the masthead plate, the monogram - and a
+   lone circle here would be the one shape that belongs to nothing. */
 .bottomnav {
-  position: fixed; bottom: 0; left: 0; right: 0; z-index: 70; height: var(--bottomnav-h);
-  background: var(--glass-strong); backdrop-filter: var(--blur); -webkit-backdrop-filter: var(--blur);
-  border-top: 1px solid var(--glass-line);
-  display: flex; justify-content: space-around; align-items: stretch; padding-bottom: env(safe-area-inset-bottom);
+  position: fixed; z-index: 70;
+  left: 0; right: 0; bottom: 0;
+  padding: 0 12px calc(14px + env(safe-area-inset-bottom));
+  /* The bar sizes to the rail rather than to a fixed height, and only
+     the rail and the mark take pointer events, so the page behind it
+     stays reachable right up to their edges. */
+  pointer-events: none;
 }
-.bottomnav button {
-  flex: 1; max-width: 130px; border: 0; background: none; border-top: 2px solid transparent;
-  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px;
-  color: var(--text-3); font-family: var(--mono); font-size: 10px; font-weight: 500;
-  text-transform: uppercase; letter-spacing: 0.04em;
+.bn-rail {
+  pointer-events: auto;
+  position: relative;
+  display: flex; align-items: stretch;
+  height: 56px; max-width: 460px; margin: 0 auto;
+  border: 1px solid var(--glass-line); border-radius: 18px;
+  background: var(--glass-strong);
+  backdrop-filter: var(--blur); -webkit-backdrop-filter: var(--blur);
+  box-shadow: 0 6px 24px rgba(20, 20, 24, 0.14), 0 1px 0 rgba(255, 255, 255, 0.5) inset;
 }
-.bottomnav button .bn-pill { display: grid; place-items: center; width: 44px; height: 26px; }
-.bottomnav button.active { color: var(--steel); border-top-color: var(--amber); }
+.bn-side { flex: 1 1 0; display: flex; }
+.bn-notch { flex: 0 0 68px; }
+
+.bn-tab {
+  flex: 1 1 0; min-width: 0;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;
+  border: 0; background: none; padding: 0;
+  color: var(--text-3);
+  font-family: var(--mono); font-size: 9.5px; font-weight: 500;
+  text-transform: uppercase; letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: color .16s ease;
+}
+.bn-ico {
+  display: grid; place-items: center; height: 22px;
+  transition: transform .22s cubic-bezier(0.34, 1.4, 0.5, 1);
+}
+.bn-label { transition: opacity .16s ease; }
+.bn-tab.active { color: var(--text); }
+/* The active tab lifts its glyph and states itself in weight. No bar, no
+   dot: the label is already under it saying which one this is. */
+.bn-tab.active .bn-ico { transform: translateY(-1px); }
+.bn-tab.active .bn-label { font-weight: 700; }
+.bn-tab:active .bn-ico { transform: scale(0.9); }
+
+/* Home, detached. It overlaps the rail's top edge and sits in the gap
+   the notch leaves, so the two read as one object with a piece raised
+   out of it. */
+.bn-home {
+  pointer-events: auto;
+  position: absolute; left: 50%; bottom: calc(24px + env(safe-area-inset-bottom));
+  transform: translateX(-50%);
+  display: grid; place-items: center;
+  width: 54px; height: 54px;
+  border: 3px solid var(--paper); border-radius: 17px;
+  background: var(--ink); color: var(--surface);
+  box-shadow: 0 6px 20px rgba(20, 20, 24, 0.3);
+  cursor: pointer;
+  transition: transform .22s cubic-bezier(0.34, 1.4, 0.5, 1), box-shadow .2s ease;
+}
+.bn-home:active { transform: translateX(-50%) scale(0.94); }
+.bn-home.active { box-shadow: 0 8px 26px rgba(20, 20, 24, 0.38); }
+.bn-home.active::after {
+  content: ''; position: absolute; bottom: -9px; left: 50%;
+  width: 16px; height: 2px; margin-left: -8px; border-radius: 2px;
+  background: var(--ink);
+}
+.bn-home:focus-visible, .bn-tab:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+
+:root[data-theme="dark"] .bn-rail { box-shadow: 0 6px 24px rgba(0, 0, 0, 0.5); }
+:root[data-theme="dark"] .bn-home { background: var(--text); color: #16161a; }
+:root[data-theme="dark"] .bn-home.active::after { background: var(--text); }
+
+@media (prefers-reduced-motion: reduce) {
+  .bn-ico, .bn-home { transition-duration: 1ms; }
+}
 @media (min-width: 1024px) { .bottomnav { display: none; } }
 
 /* ────────────────────────── the rail ──────────────────────────
@@ -4524,3 +4593,18 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber); outline-
 .tb-avatar.has-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .pf-plate.has-photo { padding: 0; overflow: hidden; }
 .pf-plate.has-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+
+/* ── confirming a commitment ──────────────────────────────────
+   The primary action is the one that keeps the work. Discard sits
+   beside it in the danger colour and never under the thumb by default,
+   because the cost of the two is not symmetric. */
+.confirm-modal { max-width: 420px; width: min(420px, calc(100vw - 28px)); }
+.confirm-body { margin: 10px 0 0; font-size: 13px; line-height: 1.55; color: var(--text-2); }
+.confirm-acts { display: flex; flex-direction: column; gap: 8px; margin-top: 20px; }
+.confirm-acts .btn { width: 100%; justify-content: center; }
+.btn.is-danger { color: var(--danger); border-color: var(--danger-line, var(--line-2)); }
+.btn.is-danger:hover { background: var(--overdue-bg); border-color: var(--danger); }
+
+/* Two actions, so they no longer wrap into two rows of two. */
+.form-actions .btn { flex: 1 1 calc(50% - 4px); min-width: 0; }

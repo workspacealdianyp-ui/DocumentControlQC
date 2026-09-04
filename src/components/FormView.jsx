@@ -82,6 +82,33 @@ function DwellTimer({ value, onChange, disabled }) {
   )
 }
 
+
+/* One dialog for both decisions the form can put to you. The body says
+   what happens rather than asking you to be sure: "are you sure" tells a
+   person nothing they did not already know. */
+function Confirm({ title, body, confirm, onConfirm, danger, onDanger, onClose }) {
+  useEffect(() => {
+    const esc = (e) => { if (e.key === 'Escape') onClose() }
+    document.addEventListener('keydown', esc)
+    return () => document.removeEventListener('keydown', esc)
+  }, [onClose])
+  return (
+    <div className="modal-backdrop" onClick={onClose}>
+      <div className="modal confirm-modal" onClick={(e) => e.stopPropagation()}
+        role="dialog" aria-modal="true" aria-label={title}>
+        <div className="sheet-handle" />
+        <h3>{title}</h3>
+        <p className="confirm-body">{body}</p>
+        <div className="confirm-acts">
+          <button className="btn btn-primary" autoFocus onClick={onConfirm}>{confirm}</button>
+          {danger && <button className="btn btn-secondary is-danger" onClick={onDanger}>{danger}</button>}
+          <button className="btn btn-ghost" onClick={onClose}>Cancel</button>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 // ───────────────────────── one field ─────────────────────────
 function EngineField({ f, values, reqValues, report, set, locked, invalid, onRequestSign, signLocked, session, jobs, onJobChange }) {
   const v = values
@@ -588,6 +615,20 @@ export default function FormView({ job, formKey, query }) {
   const [showPdf, setShowPdf] = useState(false)
   const [signField, setSignField] = useState(null)
   const [forceEdit, setForceEdit] = useState(false) // override roles can switch the detail view into edit mode
+  const [ask, setAsk] = useState(null)   // 'draft' | 'leave'
+
+  /* What the form looked like before anyone touched it. Leaving a report
+     that holds nothing but its own defaults should not stop to ask
+     whether to keep it; leaving one with readings in it must. */
+  const pristine = useRef(null)
+  if (pristine.current === null) pristine.current = JSON.stringify({
+    values: report.values, readings: report.readings, results: report.results,
+    coats: report.coats, photos: report.photos,
+  })
+  const touchedAnything = JSON.stringify({
+    values: report.values, readings: report.readings, results: report.results,
+    coats: report.coats, photos: report.photos,
+  }) !== pristine.current
 
   useEffect(() => { window.scrollTo({ top: 0, behavior: 'smooth' }) }, [step])
   // A section counts as visited the moment it is on screen, however you
@@ -621,7 +662,7 @@ export default function FormView({ job, formKey, query }) {
           onApprove={() => { approveReport(report.id, session.name); setReport((r) => ({ ...r, status: 'approved' })); refresh(); notify(`${report.values.reportId} approved`) }}
           onEdit={() => setForceEdit(true)}
         />
-        {showPdf && createPortal(<PrintReport schema={schema} report={report} job={cur} deliverable={deliverable} status={reportStatus} onClose={() => setShowPdf(false)} />, document.body)}
+      {showPdf && createPortal(<PrintReport schema={schema} report={report} job={cur} deliverable={deliverable} status={reportStatus} onClose={() => setShowPdf(false)} />, document.body)}
       </>
     )
   }
@@ -724,6 +765,14 @@ export default function FormView({ job, formKey, query }) {
     saveReport(rep); setReport(rep); refresh(); return rep
   }
   const onDraft = () => { persist('draft'); notify('Draft saved — status In Progress') }
+  const leave = () => navigate(`/job/${cur.jobNo}`)
+  /* An untouched form has nothing to lose, so back is just back. Once
+     there are readings in it, going back is a decision and the form says
+     so rather than dropping the work silently. */
+  const onBack = () => {
+    if (readOnly || !touchedAnything) { leave(); return }
+    setAsk('leave')
+  }
   const onSubmit = () => {
     const errs = validate()
     const n = Object.keys(errs).length
@@ -805,7 +854,10 @@ export default function FormView({ job, formKey, query }) {
       <Masthead code={schema.code} title={schema.title} backLabel="Back to job"
         eyebrow={<>{deliverable}{cur ? <> · Job {cur.jobNo}</> : null}</>}
         sub={<>{v.reportId}{cur?.productDesc ? <> · {cur.productDesc}</> : null}</>}
-        onBack={() => navigate(`/job/${cur.jobNo}`)}>
+        onBack={onBack}>
+        <button className="btn btn-secondary btn-sm" onClick={() => setShowPdf(true)}>
+          <IconPrint size={13} /> PDF
+        </button>
         <span className={`report-state state-${reportStatus}`}>{reportStatus === 'new' ? 'New' : reportStatus === 'draft' ? 'Draft' : reportStatus === 'approved' ? 'Approved' : 'Submitted'}</span>
       </Masthead>
 
@@ -844,20 +896,41 @@ export default function FormView({ job, formKey, query }) {
           {/* Paging, saving, printing, submitting: one column, in the
               order they are reached. On a phone this same block is the
               fixed bar at the bottom of the screen, where a thumb is. */}
+          {/* Two things you can do to the form itself: carry on, or keep
+              what is here. Going back is a step, so it lives on the
+              stepper and on the masthead; the PDF is a view of the form
+              rather than a change to it, so it sits with the state. */}
           <div className="form-actions">
             {step < schema.sections.length - 1
               ? <button className="btn btn-primary" onClick={() => goStep(step + 1)}>Next</button>
               : !readOnly ? <button className="btn btn-accent" onClick={onSubmit}>Submit Report</button>
-                : <button className="btn btn-primary" onClick={() => navigate(`/job/${cur.jobNo}`)}>Done</button>}
-            <button className="btn btn-secondary" onClick={() => goStep(step - 1)} disabled={step === 0}>Back</button>
-            {!readOnly && <button className="btn btn-secondary" onClick={onDraft}>Save Draft</button>}
-            <button className="btn btn-secondary" onClick={() => setShowPdf(true)}><IconPrint size={14} /> PDF Report</button>
+                : <button className="btn btn-primary" onClick={leave}>Done</button>}
+            {!readOnly && (
+              <button className="btn btn-secondary" onClick={() => setAsk('draft')}>Save Draft</button>
+            )}
             {role.canOverride && reportStatus === 'submitted' && existing && (
               <button className="btn btn-primary" onClick={() => { approveReport(report.id, session.name); setReport((r) => ({ ...r, status: 'approved' })); refresh(); notify(`${v.reportId} approved`) }}>Approve</button>
             )}
           </div>
         </aside>
       </div>
+
+      {ask === 'draft' && createPortal(
+        <Confirm title="Save this as a draft?"
+          body={<>The report keeps its number and stays on job {cur.jobNo} with the status In Progress. You can open it again and carry on from the section you are in.</>}
+          confirm="Save draft" onConfirm={() => { setAsk(null); onDraft() }}
+          onClose={() => setAsk(null)} />, document.body)}
+
+      {ask === 'leave' && createPortal(
+        /* Two ways out, named by what each one does to the work. Discard
+           is the destructive one and is styled as such; it is never the
+           button under the thumb by default. */
+        <Confirm title="Leave this report?"
+          body={<>There are entries on this form that have not been saved. Keep them as a draft you can return to, or discard the form and leave nothing behind.</>}
+          confirm="Save as draft and leave"
+          onConfirm={() => { setAsk(null); onDraft(); setTimeout(leave, 350) }}
+          danger="Discard" onDanger={() => { setAsk(null); leave() }}
+          onClose={() => setAsk(null)} />, document.body)}
 
       {showPdf && createPortal(<PrintReport schema={schema} report={report} job={cur} deliverable={deliverable} status={reportStatus} onClose={() => setShowPdf(false)} />, document.body)}
       {signField && createPortal(
