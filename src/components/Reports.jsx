@@ -5,7 +5,7 @@ import { getReports, deleteReport } from '../lib/store.js'
 import { ncrReports, fmtDateTime } from '../lib/status.js'
 import { reportResult } from '../lib/verdict.js'
 import { StateBadge } from './StatusChip.jsx'
-import { IconTrash, IconDownload, IconDoc, IconCloudUp, IconCloudOff, IconAlert, IconFilter, IconGroup } from './Icons.jsx'
+import { IconTrash, IconDownload, IconCloudUp, IconCloudOff, IconFilter, IconGroup } from './Icons.jsx'
 import { SearchField, ToolButton, PopCheck, PopRadio, PopFooter } from './RegisterBar.jsx'
 
 const TABS = [
@@ -24,6 +24,48 @@ const GROUPS = [
   { id: 'inspector', label: 'Inspector', of: (r) => r.inspector || 'Unassigned' },
   { id: 'none', label: 'No grouping', of: null },
 ]
+
+
+
+/* A report number is one word to a browser, so a narrow card either cuts
+   it or breaks it at whatever character happens to be at the edge. The
+   slashes are its real joints: marking them lets the line break where a
+   person would read a break. */
+const idParts = (id = '') => String(id).split('/')
+const ReportId = ({ id }) => (
+  <>{idParts(id).map((part, i, all) => (
+    <span key={i}>{part}{i < all.length - 1 ? <>/<wbr /></> : null}</span>
+  ))}</>
+)
+/* One report, as a card.
+
+   The old row put five things on five bands of their own once the screen
+   narrowed: an icon, a number, a meta line, a sync line, then a status
+   pill and a bin sharing a fourth. Four reports filled a phone screen.
+
+   This is the same five things on three lines, around one mark. The mark
+   carries the form code rather than a document glyph — every report in
+   this list is a document, so drawing one says nothing — and it is
+   tinted by the report's state, which the badge beside it also names in
+   words. Colour and text, so neither has to carry it alone. */
+function ReportCard({ r, tone, code, title, sub, foot, onOpen, onDelete, canDelete }) {
+  return (
+    <div className={`rep-card tone-${tone}`} role="button" tabIndex={0}
+      onClick={onOpen}
+      onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onOpen() } }}>
+      <span className="rep-code" aria-hidden="true">{code}</span>
+      <strong className="rep-id">{title}</strong>
+      <span className="rep-state"><StateBadge status={r.status} /></span>
+      <small className="rep-sub">{sub}</small>
+      <small className="rep-foot">{foot}</small>
+      {canDelete && (
+        <button className="rep-del" aria-label={`Delete ${r.reportId}`} onClick={onDelete}>
+          <IconTrash size={14} />
+        </button>
+      )}
+    </div>
+  )
+}
 
 export default function Reports({ query }) {
   const { role, tick, refresh, notify } = useApp()
@@ -171,17 +213,13 @@ export default function Reports({ query }) {
           <button className="btn btn-secondary" onClick={() => navigate('/')}>Go to Home</button>
         </div>
       ) : tab === 'ncr' ? (
-        <div className="card table-card deliv-list">
+        <div className="rep-list">
           {shown.map((r) => (
-            <button key={r.id} className="deliv-row tappable" onClick={() => openReport(r)}>
-              <span className="deliv-ico ncr-ico"><IconAlert size={17} /></span>
-              <span className="deliv-main">
-                <strong>{r.reportId} — {reportResult(r) === 'Reject' ? 'Rejected' : 'Finding'}</strong>
-                <small>{(r.values?.ncr || 'Non-conforming result recorded').slice(0, 110)}</small>
-                <small>{FORM_SCHEMAS[r.formKey]?.title} · Job {r.jobNo} · {r.inspector} · {fmtDateTime(r.updatedAt)}</small>
-              </span>
-              <StateBadge status={r.status} />
-            </button>
+            <ReportCard key={r.id} r={r} tone="ncr" code={FORM_SCHEMAS[r.formKey]?.code || '—'}
+              title={<><ReportId id={r.reportId} /> — {reportResult(r) === 'Reject' ? 'Rejected' : 'Finding'}</>}
+              sub={(r.values?.ncr || 'Non-conforming result recorded').slice(0, 110)}
+              foot={<>Job {r.jobNo}{r.inspector ? ` · ${r.inspector}` : ''} · {fmtDateTime(r.updatedAt)}</>}
+              onOpen={() => openReport(r)} canDelete={false} />
           ))}
         </div>
       ) : (
@@ -190,34 +228,22 @@ export default function Reports({ query }) {
             {groupName && (
               <h3 className="section-title">{groupName} <span className="group-count">{reps.length}</span></h3>
             )}
-            <div className="card table-card deliv-list" style={{ marginBottom: 6 }}>
+            <div className="rep-list">
               {reps.map((r) => (
-                /* A div, not a button. It used to be a <button> with a
-                   <span role="button"> inside it — invalid markup, and on
-                   a phone the nested control was laid out over the report
-                   number instead of beside it. Now the row carries the
-                   open action and Delete is a real sibling button. */
-                <div key={r.id} className="deliv-row tappable" role="button" tabIndex={0}
-                  onClick={() => openReport(r)}
-                  onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openReport(r) } }}>
-                  <span className="deliv-ico"><IconDoc size={17} /></span>
-                  <span className="deliv-main">
-                    <strong>{r.reportId}</strong>
-                    <small>Job {r.jobNo} · {r.inspector} · updated {fmtDateTime(r.updatedAt)}</small>
-                    <small className={r.synced ? 'sync-tag up' : 'sync-tag'}>
-                      {r.synced ? <><IconCloudUp size={10} /> uploaded {fmtDateTime(r.syncedAt)}</> : <><IconCloudOff size={10} /> stored offline</>}
-                    </small>
-                  </span>
-                  <span className="deliv-end">
-                    <StateBadge status={r.status} />
-                    {role.canManage && (
-                      <button className="btn btn-ghost btn-icon" aria-label={`Delete ${r.reportId}`}
-                        onClick={(e) => onDelete(e, r)}>
-                        <IconTrash size={13} />
-                      </button>
-                    )}
-                  </span>
-                </div>
+                <ReportCard key={r.id} r={r} tone={r.status}
+                  code={FORM_SCHEMAS[r.formKey]?.code || '—'}
+                  title={<ReportId id={r.reportId} />}
+                  sub={<>Job {r.jobNo}{r.inspector ? ` · ${r.inspector}` : ''}</>}
+                  foot={<>
+                    <span className={r.synced ? 'sync-tag up' : 'sync-tag'}>
+                      {r.synced ? <><IconCloudUp size={10} /> Uploaded</> : <><IconCloudOff size={10} /> Offline</>}
+                    </span>
+                    <span className="rep-dot" aria-hidden="true">·</span>
+                    {fmtDateTime(r.updatedAt)}
+                  </>}
+                  onOpen={() => openReport(r)}
+                  onDelete={(e) => onDelete(e, r)}
+                  canDelete={role.canManage} />
               ))}
             </div>
           </div>

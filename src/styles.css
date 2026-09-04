@@ -3681,3 +3681,129 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber); outline-
   .jobpick-table .jp-cust { display: none; }
   .jobpick-table thead th:last-child { display: none; }
 }
+
+
+/* ═══════════════════════════════════════════════════════════════
+   REPORT CARDS
+
+   A register of documents, one card each. The layout is a three-column
+   grid at every width — mark, content, state — so the card does not
+   rearrange itself into a stack of bands when the screen narrows, which
+   is what used to turn a phone list into four reports per screen.
+   ═══════════════════════════════════════════════════════════════ */
+
+.rep-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 14px; }
+
+.rep-card {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  /* The state and the bin stand together at the right, centred on the
+     whole card rather than pinned to a line of it, so a three-line card
+     does not leave the bin stranded in a corner. */
+  grid-template-areas:
+    "code id   state act"
+    "code sub  state act"
+    "code foot state act";
+  column-gap: 12px; row-gap: 2px;
+  align-items: center;
+  position: relative;
+  padding: 12px 13px;
+  border: 1px solid var(--line);
+  border-radius: 13px;
+  background: var(--surface);
+  cursor: pointer;
+  transition: border-color .14s ease, box-shadow .14s ease, transform .14s ease;
+}
+.rep-card:hover { border-color: var(--line-2); box-shadow: 0 2px 10px rgba(20, 20, 24, 0.07); }
+.rep-card:active { transform: scale(0.995); }
+.rep-card:focus-visible { outline: none; border-color: var(--amber); box-shadow: 0 0 0 3px var(--amber-soft); }
+
+/* The mark carries the form code, tinted by the report's state. Two
+   facts, one object — and the badge beside it still names the state in
+   words, so the colour is never the only signal. */
+.rep-code {
+  grid-area: code;
+  display: grid; place-items: center;
+  width: 42px; height: 42px;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background: var(--surface-2); color: var(--text-2);
+  font-family: var(--mono); font-size: 12px; font-weight: 700;
+  letter-spacing: 0.02em;
+}
+.rep-card.tone-draft     .rep-code { background: var(--inprog-bg); color: var(--inprog); border-color: var(--inprog-bg); }
+.rep-card.tone-submitted .rep-code { background: rgba(127, 176, 255, 0.16); color: #2f6fd0; border-color: transparent; }
+.rep-card.tone-approved  .rep-code { background: var(--done-bg); color: var(--done); border-color: var(--done-bg); }
+.rep-card.tone-ncr       .rep-code { background: var(--overdue-bg); color: var(--overdue); border-color: var(--overdue-bg); }
+:root[data-theme="dark"] .rep-card.tone-submitted .rep-code { color: #7fb0ff; }
+
+.rep-id {
+  grid-area: id; align-self: end;
+  font-size: 14px; font-weight: 600; letter-spacing: -0.006em; color: var(--text);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.rep-state { grid-area: state; align-self: center; justify-self: end; }
+.rep-sub {
+  grid-area: sub;
+  font-size: 12px; color: var(--text-2);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.rep-foot {
+  grid-area: foot; align-self: start;
+  display: flex; align-items: center; gap: 5px; min-width: 0;
+  font-size: 11.5px; color: var(--text-3);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.rep-dot { color: var(--text-3); }
+
+/* Delete sits on the last line rather than beside the state badge: it is
+   the rarest thing anyone does here, and putting it next to the status
+   made two very different actions look like a pair. */
+.rep-del {
+  grid-area: act; align-self: center; justify-self: end;
+  display: grid; place-items: center;
+  width: 30px; height: 30px; margin-right: -4px;
+  border: 0; border-radius: 9px;
+  background: none; color: var(--text-3);
+  cursor: pointer; transition: color .14s ease, background .14s ease;
+}
+.rep-del:hover { color: var(--overdue); background: var(--overdue-bg); }
+.rep-del:focus-visible { outline: none; color: var(--overdue); box-shadow: 0 0 0 3px var(--amber-soft); }
+
+/* Narrow, the card tightens rather than sheds. The state keeps its word
+   — a glyph alone asks people to learn three icons — and the numbers
+   keep their room, because the report number is what anyone is scanning
+   this list for. */
+@media (max-width: 430px) {
+  .rep-card { padding: 11px 12px; column-gap: 10px; }
+  .rep-code { width: 38px; height: 38px; border-radius: 11px; font-size: 11px; }
+  .rep-state .report-state { padding: 3px 8px 3px 6px; font-size: 11.5px; gap: 4px; }
+  .rep-sub, .rep-foot { font-size: 11px; }
+  /* A report number is an identifier: truncating it loses the revision
+     at the end, which is the part that tells two of them apart. Beside a
+     status badge on a 360px screen it does not fit on one line, so it
+     wraps at its slashes instead of being cut. */
+  .rep-id {
+    font-size: 13.5px; line-height: 1.3;
+    white-space: normal; overflow: visible; overflow-wrap: normal; word-break: normal;
+    align-self: center;
+  }
+  /* One width for every badge, so every report number breaks at the
+     same joint and the cards line up down the page. */
+  /* Too narrow for a right-hand column: the state returns to the first
+     line and the bin sits over the end of the last one. One width for
+     every badge, so every report number breaks at the same joint and the
+     cards line up down the page. */
+  .rep-card {
+    grid-template-areas:
+      "code id   state"
+      "code sub  sub"
+      "code foot foot";
+  }
+  .rep-state { align-self: center; min-width: 96px; }
+  .rep-state .report-state { width: 100%; justify-content: center; }
+  .rep-foot { padding-right: 34px; }
+  .rep-del { position: absolute; right: 9px; bottom: 8px; margin-right: 0; }
+}
+
+:root[data-theme="dark"] .rep-card:hover { box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4); }
