@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from 'react'
 import { MR } from '../lib/compute.js'
 import { dimRowStatus, dimDeviation } from '../data/formSchemas.js'
 import { buildResume } from '../lib/resume.js'
-import { useFitToPage, pageSpans, sameFit, oneEach, tighten } from '../lib/pagefit.js'
+import { useFitToPage, pageSpans, sameFit, oneEach, tighten, useSheetZoom } from '../lib/pagefit.js'
 import { IconPrint } from './Icons.jsx'
 
 // Formal industrial inspection report — bordered A4, generated from the report model.
@@ -313,6 +313,7 @@ export default function PrintReport({ schema, report, job, deliverable, status, 
     setFit((p) => (sameFit(p, f) ? p : f))
     setRowFit((r) => tighten(r, f))
   })
+  useSheetZoom(wrap)
   const sheets = reportSheetCount(schema, report, rowFit)
   const { spans, total } = pageSpans(fit && fit.length === sheets ? fit : oneEach(sheets))
 
@@ -322,8 +323,11 @@ export default function PrintReport({ schema, report, job, deliverable, status, 
         <button className="btn btn-primary" onClick={() => window.print()}><IconPrint size={15} /> Print / Save as PDF</button>
         <button className="btn btn-secondary" onClick={onClose}>Close preview</button>
       </div>
-      <ReportSheets schema={schema} report={report} job={job} deliverable={deliverable} status={status}
-        pageMap={spans} pageTotal={total} rowFit={rowFit} />
+      {/* The page keeps its 210mm; this wrapper is what shrinks. */}
+      <div className="print-scaler">
+        <ReportSheets schema={schema} report={report} job={job} deliverable={deliverable} status={status}
+          pageMap={spans} pageTotal={total} rowFit={rowFit} />
+      </div>
     </div>
   )
 }

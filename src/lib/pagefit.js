@@ -133,3 +133,43 @@ export function useFitToPage(ref, deps = [], onFit) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, deps)
 }
+
+
+/* ── fitting the preview to the screen ────────────────────────────
+   A sheet is 210mm wide and its tables are table-layout:fixed, so a
+   phone cannot be given a narrower one: the columns do not reflow, they
+   crush, and a header set in 8.5pt ends up breaking one letter per line.
+
+   A print preview has one job, which is to show the page as it will
+   print. So the page keeps its width and the preview scales, the way
+   every real print preview does. `zoom` rather than a transform because
+   zoom reflows the box: the scroll height shrinks with the page instead
+   of leaving a screen of empty space under it.
+
+   The zoom goes on a wrapper, never on .print-sheet, because fitSheets()
+   above already owns that property for the page-fit reduction. */
+const SHEET_MM = 210
+
+export function useSheetZoom(ref) {
+  useEffect(() => {
+    const root = ref.current
+    if (!root) return
+    const fit = () => {
+      // Measure a millimetre rather than assuming 96dpi.
+      const probe = document.createElement('div')
+      probe.style.cssText = 'position:absolute;visibility:hidden;height:1px;width:100mm'
+      root.appendChild(probe)
+      const sheetPx = (probe.getBoundingClientRect().width / 100) * SHEET_MM
+      probe.remove()
+      if (!sheetPx) return
+      const cs = getComputedStyle(root)
+      const avail = root.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight)
+      // Never enlarge: a sheet shown bigger than A4 is not a preview.
+      root.style.setProperty('--sheet-zoom', String(Math.min(1, avail / sheetPx)))
+    }
+    fit()
+    const ro = new ResizeObserver(fit)
+    ro.observe(root)
+    return () => ro.disconnect()
+  }, [ref])
+}

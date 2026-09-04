@@ -4,7 +4,7 @@ import { FORM_SCHEMAS } from '../data/formSchemas.js'
 import { fmtDate } from '../lib/status.js'
 import { reportResult } from '../lib/verdict.js'
 import { ReportSheets, reportSheetCount } from './PrintReport.jsx'
-import { useFitToPage, pageSpans, sameFit, oneEach, tighten } from '../lib/pagefit.js'
+import { useFitToPage, pageSpans, sameFit, oneEach, tighten, useSheetZoom } from '../lib/pagefit.js'
 import { IconPrint } from './Icons.jsx'
 
 /* The Manufacturing Data Report.
@@ -77,6 +77,7 @@ export default function MdrReport({ job, reports, session, onClose }) {
      they come from what the paper did rather than from a sheet count — and
      a report whose sheets would not fit is given fewer rows per sheet and
      measured again, rather than left to flow and be estimated. */
+  useSheetZoom(wrap)
   useFitToPage(wrap, [job.jobNo, reports.length, sheetTotal, Object.values(rowFit).join(',')], (f) => {
     setFit((p) => (sameFit(p, f) ? p : f))
     if (f.length !== sheetTotal) return
@@ -165,6 +166,9 @@ export default function MdrReport({ job, reports, session, onClose }) {
         </button>
         <button className="btn btn-secondary" onClick={onClose}>Close preview</button>
       </div>
+
+      {/* The pages keep their 210mm; this wrapper is what shrinks. */}
+      <div className="print-scaler">
 
       {/* ══════════ COVER ══════════ */}
       <div className="print-sheet">
@@ -392,6 +396,7 @@ export default function MdrReport({ job, reports, session, onClose }) {
           deliverable={it.r.deliverable} status={it.r.status} rowFit={rowFit[it.r.id]}
           pageMap={it.map} pageTotal={totalPages} sectionNo={it.sectionNo} breakFirst />
       ))}
+      </div>
     </div>
   )
 }

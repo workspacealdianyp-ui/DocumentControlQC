@@ -1533,8 +1533,14 @@ td.th-action { display: flex; gap: 6px; justify-content: flex-end; align-items: 
 
 /* ════════════════ FORMAL INDUSTRIAL PDF (unchanged monochrome) ════════════════ */
 .print-overlay { position: fixed; inset: 0; z-index: var(--z-print); overflow: auto; background: #525659; padding: 18px 10px 40px; }
+/* A preview shows the page as it will print, so the page keeps its
+   210mm and this wrapper shrinks to whatever the screen has. Zoom, not a
+   transform: zoom reflows the box, so the scroll height comes down with
+   the pages instead of leaving a screenful of grey under them.
+   --sheet-zoom is measured and set by useSheetZoom(). */
+.print-scaler { zoom: var(--sheet-zoom, 1); }
 .print-toolbar { position: sticky; top: 0; z-index: 310; display: flex; gap: 10px; justify-content: center; padding: 0 0 14px; }
-.print-sheet { position: relative; overflow: hidden; background: #fff; color: #111; margin: 0 auto; width: 210mm; max-width: 100%; min-height: 297mm; padding: 11mm 10mm; box-shadow: 0 8px 30px rgba(0,0,0,0.4); font-family: 'Fira Sans', Arial, sans-serif; font-size: 9.5pt; line-height: 1.4; }
+.print-sheet { position: relative; overflow: hidden; background: #fff; color: #111; margin: 0 auto; width: 210mm; min-height: 297mm; padding: 11mm 10mm; box-shadow: 0 8px 30px rgba(0,0,0,0.4); font-family: 'Fira Sans', Arial, sans-serif; font-size: 9.5pt; line-height: 1.4; }
 .print-sheet table { width: 100%; border-collapse: collapse; table-layout: fixed; border: 1.3pt solid #000; }
 .print-sheet th, .print-sheet td { border: 0.55pt solid #6b6b6b; padding: 4.5pt 7pt; vertical-align: top; font-size: 8.5pt; word-wrap: break-word; }
 /* outer document table: header repeats on every page via <thead>, footer via <tfoot> */
@@ -1678,6 +1684,9 @@ td.th-action { display: flex; gap: 6px; justify-content: flex-end; align-items: 
    window, and a sheet measured while narrow reads as far too tall. Held
    for one synchronous measurement pass, never painted. */
 .pf-measuring .print-sheet { width: 210mm !important; max-width: none !important; }
+/* Page fitting measures against the printed page, so the preview's
+   fit-to-screen zoom steps aside while it runs. */
+.pf-measuring .print-scaler { zoom: 1 !important; }
 
 @media print {
   /* A4 portrait with real page margins. Each sheet carries its own
@@ -1691,6 +1700,7 @@ td.th-action { display: flex; gap: 6px; justify-content: flex-end; align-items: 
   body.printing .shell, body.printing .toast { display: none !important; }
   .print-overlay { position: static; background: none; padding: 0; overflow: visible; }
   .print-toolbar { display: none !important; }
+  .print-scaler { zoom: 1 !important; }
   /* let @page handle margins; sheet fills the content box and paginates */
   .print-sheet { box-shadow: none; width: auto; min-height: 0; margin: 0; padding: 0; overflow: visible; }
   /* each section is its own A4 sheet → starts on a fresh page; no on-screen gap when printing */
