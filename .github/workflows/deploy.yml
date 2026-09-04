@@ -22,7 +22,13 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-      - run: npm ci
+          # Almost the whole deploy was one step: npm ci ran 3-6 minutes
+          # against a cold runner while checkout, build, upload and the
+          # deploy itself took about fifteen seconds between them. This
+          # keeps ~/.npm between runs, keyed on the lockfile, so the
+          # install reads from disk instead of the network.
+          cache: npm
+      - run: npm ci --prefer-offline --no-audit --fund=false
       - run: npm run build
       - uses: actions/upload-pages-artifact@v3
         with:
