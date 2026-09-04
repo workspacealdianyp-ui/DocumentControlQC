@@ -189,7 +189,7 @@
 :root[data-theme="dark"] .rb-btn { box-shadow: none; }
 :root[data-theme="dark"] .report-state { background: rgba(255, 255, 255, 0.06); }
 :root[data-theme="dark"] .masthead-side > * { box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5); }
-:root[data-theme="dark"] .masthead-mark { background: var(--text); color: #101014; border-color: var(--text); }
+:root[data-theme="dark"] .masthead-mark:not(.is-free) { background: var(--text); color: #101014; border-color: var(--text); }
 
 /* --steel and --ink name the dark chip, so the handful of rules that
    borrowed them for a foreground go pale instead of dark at night. */
@@ -832,6 +832,14 @@ td.th-action { display: flex; gap: 6px; justify-content: flex-end; align-items: 
 /* The type stops where the scrim is still opaque. A title long enough
    to reach the pour would be set in dark grey on orange, so the column
    is capped and truncated rather than left to run. */
+/* A mark that carries something of its own — a ring, a figure — keeps
+   the plate's position but not its box. */
+.masthead-mark.is-free {
+  min-width: 0; height: auto; padding: 0;
+  border: 0; border-radius: 0; background: none; color: inherit;
+}
+.masthead-mark.is-wide { margin: -6px 2px -6px 0; }
+
 .masthead-txt { display: flex; flex-direction: column; gap: 2px; min-width: 0; flex: 1 1 auto; max-width: 42%; }
 .masthead-eyebrow {
   font-family: var(--mono); font-size: 10.5px; font-weight: 600;
@@ -866,6 +874,21 @@ td.th-action { display: flex; gap: 6px; justify-content: flex-end; align-items: 
 @media (max-width: 720px) {
   .masthead-inner { flex-wrap: wrap; padding: 13px 14px; gap: 11px; }
   .masthead-txt { flex-basis: 100%; order: 3; max-width: none; }
+  /* A 92px ring is a third of the band on a phone. It keeps its detail
+     at two thirds the size, which is all the room there is. */
+  .masthead-mark.is-wide {
+    transform: scale(0.7); transform-origin: left center; margin: -14px -26px -14px -4px;
+    /* Narrow, the mark sits over the pour rather than beside it, so it
+       carries a disc of the page's own ground to read against. */
+    border-radius: 50%;
+    background: radial-gradient(closest-side,
+      var(--surface) 0 72%,
+      color-mix(in srgb, var(--surface) 70%, transparent) 88%,
+      transparent 100%);
+  }
+  @supports not (color: color-mix(in srgb, white 50%, transparent)) {
+    .masthead-mark.is-wide { background: var(--surface); }
+  }
   .masthead-side { order: 2; margin-left: auto; }
   .masthead-txt h2 { font-size: 17px; white-space: normal; }
   /* Narrow, the stone has no room to show past the words, so it steps
@@ -892,6 +915,7 @@ td.th-action { display: flex; gap: 6px; justify-content: flex-end; align-items: 
 .state-draft { color: var(--inprog); background: var(--inprog-bg); }
 .state-submitted { color: #7fb0ff; background: rgba(127,176,255,0.14); }
 .state-approved { color: var(--done); background: var(--done-bg); }
+.state-overdue { color: var(--overdue); background: var(--overdue-bg); }
 .readonly-note, .locked-note, .grid-err { background: var(--inprog-bg); border: 1px solid var(--inprog); color: var(--inprog); font-size: 13px; font-weight: 500; border-radius: var(--r); padding: 11px 14px; margin-bottom: 14px; }
 .grid-err { background: var(--overdue-bg); border-color: var(--overdue); color: var(--overdue); }
 
@@ -3807,3 +3831,48 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber); outline-
 }
 
 :root[data-theme="dark"] .rep-card:hover { box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4); }
+
+
+/* ── the deliverable card ────────────────────────────────────────
+   The same card as a report, with the middle line dropped: a
+   deliverable has a name and a state, and one line saying either which
+   report answers it or why none does yet. */
+.rep-card.is-deliv {
+  grid-template-areas:
+    "code id   state go"
+    "code foot state go";
+}
+.rep-card.is-deliv .rep-id { align-self: end; }
+.rep-card.is-deliv .rep-foot { align-self: start; }
+.rep-card.is-flat { cursor: default; }
+.rep-card.is-deliv.is-flat::after { content: ''; grid-area: go; width: 22px; }
+.rep-card.is-flat:hover { border-color: var(--line); box-shadow: none; }
+.rep-card.is-flat:active { transform: none; }
+
+.rep-go {
+  grid-area: go; align-self: center; justify-self: end;
+  display: grid; place-items: center;
+  width: 22px; color: var(--text-3);
+  transition: color .14s ease, transform .14s ease;
+}
+.rep-card:hover .rep-go { color: var(--text-2); transform: translateX(2px); }
+
+/* Deliverable states use the matrix's vocabulary, not a report's. */
+.rep-card.tone-done       .rep-code { background: var(--done-bg);     color: var(--done);     border-color: transparent; }
+.rep-card.tone-inprogress .rep-code { background: var(--inprog-bg);   color: var(--inprog);   border-color: transparent; }
+.rep-card.tone-overdue    .rep-code { background: var(--overdue-bg);  color: var(--overdue);  border-color: transparent; }
+.rep-card.tone-notstarted .rep-code { background: var(--notstart-bg); color: var(--notstart); border-color: transparent; }
+.rep-card.tone-na         .rep-code { opacity: 0.6; }
+
+@media (max-width: 430px) {
+  .rep-card.is-deliv {
+    grid-template-areas:
+      "code id   state"
+      "code foot foot";
+  }
+  /* No room for a chevron beside a status word; the whole card is the
+     control, and it says so by being one. */
+  .rep-card.is-deliv .rep-go,
+  .rep-card.is-deliv.is-flat::after { display: none; }
+  .rep-card.is-deliv .rep-foot { padding-right: 0; }
+}

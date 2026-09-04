@@ -9,7 +9,8 @@ import { requiredFor } from '../lib/jobOrders.js'
 import StatusChip, { StateBadge } from './StatusChip.jsx'
 import MdrReport from './MdrReport.jsx'
 import { reportResult } from '../lib/verdict.js'
-import { IconBack, IconDoc, IconPrint } from './Icons.jsx'
+import { IconDoc, IconPrint } from './Icons.jsx'
+import Masthead from './Masthead.jsx'
 
 const KAT_LABEL = { SUPEQ: 'Support Equipment', TRAILER: 'Trailer', 'NON TRAILER': 'Non Trailer' }
 
@@ -90,29 +91,24 @@ export default function JobDetail({ job }) {
 
   return (
     <div className="page">
-      {/* Back to the category this job belongs to, so returning keeps the
-          list where the reader left it. */}
-      <button className="btn btn-ghost back-btn btn-sm"
-        onClick={() => navigate(job.kategori ? `/jobs?kat=${encodeURIComponent(job.kategori)}` : '/jobs')}>
-        <IconBack size={14} /> {KAT_LABEL[job.kategori] || 'Jobs'}
-      </button>
-
-      {/* Hero. Was the one dark panel in a light app; it reads as a card
-          now, with the ring carrying the only colour. */}
-      <div className={`jd-hero${p.applicable && p.done === p.applicable ? ' is-complete' : ''}`}>
-        <div className="jd-hero-main">
-          <div className="jd-hero-id">
-            <h2>{job.jobNo}</h2>
-            {job.kategori && <span className="jd-kat">{KAT_LABEL[job.kategori] || job.kategori}</span>}
-          </div>
-          <p className="jd-product">{job.productDesc}</p>
-          <p className="jd-cust">
-            {job.customerName}
-            {(job.unitNo || job.arasSN) && <span className="jd-sn">{job.unitNo || job.arasSN}</span>}
-          </p>
-        </div>
-        <ProgressRing done={p.done} total={p.applicable} />
-      </div>
+      {/* The same band every document in this app wears, with the ring
+          as its mark: how much of this job is finished is the first
+          thing anyone opening it wants to know, and it sits on the left
+          where the stone's scrim is fully opaque. Back goes to the
+          category this job belongs to, so returning keeps the list where
+          the reader left it. */}
+      <Masthead
+        mark={<ProgressRing done={p.done} total={p.applicable} />} wide
+        eyebrow={<>{KAT_LABEL[job.kategori] || 'Job'}{job.poNo ? <> · PO {job.poNo}</> : null}</>}
+        title={`Job ${job.jobNo}`}
+        sub={<>{job.productDesc}{job.customerName ? <> · {job.customerName}</> : null}</>}
+        backLabel={`Back to ${KAT_LABEL[job.kategori] || 'jobs'}`}
+        onBack={() => navigate(job.kategori ? `/jobs?kat=${encodeURIComponent(job.kategori)}` : '/jobs')}>
+        {/* The ring already counts; this says what the count means. */}
+        <span className={`report-state ${p.applicable && p.done === p.applicable ? 'state-approved' : p.overdue ? 'state-overdue' : 'state-draft'}`}>
+          {p.applicable && p.done === p.applicable ? 'Complete' : p.overdue ? 'Overdue' : 'In progress'}
+        </span>
+      </Masthead>
 
       {/* Metadata. Category, customer and serial live in the hero now, so
           this card carries only what the hero does not already say — and
@@ -132,29 +128,26 @@ export default function JobDetail({ job }) {
 
       {/* Required reports — app-style rows */}
       <h3 className="section-title">Required Reports</h3>
-      <div className="card table-card deliv-list">
+      <div className="rep-list">
         {DELIVERABLES.filter((d) => wanted.includes(d.key)).map((d) => {
           const cell = p.statuses[d.key]
           const reps = reportsFor(job.jobNo, d.key)
           const last = reps.length ? reps[reps.length - 1] : null
           const tappable = !!d.form && (role.canEdit || !!last)
-          const sub = cell.ref
+          const foot = cell.ref
             || (last ? [last.reportId, fmtDate(last.updatedAt), last.inspector].filter(Boolean).join(' · ') : null)
-            || (d.form ? (role.canEdit ? 'Tap to fill the inspection form' : 'No report yet') : 'Document deliverable, tracked manually')
-          const Row = tappable ? 'button' : 'div'
+            || (d.form ? (role.canEdit ? 'Not started — open to fill the form' : 'No report yet') : 'Document deliverable, tracked manually')
           return (
-            <Row key={d.key} className={`deliv-row${tappable ? ' tappable' : ''}`}
-              onClick={tappable ? () => openDeliv(d, cell, last) : undefined}>
-              <span className="deliv-ico">{d.short}</span>
-              <span className="deliv-main">
-                <strong>{d.label}</strong>
-                <small>{sub}</small>
-              </span>
-              <span className="deliv-end">
-                <StatusChip status={cell.status} />
-                {tappable ? <Chevron /> : <span className="deliv-chevron-gap" aria-hidden="true" />}
-              </span>
-            </Row>
+            <div key={d.key} className={`rep-card is-deliv tone-${cell.status}${tappable ? '' : ' is-flat'}`}
+              role={tappable ? 'button' : undefined} tabIndex={tappable ? 0 : undefined}
+              onClick={tappable ? () => openDeliv(d, cell, last) : undefined}
+              onKeyDown={tappable ? (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openDeliv(d, cell, last) } } : undefined}>
+              <span className="rep-code" aria-hidden="true">{d.short}</span>
+              <strong className="rep-id">{d.label}</strong>
+              <span className="rep-state"><StatusChip status={cell.status} /></span>
+              <small className="rep-foot">{foot}</small>
+              {tappable && <span className="rep-go" aria-hidden="true"><Chevron /></span>}
+            </div>
           )
         })}
       </div>

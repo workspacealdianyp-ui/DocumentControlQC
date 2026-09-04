@@ -801,7 +801,9 @@ export default function FormView({ job, formKey, query }) {
     <div className="page form-page form-page-pad">
       {/* State only. Every action lives in the rail on the right, so
           there is one place to look for something to press. */}
-      <Masthead schema={schema} reportId={v.reportId} deliverable={deliverable} job={cur}
+      <Masthead code={schema.code} title={schema.title} backLabel="Back to job"
+        eyebrow={<>{deliverable}{cur ? <> · Job {cur.jobNo}</> : null}</>}
+        sub={<>{v.reportId}{cur?.productDesc ? <> · {cur.productDesc}</> : null}</>}
         onBack={() => navigate(`/job/${cur.jobNo}`)}>
         <span className={`report-state state-${reportStatus}`}>{reportStatus === 'new' ? 'New' : reportStatus === 'draft' ? 'Draft' : reportStatus === 'approved' ? 'Approved' : 'Submitted'}</span>
       </Masthead>

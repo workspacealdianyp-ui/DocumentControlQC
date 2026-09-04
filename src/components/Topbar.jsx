@@ -16,11 +16,15 @@ import {
    look for the state of things rather than a control hovering over the
    content it refers to. */
 
+const KAT_LABEL = { SUPEQ: 'Support Equipment', TRAILER: 'Trailer', 'NON TRAILER': 'Non Trailer' }
+
 const PAGE_TITLES = {
   home: ['Dashboard', ''],
   monitor: ['Monitor', 'Job × report status matrix'],
   jobs: ['Jobs', 'Job register'],
-  joborder: ['New job order', 'Purchase order, units, reports'],
+  // The masthead on this page names the order; the bar names the
+  // section it lives in, so the two do not say the same thing twice.
+  joborder: ['Jobs', 'New order'],
   reports: ['Reports', 'Documents & NCR'],
   settings: ['Settings', ''],
   help: ['Help & support', 'How this build works'],
@@ -35,7 +39,12 @@ export default function Topbar({ route, job, onToggleSidebar, searchOpen, onOpen
   useEffect(() => { setNotifOpen(false) }, [route.page, route.jobNo, route.formKey])
 
   let [title, sub] = PAGE_TITLES[route.page] || ['', '']
-  if (route.page === 'job' && job) { title = `Job ${job.jobNo}`; sub = job.customerName }
+  // Same on a job: its masthead carries the number, so the bar carries
+  // the category the job was filed under.
+  if (route.page === 'job' && job) {
+    title = 'Jobs'
+    sub = [KAT_LABEL[job.kategori] || 'Job register', job.jobNo].filter(Boolean).join(' · ')
+  }
   // On a form the top bar says where you are — the job — and the
   // masthead below says what the document is. Naming the report in both
   // put the same words on screen twice, one line apart.

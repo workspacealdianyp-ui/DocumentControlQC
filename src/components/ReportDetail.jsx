@@ -175,7 +175,9 @@ export default function ReportDetail({ schema, report, job, deliverable, status,
 
   return (
     <div className="page form-page form-page-pad">
-      <Masthead schema={schema} reportId={v.reportId} deliverable={deliverable} job={job} onBack={onBack}>
+      <Masthead code={schema.code} title={schema.title} onBack={onBack} backLabel="Back to job"
+        eyebrow={<>{deliverable}{job ? <> · Job {job.jobNo}</> : null}</>}
+        sub={<>{v.reportId}{job?.productDesc ? <> · {job.productDesc}</> : null}</>}>
         {/* State: where the document stands, and what was decided. Two
             badges of the same shape, so they read as one kind of fact. */}
         <span className={`dbadge state-${status}`}>

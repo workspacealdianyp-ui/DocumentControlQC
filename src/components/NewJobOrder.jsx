@@ -3,7 +3,8 @@ import { useApp, navigate } from '../App.jsx'
 import { DELIVERABLES } from '../lib/constants.js'
 import { FORM_SCHEMAS } from '../data/formSchemas.js'
 import { saveOrder, takenJobNos } from '../lib/jobOrders.js'
-import { IconBack, IconPlus, IconTrash, IconCheck, IconDoc, IconPen, IconCloudUp } from './Icons.jsx'
+import { IconPlus, IconTrash, IconCheck, IconDoc, IconPen, IconCloudUp } from './Icons.jsx'
+import Masthead from './Masthead.jsx'
 
 /* Creating a job order: the PO once, then a row per unit, then the
    reports every unit on the order has to produce. Publishing turns each
@@ -45,9 +46,8 @@ export default function NewJobOrder() {
   if (!role.canManage) {
     return (
       <div className="page">
-        <button className="btn btn-ghost back-btn btn-sm" onClick={() => navigate('/jobs')}>
-          <IconBack size={14} /> Jobs
-        </button>
+        <Masthead code="PO" eyebrow="Job order" title="New job order"
+          onBack={() => navigate('/jobs')} backLabel="Back to jobs" />
         <div className="card empty-state">
           <p><strong>Only QC head or admin can create a job order.</strong></p>
           <p>Ask an admin to raise the order; it will appear in your Jobs list once published.</p>
@@ -120,15 +120,11 @@ export default function NewJobOrder() {
 
   return (
     <div className="page jo">
-      <button className="btn btn-ghost back-btn btn-sm" onClick={() => navigate('/jobs')}>
-        <IconBack size={14} /> Jobs
-      </button>
+      <Masthead code="PO" eyebrow="Job order" title="New job order"
+        sub="The order, its units, and the reports they owe"
+        onBack={() => navigate('/jobs')} backLabel="Back to jobs" />
 
-      <div className="mon-head">
-        <h2>New job order</h2>
-      </div>
       <p className="page-sub jo-lede">
-        One purchase order, the units it covers, and the reports each unit has to produce.
         Publishing puts these jobs in front of the inspectors.
       </p>
 
