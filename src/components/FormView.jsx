@@ -13,7 +13,7 @@ import ReportDetail from './ReportDetail.jsx'
 import SignaturePad from './SignaturePad.jsx'
 import JobPicker from './JobPicker.jsx'
 import Masthead from './Masthead.jsx'
-import { IconPlus, IconTrash, IconPrint, IconPen, IconCheck, IconClock, IconAlert, IconSearch, IconChevronD } from './Icons.jsx'
+import { IconPlus, IconTrash, IconPrint, IconPen, IconCheck, IconClock, IconAlert, IconSearch, IconChevronD, IconChevronR } from './Icons.jsx'
 
 // resolve a field label that may be a function of values
 const lbl = (f, v) => (typeof f.label === 'function' ? f.label(v) : f.label)
@@ -109,6 +109,98 @@ function Confirm({ title, body, confirm, onConfirm, danger, onDanger, onClose })
   )
 }
 
+
+/* What is missing, said in the words on the form.
+
+   validate() keys its findings by field id, by "section.row.column" for
+   a grid, and by section id for a whole-section rule. On its own that is
+   a set of keys; this turns it into the list a person needs: which
+   section, which control, and enough of a handle to walk them to it. */
+function missingItems(schema, errors, values) {
+  const out = []
+  schema.sections.forEach((sec, si) => {
+    const add = (label, where, field) => out.push({ si, section: sec.title, label, where, field })
+
+    // a rule about the section as a whole carries its own sentence
+    if (typeof errors[sec.id] === 'string') add(errors[sec.id], null, null)
+
+    for (const f of sec.fields || []) {
+      if (!errors[f.id]) continue
+      const name = typeof f.label === 'function' ? f.label(values) : f.label
+      add(f.type === 'sign' ? `${name} has not signed` : name, null, f.id)
+    }
+
+    for (const key of Object.keys(errors)) {
+      const m = key.match(new RegExp(`^${sec.id}\\.(\\d+)\\.(.+)$`))
+      if (!m) continue
+      const row = Number(m[1]) + 1
+      const col = m[2]
+      if (col === 'evid') { add('A rejected row needs a note saying why', `Row ${row}`, null); continue }
+      if (col === 'max') { add('The maximum is below the minimum', `Row ${row}`, null); continue }
+      const c = (sec.columns || []).find((x) => x.id === col)
+      add(c ? c.label : col, `Row ${row}`, null)
+    }
+  })
+  return out
+}
+
+/* The dialog. It names every gap, groups them by the section they are
+   in, and every line is the way to that line: nobody should have to
+   read an error, dismiss it, then go hunting for what it meant. */
+function MissingDialog({ items, onGo, onClose }) {
+  useEffect(() => {
+    const esc = (e) => { if (e.key === 'Escape') onClose() }
+    document.addEventListener('keydown', esc)
+    return () => document.removeEventListener('keydown', esc)
+  }, [onClose])
+
+  const groups = []
+  for (const it of items) {
+    const last = groups[groups.length - 1]
+    if (last && last.si === it.si) last.items.push(it)
+    else groups.push({ si: it.si, section: it.section, items: [it] })
+  }
+  const n = items.length
+
+  return (
+    <div className="modal-backdrop missing-backdrop" onClick={onClose}>
+      <div className="modal missing-modal" onClick={(e) => e.stopPropagation()}
+        role="alertdialog" aria-modal="true" aria-labelledby="missing-title">
+        <span className="missing-mark" aria-hidden="true"><IconAlert size={19} /></span>
+        <h3 id="missing-title">{n} {n === 1 ? 'entry is' : 'entries are'} still needed</h3>
+        <p className="missing-sub">
+          The report cannot be submitted until {n === 1 ? 'it is' : 'they are'} recorded.
+          Pick one to go straight to it.
+        </p>
+
+        <div className="missing-list">
+          {groups.map((g, gi) => (
+            <div className="missing-group" key={g.si + '-' + gi} style={{ '--gi': gi }}>
+              <span className="missing-section">{g.section}</span>
+              {g.items.map((it, ii) => (
+                <button key={ii} className="missing-row" onClick={() => onGo(it)}>
+                  <span className="missing-row-txt">
+                    <strong>{it.label}</strong>
+                    {it.where && <small>{it.where}</small>}
+                  </span>
+                  <IconChevronR size={14} />
+                </button>
+              ))}
+            </div>
+          ))}
+        </div>
+
+        <div className="missing-acts">
+          <button className="btn btn-primary" onClick={() => onGo(items[0])}>
+            Go to the first one
+          </button>
+          <button className="btn btn-ghost" onClick={onClose}>Keep looking</button>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 // ───────────────────────── one field ─────────────────────────
 function EngineField({ f, values, reqValues, report, set, locked, invalid, onRequestSign, signLocked, session, jobs, onJobChange }) {
   const v = values
@@ -197,7 +289,7 @@ function EngineField({ f, values, reqValues, report, set, locked, invalid, onReq
   }
 
   return (
-    <div className={`field${invalid ? ' field-err' : ''}${full ? ' field-full' : ''}`}>
+    <div data-field={f.id} className={`field${invalid ? ' field-err' : ''}${full ? ' field-full' : ''}`}>
       <label>{label}{required && <span className="req">*</span>}
         {unit && f.type !== 'number' && f.type !== 'timer' ? <span className="lbl-unit"> ({unit})</span> : null}
       </label>
@@ -616,6 +708,7 @@ export default function FormView({ job, formKey, query }) {
   const [signField, setSignField] = useState(null)
   const [forceEdit, setForceEdit] = useState(false) // override roles can switch the detail view into edit mode
   const [ask, setAsk] = useState(null)   // 'draft' | 'leave'
+  const [missing, setMissing] = useState(null)
 
   /* What the form looked like before anyone touched it. Leaving a report
      that holds nothing but its own defaults should not stop to ask
@@ -773,14 +866,31 @@ export default function FormView({ job, formKey, query }) {
     if (readOnly || !touchedAnything) { leave(); return }
     setAsk('leave')
   }
+  /* Walk to one gap and put it under the cursor. The section has to be
+     on screen before the field exists, so the move waits a frame for the
+     new section to mount rather than querying a DOM that has not changed
+     yet. */
+  const goTo = (item) => {
+    setMissing(null)
+    if (item && item.si !== step) setStep(item.si)
+    requestAnimationFrame(() => setTimeout(() => {
+      const el = (item?.field && document.querySelector(`[data-field="${item.field}"]`))
+        || document.querySelector('.field-err, .invalid, .grid-err, [aria-invalid="true"]')
+      if (!el) return
+      el.scrollIntoView({ behavior: 'smooth', block: 'center' })
+      el.classList.add('field-called')
+      setTimeout(() => el.classList.remove('field-called'), 1400)
+      el.querySelector('input, select, textarea, button')?.focus({ preventScroll: true })
+    }, 90))
+  }
+
   const onSubmit = () => {
     const errs = validate()
-    const n = Object.keys(errs).length
-    if (n) {
-      notify(`${n} item${n > 1 ? 's' : ''} need attention — highlighted`, 'err')
-      const es = schema.sections.findIndex((s) => sectionHasErr(s, errs))
-      if (es >= 0 && es !== step) setStep(es)
-      setTimeout(() => document.querySelector('.invalid,[aria-invalid="true"],.field-err')?.scrollIntoView({ behavior: 'smooth', block: 'center' }), 120)
+    if (Object.keys(errs).length) {
+      /* A count in a toast tells an inspector how much is wrong and
+         nothing about what. The dialog names each gap and is the way to
+         it, so nobody reads an error, dismisses it, then goes hunting. */
+      setMissing(missingItems(schema, errs, vAll))
       return
     }
     persist('submitted'); notify('Report submitted — deliverable marked Done'); setTimeout(() => navigate(`/job/${cur.jobNo}`), 600)
@@ -931,6 +1041,9 @@ export default function FormView({ job, formKey, query }) {
           onConfirm={() => { setAsk(null); onDraft(); setTimeout(leave, 350) }}
           danger="Discard" onDanger={() => { setAsk(null); leave() }}
           onClose={() => setAsk(null)} />, document.body)}
+
+      {missing && missing.length > 0 && createPortal(
+        <MissingDialog items={missing} onGo={goTo} onClose={() => setMissing(null)} />, document.body)}
 
       {showPdf && createPortal(<PrintReport schema={schema} report={report} job={cur} deliverable={deliverable} status={reportStatus} onClose={() => setShowPdf(false)} />, document.body)}
       {signField && createPortal(

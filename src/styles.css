@@ -4608,3 +4608,121 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber); outline-
 
 /* Two actions, so they no longer wrap into two rows of two. */
 .form-actions .btn { flex: 1 1 calc(50% - 4px); min-width: 0; }
+
+
+/* ═══════════════════════════════════════════════════════════════
+   WHAT IS STILL MISSING
+
+   A count in a toast tells an inspector how much is wrong and nothing
+   about what. This names every gap, groups it under the section it is
+   in, and every line is the way to that line.
+
+   It sits in the middle of the screen because it is the answer to
+   something you just pressed, and it stops the page rather than sliding
+   past a thumb that is already reaching for Submit again.
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Centred at every width. The app's other modals rise as sheets from the
+   bottom edge, which is right for a choice you asked for; this one is an
+   answer to a press and belongs in front of you, not under your thumb
+   where Submit already is. */
+.missing-backdrop { place-items: center; padding: 16px; }
+.missing-modal {
+  border-radius: var(--r-lg);
+  padding-bottom: 20px;
+  /* The backdrop already insets it, so the panel measures against
+     that box rather than the viewport; sized against the viewport it
+     came out 4px wider than the space it had and sat off-centre. */
+  max-width: 440px; width: 100%;
+  max-height: min(78vh, 640px);
+  display: flex; flex-direction: column;
+  text-align: left;
+  animation: missing-in .34s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+/* Arriving: the panel comes up a little and settles, so it reads as an
+   answer to the press rather than a page that was always there. */
+@keyframes missing-in {
+  from { opacity: 0; transform: translate3d(0, 14px, 0) scale(0.975); }
+  to   { opacity: 1; transform: none; }
+}
+
+.missing-mark {
+  display: grid; place-items: center;
+  width: 40px; height: 40px; margin-bottom: 12px;
+  border-radius: 12px;
+  background: var(--overdue-bg); color: var(--overdue);
+  animation: missing-mark-in .4s cubic-bezier(0.34, 1.4, 0.5, 1) both .04s;
+}
+@keyframes missing-mark-in {
+  from { opacity: 0; transform: scale(0.6); }
+  to   { opacity: 1; transform: none; }
+}
+
+.missing-modal > h3 { margin: 0; font-size: 17px; font-weight: 600; letter-spacing: -0.012em; }
+.missing-sub { margin: 6px 0 0; font-size: 13px; line-height: 1.55; color: var(--text-2); }
+
+/* Eight gaps is more than fits, so the list scrolls inside the panel and
+   fades at the edge rather than stopping dead on a row and leaving you
+   to guess whether that was the last one. */
+.missing-list {
+  flex: 1 1 auto; min-height: 0; overflow-y: auto;
+  margin: 16px -4px 0; padding: 0 4px 2px;
+  display: flex; flex-direction: column; gap: 14px;
+  -webkit-mask-image: linear-gradient(180deg, #000 calc(100% - 26px), transparent);
+  mask-image: linear-gradient(180deg, #000 calc(100% - 26px), transparent);
+}
+/* A list that fits needs no fade. */
+.missing-list:not(:hover) { scrollbar-width: thin; }
+.missing-group {
+  display: flex; flex-direction: column; gap: 5px;
+  /* the groups arrive in the order they will be worked through */
+  animation: missing-row-in .3s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: calc(90ms + var(--gi, 0) * 55ms);
+}
+@keyframes missing-row-in {
+  from { opacity: 0; transform: translate3d(0, 8px, 0); }
+  to   { opacity: 1; transform: none; }
+}
+.missing-section {
+  font-family: var(--mono); font-size: 10.5px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.07em; color: var(--text-3);
+  padding-bottom: 2px; border-bottom: 1px solid var(--line);
+}
+.missing-row {
+  display: flex; align-items: center; gap: 10px; width: 100%; text-align: left;
+  padding: 10px 11px;
+  border: 1px solid var(--line); border-radius: 9px;
+  background: var(--surface); color: var(--text);
+  cursor: pointer;
+  transition: border-color .12s ease, background-color .12s ease, transform .1s ease;
+}
+.missing-row:hover { border-color: var(--line-2); background: var(--surface-2); }
+.missing-row:active { transform: scale(0.995); }
+.missing-row:focus-visible { outline: none; border-color: var(--overdue); box-shadow: 0 0 0 3px var(--overdue-bg); }
+.missing-row-txt { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; gap: 1px; }
+.missing-row-txt strong { font-size: 13px; font-weight: 500; }
+.missing-row-txt small { font-family: var(--mono); font-size: 11px; color: var(--text-3); }
+.missing-row > svg { flex: none; color: var(--text-3); }
+
+.missing-acts { display: flex; flex-direction: column; gap: 8px; margin-top: 18px; }
+.missing-acts .btn { width: 100%; justify-content: center; }
+
+/* ── the field you were sent to ───────────────────────────────
+   Landing on a field is not the same as finding it. The one you were
+   sent to says so for a moment and then stops, because a control that
+   keeps flashing is a control you stop seeing. */
+.field-called, .grid-err.field-called {
+  animation: field-called 1.4s ease both;
+  border-radius: var(--r);
+}
+@keyframes field-called {
+  0%   { box-shadow: 0 0 0 0 var(--overdue-bg); }
+  18%  { box-shadow: 0 0 0 7px var(--overdue-bg); }
+  70%  { box-shadow: 0 0 0 7px var(--overdue-bg); }
+  100% { box-shadow: 0 0 0 0 rgba(0, 0, 0, 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .missing-modal, .missing-mark, .missing-group { animation: none; }
+  .field-called { animation: none; box-shadow: 0 0 0 3px var(--overdue-bg); }
+}
