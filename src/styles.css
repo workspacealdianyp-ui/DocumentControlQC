@@ -4728,68 +4728,115 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber); outline-
 }
 
 
-/* ── the job band on a phone ──────────────────────────────────
-   A ring spends 92px of a 390px band drawing one number. On a phone the
-   number goes on its own, set large enough to read at arm's length on a
-   shop floor, and the ring stands down.
+/* ── the job plate ────────────────────────────────────────────
+   Whose unit this is, which job it is, and how much of it is signed
+   off. It led with the job number, which is the thing you already typed
+   to get here; the customer is what you are actually looking at.
 
-   The band becomes a grid so the back control and the category share the
-   first line: where you are and the way out of it are one thought, and
-   they were sitting three rows apart. */
-.jd-pct { display: none; }
-.jd-pct strong { font-family: var(--mono); font-weight: 650; letter-spacing: -0.03em; }
-.jd-pct small { font-family: var(--mono); font-weight: 600; }
+   Three near-blacks at three values read as mud. There is one ink and
+   one steel now, and the category tells you it is a label by being
+   small, stamped and widely tracked rather than by being a third grey.
+   Inter is variable here, so the name is set at the large optical size
+   where its joins tighten, and the label at the small one where they
+   open up to stay legible at 10.5px. */
+
+.masthead.is-job .masthead-eyebrow {
+  font-family: var(--sans);
+  font-size: 10.5px; font-weight: 700;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  font-variation-settings: 'opsz' 14;
+  color: #24242e;
+}
+.masthead.is-job .masthead-txt h2 {
+  font-family: var(--display);
+  font-size: 26px; font-weight: 680;
+  letter-spacing: -0.025em; line-height: 1.1;
+  font-variation-settings: 'opsz' 32;
+  color: #101018;
+}
+.masthead.is-job .masthead-id {
+  font-family: var(--sans);
+  font-size: 12.5px; font-weight: 500; letter-spacing: 0.005em;
+  font-variant-numeric: tabular-nums;
+  color: #43434f;
+}
+:root[data-theme="dark"] .masthead.is-job .masthead-eyebrow { color: #d8d8e0; }
+:root[data-theme="dark"] .masthead.is-job .masthead-txt h2 { color: #fafaff; }
+:root[data-theme="dark"] .masthead.is-job .masthead-id { color: #b6b6c2; }
+@media (min-width: 721px) {
+  .masthead.is-job .masthead-txt h2 { font-size: 30px; }
+  .masthead.is-job .masthead-txt { max-width: 52%; }
+}
+
+/* ── the dial ─────────────────────────────────────────────────
+   An instrument, not a chart. This trade reads gauges all day, so the
+   one bold thing on the plate borrows their conventions: a fine track,
+   ticks cut at the quarters, and a square-ended arc, because no needle
+   on a real instrument is rounded off. */
+.dial { position: relative; display: grid; place-items: center; flex: none; }
+.dial svg { display: block; overflow: visible; }
+/* The track has to read, or the arc is a stroke with nothing to be a
+   fraction of. Over the pour at 0.16 it disappeared. */
+.dial-track { stroke: rgba(20, 20, 28, 0.26); }
+.dial-value { stroke: #16161a; transition: stroke .2s ease; }
+.dial-tick { stroke: rgba(20, 20, 28, 0.45); }
+.dial.is-full .dial-value { stroke: var(--done); }
+.dial-read {
+  position: absolute; display: flex; align-items: baseline; gap: 1px;
+  color: #101018;
+}
+.dial-read strong {
+  font-family: var(--display); font-size: 22px; font-weight: 680;
+  letter-spacing: -0.03em; line-height: 1;
+  font-variant-numeric: tabular-nums; font-variation-settings: 'opsz' 32;
+}
+.dial-read small { font-family: var(--sans); font-size: 11px; font-weight: 600; }
+.dial.is-full .dial-read { color: var(--done); }
+
+:root[data-theme="dark"] .dial-track { stroke: rgba(255, 255, 255, 0.26); }
+:root[data-theme="dark"] .dial-value { stroke: #fafaff; }
+:root[data-theme="dark"] .dial-tick { stroke: rgba(255, 255, 255, 0.48); }
+:root[data-theme="dark"] .dial-read { color: #fafaff; }
+
+/* ── the plate's shape ────────────────────────────────────────
+   Back and category on one line, the name under it, the job under that,
+   and the dial centred against all three down the right. Same grid at
+   every width; only the sizes change. */
+.masthead.is-job .masthead-inner {
+  display: grid; align-items: center;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  grid-template-areas:
+    "back eyebrow dial"
+    "name name    dial"
+    "line line    dial";
+  column-gap: 12px; row-gap: 3px;
+}
+/* The eyebrow and the two lines under it are children of the text
+   block; display:contents lets the grid place them itself rather than
+   placing the box they happen to sit in. */
+.masthead.is-job .masthead-txt { display: contents; }
+.masthead.is-job .masthead-back { grid-area: back; }
+.masthead.is-job .masthead-eyebrow { grid-area: eyebrow; }
+.masthead.is-job .masthead-txt h2 { grid-area: name; margin-top: 4px; }
+.masthead.is-job .masthead-id { grid-area: line; }
+.masthead.is-job .masthead-mark {
+  grid-area: dial; align-self: center; justify-self: end;
+  margin: 0; transform: none; background: none; border-radius: 0;
+}
+/* Late is the one reading the dial cannot give, so it is the one chip
+   that stays. */
+.masthead.is-job .masthead-side { grid-area: line; justify-self: end; align-self: center; margin: 0; }
 
 @media (max-width: 720px) {
-  .masthead.is-job .masthead-inner {
-    display: grid; align-items: center;
-    grid-template-columns: auto minmax(0, 1fr) auto;
-    grid-template-areas:
-      "back eyebrow pct"
-      "title title  title"
-      "sub   sub    sub";
-    column-gap: 11px; row-gap: 2px;
-    padding: 13px 14px;
+  .masthead.is-job .masthead-inner { padding: 13px 14px; column-gap: 11px; }
+  .masthead.is-job .masthead-mark.is-wide {
+    /* the mobile mark rules elsewhere shrink and disc the old ring; the
+       dial is drawn for this size already */
+    transform: none; background: none; border-radius: 0; margin: 0;
   }
-  /* The eyebrow and the two lines under it are children of the text
-     block; display:contents lets the grid place them itself rather than
-     placing the box they happen to sit in. */
-  .masthead.is-job .masthead-txt { display: contents; }
-  .masthead.is-job .masthead-back { grid-area: back; }
-  /* On the first line the eyebrow lands on the pour, where the orange
-     it wears everywhere else measures 1.9:1 against it. Up here it takes
-     the plate's own ink, the same as the figure beside it. */
-  .masthead.is-job .masthead-eyebrow {
-    grid-area: eyebrow; font-size: 11px;
-    color: #16161a; text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
-  }
-  :root[data-theme="dark"] .masthead.is-job .masthead-eyebrow {
-    color: #f2f2f5; text-shadow: 0 1px 0 rgba(0, 0, 0, 0.5);
-  }
-  .masthead.is-job .masthead-side { grid-area: pct; margin: 0; }
-  .masthead.is-job .masthead-txt h2 { grid-area: title; margin-top: 6px; }
-  .masthead.is-job .masthead-id { grid-area: sub; }
-  .masthead.is-job .masthead-mark { display: none; }
-
-  /* The figure, on the plate rather than in a chip: it is the reading,
-     not a label. */
-  .masthead.is-job .jd-pct {
-    display: flex; align-items: baseline; gap: 1px;
-    background: none; border: 0; box-shadow: none; padding: 0;
-    color: #16161a;
-    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.55);
-  }
-  .masthead.is-job .jd-pct strong { font-size: 27px; line-height: 1; }
-  .masthead.is-job .jd-pct small { font-size: 14px; }
-  :root[data-theme="dark"] .masthead.is-job .jd-pct {
-    color: #f2f2f5; text-shadow: 0 1px 0 rgba(0, 0, 0, 0.5);
-  }
-
-  /* "In progress" is what the number already says. Overdue is not, so
-     that one word stays and the other two go. */
-  .masthead.is-job .jd-state { display: none; }
-  .masthead.is-job .jd-state.state-overdue {
-    display: inline-flex; grid-area: sub; justify-self: end; align-self: center;
-    margin-top: 2px;
-  }
+  .masthead.is-job .dial { width: 74px !important; height: 74px !important; }
+  .masthead.is-job .dial svg { width: 74px; height: 74px; }
+  .masthead.is-job .dial-read strong { font-size: 19px; }
+  .masthead.is-job .masthead-side { display: none; }
+  .masthead.is-job .masthead-side:has(.state-overdue) { display: block; }
 }

@@ -8,6 +8,7 @@ import { reportsFor } from '../lib/store.js'
 import { requiredFor } from '../lib/jobOrders.js'
 import StatusChip, { StateBadge } from './StatusChip.jsx'
 import MdrReport from './MdrReport.jsx'
+import CompletionDial from './CompletionDial.jsx'
 import { reportResult } from '../lib/verdict.js'
 import { IconDoc, IconPrint } from './Icons.jsx'
 import Masthead from './Masthead.jsx'
@@ -20,24 +21,6 @@ const Meta = ({ label, value }) => (
     <span className="meta-value">{value || '—'}</span>
   </div>
 )
-
-function ProgressRing({ done, total }) {
-  const pct = total ? done / total : 0
-  const R = 38, C = 2 * Math.PI * R
-  return (
-    <div className="ring-wrap" role="img" aria-label={`${done} of ${total} reports complete`}>
-      <svg width="92" height="92" viewBox="0 0 92 92">
-        <circle className="ring-track" cx="46" cy="46" r={R} strokeWidth="9" fill="none" />
-        <circle className="ring-bar" cx="46" cy="46" r={R} strokeWidth="9" fill="none"
-          strokeDasharray={C} strokeDashoffset={C * (1 - pct)} />
-      </svg>
-      <div className="ring-label">
-        <strong>{Math.round(pct * 100)}%</strong>
-        <small>{done}/{total} done</small>
-      </div>
-    </div>
-  )
-}
 
 const Chevron = () => (
   <svg className="deliv-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"
@@ -101,22 +84,15 @@ export default function JobDetail({ job }) {
           category this job belongs to, so returning keeps the list where
           the reader left it. */}
       <Masthead variant="job"
-        mark={<ProgressRing done={p.done} total={p.applicable} />} wide
+        mark={<CompletionDial done={p.done} total={p.applicable} />} wide
         eyebrow={<>{KAT_LABEL[job.kategori] || 'Job'}{job.poNo ? <> · PO {job.poNo}</> : null}</>}
-        title={`Job ${job.jobNo}`}
-        sub={<>{job.productDesc}{job.customerName ? <> · {job.customerName}</> : null}</>}
+        title={job.customerName || `Job ${job.jobNo}`}
+        sub={<>Job {job.jobNo}{job.productDesc ? <> · {job.productDesc}</> : null}</>}
         backLabel={`Back to ${KAT_LABEL[job.kategori] || 'jobs'}`}
         onBack={() => navigate(job.kategori ? `/jobs?kat=${encodeURIComponent(job.kategori)}` : '/jobs')}>
-        {/* Two ways of saying the same thing, one per screen. A ring
-            costs 92px of a 390px band to draw a number, so on a phone
-            the number goes on its own and the ring stands down. */}
-        <span className="jd-pct" aria-label={`${pct}% of the required reports are done`}>
-          <strong>{pct}</strong><small>%</small>
-        </span>
-        {/* The ring already counts; this says what the count means. */}
-        <span className={`report-state jd-state ${done ? 'state-approved' : p.overdue ? 'state-overdue' : 'state-draft'}`}>
-          {done ? 'Complete' : p.overdue ? 'Overdue' : 'In progress'}
-        </span>
+        {/* The dial reads the number at both widths, so the only thing
+            left to say is the one state it cannot show: late. */}
+        {p.overdue && !done && <span className="report-state jd-state state-overdue">Overdue</span>}
       </Masthead>
 
       {/* Metadata. Category, customer and serial live in the hero now, so
