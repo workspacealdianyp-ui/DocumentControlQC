@@ -16,9 +16,9 @@ import { IconBack } from './Icons.jsx'
    sits where the scrim is fully opaque, so it never has to fight the
    pour for contrast. */
 
-export default function Masthead({ mark, code, eyebrow, title, sub, onBack, backLabel = 'Back', wide = false, children }) {
+export default function Masthead({ mark, code, eyebrow, title, sub, onBack, backLabel = 'Back', wide = false, variant, children }) {
   return (
-    <header className="masthead">
+    <header className={`masthead${variant ? ` is-${variant}` : ''}`}>
       <div className="masthead-stone" aria-hidden="true" />
       <div className="masthead-inner">
         {onBack && (

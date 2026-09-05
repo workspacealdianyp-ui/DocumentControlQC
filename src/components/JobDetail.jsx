@@ -89,6 +89,9 @@ export default function JobDetail({ job }) {
     }
   }
 
+  const pct = p.applicable ? Math.round((p.done / p.applicable) * 100) : 0
+  const done = !!p.applicable && p.done === p.applicable
+
   return (
     <div className="page">
       {/* The same band every document in this app wears, with the ring
@@ -97,16 +100,22 @@ export default function JobDetail({ job }) {
           where the stone's scrim is fully opaque. Back goes to the
           category this job belongs to, so returning keeps the list where
           the reader left it. */}
-      <Masthead
+      <Masthead variant="job"
         mark={<ProgressRing done={p.done} total={p.applicable} />} wide
         eyebrow={<>{KAT_LABEL[job.kategori] || 'Job'}{job.poNo ? <> · PO {job.poNo}</> : null}</>}
         title={`Job ${job.jobNo}`}
         sub={<>{job.productDesc}{job.customerName ? <> · {job.customerName}</> : null}</>}
         backLabel={`Back to ${KAT_LABEL[job.kategori] || 'jobs'}`}
         onBack={() => navigate(job.kategori ? `/jobs?kat=${encodeURIComponent(job.kategori)}` : '/jobs')}>
+        {/* Two ways of saying the same thing, one per screen. A ring
+            costs 92px of a 390px band to draw a number, so on a phone
+            the number goes on its own and the ring stands down. */}
+        <span className="jd-pct" aria-label={`${pct}% of the required reports are done`}>
+          <strong>{pct}</strong><small>%</small>
+        </span>
         {/* The ring already counts; this says what the count means. */}
-        <span className={`report-state ${p.applicable && p.done === p.applicable ? 'state-approved' : p.overdue ? 'state-overdue' : 'state-draft'}`}>
-          {p.applicable && p.done === p.applicable ? 'Complete' : p.overdue ? 'Overdue' : 'In progress'}
+        <span className={`report-state jd-state ${done ? 'state-approved' : p.overdue ? 'state-overdue' : 'state-draft'}`}>
+          {done ? 'Complete' : p.overdue ? 'Overdue' : 'In progress'}
         </span>
       </Masthead>
 

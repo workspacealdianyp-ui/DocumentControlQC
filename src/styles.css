@@ -4726,3 +4726,70 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber); outline-
   .missing-modal, .missing-mark, .missing-group { animation: none; }
   .field-called { animation: none; box-shadow: 0 0 0 3px var(--overdue-bg); }
 }
+
+
+/* ── the job band on a phone ──────────────────────────────────
+   A ring spends 92px of a 390px band drawing one number. On a phone the
+   number goes on its own, set large enough to read at arm's length on a
+   shop floor, and the ring stands down.
+
+   The band becomes a grid so the back control and the category share the
+   first line: where you are and the way out of it are one thought, and
+   they were sitting three rows apart. */
+.jd-pct { display: none; }
+.jd-pct strong { font-family: var(--mono); font-weight: 650; letter-spacing: -0.03em; }
+.jd-pct small { font-family: var(--mono); font-weight: 600; }
+
+@media (max-width: 720px) {
+  .masthead.is-job .masthead-inner {
+    display: grid; align-items: center;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    grid-template-areas:
+      "back eyebrow pct"
+      "title title  title"
+      "sub   sub    sub";
+    column-gap: 11px; row-gap: 2px;
+    padding: 13px 14px;
+  }
+  /* The eyebrow and the two lines under it are children of the text
+     block; display:contents lets the grid place them itself rather than
+     placing the box they happen to sit in. */
+  .masthead.is-job .masthead-txt { display: contents; }
+  .masthead.is-job .masthead-back { grid-area: back; }
+  /* On the first line the eyebrow lands on the pour, where the orange
+     it wears everywhere else measures 1.9:1 against it. Up here it takes
+     the plate's own ink, the same as the figure beside it. */
+  .masthead.is-job .masthead-eyebrow {
+    grid-area: eyebrow; font-size: 11px;
+    color: #16161a; text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+  }
+  :root[data-theme="dark"] .masthead.is-job .masthead-eyebrow {
+    color: #f2f2f5; text-shadow: 0 1px 0 rgba(0, 0, 0, 0.5);
+  }
+  .masthead.is-job .masthead-side { grid-area: pct; margin: 0; }
+  .masthead.is-job .masthead-txt h2 { grid-area: title; margin-top: 6px; }
+  .masthead.is-job .masthead-id { grid-area: sub; }
+  .masthead.is-job .masthead-mark { display: none; }
+
+  /* The figure, on the plate rather than in a chip: it is the reading,
+     not a label. */
+  .masthead.is-job .jd-pct {
+    display: flex; align-items: baseline; gap: 1px;
+    background: none; border: 0; box-shadow: none; padding: 0;
+    color: #16161a;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.55);
+  }
+  .masthead.is-job .jd-pct strong { font-size: 27px; line-height: 1; }
+  .masthead.is-job .jd-pct small { font-size: 14px; }
+  :root[data-theme="dark"] .masthead.is-job .jd-pct {
+    color: #f2f2f5; text-shadow: 0 1px 0 rgba(0, 0, 0, 0.5);
+  }
+
+  /* "In progress" is what the number already says. Overdue is not, so
+     that one word stays and the other two go. */
+  .masthead.is-job .jd-state { display: none; }
+  .masthead.is-job .jd-state.state-overdue {
+    display: inline-flex; grid-area: sub; justify-self: end; align-self: center;
+    margin-top: 2px;
+  }
+}
