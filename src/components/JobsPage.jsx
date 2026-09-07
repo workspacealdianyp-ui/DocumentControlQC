@@ -18,6 +18,12 @@ const KATS = [
 ]
 
 const PAGE_SIZES = [10, 15, 25, 50]
+const VIEW_KEY = 'qc.jobs.view.v1'
+
+const readView = () => {
+  try { return JSON.parse(sessionStorage.getItem(VIEW_KEY) || '{}') }
+  catch { return {} }
+}
 
 // Most PO numbers are typed with their own prefix, so only add one when
 // it is missing rather than printing "PO PO-2026-0142".
@@ -60,14 +66,28 @@ function jobState(p) {
   return { id: 'notstarted', label: 'Not started' }
 }
 
+function urgency(job, state) {
+  if (!job.datePdiRelease) return null
+  const due = new Date(`${job.datePdiRelease}T00:00:00`)
+  if (Number.isNaN(due.getTime())) return null
+  const today = new Date(); today.setHours(0, 0, 0, 0)
+  const days = Math.round((due - today) / 86400000)
+  if (state.id === 'done') return null
+  if (days < 0) return { label: `${Math.abs(days)}d overdue`, tone: 'overdue' }
+  if (days === 0) return { label: 'Due today', tone: 'today' }
+  if (days <= 14) return { label: `Due in ${days}d`, tone: 'soon' }
+  return null
+}
+
 export default function JobsPage({ kat }) {
   const { jobs, tick, role } = useApp()
-  const [q, setQ] = useState('')
-  const [size, setSize] = useState(15)
-  const [page, setPage] = useState(1)
-  const [sort, setSort] = useState({ key: 'jobNo', dir: 'asc' })
-  const [states, setStates] = useState(() => new Set())
-  const [group, setGroup] = useState('none')
+  const initial = useMemo(readView, [])
+  const [q, setQ] = useState(initial.q || '')
+  const [size, setSize] = useState(PAGE_SIZES.includes(initial.size) ? initial.size : 15)
+  const [page, setPage] = useState(initial.page || 1)
+  const [sort, setSort] = useState(initial.sort || { key: 'jobNo', dir: 'asc' })
+  const [states, setStates] = useState(() => new Set(initial.states || []))
+  const [group, setGroup] = useState(GROUPS.some((g) => g.id === initial.group) ? initial.group : 'none')
   const [sentinel, stuck] = useStuck()
 
   const ctx = useMemo(() => buildContext(), [tick])
@@ -125,8 +145,20 @@ export default function JobsPage({ kat }) {
   const pages = Math.max(1, Math.ceil(rows.length / size))
   const at = Math.min(page, pages)
   const shown = rows.slice((at - 1) * size, at * size)
+  const groupCounts = useMemo(() => {
+    const of = GROUPS.find((g) => g.id === group)?.of
+    if (!of) return new Map()
+    const counts = new Map()
+    for (const row of rows) counts.set(of(row), (counts.get(of(row)) || 0) + 1)
+    return counts
+  }, [rows, group])
 
   useEffect(() => { setPage(1) }, [kat, q, size, states, group])
+  useEffect(() => {
+    try {
+      sessionStorage.setItem(VIEW_KEY, JSON.stringify({ q, size, page, sort, states: [...states], group }))
+    } catch { /* Private browsing may refuse storage; the register still works in memory. */ }
+  }, [q, size, page, sort, states, group])
 
   const toggleSort = (key) =>
     setSort((s) => ({ key, dir: s.key === key && s.dir === 'asc' ? 'desc' : 'asc' }))
@@ -143,19 +175,19 @@ export default function JobsPage({ kat }) {
     <div className="page mon">
       {/* One row: which slice of the register on the left, what you can
           do with it on the right — the page title is in the top bar. */}
-      <div className="page-bar">
-        <div className="mon-tabs" role="tablist" aria-label="Job category">
+      <div className="page-bar jobs-page-bar">
+        <nav className="mon-tabs" aria-label="Job category">
           {KATS.map((k) => (
-            <button key={k.kat || 'all'} role="tab" aria-selected={(kat || null) === k.kat}
+            <a key={k.kat || 'all'} aria-current={(kat || null) === k.kat ? 'page' : undefined}
               className={`mon-tab${(kat || null) === k.kat ? ' on' : ''}`}
-              onClick={() => navigate(k.kat ? `/jobs?kat=${encodeURIComponent(k.kat)}` : '/jobs')}>
+              href={`#${k.kat ? `/jobs?kat=${encodeURIComponent(k.kat)}` : '/jobs'}`}>
               {k.label}<span className="mon-tab-n">{counts[k.kat || 'all']}</span>
-            </button>
+            </a>
           ))}
-        </div>
+        </nav>
         <div className="mon-head-actions">
           <button className="btn btn-secondary btn-sm" onClick={() => exportMatrixCsv(rows, ctx)}>
-            <IconDownload size={14} /> Export CSV
+            <IconDownload size={14} /> Export {rows.length} jobs
           </button>
           {role.canManage && (
             <button className="btn btn-primary btn-sm" onClick={() => navigate('/jobs/new')}>
@@ -205,22 +237,36 @@ export default function JobsPage({ kat }) {
               </select>
             )}
           </div>
+          <label className="jobs-mobile-sort">
+            <span>Sort</span>
+            <select value={`${sort.key}|${sort.dir}`} onChange={(e) => {
+              const [key, dir] = e.target.value.split('|'); setSort({ key, dir })
+            }}>
+              <option value="jobNo|asc">Job number</option>
+              <option value="pdi|asc">PDI release</option>
+              <option value="progress|asc">Least complete</option>
+              <option value="progress|desc">Most complete</option>
+              <option value="customer|asc">Customer</option>
+            </select>
+          </label>
         </div>
 
         {/* Sits at the table's own top edge, so the toolbar starts
             dissolving exactly as the column header lands rather than
             leaving a blank strip between the two. */}
         <div ref={sentinel} className="mon-sentinel" aria-hidden="true" />
-        <div className="mon-tablewrap">
+        <div className="mon-tablewrap jobs-desktop-register">
           <table className="mon-table jobs-table">
             <thead>
               <tr>
-                <th><button onClick={() => toggleSort('jobNo')}>Job{sortMark('jobNo')}</button></th>
-                <th><button onClick={() => toggleSort('product')}>Product{sortMark('product')}</button></th>
-                <th><button onClick={() => toggleSort('customer')}>Customer{sortMark('customer')}</button></th>
-                <th><button onClick={() => toggleSort('datePB')}>Date PB{sortMark('datePB')}</button></th>
-                <th><button onClick={() => toggleSort('pdi')}>PDI release{sortMark('pdi')}</button></th>
-                <th><button onClick={() => toggleSort('progress')}>Reports{sortMark('progress')}</button></th>
+                {[
+                  ['jobNo', 'Job'], ['product', 'Product'], ['customer', 'Customer'],
+                  ['datePB', 'Date PB'], ['pdi', 'PDI release'], ['progress', 'Reports'],
+                ].map(([key, label]) => (
+                  <th key={key} aria-sort={sort.key === key ? (sort.dir === 'asc' ? 'ascending' : 'descending') : 'none'}>
+                    <button onClick={() => toggleSort(key)}>{label}{sortMark(key)}</button>
+                  </th>
+                ))}
                 <th>Status</th>
               </tr>
             </thead>
@@ -232,21 +278,20 @@ export default function JobsPage({ kat }) {
                 const first = of && (i === 0 || of(shown[i - 1]) !== key)
                 const pct = p.applicable ? Math.round((p.done / p.applicable) * 100) : 0
                 const st = jobState(p)
+                const due = urgency(job, st)
                 return (
                   <Fragment key={job.jobNo}>
                   {first && (
                     <tr className="mon-grouprow">
                       <td colSpan={7}>
                         <span>{key}</span>
-                        <small>{rows.filter((r) => of(r) === key).length}</small>
+                        <small>{groupCounts.get(key)}</small>
                       </td>
                     </tr>
                   )}
-                  <tr tabIndex={0}
-                    onClick={() => navigate(`/job/${job.jobNo}`)}
-                    onKeyDown={(e) => e.key === 'Enter' && navigate(`/job/${job.jobNo}`)}>
+                  <tr>
                     <td>
-                      <span className="mon-primary">{job.jobNo}</span>
+                      <a className="mon-primary jobs-job-link" href={`#/job/${job.jobNo}`}>Job {job.jobNo}</a>
                       <span className="mon-sub">{job.poNo ? poLabel(job.poNo) : job.wbsNo || '—'}</span>
                     </td>
                     <td className="jobs-product">
@@ -258,7 +303,10 @@ export default function JobsPage({ kat }) {
                       <span className="mon-sub">{job.arasSN || '—'}</span>
                     </td>
                     <td className="num">{fmtDate(job.datePB)}</td>
-                    <td className="num">{fmtDate(job.datePdiRelease) || '—'}</td>
+                    <td className="num">
+                      {fmtDate(job.datePdiRelease) || '—'}
+                      {due && <span className={`jobs-urgency is-${due.tone}`}>{due.label}</span>}
+                    </td>
                     <td>
                       <div className="jobs-prog" title={`${p.done} of ${p.applicable} reports complete`}>
                         <div className="jobs-prog-bar"><span style={{ width: `${pct}%` }} /></div>
@@ -277,13 +325,49 @@ export default function JobsPage({ kat }) {
               })}
               {!shown.length && (
                 <tr><td colSpan={7} className="mon-empty">
-                  {q ? `No job matches “${q}”.`
-                     : states.size ? 'No job has that status here.'
-                     : 'No job in this category.'}
+                  <span>{q ? `No job matches “${q}”.`
+                    : states.size ? 'No job has that status here.'
+                    : 'No job in this category.'}</span>
+                  {(q || states.size > 0) && <button className="btn btn-ghost btn-sm" onClick={() => { setQ(''); setStates(new Set()) }}>Clear filters</button>}
                 </td></tr>
               )}
             </tbody>
           </table>
+        </div>
+
+        <div className="jobs-mobile-register" aria-label="Jobs">
+          {shown.map((job) => {
+            const p = progress.get(job.jobNo)
+            const pct = p.applicable ? Math.round((p.done / p.applicable) * 100) : 0
+            const st = jobState(p)
+            const due = urgency(job, st)
+            const G = STATUS_ICONS[st.id]
+            return (
+              <a className="jobs-mobile-row" href={`#/job/${job.jobNo}`} key={job.jobNo}
+                aria-label={`Open job ${job.jobNo}, ${job.customerName}, ${st.label}, ${p.done} of ${p.applicable} reports complete`}>
+                <span className="jobs-mobile-top">
+                  <span className="mon-primary">Job {job.jobNo}</span>
+                  <span className={`chip chip-${st.id}`}><G size={13} />{st.label}</span>
+                </span>
+                <span className="jobs-desc">{job.productDesc}</span>
+                <span className="jobs-mobile-meta">{job.customerName}<span aria-hidden="true">·</span>{job.arasSN || job.wbsNo || 'No serial'}</span>
+                <span className="jobs-mobile-foot">
+                  <span className="jobs-prog">
+                    <span className="jobs-prog-bar"><span style={{ width: `${pct}%` }} /></span>
+                    <span className="jobs-prog-n">{p.done}/{p.applicable} reports</span>
+                  </span>
+                  {due && <span className={`jobs-urgency is-${due.tone}`}>{due.label}</span>}
+                  {!due && <span className="jobs-date">PDI {fmtDate(job.datePdiRelease) || 'not set'}</span>}
+                </span>
+              </a>
+            )
+          })}
+          {!shown.length && (
+            <div className="mon-empty jobs-mobile-empty">
+              <span>{q ? `No job matches “${q}”.` : states.size ? 'No job has that status here.' : 'No job in this category.'}</span>
+              {(q || states.size > 0) && <button className="btn btn-ghost btn-sm" onClick={() => { setQ(''); setStates(new Set()) }}>Clear filters</button>}
+            </div>
+          )}
         </div>
 
         {pages > 1 && (
