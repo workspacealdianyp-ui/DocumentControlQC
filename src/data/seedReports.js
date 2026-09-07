@@ -27,13 +27,13 @@ export const SEED_REPORTS = [
    "ncr": "Inspection carried out per the referenced procedure. No outstanding items.",
    "signInspector": {
     "name": "Inspector Two",
-    "at": "2026-04-09T09:32:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-04-09T09:21:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-04-09T15:28:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-04-09T15:41:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
@@ -85,13 +85,24 @@ export const SEED_REPORTS = [
    }
   ],
   "coats": [],
-  "photos": [],
+  "photos": [
+   {
+    "id": "ph-tape-5472",
+    "label": "Overall length — 6057 mm",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23dedbd5'%2F%3E%3Crect%20y%3D'96'%20width%3D'400'%20height%3D'108'%20fill%3D'%23a9a49c'%2F%3E%3Crect%20y%3D'128'%20width%3D'400'%20height%3D'30'%20fill%3D'%23f0c419'%2F%3E%3Cg%20stroke%3D'%232a2a30'%20stroke-width%3D'2'%3E%3Cpath%20d%3D'M0%20128v30'%2F%3E%3Cpath%20d%3D'M20%20128v14'%2F%3E%3Cpath%20d%3D'M40%20128v14'%2F%3E%3Cpath%20d%3D'M60%20128v14'%2F%3E%3Cpath%20d%3D'M80%20128v14'%2F%3E%3Cpath%20d%3D'M100%20128v30'%2F%3E%3Cpath%20d%3D'M120%20128v14'%2F%3E%3Cpath%20d%3D'M140%20128v14'%2F%3E%3Cpath%20d%3D'M160%20128v14'%2F%3E%3Cpath%20d%3D'M180%20128v14'%2F%3E%3Cpath%20d%3D'M200%20128v30'%2F%3E%3Cpath%20d%3D'M220%20128v14'%2F%3E%3Cpath%20d%3D'M240%20128v14'%2F%3E%3Cpath%20d%3D'M260%20128v14'%2F%3E%3Cpath%20d%3D'M280%20128v14'%2F%3E%3Cpath%20d%3D'M300%20128v30'%2F%3E%3Cpath%20d%3D'M320%20128v14'%2F%3E%3Cpath%20d%3D'M340%20128v14'%2F%3E%3Cpath%20d%3D'M360%20128v14'%2F%3E%3Cpath%20d%3D'M380%20128v14'%2F%3E%3C%2Fg%3E%3Cg%20font-family%3D'monospace'%20font-size%3D'12'%20fill%3D'%232a2a30'%3E%3Ctext%20x%3D'4'%20y%3D'176'%3E0%3C%2Ftext%3E%3Ctext%20x%3D'104'%20y%3D'176'%3E500%3C%2Ftext%3E%3Ctext%20x%3D'204'%20y%3D'176'%3E1000%3C%2Ftext%3E%3Ctext%20x%3D'304'%20y%3D'176'%3E1500%3C%2Ftext%3E%3C%2Fg%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EOverall%20length%20%E2%80%94%206057%20mm%3C%2Ftext%3E%3C%2Fsvg%3E"
+   },
+   {
+    "id": "ph-unit-5694",
+    "label": "ISO TANK SPARGES IST-0447-01",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23c6d2da'%2F%3E%3Crect%20y%3D'196'%20width%3D'400'%20height%3D'104'%20fill%3D'%23b0a89c'%2F%3E%3Crect%20x%3D'40'%20y%3D'96'%20width%3D'320'%20height%3D'104'%20rx%3D'48'%20fill%3D'%23d8d4cc'%20stroke%3D'%235a564f'%20stroke-width%3D'4'%2F%3E%3Crect%20x%3D'34'%20y%3D'88'%20width%3D'332'%20height%3D'120'%20rx%3D'7'%20fill%3D'none'%20stroke%3D'%233f3b36'%20stroke-width%3D'5'%2F%3E%3Cg%20fill%3D'%235a564f'%3E%3Ccircle%20cx%3D'104'%20cy%3D'210'%20r%3D'19'%2F%3E%3Ccircle%20cx%3D'296'%20cy%3D'210'%20r%3D'19'%2F%3E%3C%2Fg%3E%3Cpath%20d%3D'M40%20148h320'%20stroke%3D'%23c8621e'%20stroke-width%3D'9'%2F%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EISO%20TANK%20SPARGES%20IST-0447-01%3C%2Ftext%3E%3C%2Fsvg%3E"
+   }
+  ],
   "createdAt": "2026-04-09T07:40:00.000Z",
-  "updatedAt": "2026-04-09T15:28:00.000Z",
+  "updatedAt": "2026-04-09T15:41:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-04-09T15:28:00.000Z",
-  "syncedAt": "2026-04-09T15:28:00.000Z"
+  "approvedAt": "2026-04-09T15:41:00.000Z",
+  "syncedAt": "2026-04-09T15:41:00.000Z"
  },
  {
   "id": "demo-1000300001-PT-01",
@@ -117,36 +128,36 @@ export const SEED_REPORTS = [
    "ncrRef": "N/A",
    "lightEquip": "LED floodlight 50W",
    "lightmeter": "LUX-001 · Digital Light Meter · Cal 2026-01-09",
-   "lightIntensity": "1511",
-   "penetrantMethod": "Water Washable",
+   "lightIntensity": "1569",
+   "penetrantMethod": "Other",
    "penetrantType": "Fluorescent",
-   "dwellTime": "33",
+   "dwellTime": "25",
    "applicationBy": "Other",
-   "appTemp": "49.0",
-   "developerType": "Non Aqueous",
-   "developingTime": "93.2",
-   "interpretationTime": "64.1",
-   "cleaner": "SKC-S",
-   "stage": "After Welding",
-   "weldingProcess": "Other",
-   "scope": "Repair Weld",
+   "appTemp": "93.2",
+   "developerType": "Aqueous",
+   "developingTime": "41.6",
+   "interpretationTime": "2.8",
+   "cleaner": "Other",
+   "stage": "Other",
+   "weldingProcess": "FCAW",
+   "scope": "Other",
    "signInspector": {
     "name": "Inspector Two",
-    "at": "2026-04-10T09:37:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-04-10T09:29:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-04-10T15:05:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-04-10T15:40:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
   "results": [
    {
-    "partId": "Sparge pipe bracket",
+    "partId": "Shell circumferential seam",
     "material": "ASTM A516 Gr.70",
-    "thickness": "13.4",
+    "thickness": "9.8",
     "judgement": "Acc",
     "discontinuity": "None",
     "remark": "N/A"
@@ -154,23 +165,7 @@ export const SEED_REPORTS = [
    {
     "partId": "Manlid nozzle N1",
     "material": "ASTM A516 Gr.70",
-    "thickness": "10.5",
-    "judgement": "Acc",
-    "discontinuity": "None",
-    "remark": "N/A"
-   },
-   {
-    "partId": "Sparge pipe bracket",
-    "material": "ASTM A516 Gr.70",
-    "thickness": "11.2",
-    "judgement": "Acc",
-    "discontinuity": "None",
-    "remark": "N/A"
-   },
-   {
-    "partId": "Frame corner casting",
-    "material": "ASTM A516 Gr.70",
-    "thickness": "10.4",
+    "thickness": "12.3",
     "judgement": "Acc",
     "discontinuity": "None",
     "remark": "N/A"
@@ -178,20 +173,47 @@ export const SEED_REPORTS = [
    {
     "partId": "Shell circumferential seam",
     "material": "ASTM A516 Gr.70",
-    "thickness": "10.6",
+    "thickness": "12.8",
+    "judgement": "Acc",
+    "discontinuity": "None",
+    "remark": "N/A"
+   },
+   {
+    "partId": "Sparge pipe bracket",
+    "material": "ASTM A516 Gr.70",
+    "thickness": "7.6",
+    "judgement": "Acc",
+    "discontinuity": "None",
+    "remark": "N/A"
+   },
+   {
+    "partId": "Shell longitudinal seam",
+    "material": "ASTM A516 Gr.70",
+    "thickness": "10.8",
     "judgement": "Acc",
     "discontinuity": "None",
     "remark": "N/A"
    }
   ],
   "coats": [],
-  "photos": [],
+  "photos": [
+   {
+    "id": "ph-weld-2038",
+    "label": "Shell circumferential seam after examination",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23cfcbc4'%2F%3E%3Cpath%20d%3D'M0%20150h400'%20stroke%3D'%238e8880'%20stroke-width%3D'58'%2F%3E%3Cpath%20d%3D'M0%20150q20%20-13%2040%200t40%200%2040%200%2040%200%2040%200%2040%200%2040%200%2040%200%2040%200%2040%200'%20fill%3D'none'%20stroke%3D'%23a8a29a'%20stroke-width%3D'30'%2F%3E%3Cpath%20d%3D'M0%20136q20%20-11%2040%200t40%200%2040%200%2040%200%2040%200%2040%200%2040%200%2040%200%2040%200%2040%200'%20fill%3D'none'%20stroke%3D'%23bdb7ae'%20stroke-width%3D'7'%2F%3E%3Cg%20fill%3D'%236e6a64'%3E%3Ccircle%20cx%3D'96'%20cy%3D'150'%20r%3D'4'%2F%3E%3Ccircle%20cx%3D'214'%20cy%3D'156'%20r%3D'3'%2F%3E%3Ccircle%20cx%3D'300'%20cy%3D'146'%20r%3D'3.5'%2F%3E%3C%2Fg%3E%3Crect%20x%3D'16'%20y%3D'232'%20width%3D'118'%20height%3D'30'%20fill%3D'%23f5f3ef'%20stroke%3D'%235a564f'%2F%3E%3Ctext%20x%3D'75'%20y%3D'253'%20font-family%3D'monospace'%20font-size%3D'16'%20fill%3D'%232a2a30'%20text-anchor%3D'middle'%3E10%20mm%3C%2Ftext%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EShell%20circumferential%20seam%20after%20examination%3C%2Ftext%3E%3C%2Fsvg%3E"
+   },
+   {
+    "id": "ph-unit-9799",
+    "label": "ISO TANK SPARGES IST-0447-01",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23c6d2da'%2F%3E%3Crect%20y%3D'196'%20width%3D'400'%20height%3D'104'%20fill%3D'%23b0a89c'%2F%3E%3Crect%20x%3D'40'%20y%3D'96'%20width%3D'320'%20height%3D'104'%20rx%3D'48'%20fill%3D'%23d8d4cc'%20stroke%3D'%235a564f'%20stroke-width%3D'4'%2F%3E%3Crect%20x%3D'34'%20y%3D'88'%20width%3D'332'%20height%3D'120'%20rx%3D'7'%20fill%3D'none'%20stroke%3D'%233f3b36'%20stroke-width%3D'5'%2F%3E%3Cg%20fill%3D'%235a564f'%3E%3Ccircle%20cx%3D'104'%20cy%3D'210'%20r%3D'19'%2F%3E%3Ccircle%20cx%3D'296'%20cy%3D'210'%20r%3D'19'%2F%3E%3C%2Fg%3E%3Cpath%20d%3D'M40%20148h320'%20stroke%3D'%23c8621e'%20stroke-width%3D'9'%2F%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EISO%20TANK%20SPARGES%20IST-0447-01%3C%2Ftext%3E%3C%2Fsvg%3E"
+   }
+  ],
   "createdAt": "2026-04-10T07:40:00.000Z",
-  "updatedAt": "2026-04-10T15:05:00.000Z",
+  "updatedAt": "2026-04-10T15:40:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-04-10T15:05:00.000Z",
-  "syncedAt": "2026-04-10T15:05:00.000Z"
+  "approvedAt": "2026-04-10T15:40:00.000Z",
+  "syncedAt": "2026-04-10T15:40:00.000Z"
  },
  {
   "id": "demo-1000300001-LHT-01",
@@ -213,9 +235,9 @@ export const SEED_REPORTS = [
    "unit": "IST-0447-01",
    "customer": "Customer 07",
    "testType": "Hydrostatic Test",
-   "testDesc": "Body",
+   "testDesc": "Pipe",
    "testMedia": "Water",
-   "pressureUnit": "PsiG",
+   "pressureUnit": "Bar",
    "gauges": "2 Gauges",
    "useRecorder": "Used",
    "useTemp": "Used",
@@ -228,8 +250,8 @@ export const SEED_REPORTS = [
    "map": "-",
    "testPressure": "6.0",
    "holding": "30",
-   "pg1": "PG-003 · Pressure Gauge 0–40 Bar · Cal 2026-03-02",
-   "pg2": "PG-002 · Pressure Gauge 0–25 Bar · Cal 2026-01-14",
+   "pg1": "PG-001 · Pressure Gauge 0–25 Bar · Cal 2026-01-14",
+   "pg2": "PG-003 · Pressure Gauge 0–40 Bar · Cal 2026-03-02",
    "pressRecorder": "BRT-002 · Chart Recorder · Cal 2026-04-08",
    "scale": "1 div = 0.2 Bar",
    "tempRecorder": "TMP-001 · Digital Thermometer · Cal 2026-01-20",
@@ -237,71 +259,82 @@ export const SEED_REPORTS = [
    "testResult": "Satisfactory",
    "signInspector": {
     "name": "Inspector Two",
-    "at": "2026-04-11T09:39:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-04-11T09:47:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-04-11T15:36:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-04-11T15:23:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [
    {
-    "time": "08:55",
+    "time": "08:17",
     "pg1": "0.00",
     "pg2": "0.00",
     "rec": "0.00",
     "water": "30.6",
-    "ambient": "30.0",
-    "remark": "Start, 0 PsiG"
+    "ambient": "32.3",
+    "remark": "Start, 0 Bar"
    },
    {
-    "time": "09:21",
+    "time": "09:11",
     "pg1": "5.99",
     "pg2": "5.99",
     "rec": "5.99",
-    "water": "28.7",
-    "ambient": "33.5",
-    "remark": "Stable"
-   },
-   {
-    "time": "010:34",
-    "pg1": "5.98",
-    "pg2": "5.98",
-    "rec": "5.98",
-    "water": "28.4",
-    "ambient": "31.3",
-    "remark": "Stable"
-   },
-   {
-    "time": "011:40",
-    "pg1": "5.97",
-    "pg2": "5.97",
-    "rec": "5.97",
-    "water": "28.7",
+    "water": "29.0",
     "ambient": "32.8",
     "remark": "Stable"
    },
    {
-    "time": "012:42",
+    "time": "010:16",
+    "pg1": "5.98",
+    "pg2": "5.98",
+    "rec": "5.98",
+    "water": "30.1",
+    "ambient": "32.9",
+    "remark": "Stable"
+   },
+   {
+    "time": "011:43",
+    "pg1": "5.97",
+    "pg2": "5.97",
+    "rec": "5.97",
+    "water": "29.2",
+    "ambient": "32.2",
+    "remark": "Stable"
+   },
+   {
+    "time": "012:38",
     "pg1": "5.96",
     "pg2": "5.96",
     "rec": "5.96",
-    "water": "30.3",
-    "ambient": "31.6",
+    "water": "30.1",
+    "ambient": "31.2",
     "remark": "Hold complete, no drop"
    }
   ],
   "results": [],
   "coats": [],
-  "photos": [],
+  "photos": [
+   {
+    "id": "ph-gauge-6185",
+    "label": "Test pressure held at 6.0 Bar",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23e8e6e1'%2F%3E%3Ccircle%20cx%3D'200'%20cy%3D'142'%20r%3D'96'%20fill%3D'%23fbfbf9'%20stroke%3D'%233a3a3f'%20stroke-width%3D'7'%2F%3E%3Ccircle%20cx%3D'200'%20cy%3D'142'%20r%3D'84'%20fill%3D'none'%20stroke%3D'%23c9c6bf'%20stroke-width%3D'1.5'%2F%3E%3Cg%20stroke%3D'%232a2a30'%20stroke-width%3D'3'%3E%3Cpath%20d%3D'M200%2066v14M274%20142h-14M200%20218v-14M126%20142h14M252%2090l-10%2010M252%20194l-10-10M148%20194l10-10M148%2090l10%2010'%2F%3E%3C%2Fg%3E%3Cpath%20d%3D'M200%20142L246%2096'%20stroke%3D'%23b3261e'%20stroke-width%3D'5'%20stroke-linecap%3D'round'%2F%3E%3Ccircle%20cx%3D'200'%20cy%3D'142'%20r%3D'9'%20fill%3D'%233a3a3f'%2F%3E%3Ctext%20x%3D'200'%20y%3D'190'%20font-family%3D'monospace'%20font-size%3D'15'%20fill%3D'%234a4a52'%20text-anchor%3D'middle'%3EBAR%3C%2Ftext%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3ETest%20pressure%20held%20at%206.0%20Bar%3C%2Ftext%3E%3C%2Fsvg%3E"
+   },
+   {
+    "id": "ph-unit-8940",
+    "label": "ISO TANK SPARGES IST-0447-01 under test",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23c6d2da'%2F%3E%3Crect%20y%3D'196'%20width%3D'400'%20height%3D'104'%20fill%3D'%23b0a89c'%2F%3E%3Crect%20x%3D'40'%20y%3D'96'%20width%3D'320'%20height%3D'104'%20rx%3D'48'%20fill%3D'%23d8d4cc'%20stroke%3D'%235a564f'%20stroke-width%3D'4'%2F%3E%3Crect%20x%3D'34'%20y%3D'88'%20width%3D'332'%20height%3D'120'%20rx%3D'7'%20fill%3D'none'%20stroke%3D'%233f3b36'%20stroke-width%3D'5'%2F%3E%3Cg%20fill%3D'%235a564f'%3E%3Ccircle%20cx%3D'104'%20cy%3D'210'%20r%3D'19'%2F%3E%3Ccircle%20cx%3D'296'%20cy%3D'210'%20r%3D'19'%2F%3E%3C%2Fg%3E%3Cpath%20d%3D'M40%20148h320'%20stroke%3D'%23c8621e'%20stroke-width%3D'9'%2F%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EISO%20TANK%20SPARGES%20IST-0447-01%20under%20test%3C%2Ftext%3E%3C%2Fsvg%3E"
+   }
+  ],
   "createdAt": "2026-04-11T07:40:00.000Z",
-  "updatedAt": "2026-04-11T15:36:00.000Z",
+  "updatedAt": "2026-04-11T15:23:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-04-11T15:36:00.000Z",
-  "syncedAt": "2026-04-11T15:36:00.000Z"
+  "approvedAt": "2026-04-11T15:23:00.000Z",
+  "syncedAt": "2026-04-11T15:23:00.000Z"
  },
  {
   "id": "demo-1000300001-BPR-01",
@@ -326,27 +359,27 @@ export const SEED_REPORTS = [
    "surfacePrep": "SA 2½",
    "sspc": "SP 10",
    "abrasive": "Steel grit G-40",
-   "anchorProfile": "57",
-   "dryTemp": "29.8",
-   "wetTemp": "25.7",
-   "matlTemp": "34.5",
-   "prepResult": "Reject",
+   "anchorProfile": "69",
+   "dryTemp": "32.2",
+   "wetTemp": "26.1",
+   "matlTemp": "31.8",
+   "prepResult": "Acc",
    "coatingPrep": "Second",
-   "paintDesc": "Polyurethane topcoat",
+   "paintDesc": "Epoxy mastic MIO",
    "thinner": "Epoxy thinner",
-   "batchPaint": "B28117",
-   "batchThinner": "T3696",
+   "batchPaint": "B22805",
+   "batchThinner": "T3079",
    "finalStatus": "Accept",
    "ncr": "Inspection carried out per the referenced procedure. No outstanding items.",
    "signInspector": {
     "name": "Inspector Two",
-    "at": "2026-04-12T09:44:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-04-12T09:41:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-04-12T15:36:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-04-12T15:07:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
@@ -356,11 +389,11 @@ export const SEED_REPORTS = [
     "coat": "Coat 1",
     "area": "Exterior — Zone A",
     "pts": [
-     "131",
-     "127",
-     "149",
-     "140",
-     "135"
+     "157",
+     "143",
+     "172",
+     "152",
+     "136"
     ],
     "std": "120"
    },
@@ -368,11 +401,11 @@ export const SEED_REPORTS = [
     "coat": "Coat 2",
     "area": "Exterior — Zone B",
     "pts": [
-     "186",
-     "234",
-     "214",
-     "256",
-     "227"
+     "248",
+     "238",
+     "221",
+     "238",
+     "244"
     ],
     "std": "175"
    },
@@ -380,22 +413,33 @@ export const SEED_REPORTS = [
     "coat": "Coat 3",
     "area": "Frame & walkway",
     "pts": [
-     "204",
-     "248",
-     "238",
-     "221",
-     "238"
+     "241",
+     "235",
+     "228",
+     "259",
+     "196"
     ],
     "std": "175"
    }
   ],
-  "photos": [],
+  "photos": [
+   {
+    "id": "ph-coating-2994",
+    "label": "DFT reading, Second coat",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23d9d6d0'%2F%3E%3Crect%20y%3D'150'%20width%3D'400'%20height%3D'150'%20fill%3D'%236b6660'%2F%3E%3Crect%20y%3D'120'%20width%3D'400'%20height%3D'30'%20fill%3D'%23c8621e'%2F%3E%3Crect%20y%3D'104'%20width%3D'400'%20height%3D'16'%20fill%3D'%23d8d3cb'%2F%3E%3Cg%20stroke%3D'%232a2a30'%20stroke-width%3D'2.5'%3E%3Cpath%20d%3D'M300%20104v46M292%20104h16M292%20150h16'%2F%3E%3C%2Fg%3E%3Ctext%20x%3D'318'%20y%3D'132'%20font-family%3D'monospace'%20font-size%3D'17'%20fill%3D'%232a2a30'%3EDFT%3C%2Ftext%3E%3Crect%20x%3D'16'%20y%3D'226'%20width%3D'150'%20height%3D'34'%20rx%3D'4'%20fill%3D'%23fbfbf9'%20stroke%3D'%235a564f'%2F%3E%3Ctext%20x%3D'91'%20y%3D'250'%20font-family%3D'monospace'%20font-size%3D'18'%20fill%3D'%232a2a30'%20text-anchor%3D'middle'%3E168%20um%3C%2Ftext%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EDFT%20reading%2C%20Second%20coat%3C%2Ftext%3E%3C%2Fsvg%3E"
+   },
+   {
+    "id": "ph-unit-9715",
+    "label": "ISO TANK SPARGES IST-0447-01 after coating",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23c6d2da'%2F%3E%3Crect%20y%3D'196'%20width%3D'400'%20height%3D'104'%20fill%3D'%23b0a89c'%2F%3E%3Crect%20x%3D'40'%20y%3D'96'%20width%3D'320'%20height%3D'104'%20rx%3D'48'%20fill%3D'%23d8d4cc'%20stroke%3D'%235a564f'%20stroke-width%3D'4'%2F%3E%3Crect%20x%3D'34'%20y%3D'88'%20width%3D'332'%20height%3D'120'%20rx%3D'7'%20fill%3D'none'%20stroke%3D'%233f3b36'%20stroke-width%3D'5'%2F%3E%3Cg%20fill%3D'%235a564f'%3E%3Ccircle%20cx%3D'104'%20cy%3D'210'%20r%3D'19'%2F%3E%3Ccircle%20cx%3D'296'%20cy%3D'210'%20r%3D'19'%2F%3E%3C%2Fg%3E%3Cpath%20d%3D'M40%20148h320'%20stroke%3D'%23c8621e'%20stroke-width%3D'9'%2F%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EISO%20TANK%20SPARGES%20IST-0447-01%20after%20coating%3C%2Ftext%3E%3C%2Fsvg%3E"
+   }
+  ],
   "createdAt": "2026-04-12T07:40:00.000Z",
-  "updatedAt": "2026-04-12T15:36:00.000Z",
+  "updatedAt": "2026-04-12T15:07:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-04-12T15:36:00.000Z",
-  "syncedAt": "2026-04-12T15:36:00.000Z"
+  "approvedAt": "2026-04-12T15:07:00.000Z",
+  "syncedAt": "2026-04-12T15:07:00.000Z"
  },
  {
   "id": "demo-1000300001-VG-01",
@@ -421,33 +465,17 @@ export const SEED_REPORTS = [
    "ncr": "Inspection carried out per the referenced procedure. No outstanding items.",
    "signInspector": {
     "name": "Inspector Two",
-    "at": "2026-04-13T09:38:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-04-13T09:48:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-04-13T15:44:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-04-13T15:39:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
   "results": [
-   {
-    "point": "Frame weld toe",
-    "welderId": "W-48",
-    "description": "Overall width",
-    "judgement": "OK",
-    "defectType": "N/A",
-    "remark": "N/A"
-   },
-   {
-    "point": "Ladder mounting",
-    "welderId": "W-47",
-    "description": "Manlid centre offset",
-    "judgement": "OK",
-    "defectType": "N/A",
-    "remark": "N/A"
-   },
    {
     "point": "Data plate",
     "welderId": "W-24",
@@ -471,16 +499,43 @@ export const SEED_REPORTS = [
     "judgement": "OK",
     "defectType": "N/A",
     "remark": "N/A"
+   },
+   {
+    "point": "Frame weld toe",
+    "welderId": "W-43",
+    "description": "Frame diagonal",
+    "judgement": "OK",
+    "defectType": "N/A",
+    "remark": "N/A"
+   },
+   {
+    "point": "Data plate",
+    "welderId": "W-42",
+    "description": "Manlid centre offset",
+    "judgement": "OK",
+    "defectType": "N/A",
+    "remark": "N/A"
    }
   ],
   "coats": [],
-  "photos": [],
+  "photos": [
+   {
+    "id": "ph-unit-1010",
+    "label": "Data plate",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23c6d2da'%2F%3E%3Crect%20y%3D'196'%20width%3D'400'%20height%3D'104'%20fill%3D'%23b0a89c'%2F%3E%3Crect%20x%3D'40'%20y%3D'96'%20width%3D'320'%20height%3D'104'%20rx%3D'48'%20fill%3D'%23d8d4cc'%20stroke%3D'%235a564f'%20stroke-width%3D'4'%2F%3E%3Crect%20x%3D'34'%20y%3D'88'%20width%3D'332'%20height%3D'120'%20rx%3D'7'%20fill%3D'none'%20stroke%3D'%233f3b36'%20stroke-width%3D'5'%2F%3E%3Cg%20fill%3D'%235a564f'%3E%3Ccircle%20cx%3D'104'%20cy%3D'210'%20r%3D'19'%2F%3E%3Ccircle%20cx%3D'296'%20cy%3D'210'%20r%3D'19'%2F%3E%3C%2Fg%3E%3Cpath%20d%3D'M40%20148h320'%20stroke%3D'%23c8621e'%20stroke-width%3D'9'%2F%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EData%20plate%3C%2Ftext%3E%3C%2Fsvg%3E"
+   },
+   {
+    "id": "ph-plate-1406",
+    "label": "Data plate, IST-0447-01",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23cdcac4'%2F%3E%3Crect%20x%3D'52'%20y%3D'58'%20width%3D'296'%20height%3D'184'%20rx%3D'5'%20fill%3D'%23b7b2ab'%20stroke%3D'%235a564f'%20stroke-width%3D'4'%2F%3E%3Cg%20font-family%3D'monospace'%20fill%3D'%23232328'%3E%3Ctext%20x%3D'76'%20y%3D'100'%20font-size%3D'19'%3EMANUFACTURING%20CO.%3C%2Ftext%3E%3Ctext%20x%3D'76'%20y%3D'134'%20font-size%3D'14'%3ESERIAL%3C%2Ftext%3E%3Ctext%20x%3D'76'%20y%3D'162'%20font-size%3D'14'%3EDESIGN%20P.%20%204.0%20BAR%3C%2Ftext%3E%3Ctext%20x%3D'76'%20y%3D'190'%20font-size%3D'14'%3ETEST%20P.%20%20%20%206.0%20BAR%3C%2Ftext%3E%3Ctext%20x%3D'76'%20y%3D'218'%20font-size%3D'14'%3EYEAR%20%20%20%20%20%20%202026%3C%2Ftext%3E%3C%2Fg%3E%3Cg%20fill%3D'%236e6a64'%3E%3Ccircle%20cx%3D'68'%20cy%3D'72'%20r%3D'5'%2F%3E%3Ccircle%20cx%3D'332'%20cy%3D'72'%20r%3D'5'%2F%3E%3Ccircle%20cx%3D'68'%20cy%3D'228'%20r%3D'5'%2F%3E%3Ccircle%20cx%3D'332'%20cy%3D'228'%20r%3D'5'%2F%3E%3C%2Fg%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EData%20plate%2C%20IST-0447-01%3C%2Ftext%3E%3C%2Fsvg%3E"
+   }
+  ],
   "createdAt": "2026-04-13T07:40:00.000Z",
-  "updatedAt": "2026-04-13T15:44:00.000Z",
+  "updatedAt": "2026-04-13T15:39:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-04-13T15:44:00.000Z",
-  "syncedAt": "2026-04-13T15:44:00.000Z"
+  "approvedAt": "2026-04-13T15:39:00.000Z",
+  "syncedAt": "2026-04-13T15:39:00.000Z"
  },
  {
   "id": "demo-1000300002-DIM-01",
@@ -501,61 +556,61 @@ export const SEED_REPORTS = [
    "sn": "IST-0447-02",
    "unit": "IST-0447-02",
    "customer": "Customer 07",
-   "drawingNo": "DWG-IST-4143-R2",
+   "drawingNo": "DWG-IST-4147-R0",
    "drawingFile": "N/A",
    "ncr": "Inspection carried out per the referenced procedure. No outstanding items.",
    "signInspector": {
     "name": "Inspector One",
-    "at": "2026-04-12T09:12:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-04-12T09:54:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-04-12T15:14:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-04-12T15:06:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
   "results": [
    {
     "description": "Overall length",
-    "itemNo": "11",
+    "itemNo": "2",
     "nominal": "6058",
     "min": "6055",
     "max": "6061",
     "actual": "6057",
-    "note": ""
+    "note": "Measured with steel tape."
    },
    {
     "description": "Overall width",
-    "itemNo": "7",
+    "itemNo": "11",
     "nominal": "2438",
     "min": "2435",
     "max": "2441",
     "actual": "2438",
-    "note": ""
+    "note": "Measured with steel tape."
    },
    {
     "description": "Overall height",
-    "itemNo": "4",
+    "itemNo": "5",
     "nominal": "2591",
     "min": "2588",
     "max": "2594",
     "actual": "2592",
-    "note": "Measured with steel tape."
+    "note": "Verified twice."
    },
    {
     "description": "Frame diagonal",
-    "itemNo": "7",
+    "itemNo": "8",
     "nominal": "6470",
     "min": "6467",
     "max": "6473",
     "actual": "6469",
-    "note": "Measured with steel tape."
+    "note": "Verified twice."
    },
    {
     "description": "Manlid centre offset",
-    "itemNo": "7",
+    "itemNo": "8",
     "nominal": "1220",
     "min": "1217",
     "max": "1223",
@@ -564,13 +619,24 @@ export const SEED_REPORTS = [
    }
   ],
   "coats": [],
-  "photos": [],
+  "photos": [
+   {
+    "id": "ph-tape-4828",
+    "label": "Overall length — 6057 mm",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23dedbd5'%2F%3E%3Crect%20y%3D'96'%20width%3D'400'%20height%3D'108'%20fill%3D'%23a9a49c'%2F%3E%3Crect%20y%3D'128'%20width%3D'400'%20height%3D'30'%20fill%3D'%23f0c419'%2F%3E%3Cg%20stroke%3D'%232a2a30'%20stroke-width%3D'2'%3E%3Cpath%20d%3D'M0%20128v30'%2F%3E%3Cpath%20d%3D'M20%20128v14'%2F%3E%3Cpath%20d%3D'M40%20128v14'%2F%3E%3Cpath%20d%3D'M60%20128v14'%2F%3E%3Cpath%20d%3D'M80%20128v14'%2F%3E%3Cpath%20d%3D'M100%20128v30'%2F%3E%3Cpath%20d%3D'M120%20128v14'%2F%3E%3Cpath%20d%3D'M140%20128v14'%2F%3E%3Cpath%20d%3D'M160%20128v14'%2F%3E%3Cpath%20d%3D'M180%20128v14'%2F%3E%3Cpath%20d%3D'M200%20128v30'%2F%3E%3Cpath%20d%3D'M220%20128v14'%2F%3E%3Cpath%20d%3D'M240%20128v14'%2F%3E%3Cpath%20d%3D'M260%20128v14'%2F%3E%3Cpath%20d%3D'M280%20128v14'%2F%3E%3Cpath%20d%3D'M300%20128v30'%2F%3E%3Cpath%20d%3D'M320%20128v14'%2F%3E%3Cpath%20d%3D'M340%20128v14'%2F%3E%3Cpath%20d%3D'M360%20128v14'%2F%3E%3Cpath%20d%3D'M380%20128v14'%2F%3E%3C%2Fg%3E%3Cg%20font-family%3D'monospace'%20font-size%3D'12'%20fill%3D'%232a2a30'%3E%3Ctext%20x%3D'4'%20y%3D'176'%3E0%3C%2Ftext%3E%3Ctext%20x%3D'104'%20y%3D'176'%3E500%3C%2Ftext%3E%3Ctext%20x%3D'204'%20y%3D'176'%3E1000%3C%2Ftext%3E%3Ctext%20x%3D'304'%20y%3D'176'%3E1500%3C%2Ftext%3E%3C%2Fg%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EOverall%20length%20%E2%80%94%206057%20mm%3C%2Ftext%3E%3C%2Fsvg%3E"
+   },
+   {
+    "id": "ph-unit-3073",
+    "label": "ISO TANK SPARGES IST-0447-02",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23c6d2da'%2F%3E%3Crect%20y%3D'196'%20width%3D'400'%20height%3D'104'%20fill%3D'%23b0a89c'%2F%3E%3Crect%20x%3D'40'%20y%3D'96'%20width%3D'320'%20height%3D'104'%20rx%3D'48'%20fill%3D'%23d8d4cc'%20stroke%3D'%235a564f'%20stroke-width%3D'4'%2F%3E%3Crect%20x%3D'34'%20y%3D'88'%20width%3D'332'%20height%3D'120'%20rx%3D'7'%20fill%3D'none'%20stroke%3D'%233f3b36'%20stroke-width%3D'5'%2F%3E%3Cg%20fill%3D'%235a564f'%3E%3Ccircle%20cx%3D'104'%20cy%3D'210'%20r%3D'19'%2F%3E%3Ccircle%20cx%3D'296'%20cy%3D'210'%20r%3D'19'%2F%3E%3C%2Fg%3E%3Cpath%20d%3D'M40%20148h320'%20stroke%3D'%23c8621e'%20stroke-width%3D'9'%2F%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EISO%20TANK%20SPARGES%20IST-0447-02%3C%2Ftext%3E%3C%2Fsvg%3E"
+   }
+  ],
   "createdAt": "2026-04-12T07:40:00.000Z",
-  "updatedAt": "2026-04-12T15:14:00.000Z",
+  "updatedAt": "2026-04-12T15:06:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-04-12T15:14:00.000Z",
-  "syncedAt": "2026-04-12T15:14:00.000Z"
+  "approvedAt": "2026-04-12T15:06:00.000Z",
+  "syncedAt": "2026-04-12T15:06:00.000Z"
  },
  {
   "id": "demo-1000300002-UT-01",
@@ -596,104 +662,115 @@ export const SEED_REPORTS = [
    "ncrRef": "N/A",
    "instrument": "Olympus EPOCH 650",
    "model": "EPOCH 650",
-   "serialNo": "SN-63805",
+   "serialNo": "SN-51606",
    "cable": "Coaxial BNC, 2.0 m",
    "couplant": "CMC gel",
-   "technique": "Contact — Angle Beam",
+   "technique": "Angle Beam",
    "scanSurface": "From B",
-   "scanTechnique": "Half Skip Distance",
-   "scanDirection": "Right angle to weld axis",
+   "scanTechnique": "Half to Full Skip Distance",
+   "scanDirection": "Essentially parallel to weld axis",
    "lengthInd": "6 dB Drop",
-   "heightInd": "14 dB Drop",
+   "heightInd": "6 dB Drop",
    "suAngle": "70°",
-   "suSerial": "SU-4828",
-   "suFreq": "23.8",
+   "suSerial": "SU-4851",
+   "suFreq": "3.2",
    "suSize": "10 mm dia.",
-   "blockId": "Nozzle",
+   "blockId": "V1",
    "hole": "SDH Ø 2.4 mm",
-   "amplitude": "21",
+   "amplitude": "37",
    "refReflector": "IIW V1 block",
-   "refLevel": "46.8",
-   "scanLevel": "86.4",
-   "testRange": "61.3",
+   "refLevel": "84.6",
+   "scanLevel": "97.7",
+   "testRange": "86.8",
    "notes": "Inspection carried out per the referenced procedure. No outstanding items.",
    "signInspector": {
     "name": "Inspector One",
-    "at": "2026-04-13T09:44:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-04-13T09:16:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-04-13T15:47:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-04-13T15:39:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
   "results": [
    {
     "partId": "Shell longitudinal seam",
-    "thickness": "12.5",
-    "soundpath": "27.0",
-    "amplitude": "38",
-    "length": "26",
-    "depth": "6.3",
+    "thickness": "6.9",
+    "soundpath": "49.7",
+    "amplitude": "65",
+    "length": "21",
+    "depth": "6.1",
     "judgement": "Acc",
     "discontinuity": "None",
     "remark": "N/A"
    },
    {
-    "partId": "Shell longitudinal seam",
-    "thickness": "8.8",
-    "soundpath": "48.0",
-    "amplitude": "67",
-    "length": "23",
-    "depth": "2.7",
+    "partId": "Outlet nozzle N2",
+    "thickness": "13.5",
+    "soundpath": "44.3",
+    "amplitude": "64",
+    "length": "6",
+    "depth": "11.5",
     "judgement": "Acc",
     "discontinuity": "None",
     "remark": "N/A"
    },
    {
     "partId": "Frame corner casting",
-    "thickness": "13.4",
+    "thickness": "9.9",
+    "soundpath": "52.4",
+    "amplitude": "55",
+    "length": "21",
+    "depth": "11.6",
+    "judgement": "Acc",
+    "discontinuity": "None",
+    "remark": "N/A"
+   },
+   {
+    "partId": "Shell circumferential seam",
+    "thickness": "8.3",
     "soundpath": "43.6",
-    "amplitude": "40",
-    "length": "17",
-    "depth": "7.8",
+    "amplitude": "65",
+    "length": "26",
+    "depth": "6.6",
     "judgement": "Acc",
     "discontinuity": "None",
     "remark": "N/A"
    },
    {
     "partId": "Sparge pipe bracket",
-    "thickness": "13.2",
-    "soundpath": "14.2",
-    "amplitude": "66",
-    "length": "22",
-    "depth": "10.7",
-    "judgement": "Acc",
-    "discontinuity": "None",
-    "remark": "N/A"
-   },
-   {
-    "partId": "Frame corner casting",
-    "thickness": "11.7",
-    "soundpath": "43.9",
-    "amplitude": "66",
-    "length": "15",
-    "depth": "3.7",
+    "thickness": "8.7",
+    "soundpath": "43.8",
+    "amplitude": "38",
+    "length": "21",
+    "depth": "8.2",
     "judgement": "Acc",
     "discontinuity": "None",
     "remark": "N/A"
    }
   ],
   "coats": [],
-  "photos": [],
+  "photos": [
+   {
+    "id": "ph-weld-2143",
+    "label": "Shell longitudinal seam after examination",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23cfcbc4'%2F%3E%3Cpath%20d%3D'M0%20150h400'%20stroke%3D'%238e8880'%20stroke-width%3D'58'%2F%3E%3Cpath%20d%3D'M0%20150q20%20-13%2040%200t40%200%2040%200%2040%200%2040%200%2040%200%2040%200%2040%200%2040%200%2040%200'%20fill%3D'none'%20stroke%3D'%23a8a29a'%20stroke-width%3D'30'%2F%3E%3Cpath%20d%3D'M0%20136q20%20-11%2040%200t40%200%2040%200%2040%200%2040%200%2040%200%2040%200%2040%200%2040%200%2040%200'%20fill%3D'none'%20stroke%3D'%23bdb7ae'%20stroke-width%3D'7'%2F%3E%3Cg%20fill%3D'%236e6a64'%3E%3Ccircle%20cx%3D'96'%20cy%3D'150'%20r%3D'4'%2F%3E%3Ccircle%20cx%3D'214'%20cy%3D'156'%20r%3D'3'%2F%3E%3Ccircle%20cx%3D'300'%20cy%3D'146'%20r%3D'3.5'%2F%3E%3C%2Fg%3E%3Crect%20x%3D'16'%20y%3D'232'%20width%3D'118'%20height%3D'30'%20fill%3D'%23f5f3ef'%20stroke%3D'%235a564f'%2F%3E%3Ctext%20x%3D'75'%20y%3D'253'%20font-family%3D'monospace'%20font-size%3D'16'%20fill%3D'%232a2a30'%20text-anchor%3D'middle'%3E10%20mm%3C%2Ftext%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EShell%20longitudinal%20seam%20after%20examination%3C%2Ftext%3E%3C%2Fsvg%3E"
+   },
+   {
+    "id": "ph-unit-8120",
+    "label": "ISO TANK SPARGES IST-0447-02",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23c6d2da'%2F%3E%3Crect%20y%3D'196'%20width%3D'400'%20height%3D'104'%20fill%3D'%23b0a89c'%2F%3E%3Crect%20x%3D'40'%20y%3D'96'%20width%3D'320'%20height%3D'104'%20rx%3D'48'%20fill%3D'%23d8d4cc'%20stroke%3D'%235a564f'%20stroke-width%3D'4'%2F%3E%3Crect%20x%3D'34'%20y%3D'88'%20width%3D'332'%20height%3D'120'%20rx%3D'7'%20fill%3D'none'%20stroke%3D'%233f3b36'%20stroke-width%3D'5'%2F%3E%3Cg%20fill%3D'%235a564f'%3E%3Ccircle%20cx%3D'104'%20cy%3D'210'%20r%3D'19'%2F%3E%3Ccircle%20cx%3D'296'%20cy%3D'210'%20r%3D'19'%2F%3E%3C%2Fg%3E%3Cpath%20d%3D'M40%20148h320'%20stroke%3D'%23c8621e'%20stroke-width%3D'9'%2F%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EISO%20TANK%20SPARGES%20IST-0447-02%3C%2Ftext%3E%3C%2Fsvg%3E"
+   }
+  ],
   "createdAt": "2026-04-13T07:40:00.000Z",
-  "updatedAt": "2026-04-13T15:47:00.000Z",
+  "updatedAt": "2026-04-13T15:39:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-04-13T15:47:00.000Z",
-  "syncedAt": "2026-04-13T15:47:00.000Z"
+  "approvedAt": "2026-04-13T15:39:00.000Z",
+  "syncedAt": "2026-04-13T15:39:00.000Z"
  },
  {
   "id": "demo-1000300002-LHT-01",
@@ -715,9 +792,9 @@ export const SEED_REPORTS = [
    "unit": "IST-0447-02",
    "customer": "Customer 07",
    "testType": "Hydrostatic Test",
-   "testDesc": "Pipe",
+   "testDesc": "Tank",
    "testMedia": "Water",
-   "pressureUnit": "PsiG",
+   "pressureUnit": "Bar",
    "gauges": "2 Gauges",
    "useRecorder": "Used",
    "useTemp": "Used",
@@ -739,71 +816,82 @@ export const SEED_REPORTS = [
    "testResult": "Satisfactory",
    "signInspector": {
     "name": "Inspector One",
-    "at": "2026-04-14T09:12:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-04-14T09:32:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-04-14T15:35:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-04-14T15:46:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [
    {
-    "time": "08:24",
+    "time": "08:27",
     "pg1": "0.00",
     "pg2": "0.00",
     "rec": "0.00",
-    "water": "30.3",
-    "ambient": "32.5",
-    "remark": "Start, 0 PsiG"
+    "water": "28.9",
+    "ambient": "30.2",
+    "remark": "Start, 0 Bar"
    },
    {
-    "time": "09:48",
+    "time": "09:38",
     "pg1": "5.99",
     "pg2": "5.99",
     "rec": "5.99",
-    "water": "28.4",
-    "ambient": "33.2",
+    "water": "30.0",
+    "ambient": "32.3",
     "remark": "Stable"
    },
    {
-    "time": "010:12",
+    "time": "010:51",
     "pg1": "5.98",
     "pg2": "5.98",
     "rec": "5.98",
-    "water": "30.2",
-    "ambient": "31.7",
+    "water": "28.9",
+    "ambient": "33.6",
     "remark": "Stable"
    },
    {
-    "time": "011:26",
+    "time": "011:11",
     "pg1": "5.97",
     "pg2": "5.97",
     "rec": "5.97",
-    "water": "28.3",
-    "ambient": "33.7",
+    "water": "30.3",
+    "ambient": "31.5",
     "remark": "Stable"
    },
    {
-    "time": "012:07",
+    "time": "012:12",
     "pg1": "5.96",
     "pg2": "5.96",
     "rec": "5.96",
-    "water": "30.2",
-    "ambient": "31.7",
+    "water": "30.1",
+    "ambient": "31.5",
     "remark": "Hold complete, no drop"
    }
   ],
   "results": [],
   "coats": [],
-  "photos": [],
+  "photos": [
+   {
+    "id": "ph-gauge-5909",
+    "label": "Test pressure held at 6.0 Bar",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23e8e6e1'%2F%3E%3Ccircle%20cx%3D'200'%20cy%3D'142'%20r%3D'96'%20fill%3D'%23fbfbf9'%20stroke%3D'%233a3a3f'%20stroke-width%3D'7'%2F%3E%3Ccircle%20cx%3D'200'%20cy%3D'142'%20r%3D'84'%20fill%3D'none'%20stroke%3D'%23c9c6bf'%20stroke-width%3D'1.5'%2F%3E%3Cg%20stroke%3D'%232a2a30'%20stroke-width%3D'3'%3E%3Cpath%20d%3D'M200%2066v14M274%20142h-14M200%20218v-14M126%20142h14M252%2090l-10%2010M252%20194l-10-10M148%20194l10-10M148%2090l10%2010'%2F%3E%3C%2Fg%3E%3Cpath%20d%3D'M200%20142L246%2096'%20stroke%3D'%23b3261e'%20stroke-width%3D'5'%20stroke-linecap%3D'round'%2F%3E%3Ccircle%20cx%3D'200'%20cy%3D'142'%20r%3D'9'%20fill%3D'%233a3a3f'%2F%3E%3Ctext%20x%3D'200'%20y%3D'190'%20font-family%3D'monospace'%20font-size%3D'15'%20fill%3D'%234a4a52'%20text-anchor%3D'middle'%3EBAR%3C%2Ftext%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3ETest%20pressure%20held%20at%206.0%20Bar%3C%2Ftext%3E%3C%2Fsvg%3E"
+   },
+   {
+    "id": "ph-unit-9875",
+    "label": "ISO TANK SPARGES IST-0447-02 under test",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23c6d2da'%2F%3E%3Crect%20y%3D'196'%20width%3D'400'%20height%3D'104'%20fill%3D'%23b0a89c'%2F%3E%3Crect%20x%3D'40'%20y%3D'96'%20width%3D'320'%20height%3D'104'%20rx%3D'48'%20fill%3D'%23d8d4cc'%20stroke%3D'%235a564f'%20stroke-width%3D'4'%2F%3E%3Crect%20x%3D'34'%20y%3D'88'%20width%3D'332'%20height%3D'120'%20rx%3D'7'%20fill%3D'none'%20stroke%3D'%233f3b36'%20stroke-width%3D'5'%2F%3E%3Cg%20fill%3D'%235a564f'%3E%3Ccircle%20cx%3D'104'%20cy%3D'210'%20r%3D'19'%2F%3E%3Ccircle%20cx%3D'296'%20cy%3D'210'%20r%3D'19'%2F%3E%3C%2Fg%3E%3Cpath%20d%3D'M40%20148h320'%20stroke%3D'%23c8621e'%20stroke-width%3D'9'%2F%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EISO%20TANK%20SPARGES%20IST-0447-02%20under%20test%3C%2Ftext%3E%3C%2Fsvg%3E"
+   }
+  ],
   "createdAt": "2026-04-14T07:40:00.000Z",
-  "updatedAt": "2026-04-14T15:35:00.000Z",
+  "updatedAt": "2026-04-14T15:46:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-04-14T15:35:00.000Z",
-  "syncedAt": "2026-04-14T15:35:00.000Z"
+  "approvedAt": "2026-04-14T15:46:00.000Z",
+  "syncedAt": "2026-04-14T15:46:00.000Z"
  },
  {
   "id": "demo-1000300002-BPR-01",
@@ -828,27 +916,27 @@ export const SEED_REPORTS = [
    "surfacePrep": "SA 2½",
    "sspc": "SP 10",
    "abrasive": "Steel grit G-40",
-   "anchorProfile": "67",
-   "dryTemp": "31.3",
-   "wetTemp": "26.8",
-   "matlTemp": "32.2",
+   "anchorProfile": "64",
+   "dryTemp": "30.4",
+   "wetTemp": "26.5",
+   "matlTemp": "34.6",
    "prepResult": "Reject",
    "coatingPrep": "Primer",
    "paintDesc": "Polyurethane topcoat",
    "thinner": "Epoxy thinner",
-   "batchPaint": "B23771",
-   "batchThinner": "T3144",
+   "batchPaint": "B20878",
+   "batchThinner": "T3498",
    "finalStatus": "Accept",
    "ncr": "Inspection carried out per the referenced procedure. No outstanding items.",
    "signInspector": {
     "name": "Inspector One",
-    "at": "2026-04-15T09:25:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-04-15T09:11:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-04-15T15:19:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-04-15T15:34:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
@@ -858,11 +946,11 @@ export const SEED_REPORTS = [
     "coat": "Coat 1",
     "area": "Exterior — Zone A",
     "pts": [
-     "159",
-     "141",
-     "143",
-     "150",
-     "174"
+     "139",
+     "138",
+     "158",
+     "168",
+     "148"
     ],
     "std": "120"
    },
@@ -870,11 +958,11 @@ export const SEED_REPORTS = [
     "coat": "Coat 2",
     "area": "Exterior — Zone B",
     "pts": [
-     "220",
+     "208",
      "252",
-     "226",
-     "207",
-     "246"
+     "222",
+     "219",
+     "240"
     ],
     "std": "175"
    },
@@ -882,22 +970,33 @@ export const SEED_REPORTS = [
     "coat": "Coat 3",
     "area": "Frame & walkway",
     "pts": [
-     "252",
-     "253",
-     "187",
-     "255",
-     "187"
+     "230",
+     "249",
+     "186",
+     "193",
+     "206"
     ],
     "std": "175"
    }
   ],
-  "photos": [],
+  "photos": [
+   {
+    "id": "ph-coating-5656",
+    "label": "DFT reading, Primer coat",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23d9d6d0'%2F%3E%3Crect%20y%3D'150'%20width%3D'400'%20height%3D'150'%20fill%3D'%236b6660'%2F%3E%3Crect%20y%3D'120'%20width%3D'400'%20height%3D'30'%20fill%3D'%23c8621e'%2F%3E%3Crect%20y%3D'104'%20width%3D'400'%20height%3D'16'%20fill%3D'%23d8d3cb'%2F%3E%3Cg%20stroke%3D'%232a2a30'%20stroke-width%3D'2.5'%3E%3Cpath%20d%3D'M300%20104v46M292%20104h16M292%20150h16'%2F%3E%3C%2Fg%3E%3Ctext%20x%3D'318'%20y%3D'132'%20font-family%3D'monospace'%20font-size%3D'17'%20fill%3D'%232a2a30'%3EDFT%3C%2Ftext%3E%3Crect%20x%3D'16'%20y%3D'226'%20width%3D'150'%20height%3D'34'%20rx%3D'4'%20fill%3D'%23fbfbf9'%20stroke%3D'%235a564f'%2F%3E%3Ctext%20x%3D'91'%20y%3D'250'%20font-family%3D'monospace'%20font-size%3D'18'%20fill%3D'%232a2a30'%20text-anchor%3D'middle'%3E168%20um%3C%2Ftext%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EDFT%20reading%2C%20Primer%20coat%3C%2Ftext%3E%3C%2Fsvg%3E"
+   },
+   {
+    "id": "ph-unit-3324",
+    "label": "ISO TANK SPARGES IST-0447-02 after coating",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23c6d2da'%2F%3E%3Crect%20y%3D'196'%20width%3D'400'%20height%3D'104'%20fill%3D'%23b0a89c'%2F%3E%3Crect%20x%3D'40'%20y%3D'96'%20width%3D'320'%20height%3D'104'%20rx%3D'48'%20fill%3D'%23d8d4cc'%20stroke%3D'%235a564f'%20stroke-width%3D'4'%2F%3E%3Crect%20x%3D'34'%20y%3D'88'%20width%3D'332'%20height%3D'120'%20rx%3D'7'%20fill%3D'none'%20stroke%3D'%233f3b36'%20stroke-width%3D'5'%2F%3E%3Cg%20fill%3D'%235a564f'%3E%3Ccircle%20cx%3D'104'%20cy%3D'210'%20r%3D'19'%2F%3E%3Ccircle%20cx%3D'296'%20cy%3D'210'%20r%3D'19'%2F%3E%3C%2Fg%3E%3Cpath%20d%3D'M40%20148h320'%20stroke%3D'%23c8621e'%20stroke-width%3D'9'%2F%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EISO%20TANK%20SPARGES%20IST-0447-02%20after%20coating%3C%2Ftext%3E%3C%2Fsvg%3E"
+   }
+  ],
   "createdAt": "2026-04-15T07:40:00.000Z",
-  "updatedAt": "2026-04-15T15:19:00.000Z",
+  "updatedAt": "2026-04-15T15:34:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-04-15T15:19:00.000Z",
-  "syncedAt": "2026-04-15T15:19:00.000Z"
+  "approvedAt": "2026-04-15T15:34:00.000Z",
+  "syncedAt": "2026-04-15T15:34:00.000Z"
  },
  {
   "id": "demo-1000300002-VG-01",
@@ -923,29 +1022,45 @@ export const SEED_REPORTS = [
    "ncr": "Inspection carried out per the referenced procedure. No outstanding items.",
    "signInspector": {
     "name": "Inspector One",
-    "at": "2026-04-16T09:52:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-04-16T09:21:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-04-16T15:08:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-04-16T15:10:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
   "results": [
    {
     "point": "Data plate",
-    "welderId": "W-44",
-    "description": "Frame diagonal",
+    "welderId": "W-12",
+    "description": "Sparge pipe pitch",
     "judgement": "OK",
     "defectType": "N/A",
     "remark": "N/A"
    },
    {
-    "point": "Outlet valve guard",
-    "welderId": "W-30",
+    "point": "Frame weld toe",
+    "welderId": "W-11",
+    "description": "Overall length",
+    "judgement": "OK",
+    "defectType": "N/A",
+    "remark": "N/A"
+   },
+   {
+    "point": "Shell external surface",
+    "welderId": "W-44",
     "description": "Overall height",
+    "judgement": "OK",
+    "defectType": "N/A",
+    "remark": "N/A"
+   },
+   {
+    "point": "Shell external surface",
+    "welderId": "W-39",
+    "description": "Sparge pipe pitch",
     "judgement": "OK",
     "defectType": "N/A",
     "remark": "N/A"
@@ -953,36 +1068,31 @@ export const SEED_REPORTS = [
    {
     "point": "Frame weld toe",
     "welderId": "W-43",
-    "description": "Overall length",
-    "judgement": "OK",
-    "defectType": "N/A",
-    "remark": "N/A"
-   },
-   {
-    "point": "Ladder mounting",
-    "welderId": "W-15",
     "description": "Frame diagonal",
-    "judgement": "OK",
-    "defectType": "N/A",
-    "remark": "N/A"
-   },
-   {
-    "point": "Shell external surface",
-    "welderId": "W-34",
-    "description": "Manlid centre offset",
     "judgement": "OK",
     "defectType": "N/A",
     "remark": "N/A"
    }
   ],
   "coats": [],
-  "photos": [],
+  "photos": [
+   {
+    "id": "ph-unit-1920",
+    "label": "Data plate",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23c6d2da'%2F%3E%3Crect%20y%3D'196'%20width%3D'400'%20height%3D'104'%20fill%3D'%23b0a89c'%2F%3E%3Crect%20x%3D'40'%20y%3D'96'%20width%3D'320'%20height%3D'104'%20rx%3D'48'%20fill%3D'%23d8d4cc'%20stroke%3D'%235a564f'%20stroke-width%3D'4'%2F%3E%3Crect%20x%3D'34'%20y%3D'88'%20width%3D'332'%20height%3D'120'%20rx%3D'7'%20fill%3D'none'%20stroke%3D'%233f3b36'%20stroke-width%3D'5'%2F%3E%3Cg%20fill%3D'%235a564f'%3E%3Ccircle%20cx%3D'104'%20cy%3D'210'%20r%3D'19'%2F%3E%3Ccircle%20cx%3D'296'%20cy%3D'210'%20r%3D'19'%2F%3E%3C%2Fg%3E%3Cpath%20d%3D'M40%20148h320'%20stroke%3D'%23c8621e'%20stroke-width%3D'9'%2F%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EData%20plate%3C%2Ftext%3E%3C%2Fsvg%3E"
+   },
+   {
+    "id": "ph-plate-2128",
+    "label": "Data plate, IST-0447-02",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23cdcac4'%2F%3E%3Crect%20x%3D'52'%20y%3D'58'%20width%3D'296'%20height%3D'184'%20rx%3D'5'%20fill%3D'%23b7b2ab'%20stroke%3D'%235a564f'%20stroke-width%3D'4'%2F%3E%3Cg%20font-family%3D'monospace'%20fill%3D'%23232328'%3E%3Ctext%20x%3D'76'%20y%3D'100'%20font-size%3D'19'%3EMANUFACTURING%20CO.%3C%2Ftext%3E%3Ctext%20x%3D'76'%20y%3D'134'%20font-size%3D'14'%3ESERIAL%3C%2Ftext%3E%3Ctext%20x%3D'76'%20y%3D'162'%20font-size%3D'14'%3EDESIGN%20P.%20%204.0%20BAR%3C%2Ftext%3E%3Ctext%20x%3D'76'%20y%3D'190'%20font-size%3D'14'%3ETEST%20P.%20%20%20%206.0%20BAR%3C%2Ftext%3E%3Ctext%20x%3D'76'%20y%3D'218'%20font-size%3D'14'%3EYEAR%20%20%20%20%20%20%202026%3C%2Ftext%3E%3C%2Fg%3E%3Cg%20fill%3D'%236e6a64'%3E%3Ccircle%20cx%3D'68'%20cy%3D'72'%20r%3D'5'%2F%3E%3Ccircle%20cx%3D'332'%20cy%3D'72'%20r%3D'5'%2F%3E%3Ccircle%20cx%3D'68'%20cy%3D'228'%20r%3D'5'%2F%3E%3Ccircle%20cx%3D'332'%20cy%3D'228'%20r%3D'5'%2F%3E%3C%2Fg%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EData%20plate%2C%20IST-0447-02%3C%2Ftext%3E%3C%2Fsvg%3E"
+   }
+  ],
   "createdAt": "2026-04-16T07:40:00.000Z",
-  "updatedAt": "2026-04-16T15:08:00.000Z",
+  "updatedAt": "2026-04-16T15:10:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-04-16T15:08:00.000Z",
-  "syncedAt": "2026-04-16T15:08:00.000Z"
+  "approvedAt": "2026-04-16T15:10:00.000Z",
+  "syncedAt": "2026-04-16T15:10:00.000Z"
  },
  {
   "id": "demo-1000300003-DIM-01",
@@ -1003,39 +1113,39 @@ export const SEED_REPORTS = [
    "sn": "IST-0447-03",
    "unit": "IST-0447-03",
    "customer": "Customer 07",
-   "drawingNo": "DWG-IST-4141-R0",
+   "drawingNo": "DWG-IST-4104-R1",
    "drawingFile": "N/A",
    "ncr": "Inspection carried out per the referenced procedure. No outstanding items.",
    "signInspector": {
     "name": "Inspector Two",
-    "at": "2026-04-15T09:15:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-04-15T09:10:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-04-15T15:32:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-04-15T15:10:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
   "results": [
    {
     "description": "Overall length",
-    "itemNo": "6",
+    "itemNo": "9",
     "nominal": "6058",
     "min": "6055",
     "max": "6061",
     "actual": "6057",
-    "note": "Measured with steel tape."
+    "note": "Verified twice."
    },
    {
     "description": "Overall width",
-    "itemNo": "12",
+    "itemNo": "8",
     "nominal": "2438",
     "min": "2435",
     "max": "2441",
     "actual": "2438",
-    "note": ""
+    "note": "Measured with steel tape."
    },
    {
     "description": "Overall height",
@@ -1048,7 +1158,7 @@ export const SEED_REPORTS = [
    },
    {
     "description": "Frame diagonal",
-    "itemNo": "11",
+    "itemNo": "2",
     "nominal": "6470",
     "min": "6467",
     "max": "6473",
@@ -1057,7 +1167,7 @@ export const SEED_REPORTS = [
    },
    {
     "description": "Manlid centre offset",
-    "itemNo": "2",
+    "itemNo": "5",
     "nominal": "1220",
     "min": "1217",
     "max": "1223",
@@ -1066,13 +1176,24 @@ export const SEED_REPORTS = [
    }
   ],
   "coats": [],
-  "photos": [],
+  "photos": [
+   {
+    "id": "ph-tape-9564",
+    "label": "Overall length — 6057 mm",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23dedbd5'%2F%3E%3Crect%20y%3D'96'%20width%3D'400'%20height%3D'108'%20fill%3D'%23a9a49c'%2F%3E%3Crect%20y%3D'128'%20width%3D'400'%20height%3D'30'%20fill%3D'%23f0c419'%2F%3E%3Cg%20stroke%3D'%232a2a30'%20stroke-width%3D'2'%3E%3Cpath%20d%3D'M0%20128v30'%2F%3E%3Cpath%20d%3D'M20%20128v14'%2F%3E%3Cpath%20d%3D'M40%20128v14'%2F%3E%3Cpath%20d%3D'M60%20128v14'%2F%3E%3Cpath%20d%3D'M80%20128v14'%2F%3E%3Cpath%20d%3D'M100%20128v30'%2F%3E%3Cpath%20d%3D'M120%20128v14'%2F%3E%3Cpath%20d%3D'M140%20128v14'%2F%3E%3Cpath%20d%3D'M160%20128v14'%2F%3E%3Cpath%20d%3D'M180%20128v14'%2F%3E%3Cpath%20d%3D'M200%20128v30'%2F%3E%3Cpath%20d%3D'M220%20128v14'%2F%3E%3Cpath%20d%3D'M240%20128v14'%2F%3E%3Cpath%20d%3D'M260%20128v14'%2F%3E%3Cpath%20d%3D'M280%20128v14'%2F%3E%3Cpath%20d%3D'M300%20128v30'%2F%3E%3Cpath%20d%3D'M320%20128v14'%2F%3E%3Cpath%20d%3D'M340%20128v14'%2F%3E%3Cpath%20d%3D'M360%20128v14'%2F%3E%3Cpath%20d%3D'M380%20128v14'%2F%3E%3C%2Fg%3E%3Cg%20font-family%3D'monospace'%20font-size%3D'12'%20fill%3D'%232a2a30'%3E%3Ctext%20x%3D'4'%20y%3D'176'%3E0%3C%2Ftext%3E%3Ctext%20x%3D'104'%20y%3D'176'%3E500%3C%2Ftext%3E%3Ctext%20x%3D'204'%20y%3D'176'%3E1000%3C%2Ftext%3E%3Ctext%20x%3D'304'%20y%3D'176'%3E1500%3C%2Ftext%3E%3C%2Fg%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EOverall%20length%20%E2%80%94%206057%20mm%3C%2Ftext%3E%3C%2Fsvg%3E"
+   },
+   {
+    "id": "ph-unit-6381",
+    "label": "ISO TANK SPARGES IST-0447-03",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23c6d2da'%2F%3E%3Crect%20y%3D'196'%20width%3D'400'%20height%3D'104'%20fill%3D'%23b0a89c'%2F%3E%3Crect%20x%3D'40'%20y%3D'96'%20width%3D'320'%20height%3D'104'%20rx%3D'48'%20fill%3D'%23d8d4cc'%20stroke%3D'%235a564f'%20stroke-width%3D'4'%2F%3E%3Crect%20x%3D'34'%20y%3D'88'%20width%3D'332'%20height%3D'120'%20rx%3D'7'%20fill%3D'none'%20stroke%3D'%233f3b36'%20stroke-width%3D'5'%2F%3E%3Cg%20fill%3D'%235a564f'%3E%3Ccircle%20cx%3D'104'%20cy%3D'210'%20r%3D'19'%2F%3E%3Ccircle%20cx%3D'296'%20cy%3D'210'%20r%3D'19'%2F%3E%3C%2Fg%3E%3Cpath%20d%3D'M40%20148h320'%20stroke%3D'%23c8621e'%20stroke-width%3D'9'%2F%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EISO%20TANK%20SPARGES%20IST-0447-03%3C%2Ftext%3E%3C%2Fsvg%3E"
+   }
+  ],
   "createdAt": "2026-04-15T07:40:00.000Z",
-  "updatedAt": "2026-04-15T15:32:00.000Z",
+  "updatedAt": "2026-04-15T15:10:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-04-15T15:32:00.000Z",
-  "syncedAt": "2026-04-15T15:32:00.000Z"
+  "approvedAt": "2026-04-15T15:10:00.000Z",
+  "syncedAt": "2026-04-15T15:10:00.000Z"
  },
  {
   "id": "demo-1000300003-MT-01",
@@ -1097,58 +1218,58 @@ export const SEED_REPORTS = [
    "materialSpec": "ASTM A516 Gr.70",
    "ncrRef": "N/A",
    "lightEquip": "LED floodlight 50W",
-   "lightmeter": "LUX-002 · Digital Light Meter · Cal 2026-04-23",
-   "lightIntensity": "1378",
-   "mtEquipment": "Yoke",
+   "lightmeter": "LUX-001 · Digital Light Meter · Cal 2026-01-09",
+   "lightIntensity": "1510",
+   "mtEquipment": "Coil",
    "equipId": "YK-2201",
    "currentType": "AC",
    "particle": "Visible, Wet",
    "particleApp": "Spray",
    "brand": "Magnaflux 7HF",
-   "particleDesc": "Wet fluorescent, batch WF717",
-   "whiteContrast": "Contrast paint, batch WC236",
-   "cleanerBatch": "Solvent cleaner, batch CL447",
-   "method": "Continuous",
-   "surfacePreparation": "As Grounded",
-   "stage": "After Hydrostatic",
-   "weldingProcess": "SMAW",
-   "scope": "Back Chipping",
+   "particleDesc": "Wet fluorescent, batch WF429",
+   "whiteContrast": "Contrast paint, batch WC251",
+   "cleanerBatch": "Solvent cleaner, batch CL216",
+   "method": "Other",
+   "surfacePreparation": "Solvent Wipe",
+   "stage": "After Welding",
+   "weldingProcess": "Other",
+   "scope": "Other",
    "signInspector": {
     "name": "Inspector Two",
     "at": "2026-04-16T09:55:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-04-16T15:48:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-04-16T15:41:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
   "results": [
    {
-    "partId": "Shell circumferential seam",
+    "partId": "Shell longitudinal seam",
     "material": "ASTM A516 Gr.70",
-    "weldNo": "WS-21",
-    "thickness": "7.0",
+    "weldNo": "WS-28",
+    "thickness": "6.9",
     "judgement": "Acc",
     "discontinuity": "None",
     "remark": "N/A"
    },
    {
-    "partId": "Frame corner casting",
+    "partId": "Outlet nozzle N2",
     "material": "ASTM A516 Gr.70",
-    "weldNo": "WS-24",
-    "thickness": "6.1",
+    "weldNo": "WS-20",
+    "thickness": "11.2",
     "judgement": "Acc",
     "discontinuity": "None",
     "remark": "N/A"
    },
    {
-    "partId": "Shell circumferential seam",
+    "partId": "Manlid nozzle N1",
     "material": "ASTM A516 Gr.70",
-    "weldNo": "WS-32",
-    "thickness": "12.8",
+    "weldNo": "WS-29",
+    "thickness": "8.4",
     "judgement": "Acc",
     "discontinuity": "None",
     "remark": "N/A"
@@ -1156,8 +1277,8 @@ export const SEED_REPORTS = [
    {
     "partId": "Sparge pipe bracket",
     "material": "ASTM A516 Gr.70",
-    "weldNo": "WS-2",
-    "thickness": "6.5",
+    "weldNo": "WS-26",
+    "thickness": "10.0",
     "judgement": "Acc",
     "discontinuity": "None",
     "remark": "N/A"
@@ -1165,21 +1286,32 @@ export const SEED_REPORTS = [
    {
     "partId": "Shell longitudinal seam",
     "material": "ASTM A516 Gr.70",
-    "weldNo": "WS-34",
-    "thickness": "12.7",
+    "weldNo": "WS-10",
+    "thickness": "8.1",
     "judgement": "Acc",
     "discontinuity": "None",
     "remark": "N/A"
    }
   ],
   "coats": [],
-  "photos": [],
+  "photos": [
+   {
+    "id": "ph-weld-1722",
+    "label": "Shell longitudinal seam after examination",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23cfcbc4'%2F%3E%3Cpath%20d%3D'M0%20150h400'%20stroke%3D'%238e8880'%20stroke-width%3D'58'%2F%3E%3Cpath%20d%3D'M0%20150q20%20-13%2040%200t40%200%2040%200%2040%200%2040%200%2040%200%2040%200%2040%200%2040%200%2040%200'%20fill%3D'none'%20stroke%3D'%23a8a29a'%20stroke-width%3D'30'%2F%3E%3Cpath%20d%3D'M0%20136q20%20-11%2040%200t40%200%2040%200%2040%200%2040%200%2040%200%2040%200%2040%200%2040%200%2040%200'%20fill%3D'none'%20stroke%3D'%23bdb7ae'%20stroke-width%3D'7'%2F%3E%3Cg%20fill%3D'%236e6a64'%3E%3Ccircle%20cx%3D'96'%20cy%3D'150'%20r%3D'4'%2F%3E%3Ccircle%20cx%3D'214'%20cy%3D'156'%20r%3D'3'%2F%3E%3Ccircle%20cx%3D'300'%20cy%3D'146'%20r%3D'3.5'%2F%3E%3C%2Fg%3E%3Crect%20x%3D'16'%20y%3D'232'%20width%3D'118'%20height%3D'30'%20fill%3D'%23f5f3ef'%20stroke%3D'%235a564f'%2F%3E%3Ctext%20x%3D'75'%20y%3D'253'%20font-family%3D'monospace'%20font-size%3D'16'%20fill%3D'%232a2a30'%20text-anchor%3D'middle'%3E10%20mm%3C%2Ftext%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EShell%20longitudinal%20seam%20after%20examination%3C%2Ftext%3E%3C%2Fsvg%3E"
+   },
+   {
+    "id": "ph-unit-7491",
+    "label": "ISO TANK SPARGES IST-0447-03",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23c6d2da'%2F%3E%3Crect%20y%3D'196'%20width%3D'400'%20height%3D'104'%20fill%3D'%23b0a89c'%2F%3E%3Crect%20x%3D'40'%20y%3D'96'%20width%3D'320'%20height%3D'104'%20rx%3D'48'%20fill%3D'%23d8d4cc'%20stroke%3D'%235a564f'%20stroke-width%3D'4'%2F%3E%3Crect%20x%3D'34'%20y%3D'88'%20width%3D'332'%20height%3D'120'%20rx%3D'7'%20fill%3D'none'%20stroke%3D'%233f3b36'%20stroke-width%3D'5'%2F%3E%3Cg%20fill%3D'%235a564f'%3E%3Ccircle%20cx%3D'104'%20cy%3D'210'%20r%3D'19'%2F%3E%3Ccircle%20cx%3D'296'%20cy%3D'210'%20r%3D'19'%2F%3E%3C%2Fg%3E%3Cpath%20d%3D'M40%20148h320'%20stroke%3D'%23c8621e'%20stroke-width%3D'9'%2F%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EISO%20TANK%20SPARGES%20IST-0447-03%3C%2Ftext%3E%3C%2Fsvg%3E"
+   }
+  ],
   "createdAt": "2026-04-16T07:40:00.000Z",
-  "updatedAt": "2026-04-16T15:48:00.000Z",
+  "updatedAt": "2026-04-16T15:41:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-04-16T15:48:00.000Z",
-  "syncedAt": "2026-04-16T15:48:00.000Z"
+  "approvedAt": "2026-04-16T15:41:00.000Z",
+  "syncedAt": "2026-04-16T15:41:00.000Z"
  },
  {
   "id": "demo-1000300003-LHT-01",
@@ -1201,9 +1333,9 @@ export const SEED_REPORTS = [
    "unit": "IST-0447-03",
    "customer": "Customer 07",
    "testType": "Hydrostatic Test",
-   "testDesc": "Body",
+   "testDesc": "Tank",
    "testMedia": "Water",
-   "pressureUnit": "PsiG",
+   "pressureUnit": "Bar",
    "gauges": "2 Gauges",
    "useRecorder": "Used",
    "useTemp": "Used",
@@ -1218,78 +1350,89 @@ export const SEED_REPORTS = [
    "holding": "30",
    "pg1": "PG-003 · Pressure Gauge 0–40 Bar · Cal 2026-03-02",
    "pg2": "PG-001 · Pressure Gauge 0–25 Bar · Cal 2026-01-14",
-   "pressRecorder": "BRT-001 · Chart Recorder · Cal 2026-02-11",
+   "pressRecorder": "BRT-002 · Chart Recorder · Cal 2026-04-08",
    "scale": "1 div = 0.2 Bar",
    "tempRecorder": "TMP-001 · Digital Thermometer · Cal 2026-01-20",
-   "tempGauge": "TG-011 · Dial Temperature Gauge · Cal 2026-05-19",
+   "tempGauge": "TG-012 · Dial Temperature Gauge · Cal 2026-06-02",
    "testResult": "Satisfactory",
    "signInspector": {
     "name": "Inspector Two",
-    "at": "2026-04-17T09:55:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-04-17T09:54:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-04-17T15:41:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-04-17T15:46:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [
    {
-    "time": "08:37",
+    "time": "08:45",
     "pg1": "0.00",
     "pg2": "0.00",
     "rec": "0.00",
-    "water": "30.7",
-    "ambient": "31.6",
-    "remark": "Start, 0 PsiG"
+    "water": "30.9",
+    "ambient": "31.0",
+    "remark": "Start, 0 Bar"
    },
    {
-    "time": "09:41",
+    "time": "09:18",
     "pg1": "5.99",
     "pg2": "5.99",
     "rec": "5.99",
-    "water": "28.9",
-    "ambient": "32.9",
+    "water": "28.8",
+    "ambient": "30.7",
     "remark": "Stable"
    },
    {
-    "time": "010:40",
+    "time": "010:51",
     "pg1": "5.98",
     "pg2": "5.98",
     "rec": "5.98",
-    "water": "29.9",
-    "ambient": "32.0",
+    "water": "28.5",
+    "ambient": "30.1",
     "remark": "Stable"
    },
    {
-    "time": "011:05",
+    "time": "011:46",
     "pg1": "5.97",
     "pg2": "5.97",
     "rec": "5.97",
-    "water": "28.2",
-    "ambient": "30.9",
+    "water": "29.0",
+    "ambient": "32.1",
     "remark": "Stable"
    },
    {
-    "time": "012:18",
+    "time": "012:41",
     "pg1": "5.96",
     "pg2": "5.96",
     "rec": "5.96",
-    "water": "28.1",
-    "ambient": "30.3",
+    "water": "29.9",
+    "ambient": "30.5",
     "remark": "Hold complete, no drop"
    }
   ],
   "results": [],
   "coats": [],
-  "photos": [],
+  "photos": [
+   {
+    "id": "ph-gauge-2632",
+    "label": "Test pressure held at 6.0 Bar",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23e8e6e1'%2F%3E%3Ccircle%20cx%3D'200'%20cy%3D'142'%20r%3D'96'%20fill%3D'%23fbfbf9'%20stroke%3D'%233a3a3f'%20stroke-width%3D'7'%2F%3E%3Ccircle%20cx%3D'200'%20cy%3D'142'%20r%3D'84'%20fill%3D'none'%20stroke%3D'%23c9c6bf'%20stroke-width%3D'1.5'%2F%3E%3Cg%20stroke%3D'%232a2a30'%20stroke-width%3D'3'%3E%3Cpath%20d%3D'M200%2066v14M274%20142h-14M200%20218v-14M126%20142h14M252%2090l-10%2010M252%20194l-10-10M148%20194l10-10M148%2090l10%2010'%2F%3E%3C%2Fg%3E%3Cpath%20d%3D'M200%20142L246%2096'%20stroke%3D'%23b3261e'%20stroke-width%3D'5'%20stroke-linecap%3D'round'%2F%3E%3Ccircle%20cx%3D'200'%20cy%3D'142'%20r%3D'9'%20fill%3D'%233a3a3f'%2F%3E%3Ctext%20x%3D'200'%20y%3D'190'%20font-family%3D'monospace'%20font-size%3D'15'%20fill%3D'%234a4a52'%20text-anchor%3D'middle'%3EBAR%3C%2Ftext%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3ETest%20pressure%20held%20at%206.0%20Bar%3C%2Ftext%3E%3C%2Fsvg%3E"
+   },
+   {
+    "id": "ph-unit-4456",
+    "label": "ISO TANK SPARGES IST-0447-03 under test",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23c6d2da'%2F%3E%3Crect%20y%3D'196'%20width%3D'400'%20height%3D'104'%20fill%3D'%23b0a89c'%2F%3E%3Crect%20x%3D'40'%20y%3D'96'%20width%3D'320'%20height%3D'104'%20rx%3D'48'%20fill%3D'%23d8d4cc'%20stroke%3D'%235a564f'%20stroke-width%3D'4'%2F%3E%3Crect%20x%3D'34'%20y%3D'88'%20width%3D'332'%20height%3D'120'%20rx%3D'7'%20fill%3D'none'%20stroke%3D'%233f3b36'%20stroke-width%3D'5'%2F%3E%3Cg%20fill%3D'%235a564f'%3E%3Ccircle%20cx%3D'104'%20cy%3D'210'%20r%3D'19'%2F%3E%3Ccircle%20cx%3D'296'%20cy%3D'210'%20r%3D'19'%2F%3E%3C%2Fg%3E%3Cpath%20d%3D'M40%20148h320'%20stroke%3D'%23c8621e'%20stroke-width%3D'9'%2F%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EISO%20TANK%20SPARGES%20IST-0447-03%20under%20test%3C%2Ftext%3E%3C%2Fsvg%3E"
+   }
+  ],
   "createdAt": "2026-04-17T07:40:00.000Z",
-  "updatedAt": "2026-04-17T15:41:00.000Z",
+  "updatedAt": "2026-04-17T15:46:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-04-17T15:41:00.000Z",
-  "syncedAt": "2026-04-17T15:41:00.000Z"
+  "approvedAt": "2026-04-17T15:46:00.000Z",
+  "syncedAt": "2026-04-17T15:46:00.000Z"
  },
  {
   "id": "demo-1000300003-BPR-01",
@@ -1314,27 +1457,27 @@ export const SEED_REPORTS = [
    "surfacePrep": "SA 2½",
    "sspc": "SP 10",
    "abrasive": "Steel grit G-40",
-   "anchorProfile": "62",
-   "dryTemp": "32.3",
-   "wetTemp": "26.8",
-   "matlTemp": "33.7",
+   "anchorProfile": "60",
+   "dryTemp": "30.0",
+   "wetTemp": "25.0",
+   "matlTemp": "32.1",
    "prepResult": "Reject",
-   "coatingPrep": "Second",
-   "paintDesc": "Polyurethane topcoat",
+   "coatingPrep": "Primer",
+   "paintDesc": "Epoxy mastic MIO",
    "thinner": "Epoxy thinner",
-   "batchPaint": "B29512",
-   "batchThinner": "T3261",
+   "batchPaint": "B29464",
+   "batchThinner": "T3009",
    "finalStatus": "Accept",
    "ncr": "Inspection carried out per the referenced procedure. No outstanding items.",
    "signInspector": {
     "name": "Inspector Two",
-    "at": "2026-04-18T09:51:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-04-18T09:37:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-04-18T15:22:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-04-18T15:36:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
@@ -1344,11 +1487,11 @@ export const SEED_REPORTS = [
     "coat": "Coat 1",
     "area": "Exterior — Zone A",
     "pts": [
-     "134",
-     "135",
+     "144",
+     "161",
+     "137",
      "130",
-     "170",
-     "130"
+     "149"
     ],
     "std": "120"
    },
@@ -1356,11 +1499,11 @@ export const SEED_REPORTS = [
     "coat": "Coat 2",
     "area": "Exterior — Zone B",
     "pts": [
-     "183",
-     "245",
-     "207",
-     "221",
-     "238"
+     "194",
+     "225",
+     "258",
+     "185",
+     "193"
     ],
     "std": "175"
    },
@@ -1368,22 +1511,33 @@ export const SEED_REPORTS = [
     "coat": "Coat 3",
     "area": "Frame & walkway",
     "pts": [
-     "231",
-     "191",
-     "235",
-     "195",
-     "211"
+     "253",
+     "183",
+     "238",
+     "198",
+     "187"
     ],
     "std": "175"
    }
   ],
-  "photos": [],
+  "photos": [
+   {
+    "id": "ph-coating-3949",
+    "label": "DFT reading, Primer coat",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23d9d6d0'%2F%3E%3Crect%20y%3D'150'%20width%3D'400'%20height%3D'150'%20fill%3D'%236b6660'%2F%3E%3Crect%20y%3D'120'%20width%3D'400'%20height%3D'30'%20fill%3D'%23c8621e'%2F%3E%3Crect%20y%3D'104'%20width%3D'400'%20height%3D'16'%20fill%3D'%23d8d3cb'%2F%3E%3Cg%20stroke%3D'%232a2a30'%20stroke-width%3D'2.5'%3E%3Cpath%20d%3D'M300%20104v46M292%20104h16M292%20150h16'%2F%3E%3C%2Fg%3E%3Ctext%20x%3D'318'%20y%3D'132'%20font-family%3D'monospace'%20font-size%3D'17'%20fill%3D'%232a2a30'%3EDFT%3C%2Ftext%3E%3Crect%20x%3D'16'%20y%3D'226'%20width%3D'150'%20height%3D'34'%20rx%3D'4'%20fill%3D'%23fbfbf9'%20stroke%3D'%235a564f'%2F%3E%3Ctext%20x%3D'91'%20y%3D'250'%20font-family%3D'monospace'%20font-size%3D'18'%20fill%3D'%232a2a30'%20text-anchor%3D'middle'%3E168%20um%3C%2Ftext%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EDFT%20reading%2C%20Primer%20coat%3C%2Ftext%3E%3C%2Fsvg%3E"
+   },
+   {
+    "id": "ph-unit-7782",
+    "label": "ISO TANK SPARGES IST-0447-03 after coating",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23c6d2da'%2F%3E%3Crect%20y%3D'196'%20width%3D'400'%20height%3D'104'%20fill%3D'%23b0a89c'%2F%3E%3Crect%20x%3D'40'%20y%3D'96'%20width%3D'320'%20height%3D'104'%20rx%3D'48'%20fill%3D'%23d8d4cc'%20stroke%3D'%235a564f'%20stroke-width%3D'4'%2F%3E%3Crect%20x%3D'34'%20y%3D'88'%20width%3D'332'%20height%3D'120'%20rx%3D'7'%20fill%3D'none'%20stroke%3D'%233f3b36'%20stroke-width%3D'5'%2F%3E%3Cg%20fill%3D'%235a564f'%3E%3Ccircle%20cx%3D'104'%20cy%3D'210'%20r%3D'19'%2F%3E%3Ccircle%20cx%3D'296'%20cy%3D'210'%20r%3D'19'%2F%3E%3C%2Fg%3E%3Cpath%20d%3D'M40%20148h320'%20stroke%3D'%23c8621e'%20stroke-width%3D'9'%2F%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EISO%20TANK%20SPARGES%20IST-0447-03%20after%20coating%3C%2Ftext%3E%3C%2Fsvg%3E"
+   }
+  ],
   "createdAt": "2026-04-18T07:40:00.000Z",
-  "updatedAt": "2026-04-18T15:22:00.000Z",
+  "updatedAt": "2026-04-18T15:36:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-04-18T15:22:00.000Z",
-  "syncedAt": "2026-04-18T15:22:00.000Z"
+  "approvedAt": "2026-04-18T15:36:00.000Z",
+  "syncedAt": "2026-04-18T15:36:00.000Z"
  },
  {
   "id": "demo-1000300003-VG-01",
@@ -1409,66 +1563,77 @@ export const SEED_REPORTS = [
    "ncr": "Inspection carried out per the referenced procedure. No outstanding items.",
    "signInspector": {
     "name": "Inspector Two",
-    "at": "2026-04-19T09:43:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-04-19T09:45:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-04-19T15:15:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-04-19T15:24:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
   "results": [
    {
-    "point": "Ladder mounting",
-    "welderId": "W-22",
-    "description": "Overall width",
-    "judgement": "OK",
-    "defectType": "N/A",
-    "remark": "N/A"
-   },
-   {
-    "point": "Shell external surface",
-    "welderId": "W-28",
-    "description": "Sparge pipe pitch",
-    "judgement": "OK",
-    "defectType": "N/A",
-    "remark": "N/A"
-   },
-   {
-    "point": "Manlid seal face",
-    "welderId": "W-38",
-    "description": "Overall width",
-    "judgement": "OK",
-    "defectType": "N/A",
-    "remark": "N/A"
-   },
-   {
     "point": "Frame weld toe",
-    "welderId": "W-17",
+    "welderId": "W-35",
     "description": "Frame diagonal",
     "judgement": "OK",
     "defectType": "N/A",
     "remark": "N/A"
    },
    {
+    "point": "Manlid seal face",
+    "welderId": "W-45",
+    "description": "Overall length",
+    "judgement": "OK",
+    "defectType": "N/A",
+    "remark": "N/A"
+   },
+   {
     "point": "Shell external surface",
-    "welderId": "W-16",
-    "description": "Sparge pipe pitch",
+    "welderId": "W-18",
+    "description": "Frame diagonal",
+    "judgement": "OK",
+    "defectType": "N/A",
+    "remark": "N/A"
+   },
+   {
+    "point": "Data plate",
+    "welderId": "W-48",
+    "description": "Overall height",
+    "judgement": "OK",
+    "defectType": "N/A",
+    "remark": "N/A"
+   },
+   {
+    "point": "Ladder mounting",
+    "welderId": "W-45",
+    "description": "Overall width",
     "judgement": "OK",
     "defectType": "N/A",
     "remark": "N/A"
    }
   ],
   "coats": [],
-  "photos": [],
+  "photos": [
+   {
+    "id": "ph-unit-9308",
+    "label": "Frame weld toe",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23c6d2da'%2F%3E%3Crect%20y%3D'196'%20width%3D'400'%20height%3D'104'%20fill%3D'%23b0a89c'%2F%3E%3Crect%20x%3D'40'%20y%3D'96'%20width%3D'320'%20height%3D'104'%20rx%3D'48'%20fill%3D'%23d8d4cc'%20stroke%3D'%235a564f'%20stroke-width%3D'4'%2F%3E%3Crect%20x%3D'34'%20y%3D'88'%20width%3D'332'%20height%3D'120'%20rx%3D'7'%20fill%3D'none'%20stroke%3D'%233f3b36'%20stroke-width%3D'5'%2F%3E%3Cg%20fill%3D'%235a564f'%3E%3Ccircle%20cx%3D'104'%20cy%3D'210'%20r%3D'19'%2F%3E%3Ccircle%20cx%3D'296'%20cy%3D'210'%20r%3D'19'%2F%3E%3C%2Fg%3E%3Cpath%20d%3D'M40%20148h320'%20stroke%3D'%23c8621e'%20stroke-width%3D'9'%2F%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EFrame%20weld%20toe%3C%2Ftext%3E%3C%2Fsvg%3E"
+   },
+   {
+    "id": "ph-plate-9528",
+    "label": "Data plate, IST-0447-03",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23cdcac4'%2F%3E%3Crect%20x%3D'52'%20y%3D'58'%20width%3D'296'%20height%3D'184'%20rx%3D'5'%20fill%3D'%23b7b2ab'%20stroke%3D'%235a564f'%20stroke-width%3D'4'%2F%3E%3Cg%20font-family%3D'monospace'%20fill%3D'%23232328'%3E%3Ctext%20x%3D'76'%20y%3D'100'%20font-size%3D'19'%3EMANUFACTURING%20CO.%3C%2Ftext%3E%3Ctext%20x%3D'76'%20y%3D'134'%20font-size%3D'14'%3ESERIAL%3C%2Ftext%3E%3Ctext%20x%3D'76'%20y%3D'162'%20font-size%3D'14'%3EDESIGN%20P.%20%204.0%20BAR%3C%2Ftext%3E%3Ctext%20x%3D'76'%20y%3D'190'%20font-size%3D'14'%3ETEST%20P.%20%20%20%206.0%20BAR%3C%2Ftext%3E%3Ctext%20x%3D'76'%20y%3D'218'%20font-size%3D'14'%3EYEAR%20%20%20%20%20%20%202026%3C%2Ftext%3E%3C%2Fg%3E%3Cg%20fill%3D'%236e6a64'%3E%3Ccircle%20cx%3D'68'%20cy%3D'72'%20r%3D'5'%2F%3E%3Ccircle%20cx%3D'332'%20cy%3D'72'%20r%3D'5'%2F%3E%3Ccircle%20cx%3D'68'%20cy%3D'228'%20r%3D'5'%2F%3E%3Ccircle%20cx%3D'332'%20cy%3D'228'%20r%3D'5'%2F%3E%3C%2Fg%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EData%20plate%2C%20IST-0447-03%3C%2Ftext%3E%3C%2Fsvg%3E"
+   }
+  ],
   "createdAt": "2026-04-19T07:40:00.000Z",
-  "updatedAt": "2026-04-19T15:15:00.000Z",
+  "updatedAt": "2026-04-19T15:24:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-04-19T15:15:00.000Z",
-  "syncedAt": "2026-04-19T15:15:00.000Z"
+  "approvedAt": "2026-04-19T15:24:00.000Z",
+  "syncedAt": "2026-04-19T15:24:00.000Z"
  },
  {
   "id": "demo-1000300004-DIM-01",
@@ -1489,34 +1654,34 @@ export const SEED_REPORTS = [
    "sn": "IST-0447-04",
    "unit": "IST-0447-04",
    "customer": "Customer 07",
-   "drawingNo": "DWG-IST-4106-R2",
+   "drawingNo": "DWG-IST-4159-R2",
    "drawingFile": "N/A",
    "ncr": "Inspection carried out per the referenced procedure. No outstanding items.",
    "signInspector": {
     "name": "Inspector One",
-    "at": "2026-04-18T09:15:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-04-18T09:24:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-04-18T15:16:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-04-18T15:15:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
   "results": [
    {
     "description": "Overall length",
-    "itemNo": "10",
+    "itemNo": "11",
     "nominal": "6058",
     "min": "6055",
     "max": "6061",
     "actual": "6057",
-    "note": "Verified twice."
+    "note": "Measured with steel tape."
    },
    {
     "description": "Overall width",
-    "itemNo": "6",
+    "itemNo": "12",
     "nominal": "2438",
     "min": "2435",
     "max": "2441",
@@ -1525,40 +1690,51 @@ export const SEED_REPORTS = [
    },
    {
     "description": "Overall height",
-    "itemNo": "2",
+    "itemNo": "4",
     "nominal": "2591",
     "min": "2588",
     "max": "2594",
     "actual": "2592",
-    "note": "Measured with steel tape."
+    "note": ""
    },
    {
     "description": "Frame diagonal",
-    "itemNo": "3",
+    "itemNo": "10",
     "nominal": "6470",
     "min": "6467",
     "max": "6473",
     "actual": "6469",
-    "note": "Verified twice."
+    "note": "Measured with steel tape."
    },
    {
     "description": "Manlid centre offset",
-    "itemNo": "10",
+    "itemNo": "3",
     "nominal": "1220",
     "min": "1217",
     "max": "1223",
     "actual": "1220",
-    "note": "Verified twice."
+    "note": ""
    }
   ],
   "coats": [],
-  "photos": [],
+  "photos": [
+   {
+    "id": "ph-tape-6978",
+    "label": "Overall length — 6057 mm",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23dedbd5'%2F%3E%3Crect%20y%3D'96'%20width%3D'400'%20height%3D'108'%20fill%3D'%23a9a49c'%2F%3E%3Crect%20y%3D'128'%20width%3D'400'%20height%3D'30'%20fill%3D'%23f0c419'%2F%3E%3Cg%20stroke%3D'%232a2a30'%20stroke-width%3D'2'%3E%3Cpath%20d%3D'M0%20128v30'%2F%3E%3Cpath%20d%3D'M20%20128v14'%2F%3E%3Cpath%20d%3D'M40%20128v14'%2F%3E%3Cpath%20d%3D'M60%20128v14'%2F%3E%3Cpath%20d%3D'M80%20128v14'%2F%3E%3Cpath%20d%3D'M100%20128v30'%2F%3E%3Cpath%20d%3D'M120%20128v14'%2F%3E%3Cpath%20d%3D'M140%20128v14'%2F%3E%3Cpath%20d%3D'M160%20128v14'%2F%3E%3Cpath%20d%3D'M180%20128v14'%2F%3E%3Cpath%20d%3D'M200%20128v30'%2F%3E%3Cpath%20d%3D'M220%20128v14'%2F%3E%3Cpath%20d%3D'M240%20128v14'%2F%3E%3Cpath%20d%3D'M260%20128v14'%2F%3E%3Cpath%20d%3D'M280%20128v14'%2F%3E%3Cpath%20d%3D'M300%20128v30'%2F%3E%3Cpath%20d%3D'M320%20128v14'%2F%3E%3Cpath%20d%3D'M340%20128v14'%2F%3E%3Cpath%20d%3D'M360%20128v14'%2F%3E%3Cpath%20d%3D'M380%20128v14'%2F%3E%3C%2Fg%3E%3Cg%20font-family%3D'monospace'%20font-size%3D'12'%20fill%3D'%232a2a30'%3E%3Ctext%20x%3D'4'%20y%3D'176'%3E0%3C%2Ftext%3E%3Ctext%20x%3D'104'%20y%3D'176'%3E500%3C%2Ftext%3E%3Ctext%20x%3D'204'%20y%3D'176'%3E1000%3C%2Ftext%3E%3Ctext%20x%3D'304'%20y%3D'176'%3E1500%3C%2Ftext%3E%3C%2Fg%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EOverall%20length%20%E2%80%94%206057%20mm%3C%2Ftext%3E%3C%2Fsvg%3E"
+   },
+   {
+    "id": "ph-unit-9600",
+    "label": "ISO TANK SPARGES IST-0447-04",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23c6d2da'%2F%3E%3Crect%20y%3D'196'%20width%3D'400'%20height%3D'104'%20fill%3D'%23b0a89c'%2F%3E%3Crect%20x%3D'40'%20y%3D'96'%20width%3D'320'%20height%3D'104'%20rx%3D'48'%20fill%3D'%23d8d4cc'%20stroke%3D'%235a564f'%20stroke-width%3D'4'%2F%3E%3Crect%20x%3D'34'%20y%3D'88'%20width%3D'332'%20height%3D'120'%20rx%3D'7'%20fill%3D'none'%20stroke%3D'%233f3b36'%20stroke-width%3D'5'%2F%3E%3Cg%20fill%3D'%235a564f'%3E%3Ccircle%20cx%3D'104'%20cy%3D'210'%20r%3D'19'%2F%3E%3Ccircle%20cx%3D'296'%20cy%3D'210'%20r%3D'19'%2F%3E%3C%2Fg%3E%3Cpath%20d%3D'M40%20148h320'%20stroke%3D'%23c8621e'%20stroke-width%3D'9'%2F%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EISO%20TANK%20SPARGES%20IST-0447-04%3C%2Ftext%3E%3C%2Fsvg%3E"
+   }
+  ],
   "createdAt": "2026-04-18T07:40:00.000Z",
-  "updatedAt": "2026-04-18T15:16:00.000Z",
+  "updatedAt": "2026-04-18T15:15:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-04-18T15:16:00.000Z",
-  "syncedAt": "2026-04-18T15:16:00.000Z"
+  "approvedAt": "2026-04-18T15:15:00.000Z",
+  "syncedAt": "2026-04-18T15:15:00.000Z"
  },
  {
   "id": "demo-1000300004-PT-01",
@@ -1584,28 +1760,28 @@ export const SEED_REPORTS = [
    "ncrRef": "N/A",
    "lightEquip": "LED floodlight 50W",
    "lightmeter": "LUX-002 · Digital Light Meter · Cal 2026-04-23",
-   "lightIntensity": "1612",
-   "penetrantMethod": "Other",
+   "lightIntensity": "1405",
+   "penetrantMethod": "Solvent Removeable (SKL-SP2)",
    "penetrantType": "Fluorescent",
-   "dwellTime": "16",
+   "dwellTime": "32",
    "applicationBy": "Brushing",
-   "appTemp": "1.6",
-   "developerType": "Non Aqueous",
-   "developingTime": "31.1",
-   "interpretationTime": "15.0",
-   "cleaner": "SKC-S",
+   "appTemp": "2.7",
+   "developerType": "Aqueous",
+   "developingTime": "68.8",
+   "interpretationTime": "16.5",
+   "cleaner": "Other",
    "stage": "Other",
-   "weldingProcess": "Other",
-   "scope": "Other",
+   "weldingProcess": "GTAW",
+   "scope": "Back Chipping",
    "signInspector": {
     "name": "Inspector One",
-    "at": "2026-04-19T09:53:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-04-19T09:30:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-04-19T15:19:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-04-19T15:36:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
@@ -1613,31 +1789,7 @@ export const SEED_REPORTS = [
    {
     "partId": "Manlid nozzle N1",
     "material": "ASTM A516 Gr.70",
-    "thickness": "12.3",
-    "judgement": "Acc",
-    "discontinuity": "None",
-    "remark": "N/A"
-   },
-   {
-    "partId": "Frame corner casting",
-    "material": "ASTM A516 Gr.70",
-    "thickness": "10.3",
-    "judgement": "Acc",
-    "discontinuity": "None",
-    "remark": "N/A"
-   },
-   {
-    "partId": "Shell longitudinal seam",
-    "material": "ASTM A516 Gr.70",
-    "thickness": "14.0",
-    "judgement": "Acc",
-    "discontinuity": "None",
-    "remark": "N/A"
-   },
-   {
-    "partId": "Frame corner casting",
-    "material": "ASTM A516 Gr.70",
-    "thickness": "10.5",
+    "thickness": "8.0",
     "judgement": "Acc",
     "discontinuity": "None",
     "remark": "N/A"
@@ -1645,20 +1797,55 @@ export const SEED_REPORTS = [
    {
     "partId": "Sparge pipe bracket",
     "material": "ASTM A516 Gr.70",
-    "thickness": "11.6",
+    "thickness": "9.1",
+    "judgement": "Acc",
+    "discontinuity": "None",
+    "remark": "N/A"
+   },
+   {
+    "partId": "Shell longitudinal seam",
+    "material": "ASTM A516 Gr.70",
+    "thickness": "7.4",
+    "judgement": "Acc",
+    "discontinuity": "None",
+    "remark": "N/A"
+   },
+   {
+    "partId": "Manlid nozzle N1",
+    "material": "ASTM A516 Gr.70",
+    "thickness": "11.8",
+    "judgement": "Acc",
+    "discontinuity": "None",
+    "remark": "N/A"
+   },
+   {
+    "partId": "Shell circumferential seam",
+    "material": "ASTM A516 Gr.70",
+    "thickness": "6.2",
     "judgement": "Acc",
     "discontinuity": "None",
     "remark": "N/A"
    }
   ],
   "coats": [],
-  "photos": [],
+  "photos": [
+   {
+    "id": "ph-weld-3876",
+    "label": "Manlid nozzle N1 after examination",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23cfcbc4'%2F%3E%3Cpath%20d%3D'M0%20150h400'%20stroke%3D'%238e8880'%20stroke-width%3D'58'%2F%3E%3Cpath%20d%3D'M0%20150q20%20-13%2040%200t40%200%2040%200%2040%200%2040%200%2040%200%2040%200%2040%200%2040%200%2040%200'%20fill%3D'none'%20stroke%3D'%23a8a29a'%20stroke-width%3D'30'%2F%3E%3Cpath%20d%3D'M0%20136q20%20-11%2040%200t40%200%2040%200%2040%200%2040%200%2040%200%2040%200%2040%200%2040%200%2040%200'%20fill%3D'none'%20stroke%3D'%23bdb7ae'%20stroke-width%3D'7'%2F%3E%3Cg%20fill%3D'%236e6a64'%3E%3Ccircle%20cx%3D'96'%20cy%3D'150'%20r%3D'4'%2F%3E%3Ccircle%20cx%3D'214'%20cy%3D'156'%20r%3D'3'%2F%3E%3Ccircle%20cx%3D'300'%20cy%3D'146'%20r%3D'3.5'%2F%3E%3C%2Fg%3E%3Crect%20x%3D'16'%20y%3D'232'%20width%3D'118'%20height%3D'30'%20fill%3D'%23f5f3ef'%20stroke%3D'%235a564f'%2F%3E%3Ctext%20x%3D'75'%20y%3D'253'%20font-family%3D'monospace'%20font-size%3D'16'%20fill%3D'%232a2a30'%20text-anchor%3D'middle'%3E10%20mm%3C%2Ftext%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EManlid%20nozzle%20N1%20after%20examination%3C%2Ftext%3E%3C%2Fsvg%3E"
+   },
+   {
+    "id": "ph-unit-4523",
+    "label": "ISO TANK SPARGES IST-0447-04",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23c6d2da'%2F%3E%3Crect%20y%3D'196'%20width%3D'400'%20height%3D'104'%20fill%3D'%23b0a89c'%2F%3E%3Crect%20x%3D'40'%20y%3D'96'%20width%3D'320'%20height%3D'104'%20rx%3D'48'%20fill%3D'%23d8d4cc'%20stroke%3D'%235a564f'%20stroke-width%3D'4'%2F%3E%3Crect%20x%3D'34'%20y%3D'88'%20width%3D'332'%20height%3D'120'%20rx%3D'7'%20fill%3D'none'%20stroke%3D'%233f3b36'%20stroke-width%3D'5'%2F%3E%3Cg%20fill%3D'%235a564f'%3E%3Ccircle%20cx%3D'104'%20cy%3D'210'%20r%3D'19'%2F%3E%3Ccircle%20cx%3D'296'%20cy%3D'210'%20r%3D'19'%2F%3E%3C%2Fg%3E%3Cpath%20d%3D'M40%20148h320'%20stroke%3D'%23c8621e'%20stroke-width%3D'9'%2F%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EISO%20TANK%20SPARGES%20IST-0447-04%3C%2Ftext%3E%3C%2Fsvg%3E"
+   }
+  ],
   "createdAt": "2026-04-19T07:40:00.000Z",
-  "updatedAt": "2026-04-19T15:19:00.000Z",
+  "updatedAt": "2026-04-19T15:36:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-04-19T15:19:00.000Z",
-  "syncedAt": "2026-04-19T15:19:00.000Z"
+  "approvedAt": "2026-04-19T15:36:00.000Z",
+  "syncedAt": "2026-04-19T15:36:00.000Z"
  },
  {
   "id": "demo-1000300004-LHT-01",
@@ -1680,9 +1867,9 @@ export const SEED_REPORTS = [
    "unit": "IST-0447-04",
    "customer": "Customer 07",
    "testType": "Hydrostatic Test",
-   "testDesc": "Body",
+   "testDesc": "Pipe",
    "testMedia": "Water",
-   "pressureUnit": "PsiG",
+   "pressureUnit": "Bar",
    "gauges": "2 Gauges",
    "useRecorder": "Used",
    "useTemp": "Used",
@@ -1700,17 +1887,17 @@ export const SEED_REPORTS = [
    "pressRecorder": "BRT-002 · Chart Recorder · Cal 2026-04-08",
    "scale": "1 div = 0.2 Bar",
    "tempRecorder": "TMP-001 · Digital Thermometer · Cal 2026-01-20",
-   "tempGauge": "TG-012 · Dial Temperature Gauge · Cal 2026-06-02",
+   "tempGauge": "TG-011 · Dial Temperature Gauge · Cal 2026-05-19",
    "testResult": "Satisfactory",
    "signInspector": {
     "name": "Inspector One",
-    "at": "2026-04-20T09:17:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-04-20T09:42:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-04-20T15:37:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-04-20T15:35:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [
@@ -1719,56 +1906,67 @@ export const SEED_REPORTS = [
     "pg1": "0.00",
     "pg2": "0.00",
     "rec": "0.00",
-    "water": "28.1",
-    "ambient": "32.6",
-    "remark": "Start, 0 PsiG"
+    "water": "28.7",
+    "ambient": "32.1",
+    "remark": "Start, 0 Bar"
    },
    {
-    "time": "09:39",
+    "time": "09:50",
     "pg1": "5.99",
     "pg2": "5.99",
     "rec": "5.99",
-    "water": "28.5",
-    "ambient": "32.7",
+    "water": "30.7",
+    "ambient": "32.6",
     "remark": "Stable"
    },
    {
-    "time": "010:41",
+    "time": "010:35",
     "pg1": "5.98",
     "pg2": "5.98",
     "rec": "5.98",
-    "water": "28.6",
-    "ambient": "32.0",
+    "water": "30.5",
+    "ambient": "33.0",
     "remark": "Stable"
    },
    {
-    "time": "011:29",
+    "time": "011:11",
     "pg1": "5.97",
     "pg2": "5.97",
     "rec": "5.97",
-    "water": "28.7",
-    "ambient": "33.4",
+    "water": "28.4",
+    "ambient": "31.8",
     "remark": "Stable"
    },
    {
-    "time": "012:44",
+    "time": "012:42",
     "pg1": "5.96",
     "pg2": "5.96",
     "rec": "5.96",
-    "water": "29.2",
-    "ambient": "32.0",
+    "water": "29.1",
+    "ambient": "32.6",
     "remark": "Hold complete, no drop"
    }
   ],
   "results": [],
   "coats": [],
-  "photos": [],
+  "photos": [
+   {
+    "id": "ph-gauge-9220",
+    "label": "Test pressure held at 6.0 Bar",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23e8e6e1'%2F%3E%3Ccircle%20cx%3D'200'%20cy%3D'142'%20r%3D'96'%20fill%3D'%23fbfbf9'%20stroke%3D'%233a3a3f'%20stroke-width%3D'7'%2F%3E%3Ccircle%20cx%3D'200'%20cy%3D'142'%20r%3D'84'%20fill%3D'none'%20stroke%3D'%23c9c6bf'%20stroke-width%3D'1.5'%2F%3E%3Cg%20stroke%3D'%232a2a30'%20stroke-width%3D'3'%3E%3Cpath%20d%3D'M200%2066v14M274%20142h-14M200%20218v-14M126%20142h14M252%2090l-10%2010M252%20194l-10-10M148%20194l10-10M148%2090l10%2010'%2F%3E%3C%2Fg%3E%3Cpath%20d%3D'M200%20142L246%2096'%20stroke%3D'%23b3261e'%20stroke-width%3D'5'%20stroke-linecap%3D'round'%2F%3E%3Ccircle%20cx%3D'200'%20cy%3D'142'%20r%3D'9'%20fill%3D'%233a3a3f'%2F%3E%3Ctext%20x%3D'200'%20y%3D'190'%20font-family%3D'monospace'%20font-size%3D'15'%20fill%3D'%234a4a52'%20text-anchor%3D'middle'%3EBAR%3C%2Ftext%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3ETest%20pressure%20held%20at%206.0%20Bar%3C%2Ftext%3E%3C%2Fsvg%3E"
+   },
+   {
+    "id": "ph-unit-4355",
+    "label": "ISO TANK SPARGES IST-0447-04 under test",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23c6d2da'%2F%3E%3Crect%20y%3D'196'%20width%3D'400'%20height%3D'104'%20fill%3D'%23b0a89c'%2F%3E%3Crect%20x%3D'40'%20y%3D'96'%20width%3D'320'%20height%3D'104'%20rx%3D'48'%20fill%3D'%23d8d4cc'%20stroke%3D'%235a564f'%20stroke-width%3D'4'%2F%3E%3Crect%20x%3D'34'%20y%3D'88'%20width%3D'332'%20height%3D'120'%20rx%3D'7'%20fill%3D'none'%20stroke%3D'%233f3b36'%20stroke-width%3D'5'%2F%3E%3Cg%20fill%3D'%235a564f'%3E%3Ccircle%20cx%3D'104'%20cy%3D'210'%20r%3D'19'%2F%3E%3Ccircle%20cx%3D'296'%20cy%3D'210'%20r%3D'19'%2F%3E%3C%2Fg%3E%3Cpath%20d%3D'M40%20148h320'%20stroke%3D'%23c8621e'%20stroke-width%3D'9'%2F%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EISO%20TANK%20SPARGES%20IST-0447-04%20under%20test%3C%2Ftext%3E%3C%2Fsvg%3E"
+   }
+  ],
   "createdAt": "2026-04-20T07:40:00.000Z",
-  "updatedAt": "2026-04-20T15:37:00.000Z",
+  "updatedAt": "2026-04-20T15:35:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-04-20T15:37:00.000Z",
-  "syncedAt": "2026-04-20T15:37:00.000Z"
+  "approvedAt": "2026-04-20T15:35:00.000Z",
+  "syncedAt": "2026-04-20T15:35:00.000Z"
  },
  {
   "id": "demo-1000300004-BPR-01",
@@ -1793,27 +1991,27 @@ export const SEED_REPORTS = [
    "surfacePrep": "SA 2½",
    "sspc": "SP 10",
    "abrasive": "Steel grit G-40",
-   "anchorProfile": "62",
-   "dryTemp": "31.9",
-   "wetTemp": "26.1",
-   "matlTemp": "31.9",
-   "prepResult": "Acc",
-   "coatingPrep": "Primer",
-   "paintDesc": "2-pack epoxy primer",
+   "anchorProfile": "74",
+   "dryTemp": "30.1",
+   "wetTemp": "25.4",
+   "matlTemp": "32.4",
+   "prepResult": "Reject",
+   "coatingPrep": "Second",
+   "paintDesc": "Epoxy mastic MIO",
    "thinner": "Epoxy thinner",
-   "batchPaint": "B23915",
-   "batchThinner": "T3437",
+   "batchPaint": "B23945",
+   "batchThinner": "T3178",
    "finalStatus": "Accept",
    "ncr": "Inspection carried out per the referenced procedure. No outstanding items.",
    "signInspector": {
     "name": "Inspector One",
-    "at": "2026-04-21T09:15:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-04-21T09:12:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-04-21T15:11:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-04-21T15:39:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
@@ -1823,11 +2021,11 @@ export const SEED_REPORTS = [
     "coat": "Coat 1",
     "area": "Exterior — Zone A",
     "pts": [
-     "157",
-     "161",
-     "144",
-     "147",
-     "172"
+     "123",
+     "131",
+     "122",
+     "149",
+     "137"
     ],
     "std": "120"
    },
@@ -1835,11 +2033,11 @@ export const SEED_REPORTS = [
     "coat": "Coat 2",
     "area": "Exterior — Zone B",
     "pts": [
-     "256",
-     "198",
-     "216",
-     "197",
-     "221"
+     "237",
+     "255",
+     "215",
+     "228",
+     "210"
     ],
     "std": "175"
    },
@@ -1847,22 +2045,33 @@ export const SEED_REPORTS = [
     "coat": "Coat 3",
     "area": "Frame & walkway",
     "pts": [
-     "251",
-     "251",
-     "232",
+     "198",
+     "181",
      "228",
-     "246"
+     "201",
+     "251"
     ],
     "std": "175"
    }
   ],
-  "photos": [],
+  "photos": [
+   {
+    "id": "ph-coating-2715",
+    "label": "DFT reading, Second coat",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23d9d6d0'%2F%3E%3Crect%20y%3D'150'%20width%3D'400'%20height%3D'150'%20fill%3D'%236b6660'%2F%3E%3Crect%20y%3D'120'%20width%3D'400'%20height%3D'30'%20fill%3D'%23c8621e'%2F%3E%3Crect%20y%3D'104'%20width%3D'400'%20height%3D'16'%20fill%3D'%23d8d3cb'%2F%3E%3Cg%20stroke%3D'%232a2a30'%20stroke-width%3D'2.5'%3E%3Cpath%20d%3D'M300%20104v46M292%20104h16M292%20150h16'%2F%3E%3C%2Fg%3E%3Ctext%20x%3D'318'%20y%3D'132'%20font-family%3D'monospace'%20font-size%3D'17'%20fill%3D'%232a2a30'%3EDFT%3C%2Ftext%3E%3Crect%20x%3D'16'%20y%3D'226'%20width%3D'150'%20height%3D'34'%20rx%3D'4'%20fill%3D'%23fbfbf9'%20stroke%3D'%235a564f'%2F%3E%3Ctext%20x%3D'91'%20y%3D'250'%20font-family%3D'monospace'%20font-size%3D'18'%20fill%3D'%232a2a30'%20text-anchor%3D'middle'%3E168%20um%3C%2Ftext%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EDFT%20reading%2C%20Second%20coat%3C%2Ftext%3E%3C%2Fsvg%3E"
+   },
+   {
+    "id": "ph-unit-2452",
+    "label": "ISO TANK SPARGES IST-0447-04 after coating",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23c6d2da'%2F%3E%3Crect%20y%3D'196'%20width%3D'400'%20height%3D'104'%20fill%3D'%23b0a89c'%2F%3E%3Crect%20x%3D'40'%20y%3D'96'%20width%3D'320'%20height%3D'104'%20rx%3D'48'%20fill%3D'%23d8d4cc'%20stroke%3D'%235a564f'%20stroke-width%3D'4'%2F%3E%3Crect%20x%3D'34'%20y%3D'88'%20width%3D'332'%20height%3D'120'%20rx%3D'7'%20fill%3D'none'%20stroke%3D'%233f3b36'%20stroke-width%3D'5'%2F%3E%3Cg%20fill%3D'%235a564f'%3E%3Ccircle%20cx%3D'104'%20cy%3D'210'%20r%3D'19'%2F%3E%3Ccircle%20cx%3D'296'%20cy%3D'210'%20r%3D'19'%2F%3E%3C%2Fg%3E%3Cpath%20d%3D'M40%20148h320'%20stroke%3D'%23c8621e'%20stroke-width%3D'9'%2F%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EISO%20TANK%20SPARGES%20IST-0447-04%20after%20coating%3C%2Ftext%3E%3C%2Fsvg%3E"
+   }
+  ],
   "createdAt": "2026-04-21T07:40:00.000Z",
-  "updatedAt": "2026-04-21T15:11:00.000Z",
+  "updatedAt": "2026-04-21T15:39:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-04-21T15:11:00.000Z",
-  "syncedAt": "2026-04-21T15:11:00.000Z"
+  "approvedAt": "2026-04-21T15:39:00.000Z",
+  "syncedAt": "2026-04-21T15:39:00.000Z"
  },
  {
   "id": "demo-1000300004-VG-01",
@@ -1888,52 +2097,52 @@ export const SEED_REPORTS = [
    "ncr": "Inspection carried out per the referenced procedure. No outstanding items.",
    "signInspector": {
     "name": "Inspector One",
-    "at": "2026-04-22T09:11:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-04-22T09:34:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-04-22T15:29:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-04-22T15:35:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
   "results": [
    {
-    "point": "Manlid seal face",
-    "welderId": "W-38",
+    "point": "Outlet valve guard",
+    "welderId": "W-32",
     "description": "Overall height",
     "judgement": "OK",
     "defectType": "N/A",
     "remark": "N/A"
    },
    {
-    "point": "Manlid seal face",
+    "point": "Outlet valve guard",
     "welderId": "W-45",
-    "description": "Overall height",
-    "judgement": "OK",
-    "defectType": "N/A",
-    "remark": "N/A"
-   },
-   {
-    "point": "Frame weld toe",
-    "welderId": "W-47",
-    "description": "Overall width",
+    "description": "Manlid centre offset",
     "judgement": "OK",
     "defectType": "N/A",
     "remark": "N/A"
    },
    {
     "point": "Manlid seal face",
-    "welderId": "W-42",
+    "welderId": "W-19",
     "description": "Overall height",
     "judgement": "OK",
     "defectType": "N/A",
     "remark": "N/A"
    },
    {
+    "point": "Data plate",
+    "welderId": "W-26",
+    "description": "Overall length",
+    "judgement": "OK",
+    "defectType": "N/A",
+    "remark": "N/A"
+   },
+   {
     "point": "Manlid seal face",
-    "welderId": "W-16",
+    "welderId": "W-35",
     "description": "Overall length",
     "judgement": "OK",
     "defectType": "N/A",
@@ -1941,13 +2150,24 @@ export const SEED_REPORTS = [
    }
   ],
   "coats": [],
-  "photos": [],
+  "photos": [
+   {
+    "id": "ph-unit-1009",
+    "label": "Outlet valve guard",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23c6d2da'%2F%3E%3Crect%20y%3D'196'%20width%3D'400'%20height%3D'104'%20fill%3D'%23b0a89c'%2F%3E%3Crect%20x%3D'40'%20y%3D'96'%20width%3D'320'%20height%3D'104'%20rx%3D'48'%20fill%3D'%23d8d4cc'%20stroke%3D'%235a564f'%20stroke-width%3D'4'%2F%3E%3Crect%20x%3D'34'%20y%3D'88'%20width%3D'332'%20height%3D'120'%20rx%3D'7'%20fill%3D'none'%20stroke%3D'%233f3b36'%20stroke-width%3D'5'%2F%3E%3Cg%20fill%3D'%235a564f'%3E%3Ccircle%20cx%3D'104'%20cy%3D'210'%20r%3D'19'%2F%3E%3Ccircle%20cx%3D'296'%20cy%3D'210'%20r%3D'19'%2F%3E%3C%2Fg%3E%3Cpath%20d%3D'M40%20148h320'%20stroke%3D'%23c8621e'%20stroke-width%3D'9'%2F%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EOutlet%20valve%20guard%3C%2Ftext%3E%3C%2Fsvg%3E"
+   },
+   {
+    "id": "ph-plate-3341",
+    "label": "Data plate, IST-0447-04",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23cdcac4'%2F%3E%3Crect%20x%3D'52'%20y%3D'58'%20width%3D'296'%20height%3D'184'%20rx%3D'5'%20fill%3D'%23b7b2ab'%20stroke%3D'%235a564f'%20stroke-width%3D'4'%2F%3E%3Cg%20font-family%3D'monospace'%20fill%3D'%23232328'%3E%3Ctext%20x%3D'76'%20y%3D'100'%20font-size%3D'19'%3EMANUFACTURING%20CO.%3C%2Ftext%3E%3Ctext%20x%3D'76'%20y%3D'134'%20font-size%3D'14'%3ESERIAL%3C%2Ftext%3E%3Ctext%20x%3D'76'%20y%3D'162'%20font-size%3D'14'%3EDESIGN%20P.%20%204.0%20BAR%3C%2Ftext%3E%3Ctext%20x%3D'76'%20y%3D'190'%20font-size%3D'14'%3ETEST%20P.%20%20%20%206.0%20BAR%3C%2Ftext%3E%3Ctext%20x%3D'76'%20y%3D'218'%20font-size%3D'14'%3EYEAR%20%20%20%20%20%20%202026%3C%2Ftext%3E%3C%2Fg%3E%3Cg%20fill%3D'%236e6a64'%3E%3Ccircle%20cx%3D'68'%20cy%3D'72'%20r%3D'5'%2F%3E%3Ccircle%20cx%3D'332'%20cy%3D'72'%20r%3D'5'%2F%3E%3Ccircle%20cx%3D'68'%20cy%3D'228'%20r%3D'5'%2F%3E%3Ccircle%20cx%3D'332'%20cy%3D'228'%20r%3D'5'%2F%3E%3C%2Fg%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EData%20plate%2C%20IST-0447-04%3C%2Ftext%3E%3C%2Fsvg%3E"
+   }
+  ],
   "createdAt": "2026-04-22T07:40:00.000Z",
-  "updatedAt": "2026-04-22T15:29:00.000Z",
+  "updatedAt": "2026-04-22T15:35:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-04-22T15:29:00.000Z",
-  "syncedAt": "2026-04-22T15:29:00.000Z"
+  "approvedAt": "2026-04-22T15:35:00.000Z",
+  "syncedAt": "2026-04-22T15:35:00.000Z"
  },
  {
   "id": "demo-1000300005-DIM-01",
@@ -1968,43 +2188,43 @@ export const SEED_REPORTS = [
    "sn": "IST-0447-05",
    "unit": "IST-0447-05",
    "customer": "Customer 07",
-   "drawingNo": "DWG-IST-4125-R2",
+   "drawingNo": "DWG-IST-4144-R1",
    "drawingFile": "N/A",
    "ncr": "Inspection carried out per the referenced procedure. No outstanding items.",
    "signInspector": {
     "name": "Inspector Two",
-    "at": "2026-04-21T09:21:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-04-21T09:43:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-04-21T15:29:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-04-21T15:28:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
   "results": [
    {
     "description": "Overall length",
-    "itemNo": "6",
+    "itemNo": "10",
     "nominal": "6058",
     "min": "6055",
     "max": "6061",
     "actual": "6057",
-    "note": "Verified twice."
+    "note": ""
    },
    {
     "description": "Overall width",
-    "itemNo": "11",
+    "itemNo": "5",
     "nominal": "2438",
     "min": "2435",
     "max": "2441",
     "actual": "2438",
-    "note": ""
+    "note": "Measured with steel tape."
    },
    {
     "description": "Overall height",
-    "itemNo": "7",
+    "itemNo": "10",
     "nominal": "2591",
     "min": "2588",
     "max": "2594",
@@ -2013,12 +2233,12 @@ export const SEED_REPORTS = [
    },
    {
     "description": "Frame diagonal",
-    "itemNo": "5",
+    "itemNo": "6",
     "nominal": "6470",
     "min": "6467",
     "max": "6473",
     "actual": "6469",
-    "note": "Verified twice."
+    "note": "Measured with steel tape."
    },
    {
     "description": "Manlid centre offset",
@@ -2031,13 +2251,24 @@ export const SEED_REPORTS = [
    }
   ],
   "coats": [],
-  "photos": [],
+  "photos": [
+   {
+    "id": "ph-tape-5082",
+    "label": "Overall length — 6057 mm",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23dedbd5'%2F%3E%3Crect%20y%3D'96'%20width%3D'400'%20height%3D'108'%20fill%3D'%23a9a49c'%2F%3E%3Crect%20y%3D'128'%20width%3D'400'%20height%3D'30'%20fill%3D'%23f0c419'%2F%3E%3Cg%20stroke%3D'%232a2a30'%20stroke-width%3D'2'%3E%3Cpath%20d%3D'M0%20128v30'%2F%3E%3Cpath%20d%3D'M20%20128v14'%2F%3E%3Cpath%20d%3D'M40%20128v14'%2F%3E%3Cpath%20d%3D'M60%20128v14'%2F%3E%3Cpath%20d%3D'M80%20128v14'%2F%3E%3Cpath%20d%3D'M100%20128v30'%2F%3E%3Cpath%20d%3D'M120%20128v14'%2F%3E%3Cpath%20d%3D'M140%20128v14'%2F%3E%3Cpath%20d%3D'M160%20128v14'%2F%3E%3Cpath%20d%3D'M180%20128v14'%2F%3E%3Cpath%20d%3D'M200%20128v30'%2F%3E%3Cpath%20d%3D'M220%20128v14'%2F%3E%3Cpath%20d%3D'M240%20128v14'%2F%3E%3Cpath%20d%3D'M260%20128v14'%2F%3E%3Cpath%20d%3D'M280%20128v14'%2F%3E%3Cpath%20d%3D'M300%20128v30'%2F%3E%3Cpath%20d%3D'M320%20128v14'%2F%3E%3Cpath%20d%3D'M340%20128v14'%2F%3E%3Cpath%20d%3D'M360%20128v14'%2F%3E%3Cpath%20d%3D'M380%20128v14'%2F%3E%3C%2Fg%3E%3Cg%20font-family%3D'monospace'%20font-size%3D'12'%20fill%3D'%232a2a30'%3E%3Ctext%20x%3D'4'%20y%3D'176'%3E0%3C%2Ftext%3E%3Ctext%20x%3D'104'%20y%3D'176'%3E500%3C%2Ftext%3E%3Ctext%20x%3D'204'%20y%3D'176'%3E1000%3C%2Ftext%3E%3Ctext%20x%3D'304'%20y%3D'176'%3E1500%3C%2Ftext%3E%3C%2Fg%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EOverall%20length%20%E2%80%94%206057%20mm%3C%2Ftext%3E%3C%2Fsvg%3E"
+   },
+   {
+    "id": "ph-unit-4386",
+    "label": "ISO TANK SPARGES IST-0447-05",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23c6d2da'%2F%3E%3Crect%20y%3D'196'%20width%3D'400'%20height%3D'104'%20fill%3D'%23b0a89c'%2F%3E%3Crect%20x%3D'40'%20y%3D'96'%20width%3D'320'%20height%3D'104'%20rx%3D'48'%20fill%3D'%23d8d4cc'%20stroke%3D'%235a564f'%20stroke-width%3D'4'%2F%3E%3Crect%20x%3D'34'%20y%3D'88'%20width%3D'332'%20height%3D'120'%20rx%3D'7'%20fill%3D'none'%20stroke%3D'%233f3b36'%20stroke-width%3D'5'%2F%3E%3Cg%20fill%3D'%235a564f'%3E%3Ccircle%20cx%3D'104'%20cy%3D'210'%20r%3D'19'%2F%3E%3Ccircle%20cx%3D'296'%20cy%3D'210'%20r%3D'19'%2F%3E%3C%2Fg%3E%3Cpath%20d%3D'M40%20148h320'%20stroke%3D'%23c8621e'%20stroke-width%3D'9'%2F%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EISO%20TANK%20SPARGES%20IST-0447-05%3C%2Ftext%3E%3C%2Fsvg%3E"
+   }
+  ],
   "createdAt": "2026-04-21T07:40:00.000Z",
-  "updatedAt": "2026-04-21T15:29:00.000Z",
+  "updatedAt": "2026-04-21T15:28:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-04-21T15:29:00.000Z",
-  "syncedAt": "2026-04-21T15:29:00.000Z"
+  "approvedAt": "2026-04-21T15:28:00.000Z",
+  "syncedAt": "2026-04-21T15:28:00.000Z"
  },
  {
   "id": "demo-1000300005-UT-01",
@@ -2063,104 +2294,115 @@ export const SEED_REPORTS = [
    "ncrRef": "N/A",
    "instrument": "Olympus EPOCH 650",
    "model": "EPOCH 650",
-   "serialNo": "SN-69536",
+   "serialNo": "SN-36729",
    "cable": "Coaxial BNC, 2.0 m",
    "couplant": "CMC gel",
-   "technique": "Straight Beam",
-   "scanSurface": "One Side of Weld",
+   "technique": "Angle Beam",
+   "scanSurface": "From A",
    "scanTechnique": "Other",
-   "scanDirection": "Essentially parallel to weld axis",
+   "scanDirection": "Right angle to weld axis",
    "lengthInd": "14 dB Drop",
    "heightInd": "6 dB Drop",
-   "suAngle": "60°",
-   "suSerial": "SU-4728",
-   "suFreq": "76.7",
+   "suAngle": "45°",
+   "suSerial": "SU-4213",
+   "suFreq": "85.5",
    "suSize": "10 mm dia.",
-   "blockId": "V2",
+   "blockId": "BCB",
    "hole": "SDH Ø 2.4 mm",
-   "amplitude": "38",
+   "amplitude": "24",
    "refReflector": "IIW V1 block",
-   "refLevel": "35.2",
-   "scanLevel": "66.6",
-   "testRange": "27.4",
+   "refLevel": "50.9",
+   "scanLevel": "90.3",
+   "testRange": "3.4",
    "notes": "Inspection carried out per the referenced procedure. No outstanding items.",
    "signInspector": {
     "name": "Inspector Two",
-    "at": "2026-04-22T09:26:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-04-22T09:11:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-04-22T15:44:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-04-22T15:17:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
   "results": [
    {
-    "partId": "Shell circumferential seam",
-    "thickness": "6.4",
-    "soundpath": "14.7",
-    "amplitude": "59",
-    "length": "25",
-    "depth": "8.7",
+    "partId": "Manlid nozzle N1",
+    "thickness": "11.4",
+    "soundpath": "53.6",
+    "amplitude": "51",
+    "length": "9",
+    "depth": "10.7",
     "judgement": "Acc",
     "discontinuity": "None",
     "remark": "N/A"
    },
    {
-    "partId": "Shell circumferential seam",
-    "thickness": "13.2",
-    "soundpath": "37.4",
-    "amplitude": "42",
-    "length": "18",
-    "depth": "4.2",
+    "partId": "Frame corner casting",
+    "thickness": "12.9",
+    "soundpath": "40.8",
+    "amplitude": "45",
+    "length": "9",
+    "depth": "3.9",
     "judgement": "Acc",
     "discontinuity": "None",
     "remark": "N/A"
    },
    {
     "partId": "Shell longitudinal seam",
-    "thickness": "7.5",
-    "soundpath": "21.1",
-    "amplitude": "43",
-    "length": "22",
-    "depth": "11.5",
+    "thickness": "13.7",
+    "soundpath": "30.2",
+    "amplitude": "64",
+    "length": "12",
+    "depth": "4.8",
     "judgement": "Acc",
     "discontinuity": "None",
     "remark": "N/A"
    },
    {
-    "partId": "Frame corner casting",
-    "thickness": "8.6",
-    "soundpath": "30.4",
-    "amplitude": "38",
+    "partId": "Manlid nozzle N1",
+    "thickness": "10.2",
+    "soundpath": "18.4",
+    "amplitude": "65",
     "length": "20",
-    "depth": "7.2",
+    "depth": "12.0",
     "judgement": "Acc",
     "discontinuity": "None",
     "remark": "N/A"
    },
    {
-    "partId": "Frame corner casting",
-    "thickness": "10.4",
-    "soundpath": "40.6",
-    "amplitude": "43",
-    "length": "24",
-    "depth": "4.2",
+    "partId": "Shell longitudinal seam",
+    "thickness": "8.5",
+    "soundpath": "42.3",
+    "amplitude": "62",
+    "length": "10",
+    "depth": "11.6",
     "judgement": "Acc",
     "discontinuity": "None",
     "remark": "N/A"
    }
   ],
   "coats": [],
-  "photos": [],
+  "photos": [
+   {
+    "id": "ph-weld-6717",
+    "label": "Manlid nozzle N1 after examination",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23cfcbc4'%2F%3E%3Cpath%20d%3D'M0%20150h400'%20stroke%3D'%238e8880'%20stroke-width%3D'58'%2F%3E%3Cpath%20d%3D'M0%20150q20%20-13%2040%200t40%200%2040%200%2040%200%2040%200%2040%200%2040%200%2040%200%2040%200%2040%200'%20fill%3D'none'%20stroke%3D'%23a8a29a'%20stroke-width%3D'30'%2F%3E%3Cpath%20d%3D'M0%20136q20%20-11%2040%200t40%200%2040%200%2040%200%2040%200%2040%200%2040%200%2040%200%2040%200%2040%200'%20fill%3D'none'%20stroke%3D'%23bdb7ae'%20stroke-width%3D'7'%2F%3E%3Cg%20fill%3D'%236e6a64'%3E%3Ccircle%20cx%3D'96'%20cy%3D'150'%20r%3D'4'%2F%3E%3Ccircle%20cx%3D'214'%20cy%3D'156'%20r%3D'3'%2F%3E%3Ccircle%20cx%3D'300'%20cy%3D'146'%20r%3D'3.5'%2F%3E%3C%2Fg%3E%3Crect%20x%3D'16'%20y%3D'232'%20width%3D'118'%20height%3D'30'%20fill%3D'%23f5f3ef'%20stroke%3D'%235a564f'%2F%3E%3Ctext%20x%3D'75'%20y%3D'253'%20font-family%3D'monospace'%20font-size%3D'16'%20fill%3D'%232a2a30'%20text-anchor%3D'middle'%3E10%20mm%3C%2Ftext%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EManlid%20nozzle%20N1%20after%20examination%3C%2Ftext%3E%3C%2Fsvg%3E"
+   },
+   {
+    "id": "ph-unit-1900",
+    "label": "ISO TANK SPARGES IST-0447-05",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23c6d2da'%2F%3E%3Crect%20y%3D'196'%20width%3D'400'%20height%3D'104'%20fill%3D'%23b0a89c'%2F%3E%3Crect%20x%3D'40'%20y%3D'96'%20width%3D'320'%20height%3D'104'%20rx%3D'48'%20fill%3D'%23d8d4cc'%20stroke%3D'%235a564f'%20stroke-width%3D'4'%2F%3E%3Crect%20x%3D'34'%20y%3D'88'%20width%3D'332'%20height%3D'120'%20rx%3D'7'%20fill%3D'none'%20stroke%3D'%233f3b36'%20stroke-width%3D'5'%2F%3E%3Cg%20fill%3D'%235a564f'%3E%3Ccircle%20cx%3D'104'%20cy%3D'210'%20r%3D'19'%2F%3E%3Ccircle%20cx%3D'296'%20cy%3D'210'%20r%3D'19'%2F%3E%3C%2Fg%3E%3Cpath%20d%3D'M40%20148h320'%20stroke%3D'%23c8621e'%20stroke-width%3D'9'%2F%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EISO%20TANK%20SPARGES%20IST-0447-05%3C%2Ftext%3E%3C%2Fsvg%3E"
+   }
+  ],
   "createdAt": "2026-04-22T07:40:00.000Z",
-  "updatedAt": "2026-04-22T15:44:00.000Z",
+  "updatedAt": "2026-04-22T15:17:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-04-22T15:44:00.000Z",
-  "syncedAt": "2026-04-22T15:44:00.000Z"
+  "approvedAt": "2026-04-22T15:17:00.000Z",
+  "syncedAt": "2026-04-22T15:17:00.000Z"
  },
  {
   "id": "demo-1000300005-LHT-01",
@@ -2184,7 +2426,7 @@ export const SEED_REPORTS = [
    "testType": "Hydrostatic Test",
    "testDesc": "Pipe",
    "testMedia": "Water",
-   "pressureUnit": "PsiG",
+   "pressureUnit": "Bar",
    "gauges": "2 Gauges",
    "useRecorder": "Used",
    "useTemp": "Used",
@@ -2197,81 +2439,92 @@ export const SEED_REPORTS = [
    "map": "-",
    "testPressure": "6.0",
    "holding": "30",
-   "pg1": "PG-001 · Pressure Gauge 0–25 Bar · Cal 2026-01-14",
-   "pg2": "PG-002 · Pressure Gauge 0–25 Bar · Cal 2026-01-14",
+   "pg1": "PG-003 · Pressure Gauge 0–40 Bar · Cal 2026-03-02",
+   "pg2": "PG-001 · Pressure Gauge 0–25 Bar · Cal 2026-01-14",
    "pressRecorder": "BRT-002 · Chart Recorder · Cal 2026-04-08",
    "scale": "1 div = 0.2 Bar",
    "tempRecorder": "TMP-001 · Digital Thermometer · Cal 2026-01-20",
-   "tempGauge": "TG-011 · Dial Temperature Gauge · Cal 2026-05-19",
+   "tempGauge": "TG-012 · Dial Temperature Gauge · Cal 2026-06-02",
    "testResult": "Unsatisfactory",
    "ncr": "Non-conformance raised against this unit. Rework and re-inspection required before release.",
    "signInspector": {
     "name": "Inspector Two",
-    "at": "2026-04-23T09:52:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-04-23T09:39:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-04-23T15:22:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-04-23T15:49:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [
    {
-    "time": "08:39",
+    "time": "08:47",
     "pg1": "0.00",
     "pg2": "0.00",
     "rec": "0.00",
-    "water": "30.9",
-    "ambient": "32.6",
-    "remark": "Start, 0 PsiG"
+    "water": "28.8",
+    "ambient": "33.6",
+    "remark": "Start, 0 Bar"
    },
    {
-    "time": "09:16",
+    "time": "09:37",
     "pg1": "5.99",
     "pg2": "5.99",
     "rec": "5.99",
-    "water": "30.6",
-    "ambient": "32.5",
+    "water": "28.5",
+    "ambient": "30.2",
     "remark": "Stable"
    },
    {
-    "time": "010:52",
+    "time": "010:27",
     "pg1": "5.98",
     "pg2": "5.98",
     "rec": "5.98",
-    "water": "30.6",
-    "ambient": "32.7",
+    "water": "30.1",
+    "ambient": "31.5",
     "remark": "Stable"
    },
    {
-    "time": "011:31",
+    "time": "011:44",
     "pg1": "5.97",
     "pg2": "5.97",
     "rec": "5.97",
-    "water": "28.7",
-    "ambient": "30.8",
+    "water": "30.8",
+    "ambient": "30.7",
     "remark": "Stable"
    },
    {
-    "time": "012:28",
+    "time": "012:22",
     "pg1": "5.58",
     "pg2": "5.58",
     "rec": "5.58",
-    "water": "28.2",
-    "ambient": "33.8",
+    "water": "28.5",
+    "ambient": "31.4",
     "remark": "Pressure drop observed — leak at outlet nozzle. Test failed."
    }
   ],
   "results": [],
   "coats": [],
-  "photos": [],
+  "photos": [
+   {
+    "id": "ph-gauge-9253",
+    "label": "Test pressure held at 6.0 Bar",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23e8e6e1'%2F%3E%3Ccircle%20cx%3D'200'%20cy%3D'142'%20r%3D'96'%20fill%3D'%23fbfbf9'%20stroke%3D'%233a3a3f'%20stroke-width%3D'7'%2F%3E%3Ccircle%20cx%3D'200'%20cy%3D'142'%20r%3D'84'%20fill%3D'none'%20stroke%3D'%23c9c6bf'%20stroke-width%3D'1.5'%2F%3E%3Cg%20stroke%3D'%232a2a30'%20stroke-width%3D'3'%3E%3Cpath%20d%3D'M200%2066v14M274%20142h-14M200%20218v-14M126%20142h14M252%2090l-10%2010M252%20194l-10-10M148%20194l10-10M148%2090l10%2010'%2F%3E%3C%2Fg%3E%3Cpath%20d%3D'M200%20142L246%2096'%20stroke%3D'%23b3261e'%20stroke-width%3D'5'%20stroke-linecap%3D'round'%2F%3E%3Ccircle%20cx%3D'200'%20cy%3D'142'%20r%3D'9'%20fill%3D'%233a3a3f'%2F%3E%3Ctext%20x%3D'200'%20y%3D'190'%20font-family%3D'monospace'%20font-size%3D'15'%20fill%3D'%234a4a52'%20text-anchor%3D'middle'%3EBAR%3C%2Ftext%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3ETest%20pressure%20held%20at%206.0%20Bar%3C%2Ftext%3E%3C%2Fsvg%3E"
+   },
+   {
+    "id": "ph-unit-6149",
+    "label": "ISO TANK SPARGES IST-0447-05 under test",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23c6d2da'%2F%3E%3Crect%20y%3D'196'%20width%3D'400'%20height%3D'104'%20fill%3D'%23b0a89c'%2F%3E%3Crect%20x%3D'40'%20y%3D'96'%20width%3D'320'%20height%3D'104'%20rx%3D'48'%20fill%3D'%23d8d4cc'%20stroke%3D'%235a564f'%20stroke-width%3D'4'%2F%3E%3Crect%20x%3D'34'%20y%3D'88'%20width%3D'332'%20height%3D'120'%20rx%3D'7'%20fill%3D'none'%20stroke%3D'%233f3b36'%20stroke-width%3D'5'%2F%3E%3Cg%20fill%3D'%235a564f'%3E%3Ccircle%20cx%3D'104'%20cy%3D'210'%20r%3D'19'%2F%3E%3Ccircle%20cx%3D'296'%20cy%3D'210'%20r%3D'19'%2F%3E%3C%2Fg%3E%3Cpath%20d%3D'M40%20148h320'%20stroke%3D'%23c8621e'%20stroke-width%3D'9'%2F%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EISO%20TANK%20SPARGES%20IST-0447-05%20under%20test%3C%2Ftext%3E%3C%2Fsvg%3E"
+   }
+  ],
   "createdAt": "2026-04-23T07:40:00.000Z",
-  "updatedAt": "2026-04-23T15:22:00.000Z",
+  "updatedAt": "2026-04-23T15:49:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-04-23T15:22:00.000Z",
-  "syncedAt": "2026-04-23T15:22:00.000Z"
+  "approvedAt": "2026-04-23T15:49:00.000Z",
+  "syncedAt": "2026-04-23T15:49:00.000Z"
  },
  {
   "id": "demo-1000300005-BPR-01",
@@ -2296,27 +2549,27 @@ export const SEED_REPORTS = [
    "surfacePrep": "SA 2½",
    "sspc": "SP 10",
    "abrasive": "Steel grit G-40",
-   "anchorProfile": "57",
-   "dryTemp": "31.6",
-   "wetTemp": "25.3",
-   "matlTemp": "33.1",
-   "prepResult": "Acc",
+   "anchorProfile": "70",
+   "dryTemp": "32.3",
+   "wetTemp": "25.4",
+   "matlTemp": "32.4",
+   "prepResult": "Reject",
    "coatingPrep": "Top",
-   "paintDesc": "Polyurethane topcoat",
+   "paintDesc": "Epoxy mastic MIO",
    "thinner": "Epoxy thinner",
-   "batchPaint": "B29997",
-   "batchThinner": "T3442",
+   "batchPaint": "B22041",
+   "batchThinner": "T3954",
    "finalStatus": "Accept",
    "ncr": "Inspection carried out per the referenced procedure. No outstanding items.",
    "signInspector": {
     "name": "Inspector Two",
-    "at": "2026-04-24T09:44:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-04-24T09:19:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-04-24T15:43:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-04-24T15:45:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
@@ -2326,11 +2579,11 @@ export const SEED_REPORTS = [
     "coat": "Coat 1",
     "area": "Exterior — Zone A",
     "pts": [
-     "127",
-     "137",
-     "159",
-     "167",
-     "137"
+     "133",
+     "147",
+     "122",
+     "170",
+     "151"
     ],
     "std": "120"
    },
@@ -2338,11 +2591,11 @@ export const SEED_REPORTS = [
     "coat": "Coat 2",
     "area": "Exterior — Zone B",
     "pts": [
-     "257",
-     "224",
-     "231",
-     "188",
-     "183"
+     "248",
+     "222",
+     "251",
+     "200",
+     "244"
     ],
     "std": "175"
    },
@@ -2350,22 +2603,33 @@ export const SEED_REPORTS = [
     "coat": "Coat 3",
     "area": "Frame & walkway",
     "pts": [
-     "201",
-     "241",
-     "256",
-     "190",
-     "221"
+     "226",
+     "212",
+     "222",
+     "254",
+     "236"
     ],
     "std": "175"
    }
   ],
-  "photos": [],
+  "photos": [
+   {
+    "id": "ph-coating-4130",
+    "label": "DFT reading, Top coat",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23d9d6d0'%2F%3E%3Crect%20y%3D'150'%20width%3D'400'%20height%3D'150'%20fill%3D'%236b6660'%2F%3E%3Crect%20y%3D'120'%20width%3D'400'%20height%3D'30'%20fill%3D'%23c8621e'%2F%3E%3Crect%20y%3D'104'%20width%3D'400'%20height%3D'16'%20fill%3D'%23d8d3cb'%2F%3E%3Cg%20stroke%3D'%232a2a30'%20stroke-width%3D'2.5'%3E%3Cpath%20d%3D'M300%20104v46M292%20104h16M292%20150h16'%2F%3E%3C%2Fg%3E%3Ctext%20x%3D'318'%20y%3D'132'%20font-family%3D'monospace'%20font-size%3D'17'%20fill%3D'%232a2a30'%3EDFT%3C%2Ftext%3E%3Crect%20x%3D'16'%20y%3D'226'%20width%3D'150'%20height%3D'34'%20rx%3D'4'%20fill%3D'%23fbfbf9'%20stroke%3D'%235a564f'%2F%3E%3Ctext%20x%3D'91'%20y%3D'250'%20font-family%3D'monospace'%20font-size%3D'18'%20fill%3D'%232a2a30'%20text-anchor%3D'middle'%3E168%20um%3C%2Ftext%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EDFT%20reading%2C%20Top%20coat%3C%2Ftext%3E%3C%2Fsvg%3E"
+   },
+   {
+    "id": "ph-unit-4626",
+    "label": "ISO TANK SPARGES IST-0447-05 after coating",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23c6d2da'%2F%3E%3Crect%20y%3D'196'%20width%3D'400'%20height%3D'104'%20fill%3D'%23b0a89c'%2F%3E%3Crect%20x%3D'40'%20y%3D'96'%20width%3D'320'%20height%3D'104'%20rx%3D'48'%20fill%3D'%23d8d4cc'%20stroke%3D'%235a564f'%20stroke-width%3D'4'%2F%3E%3Crect%20x%3D'34'%20y%3D'88'%20width%3D'332'%20height%3D'120'%20rx%3D'7'%20fill%3D'none'%20stroke%3D'%233f3b36'%20stroke-width%3D'5'%2F%3E%3Cg%20fill%3D'%235a564f'%3E%3Ccircle%20cx%3D'104'%20cy%3D'210'%20r%3D'19'%2F%3E%3Ccircle%20cx%3D'296'%20cy%3D'210'%20r%3D'19'%2F%3E%3C%2Fg%3E%3Cpath%20d%3D'M40%20148h320'%20stroke%3D'%23c8621e'%20stroke-width%3D'9'%2F%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EISO%20TANK%20SPARGES%20IST-0447-05%20after%20coating%3C%2Ftext%3E%3C%2Fsvg%3E"
+   }
+  ],
   "createdAt": "2026-04-24T07:40:00.000Z",
-  "updatedAt": "2026-04-24T15:43:00.000Z",
+  "updatedAt": "2026-04-24T15:45:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-04-24T15:43:00.000Z",
-  "syncedAt": "2026-04-24T15:43:00.000Z"
+  "approvedAt": "2026-04-24T15:45:00.000Z",
+  "syncedAt": "2026-04-24T15:45:00.000Z"
  },
  {
   "id": "demo-1000300005-VG-01",
@@ -2391,43 +2655,27 @@ export const SEED_REPORTS = [
    "ncr": "Inspection carried out per the referenced procedure. No outstanding items.",
    "signInspector": {
     "name": "Inspector Two",
-    "at": "2026-04-25T09:48:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-04-25T09:40:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-04-25T15:26:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-04-25T15:10:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
   "results": [
    {
-    "point": "Ladder mounting",
-    "welderId": "W-44",
-    "description": "Frame diagonal",
-    "judgement": "OK",
-    "defectType": "N/A",
-    "remark": "N/A"
-   },
-   {
     "point": "Shell external surface",
-    "welderId": "W-27",
-    "description": "Manlid centre offset",
-    "judgement": "OK",
-    "defectType": "N/A",
-    "remark": "N/A"
-   },
-   {
-    "point": "Data plate",
-    "welderId": "W-46",
+    "welderId": "W-29",
     "description": "Overall length",
     "judgement": "OK",
     "defectType": "N/A",
     "remark": "N/A"
    },
    {
-    "point": "Shell external surface",
+    "point": "Manlid seal face",
     "welderId": "W-23",
     "description": "Overall height",
     "judgement": "OK",
@@ -2435,22 +2683,49 @@ export const SEED_REPORTS = [
     "remark": "N/A"
    },
    {
+    "point": "Ladder mounting",
+    "welderId": "W-11",
+    "description": "Manlid centre offset",
+    "judgement": "OK",
+    "defectType": "N/A",
+    "remark": "N/A"
+   },
+   {
     "point": "Frame weld toe",
-    "welderId": "W-35",
-    "description": "Sparge pipe pitch",
+    "welderId": "W-28",
+    "description": "Overall height",
+    "judgement": "OK",
+    "defectType": "N/A",
+    "remark": "N/A"
+   },
+   {
+    "point": "Data plate",
+    "welderId": "W-26",
+    "description": "Overall height",
     "judgement": "OK",
     "defectType": "N/A",
     "remark": "N/A"
    }
   ],
   "coats": [],
-  "photos": [],
+  "photos": [
+   {
+    "id": "ph-unit-1266",
+    "label": "Shell external surface",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23c6d2da'%2F%3E%3Crect%20y%3D'196'%20width%3D'400'%20height%3D'104'%20fill%3D'%23b0a89c'%2F%3E%3Crect%20x%3D'40'%20y%3D'96'%20width%3D'320'%20height%3D'104'%20rx%3D'48'%20fill%3D'%23d8d4cc'%20stroke%3D'%235a564f'%20stroke-width%3D'4'%2F%3E%3Crect%20x%3D'34'%20y%3D'88'%20width%3D'332'%20height%3D'120'%20rx%3D'7'%20fill%3D'none'%20stroke%3D'%233f3b36'%20stroke-width%3D'5'%2F%3E%3Cg%20fill%3D'%235a564f'%3E%3Ccircle%20cx%3D'104'%20cy%3D'210'%20r%3D'19'%2F%3E%3Ccircle%20cx%3D'296'%20cy%3D'210'%20r%3D'19'%2F%3E%3C%2Fg%3E%3Cpath%20d%3D'M40%20148h320'%20stroke%3D'%23c8621e'%20stroke-width%3D'9'%2F%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EShell%20external%20surface%3C%2Ftext%3E%3C%2Fsvg%3E"
+   },
+   {
+    "id": "ph-plate-1368",
+    "label": "Data plate, IST-0447-05",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23cdcac4'%2F%3E%3Crect%20x%3D'52'%20y%3D'58'%20width%3D'296'%20height%3D'184'%20rx%3D'5'%20fill%3D'%23b7b2ab'%20stroke%3D'%235a564f'%20stroke-width%3D'4'%2F%3E%3Cg%20font-family%3D'monospace'%20fill%3D'%23232328'%3E%3Ctext%20x%3D'76'%20y%3D'100'%20font-size%3D'19'%3EMANUFACTURING%20CO.%3C%2Ftext%3E%3Ctext%20x%3D'76'%20y%3D'134'%20font-size%3D'14'%3ESERIAL%3C%2Ftext%3E%3Ctext%20x%3D'76'%20y%3D'162'%20font-size%3D'14'%3EDESIGN%20P.%20%204.0%20BAR%3C%2Ftext%3E%3Ctext%20x%3D'76'%20y%3D'190'%20font-size%3D'14'%3ETEST%20P.%20%20%20%206.0%20BAR%3C%2Ftext%3E%3Ctext%20x%3D'76'%20y%3D'218'%20font-size%3D'14'%3EYEAR%20%20%20%20%20%20%202026%3C%2Ftext%3E%3C%2Fg%3E%3Cg%20fill%3D'%236e6a64'%3E%3Ccircle%20cx%3D'68'%20cy%3D'72'%20r%3D'5'%2F%3E%3Ccircle%20cx%3D'332'%20cy%3D'72'%20r%3D'5'%2F%3E%3Ccircle%20cx%3D'68'%20cy%3D'228'%20r%3D'5'%2F%3E%3Ccircle%20cx%3D'332'%20cy%3D'228'%20r%3D'5'%2F%3E%3C%2Fg%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EData%20plate%2C%20IST-0447-05%3C%2Ftext%3E%3C%2Fsvg%3E"
+   }
+  ],
   "createdAt": "2026-04-25T07:40:00.000Z",
-  "updatedAt": "2026-04-25T15:26:00.000Z",
+  "updatedAt": "2026-04-25T15:10:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-04-25T15:26:00.000Z",
-  "syncedAt": "2026-04-25T15:26:00.000Z"
+  "approvedAt": "2026-04-25T15:10:00.000Z",
+  "syncedAt": "2026-04-25T15:10:00.000Z"
  },
  {
   "id": "demo-1000300006-DIM-01",
@@ -2471,43 +2746,43 @@ export const SEED_REPORTS = [
    "sn": "IST-0447-06",
    "unit": "IST-0447-06",
    "customer": "Customer 07",
-   "drawingNo": "DWG-IST-4128-R2",
+   "drawingNo": "DWG-IST-4144-R2",
    "drawingFile": "N/A",
    "ncr": "Inspection carried out per the referenced procedure. No outstanding items.",
    "signInspector": {
     "name": "Inspector One",
-    "at": "2026-04-24T09:13:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-04-24T09:31:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-04-24T15:32:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-04-24T15:48:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
   "results": [
    {
     "description": "Overall length",
-    "itemNo": "8",
+    "itemNo": "10",
     "nominal": "6058",
     "min": "6055",
     "max": "6061",
     "actual": "6057",
-    "note": "Measured with steel tape."
+    "note": "Verified twice."
    },
    {
     "description": "Overall width",
-    "itemNo": "7",
+    "itemNo": "3",
     "nominal": "2438",
     "min": "2435",
     "max": "2441",
     "actual": "2438",
-    "note": ""
+    "note": "Measured with steel tape."
    },
    {
     "description": "Overall height",
-    "itemNo": "5",
+    "itemNo": "7",
     "nominal": "2591",
     "min": "2588",
     "max": "2594",
@@ -2521,26 +2796,37 @@ export const SEED_REPORTS = [
     "min": "6467",
     "max": "6473",
     "actual": "6469",
-    "note": ""
+    "note": "Measured with steel tape."
    },
    {
     "description": "Manlid centre offset",
-    "itemNo": "5",
+    "itemNo": "4",
     "nominal": "1220",
     "min": "1217",
     "max": "1223",
     "actual": "1220",
-    "note": ""
+    "note": "Verified twice."
    }
   ],
   "coats": [],
-  "photos": [],
+  "photos": [
+   {
+    "id": "ph-tape-5871",
+    "label": "Overall length — 6057 mm",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23dedbd5'%2F%3E%3Crect%20y%3D'96'%20width%3D'400'%20height%3D'108'%20fill%3D'%23a9a49c'%2F%3E%3Crect%20y%3D'128'%20width%3D'400'%20height%3D'30'%20fill%3D'%23f0c419'%2F%3E%3Cg%20stroke%3D'%232a2a30'%20stroke-width%3D'2'%3E%3Cpath%20d%3D'M0%20128v30'%2F%3E%3Cpath%20d%3D'M20%20128v14'%2F%3E%3Cpath%20d%3D'M40%20128v14'%2F%3E%3Cpath%20d%3D'M60%20128v14'%2F%3E%3Cpath%20d%3D'M80%20128v14'%2F%3E%3Cpath%20d%3D'M100%20128v30'%2F%3E%3Cpath%20d%3D'M120%20128v14'%2F%3E%3Cpath%20d%3D'M140%20128v14'%2F%3E%3Cpath%20d%3D'M160%20128v14'%2F%3E%3Cpath%20d%3D'M180%20128v14'%2F%3E%3Cpath%20d%3D'M200%20128v30'%2F%3E%3Cpath%20d%3D'M220%20128v14'%2F%3E%3Cpath%20d%3D'M240%20128v14'%2F%3E%3Cpath%20d%3D'M260%20128v14'%2F%3E%3Cpath%20d%3D'M280%20128v14'%2F%3E%3Cpath%20d%3D'M300%20128v30'%2F%3E%3Cpath%20d%3D'M320%20128v14'%2F%3E%3Cpath%20d%3D'M340%20128v14'%2F%3E%3Cpath%20d%3D'M360%20128v14'%2F%3E%3Cpath%20d%3D'M380%20128v14'%2F%3E%3C%2Fg%3E%3Cg%20font-family%3D'monospace'%20font-size%3D'12'%20fill%3D'%232a2a30'%3E%3Ctext%20x%3D'4'%20y%3D'176'%3E0%3C%2Ftext%3E%3Ctext%20x%3D'104'%20y%3D'176'%3E500%3C%2Ftext%3E%3Ctext%20x%3D'204'%20y%3D'176'%3E1000%3C%2Ftext%3E%3Ctext%20x%3D'304'%20y%3D'176'%3E1500%3C%2Ftext%3E%3C%2Fg%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EOverall%20length%20%E2%80%94%206057%20mm%3C%2Ftext%3E%3C%2Fsvg%3E"
+   },
+   {
+    "id": "ph-unit-1668",
+    "label": "ISO TANK SPARGES IST-0447-06",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23c6d2da'%2F%3E%3Crect%20y%3D'196'%20width%3D'400'%20height%3D'104'%20fill%3D'%23b0a89c'%2F%3E%3Crect%20x%3D'40'%20y%3D'96'%20width%3D'320'%20height%3D'104'%20rx%3D'48'%20fill%3D'%23d8d4cc'%20stroke%3D'%235a564f'%20stroke-width%3D'4'%2F%3E%3Crect%20x%3D'34'%20y%3D'88'%20width%3D'332'%20height%3D'120'%20rx%3D'7'%20fill%3D'none'%20stroke%3D'%233f3b36'%20stroke-width%3D'5'%2F%3E%3Cg%20fill%3D'%235a564f'%3E%3Ccircle%20cx%3D'104'%20cy%3D'210'%20r%3D'19'%2F%3E%3Ccircle%20cx%3D'296'%20cy%3D'210'%20r%3D'19'%2F%3E%3C%2Fg%3E%3Cpath%20d%3D'M40%20148h320'%20stroke%3D'%23c8621e'%20stroke-width%3D'9'%2F%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EISO%20TANK%20SPARGES%20IST-0447-06%3C%2Ftext%3E%3C%2Fsvg%3E"
+   }
+  ],
   "createdAt": "2026-04-24T07:40:00.000Z",
-  "updatedAt": "2026-04-24T15:32:00.000Z",
+  "updatedAt": "2026-04-24T15:48:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-04-24T15:32:00.000Z",
-  "syncedAt": "2026-04-24T15:32:00.000Z"
+  "approvedAt": "2026-04-24T15:48:00.000Z",
+  "syncedAt": "2026-04-24T15:48:00.000Z"
  },
  {
   "id": "demo-1000300006-MT-01",
@@ -2565,40 +2851,49 @@ export const SEED_REPORTS = [
    "materialSpec": "ASTM A516 Gr.70",
    "ncrRef": "N/A",
    "lightEquip": "LED floodlight 50W",
-   "lightmeter": "LUX-001 · Digital Light Meter · Cal 2026-01-09",
-   "lightIntensity": "1278",
+   "lightmeter": "LUX-002 · Digital Light Meter · Cal 2026-04-23",
+   "lightIntensity": "1360",
    "mtEquipment": "Prod.",
    "equipId": "YK-2201",
-   "currentType": "Other",
-   "particle": "Dry",
-   "particleApp": "Spray",
+   "currentType": "HWDC-HWAC",
+   "particle": "Wet (WPC2/7HF)",
+   "particleApp": "Other",
    "brand": "Magnaflux 7HF",
-   "particleDesc": "Wet fluorescent, batch WF430",
-   "whiteContrast": "Contrast paint, batch WC108",
-   "cleanerBatch": "Solvent cleaner, batch CL220",
+   "particleDesc": "Wet fluorescent, batch WF593",
+   "whiteContrast": "Contrast paint, batch WC117",
+   "cleanerBatch": "Solvent cleaner, batch CL315",
    "method": "Residual",
-   "surfacePreparation": "As Welded",
+   "surfacePreparation": "Machining",
    "stage": "After Hydrostatic",
-   "weldingProcess": "FCAW",
-   "scope": "Other",
+   "weldingProcess": "GTAW",
+   "scope": "Repair Weld",
    "signInspector": {
     "name": "Inspector One",
-    "at": "2026-04-25T09:42:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-04-25T09:44:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-04-25T15:13:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-04-25T15:39:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
   "results": [
    {
+    "partId": "Outlet nozzle N2",
+    "material": "ASTM A516 Gr.70",
+    "weldNo": "WS-11",
+    "thickness": "11.2",
+    "judgement": "Acc",
+    "discontinuity": "None",
+    "remark": "N/A"
+   },
+   {
     "partId": "Sparge pipe bracket",
     "material": "ASTM A516 Gr.70",
-    "weldNo": "WS-7",
-    "thickness": "7.6",
+    "weldNo": "WS-32",
+    "thickness": "9.4",
     "judgement": "Acc",
     "discontinuity": "None",
     "remark": "N/A"
@@ -2606,17 +2901,8 @@ export const SEED_REPORTS = [
    {
     "partId": "Outlet nozzle N2",
     "material": "ASTM A516 Gr.70",
-    "weldNo": "WS-19",
-    "thickness": "9.1",
-    "judgement": "Acc",
-    "discontinuity": "None",
-    "remark": "N/A"
-   },
-   {
-    "partId": "Shell longitudinal seam",
-    "material": "ASTM A516 Gr.70",
-    "weldNo": "WS-39",
-    "thickness": "12.5",
+    "weldNo": "WS-7",
+    "thickness": "10.6",
     "judgement": "Acc",
     "discontinuity": "None",
     "remark": "N/A"
@@ -2624,8 +2910,8 @@ export const SEED_REPORTS = [
    {
     "partId": "Shell circumferential seam",
     "material": "ASTM A516 Gr.70",
-    "weldNo": "WS-25",
-    "thickness": "10.3",
+    "weldNo": "WS-3",
+    "thickness": "6.9",
     "judgement": "Acc",
     "discontinuity": "None",
     "remark": "N/A"
@@ -2633,21 +2919,32 @@ export const SEED_REPORTS = [
    {
     "partId": "Frame corner casting",
     "material": "ASTM A516 Gr.70",
-    "weldNo": "WS-2",
-    "thickness": "11.5",
+    "weldNo": "WS-15",
+    "thickness": "7.0",
     "judgement": "Acc",
     "discontinuity": "None",
     "remark": "N/A"
    }
   ],
   "coats": [],
-  "photos": [],
+  "photos": [
+   {
+    "id": "ph-weld-3503",
+    "label": "Outlet nozzle N2 after examination",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23cfcbc4'%2F%3E%3Cpath%20d%3D'M0%20150h400'%20stroke%3D'%238e8880'%20stroke-width%3D'58'%2F%3E%3Cpath%20d%3D'M0%20150q20%20-13%2040%200t40%200%2040%200%2040%200%2040%200%2040%200%2040%200%2040%200%2040%200%2040%200'%20fill%3D'none'%20stroke%3D'%23a8a29a'%20stroke-width%3D'30'%2F%3E%3Cpath%20d%3D'M0%20136q20%20-11%2040%200t40%200%2040%200%2040%200%2040%200%2040%200%2040%200%2040%200%2040%200%2040%200'%20fill%3D'none'%20stroke%3D'%23bdb7ae'%20stroke-width%3D'7'%2F%3E%3Cg%20fill%3D'%236e6a64'%3E%3Ccircle%20cx%3D'96'%20cy%3D'150'%20r%3D'4'%2F%3E%3Ccircle%20cx%3D'214'%20cy%3D'156'%20r%3D'3'%2F%3E%3Ccircle%20cx%3D'300'%20cy%3D'146'%20r%3D'3.5'%2F%3E%3C%2Fg%3E%3Crect%20x%3D'16'%20y%3D'232'%20width%3D'118'%20height%3D'30'%20fill%3D'%23f5f3ef'%20stroke%3D'%235a564f'%2F%3E%3Ctext%20x%3D'75'%20y%3D'253'%20font-family%3D'monospace'%20font-size%3D'16'%20fill%3D'%232a2a30'%20text-anchor%3D'middle'%3E10%20mm%3C%2Ftext%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EOutlet%20nozzle%20N2%20after%20examination%3C%2Ftext%3E%3C%2Fsvg%3E"
+   },
+   {
+    "id": "ph-unit-9023",
+    "label": "ISO TANK SPARGES IST-0447-06",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23c6d2da'%2F%3E%3Crect%20y%3D'196'%20width%3D'400'%20height%3D'104'%20fill%3D'%23b0a89c'%2F%3E%3Crect%20x%3D'40'%20y%3D'96'%20width%3D'320'%20height%3D'104'%20rx%3D'48'%20fill%3D'%23d8d4cc'%20stroke%3D'%235a564f'%20stroke-width%3D'4'%2F%3E%3Crect%20x%3D'34'%20y%3D'88'%20width%3D'332'%20height%3D'120'%20rx%3D'7'%20fill%3D'none'%20stroke%3D'%233f3b36'%20stroke-width%3D'5'%2F%3E%3Cg%20fill%3D'%235a564f'%3E%3Ccircle%20cx%3D'104'%20cy%3D'210'%20r%3D'19'%2F%3E%3Ccircle%20cx%3D'296'%20cy%3D'210'%20r%3D'19'%2F%3E%3C%2Fg%3E%3Cpath%20d%3D'M40%20148h320'%20stroke%3D'%23c8621e'%20stroke-width%3D'9'%2F%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EISO%20TANK%20SPARGES%20IST-0447-06%3C%2Ftext%3E%3C%2Fsvg%3E"
+   }
+  ],
   "createdAt": "2026-04-25T07:40:00.000Z",
-  "updatedAt": "2026-04-25T15:13:00.000Z",
+  "updatedAt": "2026-04-25T15:39:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-04-25T15:13:00.000Z",
-  "syncedAt": "2026-04-25T15:13:00.000Z"
+  "approvedAt": "2026-04-25T15:39:00.000Z",
+  "syncedAt": "2026-04-25T15:39:00.000Z"
  },
  {
   "id": "demo-1000300006-LHT-01",
@@ -2671,7 +2968,7 @@ export const SEED_REPORTS = [
    "testType": "Hydrostatic Test",
    "testDesc": "Body",
    "testMedia": "Water",
-   "pressureUnit": "PsiG",
+   "pressureUnit": "Bar",
    "gauges": "2 Gauges",
    "useRecorder": "Used",
    "useTemp": "Used",
@@ -2684,74 +2981,85 @@ export const SEED_REPORTS = [
    "map": "-",
    "testPressure": "6.0",
    "holding": "30",
-   "pg1": "PG-003 · Pressure Gauge 0–40 Bar · Cal 2026-03-02",
+   "pg1": "PG-002 · Pressure Gauge 0–25 Bar · Cal 2026-01-14",
    "pg2": "PG-001 · Pressure Gauge 0–25 Bar · Cal 2026-01-14",
-   "pressRecorder": "BRT-002 · Chart Recorder · Cal 2026-04-08",
+   "pressRecorder": "BRT-001 · Chart Recorder · Cal 2026-02-11",
    "scale": "1 div = 0.2 Bar",
    "tempRecorder": "TMP-001 · Digital Thermometer · Cal 2026-01-20",
    "tempGauge": "TG-011 · Dial Temperature Gauge · Cal 2026-05-19",
    "testResult": "Satisfactory",
    "signInspector": {
     "name": "Inspector One",
-    "at": "2026-04-26T09:27:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-04-26T09:16:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
     "at": "2026-04-26T15:07:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [
    {
-    "time": "08:19",
+    "time": "08:05",
     "pg1": "0.00",
     "pg2": "0.00",
     "rec": "0.00",
-    "water": "28.9",
-    "ambient": "31.0",
-    "remark": "Start, 0 PsiG"
+    "water": "30.4",
+    "ambient": "33.8",
+    "remark": "Start, 0 Bar"
    },
    {
-    "time": "09:35",
+    "time": "09:36",
     "pg1": "5.99",
     "pg2": "5.99",
     "rec": "5.99",
-    "water": "29.2",
-    "ambient": "32.1",
+    "water": "29.4",
+    "ambient": "32.9",
     "remark": "Stable"
    },
    {
-    "time": "010:32",
+    "time": "010:26",
     "pg1": "5.98",
     "pg2": "5.98",
     "rec": "5.98",
-    "water": "28.2",
-    "ambient": "31.9",
+    "water": "29.8",
+    "ambient": "33.7",
     "remark": "Stable"
    },
    {
-    "time": "011:53",
+    "time": "011:29",
     "pg1": "5.97",
     "pg2": "5.97",
     "rec": "5.97",
-    "water": "30.3",
-    "ambient": "32.1",
+    "water": "28.5",
+    "ambient": "33.6",
     "remark": "Stable"
    },
    {
-    "time": "012:28",
+    "time": "012:31",
     "pg1": "5.96",
     "pg2": "5.96",
     "rec": "5.96",
-    "water": "29.4",
-    "ambient": "30.2",
+    "water": "29.8",
+    "ambient": "31.4",
     "remark": "Hold complete, no drop"
    }
   ],
   "results": [],
   "coats": [],
-  "photos": [],
+  "photos": [
+   {
+    "id": "ph-gauge-3982",
+    "label": "Test pressure held at 6.0 Bar",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23e8e6e1'%2F%3E%3Ccircle%20cx%3D'200'%20cy%3D'142'%20r%3D'96'%20fill%3D'%23fbfbf9'%20stroke%3D'%233a3a3f'%20stroke-width%3D'7'%2F%3E%3Ccircle%20cx%3D'200'%20cy%3D'142'%20r%3D'84'%20fill%3D'none'%20stroke%3D'%23c9c6bf'%20stroke-width%3D'1.5'%2F%3E%3Cg%20stroke%3D'%232a2a30'%20stroke-width%3D'3'%3E%3Cpath%20d%3D'M200%2066v14M274%20142h-14M200%20218v-14M126%20142h14M252%2090l-10%2010M252%20194l-10-10M148%20194l10-10M148%2090l10%2010'%2F%3E%3C%2Fg%3E%3Cpath%20d%3D'M200%20142L246%2096'%20stroke%3D'%23b3261e'%20stroke-width%3D'5'%20stroke-linecap%3D'round'%2F%3E%3Ccircle%20cx%3D'200'%20cy%3D'142'%20r%3D'9'%20fill%3D'%233a3a3f'%2F%3E%3Ctext%20x%3D'200'%20y%3D'190'%20font-family%3D'monospace'%20font-size%3D'15'%20fill%3D'%234a4a52'%20text-anchor%3D'middle'%3EBAR%3C%2Ftext%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3ETest%20pressure%20held%20at%206.0%20Bar%3C%2Ftext%3E%3C%2Fsvg%3E"
+   },
+   {
+    "id": "ph-unit-5550",
+    "label": "ISO TANK SPARGES IST-0447-06 under test",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23c6d2da'%2F%3E%3Crect%20y%3D'196'%20width%3D'400'%20height%3D'104'%20fill%3D'%23b0a89c'%2F%3E%3Crect%20x%3D'40'%20y%3D'96'%20width%3D'320'%20height%3D'104'%20rx%3D'48'%20fill%3D'%23d8d4cc'%20stroke%3D'%235a564f'%20stroke-width%3D'4'%2F%3E%3Crect%20x%3D'34'%20y%3D'88'%20width%3D'332'%20height%3D'120'%20rx%3D'7'%20fill%3D'none'%20stroke%3D'%233f3b36'%20stroke-width%3D'5'%2F%3E%3Cg%20fill%3D'%235a564f'%3E%3Ccircle%20cx%3D'104'%20cy%3D'210'%20r%3D'19'%2F%3E%3Ccircle%20cx%3D'296'%20cy%3D'210'%20r%3D'19'%2F%3E%3C%2Fg%3E%3Cpath%20d%3D'M40%20148h320'%20stroke%3D'%23c8621e'%20stroke-width%3D'9'%2F%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EISO%20TANK%20SPARGES%20IST-0447-06%20under%20test%3C%2Ftext%3E%3C%2Fsvg%3E"
+   }
+  ],
   "createdAt": "2026-04-26T07:40:00.000Z",
   "updatedAt": "2026-04-26T15:07:00.000Z",
   "synced": true,
@@ -2782,27 +3090,27 @@ export const SEED_REPORTS = [
    "surfacePrep": "SA 2½",
    "sspc": "SP 10",
    "abrasive": "Steel grit G-40",
-   "anchorProfile": "56",
-   "dryTemp": "31.2",
-   "wetTemp": "25.3",
-   "matlTemp": "32.9",
-   "prepResult": "Acc",
-   "coatingPrep": "Top",
-   "paintDesc": "Epoxy mastic MIO",
+   "anchorProfile": "71",
+   "dryTemp": "30.4",
+   "wetTemp": "26.0",
+   "matlTemp": "33.9",
+   "prepResult": "Reject",
+   "coatingPrep": "Second",
+   "paintDesc": "Polyurethane topcoat",
    "thinner": "Epoxy thinner",
-   "batchPaint": "B22739",
-   "batchThinner": "T3645",
+   "batchPaint": "B23418",
+   "batchThinner": "T3609",
    "finalStatus": "Accept",
    "ncr": "Inspection carried out per the referenced procedure. No outstanding items.",
    "signInspector": {
     "name": "Inspector One",
-    "at": "2026-04-27T09:44:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-04-27T09:36:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-04-27T15:17:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-04-27T15:23:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
@@ -2812,11 +3120,11 @@ export const SEED_REPORTS = [
     "coat": "Coat 1",
     "area": "Exterior — Zone A",
     "pts": [
-     "161",
-     "159",
-     "163",
-     "143",
-     "168"
+     "142",
+     "165",
+     "167",
+     "121",
+     "174"
     ],
     "std": "120"
    },
@@ -2824,11 +3132,11 @@ export const SEED_REPORTS = [
     "coat": "Coat 2",
     "area": "Exterior — Zone B",
     "pts": [
-     "222",
-     "192",
-     "226",
-     "187",
-     "203"
+     "219",
+     "191",
+     "197",
+     "185",
+     "198"
     ],
     "std": "175"
    },
@@ -2836,22 +3144,33 @@ export const SEED_REPORTS = [
     "coat": "Coat 3",
     "area": "Frame & walkway",
     "pts": [
-     "185",
+     "238",
      "189",
-     "190",
-     "248",
-     "209"
+     "250",
+     "196",
+     "194"
     ],
     "std": "175"
    }
   ],
-  "photos": [],
+  "photos": [
+   {
+    "id": "ph-coating-6587",
+    "label": "DFT reading, Second coat",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23d9d6d0'%2F%3E%3Crect%20y%3D'150'%20width%3D'400'%20height%3D'150'%20fill%3D'%236b6660'%2F%3E%3Crect%20y%3D'120'%20width%3D'400'%20height%3D'30'%20fill%3D'%23c8621e'%2F%3E%3Crect%20y%3D'104'%20width%3D'400'%20height%3D'16'%20fill%3D'%23d8d3cb'%2F%3E%3Cg%20stroke%3D'%232a2a30'%20stroke-width%3D'2.5'%3E%3Cpath%20d%3D'M300%20104v46M292%20104h16M292%20150h16'%2F%3E%3C%2Fg%3E%3Ctext%20x%3D'318'%20y%3D'132'%20font-family%3D'monospace'%20font-size%3D'17'%20fill%3D'%232a2a30'%3EDFT%3C%2Ftext%3E%3Crect%20x%3D'16'%20y%3D'226'%20width%3D'150'%20height%3D'34'%20rx%3D'4'%20fill%3D'%23fbfbf9'%20stroke%3D'%235a564f'%2F%3E%3Ctext%20x%3D'91'%20y%3D'250'%20font-family%3D'monospace'%20font-size%3D'18'%20fill%3D'%232a2a30'%20text-anchor%3D'middle'%3E168%20um%3C%2Ftext%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EDFT%20reading%2C%20Second%20coat%3C%2Ftext%3E%3C%2Fsvg%3E"
+   },
+   {
+    "id": "ph-unit-5394",
+    "label": "ISO TANK SPARGES IST-0447-06 after coating",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23c6d2da'%2F%3E%3Crect%20y%3D'196'%20width%3D'400'%20height%3D'104'%20fill%3D'%23b0a89c'%2F%3E%3Crect%20x%3D'40'%20y%3D'96'%20width%3D'320'%20height%3D'104'%20rx%3D'48'%20fill%3D'%23d8d4cc'%20stroke%3D'%235a564f'%20stroke-width%3D'4'%2F%3E%3Crect%20x%3D'34'%20y%3D'88'%20width%3D'332'%20height%3D'120'%20rx%3D'7'%20fill%3D'none'%20stroke%3D'%233f3b36'%20stroke-width%3D'5'%2F%3E%3Cg%20fill%3D'%235a564f'%3E%3Ccircle%20cx%3D'104'%20cy%3D'210'%20r%3D'19'%2F%3E%3Ccircle%20cx%3D'296'%20cy%3D'210'%20r%3D'19'%2F%3E%3C%2Fg%3E%3Cpath%20d%3D'M40%20148h320'%20stroke%3D'%23c8621e'%20stroke-width%3D'9'%2F%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EISO%20TANK%20SPARGES%20IST-0447-06%20after%20coating%3C%2Ftext%3E%3C%2Fsvg%3E"
+   }
+  ],
   "createdAt": "2026-04-27T07:40:00.000Z",
-  "updatedAt": "2026-04-27T15:17:00.000Z",
+  "updatedAt": "2026-04-27T15:23:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-04-27T15:17:00.000Z",
-  "syncedAt": "2026-04-27T15:17:00.000Z"
+  "approvedAt": "2026-04-27T15:23:00.000Z",
+  "syncedAt": "2026-04-27T15:23:00.000Z"
  },
  {
   "id": "demo-1000300006-VG-01",
@@ -2877,66 +3196,77 @@ export const SEED_REPORTS = [
    "ncr": "Inspection carried out per the referenced procedure. No outstanding items.",
    "signInspector": {
     "name": "Inspector One",
-    "at": "2026-04-28T09:51:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-04-28T09:12:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-04-28T15:28:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-04-28T15:22:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
   "results": [
    {
+    "point": "Shell external surface",
+    "welderId": "W-27",
+    "description": "Overall length",
+    "judgement": "OK",
+    "defectType": "N/A",
+    "remark": "N/A"
+   },
+   {
+    "point": "Outlet valve guard",
+    "welderId": "W-35",
+    "description": "Frame diagonal",
+    "judgement": "OK",
+    "defectType": "N/A",
+    "remark": "N/A"
+   },
+   {
     "point": "Outlet valve guard",
     "welderId": "W-39",
-    "description": "Manlid centre offset",
+    "description": "Overall length",
+    "judgement": "OK",
+    "defectType": "N/A",
+    "remark": "N/A"
+   },
+   {
+    "point": "Data plate",
+    "welderId": "W-42",
+    "description": "Sparge pipe pitch",
     "judgement": "OK",
     "defectType": "N/A",
     "remark": "N/A"
    },
    {
     "point": "Frame weld toe",
-    "welderId": "W-33",
-    "description": "Overall height",
-    "judgement": "OK",
-    "defectType": "N/A",
-    "remark": "N/A"
-   },
-   {
-    "point": "Shell external surface",
-    "welderId": "W-10",
+    "welderId": "W-37",
     "description": "Manlid centre offset",
-    "judgement": "OK",
-    "defectType": "N/A",
-    "remark": "N/A"
-   },
-   {
-    "point": "Frame weld toe",
-    "welderId": "W-28",
-    "description": "Manlid centre offset",
-    "judgement": "OK",
-    "defectType": "N/A",
-    "remark": "N/A"
-   },
-   {
-    "point": "Frame weld toe",
-    "welderId": "W-46",
-    "description": "Overall height",
     "judgement": "OK",
     "defectType": "N/A",
     "remark": "N/A"
    }
   ],
   "coats": [],
-  "photos": [],
+  "photos": [
+   {
+    "id": "ph-unit-7779",
+    "label": "Shell external surface",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23c6d2da'%2F%3E%3Crect%20y%3D'196'%20width%3D'400'%20height%3D'104'%20fill%3D'%23b0a89c'%2F%3E%3Crect%20x%3D'40'%20y%3D'96'%20width%3D'320'%20height%3D'104'%20rx%3D'48'%20fill%3D'%23d8d4cc'%20stroke%3D'%235a564f'%20stroke-width%3D'4'%2F%3E%3Crect%20x%3D'34'%20y%3D'88'%20width%3D'332'%20height%3D'120'%20rx%3D'7'%20fill%3D'none'%20stroke%3D'%233f3b36'%20stroke-width%3D'5'%2F%3E%3Cg%20fill%3D'%235a564f'%3E%3Ccircle%20cx%3D'104'%20cy%3D'210'%20r%3D'19'%2F%3E%3Ccircle%20cx%3D'296'%20cy%3D'210'%20r%3D'19'%2F%3E%3C%2Fg%3E%3Cpath%20d%3D'M40%20148h320'%20stroke%3D'%23c8621e'%20stroke-width%3D'9'%2F%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EShell%20external%20surface%3C%2Ftext%3E%3C%2Fsvg%3E"
+   },
+   {
+    "id": "ph-plate-3043",
+    "label": "Data plate, IST-0447-06",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23cdcac4'%2F%3E%3Crect%20x%3D'52'%20y%3D'58'%20width%3D'296'%20height%3D'184'%20rx%3D'5'%20fill%3D'%23b7b2ab'%20stroke%3D'%235a564f'%20stroke-width%3D'4'%2F%3E%3Cg%20font-family%3D'monospace'%20fill%3D'%23232328'%3E%3Ctext%20x%3D'76'%20y%3D'100'%20font-size%3D'19'%3EMANUFACTURING%20CO.%3C%2Ftext%3E%3Ctext%20x%3D'76'%20y%3D'134'%20font-size%3D'14'%3ESERIAL%3C%2Ftext%3E%3Ctext%20x%3D'76'%20y%3D'162'%20font-size%3D'14'%3EDESIGN%20P.%20%204.0%20BAR%3C%2Ftext%3E%3Ctext%20x%3D'76'%20y%3D'190'%20font-size%3D'14'%3ETEST%20P.%20%20%20%206.0%20BAR%3C%2Ftext%3E%3Ctext%20x%3D'76'%20y%3D'218'%20font-size%3D'14'%3EYEAR%20%20%20%20%20%20%202026%3C%2Ftext%3E%3C%2Fg%3E%3Cg%20fill%3D'%236e6a64'%3E%3Ccircle%20cx%3D'68'%20cy%3D'72'%20r%3D'5'%2F%3E%3Ccircle%20cx%3D'332'%20cy%3D'72'%20r%3D'5'%2F%3E%3Ccircle%20cx%3D'68'%20cy%3D'228'%20r%3D'5'%2F%3E%3Ccircle%20cx%3D'332'%20cy%3D'228'%20r%3D'5'%2F%3E%3C%2Fg%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EData%20plate%2C%20IST-0447-06%3C%2Ftext%3E%3C%2Fsvg%3E"
+   }
+  ],
   "createdAt": "2026-04-28T07:40:00.000Z",
-  "updatedAt": "2026-04-28T15:28:00.000Z",
+  "updatedAt": "2026-04-28T15:22:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-04-28T15:28:00.000Z",
-  "syncedAt": "2026-04-28T15:28:00.000Z"
+  "approvedAt": "2026-04-28T15:22:00.000Z",
+  "syncedAt": "2026-04-28T15:22:00.000Z"
  },
  {
   "id": "demo-1000300007-DIM-01",
@@ -2957,25 +3287,25 @@ export const SEED_REPORTS = [
    "sn": "IST-0447-07",
    "unit": "IST-0447-07",
    "customer": "Customer 07",
-   "drawingNo": "DWG-IST-4149-R1",
+   "drawingNo": "DWG-IST-4176-R1",
    "drawingFile": "N/A",
    "ncr": "Inspection carried out per the referenced procedure. No outstanding items.",
    "signInspector": {
     "name": "Inspector Two",
-    "at": "2026-04-27T09:30:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-04-27T09:39:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-04-27T15:09:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-04-27T15:48:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
   "results": [
    {
     "description": "Overall length",
-    "itemNo": "4",
+    "itemNo": "8",
     "nominal": "6058",
     "min": "6055",
     "max": "6061",
@@ -2984,16 +3314,16 @@ export const SEED_REPORTS = [
    },
    {
     "description": "Overall width",
-    "itemNo": "9",
+    "itemNo": "3",
     "nominal": "2438",
     "min": "2435",
     "max": "2441",
     "actual": "2438",
-    "note": "Verified twice."
+    "note": ""
    },
    {
     "description": "Overall height",
-    "itemNo": "10",
+    "itemNo": "4",
     "nominal": "2591",
     "min": "2588",
     "max": "2594",
@@ -3002,7 +3332,7 @@ export const SEED_REPORTS = [
    },
    {
     "description": "Frame diagonal",
-    "itemNo": "1",
+    "itemNo": "10",
     "nominal": "6470",
     "min": "6467",
     "max": "6473",
@@ -3011,22 +3341,22 @@ export const SEED_REPORTS = [
    },
    {
     "description": "Manlid centre offset",
-    "itemNo": "12",
+    "itemNo": "1",
     "nominal": "1220",
     "min": "1217",
     "max": "1223",
     "actual": "1220",
-    "note": "Measured with steel tape."
+    "note": ""
    }
   ],
   "coats": [],
   "photos": [],
   "createdAt": "2026-04-27T07:40:00.000Z",
-  "updatedAt": "2026-04-27T15:09:00.000Z",
+  "updatedAt": "2026-04-27T15:48:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-04-27T15:09:00.000Z",
-  "syncedAt": "2026-04-27T15:09:00.000Z"
+  "approvedAt": "2026-04-27T15:48:00.000Z",
+  "syncedAt": "2026-04-27T15:48:00.000Z"
  },
  {
   "id": "demo-1000300007-PT-01",
@@ -3051,29 +3381,29 @@ export const SEED_REPORTS = [
    "materialSpec": "ASTM A516 Gr.70",
    "ncrRef": "N/A",
    "lightEquip": "LED floodlight 50W",
-   "lightmeter": "LUX-001 · Digital Light Meter · Cal 2026-01-09",
-   "lightIntensity": "1561",
-   "penetrantMethod": "Solvent Removeable (SKL-SP2)",
-   "penetrantType": "Fluorescent",
-   "dwellTime": "30",
-   "applicationBy": "Other",
-   "appTemp": "76.9",
+   "lightmeter": "LUX-002 · Digital Light Meter · Cal 2026-04-23",
+   "lightIntensity": "1514",
+   "penetrantMethod": "Water Washable",
+   "penetrantType": "Visible",
+   "dwellTime": "16",
+   "applicationBy": "Brushing",
+   "appTemp": "79.9",
    "developerType": "Dry",
-   "developingTime": "34.1",
-   "interpretationTime": "77.7",
+   "developingTime": "29.1",
+   "interpretationTime": "20.6",
    "cleaner": "Other",
-   "stage": "Other",
+   "stage": "After Welding",
    "weldingProcess": "GTAW",
-   "scope": "Back Chipping",
+   "scope": "Base Metal",
    "signInspector": {
     "name": "Inspector Two",
-    "at": "2026-04-28T09:28:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-04-28T09:20:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-04-28T15:26:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-04-28T15:44:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
@@ -3081,15 +3411,7 @@ export const SEED_REPORTS = [
    {
     "partId": "Sparge pipe bracket",
     "material": "ASTM A516 Gr.70",
-    "thickness": "11.4",
-    "judgement": "Acc",
-    "discontinuity": "None",
-    "remark": "N/A"
-   },
-   {
-    "partId": "Sparge pipe bracket",
-    "material": "ASTM A516 Gr.70",
-    "thickness": "7.8",
+    "thickness": "8.7",
     "judgement": "Acc",
     "discontinuity": "None",
     "remark": "N/A"
@@ -3097,15 +3419,7 @@ export const SEED_REPORTS = [
    {
     "partId": "Manlid nozzle N1",
     "material": "ASTM A516 Gr.70",
-    "thickness": "13.6",
-    "judgement": "Acc",
-    "discontinuity": "None",
-    "remark": "N/A"
-   },
-   {
-    "partId": "Shell longitudinal seam",
-    "material": "ASTM A516 Gr.70",
-    "thickness": "11.1",
+    "thickness": "6.9",
     "judgement": "Acc",
     "discontinuity": "None",
     "remark": "N/A"
@@ -3113,7 +3427,23 @@ export const SEED_REPORTS = [
    {
     "partId": "Sparge pipe bracket",
     "material": "ASTM A516 Gr.70",
-    "thickness": "6.1",
+    "thickness": "12.0",
+    "judgement": "Acc",
+    "discontinuity": "None",
+    "remark": "N/A"
+   },
+   {
+    "partId": "Shell longitudinal seam",
+    "material": "ASTM A516 Gr.70",
+    "thickness": "12.9",
+    "judgement": "Acc",
+    "discontinuity": "None",
+    "remark": "N/A"
+   },
+   {
+    "partId": "Shell circumferential seam",
+    "material": "ASTM A516 Gr.70",
+    "thickness": "10.2",
     "judgement": "Acc",
     "discontinuity": "None",
     "remark": "N/A"
@@ -3122,11 +3452,11 @@ export const SEED_REPORTS = [
   "coats": [],
   "photos": [],
   "createdAt": "2026-04-28T07:40:00.000Z",
-  "updatedAt": "2026-04-28T15:26:00.000Z",
+  "updatedAt": "2026-04-28T15:44:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-04-28T15:26:00.000Z",
-  "syncedAt": "2026-04-28T15:26:00.000Z"
+  "approvedAt": "2026-04-28T15:44:00.000Z",
+  "syncedAt": "2026-04-28T15:44:00.000Z"
  },
  {
   "id": "demo-1000300007-LHT-01",
@@ -3148,9 +3478,9 @@ export const SEED_REPORTS = [
    "unit": "IST-0447-07",
    "customer": "Customer 07",
    "testType": "Hydrostatic Test",
-   "testDesc": "Body",
+   "testDesc": "Tank",
    "testMedia": "Water",
-   "pressureUnit": "PsiG",
+   "pressureUnit": "Bar",
    "gauges": "2 Gauges",
    "useRecorder": "Used",
    "useTemp": "Used",
@@ -3165,66 +3495,66 @@ export const SEED_REPORTS = [
    "holding": "30",
    "pg1": "PG-001 · Pressure Gauge 0–25 Bar · Cal 2026-01-14",
    "pg2": "PG-003 · Pressure Gauge 0–40 Bar · Cal 2026-03-02",
-   "pressRecorder": "BRT-002 · Chart Recorder · Cal 2026-04-08",
+   "pressRecorder": "BRT-001 · Chart Recorder · Cal 2026-02-11",
    "scale": "1 div = 0.2 Bar",
    "tempRecorder": "TMP-001 · Digital Thermometer · Cal 2026-01-20",
    "tempGauge": "TG-012 · Dial Temperature Gauge · Cal 2026-06-02",
    "testResult": "Satisfactory",
    "signInspector": {
     "name": "Inspector Two",
-    "at": "2026-04-29T09:39:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-04-29T09:55:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-04-29T15:22:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-04-29T15:17:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [
    {
-    "time": "08:43",
+    "time": "08:47",
     "pg1": "0.00",
     "pg2": "0.00",
     "rec": "0.00",
-    "water": "28.9",
-    "ambient": "33.2",
-    "remark": "Start, 0 PsiG"
+    "water": "30.3",
+    "ambient": "30.4",
+    "remark": "Start, 0 Bar"
    },
    {
-    "time": "09:23",
+    "time": "09:31",
     "pg1": "5.99",
     "pg2": "5.99",
     "rec": "5.99",
-    "water": "29.4",
-    "ambient": "32.5",
+    "water": "29.2",
+    "ambient": "30.1",
     "remark": "Stable"
    },
    {
-    "time": "010:10",
+    "time": "010:34",
     "pg1": "5.98",
     "pg2": "5.98",
     "rec": "5.98",
-    "water": "30.0",
-    "ambient": "33.1",
+    "water": "28.4",
+    "ambient": "33.3",
     "remark": "Stable"
    },
    {
-    "time": "011:05",
+    "time": "011:14",
     "pg1": "5.97",
     "pg2": "5.97",
     "rec": "5.97",
-    "water": "29.9",
-    "ambient": "30.7",
+    "water": "29.4",
+    "ambient": "32.6",
     "remark": "Stable"
    },
    {
-    "time": "012:36",
+    "time": "012:30",
     "pg1": "5.96",
     "pg2": "5.96",
     "rec": "5.96",
-    "water": "29.0",
-    "ambient": "31.3",
+    "water": "28.1",
+    "ambient": "32.5",
     "remark": "Hold complete, no drop"
    }
   ],
@@ -3232,11 +3562,11 @@ export const SEED_REPORTS = [
   "coats": [],
   "photos": [],
   "createdAt": "2026-04-29T07:40:00.000Z",
-  "updatedAt": "2026-04-29T15:22:00.000Z",
+  "updatedAt": "2026-04-29T15:17:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-04-29T15:22:00.000Z",
-  "syncedAt": "2026-04-29T15:22:00.000Z"
+  "approvedAt": "2026-04-29T15:17:00.000Z",
+  "syncedAt": "2026-04-29T15:17:00.000Z"
  },
  {
   "id": "demo-1000300007-BPR-01",
@@ -3261,27 +3591,27 @@ export const SEED_REPORTS = [
    "surfacePrep": "SA 2½",
    "sspc": "SP 10",
    "abrasive": "Steel grit G-40",
-   "anchorProfile": "51",
-   "dryTemp": "32.5",
-   "wetTemp": "26.5",
-   "matlTemp": "33.6",
+   "anchorProfile": "61",
+   "dryTemp": "31.5",
+   "wetTemp": "24.4",
+   "matlTemp": "32.8",
    "prepResult": "Reject",
-   "coatingPrep": "Top",
-   "paintDesc": "Polyurethane topcoat",
+   "coatingPrep": "Primer",
+   "paintDesc": "2-pack epoxy primer",
    "thinner": "Epoxy thinner",
-   "batchPaint": "B21361",
-   "batchThinner": "T3432",
+   "batchPaint": "B21030",
+   "batchThinner": "T3894",
    "finalStatus": "Accept",
    "ncr": "Inspection carried out per the referenced procedure. No outstanding items.",
    "signInspector": {
     "name": "Inspector Two",
-    "at": "2026-04-30T09:42:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-04-30T09:39:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-04-30T15:39:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-04-30T15:21:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
@@ -3291,11 +3621,11 @@ export const SEED_REPORTS = [
     "coat": "Coat 1",
     "area": "Exterior — Zone A",
     "pts": [
-     "131",
-     "133",
-     "164",
      "122",
-     "136"
+     "126",
+     "170",
+     "171",
+     "132"
     ],
     "std": "120"
    },
@@ -3303,11 +3633,11 @@ export const SEED_REPORTS = [
     "coat": "Coat 2",
     "area": "Exterior — Zone B",
     "pts": [
-     "196",
-     "260",
-     "195",
-     "191",
-     "181"
+     "245",
+     "193",
+     "224",
+     "239",
+     "197"
     ],
     "std": "175"
    },
@@ -3315,22 +3645,22 @@ export const SEED_REPORTS = [
     "coat": "Coat 3",
     "area": "Frame & walkway",
     "pts": [
-     "233",
-     "207",
-     "242",
-     "207",
-     "189"
+     "187",
+     "257",
+     "209",
+     "188",
+     "186"
     ],
     "std": "175"
    }
   ],
   "photos": [],
   "createdAt": "2026-04-30T07:40:00.000Z",
-  "updatedAt": "2026-04-30T15:39:00.000Z",
+  "updatedAt": "2026-04-30T15:21:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-04-30T15:39:00.000Z",
-  "syncedAt": "2026-04-30T15:39:00.000Z"
+  "approvedAt": "2026-04-30T15:21:00.000Z",
+  "syncedAt": "2026-04-30T15:21:00.000Z"
  },
  {
   "id": "demo-1000300008-DIM-01",
@@ -3351,25 +3681,25 @@ export const SEED_REPORTS = [
    "sn": "IST-0447-08",
    "unit": "IST-0447-08",
    "customer": "Customer 07",
-   "drawingNo": "DWG-IST-4156-R0",
+   "drawingNo": "DWG-IST-4114-R0",
    "drawingFile": "N/A",
    "ncr": "Inspection carried out per the referenced procedure. No outstanding items.",
    "signInspector": {
     "name": "Inspector One",
-    "at": "2026-04-30T09:54:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-04-30T09:42:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-04-30T15:10:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-04-30T15:43:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
   "results": [
    {
     "description": "Overall length",
-    "itemNo": "2",
+    "itemNo": "10",
     "nominal": "6058",
     "min": "6055",
     "max": "6061",
@@ -3378,25 +3708,25 @@ export const SEED_REPORTS = [
    },
    {
     "description": "Overall width",
-    "itemNo": "2",
+    "itemNo": "6",
     "nominal": "2438",
     "min": "2435",
     "max": "2441",
     "actual": "2438",
-    "note": ""
+    "note": "Verified twice."
    },
    {
     "description": "Overall height",
-    "itemNo": "2",
+    "itemNo": "8",
     "nominal": "2591",
     "min": "2588",
     "max": "2594",
     "actual": "2592",
-    "note": "Measured with steel tape."
+    "note": "Verified twice."
    },
    {
     "description": "Frame diagonal",
-    "itemNo": "3",
+    "itemNo": "10",
     "nominal": "6470",
     "min": "6467",
     "max": "6473",
@@ -3405,22 +3735,22 @@ export const SEED_REPORTS = [
    },
    {
     "description": "Manlid centre offset",
-    "itemNo": "12",
+    "itemNo": "8",
     "nominal": "1220",
     "min": "1217",
     "max": "1223",
     "actual": "1220",
-    "note": "Verified twice."
+    "note": "Measured with steel tape."
    }
   ],
   "coats": [],
   "photos": [],
   "createdAt": "2026-04-30T07:40:00.000Z",
-  "updatedAt": "2026-04-30T15:10:00.000Z",
+  "updatedAt": "2026-04-30T15:43:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-04-30T15:10:00.000Z",
-  "syncedAt": "2026-04-30T15:10:00.000Z"
+  "approvedAt": "2026-04-30T15:43:00.000Z",
+  "syncedAt": "2026-04-30T15:43:00.000Z"
  },
  {
   "id": "demo-1000300008-UT-01",
@@ -3446,91 +3776,91 @@ export const SEED_REPORTS = [
    "ncrRef": "N/A",
    "instrument": "Olympus EPOCH 650",
    "model": "EPOCH 650",
-   "serialNo": "SN-13642",
+   "serialNo": "SN-76387",
    "cable": "Coaxial BNC, 2.0 m",
    "couplant": "CMC gel",
-   "technique": "Contact — Straight Beam",
-   "scanSurface": "From C",
-   "scanTechnique": "Half to Full Skip Distance",
-   "scanDirection": "Swivel",
-   "lengthInd": "14 dB Drop",
-   "heightInd": "14 dB Drop",
-   "suAngle": "0°",
-   "suSerial": "SU-8364",
-   "suFreq": "17.1",
+   "technique": "Angle Beam",
+   "scanSurface": "One Side of Weld",
+   "scanTechnique": "Half Skip Distance",
+   "scanDirection": "Right angle to weld axis",
+   "lengthInd": "6 dB Drop",
+   "heightInd": "6 dB Drop",
+   "suAngle": "70°",
+   "suSerial": "SU-8708",
+   "suFreq": "94.4",
    "suSize": "10 mm dia.",
-   "blockId": "BCB",
+   "blockId": "V1",
    "hole": "SDH Ø 2.4 mm",
-   "amplitude": "56",
+   "amplitude": "34",
    "refReflector": "IIW V1 block",
-   "refLevel": "22.2",
-   "scanLevel": "9.7",
-   "testRange": "96.1",
+   "refLevel": "21.3",
+   "scanLevel": "96.7",
+   "testRange": "56.4",
    "notes": "Inspection carried out per the referenced procedure. No outstanding items.",
    "signInspector": {
     "name": "Inspector One",
-    "at": "2026-05-01T09:39:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-05-01T09:25:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-05-01T15:14:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-05-01T15:20:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
   "results": [
    {
     "partId": "Manlid nozzle N1",
-    "thickness": "6.8",
-    "soundpath": "13.4",
-    "amplitude": "49",
-    "length": "18",
-    "depth": "5.5",
+    "thickness": "10.2",
+    "soundpath": "42.8",
+    "amplitude": "54",
+    "length": "4",
+    "depth": "9.1",
+    "judgement": "Acc",
+    "discontinuity": "None",
+    "remark": "N/A"
+   },
+   {
+    "partId": "Shell longitudinal seam",
+    "thickness": "8.4",
+    "soundpath": "40.9",
+    "amplitude": "61",
+    "length": "8",
+    "depth": "7.6",
     "judgement": "Acc",
     "discontinuity": "None",
     "remark": "N/A"
    },
    {
     "partId": "Shell circumferential seam",
-    "thickness": "13.0",
-    "soundpath": "46.9",
-    "amplitude": "57",
-    "length": "13",
-    "depth": "3.9",
+    "thickness": "8.4",
+    "soundpath": "49.4",
+    "amplitude": "47",
+    "length": "4",
+    "depth": "11.3",
     "judgement": "Acc",
     "discontinuity": "None",
     "remark": "N/A"
    },
    {
     "partId": "Sparge pipe bracket",
-    "thickness": "8.9",
-    "soundpath": "30.4",
-    "amplitude": "45",
-    "length": "7",
-    "depth": "6.7",
-    "judgement": "Acc",
-    "discontinuity": "None",
-    "remark": "N/A"
-   },
-   {
-    "partId": "Manlid nozzle N1",
-    "thickness": "8.1",
-    "soundpath": "38.2",
-    "amplitude": "43",
+    "thickness": "6.4",
+    "soundpath": "43.0",
+    "amplitude": "68",
     "length": "16",
-    "depth": "2.6",
+    "depth": "9.7",
     "judgement": "Acc",
     "discontinuity": "None",
     "remark": "N/A"
    },
    {
-    "partId": "Manlid nozzle N1",
-    "thickness": "11.0",
-    "soundpath": "44.8",
-    "amplitude": "56",
-    "length": "10",
-    "depth": "2.2",
+    "partId": "Outlet nozzle N2",
+    "thickness": "6.4",
+    "soundpath": "31.4",
+    "amplitude": "55",
+    "length": "19",
+    "depth": "9.8",
     "judgement": "Acc",
     "discontinuity": "None",
     "remark": "N/A"
@@ -3539,11 +3869,11 @@ export const SEED_REPORTS = [
   "coats": [],
   "photos": [],
   "createdAt": "2026-05-01T07:40:00.000Z",
-  "updatedAt": "2026-05-01T15:14:00.000Z",
+  "updatedAt": "2026-05-01T15:20:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-05-01T15:14:00.000Z",
-  "syncedAt": "2026-05-01T15:14:00.000Z"
+  "approvedAt": "2026-05-01T15:20:00.000Z",
+  "syncedAt": "2026-05-01T15:20:00.000Z"
  },
  {
   "id": "demo-1000300008-LHT-01",
@@ -3565,9 +3895,9 @@ export const SEED_REPORTS = [
    "unit": "IST-0447-08",
    "customer": "Customer 07",
    "testType": "Hydrostatic Test",
-   "testDesc": "Tank",
+   "testDesc": "Body",
    "testMedia": "Water",
-   "pressureUnit": "PsiG",
+   "pressureUnit": "Bar",
    "gauges": "2 Gauges",
    "useRecorder": "Used",
    "useTemp": "Used",
@@ -3580,68 +3910,68 @@ export const SEED_REPORTS = [
    "map": "-",
    "testPressure": "6.0",
    "holding": "30",
-   "pg1": "PG-003 · Pressure Gauge 0–40 Bar · Cal 2026-03-02",
-   "pg2": "PG-001 · Pressure Gauge 0–25 Bar · Cal 2026-01-14",
-   "pressRecorder": "BRT-002 · Chart Recorder · Cal 2026-04-08",
+   "pg1": "PG-002 · Pressure Gauge 0–25 Bar · Cal 2026-01-14",
+   "pg2": "PG-003 · Pressure Gauge 0–40 Bar · Cal 2026-03-02",
+   "pressRecorder": "BRT-001 · Chart Recorder · Cal 2026-02-11",
    "scale": "1 div = 0.2 Bar",
    "tempRecorder": "TMP-001 · Digital Thermometer · Cal 2026-01-20",
    "tempGauge": "TG-011 · Dial Temperature Gauge · Cal 2026-05-19",
    "testResult": "Satisfactory",
    "signInspector": {
     "name": "Inspector One",
-    "at": "2026-05-02T09:35:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-05-02T09:44:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-05-02T15:24:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-05-02T15:09:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [
    {
-    "time": "08:40",
+    "time": "08:16",
     "pg1": "0.00",
     "pg2": "0.00",
     "rec": "0.00",
-    "water": "30.5",
-    "ambient": "33.0",
-    "remark": "Start, 0 PsiG"
+    "water": "29.8",
+    "ambient": "33.6",
+    "remark": "Start, 0 Bar"
    },
    {
-    "time": "09:52",
+    "time": "09:20",
     "pg1": "5.99",
     "pg2": "5.99",
     "rec": "5.99",
-    "water": "29.1",
-    "ambient": "32.4",
-    "remark": "Stable"
-   },
-   {
-    "time": "010:29",
-    "pg1": "5.98",
-    "pg2": "5.98",
-    "rec": "5.98",
-    "water": "28.8",
-    "ambient": "31.1",
-    "remark": "Stable"
-   },
-   {
-    "time": "011:53",
-    "pg1": "5.97",
-    "pg2": "5.97",
-    "rec": "5.97",
-    "water": "30.6",
+    "water": "28.1",
     "ambient": "33.8",
     "remark": "Stable"
    },
    {
-    "time": "012:10",
+    "time": "010:12",
+    "pg1": "5.98",
+    "pg2": "5.98",
+    "rec": "5.98",
+    "water": "28.8",
+    "ambient": "32.8",
+    "remark": "Stable"
+   },
+   {
+    "time": "011:35",
+    "pg1": "5.97",
+    "pg2": "5.97",
+    "rec": "5.97",
+    "water": "30.1",
+    "ambient": "30.5",
+    "remark": "Stable"
+   },
+   {
+    "time": "012:45",
     "pg1": "5.96",
     "pg2": "5.96",
     "rec": "5.96",
-    "water": "28.9",
-    "ambient": "30.8",
+    "water": "29.7",
+    "ambient": "33.0",
     "remark": "Hold complete, no drop"
    }
   ],
@@ -3649,11 +3979,11 @@ export const SEED_REPORTS = [
   "coats": [],
   "photos": [],
   "createdAt": "2026-05-02T07:40:00.000Z",
-  "updatedAt": "2026-05-02T15:24:00.000Z",
+  "updatedAt": "2026-05-02T15:09:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-05-02T15:24:00.000Z",
-  "syncedAt": "2026-05-02T15:24:00.000Z"
+  "approvedAt": "2026-05-02T15:09:00.000Z",
+  "syncedAt": "2026-05-02T15:09:00.000Z"
  },
  {
   "id": "demo-1000300008-BPR-01",
@@ -3678,27 +4008,27 @@ export const SEED_REPORTS = [
    "surfacePrep": "SA 2½",
    "sspc": "SP 10",
    "abrasive": "Steel grit G-40",
-   "anchorProfile": "63",
-   "dryTemp": "31.9",
-   "wetTemp": "26.1",
-   "matlTemp": "31.0",
+   "anchorProfile": "70",
+   "dryTemp": "30.1",
+   "wetTemp": "26.7",
+   "matlTemp": "33.8",
    "prepResult": "Reject",
    "coatingPrep": "Primer",
-   "paintDesc": "2-pack epoxy primer",
+   "paintDesc": "Polyurethane topcoat",
    "thinner": "Epoxy thinner",
-   "batchPaint": "B23030",
-   "batchThinner": "T3687",
+   "batchPaint": "B27512",
+   "batchThinner": "T3424",
    "finalStatus": "Accept",
    "ncr": "Inspection carried out per the referenced procedure. No outstanding items.",
    "signInspector": {
     "name": "Inspector One",
-    "at": "2026-05-03T09:45:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-05-03T09:29:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-05-03T15:34:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-05-03T15:38:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
@@ -3708,11 +4038,11 @@ export const SEED_REPORTS = [
     "coat": "Coat 1",
     "area": "Exterior — Zone A",
     "pts": [
-     "166",
-     "131",
-     "151",
-     "151",
-     "133"
+     "142",
+     "153",
+     "175",
+     "130",
+     "161"
     ],
     "std": "120"
    },
@@ -3720,11 +4050,11 @@ export const SEED_REPORTS = [
     "coat": "Coat 2",
     "area": "Exterior — Zone B",
     "pts": [
-     "204",
-     "250",
-     "225",
-     "181",
-     "254"
+     "200",
+     "188",
+     "191",
+     "193",
+     "248"
     ],
     "std": "175"
    },
@@ -3732,22 +4062,22 @@ export const SEED_REPORTS = [
     "coat": "Coat 3",
     "area": "Frame & walkway",
     "pts": [
-     "214",
-     "244",
-     "184",
-     "239",
-     "259"
+     "241",
+     "236",
+     "240",
+     "200",
+     "209"
     ],
     "std": "175"
    }
   ],
   "photos": [],
   "createdAt": "2026-05-03T07:40:00.000Z",
-  "updatedAt": "2026-05-03T15:34:00.000Z",
+  "updatedAt": "2026-05-03T15:38:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-05-03T15:34:00.000Z",
-  "syncedAt": "2026-05-03T15:34:00.000Z"
+  "approvedAt": "2026-05-03T15:38:00.000Z",
+  "syncedAt": "2026-05-03T15:38:00.000Z"
  },
  {
   "id": "demo-1000300009-DIM-01",
@@ -3768,25 +4098,25 @@ export const SEED_REPORTS = [
    "sn": "IST-0447-09",
    "unit": "IST-0447-09",
    "customer": "Customer 07",
-   "drawingNo": "DWG-IST-4147-R0",
+   "drawingNo": "DWG-IST-4165-R1",
    "drawingFile": "N/A",
    "ncr": "Inspection carried out per the referenced procedure. No outstanding items.",
    "signInspector": {
     "name": "Inspector Two",
-    "at": "2026-05-03T09:35:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-05-03T09:25:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-05-03T15:13:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-05-03T15:28:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
   "results": [
    {
     "description": "Overall length",
-    "itemNo": "9",
+    "itemNo": "11",
     "nominal": "6058",
     "min": "6055",
     "max": "6061",
@@ -3795,49 +4125,49 @@ export const SEED_REPORTS = [
    },
    {
     "description": "Overall width",
-    "itemNo": "6",
+    "itemNo": "3",
     "nominal": "2438",
     "min": "2435",
     "max": "2441",
     "actual": "2438",
-    "note": "Measured with steel tape."
+    "note": ""
    },
    {
     "description": "Overall height",
-    "itemNo": "11",
+    "itemNo": "9",
     "nominal": "2591",
     "min": "2588",
     "max": "2594",
     "actual": "2592",
-    "note": "Measured with steel tape."
+    "note": "Verified twice."
    },
    {
     "description": "Frame diagonal",
-    "itemNo": "8",
+    "itemNo": "5",
     "nominal": "6470",
     "min": "6467",
     "max": "6473",
     "actual": "6469",
-    "note": ""
+    "note": "Measured with steel tape."
    },
    {
     "description": "Manlid centre offset",
-    "itemNo": "10",
+    "itemNo": "8",
     "nominal": "1220",
     "min": "1217",
     "max": "1223",
     "actual": "1220",
-    "note": ""
+    "note": "Measured with steel tape."
    }
   ],
   "coats": [],
   "photos": [],
   "createdAt": "2026-05-03T07:40:00.000Z",
-  "updatedAt": "2026-05-03T15:13:00.000Z",
+  "updatedAt": "2026-05-03T15:28:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-05-03T15:13:00.000Z",
-  "syncedAt": "2026-05-03T15:13:00.000Z"
+  "approvedAt": "2026-05-03T15:28:00.000Z",
+  "syncedAt": "2026-05-03T15:28:00.000Z"
  },
  {
   "id": "demo-1000300009-MT-01",
@@ -3863,30 +4193,30 @@ export const SEED_REPORTS = [
    "ncrRef": "N/A",
    "lightEquip": "LED floodlight 50W",
    "lightmeter": "LUX-002 · Digital Light Meter · Cal 2026-04-23",
-   "lightIntensity": "1486",
-   "mtEquipment": "Prod.",
+   "lightIntensity": "1353",
+   "mtEquipment": "Coil",
    "equipId": "YK-2201",
    "currentType": "HWDC-HWAC",
-   "particle": "Dry",
+   "particle": "Visible, Wet",
    "particleApp": "Other",
    "brand": "Magnaflux 7HF",
-   "particleDesc": "Wet fluorescent, batch WF491",
-   "whiteContrast": "Contrast paint, batch WC322",
-   "cleanerBatch": "Solvent cleaner, batch CL322",
+   "particleDesc": "Wet fluorescent, batch WF632",
+   "whiteContrast": "Contrast paint, batch WC189",
+   "cleanerBatch": "Solvent cleaner, batch CL401",
    "method": "Continuous",
-   "surfacePreparation": "As Welded",
+   "surfacePreparation": "As Grounded",
    "stage": "After Welding",
    "weldingProcess": "Other",
-   "scope": "Repair Weld",
+   "scope": "Weld Part",
    "signInspector": {
     "name": "Inspector Two",
-    "at": "2026-05-04T09:14:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-05-04T09:36:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-05-04T15:42:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-05-04T15:48:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
@@ -3894,17 +4224,35 @@ export const SEED_REPORTS = [
    {
     "partId": "Sparge pipe bracket",
     "material": "ASTM A516 Gr.70",
-    "weldNo": "WS-31",
-    "thickness": "8.0",
+    "weldNo": "WS-13",
+    "thickness": "10.8",
     "judgement": "Acc",
     "discontinuity": "None",
     "remark": "N/A"
    },
    {
-    "partId": "Sparge pipe bracket",
+    "partId": "Shell longitudinal seam",
     "material": "ASTM A516 Gr.70",
-    "weldNo": "WS-18",
-    "thickness": "11.8",
+    "weldNo": "WS-22",
+    "thickness": "8.9",
+    "judgement": "Acc",
+    "discontinuity": "None",
+    "remark": "N/A"
+   },
+   {
+    "partId": "Shell longitudinal seam",
+    "material": "ASTM A516 Gr.70",
+    "weldNo": "WS-17",
+    "thickness": "7.5",
+    "judgement": "Acc",
+    "discontinuity": "None",
+    "remark": "N/A"
+   },
+   {
+    "partId": "Shell longitudinal seam",
+    "material": "ASTM A516 Gr.70",
+    "weldNo": "WS-28",
+    "thickness": "10.5",
     "judgement": "Acc",
     "discontinuity": "None",
     "remark": "N/A"
@@ -3912,26 +4260,8 @@ export const SEED_REPORTS = [
    {
     "partId": "Outlet nozzle N2",
     "material": "ASTM A516 Gr.70",
-    "weldNo": "WS-8",
-    "thickness": "13.0",
-    "judgement": "Acc",
-    "discontinuity": "None",
-    "remark": "N/A"
-   },
-   {
-    "partId": "Outlet nozzle N2",
-    "material": "ASTM A516 Gr.70",
-    "weldNo": "WS-40",
-    "thickness": "13.7",
-    "judgement": "Acc",
-    "discontinuity": "None",
-    "remark": "N/A"
-   },
-   {
-    "partId": "Shell circumferential seam",
-    "material": "ASTM A516 Gr.70",
-    "weldNo": "WS-10",
-    "thickness": "9.5",
+    "weldNo": "WS-23",
+    "thickness": "10.2",
     "judgement": "Acc",
     "discontinuity": "None",
     "remark": "N/A"
@@ -3940,11 +4270,11 @@ export const SEED_REPORTS = [
   "coats": [],
   "photos": [],
   "createdAt": "2026-05-04T07:40:00.000Z",
-  "updatedAt": "2026-05-04T15:42:00.000Z",
+  "updatedAt": "2026-05-04T15:48:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-05-04T15:42:00.000Z",
-  "syncedAt": "2026-05-04T15:42:00.000Z"
+  "approvedAt": "2026-05-04T15:48:00.000Z",
+  "syncedAt": "2026-05-04T15:48:00.000Z"
  },
  {
   "id": "demo-1000300009-LHT-01",
@@ -3966,9 +4296,9 @@ export const SEED_REPORTS = [
    "unit": "IST-0447-09",
    "customer": "Customer 07",
    "testType": "Hydrostatic Test",
-   "testDesc": "Pipe",
+   "testDesc": "Tank",
    "testMedia": "Water",
-   "pressureUnit": "PsiG",
+   "pressureUnit": "Bar",
    "gauges": "2 Gauges",
    "useRecorder": "Used",
    "useTemp": "Used",
@@ -3981,7 +4311,7 @@ export const SEED_REPORTS = [
    "map": "-",
    "testPressure": "6.0",
    "holding": "30",
-   "pg1": "PG-003 · Pressure Gauge 0–40 Bar · Cal 2026-03-02",
+   "pg1": "PG-002 · Pressure Gauge 0–25 Bar · Cal 2026-01-14",
    "pg2": "PG-001 · Pressure Gauge 0–25 Bar · Cal 2026-01-14",
    "pressRecorder": "BRT-001 · Chart Recorder · Cal 2026-02-11",
    "scale": "1 div = 0.2 Bar",
@@ -3990,59 +4320,59 @@ export const SEED_REPORTS = [
    "testResult": "Satisfactory",
    "signInspector": {
     "name": "Inspector Two",
-    "at": "2026-05-05T09:25:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-05-05T09:18:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-05-05T15:28:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-05-05T15:21:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [
    {
-    "time": "08:51",
+    "time": "08:36",
     "pg1": "0.00",
     "pg2": "0.00",
     "rec": "0.00",
-    "water": "29.3",
-    "ambient": "31.0",
-    "remark": "Start, 0 PsiG"
+    "water": "28.9",
+    "ambient": "32.3",
+    "remark": "Start, 0 Bar"
    },
    {
-    "time": "09:25",
+    "time": "09:33",
     "pg1": "5.99",
     "pg2": "5.99",
     "rec": "5.99",
-    "water": "30.8",
-    "ambient": "33.8",
+    "water": "29.6",
+    "ambient": "30.7",
     "remark": "Stable"
    },
    {
-    "time": "010:21",
+    "time": "010:43",
     "pg1": "5.98",
     "pg2": "5.98",
     "rec": "5.98",
-    "water": "30.5",
-    "ambient": "30.6",
+    "water": "29.9",
+    "ambient": "33.9",
     "remark": "Stable"
    },
    {
-    "time": "011:08",
+    "time": "011:48",
     "pg1": "5.97",
     "pg2": "5.97",
     "rec": "5.97",
-    "water": "29.9",
-    "ambient": "33.6",
+    "water": "29.4",
+    "ambient": "32.9",
     "remark": "Stable"
    },
    {
-    "time": "012:12",
+    "time": "012:11",
     "pg1": "5.96",
     "pg2": "5.96",
     "rec": "5.96",
     "water": "30.3",
-    "ambient": "32.3",
+    "ambient": "31.1",
     "remark": "Hold complete, no drop"
    }
   ],
@@ -4050,11 +4380,11 @@ export const SEED_REPORTS = [
   "coats": [],
   "photos": [],
   "createdAt": "2026-05-05T07:40:00.000Z",
-  "updatedAt": "2026-05-05T15:28:00.000Z",
+  "updatedAt": "2026-05-05T15:21:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-05-05T15:28:00.000Z",
-  "syncedAt": "2026-05-05T15:28:00.000Z"
+  "approvedAt": "2026-05-05T15:21:00.000Z",
+  "syncedAt": "2026-05-05T15:21:00.000Z"
  },
  {
   "id": "demo-1000300009-BPR-01",
@@ -4079,27 +4409,27 @@ export const SEED_REPORTS = [
    "surfacePrep": "SA 2½",
    "sspc": "SP 10",
    "abrasive": "Steel grit G-40",
-   "anchorProfile": "71",
-   "dryTemp": "31.0",
-   "wetTemp": "26.9",
-   "matlTemp": "33.5",
+   "anchorProfile": "67",
+   "dryTemp": "31.9",
+   "wetTemp": "25.6",
+   "matlTemp": "32.9",
    "prepResult": "Reject",
    "coatingPrep": "Top",
-   "paintDesc": "Epoxy mastic MIO",
+   "paintDesc": "Polyurethane topcoat",
    "thinner": "Epoxy thinner",
-   "batchPaint": "B22966",
-   "batchThinner": "T3402",
+   "batchPaint": "B20377",
+   "batchThinner": "T3415",
    "finalStatus": "Accept",
    "ncr": "Inspection carried out per the referenced procedure. No outstanding items.",
    "signInspector": {
     "name": "Inspector Two",
-    "at": "2026-05-06T09:26:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-05-06T09:43:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-05-06T15:06:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-05-06T15:29:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
@@ -4109,11 +4439,11 @@ export const SEED_REPORTS = [
     "coat": "Coat 1",
     "area": "Exterior — Zone A",
     "pts": [
-     "135",
-     "158",
-     "134",
-     "169",
-     "145"
+     "129",
+     "126",
+     "174",
+     "139",
+     "142"
     ],
     "std": "120"
    },
@@ -4121,11 +4451,11 @@ export const SEED_REPORTS = [
     "coat": "Coat 2",
     "area": "Exterior — Zone B",
     "pts": [
-     "244",
-     "204",
-     "228",
-     "219",
-     "187"
+     "186",
+     "195",
+     "220",
+     "182",
+     "248"
     ],
     "std": "175"
    },
@@ -4133,22 +4463,22 @@ export const SEED_REPORTS = [
     "coat": "Coat 3",
     "area": "Frame & walkway",
     "pts": [
-     "223",
-     "209",
-     "205",
-     "193",
-     "213"
+     "213",
+     "238",
+     "237",
+     "234",
+     "190"
     ],
     "std": "175"
    }
   ],
   "photos": [],
   "createdAt": "2026-05-06T07:40:00.000Z",
-  "updatedAt": "2026-05-06T15:06:00.000Z",
+  "updatedAt": "2026-05-06T15:29:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-05-06T15:06:00.000Z",
-  "syncedAt": "2026-05-06T15:06:00.000Z"
+  "approvedAt": "2026-05-06T15:29:00.000Z",
+  "syncedAt": "2026-05-06T15:29:00.000Z"
  },
  {
   "id": "demo-1000300010-DIM-01",
@@ -4169,25 +4499,25 @@ export const SEED_REPORTS = [
    "sn": "IST-0447-10",
    "unit": "IST-0447-10",
    "customer": "Customer 07",
-   "drawingNo": "DWG-IST-4155-R1",
+   "drawingNo": "DWG-IST-4161-R1",
    "drawingFile": "N/A",
    "ncr": "Inspection carried out per the referenced procedure. No outstanding items.",
    "signInspector": {
     "name": "Inspector One",
-    "at": "2026-05-06T09:52:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-05-06T09:47:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-05-06T15:36:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-05-06T15:05:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
   "results": [
    {
     "description": "Overall length",
-    "itemNo": "7",
+    "itemNo": "2",
     "nominal": "6058",
     "min": "6055",
     "max": "6061",
@@ -4196,25 +4526,25 @@ export const SEED_REPORTS = [
    },
    {
     "description": "Overall width",
-    "itemNo": "6",
+    "itemNo": "4",
     "nominal": "2438",
     "min": "2435",
     "max": "2441",
     "actual": "2438",
-    "note": "Verified twice."
+    "note": ""
    },
    {
     "description": "Overall height",
-    "itemNo": "7",
+    "itemNo": "12",
     "nominal": "2591",
     "min": "2588",
     "max": "2594",
     "actual": "2592",
-    "note": "Verified twice."
+    "note": "Measured with steel tape."
    },
    {
     "description": "Frame diagonal",
-    "itemNo": "11",
+    "itemNo": "1",
     "nominal": "6470",
     "min": "6467",
     "max": "6473",
@@ -4223,22 +4553,22 @@ export const SEED_REPORTS = [
    },
    {
     "description": "Manlid centre offset",
-    "itemNo": "3",
+    "itemNo": "10",
     "nominal": "1220",
     "min": "1217",
     "max": "1223",
     "actual": "1220",
-    "note": "Verified twice."
+    "note": "Measured with steel tape."
    }
   ],
   "coats": [],
   "photos": [],
   "createdAt": "2026-05-06T07:40:00.000Z",
-  "updatedAt": "2026-05-06T15:36:00.000Z",
+  "updatedAt": "2026-05-06T15:05:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-05-06T15:36:00.000Z",
-  "syncedAt": "2026-05-06T15:36:00.000Z"
+  "approvedAt": "2026-05-06T15:05:00.000Z",
+  "syncedAt": "2026-05-06T15:05:00.000Z"
  },
  {
   "id": "demo-1000300010-PT-01",
@@ -4263,37 +4593,37 @@ export const SEED_REPORTS = [
    "materialSpec": "ASTM A516 Gr.70",
    "ncrRef": "N/A",
    "lightEquip": "LED floodlight 50W",
-   "lightmeter": "LUX-002 · Digital Light Meter · Cal 2026-04-23",
-   "lightIntensity": "1100",
+   "lightmeter": "LUX-001 · Digital Light Meter · Cal 2026-01-09",
+   "lightIntensity": "1411",
    "penetrantMethod": "Post Emulsifier",
-   "penetrantType": "Visible",
-   "dwellTime": "13",
+   "penetrantType": "Fluorescent",
+   "dwellTime": "33",
    "applicationBy": "Other",
-   "appTemp": "34.5",
-   "developerType": "Aqueous",
-   "developingTime": "8.3",
-   "interpretationTime": "19.0",
+   "appTemp": "93.1",
+   "developerType": "Non Aqueous",
+   "developingTime": "18.1",
+   "interpretationTime": "76.5",
    "cleaner": "SKC-S",
-   "stage": "After Welding",
+   "stage": "After Hydrostatic",
    "weldingProcess": "Other",
-   "scope": "Weld Part",
+   "scope": "Base Metal",
    "signInspector": {
     "name": "Inspector One",
-    "at": "2026-05-07T09:42:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-05-07T09:49:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-05-07T15:23:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-05-07T15:18:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
   "results": [
    {
-    "partId": "Sparge pipe bracket",
+    "partId": "Frame corner casting",
     "material": "ASTM A516 Gr.70",
-    "thickness": "11.7",
+    "thickness": "7.1",
     "judgement": "Acc",
     "discontinuity": "None",
     "remark": "N/A"
@@ -4301,23 +4631,7 @@ export const SEED_REPORTS = [
    {
     "partId": "Shell longitudinal seam",
     "material": "ASTM A516 Gr.70",
-    "thickness": "6.4",
-    "judgement": "Acc",
-    "discontinuity": "None",
-    "remark": "N/A"
-   },
-   {
-    "partId": "Outlet nozzle N2",
-    "material": "ASTM A516 Gr.70",
-    "thickness": "12.1",
-    "judgement": "Acc",
-    "discontinuity": "None",
-    "remark": "N/A"
-   },
-   {
-    "partId": "Frame corner casting",
-    "material": "ASTM A516 Gr.70",
-    "thickness": "7.2",
+    "thickness": "9.8",
     "judgement": "Acc",
     "discontinuity": "None",
     "remark": "N/A"
@@ -4325,7 +4639,23 @@ export const SEED_REPORTS = [
    {
     "partId": "Manlid nozzle N1",
     "material": "ASTM A516 Gr.70",
-    "thickness": "7.4",
+    "thickness": "9.2",
+    "judgement": "Acc",
+    "discontinuity": "None",
+    "remark": "N/A"
+   },
+   {
+    "partId": "Shell circumferential seam",
+    "material": "ASTM A516 Gr.70",
+    "thickness": "13.8",
+    "judgement": "Acc",
+    "discontinuity": "None",
+    "remark": "N/A"
+   },
+   {
+    "partId": "Frame corner casting",
+    "material": "ASTM A516 Gr.70",
+    "thickness": "9.8",
     "judgement": "Acc",
     "discontinuity": "None",
     "remark": "N/A"
@@ -4334,11 +4664,11 @@ export const SEED_REPORTS = [
   "coats": [],
   "photos": [],
   "createdAt": "2026-05-07T07:40:00.000Z",
-  "updatedAt": "2026-05-07T15:23:00.000Z",
+  "updatedAt": "2026-05-07T15:18:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-05-07T15:23:00.000Z",
-  "syncedAt": "2026-05-07T15:23:00.000Z"
+  "approvedAt": "2026-05-07T15:18:00.000Z",
+  "syncedAt": "2026-05-07T15:18:00.000Z"
  },
  {
   "id": "demo-1000300010-LHT-01",
@@ -4360,9 +4690,9 @@ export const SEED_REPORTS = [
    "unit": "IST-0447-10",
    "customer": "Customer 07",
    "testType": "Hydrostatic Test",
-   "testDesc": "Body",
+   "testDesc": "Tank",
    "testMedia": "Water",
-   "pressureUnit": "PsiG",
+   "pressureUnit": "Bar",
    "gauges": "2 Gauges",
    "useRecorder": "Used",
    "useTemp": "Used",
@@ -4375,9 +4705,9 @@ export const SEED_REPORTS = [
    "map": "-",
    "testPressure": "6.0",
    "holding": "30",
-   "pg1": "PG-001 · Pressure Gauge 0–25 Bar · Cal 2026-01-14",
-   "pg2": "PG-002 · Pressure Gauge 0–25 Bar · Cal 2026-01-14",
-   "pressRecorder": "BRT-001 · Chart Recorder · Cal 2026-02-11",
+   "pg1": "PG-002 · Pressure Gauge 0–25 Bar · Cal 2026-01-14",
+   "pg2": "PG-001 · Pressure Gauge 0–25 Bar · Cal 2026-01-14",
+   "pressRecorder": "BRT-002 · Chart Recorder · Cal 2026-04-08",
    "scale": "1 div = 0.2 Bar",
    "tempRecorder": "TMP-001 · Digital Thermometer · Cal 2026-01-20",
    "tempGauge": "TG-012 · Dial Temperature Gauge · Cal 2026-06-02",
@@ -4385,59 +4715,59 @@ export const SEED_REPORTS = [
    "ncr": "Non-conformance raised against this unit. Rework and re-inspection required before release.",
    "signInspector": {
     "name": "Inspector One",
-    "at": "2026-05-08T09:53:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-05-08T09:44:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-05-08T15:17:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-05-08T15:12:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [
    {
-    "time": "08:31",
+    "time": "08:11",
     "pg1": "0.00",
     "pg2": "0.00",
     "rec": "0.00",
-    "water": "30.8",
-    "ambient": "31.5",
-    "remark": "Start, 0 PsiG"
+    "water": "30.2",
+    "ambient": "31.2",
+    "remark": "Start, 0 Bar"
    },
    {
-    "time": "09:46",
+    "time": "09:30",
     "pg1": "5.99",
     "pg2": "5.99",
     "rec": "5.99",
-    "water": "29.0",
-    "ambient": "31.5",
+    "water": "29.3",
+    "ambient": "33.3",
     "remark": "Stable"
    },
    {
-    "time": "010:11",
+    "time": "010:42",
     "pg1": "5.98",
     "pg2": "5.98",
     "rec": "5.98",
-    "water": "29.3",
-    "ambient": "30.1",
+    "water": "29.1",
+    "ambient": "31.9",
     "remark": "Stable"
    },
    {
-    "time": "011:32",
+    "time": "011:15",
     "pg1": "5.97",
     "pg2": "5.97",
     "rec": "5.97",
-    "water": "30.9",
-    "ambient": "30.1",
+    "water": "28.1",
+    "ambient": "33.9",
     "remark": "Stable"
    },
    {
-    "time": "012:18",
+    "time": "012:07",
     "pg1": "5.58",
     "pg2": "5.58",
     "rec": "5.58",
-    "water": "28.6",
-    "ambient": "31.5",
+    "water": "30.3",
+    "ambient": "32.6",
     "remark": "Pressure drop observed — leak at outlet nozzle. Test failed."
    }
   ],
@@ -4445,11 +4775,11 @@ export const SEED_REPORTS = [
   "coats": [],
   "photos": [],
   "createdAt": "2026-05-08T07:40:00.000Z",
-  "updatedAt": "2026-05-08T15:17:00.000Z",
+  "updatedAt": "2026-05-08T15:12:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-05-08T15:17:00.000Z",
-  "syncedAt": "2026-05-08T15:17:00.000Z"
+  "approvedAt": "2026-05-08T15:12:00.000Z",
+  "syncedAt": "2026-05-08T15:12:00.000Z"
  },
  {
   "id": "demo-1000300010-LHT-02",
@@ -4473,7 +4803,7 @@ export const SEED_REPORTS = [
    "testType": "Hydrostatic Test",
    "testDesc": "Body",
    "testMedia": "Water",
-   "pressureUnit": "PsiG",
+   "pressureUnit": "Bar",
    "gauges": "2 Gauges",
    "useRecorder": "Used",
    "useTemp": "Used",
@@ -4486,8 +4816,8 @@ export const SEED_REPORTS = [
    "map": "-",
    "testPressure": "6.0",
    "holding": "30",
-   "pg1": "PG-001 · Pressure Gauge 0–25 Bar · Cal 2026-01-14",
-   "pg2": "PG-002 · Pressure Gauge 0–25 Bar · Cal 2026-01-14",
+   "pg1": "PG-003 · Pressure Gauge 0–40 Bar · Cal 2026-03-02",
+   "pg2": "PG-001 · Pressure Gauge 0–25 Bar · Cal 2026-01-14",
    "pressRecorder": "BRT-002 · Chart Recorder · Cal 2026-04-08",
    "scale": "1 div = 0.2 Bar",
    "tempRecorder": "TMP-001 · Digital Thermometer · Cal 2026-01-20",
@@ -4495,59 +4825,59 @@ export const SEED_REPORTS = [
    "testResult": "Satisfactory",
    "signInspector": {
     "name": "Inspector Two",
-    "at": "2026-05-17T09:14:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-05-17T09:42:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-05-17T15:26:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-05-17T15:27:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [
    {
-    "time": "08:36",
+    "time": "08:27",
     "pg1": "0.00",
     "pg2": "0.00",
     "rec": "0.00",
-    "water": "29.4",
-    "ambient": "32.9",
-    "remark": "Start, 0 PsiG"
+    "water": "30.2",
+    "ambient": "33.1",
+    "remark": "Start, 0 Bar"
    },
    {
-    "time": "09:44",
+    "time": "09:30",
     "pg1": "5.99",
     "pg2": "5.99",
     "rec": "5.99",
     "water": "30.0",
-    "ambient": "33.7",
+    "ambient": "32.8",
     "remark": "Stable"
    },
    {
-    "time": "010:42",
+    "time": "010:54",
     "pg1": "5.98",
     "pg2": "5.98",
     "rec": "5.98",
-    "water": "28.5",
-    "ambient": "33.1",
+    "water": "28.9",
+    "ambient": "32.4",
     "remark": "Stable"
    },
    {
-    "time": "011:05",
+    "time": "011:29",
     "pg1": "5.97",
     "pg2": "5.97",
     "rec": "5.97",
-    "water": "29.3",
-    "ambient": "33.9",
+    "water": "28.9",
+    "ambient": "32.3",
     "remark": "Stable"
    },
    {
-    "time": "012:07",
+    "time": "012:40",
     "pg1": "5.96",
     "pg2": "5.96",
     "rec": "5.96",
-    "water": "30.9",
-    "ambient": "30.5",
+    "water": "28.3",
+    "ambient": "33.6",
     "remark": "Hold complete, no drop"
    }
   ],
@@ -4555,11 +4885,11 @@ export const SEED_REPORTS = [
   "coats": [],
   "photos": [],
   "createdAt": "2026-05-17T07:40:00.000Z",
-  "updatedAt": "2026-05-17T15:26:00.000Z",
+  "updatedAt": "2026-05-17T15:27:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-05-17T15:26:00.000Z",
-  "syncedAt": "2026-05-17T15:26:00.000Z",
+  "approvedAt": "2026-05-17T15:27:00.000Z",
+  "syncedAt": "2026-05-17T15:27:00.000Z",
   "supersedes": "MFG/LHT/1000300010/01",
   "supersedesId": "demo-1000300010-LHT-01"
  },
@@ -4586,27 +4916,27 @@ export const SEED_REPORTS = [
    "surfacePrep": "SA 2½",
    "sspc": "SP 10",
    "abrasive": "Steel grit G-40",
-   "anchorProfile": "59",
-   "dryTemp": "30.6",
-   "wetTemp": "25.2",
-   "matlTemp": "32.0",
-   "prepResult": "Acc",
-   "coatingPrep": "Top",
-   "paintDesc": "2-pack epoxy primer",
+   "anchorProfile": "60",
+   "dryTemp": "30.7",
+   "wetTemp": "24.2",
+   "matlTemp": "31.0",
+   "prepResult": "Reject",
+   "coatingPrep": "Second",
+   "paintDesc": "Polyurethane topcoat",
    "thinner": "Epoxy thinner",
-   "batchPaint": "B29493",
-   "batchThinner": "T3474",
+   "batchPaint": "B24438",
+   "batchThinner": "T3977",
    "finalStatus": "Accept",
    "ncr": "Inspection carried out per the referenced procedure. No outstanding items.",
    "signInspector": {
     "name": "Inspector One",
-    "at": "2026-05-09T09:26:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-05-09T09:54:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-05-09T15:26:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-05-09T15:35:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
@@ -4617,10 +4947,10 @@ export const SEED_REPORTS = [
     "area": "Exterior — Zone A",
     "pts": [
      "168",
-     "167",
-     "136",
-     "156",
-     "153"
+     "138",
+     "126",
+     "142",
+     "125"
     ],
     "std": "120"
    },
@@ -4628,11 +4958,11 @@ export const SEED_REPORTS = [
     "coat": "Coat 2",
     "area": "Exterior — Zone B",
     "pts": [
-     "210",
-     "239",
-     "255",
-     "226",
-     "191"
+     "209",
+     "183",
+     "259",
+     "259",
+     "256"
     ],
     "std": "175"
    },
@@ -4640,22 +4970,22 @@ export const SEED_REPORTS = [
     "coat": "Coat 3",
     "area": "Frame & walkway",
     "pts": [
-     "238",
-     "204",
-     "220",
-     "215",
-     "246"
+     "181",
+     "251",
+     "191",
+     "196",
+     "212"
     ],
     "std": "175"
    }
   ],
   "photos": [],
   "createdAt": "2026-05-09T07:40:00.000Z",
-  "updatedAt": "2026-05-09T15:26:00.000Z",
+  "updatedAt": "2026-05-09T15:35:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-05-09T15:26:00.000Z",
-  "syncedAt": "2026-05-09T15:26:00.000Z"
+  "approvedAt": "2026-05-09T15:35:00.000Z",
+  "syncedAt": "2026-05-09T15:35:00.000Z"
  },
  {
   "id": "demo-1000300011-DIM-01",
@@ -4681,56 +5011,56 @@ export const SEED_REPORTS = [
    "ncr": "Inspection carried out per the referenced procedure. No outstanding items.",
    "signInspector": {
     "name": "Inspector Two",
-    "at": "2026-05-09T09:34:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-05-09T09:53:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-05-09T15:21:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-05-09T15:13:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
   "results": [
    {
     "description": "Overall length",
-    "itemNo": "1",
+    "itemNo": "9",
     "nominal": "6058",
     "min": "6055",
     "max": "6061",
     "actual": "6057",
-    "note": "Measured with steel tape."
+    "note": ""
    },
    {
     "description": "Overall width",
-    "itemNo": "12",
+    "itemNo": "5",
     "nominal": "2438",
     "min": "2435",
     "max": "2441",
     "actual": "2438",
-    "note": "Verified twice."
+    "note": ""
    },
    {
     "description": "Overall height",
-    "itemNo": "10",
+    "itemNo": "12",
     "nominal": "2591",
     "min": "2588",
     "max": "2594",
     "actual": "2592",
-    "note": "Measured with steel tape."
+    "note": "Verified twice."
    },
    {
     "description": "Frame diagonal",
-    "itemNo": "6",
+    "itemNo": "12",
     "nominal": "6470",
     "min": "6467",
     "max": "6473",
     "actual": "6469",
-    "note": ""
+    "note": "Measured with steel tape."
    },
    {
     "description": "Manlid centre offset",
-    "itemNo": "9",
+    "itemNo": "1",
     "nominal": "1220",
     "min": "1217",
     "max": "1223",
@@ -4741,11 +5071,11 @@ export const SEED_REPORTS = [
   "coats": [],
   "photos": [],
   "createdAt": "2026-05-09T07:40:00.000Z",
-  "updatedAt": "2026-05-09T15:21:00.000Z",
+  "updatedAt": "2026-05-09T15:13:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-05-09T15:21:00.000Z",
-  "syncedAt": "2026-05-09T15:21:00.000Z"
+  "approvedAt": "2026-05-09T15:13:00.000Z",
+  "syncedAt": "2026-05-09T15:13:00.000Z"
  },
  {
   "id": "demo-1000300011-UT-01",
@@ -4771,91 +5101,91 @@ export const SEED_REPORTS = [
    "ncrRef": "N/A",
    "instrument": "Olympus EPOCH 650",
    "model": "EPOCH 650",
-   "serialNo": "SN-87824",
+   "serialNo": "SN-28774",
    "cable": "Coaxial BNC, 2.0 m",
    "couplant": "CMC gel",
-   "technique": "Contact — Angle Beam",
-   "scanSurface": "From C",
-   "scanTechnique": "Other",
-   "scanDirection": "Swivel",
-   "lengthInd": "6 dB Drop",
+   "technique": "Angle Beam",
+   "scanSurface": "Both Side of Weld",
+   "scanTechnique": "Half Skip Distance",
+   "scanDirection": "Essentially parallel to weld axis",
+   "lengthInd": "14 dB Drop",
    "heightInd": "6 dB Drop",
-   "suAngle": "0°",
-   "suSerial": "SU-4212",
-   "suFreq": "4.3",
+   "suAngle": "45°",
+   "suSerial": "SU-1178",
+   "suFreq": "27.3",
    "suSize": "10 mm dia.",
-   "blockId": "Nozzle",
+   "blockId": "V2",
    "hole": "SDH Ø 2.4 mm",
-   "amplitude": "68",
+   "amplitude": "49",
    "refReflector": "IIW V1 block",
-   "refLevel": "95.0",
-   "scanLevel": "1.8",
-   "testRange": "88.6",
+   "refLevel": "77.5",
+   "scanLevel": "75.0",
+   "testRange": "51.2",
    "notes": "Inspection carried out per the referenced procedure. No outstanding items.",
    "signInspector": {
     "name": "Inspector Two",
-    "at": "2026-05-10T09:10:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-05-10T09:24:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-05-10T15:29:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-05-10T15:27:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
   "results": [
    {
     "partId": "Shell longitudinal seam",
-    "thickness": "7.6",
-    "soundpath": "28.0",
-    "amplitude": "51",
-    "length": "26",
-    "depth": "8.6",
-    "judgement": "Acc",
-    "discontinuity": "None",
-    "remark": "N/A"
-   },
-   {
-    "partId": "Shell longitudinal seam",
-    "thickness": "12.7",
-    "soundpath": "42.1",
-    "amplitude": "42",
-    "length": "13",
-    "depth": "11.9",
+    "thickness": "13.0",
+    "soundpath": "31.4",
+    "amplitude": "57",
+    "length": "19",
+    "depth": "8.3",
     "judgement": "Acc",
     "discontinuity": "None",
     "remark": "N/A"
    },
    {
     "partId": "Sparge pipe bracket",
-    "thickness": "9.2",
-    "soundpath": "25.1",
+    "thickness": "12.4",
+    "soundpath": "37.5",
+    "amplitude": "20",
+    "length": "14",
+    "depth": "5.2",
+    "judgement": "Acc",
+    "discontinuity": "None",
+    "remark": "N/A"
+   },
+   {
+    "partId": "Frame corner casting",
+    "thickness": "9.7",
+    "soundpath": "17.2",
     "amplitude": "28",
-    "length": "12",
-    "depth": "10.3",
+    "length": "15",
+    "depth": "3.9",
+    "judgement": "Acc",
+    "discontinuity": "None",
+    "remark": "N/A"
+   },
+   {
+    "partId": "Shell circumferential seam",
+    "thickness": "8.1",
+    "soundpath": "50.1",
+    "amplitude": "51",
+    "length": "16",
+    "depth": "9.7",
     "judgement": "Acc",
     "discontinuity": "None",
     "remark": "N/A"
    },
    {
     "partId": "Sparge pipe bracket",
-    "thickness": "7.5",
-    "soundpath": "51.3",
-    "amplitude": "22",
-    "length": "18",
-    "depth": "6.7",
-    "judgement": "Acc",
-    "discontinuity": "None",
-    "remark": "N/A"
-   },
-   {
-    "partId": "Manlid nozzle N1",
-    "thickness": "9.8",
-    "soundpath": "53.2",
-    "amplitude": "47",
-    "length": "16",
-    "depth": "4.5",
+    "thickness": "13.3",
+    "soundpath": "49.6",
+    "amplitude": "61",
+    "length": "22",
+    "depth": "3.9",
     "judgement": "Acc",
     "discontinuity": "None",
     "remark": "N/A"
@@ -4864,11 +5194,11 @@ export const SEED_REPORTS = [
   "coats": [],
   "photos": [],
   "createdAt": "2026-05-10T07:40:00.000Z",
-  "updatedAt": "2026-05-10T15:29:00.000Z",
+  "updatedAt": "2026-05-10T15:27:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-05-10T15:29:00.000Z",
-  "syncedAt": "2026-05-10T15:29:00.000Z"
+  "approvedAt": "2026-05-10T15:27:00.000Z",
+  "syncedAt": "2026-05-10T15:27:00.000Z"
  },
  {
   "id": "demo-1000300011-LHT-01",
@@ -4892,7 +5222,7 @@ export const SEED_REPORTS = [
    "testType": "Hydrostatic Test",
    "testDesc": "Body",
    "testMedia": "Water",
-   "pressureUnit": "PsiG",
+   "pressureUnit": "Bar",
    "gauges": "2 Gauges",
    "useRecorder": "Used",
    "useTemp": "Used",
@@ -4905,59 +5235,59 @@ export const SEED_REPORTS = [
    "map": "-",
    "testPressure": "6.0",
    "holding": "30",
-   "pg1": "PG-001 · Pressure Gauge 0–25 Bar · Cal 2026-01-14",
-   "pg2": "PG-002 · Pressure Gauge 0–25 Bar · Cal 2026-01-14",
-   "pressRecorder": "BRT-001 · Chart Recorder · Cal 2026-02-11",
+   "pg1": "PG-002 · Pressure Gauge 0–25 Bar · Cal 2026-01-14",
+   "pg2": "PG-003 · Pressure Gauge 0–40 Bar · Cal 2026-03-02",
+   "pressRecorder": "BRT-002 · Chart Recorder · Cal 2026-04-08",
    "scale": "1 div = 0.2 Bar",
    "tempRecorder": "TMP-001 · Digital Thermometer · Cal 2026-01-20",
    "tempGauge": "TG-011 · Dial Temperature Gauge · Cal 2026-05-19",
    "testResult": "Satisfactory",
    "signInspector": {
     "name": "Inspector Two",
-    "at": "2026-05-11T09:33:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-05-11T09:29:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-05-11T15:07:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-05-11T15:34:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [
    {
-    "time": "08:53",
+    "time": "08:27",
     "pg1": "0.00",
     "pg2": "0.00",
     "rec": "0.00",
-    "water": "28.6",
-    "ambient": "30.8",
-    "remark": "Start, 0 PsiG"
+    "water": "28.1",
+    "ambient": "33.6",
+    "remark": "Start, 0 Bar"
    },
    {
-    "time": "09:44",
+    "time": "09:53",
     "pg1": "5.99",
     "pg2": "5.99",
     "rec": "5.99",
-    "water": "28.5",
-    "ambient": "31.8",
+    "water": "29.0",
+    "ambient": "33.8",
     "remark": "Stable"
    },
    {
-    "time": "010:42",
+    "time": "010:44",
     "pg1": "5.98",
     "pg2": "5.98",
     "rec": "5.98",
-    "water": "30.2",
-    "ambient": "30.1",
+    "water": "28.0",
+    "ambient": "31.9",
     "remark": "Stable"
    },
    {
-    "time": "011:25",
+    "time": "011:35",
     "pg1": "5.97",
     "pg2": "5.97",
     "rec": "5.97",
-    "water": "28.1",
-    "ambient": "31.1",
+    "water": "29.3",
+    "ambient": "31.5",
     "remark": "Stable"
    },
    {
@@ -4965,8 +5295,8 @@ export const SEED_REPORTS = [
     "pg1": "5.96",
     "pg2": "5.96",
     "rec": "5.96",
-    "water": "29.8",
-    "ambient": "33.1",
+    "water": "29.6",
+    "ambient": "31.8",
     "remark": "Hold complete, no drop"
    }
   ],
@@ -4974,11 +5304,11 @@ export const SEED_REPORTS = [
   "coats": [],
   "photos": [],
   "createdAt": "2026-05-11T07:40:00.000Z",
-  "updatedAt": "2026-05-11T15:07:00.000Z",
+  "updatedAt": "2026-05-11T15:34:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-05-11T15:07:00.000Z",
-  "syncedAt": "2026-05-11T15:07:00.000Z"
+  "approvedAt": "2026-05-11T15:34:00.000Z",
+  "syncedAt": "2026-05-11T15:34:00.000Z"
  },
  {
   "id": "demo-1000300012-DIM-01",
@@ -4999,34 +5329,34 @@ export const SEED_REPORTS = [
    "sn": "IST-0447-12",
    "unit": "IST-0447-12",
    "customer": "Customer 07",
-   "drawingNo": "DWG-IST-4170-R1",
+   "drawingNo": "DWG-IST-4100-R1",
    "drawingFile": "N/A",
    "ncr": "Inspection carried out per the referenced procedure. No outstanding items.",
    "signInspector": {
     "name": "Inspector One",
-    "at": "2026-05-12T09:25:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-05-12T09:50:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-05-12T15:42:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-05-12T15:23:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
   "results": [
    {
     "description": "Overall length",
-    "itemNo": "8",
+    "itemNo": "2",
     "nominal": "6058",
     "min": "6055",
     "max": "6061",
     "actual": "6057",
-    "note": "Verified twice."
+    "note": ""
    },
    {
     "description": "Overall width",
-    "itemNo": "6",
+    "itemNo": "8",
     "nominal": "2438",
     "min": "2435",
     "max": "2441",
@@ -5035,7 +5365,7 @@ export const SEED_REPORTS = [
    },
    {
     "description": "Overall height",
-    "itemNo": "7",
+    "itemNo": "9",
     "nominal": "2591",
     "min": "2588",
     "max": "2594",
@@ -5044,7 +5374,7 @@ export const SEED_REPORTS = [
    },
    {
     "description": "Frame diagonal",
-    "itemNo": "7",
+    "itemNo": "6",
     "nominal": "6470",
     "min": "6467",
     "max": "6473",
@@ -5053,22 +5383,22 @@ export const SEED_REPORTS = [
    },
    {
     "description": "Manlid centre offset",
-    "itemNo": "10",
+    "itemNo": "8",
     "nominal": "1220",
     "min": "1217",
     "max": "1223",
     "actual": "1220",
-    "note": "Measured with steel tape."
+    "note": ""
    }
   ],
   "coats": [],
   "photos": [],
   "createdAt": "2026-05-12T07:40:00.000Z",
-  "updatedAt": "2026-05-12T15:42:00.000Z",
+  "updatedAt": "2026-05-12T15:23:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-05-12T15:42:00.000Z",
-  "syncedAt": "2026-05-12T15:42:00.000Z"
+  "approvedAt": "2026-05-12T15:23:00.000Z",
+  "syncedAt": "2026-05-12T15:23:00.000Z"
  },
  {
   "id": "demo-1000300012-MT-01",
@@ -5093,67 +5423,40 @@ export const SEED_REPORTS = [
    "materialSpec": "ASTM A516 Gr.70",
    "ncrRef": "N/A",
    "lightEquip": "LED floodlight 50W",
-   "lightmeter": "LUX-002 · Digital Light Meter · Cal 2026-04-23",
-   "lightIntensity": "1513",
-   "mtEquipment": "Yoke",
+   "lightmeter": "LUX-001 · Digital Light Meter · Cal 2026-01-09",
+   "lightIntensity": "1101",
+   "mtEquipment": "Prod.",
    "equipId": "YK-2201",
-   "currentType": "HWDC-HWAC",
-   "particle": "Wet (WPC2/7HF)",
+   "currentType": "AC",
+   "particle": "Visible, Wet",
    "particleApp": "Other",
    "brand": "Magnaflux 7HF",
-   "particleDesc": "Wet fluorescent, batch WF873",
-   "whiteContrast": "Contrast paint, batch WC203",
-   "cleanerBatch": "Solvent cleaner, batch CL672",
-   "method": "Other",
-   "surfacePreparation": "As Welded",
-   "stage": "After Hydrostatic",
-   "weldingProcess": "FCAW",
-   "scope": "Weld Part",
+   "particleDesc": "Wet fluorescent, batch WF475",
+   "whiteContrast": "Contrast paint, batch WC110",
+   "cleanerBatch": "Solvent cleaner, batch CL584",
+   "method": "Continuous",
+   "surfacePreparation": "As Grounded",
+   "stage": "Other",
+   "weldingProcess": "Other",
+   "scope": "Repair Weld",
    "signInspector": {
     "name": "Inspector One",
-    "at": "2026-05-13T09:55:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-05-13T09:36:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
     "at": "2026-05-13T15:48:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
   "results": [
    {
-    "partId": "Manlid nozzle N1",
-    "material": "ASTM A516 Gr.70",
-    "weldNo": "WS-12",
-    "thickness": "10.4",
-    "judgement": "Acc",
-    "discontinuity": "None",
-    "remark": "N/A"
-   },
-   {
-    "partId": "Frame corner casting",
-    "material": "ASTM A516 Gr.70",
-    "weldNo": "WS-18",
-    "thickness": "11.1",
-    "judgement": "Acc",
-    "discontinuity": "None",
-    "remark": "N/A"
-   },
-   {
-    "partId": "Manlid nozzle N1",
+    "partId": "Shell circumferential seam",
     "material": "ASTM A516 Gr.70",
     "weldNo": "WS-29",
-    "thickness": "7.3",
-    "judgement": "Acc",
-    "discontinuity": "None",
-    "remark": "N/A"
-   },
-   {
-    "partId": "Sparge pipe bracket",
-    "material": "ASTM A516 Gr.70",
-    "weldNo": "WS-19",
-    "thickness": "8.6",
+    "thickness": "11.0",
     "judgement": "Acc",
     "discontinuity": "None",
     "remark": "N/A"
@@ -5161,8 +5464,35 @@ export const SEED_REPORTS = [
    {
     "partId": "Shell longitudinal seam",
     "material": "ASTM A516 Gr.70",
-    "weldNo": "WS-27",
-    "thickness": "12.1",
+    "weldNo": "WS-30",
+    "thickness": "9.8",
+    "judgement": "Acc",
+    "discontinuity": "None",
+    "remark": "N/A"
+   },
+   {
+    "partId": "Sparge pipe bracket",
+    "material": "ASTM A516 Gr.70",
+    "weldNo": "WS-21",
+    "thickness": "7.7",
+    "judgement": "Acc",
+    "discontinuity": "None",
+    "remark": "N/A"
+   },
+   {
+    "partId": "Outlet nozzle N2",
+    "material": "ASTM A516 Gr.70",
+    "weldNo": "WS-5",
+    "thickness": "9.7",
+    "judgement": "Acc",
+    "discontinuity": "None",
+    "remark": "N/A"
+   },
+   {
+    "partId": "Outlet nozzle N2",
+    "material": "ASTM A516 Gr.70",
+    "weldNo": "WS-28",
+    "thickness": "8.9",
     "judgement": "Acc",
     "discontinuity": "None",
     "remark": "N/A"
@@ -5197,9 +5527,9 @@ export const SEED_REPORTS = [
    "unit": "IST-0447-12",
    "customer": "Customer 07",
    "testType": "Hydrostatic Test",
-   "testDesc": "Body",
+   "testDesc": "Tank",
    "testMedia": "Water",
-   "pressureUnit": "PsiG",
+   "pressureUnit": "Bar",
    "gauges": "2 Gauges",
    "useRecorder": "Used",
    "useTemp": "Used",
@@ -5214,66 +5544,66 @@ export const SEED_REPORTS = [
    "holding": "30",
    "pg1": "PG-003 · Pressure Gauge 0–40 Bar · Cal 2026-03-02",
    "pg2": "PG-001 · Pressure Gauge 0–25 Bar · Cal 2026-01-14",
-   "pressRecorder": "BRT-002 · Chart Recorder · Cal 2026-04-08",
+   "pressRecorder": "BRT-001 · Chart Recorder · Cal 2026-02-11",
    "scale": "1 div = 0.2 Bar",
    "tempRecorder": "TMP-001 · Digital Thermometer · Cal 2026-01-20",
-   "tempGauge": "TG-011 · Dial Temperature Gauge · Cal 2026-05-19",
+   "tempGauge": "TG-012 · Dial Temperature Gauge · Cal 2026-06-02",
    "testResult": "Satisfactory",
    "signInspector": {
     "name": "Inspector One",
-    "at": "2026-05-14T09:50:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-05-14T09:15:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-05-14T15:23:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-05-14T15:49:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [
    {
-    "time": "08:11",
+    "time": "08:05",
     "pg1": "0.00",
     "pg2": "0.00",
     "rec": "0.00",
-    "water": "30.6",
-    "ambient": "33.3",
-    "remark": "Start, 0 PsiG"
+    "water": "29.0",
+    "ambient": "32.8",
+    "remark": "Start, 0 Bar"
    },
    {
-    "time": "09:26",
+    "time": "09:24",
     "pg1": "5.99",
     "pg2": "5.99",
     "rec": "5.99",
-    "water": "29.5",
-    "ambient": "33.0",
+    "water": "28.7",
+    "ambient": "31.1",
     "remark": "Stable"
    },
    {
-    "time": "010:46",
+    "time": "010:06",
     "pg1": "5.98",
     "pg2": "5.98",
     "rec": "5.98",
-    "water": "29.1",
-    "ambient": "33.2",
+    "water": "29.2",
+    "ambient": "32.8",
     "remark": "Stable"
    },
    {
-    "time": "011:21",
+    "time": "011:35",
     "pg1": "5.97",
     "pg2": "5.97",
     "rec": "5.97",
-    "water": "29.9",
-    "ambient": "31.0",
+    "water": "29.4",
+    "ambient": "33.8",
     "remark": "Stable"
    },
    {
-    "time": "012:09",
+    "time": "012:30",
     "pg1": "5.96",
     "pg2": "5.96",
     "rec": "5.96",
-    "water": "28.5",
-    "ambient": "31.4",
+    "water": "30.5",
+    "ambient": "32.3",
     "remark": "Hold complete, no drop"
    }
   ],
@@ -5281,11 +5611,11 @@ export const SEED_REPORTS = [
   "coats": [],
   "photos": [],
   "createdAt": "2026-05-14T07:40:00.000Z",
-  "updatedAt": "2026-05-14T15:23:00.000Z",
+  "updatedAt": "2026-05-14T15:49:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-05-14T15:23:00.000Z",
-  "syncedAt": "2026-05-14T15:23:00.000Z"
+  "approvedAt": "2026-05-14T15:49:00.000Z",
+  "syncedAt": "2026-05-14T15:49:00.000Z"
  },
  {
   "id": "demo-1000300013-DIM-01",
@@ -5306,25 +5636,25 @@ export const SEED_REPORTS = [
    "sn": "IST-0447-13",
    "unit": "IST-0447-13",
    "customer": "Customer 07",
-   "drawingNo": "DWG-IST-4127-R0",
+   "drawingNo": "DWG-IST-4102-R0",
    "drawingFile": "N/A",
    "ncr": "Inspection carried out per the referenced procedure. No outstanding items.",
    "signInspector": {
     "name": "Inspector Two",
-    "at": "2026-05-15T09:46:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-05-15T09:50:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-05-15T15:44:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-05-15T15:05:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
   "results": [
    {
     "description": "Overall length",
-    "itemNo": "4",
+    "itemNo": "3",
     "nominal": "6058",
     "min": "6055",
     "max": "6061",
@@ -5333,7 +5663,7 @@ export const SEED_REPORTS = [
    },
    {
     "description": "Overall width",
-    "itemNo": "8",
+    "itemNo": "12",
     "nominal": "2438",
     "min": "2435",
     "max": "2441",
@@ -5342,40 +5672,40 @@ export const SEED_REPORTS = [
    },
    {
     "description": "Overall height",
-    "itemNo": "2",
+    "itemNo": "4",
     "nominal": "2591",
     "min": "2588",
     "max": "2594",
     "actual": "2592",
-    "note": ""
+    "note": "Measured with steel tape."
    },
    {
     "description": "Frame diagonal",
-    "itemNo": "3",
+    "itemNo": "1",
     "nominal": "6470",
     "min": "6467",
     "max": "6473",
     "actual": "6469",
-    "note": "Verified twice."
+    "note": "Measured with steel tape."
    },
    {
     "description": "Manlid centre offset",
-    "itemNo": "9",
+    "itemNo": "5",
     "nominal": "1220",
     "min": "1217",
     "max": "1223",
     "actual": "1220",
-    "note": "Verified twice."
+    "note": ""
    }
   ],
   "coats": [],
   "photos": [],
   "createdAt": "2026-05-15T07:40:00.000Z",
-  "updatedAt": "2026-05-15T15:44:00.000Z",
+  "updatedAt": "2026-05-15T15:05:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-05-15T15:44:00.000Z",
-  "syncedAt": "2026-05-15T15:44:00.000Z"
+  "approvedAt": "2026-05-15T15:05:00.000Z",
+  "syncedAt": "2026-05-15T15:05:00.000Z"
  },
  {
   "id": "demo-1000300013-PT-01",
@@ -5400,37 +5730,61 @@ export const SEED_REPORTS = [
    "materialSpec": "ASTM A516 Gr.70",
    "ncrRef": "N/A",
    "lightEquip": "LED floodlight 50W",
-   "lightmeter": "LUX-001 · Digital Light Meter · Cal 2026-01-09",
-   "lightIntensity": "1314",
-   "penetrantMethod": "Other",
-   "penetrantType": "Visible",
-   "dwellTime": "20",
+   "lightmeter": "LUX-002 · Digital Light Meter · Cal 2026-04-23",
+   "lightIntensity": "1302",
+   "penetrantMethod": "Solvent Removeable (SKL-SP2)",
+   "penetrantType": "Fluorescent",
+   "dwellTime": "14",
    "applicationBy": "Other",
-   "appTemp": "39.3",
-   "developerType": "Dry",
-   "developingTime": "28.5",
-   "interpretationTime": "4.5",
+   "appTemp": "79.8",
+   "developerType": "Aqueous",
+   "developingTime": "19.3",
+   "interpretationTime": "28.6",
    "cleaner": "SKC-S",
    "stage": "Other",
-   "weldingProcess": "FCAW",
+   "weldingProcess": "GTAW",
    "scope": "Weld Part",
    "signInspector": {
     "name": "Inspector Two",
-    "at": "2026-05-16T09:52:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-05-16T09:50:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-05-16T15:36:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-05-16T15:47:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
   "results": [
    {
+    "partId": "Manlid nozzle N1",
+    "material": "ASTM A516 Gr.70",
+    "thickness": "12.7",
+    "judgement": "Acc",
+    "discontinuity": "None",
+    "remark": "N/A"
+   },
+   {
+    "partId": "Shell circumferential seam",
+    "material": "ASTM A516 Gr.70",
+    "thickness": "11.3",
+    "judgement": "Acc",
+    "discontinuity": "None",
+    "remark": "N/A"
+   },
+   {
     "partId": "Frame corner casting",
     "material": "ASTM A516 Gr.70",
-    "thickness": "10.1",
+    "thickness": "13.0",
+    "judgement": "Acc",
+    "discontinuity": "None",
+    "remark": "N/A"
+   },
+   {
+    "partId": "Shell longitudinal seam",
+    "material": "ASTM A516 Gr.70",
+    "thickness": "6.0",
     "judgement": "Acc",
     "discontinuity": "None",
     "remark": "N/A"
@@ -5438,31 +5792,7 @@ export const SEED_REPORTS = [
    {
     "partId": "Outlet nozzle N2",
     "material": "ASTM A516 Gr.70",
-    "thickness": "11.0",
-    "judgement": "Acc",
-    "discontinuity": "None",
-    "remark": "N/A"
-   },
-   {
-    "partId": "Frame corner casting",
-    "material": "ASTM A516 Gr.70",
-    "thickness": "6.3",
-    "judgement": "Acc",
-    "discontinuity": "None",
-    "remark": "N/A"
-   },
-   {
-    "partId": "Manlid nozzle N1",
-    "material": "ASTM A516 Gr.70",
-    "thickness": "7.5",
-    "judgement": "Acc",
-    "discontinuity": "None",
-    "remark": "N/A"
-   },
-   {
-    "partId": "Sparge pipe bracket",
-    "material": "ASTM A516 Gr.70",
-    "thickness": "8.9",
+    "thickness": "13.1",
     "judgement": "Acc",
     "discontinuity": "None",
     "remark": "N/A"
@@ -5471,11 +5801,11 @@ export const SEED_REPORTS = [
   "coats": [],
   "photos": [],
   "createdAt": "2026-05-16T07:40:00.000Z",
-  "updatedAt": "2026-05-16T15:36:00.000Z",
+  "updatedAt": "2026-05-16T15:47:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-05-16T15:36:00.000Z",
-  "syncedAt": "2026-05-16T15:36:00.000Z"
+  "approvedAt": "2026-05-16T15:47:00.000Z",
+  "syncedAt": "2026-05-16T15:47:00.000Z"
  },
  {
   "id": "demo-1000300013-LHT-01",
@@ -5497,9 +5827,9 @@ export const SEED_REPORTS = [
    "unit": "IST-0447-13",
    "customer": "Customer 07",
    "testType": "Hydrostatic Test",
-   "testDesc": "Pipe",
+   "testDesc": "Body",
    "testMedia": "Water",
-   "pressureUnit": "PsiG",
+   "pressureUnit": "Bar",
    "gauges": "2 Gauges",
    "useRecorder": "Used",
    "useTemp": "Used",
@@ -5512,68 +5842,68 @@ export const SEED_REPORTS = [
    "map": "-",
    "testPressure": "6.0",
    "holding": "30",
-   "pg1": "PG-001 · Pressure Gauge 0–25 Bar · Cal 2026-01-14",
-   "pg2": "PG-002 · Pressure Gauge 0–25 Bar · Cal 2026-01-14",
-   "pressRecorder": "BRT-001 · Chart Recorder · Cal 2026-02-11",
+   "pg1": "PG-002 · Pressure Gauge 0–25 Bar · Cal 2026-01-14",
+   "pg2": "PG-001 · Pressure Gauge 0–25 Bar · Cal 2026-01-14",
+   "pressRecorder": "BRT-002 · Chart Recorder · Cal 2026-04-08",
    "scale": "1 div = 0.2 Bar",
    "tempRecorder": "TMP-001 · Digital Thermometer · Cal 2026-01-20",
-   "tempGauge": "TG-012 · Dial Temperature Gauge · Cal 2026-06-02",
+   "tempGauge": "TG-011 · Dial Temperature Gauge · Cal 2026-05-19",
    "testResult": "Satisfactory",
    "signInspector": {
     "name": "Inspector Two",
-    "at": "2026-05-17T09:10:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-05-17T09:14:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-05-17T15:21:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-05-17T15:39:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [
    {
-    "time": "08:08",
+    "time": "08:53",
     "pg1": "0.00",
     "pg2": "0.00",
     "rec": "0.00",
-    "water": "29.0",
-    "ambient": "32.3",
-    "remark": "Start, 0 PsiG"
+    "water": "28.9",
+    "ambient": "32.6",
+    "remark": "Start, 0 Bar"
    },
    {
-    "time": "09:08",
+    "time": "09:14",
     "pg1": "5.99",
     "pg2": "5.99",
     "rec": "5.99",
-    "water": "28.7",
-    "ambient": "32.9",
+    "water": "29.4",
+    "ambient": "33.8",
     "remark": "Stable"
    },
    {
-    "time": "010:21",
+    "time": "010:17",
     "pg1": "5.98",
     "pg2": "5.98",
     "rec": "5.98",
-    "water": "30.7",
-    "ambient": "30.2",
+    "water": "28.2",
+    "ambient": "31.1",
     "remark": "Stable"
    },
    {
-    "time": "011:29",
+    "time": "011:42",
     "pg1": "5.97",
     "pg2": "5.97",
     "rec": "5.97",
-    "water": "28.5",
-    "ambient": "32.1",
+    "water": "29.4",
+    "ambient": "33.1",
     "remark": "Stable"
    },
    {
-    "time": "012:36",
+    "time": "012:39",
     "pg1": "5.96",
     "pg2": "5.96",
     "rec": "5.96",
-    "water": "28.8",
-    "ambient": "33.9",
+    "water": "29.1",
+    "ambient": "30.5",
     "remark": "Hold complete, no drop"
    }
   ],
@@ -5581,11 +5911,11 @@ export const SEED_REPORTS = [
   "coats": [],
   "photos": [],
   "createdAt": "2026-05-17T07:40:00.000Z",
-  "updatedAt": "2026-05-17T15:21:00.000Z",
+  "updatedAt": "2026-05-17T15:39:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-05-17T15:21:00.000Z",
-  "syncedAt": "2026-05-17T15:21:00.000Z"
+  "approvedAt": "2026-05-17T15:39:00.000Z",
+  "syncedAt": "2026-05-17T15:39:00.000Z"
  },
  {
   "id": "demo-1000300014-DIM-01",
@@ -5606,76 +5936,76 @@ export const SEED_REPORTS = [
    "sn": "IST-0447-14",
    "unit": "IST-0447-14",
    "customer": "Customer 07",
-   "drawingNo": "DWG-IST-4138-R0",
+   "drawingNo": "DWG-IST-4135-R1",
    "drawingFile": "N/A",
    "ncr": "Inspection carried out per the referenced procedure. No outstanding items.",
    "signInspector": {
     "name": "Inspector One",
-    "at": "2026-05-18T09:30:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-05-18T09:24:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-05-18T15:09:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-05-18T15:49:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
   "results": [
    {
     "description": "Overall length",
-    "itemNo": "11",
+    "itemNo": "1",
     "nominal": "6058",
     "min": "6055",
     "max": "6061",
     "actual": "6057",
-    "note": ""
+    "note": "Measured with steel tape."
    },
    {
     "description": "Overall width",
-    "itemNo": "8",
+    "itemNo": "4",
     "nominal": "2438",
     "min": "2435",
     "max": "2441",
     "actual": "2438",
-    "note": "Measured with steel tape."
+    "note": ""
    },
    {
     "description": "Overall height",
-    "itemNo": "1",
+    "itemNo": "9",
     "nominal": "2591",
     "min": "2588",
     "max": "2594",
     "actual": "2592",
-    "note": "Measured with steel tape."
+    "note": "Verified twice."
    },
    {
     "description": "Frame diagonal",
-    "itemNo": "9",
+    "itemNo": "5",
     "nominal": "6470",
     "min": "6467",
     "max": "6473",
     "actual": "6469",
-    "note": "Measured with steel tape."
+    "note": ""
    },
    {
     "description": "Manlid centre offset",
-    "itemNo": "8",
+    "itemNo": "12",
     "nominal": "1220",
     "min": "1217",
     "max": "1223",
     "actual": "1220",
-    "note": "Measured with steel tape."
+    "note": ""
    }
   ],
   "coats": [],
   "photos": [],
   "createdAt": "2026-05-18T07:40:00.000Z",
-  "updatedAt": "2026-05-18T15:09:00.000Z",
+  "updatedAt": "2026-05-18T15:49:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-05-18T15:09:00.000Z",
-  "syncedAt": "2026-05-18T15:09:00.000Z"
+  "approvedAt": "2026-05-18T15:49:00.000Z",
+  "syncedAt": "2026-05-18T15:49:00.000Z"
  },
  {
   "id": "demo-1000300015-DIM-01",
@@ -5696,25 +6026,25 @@ export const SEED_REPORTS = [
    "sn": "IST-0447-15",
    "unit": "IST-0447-15",
    "customer": "Customer 07",
-   "drawingNo": "DWG-IST-4148-R1",
+   "drawingNo": "DWG-IST-4146-R2",
    "drawingFile": "N/A",
    "ncr": "Inspection carried out per the referenced procedure. No outstanding items.",
    "signInspector": {
     "name": "Inspector Two",
-    "at": "2026-05-21T09:39:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-05-21T09:23:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-05-21T15:38:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-05-21T15:32:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
   "results": [
    {
     "description": "Overall length",
-    "itemNo": "12",
+    "itemNo": "2",
     "nominal": "6058",
     "min": "6055",
     "max": "6061",
@@ -5723,16 +6053,16 @@ export const SEED_REPORTS = [
    },
    {
     "description": "Overall width",
-    "itemNo": "1",
+    "itemNo": "5",
     "nominal": "2438",
     "min": "2435",
     "max": "2441",
     "actual": "2438",
-    "note": ""
+    "note": "Verified twice."
    },
    {
     "description": "Overall height",
-    "itemNo": "2",
+    "itemNo": "5",
     "nominal": "2591",
     "min": "2588",
     "max": "2594",
@@ -5741,31 +6071,31 @@ export const SEED_REPORTS = [
    },
    {
     "description": "Frame diagonal",
-    "itemNo": "1",
+    "itemNo": "4",
     "nominal": "6470",
     "min": "6467",
     "max": "6473",
     "actual": "6469",
-    "note": "Measured with steel tape."
+    "note": "Verified twice."
    },
    {
     "description": "Manlid centre offset",
-    "itemNo": "4",
+    "itemNo": "6",
     "nominal": "1220",
     "min": "1217",
     "max": "1223",
     "actual": "1220",
-    "note": ""
+    "note": "Measured with steel tape."
    }
   ],
   "coats": [],
   "photos": [],
   "createdAt": "2026-05-21T07:40:00.000Z",
-  "updatedAt": "2026-05-21T15:38:00.000Z",
+  "updatedAt": "2026-05-21T15:32:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-05-21T15:38:00.000Z",
-  "syncedAt": "2026-05-21T15:38:00.000Z"
+  "approvedAt": "2026-05-21T15:32:00.000Z",
+  "syncedAt": "2026-05-21T15:32:00.000Z"
  },
  {
   "id": "demo-1000310001-DIM-01",
@@ -5786,25 +6116,25 @@ export const SEED_REPORTS = [
    "sn": "BKT-0512-01",
    "unit": "BKT-0512-01",
    "customer": "Customer 03",
-   "drawingNo": "DWG-BKT-4135-R2",
+   "drawingNo": "DWG-BKT-4103-R1",
    "drawingFile": "N/A",
    "ncr": "Inspection carried out per the referenced procedure. No outstanding items.",
    "signInspector": {
     "name": "Inspector Two",
-    "at": "2026-05-27T09:52:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-05-27T09:27:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-05-27T15:22:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-05-27T15:27:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
   "results": [
    {
     "description": "Lip width",
-    "itemNo": "7",
+    "itemNo": "10",
     "nominal": "3200",
     "min": "3197",
     "max": "3203",
@@ -5813,16 +6143,16 @@ export const SEED_REPORTS = [
    },
    {
     "description": "Bucket depth",
-    "itemNo": "8",
+    "itemNo": "3",
     "nominal": "1450",
     "min": "1447",
     "max": "1453",
     "actual": "1450",
-    "note": "Measured with steel tape."
+    "note": ""
    },
    {
     "description": "Pin centre distance",
-    "itemNo": "10",
+    "itemNo": "1",
     "nominal": "1180",
     "min": "1177",
     "max": "1183",
@@ -5831,7 +6161,7 @@ export const SEED_REPORTS = [
    },
    {
     "description": "Back height",
-    "itemNo": "2",
+    "itemNo": "9",
     "nominal": "1620",
     "min": "1617",
     "max": "1623",
@@ -5840,7 +6170,7 @@ export const SEED_REPORTS = [
    },
    {
     "description": "Side plate pitch",
-    "itemNo": "5",
+    "itemNo": "1",
     "nominal": "2960",
     "min": "2957",
     "max": "2963",
@@ -5849,13 +6179,24 @@ export const SEED_REPORTS = [
    }
   ],
   "coats": [],
-  "photos": [],
+  "photos": [
+   {
+    "id": "ph-tape-6916",
+    "label": "Lip width — 3199 mm",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23dedbd5'%2F%3E%3Crect%20y%3D'96'%20width%3D'400'%20height%3D'108'%20fill%3D'%23a9a49c'%2F%3E%3Crect%20y%3D'128'%20width%3D'400'%20height%3D'30'%20fill%3D'%23f0c419'%2F%3E%3Cg%20stroke%3D'%232a2a30'%20stroke-width%3D'2'%3E%3Cpath%20d%3D'M0%20128v30'%2F%3E%3Cpath%20d%3D'M20%20128v14'%2F%3E%3Cpath%20d%3D'M40%20128v14'%2F%3E%3Cpath%20d%3D'M60%20128v14'%2F%3E%3Cpath%20d%3D'M80%20128v14'%2F%3E%3Cpath%20d%3D'M100%20128v30'%2F%3E%3Cpath%20d%3D'M120%20128v14'%2F%3E%3Cpath%20d%3D'M140%20128v14'%2F%3E%3Cpath%20d%3D'M160%20128v14'%2F%3E%3Cpath%20d%3D'M180%20128v14'%2F%3E%3Cpath%20d%3D'M200%20128v30'%2F%3E%3Cpath%20d%3D'M220%20128v14'%2F%3E%3Cpath%20d%3D'M240%20128v14'%2F%3E%3Cpath%20d%3D'M260%20128v14'%2F%3E%3Cpath%20d%3D'M280%20128v14'%2F%3E%3Cpath%20d%3D'M300%20128v30'%2F%3E%3Cpath%20d%3D'M320%20128v14'%2F%3E%3Cpath%20d%3D'M340%20128v14'%2F%3E%3Cpath%20d%3D'M360%20128v14'%2F%3E%3Cpath%20d%3D'M380%20128v14'%2F%3E%3C%2Fg%3E%3Cg%20font-family%3D'monospace'%20font-size%3D'12'%20fill%3D'%232a2a30'%3E%3Ctext%20x%3D'4'%20y%3D'176'%3E0%3C%2Ftext%3E%3Ctext%20x%3D'104'%20y%3D'176'%3E500%3C%2Ftext%3E%3Ctext%20x%3D'204'%20y%3D'176'%3E1000%3C%2Ftext%3E%3Ctext%20x%3D'304'%20y%3D'176'%3E1500%3C%2Ftext%3E%3C%2Fg%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3ELip%20width%20%E2%80%94%203199%20mm%3C%2Ftext%3E%3C%2Fsvg%3E"
+   },
+   {
+    "id": "ph-unit-8201",
+    "label": "BUCKET BKT-0512-01",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23c6d2da'%2F%3E%3Crect%20y%3D'196'%20width%3D'400'%20height%3D'104'%20fill%3D'%23b0a89c'%2F%3E%3Crect%20x%3D'40'%20y%3D'96'%20width%3D'320'%20height%3D'104'%20rx%3D'48'%20fill%3D'%23d8d4cc'%20stroke%3D'%235a564f'%20stroke-width%3D'4'%2F%3E%3Crect%20x%3D'34'%20y%3D'88'%20width%3D'332'%20height%3D'120'%20rx%3D'7'%20fill%3D'none'%20stroke%3D'%233f3b36'%20stroke-width%3D'5'%2F%3E%3Cg%20fill%3D'%235a564f'%3E%3Ccircle%20cx%3D'104'%20cy%3D'210'%20r%3D'19'%2F%3E%3Ccircle%20cx%3D'296'%20cy%3D'210'%20r%3D'19'%2F%3E%3C%2Fg%3E%3Cpath%20d%3D'M40%20148h320'%20stroke%3D'%23c8621e'%20stroke-width%3D'9'%2F%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EBUCKET%20BKT-0512-01%3C%2Ftext%3E%3C%2Fsvg%3E"
+   }
+  ],
   "createdAt": "2026-05-27T07:40:00.000Z",
-  "updatedAt": "2026-05-27T15:22:00.000Z",
+  "updatedAt": "2026-05-27T15:27:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-05-27T15:22:00.000Z",
-  "syncedAt": "2026-05-27T15:22:00.000Z"
+  "approvedAt": "2026-05-27T15:27:00.000Z",
+  "syncedAt": "2026-05-27T15:27:00.000Z"
  },
  {
   "id": "demo-1000310001-PT-01",
@@ -5881,36 +6222,44 @@ export const SEED_REPORTS = [
    "ncrRef": "N/A",
    "lightEquip": "LED floodlight 50W",
    "lightmeter": "LUX-002 · Digital Light Meter · Cal 2026-04-23",
-   "lightIntensity": "1104",
-   "penetrantMethod": "Solvent Removeable (SKL-SP2)",
+   "lightIntensity": "1143",
+   "penetrantMethod": "Water Washable",
    "penetrantType": "Fluorescent",
-   "dwellTime": "24",
-   "applicationBy": "Brushing",
-   "appTemp": "33.4",
+   "dwellTime": "34",
+   "applicationBy": "Other",
+   "appTemp": "69.3",
    "developerType": "Non Aqueous",
-   "developingTime": "26.7",
-   "interpretationTime": "93.4",
-   "cleaner": "Other",
-   "stage": "After Hydrostatic",
+   "developingTime": "35.2",
+   "interpretationTime": "24.1",
+   "cleaner": "SKC-S",
+   "stage": "After Welding",
    "weldingProcess": "FCAW",
-   "scope": "Weld Part",
+   "scope": "Repair Weld",
    "signInspector": {
     "name": "Inspector Two",
-    "at": "2026-05-28T09:42:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-05-28T09:20:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-05-28T15:20:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-05-28T15:48:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
   "results": [
    {
-    "partId": "Wear strip fillet",
+    "partId": "Back sheet seam",
     "material": "ASTM A516 Gr.70",
-    "thickness": "9.5",
+    "thickness": "7.3",
+    "judgement": "Acc",
+    "discontinuity": "None",
+    "remark": "N/A"
+   },
+   {
+    "partId": "Pivot lug root",
+    "material": "ASTM A516 Gr.70",
+    "thickness": "9.3",
     "judgement": "Acc",
     "discontinuity": "None",
     "remark": "N/A"
@@ -5918,44 +6267,47 @@ export const SEED_REPORTS = [
    {
     "partId": "Back sheet seam",
     "material": "ASTM A516 Gr.70",
-    "thickness": "8.6",
+    "thickness": "12.3",
     "judgement": "Acc",
     "discontinuity": "None",
     "remark": "N/A"
    },
    {
-    "partId": "Back sheet seam",
+    "partId": "Side cutter mount",
     "material": "ASTM A516 Gr.70",
-    "thickness": "6.3",
+    "thickness": "12.7",
     "judgement": "Acc",
     "discontinuity": "None",
     "remark": "N/A"
    },
    {
-    "partId": "Lip plate to side",
+    "partId": "Pivot lug root",
     "material": "ASTM A516 Gr.70",
-    "thickness": "12.5",
-    "judgement": "Acc",
-    "discontinuity": "None",
-    "remark": "N/A"
-   },
-   {
-    "partId": "Back sheet seam",
-    "material": "ASTM A516 Gr.70",
-    "thickness": "11.9",
+    "thickness": "13.5",
     "judgement": "Acc",
     "discontinuity": "None",
     "remark": "N/A"
    }
   ],
   "coats": [],
-  "photos": [],
+  "photos": [
+   {
+    "id": "ph-weld-4813",
+    "label": "Back sheet seam after examination",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23cfcbc4'%2F%3E%3Cpath%20d%3D'M0%20150h400'%20stroke%3D'%238e8880'%20stroke-width%3D'58'%2F%3E%3Cpath%20d%3D'M0%20150q20%20-13%2040%200t40%200%2040%200%2040%200%2040%200%2040%200%2040%200%2040%200%2040%200%2040%200'%20fill%3D'none'%20stroke%3D'%23a8a29a'%20stroke-width%3D'30'%2F%3E%3Cpath%20d%3D'M0%20136q20%20-11%2040%200t40%200%2040%200%2040%200%2040%200%2040%200%2040%200%2040%200%2040%200%2040%200'%20fill%3D'none'%20stroke%3D'%23bdb7ae'%20stroke-width%3D'7'%2F%3E%3Cg%20fill%3D'%236e6a64'%3E%3Ccircle%20cx%3D'96'%20cy%3D'150'%20r%3D'4'%2F%3E%3Ccircle%20cx%3D'214'%20cy%3D'156'%20r%3D'3'%2F%3E%3Ccircle%20cx%3D'300'%20cy%3D'146'%20r%3D'3.5'%2F%3E%3C%2Fg%3E%3Crect%20x%3D'16'%20y%3D'232'%20width%3D'118'%20height%3D'30'%20fill%3D'%23f5f3ef'%20stroke%3D'%235a564f'%2F%3E%3Ctext%20x%3D'75'%20y%3D'253'%20font-family%3D'monospace'%20font-size%3D'16'%20fill%3D'%232a2a30'%20text-anchor%3D'middle'%3E10%20mm%3C%2Ftext%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EBack%20sheet%20seam%20after%20examination%3C%2Ftext%3E%3C%2Fsvg%3E"
+   },
+   {
+    "id": "ph-unit-6449",
+    "label": "BUCKET BKT-0512-01",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23c6d2da'%2F%3E%3Crect%20y%3D'196'%20width%3D'400'%20height%3D'104'%20fill%3D'%23b0a89c'%2F%3E%3Crect%20x%3D'40'%20y%3D'96'%20width%3D'320'%20height%3D'104'%20rx%3D'48'%20fill%3D'%23d8d4cc'%20stroke%3D'%235a564f'%20stroke-width%3D'4'%2F%3E%3Crect%20x%3D'34'%20y%3D'88'%20width%3D'332'%20height%3D'120'%20rx%3D'7'%20fill%3D'none'%20stroke%3D'%233f3b36'%20stroke-width%3D'5'%2F%3E%3Cg%20fill%3D'%235a564f'%3E%3Ccircle%20cx%3D'104'%20cy%3D'210'%20r%3D'19'%2F%3E%3Ccircle%20cx%3D'296'%20cy%3D'210'%20r%3D'19'%2F%3E%3C%2Fg%3E%3Cpath%20d%3D'M40%20148h320'%20stroke%3D'%23c8621e'%20stroke-width%3D'9'%2F%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EBUCKET%20BKT-0512-01%3C%2Ftext%3E%3C%2Fsvg%3E"
+   }
+  ],
   "createdAt": "2026-05-28T07:40:00.000Z",
-  "updatedAt": "2026-05-28T15:20:00.000Z",
+  "updatedAt": "2026-05-28T15:48:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-05-28T15:20:00.000Z",
-  "syncedAt": "2026-05-28T15:20:00.000Z"
+  "approvedAt": "2026-05-28T15:48:00.000Z",
+  "syncedAt": "2026-05-28T15:48:00.000Z"
  },
  {
   "id": "demo-1000310001-BPR-01",
@@ -5980,27 +6332,27 @@ export const SEED_REPORTS = [
    "surfacePrep": "SA 2½",
    "sspc": "SP 10",
    "abrasive": "Steel grit G-40",
-   "anchorProfile": "55",
-   "dryTemp": "29.4",
-   "wetTemp": "25.6",
-   "matlTemp": "32.6",
+   "anchorProfile": "53",
+   "dryTemp": "29.7",
+   "wetTemp": "25.8",
+   "matlTemp": "31.4",
    "prepResult": "Reject",
-   "coatingPrep": "Top",
+   "coatingPrep": "Second",
    "paintDesc": "Polyurethane topcoat",
    "thinner": "Epoxy thinner",
-   "batchPaint": "B20548",
-   "batchThinner": "T3747",
+   "batchPaint": "B29796",
+   "batchThinner": "T3063",
    "finalStatus": "Accept",
    "ncr": "Inspection carried out per the referenced procedure. No outstanding items.",
    "signInspector": {
     "name": "Inspector Two",
-    "at": "2026-05-29T09:34:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-05-29T09:53:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-05-29T15:29:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-05-29T15:16:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
@@ -6010,11 +6362,11 @@ export const SEED_REPORTS = [
     "coat": "Coat 1",
     "area": "Exterior — Zone A",
     "pts": [
-     "154",
-     "121",
-     "163",
+     "156",
+     "132",
+     "166",
      "172",
-     "162"
+     "122"
     ],
     "std": "120"
    },
@@ -6022,11 +6374,11 @@ export const SEED_REPORTS = [
     "coat": "Coat 2",
     "area": "Exterior — Zone B",
     "pts": [
-     "238",
-     "205",
      "191",
-     "207",
-     "204"
+     "236",
+     "232",
+     "196",
+     "240"
     ],
     "std": "175"
    },
@@ -6034,22 +6386,33 @@ export const SEED_REPORTS = [
     "coat": "Coat 3",
     "area": "Frame & walkway",
     "pts": [
+     "222",
+     "233",
+     "190",
      "241",
-     "210",
-     "185",
-     "206",
-     "187"
+     "196"
     ],
     "std": "175"
    }
   ],
-  "photos": [],
+  "photos": [
+   {
+    "id": "ph-coating-5274",
+    "label": "DFT reading, Second coat",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23d9d6d0'%2F%3E%3Crect%20y%3D'150'%20width%3D'400'%20height%3D'150'%20fill%3D'%236b6660'%2F%3E%3Crect%20y%3D'120'%20width%3D'400'%20height%3D'30'%20fill%3D'%23c8621e'%2F%3E%3Crect%20y%3D'104'%20width%3D'400'%20height%3D'16'%20fill%3D'%23d8d3cb'%2F%3E%3Cg%20stroke%3D'%232a2a30'%20stroke-width%3D'2.5'%3E%3Cpath%20d%3D'M300%20104v46M292%20104h16M292%20150h16'%2F%3E%3C%2Fg%3E%3Ctext%20x%3D'318'%20y%3D'132'%20font-family%3D'monospace'%20font-size%3D'17'%20fill%3D'%232a2a30'%3EDFT%3C%2Ftext%3E%3Crect%20x%3D'16'%20y%3D'226'%20width%3D'150'%20height%3D'34'%20rx%3D'4'%20fill%3D'%23fbfbf9'%20stroke%3D'%235a564f'%2F%3E%3Ctext%20x%3D'91'%20y%3D'250'%20font-family%3D'monospace'%20font-size%3D'18'%20fill%3D'%232a2a30'%20text-anchor%3D'middle'%3E168%20um%3C%2Ftext%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EDFT%20reading%2C%20Second%20coat%3C%2Ftext%3E%3C%2Fsvg%3E"
+   },
+   {
+    "id": "ph-unit-2114",
+    "label": "BUCKET BKT-0512-01 after coating",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23c6d2da'%2F%3E%3Crect%20y%3D'196'%20width%3D'400'%20height%3D'104'%20fill%3D'%23b0a89c'%2F%3E%3Crect%20x%3D'40'%20y%3D'96'%20width%3D'320'%20height%3D'104'%20rx%3D'48'%20fill%3D'%23d8d4cc'%20stroke%3D'%235a564f'%20stroke-width%3D'4'%2F%3E%3Crect%20x%3D'34'%20y%3D'88'%20width%3D'332'%20height%3D'120'%20rx%3D'7'%20fill%3D'none'%20stroke%3D'%233f3b36'%20stroke-width%3D'5'%2F%3E%3Cg%20fill%3D'%235a564f'%3E%3Ccircle%20cx%3D'104'%20cy%3D'210'%20r%3D'19'%2F%3E%3Ccircle%20cx%3D'296'%20cy%3D'210'%20r%3D'19'%2F%3E%3C%2Fg%3E%3Cpath%20d%3D'M40%20148h320'%20stroke%3D'%23c8621e'%20stroke-width%3D'9'%2F%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EBUCKET%20BKT-0512-01%20after%20coating%3C%2Ftext%3E%3C%2Fsvg%3E"
+   }
+  ],
   "createdAt": "2026-05-29T07:40:00.000Z",
-  "updatedAt": "2026-05-29T15:29:00.000Z",
+  "updatedAt": "2026-05-29T15:16:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-05-29T15:29:00.000Z",
-  "syncedAt": "2026-05-29T15:29:00.000Z"
+  "approvedAt": "2026-05-29T15:16:00.000Z",
+  "syncedAt": "2026-05-29T15:16:00.000Z"
  },
  {
   "id": "demo-1000310001-VG-01",
@@ -6075,66 +6438,77 @@ export const SEED_REPORTS = [
    "ncr": "Inspection carried out per the referenced procedure. No outstanding items.",
    "signInspector": {
     "name": "Inspector Two",
-    "at": "2026-05-30T09:51:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-05-30T09:55:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-05-30T15:26:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-05-30T15:05:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
   "results": [
    {
-    "point": "Paint coverage",
-    "welderId": "W-41",
-    "description": "Bucket depth",
+    "point": "Lip wear plate",
+    "welderId": "W-20",
+    "description": "Back height",
     "judgement": "OK",
     "defectType": "N/A",
     "remark": "N/A"
    },
    {
     "point": "Internal weld toe",
-    "welderId": "W-14",
-    "description": "Lip width",
-    "judgement": "OK",
-    "defectType": "N/A",
-    "remark": "N/A"
-   },
-   {
-    "point": "Data plate",
-    "welderId": "W-41",
-    "description": "Back height",
-    "judgement": "OK",
-    "defectType": "N/A",
-    "remark": "N/A"
-   },
-   {
-    "point": "Pivot bore",
-    "welderId": "W-19",
+    "welderId": "W-16",
     "description": "Bucket depth",
     "judgement": "OK",
     "defectType": "N/A",
     "remark": "N/A"
    },
    {
-    "point": "Paint coverage",
-    "welderId": "W-37",
+    "point": "Lip wear plate",
+    "welderId": "W-16",
     "description": "Back height",
+    "judgement": "OK",
+    "defectType": "N/A",
+    "remark": "N/A"
+   },
+   {
+    "point": "Paint coverage",
+    "welderId": "W-44",
+    "description": "Side plate pitch",
+    "judgement": "OK",
+    "defectType": "N/A",
+    "remark": "N/A"
+   },
+   {
+    "point": "Paint coverage",
+    "welderId": "W-17",
+    "description": "Pin centre distance",
     "judgement": "OK",
     "defectType": "N/A",
     "remark": "N/A"
    }
   ],
   "coats": [],
-  "photos": [],
+  "photos": [
+   {
+    "id": "ph-unit-5106",
+    "label": "Lip wear plate",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23c6d2da'%2F%3E%3Crect%20y%3D'196'%20width%3D'400'%20height%3D'104'%20fill%3D'%23b0a89c'%2F%3E%3Crect%20x%3D'40'%20y%3D'96'%20width%3D'320'%20height%3D'104'%20rx%3D'48'%20fill%3D'%23d8d4cc'%20stroke%3D'%235a564f'%20stroke-width%3D'4'%2F%3E%3Crect%20x%3D'34'%20y%3D'88'%20width%3D'332'%20height%3D'120'%20rx%3D'7'%20fill%3D'none'%20stroke%3D'%233f3b36'%20stroke-width%3D'5'%2F%3E%3Cg%20fill%3D'%235a564f'%3E%3Ccircle%20cx%3D'104'%20cy%3D'210'%20r%3D'19'%2F%3E%3Ccircle%20cx%3D'296'%20cy%3D'210'%20r%3D'19'%2F%3E%3C%2Fg%3E%3Cpath%20d%3D'M40%20148h320'%20stroke%3D'%23c8621e'%20stroke-width%3D'9'%2F%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3ELip%20wear%20plate%3C%2Ftext%3E%3C%2Fsvg%3E"
+   },
+   {
+    "id": "ph-plate-1631",
+    "label": "Data plate, BKT-0512-01",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23cdcac4'%2F%3E%3Crect%20x%3D'52'%20y%3D'58'%20width%3D'296'%20height%3D'184'%20rx%3D'5'%20fill%3D'%23b7b2ab'%20stroke%3D'%235a564f'%20stroke-width%3D'4'%2F%3E%3Cg%20font-family%3D'monospace'%20fill%3D'%23232328'%3E%3Ctext%20x%3D'76'%20y%3D'100'%20font-size%3D'19'%3EMANUFACTURING%20CO.%3C%2Ftext%3E%3Ctext%20x%3D'76'%20y%3D'134'%20font-size%3D'14'%3ESERIAL%3C%2Ftext%3E%3Ctext%20x%3D'76'%20y%3D'162'%20font-size%3D'14'%3EDESIGN%20P.%20%204.0%20BAR%3C%2Ftext%3E%3Ctext%20x%3D'76'%20y%3D'190'%20font-size%3D'14'%3ETEST%20P.%20%20%20%206.0%20BAR%3C%2Ftext%3E%3Ctext%20x%3D'76'%20y%3D'218'%20font-size%3D'14'%3EYEAR%20%20%20%20%20%20%202026%3C%2Ftext%3E%3C%2Fg%3E%3Cg%20fill%3D'%236e6a64'%3E%3Ccircle%20cx%3D'68'%20cy%3D'72'%20r%3D'5'%2F%3E%3Ccircle%20cx%3D'332'%20cy%3D'72'%20r%3D'5'%2F%3E%3Ccircle%20cx%3D'68'%20cy%3D'228'%20r%3D'5'%2F%3E%3Ccircle%20cx%3D'332'%20cy%3D'228'%20r%3D'5'%2F%3E%3C%2Fg%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EData%20plate%2C%20BKT-0512-01%3C%2Ftext%3E%3C%2Fsvg%3E"
+   }
+  ],
   "createdAt": "2026-05-30T07:40:00.000Z",
-  "updatedAt": "2026-05-30T15:26:00.000Z",
+  "updatedAt": "2026-05-30T15:05:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-05-30T15:26:00.000Z",
-  "syncedAt": "2026-05-30T15:26:00.000Z"
+  "approvedAt": "2026-05-30T15:05:00.000Z",
+  "syncedAt": "2026-05-30T15:05:00.000Z"
  },
  {
   "id": "demo-1000310002-DIM-01",
@@ -6155,76 +6529,87 @@ export const SEED_REPORTS = [
    "sn": "BKT-0512-02",
    "unit": "BKT-0512-02",
    "customer": "Customer 03",
-   "drawingNo": "DWG-BKT-4133-R0",
+   "drawingNo": "DWG-BKT-4157-R1",
    "drawingFile": "N/A",
    "ncr": "Inspection carried out per the referenced procedure. No outstanding items.",
    "signInspector": {
     "name": "Inspector One",
-    "at": "2026-05-30T09:45:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-05-30T09:52:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-05-30T15:14:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-05-30T15:07:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
   "results": [
    {
     "description": "Lip width",
-    "itemNo": "10",
+    "itemNo": "3",
     "nominal": "3200",
     "min": "3197",
     "max": "3203",
     "actual": "3199",
-    "note": "Verified twice."
+    "note": ""
    },
    {
     "description": "Bucket depth",
-    "itemNo": "3",
+    "itemNo": "4",
     "nominal": "1450",
     "min": "1447",
     "max": "1453",
     "actual": "1450",
-    "note": "Measured with steel tape."
+    "note": ""
    },
    {
     "description": "Pin centre distance",
-    "itemNo": "8",
+    "itemNo": "10",
     "nominal": "1180",
     "min": "1177",
     "max": "1183",
     "actual": "1181",
-    "note": ""
+    "note": "Verified twice."
    },
    {
     "description": "Back height",
-    "itemNo": "8",
+    "itemNo": "11",
     "nominal": "1620",
     "min": "1617",
     "max": "1623",
     "actual": "1619",
-    "note": "Measured with steel tape."
+    "note": "Verified twice."
    },
    {
     "description": "Side plate pitch",
-    "itemNo": "8",
+    "itemNo": "7",
     "nominal": "2960",
     "min": "2957",
     "max": "2963",
     "actual": "2960",
-    "note": "Measured with steel tape."
+    "note": ""
    }
   ],
   "coats": [],
-  "photos": [],
+  "photos": [
+   {
+    "id": "ph-tape-6593",
+    "label": "Lip width — 3199 mm",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23dedbd5'%2F%3E%3Crect%20y%3D'96'%20width%3D'400'%20height%3D'108'%20fill%3D'%23a9a49c'%2F%3E%3Crect%20y%3D'128'%20width%3D'400'%20height%3D'30'%20fill%3D'%23f0c419'%2F%3E%3Cg%20stroke%3D'%232a2a30'%20stroke-width%3D'2'%3E%3Cpath%20d%3D'M0%20128v30'%2F%3E%3Cpath%20d%3D'M20%20128v14'%2F%3E%3Cpath%20d%3D'M40%20128v14'%2F%3E%3Cpath%20d%3D'M60%20128v14'%2F%3E%3Cpath%20d%3D'M80%20128v14'%2F%3E%3Cpath%20d%3D'M100%20128v30'%2F%3E%3Cpath%20d%3D'M120%20128v14'%2F%3E%3Cpath%20d%3D'M140%20128v14'%2F%3E%3Cpath%20d%3D'M160%20128v14'%2F%3E%3Cpath%20d%3D'M180%20128v14'%2F%3E%3Cpath%20d%3D'M200%20128v30'%2F%3E%3Cpath%20d%3D'M220%20128v14'%2F%3E%3Cpath%20d%3D'M240%20128v14'%2F%3E%3Cpath%20d%3D'M260%20128v14'%2F%3E%3Cpath%20d%3D'M280%20128v14'%2F%3E%3Cpath%20d%3D'M300%20128v30'%2F%3E%3Cpath%20d%3D'M320%20128v14'%2F%3E%3Cpath%20d%3D'M340%20128v14'%2F%3E%3Cpath%20d%3D'M360%20128v14'%2F%3E%3Cpath%20d%3D'M380%20128v14'%2F%3E%3C%2Fg%3E%3Cg%20font-family%3D'monospace'%20font-size%3D'12'%20fill%3D'%232a2a30'%3E%3Ctext%20x%3D'4'%20y%3D'176'%3E0%3C%2Ftext%3E%3Ctext%20x%3D'104'%20y%3D'176'%3E500%3C%2Ftext%3E%3Ctext%20x%3D'204'%20y%3D'176'%3E1000%3C%2Ftext%3E%3Ctext%20x%3D'304'%20y%3D'176'%3E1500%3C%2Ftext%3E%3C%2Fg%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3ELip%20width%20%E2%80%94%203199%20mm%3C%2Ftext%3E%3C%2Fsvg%3E"
+   },
+   {
+    "id": "ph-unit-8981",
+    "label": "BUCKET BKT-0512-02",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23c6d2da'%2F%3E%3Crect%20y%3D'196'%20width%3D'400'%20height%3D'104'%20fill%3D'%23b0a89c'%2F%3E%3Crect%20x%3D'40'%20y%3D'96'%20width%3D'320'%20height%3D'104'%20rx%3D'48'%20fill%3D'%23d8d4cc'%20stroke%3D'%235a564f'%20stroke-width%3D'4'%2F%3E%3Crect%20x%3D'34'%20y%3D'88'%20width%3D'332'%20height%3D'120'%20rx%3D'7'%20fill%3D'none'%20stroke%3D'%233f3b36'%20stroke-width%3D'5'%2F%3E%3Cg%20fill%3D'%235a564f'%3E%3Ccircle%20cx%3D'104'%20cy%3D'210'%20r%3D'19'%2F%3E%3Ccircle%20cx%3D'296'%20cy%3D'210'%20r%3D'19'%2F%3E%3C%2Fg%3E%3Cpath%20d%3D'M40%20148h320'%20stroke%3D'%23c8621e'%20stroke-width%3D'9'%2F%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EBUCKET%20BKT-0512-02%3C%2Ftext%3E%3C%2Fsvg%3E"
+   }
+  ],
   "createdAt": "2026-05-30T07:40:00.000Z",
-  "updatedAt": "2026-05-30T15:14:00.000Z",
+  "updatedAt": "2026-05-30T15:07:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-05-30T15:14:00.000Z",
-  "syncedAt": "2026-05-30T15:14:00.000Z"
+  "approvedAt": "2026-05-30T15:07:00.000Z",
+  "syncedAt": "2026-05-30T15:07:00.000Z"
  },
  {
   "id": "demo-1000310002-UT-01",
@@ -6250,45 +6635,67 @@ export const SEED_REPORTS = [
    "ncrRef": "N/A",
    "instrument": "Olympus EPOCH 650",
    "model": "EPOCH 650",
-   "serialNo": "SN-18022",
+   "serialNo": "SN-40246",
    "cable": "Coaxial BNC, 2.0 m",
    "couplant": "CMC gel",
-   "technique": "Contact — Angle Beam",
-   "scanSurface": "Both Side of Weld",
-   "scanTechnique": "Other",
-   "scanDirection": "Swivel",
-   "lengthInd": "6 dB Drop",
+   "technique": "Straight Beam",
+   "scanSurface": "From C",
+   "scanTechnique": "Half Skip Distance",
+   "scanDirection": "Essentially parallel to weld axis",
+   "lengthInd": "14 dB Drop",
    "heightInd": "6 dB Drop",
-   "suAngle": "60°",
-   "suSerial": "SU-9121",
-   "suFreq": "46.5",
+   "suAngle": "70°",
+   "suSerial": "SU-7231",
+   "suFreq": "69.8",
    "suSize": "10 mm dia.",
-   "blockId": "V1",
+   "blockId": "Nozzle",
    "hole": "SDH Ø 2.4 mm",
-   "amplitude": "33",
+   "amplitude": "63",
    "refReflector": "IIW V1 block",
-   "refLevel": "4.2",
-   "scanLevel": "6.5",
-   "testRange": "16.5",
+   "refLevel": "88.4",
+   "scanLevel": "3.0",
+   "testRange": "14.8",
    "notes": "Inspection carried out per the referenced procedure. No outstanding items.",
    "signInspector": {
     "name": "Inspector One",
-    "at": "2026-05-31T09:41:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-05-31T09:23:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-05-31T15:24:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-05-31T15:27:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
   "results": [
    {
+    "partId": "Pivot lug root",
+    "thickness": "6.5",
+    "soundpath": "15.4",
+    "amplitude": "47",
+    "length": "12",
+    "depth": "3.1",
+    "judgement": "Acc",
+    "discontinuity": "None",
+    "remark": "N/A"
+   },
+   {
     "partId": "Back sheet seam",
-    "thickness": "6.2",
-    "soundpath": "44.4",
-    "amplitude": "63",
+    "thickness": "10.2",
+    "soundpath": "42.2",
+    "amplitude": "45",
+    "length": "5",
+    "depth": "4.8",
+    "judgement": "Acc",
+    "discontinuity": "None",
+    "remark": "N/A"
+   },
+   {
+    "partId": "Back sheet seam",
+    "thickness": "8.6",
+    "soundpath": "39.0",
+    "amplitude": "20",
     "length": "26",
     "depth": "10.4",
     "judgement": "Acc",
@@ -6296,58 +6703,47 @@ export const SEED_REPORTS = [
     "remark": "N/A"
    },
    {
-    "partId": "Lip plate to side",
-    "thickness": "9.2",
-    "soundpath": "18.2",
-    "amplitude": "42",
-    "length": "5",
-    "depth": "11.9",
-    "judgement": "Acc",
-    "discontinuity": "None",
-    "remark": "N/A"
-   },
-   {
-    "partId": "Back sheet seam",
-    "thickness": "10.0",
-    "soundpath": "26.5",
-    "amplitude": "31",
-    "length": "4",
-    "depth": "7.1",
-    "judgement": "Acc",
-    "discontinuity": "None",
-    "remark": "N/A"
-   },
-   {
-    "partId": "Back sheet seam",
-    "thickness": "11.4",
-    "soundpath": "26.6",
-    "amplitude": "33",
-    "length": "7",
-    "depth": "6.4",
-    "judgement": "Acc",
-    "discontinuity": "None",
-    "remark": "N/A"
-   },
-   {
-    "partId": "Pivot lug root",
-    "thickness": "11.8",
-    "soundpath": "25.7",
-    "amplitude": "59",
-    "length": "20",
+    "partId": "Wear strip fillet",
+    "thickness": "7.8",
+    "soundpath": "54.0",
+    "amplitude": "66",
+    "length": "11",
     "depth": "10.2",
+    "judgement": "Acc",
+    "discontinuity": "None",
+    "remark": "N/A"
+   },
+   {
+    "partId": "Wear strip fillet",
+    "thickness": "7.5",
+    "soundpath": "29.2",
+    "amplitude": "37",
+    "length": "24",
+    "depth": "8.0",
     "judgement": "Acc",
     "discontinuity": "None",
     "remark": "N/A"
    }
   ],
   "coats": [],
-  "photos": [],
+  "photos": [
+   {
+    "id": "ph-weld-8935",
+    "label": "Pivot lug root after examination",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23cfcbc4'%2F%3E%3Cpath%20d%3D'M0%20150h400'%20stroke%3D'%238e8880'%20stroke-width%3D'58'%2F%3E%3Cpath%20d%3D'M0%20150q20%20-13%2040%200t40%200%2040%200%2040%200%2040%200%2040%200%2040%200%2040%200%2040%200%2040%200'%20fill%3D'none'%20stroke%3D'%23a8a29a'%20stroke-width%3D'30'%2F%3E%3Cpath%20d%3D'M0%20136q20%20-11%2040%200t40%200%2040%200%2040%200%2040%200%2040%200%2040%200%2040%200%2040%200%2040%200'%20fill%3D'none'%20stroke%3D'%23bdb7ae'%20stroke-width%3D'7'%2F%3E%3Cg%20fill%3D'%236e6a64'%3E%3Ccircle%20cx%3D'96'%20cy%3D'150'%20r%3D'4'%2F%3E%3Ccircle%20cx%3D'214'%20cy%3D'156'%20r%3D'3'%2F%3E%3Ccircle%20cx%3D'300'%20cy%3D'146'%20r%3D'3.5'%2F%3E%3C%2Fg%3E%3Crect%20x%3D'16'%20y%3D'232'%20width%3D'118'%20height%3D'30'%20fill%3D'%23f5f3ef'%20stroke%3D'%235a564f'%2F%3E%3Ctext%20x%3D'75'%20y%3D'253'%20font-family%3D'monospace'%20font-size%3D'16'%20fill%3D'%232a2a30'%20text-anchor%3D'middle'%3E10%20mm%3C%2Ftext%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EPivot%20lug%20root%20after%20examination%3C%2Ftext%3E%3C%2Fsvg%3E"
+   },
+   {
+    "id": "ph-unit-7544",
+    "label": "BUCKET BKT-0512-02",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23c6d2da'%2F%3E%3Crect%20y%3D'196'%20width%3D'400'%20height%3D'104'%20fill%3D'%23b0a89c'%2F%3E%3Crect%20x%3D'40'%20y%3D'96'%20width%3D'320'%20height%3D'104'%20rx%3D'48'%20fill%3D'%23d8d4cc'%20stroke%3D'%235a564f'%20stroke-width%3D'4'%2F%3E%3Crect%20x%3D'34'%20y%3D'88'%20width%3D'332'%20height%3D'120'%20rx%3D'7'%20fill%3D'none'%20stroke%3D'%233f3b36'%20stroke-width%3D'5'%2F%3E%3Cg%20fill%3D'%235a564f'%3E%3Ccircle%20cx%3D'104'%20cy%3D'210'%20r%3D'19'%2F%3E%3Ccircle%20cx%3D'296'%20cy%3D'210'%20r%3D'19'%2F%3E%3C%2Fg%3E%3Cpath%20d%3D'M40%20148h320'%20stroke%3D'%23c8621e'%20stroke-width%3D'9'%2F%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EBUCKET%20BKT-0512-02%3C%2Ftext%3E%3C%2Fsvg%3E"
+   }
+  ],
   "createdAt": "2026-05-31T07:40:00.000Z",
-  "updatedAt": "2026-05-31T15:24:00.000Z",
+  "updatedAt": "2026-05-31T15:27:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-05-31T15:24:00.000Z",
-  "syncedAt": "2026-05-31T15:24:00.000Z"
+  "approvedAt": "2026-05-31T15:27:00.000Z",
+  "syncedAt": "2026-05-31T15:27:00.000Z"
  },
  {
   "id": "demo-1000310002-BPR-01",
@@ -6372,27 +6768,27 @@ export const SEED_REPORTS = [
    "surfacePrep": "SA 2½",
    "sspc": "SP 10",
    "abrasive": "Steel grit G-40",
-   "anchorProfile": "75",
-   "dryTemp": "32.5",
-   "wetTemp": "25.6",
+   "anchorProfile": "62",
+   "dryTemp": "30.8",
+   "wetTemp": "26.7",
    "matlTemp": "34.6",
-   "prepResult": "Acc",
-   "coatingPrep": "Second",
-   "paintDesc": "Epoxy mastic MIO",
+   "prepResult": "Reject",
+   "coatingPrep": "Top",
+   "paintDesc": "2-pack epoxy primer",
    "thinner": "Epoxy thinner",
-   "batchPaint": "B24348",
-   "batchThinner": "T3575",
+   "batchPaint": "B21343",
+   "batchThinner": "T3924",
    "finalStatus": "Accept",
    "ncr": "Inspection carried out per the referenced procedure. No outstanding items.",
    "signInspector": {
     "name": "Inspector One",
-    "at": "2026-06-01T09:47:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-06-01T09:31:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-06-01T15:36:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-06-01T15:20:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
@@ -6402,11 +6798,11 @@ export const SEED_REPORTS = [
     "coat": "Coat 1",
     "area": "Exterior — Zone A",
     "pts": [
-     "165",
-     "158",
-     "174",
-     "146",
-     "169"
+     "169",
+     "129",
+     "122",
+     "167",
+     "174"
     ],
     "std": "120"
    },
@@ -6414,10 +6810,10 @@ export const SEED_REPORTS = [
     "coat": "Coat 2",
     "area": "Exterior — Zone B",
     "pts": [
-     "230",
-     "251",
-     "253",
-     "184",
+     "252",
+     "195",
+     "237",
+     "183",
      "207"
     ],
     "std": "175"
@@ -6426,22 +6822,33 @@ export const SEED_REPORTS = [
     "coat": "Coat 3",
     "area": "Frame & walkway",
     "pts": [
-     "228",
-     "252",
-     "233",
-     "236",
-     "238"
+     "240",
+     "227",
+     "241",
+     "201",
+     "259"
     ],
     "std": "175"
    }
   ],
-  "photos": [],
+  "photos": [
+   {
+    "id": "ph-coating-4173",
+    "label": "DFT reading, Top coat",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23d9d6d0'%2F%3E%3Crect%20y%3D'150'%20width%3D'400'%20height%3D'150'%20fill%3D'%236b6660'%2F%3E%3Crect%20y%3D'120'%20width%3D'400'%20height%3D'30'%20fill%3D'%23c8621e'%2F%3E%3Crect%20y%3D'104'%20width%3D'400'%20height%3D'16'%20fill%3D'%23d8d3cb'%2F%3E%3Cg%20stroke%3D'%232a2a30'%20stroke-width%3D'2.5'%3E%3Cpath%20d%3D'M300%20104v46M292%20104h16M292%20150h16'%2F%3E%3C%2Fg%3E%3Ctext%20x%3D'318'%20y%3D'132'%20font-family%3D'monospace'%20font-size%3D'17'%20fill%3D'%232a2a30'%3EDFT%3C%2Ftext%3E%3Crect%20x%3D'16'%20y%3D'226'%20width%3D'150'%20height%3D'34'%20rx%3D'4'%20fill%3D'%23fbfbf9'%20stroke%3D'%235a564f'%2F%3E%3Ctext%20x%3D'91'%20y%3D'250'%20font-family%3D'monospace'%20font-size%3D'18'%20fill%3D'%232a2a30'%20text-anchor%3D'middle'%3E168%20um%3C%2Ftext%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EDFT%20reading%2C%20Top%20coat%3C%2Ftext%3E%3C%2Fsvg%3E"
+   },
+   {
+    "id": "ph-unit-8542",
+    "label": "BUCKET BKT-0512-02 after coating",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23c6d2da'%2F%3E%3Crect%20y%3D'196'%20width%3D'400'%20height%3D'104'%20fill%3D'%23b0a89c'%2F%3E%3Crect%20x%3D'40'%20y%3D'96'%20width%3D'320'%20height%3D'104'%20rx%3D'48'%20fill%3D'%23d8d4cc'%20stroke%3D'%235a564f'%20stroke-width%3D'4'%2F%3E%3Crect%20x%3D'34'%20y%3D'88'%20width%3D'332'%20height%3D'120'%20rx%3D'7'%20fill%3D'none'%20stroke%3D'%233f3b36'%20stroke-width%3D'5'%2F%3E%3Cg%20fill%3D'%235a564f'%3E%3Ccircle%20cx%3D'104'%20cy%3D'210'%20r%3D'19'%2F%3E%3Ccircle%20cx%3D'296'%20cy%3D'210'%20r%3D'19'%2F%3E%3C%2Fg%3E%3Cpath%20d%3D'M40%20148h320'%20stroke%3D'%23c8621e'%20stroke-width%3D'9'%2F%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EBUCKET%20BKT-0512-02%20after%20coating%3C%2Ftext%3E%3C%2Fsvg%3E"
+   }
+  ],
   "createdAt": "2026-06-01T07:40:00.000Z",
-  "updatedAt": "2026-06-01T15:36:00.000Z",
+  "updatedAt": "2026-06-01T15:20:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-06-01T15:36:00.000Z",
-  "syncedAt": "2026-06-01T15:36:00.000Z"
+  "approvedAt": "2026-06-01T15:20:00.000Z",
+  "syncedAt": "2026-06-01T15:20:00.000Z"
  },
  {
   "id": "demo-1000310002-VG-01",
@@ -6467,37 +6874,37 @@ export const SEED_REPORTS = [
    "ncr": "Inspection carried out per the referenced procedure. No outstanding items.",
    "signInspector": {
     "name": "Inspector One",
-    "at": "2026-06-02T09:42:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-06-02T09:23:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-06-02T15:19:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-06-02T15:41:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
   "results": [
    {
+    "point": "Lip wear plate",
+    "welderId": "W-14",
+    "description": "Back height",
+    "judgement": "OK",
+    "defectType": "N/A",
+    "remark": "N/A"
+   },
+   {
     "point": "Paint coverage",
-    "welderId": "W-47",
-    "description": "Side plate pitch",
+    "welderId": "W-23",
+    "description": "Back height",
     "judgement": "OK",
     "defectType": "N/A",
     "remark": "N/A"
    },
    {
-    "point": "Lip wear plate",
-    "welderId": "W-15",
-    "description": "Pin centre distance",
-    "judgement": "OK",
-    "defectType": "N/A",
-    "remark": "N/A"
-   },
-   {
-    "point": "Lip wear plate",
+    "point": "Data plate",
     "welderId": "W-32",
-    "description": "Bucket depth",
+    "description": "Pin centre distance",
     "judgement": "OK",
     "defectType": "N/A",
     "remark": "N/A"
@@ -6511,22 +6918,33 @@ export const SEED_REPORTS = [
     "remark": "N/A"
    },
    {
-    "point": "Internal weld toe",
-    "welderId": "W-13",
-    "description": "Bucket depth",
+    "point": "Pivot bore",
+    "welderId": "W-14",
+    "description": "Lip width",
     "judgement": "OK",
     "defectType": "N/A",
     "remark": "N/A"
    }
   ],
   "coats": [],
-  "photos": [],
+  "photos": [
+   {
+    "id": "ph-unit-6547",
+    "label": "Lip wear plate",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23c6d2da'%2F%3E%3Crect%20y%3D'196'%20width%3D'400'%20height%3D'104'%20fill%3D'%23b0a89c'%2F%3E%3Crect%20x%3D'40'%20y%3D'96'%20width%3D'320'%20height%3D'104'%20rx%3D'48'%20fill%3D'%23d8d4cc'%20stroke%3D'%235a564f'%20stroke-width%3D'4'%2F%3E%3Crect%20x%3D'34'%20y%3D'88'%20width%3D'332'%20height%3D'120'%20rx%3D'7'%20fill%3D'none'%20stroke%3D'%233f3b36'%20stroke-width%3D'5'%2F%3E%3Cg%20fill%3D'%235a564f'%3E%3Ccircle%20cx%3D'104'%20cy%3D'210'%20r%3D'19'%2F%3E%3Ccircle%20cx%3D'296'%20cy%3D'210'%20r%3D'19'%2F%3E%3C%2Fg%3E%3Cpath%20d%3D'M40%20148h320'%20stroke%3D'%23c8621e'%20stroke-width%3D'9'%2F%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3ELip%20wear%20plate%3C%2Ftext%3E%3C%2Fsvg%3E"
+   },
+   {
+    "id": "ph-plate-3105",
+    "label": "Data plate, BKT-0512-02",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23cdcac4'%2F%3E%3Crect%20x%3D'52'%20y%3D'58'%20width%3D'296'%20height%3D'184'%20rx%3D'5'%20fill%3D'%23b7b2ab'%20stroke%3D'%235a564f'%20stroke-width%3D'4'%2F%3E%3Cg%20font-family%3D'monospace'%20fill%3D'%23232328'%3E%3Ctext%20x%3D'76'%20y%3D'100'%20font-size%3D'19'%3EMANUFACTURING%20CO.%3C%2Ftext%3E%3Ctext%20x%3D'76'%20y%3D'134'%20font-size%3D'14'%3ESERIAL%3C%2Ftext%3E%3Ctext%20x%3D'76'%20y%3D'162'%20font-size%3D'14'%3EDESIGN%20P.%20%204.0%20BAR%3C%2Ftext%3E%3Ctext%20x%3D'76'%20y%3D'190'%20font-size%3D'14'%3ETEST%20P.%20%20%20%206.0%20BAR%3C%2Ftext%3E%3Ctext%20x%3D'76'%20y%3D'218'%20font-size%3D'14'%3EYEAR%20%20%20%20%20%20%202026%3C%2Ftext%3E%3C%2Fg%3E%3Cg%20fill%3D'%236e6a64'%3E%3Ccircle%20cx%3D'68'%20cy%3D'72'%20r%3D'5'%2F%3E%3Ccircle%20cx%3D'332'%20cy%3D'72'%20r%3D'5'%2F%3E%3Ccircle%20cx%3D'68'%20cy%3D'228'%20r%3D'5'%2F%3E%3Ccircle%20cx%3D'332'%20cy%3D'228'%20r%3D'5'%2F%3E%3C%2Fg%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EData%20plate%2C%20BKT-0512-02%3C%2Ftext%3E%3C%2Fsvg%3E"
+   }
+  ],
   "createdAt": "2026-06-02T07:40:00.000Z",
-  "updatedAt": "2026-06-02T15:19:00.000Z",
+  "updatedAt": "2026-06-02T15:41:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-06-02T15:19:00.000Z",
-  "syncedAt": "2026-06-02T15:19:00.000Z"
+  "approvedAt": "2026-06-02T15:41:00.000Z",
+  "syncedAt": "2026-06-02T15:41:00.000Z"
  },
  {
   "id": "demo-1000310003-DIM-01",
@@ -6547,25 +6965,25 @@ export const SEED_REPORTS = [
    "sn": "BKT-0512-03",
    "unit": "BKT-0512-03",
    "customer": "Customer 03",
-   "drawingNo": "DWG-BKT-4152-R0",
+   "drawingNo": "DWG-BKT-4125-R1",
    "drawingFile": "N/A",
    "ncr": "Inspection carried out per the referenced procedure. No outstanding items.",
    "signInspector": {
     "name": "Inspector Two",
-    "at": "2026-06-02T09:51:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-06-02T09:48:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-06-02T15:13:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-06-02T15:41:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
   "results": [
    {
     "description": "Lip width",
-    "itemNo": "11",
+    "itemNo": "5",
     "nominal": "3200",
     "min": "3197",
     "max": "3203",
@@ -6574,7 +6992,7 @@ export const SEED_REPORTS = [
    },
    {
     "description": "Bucket depth",
-    "itemNo": "10",
+    "itemNo": "2",
     "nominal": "1450",
     "min": "1447",
     "max": "1453",
@@ -6583,25 +7001,25 @@ export const SEED_REPORTS = [
    },
    {
     "description": "Pin centre distance",
-    "itemNo": "8",
+    "itemNo": "4",
     "nominal": "1180",
     "min": "1177",
     "max": "1183",
     "actual": "1181",
-    "note": "Verified twice."
+    "note": ""
    },
    {
     "description": "Back height",
-    "itemNo": "6",
+    "itemNo": "5",
     "nominal": "1620",
     "min": "1617",
     "max": "1623",
     "actual": "1619",
-    "note": "Measured with steel tape."
+    "note": "Verified twice."
    },
    {
     "description": "Side plate pitch",
-    "itemNo": "12",
+    "itemNo": "8",
     "nominal": "2960",
     "min": "2957",
     "max": "2963",
@@ -6610,13 +7028,24 @@ export const SEED_REPORTS = [
    }
   ],
   "coats": [],
-  "photos": [],
+  "photos": [
+   {
+    "id": "ph-tape-4991",
+    "label": "Lip width — 3199 mm",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23dedbd5'%2F%3E%3Crect%20y%3D'96'%20width%3D'400'%20height%3D'108'%20fill%3D'%23a9a49c'%2F%3E%3Crect%20y%3D'128'%20width%3D'400'%20height%3D'30'%20fill%3D'%23f0c419'%2F%3E%3Cg%20stroke%3D'%232a2a30'%20stroke-width%3D'2'%3E%3Cpath%20d%3D'M0%20128v30'%2F%3E%3Cpath%20d%3D'M20%20128v14'%2F%3E%3Cpath%20d%3D'M40%20128v14'%2F%3E%3Cpath%20d%3D'M60%20128v14'%2F%3E%3Cpath%20d%3D'M80%20128v14'%2F%3E%3Cpath%20d%3D'M100%20128v30'%2F%3E%3Cpath%20d%3D'M120%20128v14'%2F%3E%3Cpath%20d%3D'M140%20128v14'%2F%3E%3Cpath%20d%3D'M160%20128v14'%2F%3E%3Cpath%20d%3D'M180%20128v14'%2F%3E%3Cpath%20d%3D'M200%20128v30'%2F%3E%3Cpath%20d%3D'M220%20128v14'%2F%3E%3Cpath%20d%3D'M240%20128v14'%2F%3E%3Cpath%20d%3D'M260%20128v14'%2F%3E%3Cpath%20d%3D'M280%20128v14'%2F%3E%3Cpath%20d%3D'M300%20128v30'%2F%3E%3Cpath%20d%3D'M320%20128v14'%2F%3E%3Cpath%20d%3D'M340%20128v14'%2F%3E%3Cpath%20d%3D'M360%20128v14'%2F%3E%3Cpath%20d%3D'M380%20128v14'%2F%3E%3C%2Fg%3E%3Cg%20font-family%3D'monospace'%20font-size%3D'12'%20fill%3D'%232a2a30'%3E%3Ctext%20x%3D'4'%20y%3D'176'%3E0%3C%2Ftext%3E%3Ctext%20x%3D'104'%20y%3D'176'%3E500%3C%2Ftext%3E%3Ctext%20x%3D'204'%20y%3D'176'%3E1000%3C%2Ftext%3E%3Ctext%20x%3D'304'%20y%3D'176'%3E1500%3C%2Ftext%3E%3C%2Fg%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3ELip%20width%20%E2%80%94%203199%20mm%3C%2Ftext%3E%3C%2Fsvg%3E"
+   },
+   {
+    "id": "ph-unit-3391",
+    "label": "BUCKET BKT-0512-03",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23c6d2da'%2F%3E%3Crect%20y%3D'196'%20width%3D'400'%20height%3D'104'%20fill%3D'%23b0a89c'%2F%3E%3Crect%20x%3D'40'%20y%3D'96'%20width%3D'320'%20height%3D'104'%20rx%3D'48'%20fill%3D'%23d8d4cc'%20stroke%3D'%235a564f'%20stroke-width%3D'4'%2F%3E%3Crect%20x%3D'34'%20y%3D'88'%20width%3D'332'%20height%3D'120'%20rx%3D'7'%20fill%3D'none'%20stroke%3D'%233f3b36'%20stroke-width%3D'5'%2F%3E%3Cg%20fill%3D'%235a564f'%3E%3Ccircle%20cx%3D'104'%20cy%3D'210'%20r%3D'19'%2F%3E%3Ccircle%20cx%3D'296'%20cy%3D'210'%20r%3D'19'%2F%3E%3C%2Fg%3E%3Cpath%20d%3D'M40%20148h320'%20stroke%3D'%23c8621e'%20stroke-width%3D'9'%2F%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EBUCKET%20BKT-0512-03%3C%2Ftext%3E%3C%2Fsvg%3E"
+   }
+  ],
   "createdAt": "2026-06-02T07:40:00.000Z",
-  "updatedAt": "2026-06-02T15:13:00.000Z",
+  "updatedAt": "2026-06-02T15:41:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-06-02T15:13:00.000Z",
-  "syncedAt": "2026-06-02T15:13:00.000Z"
+  "approvedAt": "2026-06-02T15:41:00.000Z",
+  "syncedAt": "2026-06-02T15:41:00.000Z"
  },
  {
   "id": "demo-1000310003-MT-01",
@@ -6641,58 +7070,67 @@ export const SEED_REPORTS = [
    "materialSpec": "ASTM A516 Gr.70",
    "ncrRef": "N/A",
    "lightEquip": "LED floodlight 50W",
-   "lightmeter": "LUX-002 · Digital Light Meter · Cal 2026-04-23",
-   "lightIntensity": "1101",
+   "lightmeter": "LUX-001 · Digital Light Meter · Cal 2026-01-09",
+   "lightIntensity": "1487",
    "mtEquipment": "Prod.",
    "equipId": "YK-2201",
-   "currentType": "Other",
+   "currentType": "AC",
    "particle": "Dry",
    "particleApp": "Other",
    "brand": "Magnaflux 7HF",
-   "particleDesc": "Wet fluorescent, batch WF533",
-   "whiteContrast": "Contrast paint, batch WC397",
-   "cleanerBatch": "Solvent cleaner, batch CL652",
-   "method": "Residual",
-   "surfacePreparation": "Solvent Wipe",
-   "stage": "After Hydrostatic",
-   "weldingProcess": "SMAW",
-   "scope": "Base Metal",
+   "particleDesc": "Wet fluorescent, batch WF712",
+   "whiteContrast": "Contrast paint, batch WC344",
+   "cleanerBatch": "Solvent cleaner, batch CL251",
+   "method": "Continuous",
+   "surfacePreparation": "As Welded",
+   "stage": "Other",
+   "weldingProcess": "Other",
+   "scope": "Back Chipping",
    "signInspector": {
     "name": "Inspector Two",
-    "at": "2026-06-03T09:20:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-06-03T09:19:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-06-03T15:18:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-06-03T15:30:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
   "results": [
    {
-    "partId": "Lip plate to side",
-    "material": "ASTM A516 Gr.70",
-    "weldNo": "WS-30",
-    "thickness": "6.3",
-    "judgement": "Acc",
-    "discontinuity": "None",
-    "remark": "N/A"
-   },
-   {
-    "partId": "Wear strip fillet",
-    "material": "ASTM A516 Gr.70",
-    "weldNo": "WS-25",
-    "thickness": "6.2",
-    "judgement": "Acc",
-    "discontinuity": "None",
-    "remark": "N/A"
-   },
-   {
     "partId": "Pivot lug root",
     "material": "ASTM A516 Gr.70",
-    "weldNo": "WS-23",
-    "thickness": "10.9",
+    "weldNo": "WS-18",
+    "thickness": "6.8",
+    "judgement": "Acc",
+    "discontinuity": "None",
+    "remark": "N/A"
+   },
+   {
+    "partId": "Lip plate to side",
+    "material": "ASTM A516 Gr.70",
+    "weldNo": "WS-21",
+    "thickness": "10.4",
+    "judgement": "Acc",
+    "discontinuity": "None",
+    "remark": "N/A"
+   },
+   {
+    "partId": "Side cutter mount",
+    "material": "ASTM A516 Gr.70",
+    "weldNo": "WS-29",
+    "thickness": "8.6",
+    "judgement": "Acc",
+    "discontinuity": "None",
+    "remark": "N/A"
+   },
+   {
+    "partId": "Side cutter mount",
+    "material": "ASTM A516 Gr.70",
+    "weldNo": "WS-40",
+    "thickness": "8.1",
     "judgement": "Acc",
     "discontinuity": "None",
     "remark": "N/A"
@@ -6700,30 +7138,32 @@ export const SEED_REPORTS = [
    {
     "partId": "Back sheet seam",
     "material": "ASTM A516 Gr.70",
-    "weldNo": "WS-23",
-    "thickness": "7.0",
-    "judgement": "Acc",
-    "discontinuity": "None",
-    "remark": "N/A"
-   },
-   {
-    "partId": "Lip plate to side",
-    "material": "ASTM A516 Gr.70",
-    "weldNo": "WS-3",
-    "thickness": "13.7",
+    "weldNo": "WS-1",
+    "thickness": "10.8",
     "judgement": "Acc",
     "discontinuity": "None",
     "remark": "N/A"
    }
   ],
   "coats": [],
-  "photos": [],
+  "photos": [
+   {
+    "id": "ph-weld-1995",
+    "label": "Pivot lug root after examination",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23cfcbc4'%2F%3E%3Cpath%20d%3D'M0%20150h400'%20stroke%3D'%238e8880'%20stroke-width%3D'58'%2F%3E%3Cpath%20d%3D'M0%20150q20%20-13%2040%200t40%200%2040%200%2040%200%2040%200%2040%200%2040%200%2040%200%2040%200%2040%200'%20fill%3D'none'%20stroke%3D'%23a8a29a'%20stroke-width%3D'30'%2F%3E%3Cpath%20d%3D'M0%20136q20%20-11%2040%200t40%200%2040%200%2040%200%2040%200%2040%200%2040%200%2040%200%2040%200%2040%200'%20fill%3D'none'%20stroke%3D'%23bdb7ae'%20stroke-width%3D'7'%2F%3E%3Cg%20fill%3D'%236e6a64'%3E%3Ccircle%20cx%3D'96'%20cy%3D'150'%20r%3D'4'%2F%3E%3Ccircle%20cx%3D'214'%20cy%3D'156'%20r%3D'3'%2F%3E%3Ccircle%20cx%3D'300'%20cy%3D'146'%20r%3D'3.5'%2F%3E%3C%2Fg%3E%3Crect%20x%3D'16'%20y%3D'232'%20width%3D'118'%20height%3D'30'%20fill%3D'%23f5f3ef'%20stroke%3D'%235a564f'%2F%3E%3Ctext%20x%3D'75'%20y%3D'253'%20font-family%3D'monospace'%20font-size%3D'16'%20fill%3D'%232a2a30'%20text-anchor%3D'middle'%3E10%20mm%3C%2Ftext%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EPivot%20lug%20root%20after%20examination%3C%2Ftext%3E%3C%2Fsvg%3E"
+   },
+   {
+    "id": "ph-unit-4939",
+    "label": "BUCKET BKT-0512-03",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23c6d2da'%2F%3E%3Crect%20y%3D'196'%20width%3D'400'%20height%3D'104'%20fill%3D'%23b0a89c'%2F%3E%3Crect%20x%3D'40'%20y%3D'96'%20width%3D'320'%20height%3D'104'%20rx%3D'48'%20fill%3D'%23d8d4cc'%20stroke%3D'%235a564f'%20stroke-width%3D'4'%2F%3E%3Crect%20x%3D'34'%20y%3D'88'%20width%3D'332'%20height%3D'120'%20rx%3D'7'%20fill%3D'none'%20stroke%3D'%233f3b36'%20stroke-width%3D'5'%2F%3E%3Cg%20fill%3D'%235a564f'%3E%3Ccircle%20cx%3D'104'%20cy%3D'210'%20r%3D'19'%2F%3E%3Ccircle%20cx%3D'296'%20cy%3D'210'%20r%3D'19'%2F%3E%3C%2Fg%3E%3Cpath%20d%3D'M40%20148h320'%20stroke%3D'%23c8621e'%20stroke-width%3D'9'%2F%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EBUCKET%20BKT-0512-03%3C%2Ftext%3E%3C%2Fsvg%3E"
+   }
+  ],
   "createdAt": "2026-06-03T07:40:00.000Z",
-  "updatedAt": "2026-06-03T15:18:00.000Z",
+  "updatedAt": "2026-06-03T15:30:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-06-03T15:18:00.000Z",
-  "syncedAt": "2026-06-03T15:18:00.000Z"
+  "approvedAt": "2026-06-03T15:30:00.000Z",
+  "syncedAt": "2026-06-03T15:30:00.000Z"
  },
  {
   "id": "demo-1000310003-BPR-01",
@@ -6748,27 +7188,27 @@ export const SEED_REPORTS = [
    "surfacePrep": "SA 2½",
    "sspc": "SP 10",
    "abrasive": "Steel grit G-40",
-   "anchorProfile": "70",
-   "dryTemp": "30.2",
-   "wetTemp": "25.8",
-   "matlTemp": "33.1",
-   "prepResult": "Acc",
-   "coatingPrep": "Primer",
-   "paintDesc": "Epoxy mastic MIO",
+   "anchorProfile": "62",
+   "dryTemp": "31.1",
+   "wetTemp": "26.9",
+   "matlTemp": "31.4",
+   "prepResult": "Reject",
+   "coatingPrep": "Top",
+   "paintDesc": "Polyurethane topcoat",
    "thinner": "Epoxy thinner",
-   "batchPaint": "B22075",
-   "batchThinner": "T3258",
+   "batchPaint": "B20115",
+   "batchThinner": "T3178",
    "finalStatus": "Reject",
    "ncr": "Non-conformance raised against this unit. Rework and re-inspection required before release.",
    "signInspector": {
     "name": "Inspector Two",
-    "at": "2026-06-04T09:25:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-06-04T09:18:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-06-04T15:40:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-06-04T15:43:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
@@ -6778,11 +7218,11 @@ export const SEED_REPORTS = [
     "coat": "Coat 1",
     "area": "Exterior — Zone A",
     "pts": [
-     "173",
-     "162",
-     "127",
-     "152",
-     "143"
+     "160",
+     "138",
+     "153",
+     "169",
+     "169"
     ],
     "std": "120"
    },
@@ -6790,11 +7230,11 @@ export const SEED_REPORTS = [
     "coat": "Coat 2",
     "area": "Exterior — Zone B",
     "pts": [
-     "253",
-     "219",
+     "226",
      "209",
-     "204",
-     "203"
+     "220",
+     "255",
+     "199"
     ],
     "std": "175"
    },
@@ -6802,22 +7242,33 @@ export const SEED_REPORTS = [
     "coat": "Coat 3",
     "area": "Frame & walkway",
     "pts": [
-     "193",
-     "182",
-     "196",
-     "257",
+     "258",
+     "216",
+     "200",
+     "246",
      "236"
     ],
     "std": "175"
    }
   ],
-  "photos": [],
+  "photos": [
+   {
+    "id": "ph-coating-9201",
+    "label": "DFT reading, Top coat",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23d9d6d0'%2F%3E%3Crect%20y%3D'150'%20width%3D'400'%20height%3D'150'%20fill%3D'%236b6660'%2F%3E%3Crect%20y%3D'120'%20width%3D'400'%20height%3D'30'%20fill%3D'%23c8621e'%2F%3E%3Crect%20y%3D'104'%20width%3D'400'%20height%3D'16'%20fill%3D'%23d8d3cb'%2F%3E%3Cg%20stroke%3D'%232a2a30'%20stroke-width%3D'2.5'%3E%3Cpath%20d%3D'M300%20104v46M292%20104h16M292%20150h16'%2F%3E%3C%2Fg%3E%3Ctext%20x%3D'318'%20y%3D'132'%20font-family%3D'monospace'%20font-size%3D'17'%20fill%3D'%232a2a30'%3EDFT%3C%2Ftext%3E%3Crect%20x%3D'16'%20y%3D'226'%20width%3D'150'%20height%3D'34'%20rx%3D'4'%20fill%3D'%23fbfbf9'%20stroke%3D'%235a564f'%2F%3E%3Ctext%20x%3D'91'%20y%3D'250'%20font-family%3D'monospace'%20font-size%3D'18'%20fill%3D'%232a2a30'%20text-anchor%3D'middle'%3E168%20um%3C%2Ftext%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EDFT%20reading%2C%20Top%20coat%3C%2Ftext%3E%3C%2Fsvg%3E"
+   },
+   {
+    "id": "ph-unit-5740",
+    "label": "BUCKET BKT-0512-03 after coating",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23c6d2da'%2F%3E%3Crect%20y%3D'196'%20width%3D'400'%20height%3D'104'%20fill%3D'%23b0a89c'%2F%3E%3Crect%20x%3D'40'%20y%3D'96'%20width%3D'320'%20height%3D'104'%20rx%3D'48'%20fill%3D'%23d8d4cc'%20stroke%3D'%235a564f'%20stroke-width%3D'4'%2F%3E%3Crect%20x%3D'34'%20y%3D'88'%20width%3D'332'%20height%3D'120'%20rx%3D'7'%20fill%3D'none'%20stroke%3D'%233f3b36'%20stroke-width%3D'5'%2F%3E%3Cg%20fill%3D'%235a564f'%3E%3Ccircle%20cx%3D'104'%20cy%3D'210'%20r%3D'19'%2F%3E%3Ccircle%20cx%3D'296'%20cy%3D'210'%20r%3D'19'%2F%3E%3C%2Fg%3E%3Cpath%20d%3D'M40%20148h320'%20stroke%3D'%23c8621e'%20stroke-width%3D'9'%2F%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EBUCKET%20BKT-0512-03%20after%20coating%3C%2Ftext%3E%3C%2Fsvg%3E"
+   }
+  ],
   "createdAt": "2026-06-04T07:40:00.000Z",
-  "updatedAt": "2026-06-04T15:40:00.000Z",
+  "updatedAt": "2026-06-04T15:43:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-06-04T15:40:00.000Z",
-  "syncedAt": "2026-06-04T15:40:00.000Z"
+  "approvedAt": "2026-06-04T15:43:00.000Z",
+  "syncedAt": "2026-06-04T15:43:00.000Z"
  },
  {
   "id": "demo-1000310003-VG-01",
@@ -6843,19 +7294,19 @@ export const SEED_REPORTS = [
    "ncr": "Inspection carried out per the referenced procedure. No outstanding items.",
    "signInspector": {
     "name": "Inspector Two",
-    "at": "2026-06-05T09:36:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-06-05T09:15:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-06-05T15:33:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-06-05T15:18:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
   "results": [
    {
-    "point": "Pivot bore",
+    "point": "Lip wear plate",
     "welderId": "W-13",
     "description": "Bucket depth",
     "judgement": "OK",
@@ -6864,45 +7315,56 @@ export const SEED_REPORTS = [
    },
    {
     "point": "Data plate",
-    "welderId": "W-34",
+    "welderId": "W-16",
     "description": "Lip width",
+    "judgement": "OK",
+    "defectType": "N/A",
+    "remark": "N/A"
+   },
+   {
+    "point": "Internal weld toe",
+    "welderId": "W-29",
+    "description": "Back height",
     "judgement": "OK",
     "defectType": "N/A",
     "remark": "N/A"
    },
    {
     "point": "Lip wear plate",
-    "welderId": "W-21",
-    "description": "Back height",
-    "judgement": "OK",
-    "defectType": "N/A",
-    "remark": "N/A"
-   },
-   {
-    "point": "Pivot bore",
-    "welderId": "W-42",
-    "description": "Back height",
+    "welderId": "W-22",
+    "description": "Pin centre distance",
     "judgement": "OK",
     "defectType": "N/A",
     "remark": "N/A"
    },
    {
     "point": "Paint coverage",
-    "welderId": "W-33",
-    "description": "Lip width",
+    "welderId": "W-40",
+    "description": "Pin centre distance",
     "judgement": "OK",
     "defectType": "N/A",
     "remark": "N/A"
    }
   ],
   "coats": [],
-  "photos": [],
+  "photos": [
+   {
+    "id": "ph-unit-3186",
+    "label": "Lip wear plate",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23c6d2da'%2F%3E%3Crect%20y%3D'196'%20width%3D'400'%20height%3D'104'%20fill%3D'%23b0a89c'%2F%3E%3Crect%20x%3D'40'%20y%3D'96'%20width%3D'320'%20height%3D'104'%20rx%3D'48'%20fill%3D'%23d8d4cc'%20stroke%3D'%235a564f'%20stroke-width%3D'4'%2F%3E%3Crect%20x%3D'34'%20y%3D'88'%20width%3D'332'%20height%3D'120'%20rx%3D'7'%20fill%3D'none'%20stroke%3D'%233f3b36'%20stroke-width%3D'5'%2F%3E%3Cg%20fill%3D'%235a564f'%3E%3Ccircle%20cx%3D'104'%20cy%3D'210'%20r%3D'19'%2F%3E%3Ccircle%20cx%3D'296'%20cy%3D'210'%20r%3D'19'%2F%3E%3C%2Fg%3E%3Cpath%20d%3D'M40%20148h320'%20stroke%3D'%23c8621e'%20stroke-width%3D'9'%2F%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3ELip%20wear%20plate%3C%2Ftext%3E%3C%2Fsvg%3E"
+   },
+   {
+    "id": "ph-plate-2825",
+    "label": "Data plate, BKT-0512-03",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23cdcac4'%2F%3E%3Crect%20x%3D'52'%20y%3D'58'%20width%3D'296'%20height%3D'184'%20rx%3D'5'%20fill%3D'%23b7b2ab'%20stroke%3D'%235a564f'%20stroke-width%3D'4'%2F%3E%3Cg%20font-family%3D'monospace'%20fill%3D'%23232328'%3E%3Ctext%20x%3D'76'%20y%3D'100'%20font-size%3D'19'%3EMANUFACTURING%20CO.%3C%2Ftext%3E%3Ctext%20x%3D'76'%20y%3D'134'%20font-size%3D'14'%3ESERIAL%3C%2Ftext%3E%3Ctext%20x%3D'76'%20y%3D'162'%20font-size%3D'14'%3EDESIGN%20P.%20%204.0%20BAR%3C%2Ftext%3E%3Ctext%20x%3D'76'%20y%3D'190'%20font-size%3D'14'%3ETEST%20P.%20%20%20%206.0%20BAR%3C%2Ftext%3E%3Ctext%20x%3D'76'%20y%3D'218'%20font-size%3D'14'%3EYEAR%20%20%20%20%20%20%202026%3C%2Ftext%3E%3C%2Fg%3E%3Cg%20fill%3D'%236e6a64'%3E%3Ccircle%20cx%3D'68'%20cy%3D'72'%20r%3D'5'%2F%3E%3Ccircle%20cx%3D'332'%20cy%3D'72'%20r%3D'5'%2F%3E%3Ccircle%20cx%3D'68'%20cy%3D'228'%20r%3D'5'%2F%3E%3Ccircle%20cx%3D'332'%20cy%3D'228'%20r%3D'5'%2F%3E%3C%2Fg%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EData%20plate%2C%20BKT-0512-03%3C%2Ftext%3E%3C%2Fsvg%3E"
+   }
+  ],
   "createdAt": "2026-06-05T07:40:00.000Z",
-  "updatedAt": "2026-06-05T15:33:00.000Z",
+  "updatedAt": "2026-06-05T15:18:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-06-05T15:33:00.000Z",
-  "syncedAt": "2026-06-05T15:33:00.000Z"
+  "approvedAt": "2026-06-05T15:18:00.000Z",
+  "syncedAt": "2026-06-05T15:18:00.000Z"
  },
  {
   "id": "demo-1000310004-DIM-01",
@@ -6923,25 +7385,25 @@ export const SEED_REPORTS = [
    "sn": "BKT-0512-04",
    "unit": "BKT-0512-04",
    "customer": "Customer 03",
-   "drawingNo": "DWG-BKT-4166-R0",
+   "drawingNo": "DWG-BKT-4115-R0",
    "drawingFile": "N/A",
    "ncr": "Inspection carried out per the referenced procedure. No outstanding items.",
    "signInspector": {
     "name": "Inspector One",
-    "at": "2026-06-05T09:44:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-06-05T09:20:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-06-05T15:05:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-06-05T15:45:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
   "results": [
    {
     "description": "Lip width",
-    "itemNo": "1",
+    "itemNo": "10",
     "nominal": "3200",
     "min": "3197",
     "max": "3203",
@@ -6950,49 +7412,60 @@ export const SEED_REPORTS = [
    },
    {
     "description": "Bucket depth",
-    "itemNo": "8",
+    "itemNo": "1",
     "nominal": "1450",
     "min": "1447",
     "max": "1453",
     "actual": "1450",
-    "note": ""
+    "note": "Measured with steel tape."
    },
    {
     "description": "Pin centre distance",
-    "itemNo": "4",
+    "itemNo": "12",
     "nominal": "1180",
     "min": "1177",
     "max": "1183",
     "actual": "1181",
-    "note": "Measured with steel tape."
+    "note": ""
    },
    {
     "description": "Back height",
-    "itemNo": "1",
+    "itemNo": "6",
     "nominal": "1620",
     "min": "1617",
     "max": "1623",
     "actual": "1619",
-    "note": "Measured with steel tape."
+    "note": "Verified twice."
    },
    {
     "description": "Side plate pitch",
-    "itemNo": "6",
+    "itemNo": "12",
     "nominal": "2960",
     "min": "2957",
     "max": "2963",
     "actual": "2960",
-    "note": ""
+    "note": "Measured with steel tape."
    }
   ],
   "coats": [],
-  "photos": [],
+  "photos": [
+   {
+    "id": "ph-tape-1488",
+    "label": "Lip width — 3199 mm",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23dedbd5'%2F%3E%3Crect%20y%3D'96'%20width%3D'400'%20height%3D'108'%20fill%3D'%23a9a49c'%2F%3E%3Crect%20y%3D'128'%20width%3D'400'%20height%3D'30'%20fill%3D'%23f0c419'%2F%3E%3Cg%20stroke%3D'%232a2a30'%20stroke-width%3D'2'%3E%3Cpath%20d%3D'M0%20128v30'%2F%3E%3Cpath%20d%3D'M20%20128v14'%2F%3E%3Cpath%20d%3D'M40%20128v14'%2F%3E%3Cpath%20d%3D'M60%20128v14'%2F%3E%3Cpath%20d%3D'M80%20128v14'%2F%3E%3Cpath%20d%3D'M100%20128v30'%2F%3E%3Cpath%20d%3D'M120%20128v14'%2F%3E%3Cpath%20d%3D'M140%20128v14'%2F%3E%3Cpath%20d%3D'M160%20128v14'%2F%3E%3Cpath%20d%3D'M180%20128v14'%2F%3E%3Cpath%20d%3D'M200%20128v30'%2F%3E%3Cpath%20d%3D'M220%20128v14'%2F%3E%3Cpath%20d%3D'M240%20128v14'%2F%3E%3Cpath%20d%3D'M260%20128v14'%2F%3E%3Cpath%20d%3D'M280%20128v14'%2F%3E%3Cpath%20d%3D'M300%20128v30'%2F%3E%3Cpath%20d%3D'M320%20128v14'%2F%3E%3Cpath%20d%3D'M340%20128v14'%2F%3E%3Cpath%20d%3D'M360%20128v14'%2F%3E%3Cpath%20d%3D'M380%20128v14'%2F%3E%3C%2Fg%3E%3Cg%20font-family%3D'monospace'%20font-size%3D'12'%20fill%3D'%232a2a30'%3E%3Ctext%20x%3D'4'%20y%3D'176'%3E0%3C%2Ftext%3E%3Ctext%20x%3D'104'%20y%3D'176'%3E500%3C%2Ftext%3E%3Ctext%20x%3D'204'%20y%3D'176'%3E1000%3C%2Ftext%3E%3Ctext%20x%3D'304'%20y%3D'176'%3E1500%3C%2Ftext%3E%3C%2Fg%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3ELip%20width%20%E2%80%94%203199%20mm%3C%2Ftext%3E%3C%2Fsvg%3E"
+   },
+   {
+    "id": "ph-unit-6173",
+    "label": "BUCKET BKT-0512-04",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23c6d2da'%2F%3E%3Crect%20y%3D'196'%20width%3D'400'%20height%3D'104'%20fill%3D'%23b0a89c'%2F%3E%3Crect%20x%3D'40'%20y%3D'96'%20width%3D'320'%20height%3D'104'%20rx%3D'48'%20fill%3D'%23d8d4cc'%20stroke%3D'%235a564f'%20stroke-width%3D'4'%2F%3E%3Crect%20x%3D'34'%20y%3D'88'%20width%3D'332'%20height%3D'120'%20rx%3D'7'%20fill%3D'none'%20stroke%3D'%233f3b36'%20stroke-width%3D'5'%2F%3E%3Cg%20fill%3D'%235a564f'%3E%3Ccircle%20cx%3D'104'%20cy%3D'210'%20r%3D'19'%2F%3E%3Ccircle%20cx%3D'296'%20cy%3D'210'%20r%3D'19'%2F%3E%3C%2Fg%3E%3Cpath%20d%3D'M40%20148h320'%20stroke%3D'%23c8621e'%20stroke-width%3D'9'%2F%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EBUCKET%20BKT-0512-04%3C%2Ftext%3E%3C%2Fsvg%3E"
+   }
+  ],
   "createdAt": "2026-06-05T07:40:00.000Z",
-  "updatedAt": "2026-06-05T15:05:00.000Z",
+  "updatedAt": "2026-06-05T15:45:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-06-05T15:05:00.000Z",
-  "syncedAt": "2026-06-05T15:05:00.000Z"
+  "approvedAt": "2026-06-05T15:45:00.000Z",
+  "syncedAt": "2026-06-05T15:45:00.000Z"
  },
  {
   "id": "demo-1000310004-PT-01",
@@ -7018,52 +7491,36 @@ export const SEED_REPORTS = [
    "ncrRef": "N/A",
    "lightEquip": "LED floodlight 50W",
    "lightmeter": "LUX-001 · Digital Light Meter · Cal 2026-01-09",
-   "lightIntensity": "1477",
-   "penetrantMethod": "Post Emulsifier",
-   "penetrantType": "Fluorescent",
-   "dwellTime": "37",
+   "lightIntensity": "1552",
+   "penetrantMethod": "Solvent Removeable (SKL-SP2)",
+   "penetrantType": "Visible",
+   "dwellTime": "34",
    "applicationBy": "Other",
-   "appTemp": "58.0",
+   "appTemp": "85.2",
    "developerType": "Aqueous",
-   "developingTime": "50.7",
-   "interpretationTime": "94.4",
-   "cleaner": "SKC-S",
+   "developingTime": "54.7",
+   "interpretationTime": "95.4",
+   "cleaner": "Other",
    "stage": "Other",
-   "weldingProcess": "SMAW",
+   "weldingProcess": "Other",
    "scope": "Edge Prep.",
    "signInspector": {
     "name": "Inspector One",
-    "at": "2026-06-06T09:32:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-06-06T09:16:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-06-06T15:27:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-06-06T15:08:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
   "results": [
    {
-    "partId": "Side cutter mount",
+    "partId": "Wear strip fillet",
     "material": "ASTM A516 Gr.70",
-    "thickness": "11.6",
-    "judgement": "Acc",
-    "discontinuity": "None",
-    "remark": "N/A"
-   },
-   {
-    "partId": "Side cutter mount",
-    "material": "ASTM A516 Gr.70",
-    "thickness": "10.2",
-    "judgement": "Acc",
-    "discontinuity": "None",
-    "remark": "N/A"
-   },
-   {
-    "partId": "Side cutter mount",
-    "material": "ASTM A516 Gr.70",
-    "thickness": "7.1",
+    "thickness": "10.5",
     "judgement": "Acc",
     "discontinuity": "None",
     "remark": "N/A"
@@ -7071,28 +7528,55 @@ export const SEED_REPORTS = [
    {
     "partId": "Wear strip fillet",
     "material": "ASTM A516 Gr.70",
-    "thickness": "7.8",
+    "thickness": "9.2",
     "judgement": "Acc",
     "discontinuity": "None",
     "remark": "N/A"
    },
    {
-    "partId": "Lip plate to side",
+    "partId": "Back sheet seam",
     "material": "ASTM A516 Gr.70",
-    "thickness": "6.2",
+    "thickness": "6.7",
+    "judgement": "Acc",
+    "discontinuity": "None",
+    "remark": "N/A"
+   },
+   {
+    "partId": "Back sheet seam",
+    "material": "ASTM A516 Gr.70",
+    "thickness": "12.7",
+    "judgement": "Acc",
+    "discontinuity": "None",
+    "remark": "N/A"
+   },
+   {
+    "partId": "Wear strip fillet",
+    "material": "ASTM A516 Gr.70",
+    "thickness": "8.9",
     "judgement": "Acc",
     "discontinuity": "None",
     "remark": "N/A"
    }
   ],
   "coats": [],
-  "photos": [],
+  "photos": [
+   {
+    "id": "ph-weld-8107",
+    "label": "Wear strip fillet after examination",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23cfcbc4'%2F%3E%3Cpath%20d%3D'M0%20150h400'%20stroke%3D'%238e8880'%20stroke-width%3D'58'%2F%3E%3Cpath%20d%3D'M0%20150q20%20-13%2040%200t40%200%2040%200%2040%200%2040%200%2040%200%2040%200%2040%200%2040%200%2040%200'%20fill%3D'none'%20stroke%3D'%23a8a29a'%20stroke-width%3D'30'%2F%3E%3Cpath%20d%3D'M0%20136q20%20-11%2040%200t40%200%2040%200%2040%200%2040%200%2040%200%2040%200%2040%200%2040%200%2040%200'%20fill%3D'none'%20stroke%3D'%23bdb7ae'%20stroke-width%3D'7'%2F%3E%3Cg%20fill%3D'%236e6a64'%3E%3Ccircle%20cx%3D'96'%20cy%3D'150'%20r%3D'4'%2F%3E%3Ccircle%20cx%3D'214'%20cy%3D'156'%20r%3D'3'%2F%3E%3Ccircle%20cx%3D'300'%20cy%3D'146'%20r%3D'3.5'%2F%3E%3C%2Fg%3E%3Crect%20x%3D'16'%20y%3D'232'%20width%3D'118'%20height%3D'30'%20fill%3D'%23f5f3ef'%20stroke%3D'%235a564f'%2F%3E%3Ctext%20x%3D'75'%20y%3D'253'%20font-family%3D'monospace'%20font-size%3D'16'%20fill%3D'%232a2a30'%20text-anchor%3D'middle'%3E10%20mm%3C%2Ftext%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EWear%20strip%20fillet%20after%20examination%3C%2Ftext%3E%3C%2Fsvg%3E"
+   },
+   {
+    "id": "ph-unit-5350",
+    "label": "BUCKET BKT-0512-04",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23c6d2da'%2F%3E%3Crect%20y%3D'196'%20width%3D'400'%20height%3D'104'%20fill%3D'%23b0a89c'%2F%3E%3Crect%20x%3D'40'%20y%3D'96'%20width%3D'320'%20height%3D'104'%20rx%3D'48'%20fill%3D'%23d8d4cc'%20stroke%3D'%235a564f'%20stroke-width%3D'4'%2F%3E%3Crect%20x%3D'34'%20y%3D'88'%20width%3D'332'%20height%3D'120'%20rx%3D'7'%20fill%3D'none'%20stroke%3D'%233f3b36'%20stroke-width%3D'5'%2F%3E%3Cg%20fill%3D'%235a564f'%3E%3Ccircle%20cx%3D'104'%20cy%3D'210'%20r%3D'19'%2F%3E%3Ccircle%20cx%3D'296'%20cy%3D'210'%20r%3D'19'%2F%3E%3C%2Fg%3E%3Cpath%20d%3D'M40%20148h320'%20stroke%3D'%23c8621e'%20stroke-width%3D'9'%2F%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EBUCKET%20BKT-0512-04%3C%2Ftext%3E%3C%2Fsvg%3E"
+   }
+  ],
   "createdAt": "2026-06-06T07:40:00.000Z",
-  "updatedAt": "2026-06-06T15:27:00.000Z",
+  "updatedAt": "2026-06-06T15:08:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-06-06T15:27:00.000Z",
-  "syncedAt": "2026-06-06T15:27:00.000Z"
+  "approvedAt": "2026-06-06T15:08:00.000Z",
+  "syncedAt": "2026-06-06T15:08:00.000Z"
  },
  {
   "id": "demo-1000310004-BPR-01",
@@ -7117,27 +7601,27 @@ export const SEED_REPORTS = [
    "surfacePrep": "SA 2½",
    "sspc": "SP 10",
    "abrasive": "Steel grit G-40",
-   "anchorProfile": "66",
-   "dryTemp": "31.1",
-   "wetTemp": "24.2",
+   "anchorProfile": "71",
+   "dryTemp": "31.4",
+   "wetTemp": "26.4",
    "matlTemp": "32.2",
    "prepResult": "Reject",
-   "coatingPrep": "Top",
-   "paintDesc": "Epoxy mastic MIO",
+   "coatingPrep": "Primer",
+   "paintDesc": "Polyurethane topcoat",
    "thinner": "Epoxy thinner",
-   "batchPaint": "B27881",
-   "batchThinner": "T3558",
+   "batchPaint": "B24469",
+   "batchThinner": "T3508",
    "finalStatus": "Accept",
    "ncr": "Inspection carried out per the referenced procedure. No outstanding items.",
    "signInspector": {
     "name": "Inspector One",
-    "at": "2026-06-07T09:17:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-06-07T09:41:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-06-07T15:14:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-06-07T15:38:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
@@ -7147,11 +7631,11 @@ export const SEED_REPORTS = [
     "coat": "Coat 1",
     "area": "Exterior — Zone A",
     "pts": [
-     "154",
-     "133",
-     "131",
-     "127",
-     "136"
+     "141",
+     "143",
+     "174",
+     "157",
+     "147"
     ],
     "std": "120"
    },
@@ -7159,11 +7643,11 @@ export const SEED_REPORTS = [
     "coat": "Coat 2",
     "area": "Exterior — Zone B",
     "pts": [
-     "196",
-     "201",
-     "184",
-     "244",
-     "206"
+     "232",
+     "205",
+     "211",
+     "252",
+     "185"
     ],
     "std": "175"
    },
@@ -7171,22 +7655,33 @@ export const SEED_REPORTS = [
     "coat": "Coat 3",
     "area": "Frame & walkway",
     "pts": [
-     "216",
-     "201",
-     "194",
-     "218",
-     "198"
+     "231",
+     "199",
+     "188",
+     "227",
+     "246"
     ],
     "std": "175"
    }
   ],
-  "photos": [],
+  "photos": [
+   {
+    "id": "ph-coating-3790",
+    "label": "DFT reading, Primer coat",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23d9d6d0'%2F%3E%3Crect%20y%3D'150'%20width%3D'400'%20height%3D'150'%20fill%3D'%236b6660'%2F%3E%3Crect%20y%3D'120'%20width%3D'400'%20height%3D'30'%20fill%3D'%23c8621e'%2F%3E%3Crect%20y%3D'104'%20width%3D'400'%20height%3D'16'%20fill%3D'%23d8d3cb'%2F%3E%3Cg%20stroke%3D'%232a2a30'%20stroke-width%3D'2.5'%3E%3Cpath%20d%3D'M300%20104v46M292%20104h16M292%20150h16'%2F%3E%3C%2Fg%3E%3Ctext%20x%3D'318'%20y%3D'132'%20font-family%3D'monospace'%20font-size%3D'17'%20fill%3D'%232a2a30'%3EDFT%3C%2Ftext%3E%3Crect%20x%3D'16'%20y%3D'226'%20width%3D'150'%20height%3D'34'%20rx%3D'4'%20fill%3D'%23fbfbf9'%20stroke%3D'%235a564f'%2F%3E%3Ctext%20x%3D'91'%20y%3D'250'%20font-family%3D'monospace'%20font-size%3D'18'%20fill%3D'%232a2a30'%20text-anchor%3D'middle'%3E168%20um%3C%2Ftext%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EDFT%20reading%2C%20Primer%20coat%3C%2Ftext%3E%3C%2Fsvg%3E"
+   },
+   {
+    "id": "ph-unit-6668",
+    "label": "BUCKET BKT-0512-04 after coating",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23c6d2da'%2F%3E%3Crect%20y%3D'196'%20width%3D'400'%20height%3D'104'%20fill%3D'%23b0a89c'%2F%3E%3Crect%20x%3D'40'%20y%3D'96'%20width%3D'320'%20height%3D'104'%20rx%3D'48'%20fill%3D'%23d8d4cc'%20stroke%3D'%235a564f'%20stroke-width%3D'4'%2F%3E%3Crect%20x%3D'34'%20y%3D'88'%20width%3D'332'%20height%3D'120'%20rx%3D'7'%20fill%3D'none'%20stroke%3D'%233f3b36'%20stroke-width%3D'5'%2F%3E%3Cg%20fill%3D'%235a564f'%3E%3Ccircle%20cx%3D'104'%20cy%3D'210'%20r%3D'19'%2F%3E%3Ccircle%20cx%3D'296'%20cy%3D'210'%20r%3D'19'%2F%3E%3C%2Fg%3E%3Cpath%20d%3D'M40%20148h320'%20stroke%3D'%23c8621e'%20stroke-width%3D'9'%2F%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EBUCKET%20BKT-0512-04%20after%20coating%3C%2Ftext%3E%3C%2Fsvg%3E"
+   }
+  ],
   "createdAt": "2026-06-07T07:40:00.000Z",
-  "updatedAt": "2026-06-07T15:14:00.000Z",
+  "updatedAt": "2026-06-07T15:38:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-06-07T15:14:00.000Z",
-  "syncedAt": "2026-06-07T15:14:00.000Z"
+  "approvedAt": "2026-06-07T15:38:00.000Z",
+  "syncedAt": "2026-06-07T15:38:00.000Z"
  },
  {
   "id": "demo-1000310004-VG-01",
@@ -7213,27 +7708,19 @@ export const SEED_REPORTS = [
    "signInspector": {
     "name": "Inspector One",
     "at": "2026-06-08T09:46:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-06-08T15:18:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-06-08T15:46:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
   "results": [
    {
-    "point": "Lip wear plate",
-    "welderId": "W-17",
-    "description": "Bucket depth",
-    "judgement": "OK",
-    "defectType": "N/A",
-    "remark": "N/A"
-   },
-   {
-    "point": "Data plate",
-    "welderId": "W-23",
+    "point": "Internal weld toe",
+    "welderId": "W-41",
     "description": "Back height",
     "judgement": "OK",
     "defectType": "N/A",
@@ -7241,37 +7728,56 @@ export const SEED_REPORTS = [
    },
    {
     "point": "Data plate",
-    "welderId": "W-43",
-    "description": "Bucket depth",
+    "welderId": "W-46",
+    "description": "Lip width",
     "judgement": "OK",
     "defectType": "N/A",
     "remark": "N/A"
    },
    {
-    "point": "Lip wear plate",
-    "welderId": "W-19",
-    "description": "Bucket depth",
+    "point": "Pivot bore",
+    "welderId": "W-12",
+    "description": "Lip width",
     "judgement": "OK",
     "defectType": "N/A",
     "remark": "N/A"
    },
    {
-    "point": "Internal weld toe",
-    "welderId": "W-41",
-    "description": "Side plate pitch",
+    "point": "Data plate",
+    "welderId": "W-14",
+    "description": "Back height",
+    "judgement": "OK",
+    "defectType": "N/A",
+    "remark": "N/A"
+   },
+   {
+    "point": "Pivot bore",
+    "welderId": "W-11",
+    "description": "Lip width",
     "judgement": "OK",
     "defectType": "N/A",
     "remark": "N/A"
    }
   ],
   "coats": [],
-  "photos": [],
+  "photos": [
+   {
+    "id": "ph-unit-2511",
+    "label": "Internal weld toe",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23c6d2da'%2F%3E%3Crect%20y%3D'196'%20width%3D'400'%20height%3D'104'%20fill%3D'%23b0a89c'%2F%3E%3Crect%20x%3D'40'%20y%3D'96'%20width%3D'320'%20height%3D'104'%20rx%3D'48'%20fill%3D'%23d8d4cc'%20stroke%3D'%235a564f'%20stroke-width%3D'4'%2F%3E%3Crect%20x%3D'34'%20y%3D'88'%20width%3D'332'%20height%3D'120'%20rx%3D'7'%20fill%3D'none'%20stroke%3D'%233f3b36'%20stroke-width%3D'5'%2F%3E%3Cg%20fill%3D'%235a564f'%3E%3Ccircle%20cx%3D'104'%20cy%3D'210'%20r%3D'19'%2F%3E%3Ccircle%20cx%3D'296'%20cy%3D'210'%20r%3D'19'%2F%3E%3C%2Fg%3E%3Cpath%20d%3D'M40%20148h320'%20stroke%3D'%23c8621e'%20stroke-width%3D'9'%2F%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EInternal%20weld%20toe%3C%2Ftext%3E%3C%2Fsvg%3E"
+   },
+   {
+    "id": "ph-plate-2846",
+    "label": "Data plate, BKT-0512-04",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23cdcac4'%2F%3E%3Crect%20x%3D'52'%20y%3D'58'%20width%3D'296'%20height%3D'184'%20rx%3D'5'%20fill%3D'%23b7b2ab'%20stroke%3D'%235a564f'%20stroke-width%3D'4'%2F%3E%3Cg%20font-family%3D'monospace'%20fill%3D'%23232328'%3E%3Ctext%20x%3D'76'%20y%3D'100'%20font-size%3D'19'%3EMANUFACTURING%20CO.%3C%2Ftext%3E%3Ctext%20x%3D'76'%20y%3D'134'%20font-size%3D'14'%3ESERIAL%3C%2Ftext%3E%3Ctext%20x%3D'76'%20y%3D'162'%20font-size%3D'14'%3EDESIGN%20P.%20%204.0%20BAR%3C%2Ftext%3E%3Ctext%20x%3D'76'%20y%3D'190'%20font-size%3D'14'%3ETEST%20P.%20%20%20%206.0%20BAR%3C%2Ftext%3E%3Ctext%20x%3D'76'%20y%3D'218'%20font-size%3D'14'%3EYEAR%20%20%20%20%20%20%202026%3C%2Ftext%3E%3C%2Fg%3E%3Cg%20fill%3D'%236e6a64'%3E%3Ccircle%20cx%3D'68'%20cy%3D'72'%20r%3D'5'%2F%3E%3Ccircle%20cx%3D'332'%20cy%3D'72'%20r%3D'5'%2F%3E%3Ccircle%20cx%3D'68'%20cy%3D'228'%20r%3D'5'%2F%3E%3Ccircle%20cx%3D'332'%20cy%3D'228'%20r%3D'5'%2F%3E%3C%2Fg%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EData%20plate%2C%20BKT-0512-04%3C%2Ftext%3E%3C%2Fsvg%3E"
+   }
+  ],
   "createdAt": "2026-06-08T07:40:00.000Z",
-  "updatedAt": "2026-06-08T15:18:00.000Z",
+  "updatedAt": "2026-06-08T15:46:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-06-08T15:18:00.000Z",
-  "syncedAt": "2026-06-08T15:18:00.000Z"
+  "approvedAt": "2026-06-08T15:46:00.000Z",
+  "syncedAt": "2026-06-08T15:46:00.000Z"
  },
  {
   "id": "demo-1000310005-DIM-01",
@@ -7292,34 +7798,34 @@ export const SEED_REPORTS = [
    "sn": "BKT-0512-05",
    "unit": "BKT-0512-05",
    "customer": "Customer 03",
-   "drawingNo": "DWG-BKT-4169-R0",
+   "drawingNo": "DWG-BKT-4102-R0",
    "drawingFile": "N/A",
    "ncr": "Inspection carried out per the referenced procedure. No outstanding items.",
    "signInspector": {
     "name": "Inspector Two",
-    "at": "2026-06-08T09:16:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-06-08T09:46:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-06-08T15:08:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-06-08T15:07:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
   "results": [
    {
     "description": "Lip width",
-    "itemNo": "7",
+    "itemNo": "5",
     "nominal": "3200",
     "min": "3197",
     "max": "3203",
     "actual": "3199",
-    "note": "Verified twice."
+    "note": "Measured with steel tape."
    },
    {
     "description": "Bucket depth",
-    "itemNo": "10",
+    "itemNo": "3",
     "nominal": "1450",
     "min": "1447",
     "max": "1453",
@@ -7328,16 +7834,16 @@ export const SEED_REPORTS = [
    },
    {
     "description": "Pin centre distance",
-    "itemNo": "10",
+    "itemNo": "5",
     "nominal": "1180",
     "min": "1177",
     "max": "1183",
     "actual": "1181",
-    "note": "Measured with steel tape."
+    "note": "Verified twice."
    },
    {
     "description": "Back height",
-    "itemNo": "5",
+    "itemNo": "10",
     "nominal": "1620",
     "min": "1617",
     "max": "1623",
@@ -7346,22 +7852,22 @@ export const SEED_REPORTS = [
    },
    {
     "description": "Side plate pitch",
-    "itemNo": "11",
+    "itemNo": "3",
     "nominal": "2960",
     "min": "2957",
     "max": "2963",
     "actual": "2960",
-    "note": "Verified twice."
+    "note": "Measured with steel tape."
    }
   ],
   "coats": [],
   "photos": [],
   "createdAt": "2026-06-08T07:40:00.000Z",
-  "updatedAt": "2026-06-08T15:08:00.000Z",
+  "updatedAt": "2026-06-08T15:07:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-06-08T15:08:00.000Z",
-  "syncedAt": "2026-06-08T15:08:00.000Z"
+  "approvedAt": "2026-06-08T15:07:00.000Z",
+  "syncedAt": "2026-06-08T15:07:00.000Z"
  },
  {
   "id": "demo-1000310005-UT-01",
@@ -7387,91 +7893,91 @@ export const SEED_REPORTS = [
    "ncrRef": "N/A",
    "instrument": "Olympus EPOCH 650",
    "model": "EPOCH 650",
-   "serialNo": "SN-85627",
+   "serialNo": "SN-95037",
    "cable": "Coaxial BNC, 2.0 m",
    "couplant": "CMC gel",
-   "technique": "Straight Beam",
-   "scanSurface": "From B",
+   "technique": "Contact — Straight Beam",
+   "scanSurface": "Both Side of Weld",
    "scanTechnique": "Half to Full Skip Distance",
-   "scanDirection": "Essentially parallel to weld axis",
+   "scanDirection": "Swivel",
    "lengthInd": "6 dB Drop",
    "heightInd": "14 dB Drop",
-   "suAngle": "45°",
-   "suSerial": "SU-5579",
-   "suFreq": "38.0",
+   "suAngle": "70°",
+   "suSerial": "SU-2888",
+   "suFreq": "32.5",
    "suSize": "10 mm dia.",
-   "blockId": "V2",
+   "blockId": "V1",
    "hole": "SDH Ø 2.4 mm",
-   "amplitude": "67",
+   "amplitude": "63",
    "refReflector": "IIW V1 block",
-   "refLevel": "68.5",
-   "scanLevel": "49.4",
-   "testRange": "65.3",
+   "refLevel": "37.7",
+   "scanLevel": "4.4",
+   "testRange": "68.1",
    "notes": "Inspection carried out per the referenced procedure. No outstanding items.",
    "signInspector": {
     "name": "Inspector Two",
-    "at": "2026-06-09T09:19:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-06-09T09:11:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-06-09T15:41:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-06-09T15:13:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
   "results": [
    {
-    "partId": "Wear strip fillet",
-    "thickness": "9.1",
-    "soundpath": "50.7",
-    "amplitude": "23",
-    "length": "18",
-    "depth": "4.4",
+    "partId": "Lip plate to side",
+    "thickness": "10.3",
+    "soundpath": "18.4",
+    "amplitude": "32",
+    "length": "10",
+    "depth": "7.9",
     "judgement": "Acc",
     "discontinuity": "None",
     "remark": "N/A"
    },
    {
-    "partId": "Pivot lug root",
-    "thickness": "12.6",
-    "soundpath": "39.7",
-    "amplitude": "35",
-    "length": "18",
+    "partId": "Wear strip fillet",
+    "thickness": "11.3",
+    "soundpath": "28.2",
+    "amplitude": "28",
+    "length": "7",
+    "depth": "10.2",
+    "judgement": "Acc",
+    "discontinuity": "None",
+    "remark": "N/A"
+   },
+   {
+    "partId": "Side cutter mount",
+    "thickness": "12.7",
+    "soundpath": "38.8",
+    "amplitude": "49",
+    "length": "14",
+    "depth": "5.1",
+    "judgement": "Acc",
+    "discontinuity": "None",
+    "remark": "N/A"
+   },
+   {
+    "partId": "Back sheet seam",
+    "thickness": "11.4",
+    "soundpath": "22.9",
+    "amplitude": "67",
+    "length": "20",
     "depth": "8.9",
     "judgement": "Acc",
     "discontinuity": "None",
     "remark": "N/A"
    },
    {
-    "partId": "Pivot lug root",
-    "thickness": "12.5",
-    "soundpath": "45.3",
-    "amplitude": "21",
-    "length": "26",
-    "depth": "11.3",
-    "judgement": "Acc",
-    "discontinuity": "None",
-    "remark": "N/A"
-   },
-   {
     "partId": "Back sheet seam",
-    "thickness": "9.1",
-    "soundpath": "12.4",
-    "amplitude": "29",
-    "length": "10",
-    "depth": "11.0",
-    "judgement": "Acc",
-    "discontinuity": "None",
-    "remark": "N/A"
-   },
-   {
-    "partId": "Back sheet seam",
-    "thickness": "12.9",
-    "soundpath": "24.4",
-    "amplitude": "22",
-    "length": "4",
-    "depth": "7.1",
+    "thickness": "6.8",
+    "soundpath": "15.6",
+    "amplitude": "40",
+    "length": "20",
+    "depth": "8.3",
     "judgement": "Acc",
     "discontinuity": "None",
     "remark": "N/A"
@@ -7480,11 +7986,11 @@ export const SEED_REPORTS = [
   "coats": [],
   "photos": [],
   "createdAt": "2026-06-09T07:40:00.000Z",
-  "updatedAt": "2026-06-09T15:41:00.000Z",
+  "updatedAt": "2026-06-09T15:13:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-06-09T15:41:00.000Z",
-  "syncedAt": "2026-06-09T15:41:00.000Z"
+  "approvedAt": "2026-06-09T15:13:00.000Z",
+  "syncedAt": "2026-06-09T15:13:00.000Z"
  },
  {
   "id": "demo-1000310005-BPR-01",
@@ -7509,27 +8015,27 @@ export const SEED_REPORTS = [
    "surfacePrep": "SA 2½",
    "sspc": "SP 10",
    "abrasive": "Steel grit G-40",
-   "anchorProfile": "73",
-   "dryTemp": "29.1",
-   "wetTemp": "24.5",
-   "matlTemp": "32.3",
-   "prepResult": "Acc",
+   "anchorProfile": "65",
+   "dryTemp": "29.6",
+   "wetTemp": "24.6",
+   "matlTemp": "34.0",
+   "prepResult": "Reject",
    "coatingPrep": "Top",
    "paintDesc": "Polyurethane topcoat",
    "thinner": "Epoxy thinner",
-   "batchPaint": "B26453",
-   "batchThinner": "T3311",
+   "batchPaint": "B26006",
+   "batchThinner": "T3590",
    "finalStatus": "Accept",
    "ncr": "Inspection carried out per the referenced procedure. No outstanding items.",
    "signInspector": {
     "name": "Inspector Two",
-    "at": "2026-06-10T09:47:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-06-10T09:53:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-06-10T15:43:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-06-10T15:15:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
@@ -7539,11 +8045,11 @@ export const SEED_REPORTS = [
     "coat": "Coat 1",
     "area": "Exterior — Zone A",
     "pts": [
-     "127",
-     "120",
-     "132",
-     "127",
-     "137"
+     "168",
+     "130",
+     "161",
+     "137",
+     "133"
     ],
     "std": "120"
    },
@@ -7551,11 +8057,11 @@ export const SEED_REPORTS = [
     "coat": "Coat 2",
     "area": "Exterior — Zone B",
     "pts": [
-     "199",
-     "195",
-     "258",
-     "199",
-     "211"
+     "246",
+     "238",
+     "191",
+     "228",
+     "219"
     ],
     "std": "175"
    },
@@ -7563,22 +8069,22 @@ export const SEED_REPORTS = [
     "coat": "Coat 3",
     "area": "Frame & walkway",
     "pts": [
-     "206",
-     "208",
-     "251",
+     "193",
      "253",
-     "216"
+     "232",
+     "258",
+     "184"
     ],
     "std": "175"
    }
   ],
   "photos": [],
   "createdAt": "2026-06-10T07:40:00.000Z",
-  "updatedAt": "2026-06-10T15:43:00.000Z",
+  "updatedAt": "2026-06-10T15:15:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-06-10T15:43:00.000Z",
-  "syncedAt": "2026-06-10T15:43:00.000Z"
+  "approvedAt": "2026-06-10T15:15:00.000Z",
+  "syncedAt": "2026-06-10T15:15:00.000Z"
  },
  {
   "id": "demo-1000310006-DIM-01",
@@ -7599,25 +8105,25 @@ export const SEED_REPORTS = [
    "sn": "BKT-0512-06",
    "unit": "BKT-0512-06",
    "customer": "Customer 03",
-   "drawingNo": "DWG-BKT-4163-R2",
+   "drawingNo": "DWG-BKT-4112-R0",
    "drawingFile": "N/A",
    "ncr": "Inspection carried out per the referenced procedure. No outstanding items.",
    "signInspector": {
     "name": "Inspector One",
-    "at": "2026-06-11T09:28:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-06-11T09:41:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-06-11T15:12:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-06-11T15:13:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
   "results": [
    {
     "description": "Lip width",
-    "itemNo": "8",
+    "itemNo": "9",
     "nominal": "3200",
     "min": "3197",
     "max": "3203",
@@ -7626,7 +8132,7 @@ export const SEED_REPORTS = [
    },
    {
     "description": "Bucket depth",
-    "itemNo": "1",
+    "itemNo": "6",
     "nominal": "1450",
     "min": "1447",
     "max": "1453",
@@ -7635,12 +8141,12 @@ export const SEED_REPORTS = [
    },
    {
     "description": "Pin centre distance",
-    "itemNo": "1",
+    "itemNo": "11",
     "nominal": "1180",
     "min": "1177",
     "max": "1183",
     "actual": "1181",
-    "note": "Measured with steel tape."
+    "note": ""
    },
    {
     "description": "Back height",
@@ -7649,26 +8155,26 @@ export const SEED_REPORTS = [
     "min": "1617",
     "max": "1623",
     "actual": "1619",
-    "note": "Verified twice."
+    "note": ""
    },
    {
     "description": "Side plate pitch",
-    "itemNo": "4",
+    "itemNo": "6",
     "nominal": "2960",
     "min": "2957",
     "max": "2963",
     "actual": "2960",
-    "note": "Verified twice."
+    "note": ""
    }
   ],
   "coats": [],
   "photos": [],
   "createdAt": "2026-06-11T07:40:00.000Z",
-  "updatedAt": "2026-06-11T15:12:00.000Z",
+  "updatedAt": "2026-06-11T15:13:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-06-11T15:12:00.000Z",
-  "syncedAt": "2026-06-11T15:12:00.000Z"
+  "approvedAt": "2026-06-11T15:13:00.000Z",
+  "syncedAt": "2026-06-11T15:13:00.000Z"
  },
  {
   "id": "demo-1000310006-MT-01",
@@ -7694,30 +8200,30 @@ export const SEED_REPORTS = [
    "ncrRef": "N/A",
    "lightEquip": "LED floodlight 50W",
    "lightmeter": "LUX-001 · Digital Light Meter · Cal 2026-01-09",
-   "lightIntensity": "1526",
+   "lightIntensity": "1342",
    "mtEquipment": "Coil",
    "equipId": "YK-2201",
-   "currentType": "Other",
+   "currentType": "AC",
    "particle": "Visible, Wet",
    "particleApp": "Other",
    "brand": "Magnaflux 7HF",
-   "particleDesc": "Wet fluorescent, batch WF701",
-   "whiteContrast": "Contrast paint, batch WC235",
-   "cleanerBatch": "Solvent cleaner, batch CL355",
+   "particleDesc": "Wet fluorescent, batch WF415",
+   "whiteContrast": "Contrast paint, batch WC367",
+   "cleanerBatch": "Solvent cleaner, batch CL586",
    "method": "Continuous",
-   "surfacePreparation": "As Grounded",
+   "surfacePreparation": "As Welded",
    "stage": "Other",
    "weldingProcess": "SMAW",
-   "scope": "Other",
+   "scope": "Repair Weld",
    "signInspector": {
     "name": "Inspector One",
     "at": "2026-06-12T09:37:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-06-12T15:45:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-06-12T15:20:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
@@ -7725,35 +8231,8 @@ export const SEED_REPORTS = [
    {
     "partId": "Back sheet seam",
     "material": "ASTM A516 Gr.70",
-    "weldNo": "WS-28",
-    "thickness": "7.3",
-    "judgement": "Acc",
-    "discontinuity": "None",
-    "remark": "N/A"
-   },
-   {
-    "partId": "Lip plate to side",
-    "material": "ASTM A516 Gr.70",
-    "weldNo": "WS-5",
-    "thickness": "9.3",
-    "judgement": "Acc",
-    "discontinuity": "None",
-    "remark": "N/A"
-   },
-   {
-    "partId": "Back sheet seam",
-    "material": "ASTM A516 Gr.70",
-    "weldNo": "WS-5",
-    "thickness": "6.2",
-    "judgement": "Acc",
-    "discontinuity": "None",
-    "remark": "N/A"
-   },
-   {
-    "partId": "Back sheet seam",
-    "material": "ASTM A516 Gr.70",
-    "weldNo": "WS-7",
-    "thickness": "7.7",
+    "weldNo": "WS-27",
+    "thickness": "11.2",
     "judgement": "Acc",
     "discontinuity": "None",
     "remark": "N/A"
@@ -7761,8 +8240,35 @@ export const SEED_REPORTS = [
    {
     "partId": "Side cutter mount",
     "material": "ASTM A516 Gr.70",
-    "weldNo": "WS-29",
-    "thickness": "13.6",
+    "weldNo": "WS-33",
+    "thickness": "8.8",
+    "judgement": "Acc",
+    "discontinuity": "None",
+    "remark": "N/A"
+   },
+   {
+    "partId": "Side cutter mount",
+    "material": "ASTM A516 Gr.70",
+    "weldNo": "WS-13",
+    "thickness": "8.4",
+    "judgement": "Acc",
+    "discontinuity": "None",
+    "remark": "N/A"
+   },
+   {
+    "partId": "Pivot lug root",
+    "material": "ASTM A516 Gr.70",
+    "weldNo": "WS-10",
+    "thickness": "11.4",
+    "judgement": "Acc",
+    "discontinuity": "None",
+    "remark": "N/A"
+   },
+   {
+    "partId": "Back sheet seam",
+    "material": "ASTM A516 Gr.70",
+    "weldNo": "WS-10",
+    "thickness": "11.5",
     "judgement": "Acc",
     "discontinuity": "None",
     "remark": "N/A"
@@ -7771,11 +8277,11 @@ export const SEED_REPORTS = [
   "coats": [],
   "photos": [],
   "createdAt": "2026-06-12T07:40:00.000Z",
-  "updatedAt": "2026-06-12T15:45:00.000Z",
+  "updatedAt": "2026-06-12T15:20:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-06-12T15:45:00.000Z",
-  "syncedAt": "2026-06-12T15:45:00.000Z"
+  "approvedAt": "2026-06-12T15:20:00.000Z",
+  "syncedAt": "2026-06-12T15:20:00.000Z"
  },
  {
   "id": "demo-1000310006-BPR-01",
@@ -7800,27 +8306,27 @@ export const SEED_REPORTS = [
    "surfacePrep": "SA 2½",
    "sspc": "SP 10",
    "abrasive": "Steel grit G-40",
-   "anchorProfile": "55",
-   "dryTemp": "32.0",
-   "wetTemp": "24.9",
-   "matlTemp": "32.0",
-   "prepResult": "Reject",
+   "anchorProfile": "54",
+   "dryTemp": "29.4",
+   "wetTemp": "25.8",
+   "matlTemp": "34.2",
+   "prepResult": "Acc",
    "coatingPrep": "Top",
-   "paintDesc": "2-pack epoxy primer",
+   "paintDesc": "Epoxy mastic MIO",
    "thinner": "Epoxy thinner",
-   "batchPaint": "B25942",
-   "batchThinner": "T3485",
+   "batchPaint": "B21741",
+   "batchThinner": "T3910",
    "finalStatus": "Accept",
    "ncr": "Inspection carried out per the referenced procedure. No outstanding items.",
    "signInspector": {
     "name": "Inspector One",
-    "at": "2026-06-13T09:39:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-06-13T09:29:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-06-13T15:41:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-06-13T15:24:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
@@ -7830,11 +8336,11 @@ export const SEED_REPORTS = [
     "coat": "Coat 1",
     "area": "Exterior — Zone A",
     "pts": [
-     "129",
-     "170",
-     "156",
-     "174",
-     "123"
+     "136",
+     "135",
+     "140",
+     "152",
+     "157"
     ],
     "std": "120"
    },
@@ -7842,11 +8348,11 @@ export const SEED_REPORTS = [
     "coat": "Coat 2",
     "area": "Exterior — Zone B",
     "pts": [
-     "204",
-     "256",
-     "199",
-     "193",
-     "189"
+     "222",
+     "258",
+     "191",
+     "183",
+     "250"
     ],
     "std": "175"
    },
@@ -7854,22 +8360,22 @@ export const SEED_REPORTS = [
     "coat": "Coat 3",
     "area": "Frame & walkway",
     "pts": [
-     "250",
-     "237",
-     "198",
-     "238",
-     "183"
+     "229",
+     "224",
+     "258",
+     "206",
+     "202"
     ],
     "std": "175"
    }
   ],
   "photos": [],
   "createdAt": "2026-06-13T07:40:00.000Z",
-  "updatedAt": "2026-06-13T15:41:00.000Z",
+  "updatedAt": "2026-06-13T15:24:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-06-13T15:41:00.000Z",
-  "syncedAt": "2026-06-13T15:41:00.000Z"
+  "approvedAt": "2026-06-13T15:24:00.000Z",
+  "syncedAt": "2026-06-13T15:24:00.000Z"
  },
  {
   "id": "demo-1000310007-DIM-01",
@@ -7890,43 +8396,43 @@ export const SEED_REPORTS = [
    "sn": "BKT-0512-07",
    "unit": "BKT-0512-07",
    "customer": "Customer 03",
-   "drawingNo": "DWG-BKT-4136-R1",
+   "drawingNo": "DWG-BKT-4113-R1",
    "drawingFile": "N/A",
    "ncr": "Inspection carried out per the referenced procedure. No outstanding items.",
    "signInspector": {
     "name": "Inspector Two",
-    "at": "2026-06-14T09:45:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-06-14T09:16:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
     "at": "2026-06-14T15:06:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
   "results": [
    {
     "description": "Lip width",
-    "itemNo": "2",
+    "itemNo": "9",
     "nominal": "3200",
     "min": "3197",
     "max": "3203",
     "actual": "3199",
-    "note": "Verified twice."
+    "note": ""
    },
    {
     "description": "Bucket depth",
-    "itemNo": "10",
+    "itemNo": "1",
     "nominal": "1450",
     "min": "1447",
     "max": "1453",
     "actual": "1450",
-    "note": "Measured with steel tape."
+    "note": ""
    },
    {
     "description": "Pin centre distance",
-    "itemNo": "7",
+    "itemNo": "4",
     "nominal": "1180",
     "min": "1177",
     "max": "1183",
@@ -7935,12 +8441,12 @@ export const SEED_REPORTS = [
    },
    {
     "description": "Back height",
-    "itemNo": "11",
+    "itemNo": "2",
     "nominal": "1620",
     "min": "1617",
     "max": "1623",
     "actual": "1619",
-    "note": "Measured with steel tape."
+    "note": "Verified twice."
    },
    {
     "description": "Side plate pitch",
@@ -7949,7 +8455,7 @@ export const SEED_REPORTS = [
     "min": "2957",
     "max": "2963",
     "actual": "2960",
-    "note": ""
+    "note": "Measured with steel tape."
    }
   ],
   "coats": [],
@@ -7984,37 +8490,45 @@ export const SEED_REPORTS = [
    "materialSpec": "ASTM A516 Gr.70",
    "ncrRef": "N/A",
    "lightEquip": "LED floodlight 50W",
-   "lightmeter": "LUX-001 · Digital Light Meter · Cal 2026-01-09",
-   "lightIntensity": "1581",
-   "penetrantMethod": "Post Emulsifier",
+   "lightmeter": "LUX-002 · Digital Light Meter · Cal 2026-04-23",
+   "lightIntensity": "1217",
+   "penetrantMethod": "Other",
    "penetrantType": "Fluorescent",
-   "dwellTime": "30",
-   "applicationBy": "Other",
-   "appTemp": "64.8",
-   "developerType": "Non Aqueous",
-   "developingTime": "95.9",
-   "interpretationTime": "82.3",
-   "cleaner": "SKC-S",
-   "stage": "Other",
+   "dwellTime": "38",
+   "applicationBy": "Brushing",
+   "appTemp": "39.2",
+   "developerType": "Aqueous",
+   "developingTime": "86.8",
+   "interpretationTime": "1.8",
+   "cleaner": "Other",
+   "stage": "After Hydrostatic",
    "weldingProcess": "Other",
    "scope": "Edge Prep.",
    "signInspector": {
     "name": "Inspector Two",
-    "at": "2026-06-15T09:47:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-06-15T09:53:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-06-15T15:24:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-06-15T15:46:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
   "results": [
    {
-    "partId": "Wear strip fillet",
+    "partId": "Side cutter mount",
     "material": "ASTM A516 Gr.70",
-    "thickness": "11.0",
+    "thickness": "7.3",
+    "judgement": "Acc",
+    "discontinuity": "None",
+    "remark": "N/A"
+   },
+   {
+    "partId": "Lip plate to side",
+    "material": "ASTM A516 Gr.70",
+    "thickness": "11.5",
     "judgement": "Acc",
     "discontinuity": "None",
     "remark": "N/A"
@@ -8022,7 +8536,15 @@ export const SEED_REPORTS = [
    {
     "partId": "Wear strip fillet",
     "material": "ASTM A516 Gr.70",
-    "thickness": "11.4",
+    "thickness": "6.5",
+    "judgement": "Acc",
+    "discontinuity": "None",
+    "remark": "N/A"
+   },
+   {
+    "partId": "Side cutter mount",
+    "material": "ASTM A516 Gr.70",
+    "thickness": "8.7",
     "judgement": "Acc",
     "discontinuity": "None",
     "remark": "N/A"
@@ -8030,23 +8552,7 @@ export const SEED_REPORTS = [
    {
     "partId": "Back sheet seam",
     "material": "ASTM A516 Gr.70",
-    "thickness": "8.0",
-    "judgement": "Acc",
-    "discontinuity": "None",
-    "remark": "N/A"
-   },
-   {
-    "partId": "Lip plate to side",
-    "material": "ASTM A516 Gr.70",
-    "thickness": "10.8",
-    "judgement": "Acc",
-    "discontinuity": "None",
-    "remark": "N/A"
-   },
-   {
-    "partId": "Lip plate to side",
-    "material": "ASTM A516 Gr.70",
-    "thickness": "6.9",
+    "thickness": "13.9",
     "judgement": "Acc",
     "discontinuity": "None",
     "remark": "N/A"
@@ -8055,11 +8561,11 @@ export const SEED_REPORTS = [
   "coats": [],
   "photos": [],
   "createdAt": "2026-06-15T07:40:00.000Z",
-  "updatedAt": "2026-06-15T15:24:00.000Z",
+  "updatedAt": "2026-06-15T15:46:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-06-15T15:24:00.000Z",
-  "syncedAt": "2026-06-15T15:24:00.000Z"
+  "approvedAt": "2026-06-15T15:46:00.000Z",
+  "syncedAt": "2026-06-15T15:46:00.000Z"
  },
  {
   "id": "demo-1000310008-DIM-01",
@@ -8080,34 +8586,34 @@ export const SEED_REPORTS = [
    "sn": "BKT-0512-08",
    "unit": "BKT-0512-08",
    "customer": "Customer 03",
-   "drawingNo": "DWG-BKT-4156-R1",
+   "drawingNo": "DWG-BKT-4165-R2",
    "drawingFile": "N/A",
    "ncr": "Inspection carried out per the referenced procedure. No outstanding items.",
    "signInspector": {
     "name": "Inspector One",
-    "at": "2026-06-17T09:43:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-06-17T09:18:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-06-17T15:31:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-06-17T15:13:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
   "results": [
    {
     "description": "Lip width",
-    "itemNo": "11",
+    "itemNo": "4",
     "nominal": "3200",
     "min": "3197",
     "max": "3203",
     "actual": "3199",
-    "note": ""
+    "note": "Verified twice."
    },
    {
     "description": "Bucket depth",
-    "itemNo": "12",
+    "itemNo": "6",
     "nominal": "1450",
     "min": "1447",
     "max": "1453",
@@ -8116,40 +8622,40 @@ export const SEED_REPORTS = [
    },
    {
     "description": "Pin centre distance",
-    "itemNo": "4",
+    "itemNo": "7",
     "nominal": "1180",
     "min": "1177",
     "max": "1183",
     "actual": "1181",
-    "note": "Measured with steel tape."
+    "note": ""
    },
    {
     "description": "Back height",
-    "itemNo": "7",
+    "itemNo": "12",
     "nominal": "1620",
     "min": "1617",
     "max": "1623",
     "actual": "1619",
-    "note": ""
+    "note": "Verified twice."
    },
    {
     "description": "Side plate pitch",
-    "itemNo": "11",
+    "itemNo": "2",
     "nominal": "2960",
     "min": "2957",
     "max": "2963",
     "actual": "2960",
-    "note": "Measured with steel tape."
+    "note": "Verified twice."
    }
   ],
   "coats": [],
   "photos": [],
   "createdAt": "2026-06-17T07:40:00.000Z",
-  "updatedAt": "2026-06-17T15:31:00.000Z",
+  "updatedAt": "2026-06-17T15:13:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-06-17T15:31:00.000Z",
-  "syncedAt": "2026-06-17T15:31:00.000Z"
+  "approvedAt": "2026-06-17T15:13:00.000Z",
+  "syncedAt": "2026-06-17T15:13:00.000Z"
  },
  {
   "id": "demo-1000310008-UT-01",
@@ -8175,91 +8681,91 @@ export const SEED_REPORTS = [
    "ncrRef": "N/A",
    "instrument": "Olympus EPOCH 650",
    "model": "EPOCH 650",
-   "serialNo": "SN-36716",
+   "serialNo": "SN-70148",
    "cable": "Coaxial BNC, 2.0 m",
    "couplant": "CMC gel",
    "technique": "Straight Beam",
-   "scanSurface": "Both Side of Weld",
-   "scanTechnique": "Half to Full Skip Distance",
-   "scanDirection": "Right angle to weld axis",
-   "lengthInd": "14 dB Drop",
+   "scanSurface": "One Side of Weld",
+   "scanTechnique": "Half Skip Distance",
+   "scanDirection": "Swivel",
+   "lengthInd": "6 dB Drop",
    "heightInd": "14 dB Drop",
    "suAngle": "0°",
-   "suSerial": "SU-1824",
-   "suFreq": "15.4",
+   "suSerial": "SU-6393",
+   "suFreq": "42.7",
    "suSize": "10 mm dia.",
-   "blockId": "Nozzle",
+   "blockId": "BCB",
    "hole": "SDH Ø 2.4 mm",
-   "amplitude": "22",
+   "amplitude": "67",
    "refReflector": "IIW V1 block",
-   "refLevel": "53.6",
-   "scanLevel": "96.1",
-   "testRange": "99.9",
+   "refLevel": "91.7",
+   "scanLevel": "38.5",
+   "testRange": "89.7",
    "notes": "Inspection carried out per the referenced procedure. No outstanding items.",
    "signInspector": {
     "name": "Inspector One",
-    "at": "2026-06-18T09:30:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-06-18T09:38:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-06-18T15:48:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-06-18T15:28:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
   "results": [
    {
-    "partId": "Pivot lug root",
-    "thickness": "13.8",
-    "soundpath": "28.3",
-    "amplitude": "57",
-    "length": "6",
-    "depth": "3.4",
-    "judgement": "Acc",
-    "discontinuity": "None",
-    "remark": "N/A"
-   },
-   {
     "partId": "Side cutter mount",
-    "thickness": "8.0",
-    "soundpath": "49.1",
-    "amplitude": "56",
-    "length": "24",
-    "depth": "2.5",
+    "thickness": "8.7",
+    "soundpath": "24.2",
+    "amplitude": "55",
+    "length": "15",
+    "depth": "9.6",
     "judgement": "Acc",
     "discontinuity": "None",
     "remark": "N/A"
    },
    {
     "partId": "Back sheet seam",
-    "thickness": "12.9",
-    "soundpath": "10.4",
-    "amplitude": "45",
-    "length": "12",
-    "depth": "9.8",
+    "thickness": "13.4",
+    "soundpath": "48.3",
+    "amplitude": "35",
+    "length": "10",
+    "depth": "5.4",
     "judgement": "Acc",
     "discontinuity": "None",
     "remark": "N/A"
    },
    {
-    "partId": "Side cutter mount",
-    "thickness": "7.3",
-    "soundpath": "18.7",
-    "amplitude": "24",
-    "length": "19",
-    "depth": "3.3",
+    "partId": "Pivot lug root",
+    "thickness": "10.6",
+    "soundpath": "52.0",
+    "amplitude": "44",
+    "length": "24",
+    "depth": "9.3",
     "judgement": "Acc",
     "discontinuity": "None",
     "remark": "N/A"
    },
    {
     "partId": "Lip plate to side",
-    "thickness": "11.5",
-    "soundpath": "51.1",
-    "amplitude": "36",
-    "length": "12",
-    "depth": "9.9",
+    "thickness": "7.1",
+    "soundpath": "25.8",
+    "amplitude": "23",
+    "length": "6",
+    "depth": "11.5",
+    "judgement": "Acc",
+    "discontinuity": "None",
+    "remark": "N/A"
+   },
+   {
+    "partId": "Wear strip fillet",
+    "thickness": "9.8",
+    "soundpath": "48.8",
+    "amplitude": "58",
+    "length": "23",
+    "depth": "9.7",
     "judgement": "Acc",
     "discontinuity": "None",
     "remark": "N/A"
@@ -8268,11 +8774,11 @@ export const SEED_REPORTS = [
   "coats": [],
   "photos": [],
   "createdAt": "2026-06-18T07:40:00.000Z",
-  "updatedAt": "2026-06-18T15:48:00.000Z",
+  "updatedAt": "2026-06-18T15:28:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-06-18T15:48:00.000Z",
-  "syncedAt": "2026-06-18T15:48:00.000Z"
+  "approvedAt": "2026-06-18T15:28:00.000Z",
+  "syncedAt": "2026-06-18T15:28:00.000Z"
  },
  {
   "id": "demo-1000310009-DIM-01",
@@ -8293,13 +8799,13 @@ export const SEED_REPORTS = [
    "sn": "BKT-0512-09",
    "unit": "BKT-0512-09",
    "customer": "Customer 03",
-   "drawingNo": "DWG-BKT-4173-R2",
+   "drawingNo": "DWG-BKT-4137-R1",
    "drawingFile": "N/A",
    "ncr": "Inspection carried out per the referenced procedure. No outstanding items.",
    "signInspector": {
     "name": "Inspector Two",
-    "at": "2026-06-20T09:31:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-06-20T09:10:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
@@ -8311,51 +8817,51 @@ export const SEED_REPORTS = [
     "min": "3197",
     "max": "3203",
     "actual": "3199",
-    "note": "Measured with steel tape."
+    "note": "Verified twice."
    },
    {
     "description": "Bucket depth",
-    "itemNo": "7",
+    "itemNo": "8",
     "nominal": "1450",
     "min": "1447",
     "max": "1453",
     "actual": "1450",
-    "note": "Verified twice."
+    "note": "Measured with steel tape."
    },
    {
     "description": "Pin centre distance",
-    "itemNo": "12",
+    "itemNo": "7",
     "nominal": "1180",
     "min": "1177",
     "max": "1183",
     "actual": "1181",
-    "note": "Measured with steel tape."
+    "note": "Verified twice."
    },
    {
     "description": "Back height",
-    "itemNo": "12",
+    "itemNo": "2",
     "nominal": "1620",
     "min": "1617",
     "max": "1623",
     "actual": "1619",
-    "note": "Measured with steel tape."
+    "note": "Verified twice."
    },
    {
     "description": "Side plate pitch",
-    "itemNo": "1",
+    "itemNo": "12",
     "nominal": "2960",
     "min": "2957",
     "max": "2963",
     "actual": "2960",
-    "note": ""
+    "note": "Measured with steel tape."
    }
   ],
   "coats": [],
   "photos": [],
   "createdAt": "2026-06-20T07:40:00.000Z",
-  "updatedAt": "2026-06-20T09:31:00.000Z",
+  "updatedAt": "2026-06-20T09:10:00.000Z",
   "synced": true,
-  "syncedAt": "2026-06-20T09:31:00.000Z"
+  "syncedAt": "2026-06-20T09:10:00.000Z"
  },
  {
   "id": "demo-1000310010-DIM-01",
@@ -8376,34 +8882,34 @@ export const SEED_REPORTS = [
    "sn": "BKT-0512-10",
    "unit": "BKT-0512-10",
    "customer": "Customer 03",
-   "drawingNo": "DWG-BKT-4114-R2",
+   "drawingNo": "DWG-BKT-4118-R1",
    "drawingFile": "N/A",
    "ncr": "Inspection carried out per the referenced procedure. No outstanding items.",
    "signInspector": {
     "name": "Inspector One",
-    "at": "2026-06-23T09:14:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-06-23T09:33:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-06-23T15:11:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-06-23T15:34:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
   "results": [
    {
     "description": "Lip width",
-    "itemNo": "5",
+    "itemNo": "4",
     "nominal": "3200",
     "min": "3197",
     "max": "3203",
     "actual": "3199",
-    "note": "Measured with steel tape."
+    "note": ""
    },
    {
     "description": "Bucket depth",
-    "itemNo": "6",
+    "itemNo": "5",
     "nominal": "1450",
     "min": "1447",
     "max": "1453",
@@ -8412,25 +8918,25 @@ export const SEED_REPORTS = [
    },
    {
     "description": "Pin centre distance",
-    "itemNo": "5",
+    "itemNo": "8",
     "nominal": "1180",
     "min": "1177",
     "max": "1183",
     "actual": "1181",
-    "note": "Verified twice."
+    "note": ""
    },
    {
     "description": "Back height",
-    "itemNo": "12",
+    "itemNo": "3",
     "nominal": "1620",
     "min": "1617",
     "max": "1623",
     "actual": "1619",
-    "note": "Measured with steel tape."
+    "note": ""
    },
    {
     "description": "Side plate pitch",
-    "itemNo": "7",
+    "itemNo": "9",
     "nominal": "2960",
     "min": "2957",
     "max": "2963",
@@ -8441,11 +8947,11 @@ export const SEED_REPORTS = [
   "coats": [],
   "photos": [],
   "createdAt": "2026-06-23T07:40:00.000Z",
-  "updatedAt": "2026-06-23T15:11:00.000Z",
+  "updatedAt": "2026-06-23T15:34:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-06-23T15:11:00.000Z",
-  "syncedAt": "2026-06-23T15:11:00.000Z"
+  "approvedAt": "2026-06-23T15:34:00.000Z",
+  "syncedAt": "2026-06-23T15:34:00.000Z"
  },
  {
   "id": "demo-1000320001-DIM-01",
@@ -8466,30 +8972,30 @@ export const SEED_REPORTS = [
    "sn": "WTK-0388-01",
    "unit": "WTK-0388-01",
    "customer": "Customer 05",
-   "drawingNo": "DWG-WTK-4128-R0",
+   "drawingNo": "DWG-WTK-4164-R0",
    "drawingFile": "N/A",
    "ncr": "Inspection carried out per the referenced procedure. No outstanding items.",
    "signInspector": {
     "name": "Inspector Two",
-    "at": "2026-06-26T09:29:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-06-26T09:15:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-06-26T15:09:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-06-26T15:28:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
   "results": [
    {
     "description": "Tank length",
-    "itemNo": "12",
+    "itemNo": "9",
     "nominal": "7200",
     "min": "7197",
     "max": "7203",
     "actual": "7199",
-    "note": ""
+    "note": "Measured with steel tape."
    },
    {
     "description": "Tank diameter",
@@ -8502,7 +9008,7 @@ export const SEED_REPORTS = [
    },
    {
     "description": "Sub-frame length",
-    "itemNo": "11",
+    "itemNo": "5",
     "nominal": "6800",
     "min": "6797",
     "max": "6803",
@@ -8511,31 +9017,42 @@ export const SEED_REPORTS = [
    },
    {
     "description": "Baffle pitch",
-    "itemNo": "8",
+    "itemNo": "1",
     "nominal": "1500",
     "min": "1497",
     "max": "1503",
     "actual": "1499",
-    "note": "Measured with steel tape."
+    "note": "Verified twice."
    },
    {
     "description": "Sump depth",
-    "itemNo": "7",
+    "itemNo": "6",
     "nominal": "320",
     "min": "317",
     "max": "323",
     "actual": "320",
-    "note": "Verified twice."
+    "note": ""
    }
   ],
   "coats": [],
-  "photos": [],
+  "photos": [
+   {
+    "id": "ph-tape-1221",
+    "label": "Tank length — 7199 mm",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23dedbd5'%2F%3E%3Crect%20y%3D'96'%20width%3D'400'%20height%3D'108'%20fill%3D'%23a9a49c'%2F%3E%3Crect%20y%3D'128'%20width%3D'400'%20height%3D'30'%20fill%3D'%23f0c419'%2F%3E%3Cg%20stroke%3D'%232a2a30'%20stroke-width%3D'2'%3E%3Cpath%20d%3D'M0%20128v30'%2F%3E%3Cpath%20d%3D'M20%20128v14'%2F%3E%3Cpath%20d%3D'M40%20128v14'%2F%3E%3Cpath%20d%3D'M60%20128v14'%2F%3E%3Cpath%20d%3D'M80%20128v14'%2F%3E%3Cpath%20d%3D'M100%20128v30'%2F%3E%3Cpath%20d%3D'M120%20128v14'%2F%3E%3Cpath%20d%3D'M140%20128v14'%2F%3E%3Cpath%20d%3D'M160%20128v14'%2F%3E%3Cpath%20d%3D'M180%20128v14'%2F%3E%3Cpath%20d%3D'M200%20128v30'%2F%3E%3Cpath%20d%3D'M220%20128v14'%2F%3E%3Cpath%20d%3D'M240%20128v14'%2F%3E%3Cpath%20d%3D'M260%20128v14'%2F%3E%3Cpath%20d%3D'M280%20128v14'%2F%3E%3Cpath%20d%3D'M300%20128v30'%2F%3E%3Cpath%20d%3D'M320%20128v14'%2F%3E%3Cpath%20d%3D'M340%20128v14'%2F%3E%3Cpath%20d%3D'M360%20128v14'%2F%3E%3Cpath%20d%3D'M380%20128v14'%2F%3E%3C%2Fg%3E%3Cg%20font-family%3D'monospace'%20font-size%3D'12'%20fill%3D'%232a2a30'%3E%3Ctext%20x%3D'4'%20y%3D'176'%3E0%3C%2Ftext%3E%3Ctext%20x%3D'104'%20y%3D'176'%3E500%3C%2Ftext%3E%3Ctext%20x%3D'204'%20y%3D'176'%3E1000%3C%2Ftext%3E%3Ctext%20x%3D'304'%20y%3D'176'%3E1500%3C%2Ftext%3E%3C%2Fg%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3ETank%20length%20%E2%80%94%207199%20mm%3C%2Ftext%3E%3C%2Fsvg%3E"
+   },
+   {
+    "id": "ph-unit-9976",
+    "label": "WATER TRUCK 20KL WTK-0388-01",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23c6d2da'%2F%3E%3Crect%20y%3D'196'%20width%3D'400'%20height%3D'104'%20fill%3D'%23b0a89c'%2F%3E%3Crect%20x%3D'40'%20y%3D'96'%20width%3D'320'%20height%3D'104'%20rx%3D'48'%20fill%3D'%23d8d4cc'%20stroke%3D'%235a564f'%20stroke-width%3D'4'%2F%3E%3Crect%20x%3D'34'%20y%3D'88'%20width%3D'332'%20height%3D'120'%20rx%3D'7'%20fill%3D'none'%20stroke%3D'%233f3b36'%20stroke-width%3D'5'%2F%3E%3Cg%20fill%3D'%235a564f'%3E%3Ccircle%20cx%3D'104'%20cy%3D'210'%20r%3D'19'%2F%3E%3Ccircle%20cx%3D'296'%20cy%3D'210'%20r%3D'19'%2F%3E%3C%2Fg%3E%3Cpath%20d%3D'M40%20148h320'%20stroke%3D'%23c8621e'%20stroke-width%3D'9'%2F%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EWATER%20TRUCK%2020KL%20WTK-0388-01%3C%2Ftext%3E%3C%2Fsvg%3E"
+   }
+  ],
   "createdAt": "2026-06-26T07:40:00.000Z",
-  "updatedAt": "2026-06-26T15:09:00.000Z",
+  "updatedAt": "2026-06-26T15:28:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-06-26T15:09:00.000Z",
-  "syncedAt": "2026-06-26T15:09:00.000Z"
+  "approvedAt": "2026-06-26T15:28:00.000Z",
+  "syncedAt": "2026-06-26T15:28:00.000Z"
  },
  {
   "id": "demo-1000320001-PT-01",
@@ -8560,29 +9077,29 @@ export const SEED_REPORTS = [
    "materialSpec": "ASTM A516 Gr.70",
    "ncrRef": "N/A",
    "lightEquip": "LED floodlight 50W",
-   "lightmeter": "LUX-002 · Digital Light Meter · Cal 2026-04-23",
-   "lightIntensity": "1316",
-   "penetrantMethod": "Water Washable",
+   "lightmeter": "LUX-001 · Digital Light Meter · Cal 2026-01-09",
+   "lightIntensity": "1517",
+   "penetrantMethod": "Post Emulsifier",
    "penetrantType": "Fluorescent",
-   "dwellTime": "25",
-   "applicationBy": "Other",
-   "appTemp": "96.9",
+   "dwellTime": "23",
+   "applicationBy": "Brushing",
+   "appTemp": "41.1",
    "developerType": "Aqueous",
-   "developingTime": "26.8",
-   "interpretationTime": "14.2",
+   "developingTime": "89.6",
+   "interpretationTime": "8.0",
    "cleaner": "Other",
-   "stage": "After Welding",
-   "weldingProcess": "GTAW",
+   "stage": "Other",
+   "weldingProcess": "FCAW",
    "scope": "Back Chipping",
    "signInspector": {
     "name": "Inspector Two",
-    "at": "2026-06-27T09:50:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-06-27T09:22:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-06-27T15:29:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-06-27T15:40:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
@@ -8590,7 +9107,15 @@ export const SEED_REPORTS = [
    {
     "partId": "Baffle to shell",
     "material": "ASTM A516 Gr.70",
-    "thickness": "11.3",
+    "thickness": "13.2",
+    "judgement": "Acc",
+    "discontinuity": "None",
+    "remark": "N/A"
+   },
+   {
+    "partId": "Filler neck",
+    "material": "ASTM A516 Gr.70",
+    "thickness": "7.4",
     "judgement": "Acc",
     "discontinuity": "None",
     "remark": "N/A"
@@ -8598,7 +9123,7 @@ export const SEED_REPORTS = [
    {
     "partId": "Baffle to shell",
     "material": "ASTM A516 Gr.70",
-    "thickness": "8.2",
+    "thickness": "9.3",
     "judgement": "Acc",
     "discontinuity": "None",
     "remark": "N/A"
@@ -8606,7 +9131,7 @@ export const SEED_REPORTS = [
    {
     "partId": "Tank barrel seam",
     "material": "ASTM A516 Gr.70",
-    "thickness": "7.7",
+    "thickness": "12.6",
     "judgement": "Acc",
     "discontinuity": "None",
     "remark": "N/A"
@@ -8614,28 +9139,31 @@ export const SEED_REPORTS = [
    {
     "partId": "Baffle to shell",
     "material": "ASTM A516 Gr.70",
-    "thickness": "9.1",
-    "judgement": "Acc",
-    "discontinuity": "None",
-    "remark": "N/A"
-   },
-   {
-    "partId": "Tank barrel seam",
-    "material": "ASTM A516 Gr.70",
-    "thickness": "6.0",
+    "thickness": "13.5",
     "judgement": "Acc",
     "discontinuity": "None",
     "remark": "N/A"
    }
   ],
   "coats": [],
-  "photos": [],
+  "photos": [
+   {
+    "id": "ph-weld-5865",
+    "label": "Baffle to shell after examination",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23cfcbc4'%2F%3E%3Cpath%20d%3D'M0%20150h400'%20stroke%3D'%238e8880'%20stroke-width%3D'58'%2F%3E%3Cpath%20d%3D'M0%20150q20%20-13%2040%200t40%200%2040%200%2040%200%2040%200%2040%200%2040%200%2040%200%2040%200%2040%200'%20fill%3D'none'%20stroke%3D'%23a8a29a'%20stroke-width%3D'30'%2F%3E%3Cpath%20d%3D'M0%20136q20%20-11%2040%200t40%200%2040%200%2040%200%2040%200%2040%200%2040%200%2040%200%2040%200%2040%200'%20fill%3D'none'%20stroke%3D'%23bdb7ae'%20stroke-width%3D'7'%2F%3E%3Cg%20fill%3D'%236e6a64'%3E%3Ccircle%20cx%3D'96'%20cy%3D'150'%20r%3D'4'%2F%3E%3Ccircle%20cx%3D'214'%20cy%3D'156'%20r%3D'3'%2F%3E%3Ccircle%20cx%3D'300'%20cy%3D'146'%20r%3D'3.5'%2F%3E%3C%2Fg%3E%3Crect%20x%3D'16'%20y%3D'232'%20width%3D'118'%20height%3D'30'%20fill%3D'%23f5f3ef'%20stroke%3D'%235a564f'%2F%3E%3Ctext%20x%3D'75'%20y%3D'253'%20font-family%3D'monospace'%20font-size%3D'16'%20fill%3D'%232a2a30'%20text-anchor%3D'middle'%3E10%20mm%3C%2Ftext%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EBaffle%20to%20shell%20after%20examination%3C%2Ftext%3E%3C%2Fsvg%3E"
+   },
+   {
+    "id": "ph-unit-6792",
+    "label": "WATER TRUCK 20KL WTK-0388-01",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23c6d2da'%2F%3E%3Crect%20y%3D'196'%20width%3D'400'%20height%3D'104'%20fill%3D'%23b0a89c'%2F%3E%3Crect%20x%3D'40'%20y%3D'96'%20width%3D'320'%20height%3D'104'%20rx%3D'48'%20fill%3D'%23d8d4cc'%20stroke%3D'%235a564f'%20stroke-width%3D'4'%2F%3E%3Crect%20x%3D'34'%20y%3D'88'%20width%3D'332'%20height%3D'120'%20rx%3D'7'%20fill%3D'none'%20stroke%3D'%233f3b36'%20stroke-width%3D'5'%2F%3E%3Cg%20fill%3D'%235a564f'%3E%3Ccircle%20cx%3D'104'%20cy%3D'210'%20r%3D'19'%2F%3E%3Ccircle%20cx%3D'296'%20cy%3D'210'%20r%3D'19'%2F%3E%3C%2Fg%3E%3Cpath%20d%3D'M40%20148h320'%20stroke%3D'%23c8621e'%20stroke-width%3D'9'%2F%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EWATER%20TRUCK%2020KL%20WTK-0388-01%3C%2Ftext%3E%3C%2Fsvg%3E"
+   }
+  ],
   "createdAt": "2026-06-27T07:40:00.000Z",
-  "updatedAt": "2026-06-27T15:29:00.000Z",
+  "updatedAt": "2026-06-27T15:40:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-06-27T15:29:00.000Z",
-  "syncedAt": "2026-06-27T15:29:00.000Z"
+  "approvedAt": "2026-06-27T15:40:00.000Z",
+  "syncedAt": "2026-06-27T15:40:00.000Z"
  },
  {
   "id": "demo-1000320001-LHT-01",
@@ -8659,7 +9187,7 @@ export const SEED_REPORTS = [
    "testType": "Hydrostatic Test",
    "testDesc": "Tank",
    "testMedia": "Water",
-   "pressureUnit": "PsiG",
+   "pressureUnit": "Bar",
    "gauges": "2 Gauges",
    "useRecorder": "Used",
    "useTemp": "Used",
@@ -8672,8 +9200,8 @@ export const SEED_REPORTS = [
    "map": "-",
    "testPressure": "6.0",
    "holding": "30",
-   "pg1": "PG-001 · Pressure Gauge 0–25 Bar · Cal 2026-01-14",
-   "pg2": "PG-002 · Pressure Gauge 0–25 Bar · Cal 2026-01-14",
+   "pg1": "PG-003 · Pressure Gauge 0–40 Bar · Cal 2026-03-02",
+   "pg2": "PG-001 · Pressure Gauge 0–25 Bar · Cal 2026-01-14",
    "pressRecorder": "BRT-002 · Chart Recorder · Cal 2026-04-08",
    "scale": "1 div = 0.2 Bar",
    "tempRecorder": "TMP-001 · Digital Thermometer · Cal 2026-01-20",
@@ -8681,71 +9209,82 @@ export const SEED_REPORTS = [
    "testResult": "Satisfactory",
    "signInspector": {
     "name": "Inspector Two",
-    "at": "2026-06-28T09:46:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-06-28T09:28:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-06-28T15:11:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-06-28T15:21:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [
    {
-    "time": "08:17",
+    "time": "08:49",
     "pg1": "0.00",
     "pg2": "0.00",
     "rec": "0.00",
-    "water": "28.6",
-    "ambient": "31.8",
-    "remark": "Start, 0 PsiG"
+    "water": "30.7",
+    "ambient": "31.7",
+    "remark": "Start, 0 Bar"
    },
    {
-    "time": "09:13",
+    "time": "09:30",
     "pg1": "5.99",
     "pg2": "5.99",
     "rec": "5.99",
-    "water": "28.1",
-    "ambient": "31.9",
+    "water": "28.9",
+    "ambient": "33.5",
     "remark": "Stable"
    },
    {
-    "time": "010:53",
+    "time": "010:51",
     "pg1": "5.98",
     "pg2": "5.98",
     "rec": "5.98",
-    "water": "29.5",
-    "ambient": "32.7",
+    "water": "29.0",
+    "ambient": "31.2",
     "remark": "Stable"
    },
    {
-    "time": "011:38",
+    "time": "011:43",
     "pg1": "5.97",
     "pg2": "5.97",
     "rec": "5.97",
-    "water": "30.2",
-    "ambient": "33.1",
+    "water": "29.7",
+    "ambient": "31.6",
     "remark": "Stable"
    },
    {
-    "time": "012:10",
+    "time": "012:44",
     "pg1": "5.96",
     "pg2": "5.96",
     "rec": "5.96",
-    "water": "28.7",
-    "ambient": "32.1",
+    "water": "28.9",
+    "ambient": "31.3",
     "remark": "Hold complete, no drop"
    }
   ],
   "results": [],
   "coats": [],
-  "photos": [],
+  "photos": [
+   {
+    "id": "ph-gauge-9541",
+    "label": "Test pressure held at 6.0 Bar",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23e8e6e1'%2F%3E%3Ccircle%20cx%3D'200'%20cy%3D'142'%20r%3D'96'%20fill%3D'%23fbfbf9'%20stroke%3D'%233a3a3f'%20stroke-width%3D'7'%2F%3E%3Ccircle%20cx%3D'200'%20cy%3D'142'%20r%3D'84'%20fill%3D'none'%20stroke%3D'%23c9c6bf'%20stroke-width%3D'1.5'%2F%3E%3Cg%20stroke%3D'%232a2a30'%20stroke-width%3D'3'%3E%3Cpath%20d%3D'M200%2066v14M274%20142h-14M200%20218v-14M126%20142h14M252%2090l-10%2010M252%20194l-10-10M148%20194l10-10M148%2090l10%2010'%2F%3E%3C%2Fg%3E%3Cpath%20d%3D'M200%20142L246%2096'%20stroke%3D'%23b3261e'%20stroke-width%3D'5'%20stroke-linecap%3D'round'%2F%3E%3Ccircle%20cx%3D'200'%20cy%3D'142'%20r%3D'9'%20fill%3D'%233a3a3f'%2F%3E%3Ctext%20x%3D'200'%20y%3D'190'%20font-family%3D'monospace'%20font-size%3D'15'%20fill%3D'%234a4a52'%20text-anchor%3D'middle'%3EBAR%3C%2Ftext%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3ETest%20pressure%20held%20at%206.0%20Bar%3C%2Ftext%3E%3C%2Fsvg%3E"
+   },
+   {
+    "id": "ph-unit-5042",
+    "label": "WATER TRUCK 20KL WTK-0388-01 under test",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23c6d2da'%2F%3E%3Crect%20y%3D'196'%20width%3D'400'%20height%3D'104'%20fill%3D'%23b0a89c'%2F%3E%3Crect%20x%3D'40'%20y%3D'96'%20width%3D'320'%20height%3D'104'%20rx%3D'48'%20fill%3D'%23d8d4cc'%20stroke%3D'%235a564f'%20stroke-width%3D'4'%2F%3E%3Crect%20x%3D'34'%20y%3D'88'%20width%3D'332'%20height%3D'120'%20rx%3D'7'%20fill%3D'none'%20stroke%3D'%233f3b36'%20stroke-width%3D'5'%2F%3E%3Cg%20fill%3D'%235a564f'%3E%3Ccircle%20cx%3D'104'%20cy%3D'210'%20r%3D'19'%2F%3E%3Ccircle%20cx%3D'296'%20cy%3D'210'%20r%3D'19'%2F%3E%3C%2Fg%3E%3Cpath%20d%3D'M40%20148h320'%20stroke%3D'%23c8621e'%20stroke-width%3D'9'%2F%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EWATER%20TRUCK%2020KL%20WTK-0388-01%20under%20test%3C%2Ftext%3E%3C%2Fsvg%3E"
+   }
+  ],
   "createdAt": "2026-06-28T07:40:00.000Z",
-  "updatedAt": "2026-06-28T15:11:00.000Z",
+  "updatedAt": "2026-06-28T15:21:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-06-28T15:11:00.000Z",
-  "syncedAt": "2026-06-28T15:11:00.000Z"
+  "approvedAt": "2026-06-28T15:21:00.000Z",
+  "syncedAt": "2026-06-28T15:21:00.000Z"
  },
  {
   "id": "demo-1000320001-BPR-01",
@@ -8770,27 +9309,27 @@ export const SEED_REPORTS = [
    "surfacePrep": "SA 2½",
    "sspc": "SP 10",
    "abrasive": "Steel grit G-40",
-   "anchorProfile": "59",
-   "dryTemp": "31.9",
+   "anchorProfile": "60",
+   "dryTemp": "30.9",
    "wetTemp": "25.8",
-   "matlTemp": "34.5",
-   "prepResult": "Acc",
+   "matlTemp": "32.6",
+   "prepResult": "Reject",
    "coatingPrep": "Second",
-   "paintDesc": "2-pack epoxy primer",
+   "paintDesc": "Epoxy mastic MIO",
    "thinner": "Epoxy thinner",
-   "batchPaint": "B26284",
-   "batchThinner": "T3775",
+   "batchPaint": "B25313",
+   "batchThinner": "T3492",
    "finalStatus": "Accept",
    "ncr": "Inspection carried out per the referenced procedure. No outstanding items.",
    "signInspector": {
     "name": "Inspector Two",
-    "at": "2026-06-29T09:23:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-06-29T09:32:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-06-29T15:06:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-06-29T15:34:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
@@ -8800,11 +9339,11 @@ export const SEED_REPORTS = [
     "coat": "Coat 1",
     "area": "Exterior — Zone A",
     "pts": [
-     "144",
-     "153",
+     "171",
      "125",
-     "139",
-     "141"
+     "128",
+     "161",
+     "139"
     ],
     "std": "120"
    },
@@ -8812,11 +9351,11 @@ export const SEED_REPORTS = [
     "coat": "Coat 2",
     "area": "Exterior — Zone B",
     "pts": [
-     "249",
-     "210",
-     "238",
-     "240",
-     "232"
+     "219",
+     "203",
+     "250",
+     "192",
+     "225"
     ],
     "std": "175"
    },
@@ -8824,22 +9363,33 @@ export const SEED_REPORTS = [
     "coat": "Coat 3",
     "area": "Frame & walkway",
     "pts": [
-     "201",
-     "226",
-     "184",
-     "182",
-     "249"
+     "236",
+     "241",
+     "259",
+     "181",
+     "229"
     ],
     "std": "175"
    }
   ],
-  "photos": [],
+  "photos": [
+   {
+    "id": "ph-coating-6462",
+    "label": "DFT reading, Second coat",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23d9d6d0'%2F%3E%3Crect%20y%3D'150'%20width%3D'400'%20height%3D'150'%20fill%3D'%236b6660'%2F%3E%3Crect%20y%3D'120'%20width%3D'400'%20height%3D'30'%20fill%3D'%23c8621e'%2F%3E%3Crect%20y%3D'104'%20width%3D'400'%20height%3D'16'%20fill%3D'%23d8d3cb'%2F%3E%3Cg%20stroke%3D'%232a2a30'%20stroke-width%3D'2.5'%3E%3Cpath%20d%3D'M300%20104v46M292%20104h16M292%20150h16'%2F%3E%3C%2Fg%3E%3Ctext%20x%3D'318'%20y%3D'132'%20font-family%3D'monospace'%20font-size%3D'17'%20fill%3D'%232a2a30'%3EDFT%3C%2Ftext%3E%3Crect%20x%3D'16'%20y%3D'226'%20width%3D'150'%20height%3D'34'%20rx%3D'4'%20fill%3D'%23fbfbf9'%20stroke%3D'%235a564f'%2F%3E%3Ctext%20x%3D'91'%20y%3D'250'%20font-family%3D'monospace'%20font-size%3D'18'%20fill%3D'%232a2a30'%20text-anchor%3D'middle'%3E168%20um%3C%2Ftext%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EDFT%20reading%2C%20Second%20coat%3C%2Ftext%3E%3C%2Fsvg%3E"
+   },
+   {
+    "id": "ph-unit-3707",
+    "label": "WATER TRUCK 20KL WTK-0388-01 after coating",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23c6d2da'%2F%3E%3Crect%20y%3D'196'%20width%3D'400'%20height%3D'104'%20fill%3D'%23b0a89c'%2F%3E%3Crect%20x%3D'40'%20y%3D'96'%20width%3D'320'%20height%3D'104'%20rx%3D'48'%20fill%3D'%23d8d4cc'%20stroke%3D'%235a564f'%20stroke-width%3D'4'%2F%3E%3Crect%20x%3D'34'%20y%3D'88'%20width%3D'332'%20height%3D'120'%20rx%3D'7'%20fill%3D'none'%20stroke%3D'%233f3b36'%20stroke-width%3D'5'%2F%3E%3Cg%20fill%3D'%235a564f'%3E%3Ccircle%20cx%3D'104'%20cy%3D'210'%20r%3D'19'%2F%3E%3Ccircle%20cx%3D'296'%20cy%3D'210'%20r%3D'19'%2F%3E%3C%2Fg%3E%3Cpath%20d%3D'M40%20148h320'%20stroke%3D'%23c8621e'%20stroke-width%3D'9'%2F%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EWATER%20TRUCK%2020KL%20WTK-0388-01%20after%20coating%3C%2Ftext%3E%3C%2Fsvg%3E"
+   }
+  ],
   "createdAt": "2026-06-29T07:40:00.000Z",
-  "updatedAt": "2026-06-29T15:06:00.000Z",
+  "updatedAt": "2026-06-29T15:34:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-06-29T15:06:00.000Z",
-  "syncedAt": "2026-06-29T15:06:00.000Z"
+  "approvedAt": "2026-06-29T15:34:00.000Z",
+  "syncedAt": "2026-06-29T15:34:00.000Z"
  },
  {
   "id": "demo-1000320001-VG-01",
@@ -8865,35 +9415,27 @@ export const SEED_REPORTS = [
    "ncr": "Inspection carried out per the referenced procedure. No outstanding items.",
    "signInspector": {
     "name": "Inspector Two",
-    "at": "2026-06-30T09:51:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-06-30T09:17:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-06-30T15:08:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-06-30T15:45:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
   "results": [
    {
-    "point": "Spray bar",
-    "welderId": "W-30",
-    "description": "Sub-frame length",
-    "judgement": "OK",
-    "defectType": "N/A",
-    "remark": "N/A"
-   },
-   {
-    "point": "Data plate",
-    "welderId": "W-21",
+    "point": "Pump guard",
+    "welderId": "W-45",
     "description": "Tank diameter",
     "judgement": "OK",
     "defectType": "N/A",
     "remark": "N/A"
    },
    {
-    "point": "Tank external",
+    "point": "Pump guard",
     "welderId": "W-48",
     "description": "Tank length",
     "judgement": "OK",
@@ -8901,8 +9443,16 @@ export const SEED_REPORTS = [
     "remark": "N/A"
    },
    {
-    "point": "Tank external",
-    "welderId": "W-41",
+    "point": "Pump guard",
+    "welderId": "W-38",
+    "description": "Tank length",
+    "judgement": "OK",
+    "defectType": "N/A",
+    "remark": "N/A"
+   },
+   {
+    "point": "Ladder & walkway",
+    "welderId": "W-35",
     "description": "Tank diameter",
     "judgement": "OK",
     "defectType": "N/A",
@@ -8910,21 +9460,32 @@ export const SEED_REPORTS = [
    },
    {
     "point": "Spray bar",
-    "welderId": "W-14",
-    "description": "Sub-frame length",
+    "welderId": "W-43",
+    "description": "Sump depth",
     "judgement": "OK",
     "defectType": "N/A",
     "remark": "N/A"
    }
   ],
   "coats": [],
-  "photos": [],
+  "photos": [
+   {
+    "id": "ph-unit-3522",
+    "label": "Pump guard",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23c6d2da'%2F%3E%3Crect%20y%3D'196'%20width%3D'400'%20height%3D'104'%20fill%3D'%23b0a89c'%2F%3E%3Crect%20x%3D'40'%20y%3D'96'%20width%3D'320'%20height%3D'104'%20rx%3D'48'%20fill%3D'%23d8d4cc'%20stroke%3D'%235a564f'%20stroke-width%3D'4'%2F%3E%3Crect%20x%3D'34'%20y%3D'88'%20width%3D'332'%20height%3D'120'%20rx%3D'7'%20fill%3D'none'%20stroke%3D'%233f3b36'%20stroke-width%3D'5'%2F%3E%3Cg%20fill%3D'%235a564f'%3E%3Ccircle%20cx%3D'104'%20cy%3D'210'%20r%3D'19'%2F%3E%3Ccircle%20cx%3D'296'%20cy%3D'210'%20r%3D'19'%2F%3E%3C%2Fg%3E%3Cpath%20d%3D'M40%20148h320'%20stroke%3D'%23c8621e'%20stroke-width%3D'9'%2F%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EPump%20guard%3C%2Ftext%3E%3C%2Fsvg%3E"
+   },
+   {
+    "id": "ph-plate-8643",
+    "label": "Data plate, WTK-0388-01",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23cdcac4'%2F%3E%3Crect%20x%3D'52'%20y%3D'58'%20width%3D'296'%20height%3D'184'%20rx%3D'5'%20fill%3D'%23b7b2ab'%20stroke%3D'%235a564f'%20stroke-width%3D'4'%2F%3E%3Cg%20font-family%3D'monospace'%20fill%3D'%23232328'%3E%3Ctext%20x%3D'76'%20y%3D'100'%20font-size%3D'19'%3EMANUFACTURING%20CO.%3C%2Ftext%3E%3Ctext%20x%3D'76'%20y%3D'134'%20font-size%3D'14'%3ESERIAL%3C%2Ftext%3E%3Ctext%20x%3D'76'%20y%3D'162'%20font-size%3D'14'%3EDESIGN%20P.%20%204.0%20BAR%3C%2Ftext%3E%3Ctext%20x%3D'76'%20y%3D'190'%20font-size%3D'14'%3ETEST%20P.%20%20%20%206.0%20BAR%3C%2Ftext%3E%3Ctext%20x%3D'76'%20y%3D'218'%20font-size%3D'14'%3EYEAR%20%20%20%20%20%20%202026%3C%2Ftext%3E%3C%2Fg%3E%3Cg%20fill%3D'%236e6a64'%3E%3Ccircle%20cx%3D'68'%20cy%3D'72'%20r%3D'5'%2F%3E%3Ccircle%20cx%3D'332'%20cy%3D'72'%20r%3D'5'%2F%3E%3Ccircle%20cx%3D'68'%20cy%3D'228'%20r%3D'5'%2F%3E%3Ccircle%20cx%3D'332'%20cy%3D'228'%20r%3D'5'%2F%3E%3C%2Fg%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EData%20plate%2C%20WTK-0388-01%3C%2Ftext%3E%3C%2Fsvg%3E"
+   }
+  ],
   "createdAt": "2026-06-30T07:40:00.000Z",
-  "updatedAt": "2026-06-30T15:08:00.000Z",
+  "updatedAt": "2026-06-30T15:45:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-06-30T15:08:00.000Z",
-  "syncedAt": "2026-06-30T15:08:00.000Z"
+  "approvedAt": "2026-06-30T15:45:00.000Z",
+  "syncedAt": "2026-06-30T15:45:00.000Z"
  },
  {
   "id": "demo-1000320002-DIM-01",
@@ -8945,25 +9506,25 @@ export const SEED_REPORTS = [
    "sn": "WTK-0388-02",
    "unit": "WTK-0388-02",
    "customer": "Customer 05",
-   "drawingNo": "DWG-WTK-4151-R2",
+   "drawingNo": "DWG-WTK-4120-R1",
    "drawingFile": "N/A",
    "ncr": "Inspection carried out per the referenced procedure. No outstanding items.",
    "signInspector": {
     "name": "Inspector One",
-    "at": "2026-06-29T09:23:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-06-29T09:50:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-06-29T15:39:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-06-29T15:28:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
   "results": [
    {
     "description": "Tank length",
-    "itemNo": "8",
+    "itemNo": "2",
     "nominal": "7200",
     "min": "7197",
     "max": "7203",
@@ -8972,21 +9533,21 @@ export const SEED_REPORTS = [
    },
    {
     "description": "Tank diameter",
-    "itemNo": "4",
+    "itemNo": "8",
     "nominal": "2200",
     "min": "2197",
     "max": "2203",
     "actual": "2200",
-    "note": "Verified twice."
+    "note": "Measured with steel tape."
    },
    {
     "description": "Sub-frame length",
-    "itemNo": "12",
+    "itemNo": "2",
     "nominal": "6800",
     "min": "6797",
     "max": "6803",
     "actual": "6801",
-    "note": ""
+    "note": "Measured with steel tape."
    },
    {
     "description": "Baffle pitch",
@@ -8999,22 +9560,33 @@ export const SEED_REPORTS = [
    },
    {
     "description": "Sump depth",
-    "itemNo": "6",
+    "itemNo": "7",
     "nominal": "320",
     "min": "317",
     "max": "323",
     "actual": "320",
-    "note": "Measured with steel tape."
+    "note": "Verified twice."
    }
   ],
   "coats": [],
-  "photos": [],
+  "photos": [
+   {
+    "id": "ph-tape-8850",
+    "label": "Tank length — 7199 mm",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23dedbd5'%2F%3E%3Crect%20y%3D'96'%20width%3D'400'%20height%3D'108'%20fill%3D'%23a9a49c'%2F%3E%3Crect%20y%3D'128'%20width%3D'400'%20height%3D'30'%20fill%3D'%23f0c419'%2F%3E%3Cg%20stroke%3D'%232a2a30'%20stroke-width%3D'2'%3E%3Cpath%20d%3D'M0%20128v30'%2F%3E%3Cpath%20d%3D'M20%20128v14'%2F%3E%3Cpath%20d%3D'M40%20128v14'%2F%3E%3Cpath%20d%3D'M60%20128v14'%2F%3E%3Cpath%20d%3D'M80%20128v14'%2F%3E%3Cpath%20d%3D'M100%20128v30'%2F%3E%3Cpath%20d%3D'M120%20128v14'%2F%3E%3Cpath%20d%3D'M140%20128v14'%2F%3E%3Cpath%20d%3D'M160%20128v14'%2F%3E%3Cpath%20d%3D'M180%20128v14'%2F%3E%3Cpath%20d%3D'M200%20128v30'%2F%3E%3Cpath%20d%3D'M220%20128v14'%2F%3E%3Cpath%20d%3D'M240%20128v14'%2F%3E%3Cpath%20d%3D'M260%20128v14'%2F%3E%3Cpath%20d%3D'M280%20128v14'%2F%3E%3Cpath%20d%3D'M300%20128v30'%2F%3E%3Cpath%20d%3D'M320%20128v14'%2F%3E%3Cpath%20d%3D'M340%20128v14'%2F%3E%3Cpath%20d%3D'M360%20128v14'%2F%3E%3Cpath%20d%3D'M380%20128v14'%2F%3E%3C%2Fg%3E%3Cg%20font-family%3D'monospace'%20font-size%3D'12'%20fill%3D'%232a2a30'%3E%3Ctext%20x%3D'4'%20y%3D'176'%3E0%3C%2Ftext%3E%3Ctext%20x%3D'104'%20y%3D'176'%3E500%3C%2Ftext%3E%3Ctext%20x%3D'204'%20y%3D'176'%3E1000%3C%2Ftext%3E%3Ctext%20x%3D'304'%20y%3D'176'%3E1500%3C%2Ftext%3E%3C%2Fg%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3ETank%20length%20%E2%80%94%207199%20mm%3C%2Ftext%3E%3C%2Fsvg%3E"
+   },
+   {
+    "id": "ph-unit-8601",
+    "label": "WATER TRUCK 30KL WTK-0388-02",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23c6d2da'%2F%3E%3Crect%20y%3D'196'%20width%3D'400'%20height%3D'104'%20fill%3D'%23b0a89c'%2F%3E%3Crect%20x%3D'40'%20y%3D'96'%20width%3D'320'%20height%3D'104'%20rx%3D'48'%20fill%3D'%23d8d4cc'%20stroke%3D'%235a564f'%20stroke-width%3D'4'%2F%3E%3Crect%20x%3D'34'%20y%3D'88'%20width%3D'332'%20height%3D'120'%20rx%3D'7'%20fill%3D'none'%20stroke%3D'%233f3b36'%20stroke-width%3D'5'%2F%3E%3Cg%20fill%3D'%235a564f'%3E%3Ccircle%20cx%3D'104'%20cy%3D'210'%20r%3D'19'%2F%3E%3Ccircle%20cx%3D'296'%20cy%3D'210'%20r%3D'19'%2F%3E%3C%2Fg%3E%3Cpath%20d%3D'M40%20148h320'%20stroke%3D'%23c8621e'%20stroke-width%3D'9'%2F%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EWATER%20TRUCK%2030KL%20WTK-0388-02%3C%2Ftext%3E%3C%2Fsvg%3E"
+   }
+  ],
   "createdAt": "2026-06-29T07:40:00.000Z",
-  "updatedAt": "2026-06-29T15:39:00.000Z",
+  "updatedAt": "2026-06-29T15:28:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-06-29T15:39:00.000Z",
-  "syncedAt": "2026-06-29T15:39:00.000Z"
+  "approvedAt": "2026-06-29T15:28:00.000Z",
+  "syncedAt": "2026-06-29T15:28:00.000Z"
  },
  {
   "id": "demo-1000320002-UT-01",
@@ -9040,104 +9612,115 @@ export const SEED_REPORTS = [
    "ncrRef": "N/A",
    "instrument": "Olympus EPOCH 650",
    "model": "EPOCH 650",
-   "serialNo": "SN-62332",
+   "serialNo": "SN-11497",
    "cable": "Coaxial BNC, 2.0 m",
    "couplant": "CMC gel",
-   "technique": "Contact — Angle Beam",
-   "scanSurface": "From B",
-   "scanTechnique": "Half to Full Skip Distance",
-   "scanDirection": "Swivel",
+   "technique": "Contact — Straight Beam",
+   "scanSurface": "From C",
+   "scanTechnique": "Other",
+   "scanDirection": "Essentially parallel to weld axis",
    "lengthInd": "14 dB Drop",
-   "heightInd": "14 dB Drop",
-   "suAngle": "45°",
-   "suSerial": "SU-4537",
-   "suFreq": "35.6",
+   "heightInd": "6 dB Drop",
+   "suAngle": "70°",
+   "suSerial": "SU-8286",
+   "suFreq": "49.7",
    "suSize": "10 mm dia.",
-   "blockId": "V2",
+   "blockId": "V1",
    "hole": "SDH Ø 2.4 mm",
-   "amplitude": "43",
+   "amplitude": "21",
    "refReflector": "IIW V1 block",
-   "refLevel": "60.3",
-   "scanLevel": "39.5",
-   "testRange": "50.7",
+   "refLevel": "43.8",
+   "scanLevel": "30.9",
+   "testRange": "38.7",
    "notes": "Inspection carried out per the referenced procedure. No outstanding items.",
    "signInspector": {
     "name": "Inspector One",
-    "at": "2026-06-30T09:31:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-06-30T09:17:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-06-30T15:14:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-06-30T15:05:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
   "results": [
    {
-    "partId": "Baffle to shell",
-    "thickness": "10.7",
-    "soundpath": "33.9",
-    "amplitude": "44",
-    "length": "25",
-    "depth": "2.9",
+    "partId": "Tank barrel seam",
+    "thickness": "13.6",
+    "soundpath": "18.4",
+    "amplitude": "28",
+    "length": "11",
+    "depth": "7.0",
+    "judgement": "Acc",
+    "discontinuity": "None",
+    "remark": "N/A"
+   },
+   {
+    "partId": "Tank barrel seam",
+    "thickness": "6.0",
+    "soundpath": "37.1",
+    "amplitude": "51",
+    "length": "15",
+    "depth": "3.0",
     "judgement": "Acc",
     "discontinuity": "None",
     "remark": "N/A"
    },
    {
     "partId": "Filler neck",
-    "thickness": "8.7",
-    "soundpath": "31.7",
-    "amplitude": "34",
+    "thickness": "9.7",
+    "soundpath": "41.8",
+    "amplitude": "25",
     "length": "24",
-    "depth": "3.5",
+    "depth": "11.2",
     "judgement": "Acc",
     "discontinuity": "None",
     "remark": "N/A"
    },
    {
-    "partId": "Filler neck",
-    "thickness": "12.1",
-    "soundpath": "54.6",
-    "amplitude": "20",
-    "length": "18",
-    "depth": "4.0",
+    "partId": "Tank barrel seam",
+    "thickness": "9.7",
+    "soundpath": "54.4",
+    "amplitude": "56",
+    "length": "20",
+    "depth": "11.8",
     "judgement": "Acc",
     "discontinuity": "None",
     "remark": "N/A"
    },
    {
-    "partId": "Baffle to shell",
-    "thickness": "10.0",
-    "soundpath": "39.0",
-    "amplitude": "58",
-    "length": "24",
-    "depth": "5.9",
-    "judgement": "Acc",
-    "discontinuity": "None",
-    "remark": "N/A"
-   },
-   {
-    "partId": "Filler neck",
-    "thickness": "13.9",
-    "soundpath": "11.4",
-    "amplitude": "52",
-    "length": "18",
-    "depth": "9.3",
+    "partId": "Tank barrel seam",
+    "thickness": "6.7",
+    "soundpath": "40.5",
+    "amplitude": "48",
+    "length": "4",
+    "depth": "2.4",
     "judgement": "Acc",
     "discontinuity": "None",
     "remark": "N/A"
    }
   ],
   "coats": [],
-  "photos": [],
+  "photos": [
+   {
+    "id": "ph-weld-9418",
+    "label": "Tank barrel seam after examination",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23cfcbc4'%2F%3E%3Cpath%20d%3D'M0%20150h400'%20stroke%3D'%238e8880'%20stroke-width%3D'58'%2F%3E%3Cpath%20d%3D'M0%20150q20%20-13%2040%200t40%200%2040%200%2040%200%2040%200%2040%200%2040%200%2040%200%2040%200%2040%200'%20fill%3D'none'%20stroke%3D'%23a8a29a'%20stroke-width%3D'30'%2F%3E%3Cpath%20d%3D'M0%20136q20%20-11%2040%200t40%200%2040%200%2040%200%2040%200%2040%200%2040%200%2040%200%2040%200%2040%200'%20fill%3D'none'%20stroke%3D'%23bdb7ae'%20stroke-width%3D'7'%2F%3E%3Cg%20fill%3D'%236e6a64'%3E%3Ccircle%20cx%3D'96'%20cy%3D'150'%20r%3D'4'%2F%3E%3Ccircle%20cx%3D'214'%20cy%3D'156'%20r%3D'3'%2F%3E%3Ccircle%20cx%3D'300'%20cy%3D'146'%20r%3D'3.5'%2F%3E%3C%2Fg%3E%3Crect%20x%3D'16'%20y%3D'232'%20width%3D'118'%20height%3D'30'%20fill%3D'%23f5f3ef'%20stroke%3D'%235a564f'%2F%3E%3Ctext%20x%3D'75'%20y%3D'253'%20font-family%3D'monospace'%20font-size%3D'16'%20fill%3D'%232a2a30'%20text-anchor%3D'middle'%3E10%20mm%3C%2Ftext%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3ETank%20barrel%20seam%20after%20examination%3C%2Ftext%3E%3C%2Fsvg%3E"
+   },
+   {
+    "id": "ph-unit-3238",
+    "label": "WATER TRUCK 30KL WTK-0388-02",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23c6d2da'%2F%3E%3Crect%20y%3D'196'%20width%3D'400'%20height%3D'104'%20fill%3D'%23b0a89c'%2F%3E%3Crect%20x%3D'40'%20y%3D'96'%20width%3D'320'%20height%3D'104'%20rx%3D'48'%20fill%3D'%23d8d4cc'%20stroke%3D'%235a564f'%20stroke-width%3D'4'%2F%3E%3Crect%20x%3D'34'%20y%3D'88'%20width%3D'332'%20height%3D'120'%20rx%3D'7'%20fill%3D'none'%20stroke%3D'%233f3b36'%20stroke-width%3D'5'%2F%3E%3Cg%20fill%3D'%235a564f'%3E%3Ccircle%20cx%3D'104'%20cy%3D'210'%20r%3D'19'%2F%3E%3Ccircle%20cx%3D'296'%20cy%3D'210'%20r%3D'19'%2F%3E%3C%2Fg%3E%3Cpath%20d%3D'M40%20148h320'%20stroke%3D'%23c8621e'%20stroke-width%3D'9'%2F%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EWATER%20TRUCK%2030KL%20WTK-0388-02%3C%2Ftext%3E%3C%2Fsvg%3E"
+   }
+  ],
   "createdAt": "2026-06-30T07:40:00.000Z",
-  "updatedAt": "2026-06-30T15:14:00.000Z",
+  "updatedAt": "2026-06-30T15:05:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-06-30T15:14:00.000Z",
-  "syncedAt": "2026-06-30T15:14:00.000Z"
+  "approvedAt": "2026-06-30T15:05:00.000Z",
+  "syncedAt": "2026-06-30T15:05:00.000Z"
  },
  {
   "id": "demo-1000320002-LHT-01",
@@ -9159,9 +9742,9 @@ export const SEED_REPORTS = [
    "unit": "WTK-0388-02",
    "customer": "Customer 05",
    "testType": "Hydrostatic Test",
-   "testDesc": "Tank",
+   "testDesc": "Pipe",
    "testMedia": "Water",
-   "pressureUnit": "PsiG",
+   "pressureUnit": "Bar",
    "gauges": "2 Gauges",
    "useRecorder": "Used",
    "useTemp": "Used",
@@ -9175,79 +9758,90 @@ export const SEED_REPORTS = [
    "testPressure": "6.0",
    "holding": "30",
    "pg1": "PG-001 · Pressure Gauge 0–25 Bar · Cal 2026-01-14",
-   "pg2": "PG-002 · Pressure Gauge 0–25 Bar · Cal 2026-01-14",
-   "pressRecorder": "BRT-002 · Chart Recorder · Cal 2026-04-08",
+   "pg2": "PG-003 · Pressure Gauge 0–40 Bar · Cal 2026-03-02",
+   "pressRecorder": "BRT-001 · Chart Recorder · Cal 2026-02-11",
    "scale": "1 div = 0.2 Bar",
    "tempRecorder": "TMP-001 · Digital Thermometer · Cal 2026-01-20",
    "tempGauge": "TG-012 · Dial Temperature Gauge · Cal 2026-06-02",
    "testResult": "Satisfactory",
    "signInspector": {
     "name": "Inspector One",
-    "at": "2026-07-01T09:10:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-07-01T09:18:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-07-01T15:50:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-07-01T15:41:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [
    {
-    "time": "08:12",
+    "time": "08:47",
     "pg1": "0.00",
     "pg2": "0.00",
     "rec": "0.00",
-    "water": "28.8",
-    "ambient": "33.4",
-    "remark": "Start, 0 PsiG"
+    "water": "28.9",
+    "ambient": "33.9",
+    "remark": "Start, 0 Bar"
    },
    {
-    "time": "09:13",
+    "time": "09:46",
     "pg1": "5.99",
     "pg2": "5.99",
     "rec": "5.99",
-    "water": "30.6",
-    "ambient": "31.0",
+    "water": "29.3",
+    "ambient": "31.9",
     "remark": "Stable"
    },
    {
-    "time": "010:28",
+    "time": "010:22",
     "pg1": "5.98",
     "pg2": "5.98",
     "rec": "5.98",
-    "water": "28.2",
-    "ambient": "30.5",
+    "water": "29.7",
+    "ambient": "31.4",
     "remark": "Stable"
    },
    {
-    "time": "011:33",
+    "time": "011:30",
     "pg1": "5.97",
     "pg2": "5.97",
     "rec": "5.97",
-    "water": "30.8",
-    "ambient": "30.3",
+    "water": "29.0",
+    "ambient": "32.1",
     "remark": "Stable"
    },
    {
-    "time": "012:33",
+    "time": "012:08",
     "pg1": "5.96",
     "pg2": "5.96",
     "rec": "5.96",
-    "water": "28.9",
-    "ambient": "30.2",
+    "water": "29.4",
+    "ambient": "30.0",
     "remark": "Hold complete, no drop"
    }
   ],
   "results": [],
   "coats": [],
-  "photos": [],
+  "photos": [
+   {
+    "id": "ph-gauge-2914",
+    "label": "Test pressure held at 6.0 Bar",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23e8e6e1'%2F%3E%3Ccircle%20cx%3D'200'%20cy%3D'142'%20r%3D'96'%20fill%3D'%23fbfbf9'%20stroke%3D'%233a3a3f'%20stroke-width%3D'7'%2F%3E%3Ccircle%20cx%3D'200'%20cy%3D'142'%20r%3D'84'%20fill%3D'none'%20stroke%3D'%23c9c6bf'%20stroke-width%3D'1.5'%2F%3E%3Cg%20stroke%3D'%232a2a30'%20stroke-width%3D'3'%3E%3Cpath%20d%3D'M200%2066v14M274%20142h-14M200%20218v-14M126%20142h14M252%2090l-10%2010M252%20194l-10-10M148%20194l10-10M148%2090l10%2010'%2F%3E%3C%2Fg%3E%3Cpath%20d%3D'M200%20142L246%2096'%20stroke%3D'%23b3261e'%20stroke-width%3D'5'%20stroke-linecap%3D'round'%2F%3E%3Ccircle%20cx%3D'200'%20cy%3D'142'%20r%3D'9'%20fill%3D'%233a3a3f'%2F%3E%3Ctext%20x%3D'200'%20y%3D'190'%20font-family%3D'monospace'%20font-size%3D'15'%20fill%3D'%234a4a52'%20text-anchor%3D'middle'%3EBAR%3C%2Ftext%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3ETest%20pressure%20held%20at%206.0%20Bar%3C%2Ftext%3E%3C%2Fsvg%3E"
+   },
+   {
+    "id": "ph-unit-5215",
+    "label": "WATER TRUCK 30KL WTK-0388-02 under test",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23c6d2da'%2F%3E%3Crect%20y%3D'196'%20width%3D'400'%20height%3D'104'%20fill%3D'%23b0a89c'%2F%3E%3Crect%20x%3D'40'%20y%3D'96'%20width%3D'320'%20height%3D'104'%20rx%3D'48'%20fill%3D'%23d8d4cc'%20stroke%3D'%235a564f'%20stroke-width%3D'4'%2F%3E%3Crect%20x%3D'34'%20y%3D'88'%20width%3D'332'%20height%3D'120'%20rx%3D'7'%20fill%3D'none'%20stroke%3D'%233f3b36'%20stroke-width%3D'5'%2F%3E%3Cg%20fill%3D'%235a564f'%3E%3Ccircle%20cx%3D'104'%20cy%3D'210'%20r%3D'19'%2F%3E%3Ccircle%20cx%3D'296'%20cy%3D'210'%20r%3D'19'%2F%3E%3C%2Fg%3E%3Cpath%20d%3D'M40%20148h320'%20stroke%3D'%23c8621e'%20stroke-width%3D'9'%2F%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EWATER%20TRUCK%2030KL%20WTK-0388-02%20under%20test%3C%2Ftext%3E%3C%2Fsvg%3E"
+   }
+  ],
   "createdAt": "2026-07-01T07:40:00.000Z",
-  "updatedAt": "2026-07-01T15:50:00.000Z",
+  "updatedAt": "2026-07-01T15:41:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-07-01T15:50:00.000Z",
-  "syncedAt": "2026-07-01T15:50:00.000Z"
+  "approvedAt": "2026-07-01T15:41:00.000Z",
+  "syncedAt": "2026-07-01T15:41:00.000Z"
  },
  {
   "id": "demo-1000320002-BPR-01",
@@ -9272,27 +9866,27 @@ export const SEED_REPORTS = [
    "surfacePrep": "SA 2½",
    "sspc": "SP 10",
    "abrasive": "Steel grit G-40",
-   "anchorProfile": "71",
-   "dryTemp": "32.9",
-   "wetTemp": "24.6",
-   "matlTemp": "31.2",
+   "anchorProfile": "53",
+   "dryTemp": "33.0",
+   "wetTemp": "25.0",
+   "matlTemp": "34.7",
    "prepResult": "Acc",
-   "coatingPrep": "Second",
-   "paintDesc": "Epoxy mastic MIO",
+   "coatingPrep": "Primer",
+   "paintDesc": "Polyurethane topcoat",
    "thinner": "Epoxy thinner",
-   "batchPaint": "B21929",
-   "batchThinner": "T3223",
+   "batchPaint": "B29278",
+   "batchThinner": "T3015",
    "finalStatus": "Accept",
    "ncr": "Inspection carried out per the referenced procedure. No outstanding items.",
    "signInspector": {
     "name": "Inspector One",
-    "at": "2026-07-02T09:48:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-07-02T09:49:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-07-02T15:45:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-07-02T15:41:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
@@ -9302,11 +9896,11 @@ export const SEED_REPORTS = [
     "coat": "Coat 1",
     "area": "Exterior — Zone A",
     "pts": [
-     "123",
-     "127",
-     "159",
-     "128",
-     "142"
+     "129",
+     "140",
+     "153",
+     "141",
+     "175"
     ],
     "std": "120"
    },
@@ -9314,11 +9908,11 @@ export const SEED_REPORTS = [
     "coat": "Coat 2",
     "area": "Exterior — Zone B",
     "pts": [
-     "240",
-     "182",
-     "253",
-     "195",
-     "224"
+     "214",
+     "194",
+     "211",
+     "212",
+     "217"
     ],
     "std": "175"
    },
@@ -9326,22 +9920,33 @@ export const SEED_REPORTS = [
     "coat": "Coat 3",
     "area": "Frame & walkway",
     "pts": [
-     "197",
-     "210",
-     "237",
-     "187",
-     "208"
+     "225",
+     "221",
+     "227",
+     "204",
+     "236"
     ],
     "std": "175"
    }
   ],
-  "photos": [],
+  "photos": [
+   {
+    "id": "ph-coating-8229",
+    "label": "DFT reading, Primer coat",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23d9d6d0'%2F%3E%3Crect%20y%3D'150'%20width%3D'400'%20height%3D'150'%20fill%3D'%236b6660'%2F%3E%3Crect%20y%3D'120'%20width%3D'400'%20height%3D'30'%20fill%3D'%23c8621e'%2F%3E%3Crect%20y%3D'104'%20width%3D'400'%20height%3D'16'%20fill%3D'%23d8d3cb'%2F%3E%3Cg%20stroke%3D'%232a2a30'%20stroke-width%3D'2.5'%3E%3Cpath%20d%3D'M300%20104v46M292%20104h16M292%20150h16'%2F%3E%3C%2Fg%3E%3Ctext%20x%3D'318'%20y%3D'132'%20font-family%3D'monospace'%20font-size%3D'17'%20fill%3D'%232a2a30'%3EDFT%3C%2Ftext%3E%3Crect%20x%3D'16'%20y%3D'226'%20width%3D'150'%20height%3D'34'%20rx%3D'4'%20fill%3D'%23fbfbf9'%20stroke%3D'%235a564f'%2F%3E%3Ctext%20x%3D'91'%20y%3D'250'%20font-family%3D'monospace'%20font-size%3D'18'%20fill%3D'%232a2a30'%20text-anchor%3D'middle'%3E168%20um%3C%2Ftext%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EDFT%20reading%2C%20Primer%20coat%3C%2Ftext%3E%3C%2Fsvg%3E"
+   },
+   {
+    "id": "ph-unit-8128",
+    "label": "WATER TRUCK 30KL WTK-0388-02 after coating",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23c6d2da'%2F%3E%3Crect%20y%3D'196'%20width%3D'400'%20height%3D'104'%20fill%3D'%23b0a89c'%2F%3E%3Crect%20x%3D'40'%20y%3D'96'%20width%3D'320'%20height%3D'104'%20rx%3D'48'%20fill%3D'%23d8d4cc'%20stroke%3D'%235a564f'%20stroke-width%3D'4'%2F%3E%3Crect%20x%3D'34'%20y%3D'88'%20width%3D'332'%20height%3D'120'%20rx%3D'7'%20fill%3D'none'%20stroke%3D'%233f3b36'%20stroke-width%3D'5'%2F%3E%3Cg%20fill%3D'%235a564f'%3E%3Ccircle%20cx%3D'104'%20cy%3D'210'%20r%3D'19'%2F%3E%3Ccircle%20cx%3D'296'%20cy%3D'210'%20r%3D'19'%2F%3E%3C%2Fg%3E%3Cpath%20d%3D'M40%20148h320'%20stroke%3D'%23c8621e'%20stroke-width%3D'9'%2F%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EWATER%20TRUCK%2030KL%20WTK-0388-02%20after%20coating%3C%2Ftext%3E%3C%2Fsvg%3E"
+   }
+  ],
   "createdAt": "2026-07-02T07:40:00.000Z",
-  "updatedAt": "2026-07-02T15:45:00.000Z",
+  "updatedAt": "2026-07-02T15:41:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-07-02T15:45:00.000Z",
-  "syncedAt": "2026-07-02T15:45:00.000Z"
+  "approvedAt": "2026-07-02T15:41:00.000Z",
+  "syncedAt": "2026-07-02T15:41:00.000Z"
  },
  {
   "id": "demo-1000320002-VG-01",
@@ -9367,20 +9972,28 @@ export const SEED_REPORTS = [
    "ncr": "Inspection carried out per the referenced procedure. No outstanding items.",
    "signInspector": {
     "name": "Inspector One",
-    "at": "2026-07-03T09:24:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-07-03T09:36:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-07-03T15:27:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-07-03T15:49:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
   "results": [
    {
-    "point": "Spray bar",
-    "welderId": "W-10",
+    "point": "Pump guard",
+    "welderId": "W-48",
+    "description": "Tank diameter",
+    "judgement": "OK",
+    "defectType": "N/A",
+    "remark": "N/A"
+   },
+   {
+    "point": "Data plate",
+    "welderId": "W-30",
     "description": "Tank length",
     "judgement": "OK",
     "defectType": "N/A",
@@ -9388,23 +10001,7 @@ export const SEED_REPORTS = [
    },
    {
     "point": "Data plate",
-    "welderId": "W-40",
-    "description": "Sub-frame length",
-    "judgement": "OK",
-    "defectType": "N/A",
-    "remark": "N/A"
-   },
-   {
-    "point": "Data plate",
-    "welderId": "W-41",
-    "description": "Sub-frame length",
-    "judgement": "OK",
-    "defectType": "N/A",
-    "remark": "N/A"
-   },
-   {
-    "point": "Tank external",
-    "welderId": "W-26",
+    "welderId": "W-47",
     "description": "Tank diameter",
     "judgement": "OK",
     "defectType": "N/A",
@@ -9412,21 +10009,40 @@ export const SEED_REPORTS = [
    },
    {
     "point": "Tank external",
-    "welderId": "W-47",
-    "description": "Tank length",
+    "welderId": "W-31",
+    "description": "Sub-frame length",
+    "judgement": "OK",
+    "defectType": "N/A",
+    "remark": "N/A"
+   },
+   {
+    "point": "Ladder & walkway",
+    "welderId": "W-33",
+    "description": "Tank diameter",
     "judgement": "OK",
     "defectType": "N/A",
     "remark": "N/A"
    }
   ],
   "coats": [],
-  "photos": [],
+  "photos": [
+   {
+    "id": "ph-unit-6531",
+    "label": "Pump guard",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23c6d2da'%2F%3E%3Crect%20y%3D'196'%20width%3D'400'%20height%3D'104'%20fill%3D'%23b0a89c'%2F%3E%3Crect%20x%3D'40'%20y%3D'96'%20width%3D'320'%20height%3D'104'%20rx%3D'48'%20fill%3D'%23d8d4cc'%20stroke%3D'%235a564f'%20stroke-width%3D'4'%2F%3E%3Crect%20x%3D'34'%20y%3D'88'%20width%3D'332'%20height%3D'120'%20rx%3D'7'%20fill%3D'none'%20stroke%3D'%233f3b36'%20stroke-width%3D'5'%2F%3E%3Cg%20fill%3D'%235a564f'%3E%3Ccircle%20cx%3D'104'%20cy%3D'210'%20r%3D'19'%2F%3E%3Ccircle%20cx%3D'296'%20cy%3D'210'%20r%3D'19'%2F%3E%3C%2Fg%3E%3Cpath%20d%3D'M40%20148h320'%20stroke%3D'%23c8621e'%20stroke-width%3D'9'%2F%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EPump%20guard%3C%2Ftext%3E%3C%2Fsvg%3E"
+   },
+   {
+    "id": "ph-plate-8847",
+    "label": "Data plate, WTK-0388-02",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23cdcac4'%2F%3E%3Crect%20x%3D'52'%20y%3D'58'%20width%3D'296'%20height%3D'184'%20rx%3D'5'%20fill%3D'%23b7b2ab'%20stroke%3D'%235a564f'%20stroke-width%3D'4'%2F%3E%3Cg%20font-family%3D'monospace'%20fill%3D'%23232328'%3E%3Ctext%20x%3D'76'%20y%3D'100'%20font-size%3D'19'%3EMANUFACTURING%20CO.%3C%2Ftext%3E%3Ctext%20x%3D'76'%20y%3D'134'%20font-size%3D'14'%3ESERIAL%3C%2Ftext%3E%3Ctext%20x%3D'76'%20y%3D'162'%20font-size%3D'14'%3EDESIGN%20P.%20%204.0%20BAR%3C%2Ftext%3E%3Ctext%20x%3D'76'%20y%3D'190'%20font-size%3D'14'%3ETEST%20P.%20%20%20%206.0%20BAR%3C%2Ftext%3E%3Ctext%20x%3D'76'%20y%3D'218'%20font-size%3D'14'%3EYEAR%20%20%20%20%20%20%202026%3C%2Ftext%3E%3C%2Fg%3E%3Cg%20fill%3D'%236e6a64'%3E%3Ccircle%20cx%3D'68'%20cy%3D'72'%20r%3D'5'%2F%3E%3Ccircle%20cx%3D'332'%20cy%3D'72'%20r%3D'5'%2F%3E%3Ccircle%20cx%3D'68'%20cy%3D'228'%20r%3D'5'%2F%3E%3Ccircle%20cx%3D'332'%20cy%3D'228'%20r%3D'5'%2F%3E%3C%2Fg%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EData%20plate%2C%20WTK-0388-02%3C%2Ftext%3E%3C%2Fsvg%3E"
+   }
+  ],
   "createdAt": "2026-07-03T07:40:00.000Z",
-  "updatedAt": "2026-07-03T15:27:00.000Z",
+  "updatedAt": "2026-07-03T15:49:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-07-03T15:27:00.000Z",
-  "syncedAt": "2026-07-03T15:27:00.000Z"
+  "approvedAt": "2026-07-03T15:49:00.000Z",
+  "syncedAt": "2026-07-03T15:49:00.000Z"
  },
  {
   "id": "demo-1000320003-DIM-01",
@@ -9447,25 +10063,25 @@ export const SEED_REPORTS = [
    "sn": "WTK-0388-03",
    "unit": "WTK-0388-03",
    "customer": "Customer 05",
-   "drawingNo": "DWG-WTK-4144-R0",
+   "drawingNo": "DWG-WTK-4175-R0",
    "drawingFile": "N/A",
    "ncr": "Inspection carried out per the referenced procedure. No outstanding items.",
    "signInspector": {
     "name": "Inspector Two",
-    "at": "2026-07-02T09:50:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-07-02T09:10:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-07-02T15:47:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-07-02T15:11:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
   "results": [
    {
     "description": "Tank length",
-    "itemNo": "8",
+    "itemNo": "1",
     "nominal": "7200",
     "min": "7197",
     "max": "7203",
@@ -9474,7 +10090,7 @@ export const SEED_REPORTS = [
    },
    {
     "description": "Tank diameter",
-    "itemNo": "9",
+    "itemNo": "8",
     "nominal": "2200",
     "min": "2197",
     "max": "2203",
@@ -9483,40 +10099,51 @@ export const SEED_REPORTS = [
    },
    {
     "description": "Sub-frame length",
-    "itemNo": "12",
+    "itemNo": "6",
     "nominal": "6800",
     "min": "6797",
     "max": "6803",
     "actual": "6801",
-    "note": "Measured with steel tape."
+    "note": "Verified twice."
    },
    {
     "description": "Baffle pitch",
-    "itemNo": "9",
+    "itemNo": "12",
     "nominal": "1500",
     "min": "1497",
     "max": "1503",
     "actual": "1499",
-    "note": ""
+    "note": "Measured with steel tape."
    },
    {
     "description": "Sump depth",
-    "itemNo": "2",
+    "itemNo": "6",
     "nominal": "320",
     "min": "317",
     "max": "323",
     "actual": "320",
-    "note": "Measured with steel tape."
+    "note": "Verified twice."
    }
   ],
   "coats": [],
-  "photos": [],
+  "photos": [
+   {
+    "id": "ph-tape-5532",
+    "label": "Tank length — 7199 mm",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23dedbd5'%2F%3E%3Crect%20y%3D'96'%20width%3D'400'%20height%3D'108'%20fill%3D'%23a9a49c'%2F%3E%3Crect%20y%3D'128'%20width%3D'400'%20height%3D'30'%20fill%3D'%23f0c419'%2F%3E%3Cg%20stroke%3D'%232a2a30'%20stroke-width%3D'2'%3E%3Cpath%20d%3D'M0%20128v30'%2F%3E%3Cpath%20d%3D'M20%20128v14'%2F%3E%3Cpath%20d%3D'M40%20128v14'%2F%3E%3Cpath%20d%3D'M60%20128v14'%2F%3E%3Cpath%20d%3D'M80%20128v14'%2F%3E%3Cpath%20d%3D'M100%20128v30'%2F%3E%3Cpath%20d%3D'M120%20128v14'%2F%3E%3Cpath%20d%3D'M140%20128v14'%2F%3E%3Cpath%20d%3D'M160%20128v14'%2F%3E%3Cpath%20d%3D'M180%20128v14'%2F%3E%3Cpath%20d%3D'M200%20128v30'%2F%3E%3Cpath%20d%3D'M220%20128v14'%2F%3E%3Cpath%20d%3D'M240%20128v14'%2F%3E%3Cpath%20d%3D'M260%20128v14'%2F%3E%3Cpath%20d%3D'M280%20128v14'%2F%3E%3Cpath%20d%3D'M300%20128v30'%2F%3E%3Cpath%20d%3D'M320%20128v14'%2F%3E%3Cpath%20d%3D'M340%20128v14'%2F%3E%3Cpath%20d%3D'M360%20128v14'%2F%3E%3Cpath%20d%3D'M380%20128v14'%2F%3E%3C%2Fg%3E%3Cg%20font-family%3D'monospace'%20font-size%3D'12'%20fill%3D'%232a2a30'%3E%3Ctext%20x%3D'4'%20y%3D'176'%3E0%3C%2Ftext%3E%3Ctext%20x%3D'104'%20y%3D'176'%3E500%3C%2Ftext%3E%3Ctext%20x%3D'204'%20y%3D'176'%3E1000%3C%2Ftext%3E%3Ctext%20x%3D'304'%20y%3D'176'%3E1500%3C%2Ftext%3E%3C%2Fg%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3ETank%20length%20%E2%80%94%207199%20mm%3C%2Ftext%3E%3C%2Fsvg%3E"
+   },
+   {
+    "id": "ph-unit-2209",
+    "label": "WATER TRUCK 35KL WTK-0388-03",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23c6d2da'%2F%3E%3Crect%20y%3D'196'%20width%3D'400'%20height%3D'104'%20fill%3D'%23b0a89c'%2F%3E%3Crect%20x%3D'40'%20y%3D'96'%20width%3D'320'%20height%3D'104'%20rx%3D'48'%20fill%3D'%23d8d4cc'%20stroke%3D'%235a564f'%20stroke-width%3D'4'%2F%3E%3Crect%20x%3D'34'%20y%3D'88'%20width%3D'332'%20height%3D'120'%20rx%3D'7'%20fill%3D'none'%20stroke%3D'%233f3b36'%20stroke-width%3D'5'%2F%3E%3Cg%20fill%3D'%235a564f'%3E%3Ccircle%20cx%3D'104'%20cy%3D'210'%20r%3D'19'%2F%3E%3Ccircle%20cx%3D'296'%20cy%3D'210'%20r%3D'19'%2F%3E%3C%2Fg%3E%3Cpath%20d%3D'M40%20148h320'%20stroke%3D'%23c8621e'%20stroke-width%3D'9'%2F%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EWATER%20TRUCK%2035KL%20WTK-0388-03%3C%2Ftext%3E%3C%2Fsvg%3E"
+   }
+  ],
   "createdAt": "2026-07-02T07:40:00.000Z",
-  "updatedAt": "2026-07-02T15:47:00.000Z",
+  "updatedAt": "2026-07-02T15:11:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-07-02T15:47:00.000Z",
-  "syncedAt": "2026-07-02T15:47:00.000Z"
+  "approvedAt": "2026-07-02T15:11:00.000Z",
+  "syncedAt": "2026-07-02T15:11:00.000Z"
  },
  {
   "id": "demo-1000320003-MT-01",
@@ -9541,66 +10168,48 @@ export const SEED_REPORTS = [
    "materialSpec": "ASTM A516 Gr.70",
    "ncrRef": "N/A",
    "lightEquip": "LED floodlight 50W",
-   "lightmeter": "LUX-002 · Digital Light Meter · Cal 2026-04-23",
-   "lightIntensity": "1234",
-   "mtEquipment": "Coil",
+   "lightmeter": "LUX-001 · Digital Light Meter · Cal 2026-01-09",
+   "lightIntensity": "1156",
+   "mtEquipment": "Yoke",
    "equipId": "YK-2201",
    "currentType": "Other",
-   "particle": "Dry",
+   "particle": "Wet (WPC2/7HF)",
    "particleApp": "Spray",
    "brand": "Magnaflux 7HF",
-   "particleDesc": "Wet fluorescent, batch WF574",
-   "whiteContrast": "Contrast paint, batch WC269",
-   "cleanerBatch": "Solvent cleaner, batch CL379",
+   "particleDesc": "Wet fluorescent, batch WF877",
+   "whiteContrast": "Contrast paint, batch WC297",
+   "cleanerBatch": "Solvent cleaner, batch CL676",
    "method": "Residual",
    "surfacePreparation": "Machining",
-   "stage": "After Hydrostatic",
-   "weldingProcess": "GTAW",
-   "scope": "Weld Part",
+   "stage": "Other",
+   "weldingProcess": "Other",
+   "scope": "Other",
    "signInspector": {
     "name": "Inspector Two",
-    "at": "2026-07-03T09:29:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-07-03T09:38:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-07-03T15:12:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-07-03T15:32:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
   "results": [
    {
-    "partId": "Tank barrel seam",
-    "material": "ASTM A516 Gr.70",
-    "weldNo": "WS-39",
-    "thickness": "7.7",
-    "judgement": "Acc",
-    "discontinuity": "None",
-    "remark": "N/A"
-   },
-   {
-    "partId": "Tank barrel seam",
-    "material": "ASTM A516 Gr.70",
-    "weldNo": "WS-32",
-    "thickness": "7.1",
-    "judgement": "Acc",
-    "discontinuity": "None",
-    "remark": "N/A"
-   },
-   {
-    "partId": "Baffle to shell",
-    "material": "ASTM A516 Gr.70",
-    "weldNo": "WS-38",
-    "thickness": "8.0",
-    "judgement": "Acc",
-    "discontinuity": "None",
-    "remark": "N/A"
-   },
-   {
     "partId": "Filler neck",
     "material": "ASTM A516 Gr.70",
-    "weldNo": "WS-38",
+    "weldNo": "WS-12",
+    "thickness": "7.3",
+    "judgement": "Acc",
+    "discontinuity": "None",
+    "remark": "N/A"
+   },
+   {
+    "partId": "Chassis mounting bracket",
+    "material": "ASTM A516 Gr.70",
+    "weldNo": "WS-10",
     "thickness": "6.1",
     "judgement": "Acc",
     "discontinuity": "None",
@@ -9609,21 +10218,50 @@ export const SEED_REPORTS = [
    {
     "partId": "Baffle to shell",
     "material": "ASTM A516 Gr.70",
-    "weldNo": "WS-24",
-    "thickness": "9.0",
+    "weldNo": "WS-6",
+    "thickness": "7.1",
+    "judgement": "Acc",
+    "discontinuity": "None",
+    "remark": "N/A"
+   },
+   {
+    "partId": "Tank barrel seam",
+    "material": "ASTM A516 Gr.70",
+    "weldNo": "WS-3",
+    "thickness": "7.8",
+    "judgement": "Acc",
+    "discontinuity": "None",
+    "remark": "N/A"
+   },
+   {
+    "partId": "Sump weld",
+    "material": "ASTM A516 Gr.70",
+    "weldNo": "WS-28",
+    "thickness": "13.4",
     "judgement": "Acc",
     "discontinuity": "None",
     "remark": "N/A"
    }
   ],
   "coats": [],
-  "photos": [],
+  "photos": [
+   {
+    "id": "ph-weld-7765",
+    "label": "Filler neck after examination",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23cfcbc4'%2F%3E%3Cpath%20d%3D'M0%20150h400'%20stroke%3D'%238e8880'%20stroke-width%3D'58'%2F%3E%3Cpath%20d%3D'M0%20150q20%20-13%2040%200t40%200%2040%200%2040%200%2040%200%2040%200%2040%200%2040%200%2040%200%2040%200'%20fill%3D'none'%20stroke%3D'%23a8a29a'%20stroke-width%3D'30'%2F%3E%3Cpath%20d%3D'M0%20136q20%20-11%2040%200t40%200%2040%200%2040%200%2040%200%2040%200%2040%200%2040%200%2040%200%2040%200'%20fill%3D'none'%20stroke%3D'%23bdb7ae'%20stroke-width%3D'7'%2F%3E%3Cg%20fill%3D'%236e6a64'%3E%3Ccircle%20cx%3D'96'%20cy%3D'150'%20r%3D'4'%2F%3E%3Ccircle%20cx%3D'214'%20cy%3D'156'%20r%3D'3'%2F%3E%3Ccircle%20cx%3D'300'%20cy%3D'146'%20r%3D'3.5'%2F%3E%3C%2Fg%3E%3Crect%20x%3D'16'%20y%3D'232'%20width%3D'118'%20height%3D'30'%20fill%3D'%23f5f3ef'%20stroke%3D'%235a564f'%2F%3E%3Ctext%20x%3D'75'%20y%3D'253'%20font-family%3D'monospace'%20font-size%3D'16'%20fill%3D'%232a2a30'%20text-anchor%3D'middle'%3E10%20mm%3C%2Ftext%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EFiller%20neck%20after%20examination%3C%2Ftext%3E%3C%2Fsvg%3E"
+   },
+   {
+    "id": "ph-unit-5213",
+    "label": "WATER TRUCK 35KL WTK-0388-03",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23c6d2da'%2F%3E%3Crect%20y%3D'196'%20width%3D'400'%20height%3D'104'%20fill%3D'%23b0a89c'%2F%3E%3Crect%20x%3D'40'%20y%3D'96'%20width%3D'320'%20height%3D'104'%20rx%3D'48'%20fill%3D'%23d8d4cc'%20stroke%3D'%235a564f'%20stroke-width%3D'4'%2F%3E%3Crect%20x%3D'34'%20y%3D'88'%20width%3D'332'%20height%3D'120'%20rx%3D'7'%20fill%3D'none'%20stroke%3D'%233f3b36'%20stroke-width%3D'5'%2F%3E%3Cg%20fill%3D'%235a564f'%3E%3Ccircle%20cx%3D'104'%20cy%3D'210'%20r%3D'19'%2F%3E%3Ccircle%20cx%3D'296'%20cy%3D'210'%20r%3D'19'%2F%3E%3C%2Fg%3E%3Cpath%20d%3D'M40%20148h320'%20stroke%3D'%23c8621e'%20stroke-width%3D'9'%2F%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EWATER%20TRUCK%2035KL%20WTK-0388-03%3C%2Ftext%3E%3C%2Fsvg%3E"
+   }
+  ],
   "createdAt": "2026-07-03T07:40:00.000Z",
-  "updatedAt": "2026-07-03T15:12:00.000Z",
+  "updatedAt": "2026-07-03T15:32:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-07-03T15:12:00.000Z",
-  "syncedAt": "2026-07-03T15:12:00.000Z"
+  "approvedAt": "2026-07-03T15:32:00.000Z",
+  "syncedAt": "2026-07-03T15:32:00.000Z"
  },
  {
   "id": "demo-1000320003-LHT-01",
@@ -9645,9 +10283,9 @@ export const SEED_REPORTS = [
    "unit": "WTK-0388-03",
    "customer": "Customer 05",
    "testType": "Hydrostatic Test",
-   "testDesc": "Tank",
+   "testDesc": "Pipe",
    "testMedia": "Water",
-   "pressureUnit": "PsiG",
+   "pressureUnit": "Bar",
    "gauges": "2 Gauges",
    "useRecorder": "Used",
    "useTemp": "Used",
@@ -9665,75 +10303,86 @@ export const SEED_REPORTS = [
    "pressRecorder": "BRT-002 · Chart Recorder · Cal 2026-04-08",
    "scale": "1 div = 0.2 Bar",
    "tempRecorder": "TMP-001 · Digital Thermometer · Cal 2026-01-20",
-   "tempGauge": "TG-012 · Dial Temperature Gauge · Cal 2026-06-02",
+   "tempGauge": "TG-011 · Dial Temperature Gauge · Cal 2026-05-19",
    "testResult": "Satisfactory",
    "signInspector": {
     "name": "Inspector Two",
-    "at": "2026-07-04T09:54:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-07-04T09:45:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-07-04T15:21:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-07-04T15:42:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [
    {
-    "time": "08:20",
+    "time": "08:11",
     "pg1": "0.00",
     "pg2": "0.00",
     "rec": "0.00",
-    "water": "30.1",
-    "ambient": "33.7",
-    "remark": "Start, 0 PsiG"
+    "water": "31.0",
+    "ambient": "33.1",
+    "remark": "Start, 0 Bar"
    },
    {
-    "time": "09:45",
+    "time": "09:25",
     "pg1": "5.99",
     "pg2": "5.99",
     "rec": "5.99",
-    "water": "30.4",
-    "ambient": "33.4",
+    "water": "31.0",
+    "ambient": "32.1",
     "remark": "Stable"
    },
    {
-    "time": "010:45",
+    "time": "010:28",
     "pg1": "5.98",
     "pg2": "5.98",
     "rec": "5.98",
-    "water": "29.9",
-    "ambient": "33.9",
+    "water": "28.2",
+    "ambient": "32.9",
     "remark": "Stable"
    },
    {
-    "time": "011:16",
+    "time": "011:17",
     "pg1": "5.97",
     "pg2": "5.97",
     "rec": "5.97",
-    "water": "28.4",
-    "ambient": "33.7",
+    "water": "28.3",
+    "ambient": "33.8",
     "remark": "Stable"
    },
    {
-    "time": "012:31",
+    "time": "012:30",
     "pg1": "5.96",
     "pg2": "5.96",
     "rec": "5.96",
-    "water": "28.1",
-    "ambient": "34.0",
+    "water": "29.6",
+    "ambient": "33.9",
     "remark": "Hold complete, no drop"
    }
   ],
   "results": [],
   "coats": [],
-  "photos": [],
+  "photos": [
+   {
+    "id": "ph-gauge-8563",
+    "label": "Test pressure held at 6.0 Bar",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23e8e6e1'%2F%3E%3Ccircle%20cx%3D'200'%20cy%3D'142'%20r%3D'96'%20fill%3D'%23fbfbf9'%20stroke%3D'%233a3a3f'%20stroke-width%3D'7'%2F%3E%3Ccircle%20cx%3D'200'%20cy%3D'142'%20r%3D'84'%20fill%3D'none'%20stroke%3D'%23c9c6bf'%20stroke-width%3D'1.5'%2F%3E%3Cg%20stroke%3D'%232a2a30'%20stroke-width%3D'3'%3E%3Cpath%20d%3D'M200%2066v14M274%20142h-14M200%20218v-14M126%20142h14M252%2090l-10%2010M252%20194l-10-10M148%20194l10-10M148%2090l10%2010'%2F%3E%3C%2Fg%3E%3Cpath%20d%3D'M200%20142L246%2096'%20stroke%3D'%23b3261e'%20stroke-width%3D'5'%20stroke-linecap%3D'round'%2F%3E%3Ccircle%20cx%3D'200'%20cy%3D'142'%20r%3D'9'%20fill%3D'%233a3a3f'%2F%3E%3Ctext%20x%3D'200'%20y%3D'190'%20font-family%3D'monospace'%20font-size%3D'15'%20fill%3D'%234a4a52'%20text-anchor%3D'middle'%3EBAR%3C%2Ftext%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3ETest%20pressure%20held%20at%206.0%20Bar%3C%2Ftext%3E%3C%2Fsvg%3E"
+   },
+   {
+    "id": "ph-unit-1876",
+    "label": "WATER TRUCK 35KL WTK-0388-03 under test",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23c6d2da'%2F%3E%3Crect%20y%3D'196'%20width%3D'400'%20height%3D'104'%20fill%3D'%23b0a89c'%2F%3E%3Crect%20x%3D'40'%20y%3D'96'%20width%3D'320'%20height%3D'104'%20rx%3D'48'%20fill%3D'%23d8d4cc'%20stroke%3D'%235a564f'%20stroke-width%3D'4'%2F%3E%3Crect%20x%3D'34'%20y%3D'88'%20width%3D'332'%20height%3D'120'%20rx%3D'7'%20fill%3D'none'%20stroke%3D'%233f3b36'%20stroke-width%3D'5'%2F%3E%3Cg%20fill%3D'%235a564f'%3E%3Ccircle%20cx%3D'104'%20cy%3D'210'%20r%3D'19'%2F%3E%3Ccircle%20cx%3D'296'%20cy%3D'210'%20r%3D'19'%2F%3E%3C%2Fg%3E%3Cpath%20d%3D'M40%20148h320'%20stroke%3D'%23c8621e'%20stroke-width%3D'9'%2F%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EWATER%20TRUCK%2035KL%20WTK-0388-03%20under%20test%3C%2Ftext%3E%3C%2Fsvg%3E"
+   }
+  ],
   "createdAt": "2026-07-04T07:40:00.000Z",
-  "updatedAt": "2026-07-04T15:21:00.000Z",
+  "updatedAt": "2026-07-04T15:42:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-07-04T15:21:00.000Z",
-  "syncedAt": "2026-07-04T15:21:00.000Z"
+  "approvedAt": "2026-07-04T15:42:00.000Z",
+  "syncedAt": "2026-07-04T15:42:00.000Z"
  },
  {
   "id": "demo-1000320003-BPR-01",
@@ -9758,27 +10407,27 @@ export const SEED_REPORTS = [
    "surfacePrep": "SA 2½",
    "sspc": "SP 10",
    "abrasive": "Steel grit G-40",
-   "anchorProfile": "53",
-   "dryTemp": "29.3",
+   "anchorProfile": "58",
+   "dryTemp": "31.1",
    "wetTemp": "25.7",
-   "matlTemp": "33.3",
-   "prepResult": "Reject",
-   "coatingPrep": "Second",
-   "paintDesc": "Epoxy mastic MIO",
+   "matlTemp": "31.2",
+   "prepResult": "Acc",
+   "coatingPrep": "Top",
+   "paintDesc": "Polyurethane topcoat",
    "thinner": "Epoxy thinner",
-   "batchPaint": "B22442",
-   "batchThinner": "T3397",
+   "batchPaint": "B24018",
+   "batchThinner": "T3980",
    "finalStatus": "Accept",
    "ncr": "Inspection carried out per the referenced procedure. No outstanding items.",
    "signInspector": {
     "name": "Inspector Two",
-    "at": "2026-07-05T09:28:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-07-05T09:49:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-07-05T15:16:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-07-05T15:35:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
@@ -9788,11 +10437,11 @@ export const SEED_REPORTS = [
     "coat": "Coat 1",
     "area": "Exterior — Zone A",
     "pts": [
-     "154",
-     "168",
-     "152",
-     "173",
-     "171"
+     "131",
+     "147",
+     "153",
+     "141",
+     "138"
     ],
     "std": "120"
    },
@@ -9800,11 +10449,11 @@ export const SEED_REPORTS = [
     "coat": "Coat 2",
     "area": "Exterior — Zone B",
     "pts": [
-     "181",
-     "188",
-     "186",
-     "185",
-     "214"
+     "244",
+     "234",
+     "220",
+     "236",
+     "213"
     ],
     "std": "175"
    },
@@ -9812,22 +10461,33 @@ export const SEED_REPORTS = [
     "coat": "Coat 3",
     "area": "Frame & walkway",
     "pts": [
-     "254",
-     "243",
-     "234",
-     "203",
-     "232"
+     "199",
+     "212",
+     "197",
+     "245",
+     "229"
     ],
     "std": "175"
    }
   ],
-  "photos": [],
+  "photos": [
+   {
+    "id": "ph-coating-6367",
+    "label": "DFT reading, Top coat",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23d9d6d0'%2F%3E%3Crect%20y%3D'150'%20width%3D'400'%20height%3D'150'%20fill%3D'%236b6660'%2F%3E%3Crect%20y%3D'120'%20width%3D'400'%20height%3D'30'%20fill%3D'%23c8621e'%2F%3E%3Crect%20y%3D'104'%20width%3D'400'%20height%3D'16'%20fill%3D'%23d8d3cb'%2F%3E%3Cg%20stroke%3D'%232a2a30'%20stroke-width%3D'2.5'%3E%3Cpath%20d%3D'M300%20104v46M292%20104h16M292%20150h16'%2F%3E%3C%2Fg%3E%3Ctext%20x%3D'318'%20y%3D'132'%20font-family%3D'monospace'%20font-size%3D'17'%20fill%3D'%232a2a30'%3EDFT%3C%2Ftext%3E%3Crect%20x%3D'16'%20y%3D'226'%20width%3D'150'%20height%3D'34'%20rx%3D'4'%20fill%3D'%23fbfbf9'%20stroke%3D'%235a564f'%2F%3E%3Ctext%20x%3D'91'%20y%3D'250'%20font-family%3D'monospace'%20font-size%3D'18'%20fill%3D'%232a2a30'%20text-anchor%3D'middle'%3E168%20um%3C%2Ftext%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EDFT%20reading%2C%20Top%20coat%3C%2Ftext%3E%3C%2Fsvg%3E"
+   },
+   {
+    "id": "ph-unit-7939",
+    "label": "WATER TRUCK 35KL WTK-0388-03 after coating",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23c6d2da'%2F%3E%3Crect%20y%3D'196'%20width%3D'400'%20height%3D'104'%20fill%3D'%23b0a89c'%2F%3E%3Crect%20x%3D'40'%20y%3D'96'%20width%3D'320'%20height%3D'104'%20rx%3D'48'%20fill%3D'%23d8d4cc'%20stroke%3D'%235a564f'%20stroke-width%3D'4'%2F%3E%3Crect%20x%3D'34'%20y%3D'88'%20width%3D'332'%20height%3D'120'%20rx%3D'7'%20fill%3D'none'%20stroke%3D'%233f3b36'%20stroke-width%3D'5'%2F%3E%3Cg%20fill%3D'%235a564f'%3E%3Ccircle%20cx%3D'104'%20cy%3D'210'%20r%3D'19'%2F%3E%3Ccircle%20cx%3D'296'%20cy%3D'210'%20r%3D'19'%2F%3E%3C%2Fg%3E%3Cpath%20d%3D'M40%20148h320'%20stroke%3D'%23c8621e'%20stroke-width%3D'9'%2F%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EWATER%20TRUCK%2035KL%20WTK-0388-03%20after%20coating%3C%2Ftext%3E%3C%2Fsvg%3E"
+   }
+  ],
   "createdAt": "2026-07-05T07:40:00.000Z",
-  "updatedAt": "2026-07-05T15:16:00.000Z",
+  "updatedAt": "2026-07-05T15:35:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-07-05T15:16:00.000Z",
-  "syncedAt": "2026-07-05T15:16:00.000Z"
+  "approvedAt": "2026-07-05T15:35:00.000Z",
+  "syncedAt": "2026-07-05T15:35:00.000Z"
  },
  {
   "id": "demo-1000320003-VG-01",
@@ -9854,65 +10514,76 @@ export const SEED_REPORTS = [
    "signInspector": {
     "name": "Inspector Two",
     "at": "2026-07-06T09:22:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-07-06T15:44:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-07-06T15:46:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
   "results": [
    {
     "point": "Ladder & walkway",
-    "welderId": "W-11",
+    "welderId": "W-12",
+    "description": "Tank diameter",
+    "judgement": "OK",
+    "defectType": "N/A",
+    "remark": "N/A"
+   },
+   {
+    "point": "Spray bar",
+    "welderId": "W-17",
+    "description": "Sub-frame length",
+    "judgement": "OK",
+    "defectType": "N/A",
+    "remark": "N/A"
+   },
+   {
+    "point": "Pump guard",
+    "welderId": "W-24",
     "description": "Baffle pitch",
     "judgement": "OK",
     "defectType": "N/A",
     "remark": "N/A"
    },
    {
-    "point": "Pump guard",
-    "welderId": "W-13",
-    "description": "Sub-frame length",
+    "point": "Tank external",
+    "welderId": "W-40",
+    "description": "Baffle pitch",
     "judgement": "OK",
     "defectType": "N/A",
     "remark": "N/A"
    },
    {
-    "point": "Pump guard",
-    "welderId": "W-48",
+    "point": "Ladder & walkway",
+    "welderId": "W-39",
     "description": "Sump depth",
-    "judgement": "OK",
-    "defectType": "N/A",
-    "remark": "N/A"
-   },
-   {
-    "point": "Spray bar",
-    "welderId": "W-34",
-    "description": "Tank length",
-    "judgement": "OK",
-    "defectType": "N/A",
-    "remark": "N/A"
-   },
-   {
-    "point": "Spray bar",
-    "welderId": "W-27",
-    "description": "Sub-frame length",
     "judgement": "OK",
     "defectType": "N/A",
     "remark": "N/A"
    }
   ],
   "coats": [],
-  "photos": [],
+  "photos": [
+   {
+    "id": "ph-unit-2440",
+    "label": "Ladder & walkway",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23c6d2da'%2F%3E%3Crect%20y%3D'196'%20width%3D'400'%20height%3D'104'%20fill%3D'%23b0a89c'%2F%3E%3Crect%20x%3D'40'%20y%3D'96'%20width%3D'320'%20height%3D'104'%20rx%3D'48'%20fill%3D'%23d8d4cc'%20stroke%3D'%235a564f'%20stroke-width%3D'4'%2F%3E%3Crect%20x%3D'34'%20y%3D'88'%20width%3D'332'%20height%3D'120'%20rx%3D'7'%20fill%3D'none'%20stroke%3D'%233f3b36'%20stroke-width%3D'5'%2F%3E%3Cg%20fill%3D'%235a564f'%3E%3Ccircle%20cx%3D'104'%20cy%3D'210'%20r%3D'19'%2F%3E%3Ccircle%20cx%3D'296'%20cy%3D'210'%20r%3D'19'%2F%3E%3C%2Fg%3E%3Cpath%20d%3D'M40%20148h320'%20stroke%3D'%23c8621e'%20stroke-width%3D'9'%2F%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3ELadder%20%26amp%3B%20walkway%3C%2Ftext%3E%3C%2Fsvg%3E"
+   },
+   {
+    "id": "ph-plate-3914",
+    "label": "Data plate, WTK-0388-03",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23cdcac4'%2F%3E%3Crect%20x%3D'52'%20y%3D'58'%20width%3D'296'%20height%3D'184'%20rx%3D'5'%20fill%3D'%23b7b2ab'%20stroke%3D'%235a564f'%20stroke-width%3D'4'%2F%3E%3Cg%20font-family%3D'monospace'%20fill%3D'%23232328'%3E%3Ctext%20x%3D'76'%20y%3D'100'%20font-size%3D'19'%3EMANUFACTURING%20CO.%3C%2Ftext%3E%3Ctext%20x%3D'76'%20y%3D'134'%20font-size%3D'14'%3ESERIAL%3C%2Ftext%3E%3Ctext%20x%3D'76'%20y%3D'162'%20font-size%3D'14'%3EDESIGN%20P.%20%204.0%20BAR%3C%2Ftext%3E%3Ctext%20x%3D'76'%20y%3D'190'%20font-size%3D'14'%3ETEST%20P.%20%20%20%206.0%20BAR%3C%2Ftext%3E%3Ctext%20x%3D'76'%20y%3D'218'%20font-size%3D'14'%3EYEAR%20%20%20%20%20%20%202026%3C%2Ftext%3E%3C%2Fg%3E%3Cg%20fill%3D'%236e6a64'%3E%3Ccircle%20cx%3D'68'%20cy%3D'72'%20r%3D'5'%2F%3E%3Ccircle%20cx%3D'332'%20cy%3D'72'%20r%3D'5'%2F%3E%3Ccircle%20cx%3D'68'%20cy%3D'228'%20r%3D'5'%2F%3E%3Ccircle%20cx%3D'332'%20cy%3D'228'%20r%3D'5'%2F%3E%3C%2Fg%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EData%20plate%2C%20WTK-0388-03%3C%2Ftext%3E%3C%2Fsvg%3E"
+   }
+  ],
   "createdAt": "2026-07-06T07:40:00.000Z",
-  "updatedAt": "2026-07-06T15:44:00.000Z",
+  "updatedAt": "2026-07-06T15:46:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-07-06T15:44:00.000Z",
-  "syncedAt": "2026-07-06T15:44:00.000Z"
+  "approvedAt": "2026-07-06T15:46:00.000Z",
+  "syncedAt": "2026-07-06T15:46:00.000Z"
  },
  {
   "id": "demo-1000320004-DIM-01",
@@ -9933,61 +10604,61 @@ export const SEED_REPORTS = [
    "sn": "WTK-0388-04",
    "unit": "WTK-0388-04",
    "customer": "Customer 05",
-   "drawingNo": "DWG-WTK-4148-R1",
+   "drawingNo": "DWG-WTK-4122-R1",
    "drawingFile": "N/A",
    "ncr": "Inspection carried out per the referenced procedure. No outstanding items.",
    "signInspector": {
     "name": "Inspector One",
-    "at": "2026-07-05T09:52:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-07-05T09:23:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-07-05T15:37:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-07-05T15:12:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
   "results": [
    {
     "description": "Tank length",
-    "itemNo": "1",
+    "itemNo": "12",
     "nominal": "7200",
     "min": "7197",
     "max": "7203",
     "actual": "7199",
-    "note": ""
+    "note": "Measured with steel tape."
    },
    {
     "description": "Tank diameter",
-    "itemNo": "6",
+    "itemNo": "11",
     "nominal": "2200",
     "min": "2197",
     "max": "2203",
     "actual": "2200",
-    "note": "Verified twice."
+    "note": ""
    },
    {
     "description": "Sub-frame length",
-    "itemNo": "11",
+    "itemNo": "6",
     "nominal": "6800",
     "min": "6797",
     "max": "6803",
     "actual": "6801",
-    "note": "Verified twice."
+    "note": ""
    },
    {
     "description": "Baffle pitch",
-    "itemNo": "3",
+    "itemNo": "6",
     "nominal": "1500",
     "min": "1497",
     "max": "1503",
     "actual": "1499",
-    "note": "Measured with steel tape."
+    "note": "Verified twice."
    },
    {
     "description": "Sump depth",
-    "itemNo": "2",
+    "itemNo": "4",
     "nominal": "320",
     "min": "317",
     "max": "323",
@@ -9996,13 +10667,24 @@ export const SEED_REPORTS = [
    }
   ],
   "coats": [],
-  "photos": [],
+  "photos": [
+   {
+    "id": "ph-tape-3034",
+    "label": "Tank length — 7199 mm",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23dedbd5'%2F%3E%3Crect%20y%3D'96'%20width%3D'400'%20height%3D'108'%20fill%3D'%23a9a49c'%2F%3E%3Crect%20y%3D'128'%20width%3D'400'%20height%3D'30'%20fill%3D'%23f0c419'%2F%3E%3Cg%20stroke%3D'%232a2a30'%20stroke-width%3D'2'%3E%3Cpath%20d%3D'M0%20128v30'%2F%3E%3Cpath%20d%3D'M20%20128v14'%2F%3E%3Cpath%20d%3D'M40%20128v14'%2F%3E%3Cpath%20d%3D'M60%20128v14'%2F%3E%3Cpath%20d%3D'M80%20128v14'%2F%3E%3Cpath%20d%3D'M100%20128v30'%2F%3E%3Cpath%20d%3D'M120%20128v14'%2F%3E%3Cpath%20d%3D'M140%20128v14'%2F%3E%3Cpath%20d%3D'M160%20128v14'%2F%3E%3Cpath%20d%3D'M180%20128v14'%2F%3E%3Cpath%20d%3D'M200%20128v30'%2F%3E%3Cpath%20d%3D'M220%20128v14'%2F%3E%3Cpath%20d%3D'M240%20128v14'%2F%3E%3Cpath%20d%3D'M260%20128v14'%2F%3E%3Cpath%20d%3D'M280%20128v14'%2F%3E%3Cpath%20d%3D'M300%20128v30'%2F%3E%3Cpath%20d%3D'M320%20128v14'%2F%3E%3Cpath%20d%3D'M340%20128v14'%2F%3E%3Cpath%20d%3D'M360%20128v14'%2F%3E%3Cpath%20d%3D'M380%20128v14'%2F%3E%3C%2Fg%3E%3Cg%20font-family%3D'monospace'%20font-size%3D'12'%20fill%3D'%232a2a30'%3E%3Ctext%20x%3D'4'%20y%3D'176'%3E0%3C%2Ftext%3E%3Ctext%20x%3D'104'%20y%3D'176'%3E500%3C%2Ftext%3E%3Ctext%20x%3D'204'%20y%3D'176'%3E1000%3C%2Ftext%3E%3Ctext%20x%3D'304'%20y%3D'176'%3E1500%3C%2Ftext%3E%3C%2Fg%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3ETank%20length%20%E2%80%94%207199%20mm%3C%2Ftext%3E%3C%2Fsvg%3E"
+   },
+   {
+    "id": "ph-unit-1284",
+    "label": "WATER TRUCK 20KL WTK-0388-04",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23c6d2da'%2F%3E%3Crect%20y%3D'196'%20width%3D'400'%20height%3D'104'%20fill%3D'%23b0a89c'%2F%3E%3Crect%20x%3D'40'%20y%3D'96'%20width%3D'320'%20height%3D'104'%20rx%3D'48'%20fill%3D'%23d8d4cc'%20stroke%3D'%235a564f'%20stroke-width%3D'4'%2F%3E%3Crect%20x%3D'34'%20y%3D'88'%20width%3D'332'%20height%3D'120'%20rx%3D'7'%20fill%3D'none'%20stroke%3D'%233f3b36'%20stroke-width%3D'5'%2F%3E%3Cg%20fill%3D'%235a564f'%3E%3Ccircle%20cx%3D'104'%20cy%3D'210'%20r%3D'19'%2F%3E%3Ccircle%20cx%3D'296'%20cy%3D'210'%20r%3D'19'%2F%3E%3C%2Fg%3E%3Cpath%20d%3D'M40%20148h320'%20stroke%3D'%23c8621e'%20stroke-width%3D'9'%2F%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EWATER%20TRUCK%2020KL%20WTK-0388-04%3C%2Ftext%3E%3C%2Fsvg%3E"
+   }
+  ],
   "createdAt": "2026-07-05T07:40:00.000Z",
-  "updatedAt": "2026-07-05T15:37:00.000Z",
+  "updatedAt": "2026-07-05T15:12:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-07-05T15:37:00.000Z",
-  "syncedAt": "2026-07-05T15:37:00.000Z"
+  "approvedAt": "2026-07-05T15:12:00.000Z",
+  "syncedAt": "2026-07-05T15:12:00.000Z"
  },
  {
   "id": "demo-1000320004-PT-01",
@@ -10027,35 +10709,51 @@ export const SEED_REPORTS = [
    "materialSpec": "ASTM A516 Gr.70",
    "ncrRef": "N/A",
    "lightEquip": "LED floodlight 50W",
-   "lightmeter": "LUX-002 · Digital Light Meter · Cal 2026-04-23",
-   "lightIntensity": "1333",
-   "penetrantMethod": "Solvent Removeable (SKL-SP2)",
+   "lightmeter": "LUX-001 · Digital Light Meter · Cal 2026-01-09",
+   "lightIntensity": "1197",
+   "penetrantMethod": "Water Washable",
    "penetrantType": "Fluorescent",
-   "dwellTime": "35",
+   "dwellTime": "20",
    "applicationBy": "Other",
-   "appTemp": "22.0",
-   "developerType": "Non Aqueous",
-   "developingTime": "56.4",
-   "interpretationTime": "27.1",
+   "appTemp": "68.6",
+   "developerType": "Aqueous",
+   "developingTime": "40.6",
+   "interpretationTime": "28.2",
    "cleaner": "SKC-S",
-   "stage": "Other",
-   "weldingProcess": "Other",
-   "scope": "Weld Part",
+   "stage": "After Welding",
+   "weldingProcess": "FCAW",
+   "scope": "Edge Prep.",
    "signInspector": {
     "name": "Inspector One",
-    "at": "2026-07-06T09:47:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-07-06T09:22:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
     "at": "2026-07-06T15:20:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
   "results": [
    {
+    "partId": "Tank barrel seam",
+    "material": "ASTM A516 Gr.70",
+    "thickness": "8.0",
+    "judgement": "Acc",
+    "discontinuity": "None",
+    "remark": "N/A"
+   },
+   {
     "partId": "Chassis mounting bracket",
+    "material": "ASTM A516 Gr.70",
+    "thickness": "11.5",
+    "judgement": "Acc",
+    "discontinuity": "None",
+    "remark": "N/A"
+   },
+   {
+    "partId": "Baffle to shell",
     "material": "ASTM A516 Gr.70",
     "thickness": "10.3",
     "judgement": "Acc",
@@ -10063,40 +10761,35 @@ export const SEED_REPORTS = [
     "remark": "N/A"
    },
    {
-    "partId": "Tank barrel seam",
-    "material": "ASTM A516 Gr.70",
-    "thickness": "11.8",
-    "judgement": "Acc",
-    "discontinuity": "None",
-    "remark": "N/A"
-   },
-   {
-    "partId": "Tank barrel seam",
-    "material": "ASTM A516 Gr.70",
-    "thickness": "13.6",
-    "judgement": "Acc",
-    "discontinuity": "None",
-    "remark": "N/A"
-   },
-   {
-    "partId": "Sump weld",
-    "material": "ASTM A516 Gr.70",
-    "thickness": "13.7",
-    "judgement": "Acc",
-    "discontinuity": "None",
-    "remark": "N/A"
-   },
-   {
     "partId": "Chassis mounting bracket",
     "material": "ASTM A516 Gr.70",
-    "thickness": "6.8",
+    "thickness": "12.6",
+    "judgement": "Acc",
+    "discontinuity": "None",
+    "remark": "N/A"
+   },
+   {
+    "partId": "Baffle to shell",
+    "material": "ASTM A516 Gr.70",
+    "thickness": "10.5",
     "judgement": "Acc",
     "discontinuity": "None",
     "remark": "N/A"
    }
   ],
   "coats": [],
-  "photos": [],
+  "photos": [
+   {
+    "id": "ph-weld-5160",
+    "label": "Tank barrel seam after examination",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23cfcbc4'%2F%3E%3Cpath%20d%3D'M0%20150h400'%20stroke%3D'%238e8880'%20stroke-width%3D'58'%2F%3E%3Cpath%20d%3D'M0%20150q20%20-13%2040%200t40%200%2040%200%2040%200%2040%200%2040%200%2040%200%2040%200%2040%200%2040%200'%20fill%3D'none'%20stroke%3D'%23a8a29a'%20stroke-width%3D'30'%2F%3E%3Cpath%20d%3D'M0%20136q20%20-11%2040%200t40%200%2040%200%2040%200%2040%200%2040%200%2040%200%2040%200%2040%200%2040%200'%20fill%3D'none'%20stroke%3D'%23bdb7ae'%20stroke-width%3D'7'%2F%3E%3Cg%20fill%3D'%236e6a64'%3E%3Ccircle%20cx%3D'96'%20cy%3D'150'%20r%3D'4'%2F%3E%3Ccircle%20cx%3D'214'%20cy%3D'156'%20r%3D'3'%2F%3E%3Ccircle%20cx%3D'300'%20cy%3D'146'%20r%3D'3.5'%2F%3E%3C%2Fg%3E%3Crect%20x%3D'16'%20y%3D'232'%20width%3D'118'%20height%3D'30'%20fill%3D'%23f5f3ef'%20stroke%3D'%235a564f'%2F%3E%3Ctext%20x%3D'75'%20y%3D'253'%20font-family%3D'monospace'%20font-size%3D'16'%20fill%3D'%232a2a30'%20text-anchor%3D'middle'%3E10%20mm%3C%2Ftext%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3ETank%20barrel%20seam%20after%20examination%3C%2Ftext%3E%3C%2Fsvg%3E"
+   },
+   {
+    "id": "ph-unit-2581",
+    "label": "WATER TRUCK 20KL WTK-0388-04",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23c6d2da'%2F%3E%3Crect%20y%3D'196'%20width%3D'400'%20height%3D'104'%20fill%3D'%23b0a89c'%2F%3E%3Crect%20x%3D'40'%20y%3D'96'%20width%3D'320'%20height%3D'104'%20rx%3D'48'%20fill%3D'%23d8d4cc'%20stroke%3D'%235a564f'%20stroke-width%3D'4'%2F%3E%3Crect%20x%3D'34'%20y%3D'88'%20width%3D'332'%20height%3D'120'%20rx%3D'7'%20fill%3D'none'%20stroke%3D'%233f3b36'%20stroke-width%3D'5'%2F%3E%3Cg%20fill%3D'%235a564f'%3E%3Ccircle%20cx%3D'104'%20cy%3D'210'%20r%3D'19'%2F%3E%3Ccircle%20cx%3D'296'%20cy%3D'210'%20r%3D'19'%2F%3E%3C%2Fg%3E%3Cpath%20d%3D'M40%20148h320'%20stroke%3D'%23c8621e'%20stroke-width%3D'9'%2F%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EWATER%20TRUCK%2020KL%20WTK-0388-04%3C%2Ftext%3E%3C%2Fsvg%3E"
+   }
+  ],
   "createdAt": "2026-07-06T07:40:00.000Z",
   "updatedAt": "2026-07-06T15:20:00.000Z",
   "synced": true,
@@ -10124,9 +10817,9 @@ export const SEED_REPORTS = [
    "unit": "WTK-0388-04",
    "customer": "Customer 05",
    "testType": "Hydrostatic Test",
-   "testDesc": "Tank",
+   "testDesc": "Body",
    "testMedia": "Water",
-   "pressureUnit": "PsiG",
+   "pressureUnit": "Bar",
    "gauges": "2 Gauges",
    "useRecorder": "Used",
    "useTemp": "Used",
@@ -10139,8 +10832,8 @@ export const SEED_REPORTS = [
    "map": "-",
    "testPressure": "6.0",
    "holding": "30",
-   "pg1": "PG-002 · Pressure Gauge 0–25 Bar · Cal 2026-01-14",
-   "pg2": "PG-001 · Pressure Gauge 0–25 Bar · Cal 2026-01-14",
+   "pg1": "PG-001 · Pressure Gauge 0–25 Bar · Cal 2026-01-14",
+   "pg2": "PG-002 · Pressure Gauge 0–25 Bar · Cal 2026-01-14",
    "pressRecorder": "BRT-001 · Chart Recorder · Cal 2026-02-11",
    "scale": "1 div = 0.2 Bar",
    "tempRecorder": "TMP-001 · Digital Thermometer · Cal 2026-01-20",
@@ -10148,71 +10841,82 @@ export const SEED_REPORTS = [
    "testResult": "Satisfactory",
    "signInspector": {
     "name": "Inspector One",
-    "at": "2026-07-07T09:38:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-07-07T09:13:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-07-07T15:29:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-07-07T15:50:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [
    {
-    "time": "08:25",
+    "time": "08:46",
     "pg1": "0.00",
     "pg2": "0.00",
     "rec": "0.00",
-    "water": "30.9",
-    "ambient": "30.8",
-    "remark": "Start, 0 PsiG"
+    "water": "28.4",
+    "ambient": "31.4",
+    "remark": "Start, 0 Bar"
    },
    {
-    "time": "09:30",
+    "time": "09:50",
     "pg1": "5.99",
     "pg2": "5.99",
     "rec": "5.99",
-    "water": "29.8",
-    "ambient": "31.5",
+    "water": "29.5",
+    "ambient": "34.0",
     "remark": "Stable"
    },
    {
-    "time": "010:21",
+    "time": "010:51",
     "pg1": "5.98",
     "pg2": "5.98",
     "rec": "5.98",
-    "water": "30.4",
-    "ambient": "32.7",
+    "water": "30.2",
+    "ambient": "30.8",
     "remark": "Stable"
    },
    {
-    "time": "011:30",
+    "time": "011:17",
     "pg1": "5.97",
     "pg2": "5.97",
     "rec": "5.97",
-    "water": "30.1",
-    "ambient": "31.6",
+    "water": "30.4",
+    "ambient": "30.2",
     "remark": "Stable"
    },
    {
-    "time": "012:16",
+    "time": "012:54",
     "pg1": "5.96",
     "pg2": "5.96",
     "rec": "5.96",
-    "water": "29.2",
-    "ambient": "30.8",
+    "water": "29.1",
+    "ambient": "33.8",
     "remark": "Hold complete, no drop"
    }
   ],
   "results": [],
   "coats": [],
-  "photos": [],
+  "photos": [
+   {
+    "id": "ph-gauge-9595",
+    "label": "Test pressure held at 6.0 Bar",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23e8e6e1'%2F%3E%3Ccircle%20cx%3D'200'%20cy%3D'142'%20r%3D'96'%20fill%3D'%23fbfbf9'%20stroke%3D'%233a3a3f'%20stroke-width%3D'7'%2F%3E%3Ccircle%20cx%3D'200'%20cy%3D'142'%20r%3D'84'%20fill%3D'none'%20stroke%3D'%23c9c6bf'%20stroke-width%3D'1.5'%2F%3E%3Cg%20stroke%3D'%232a2a30'%20stroke-width%3D'3'%3E%3Cpath%20d%3D'M200%2066v14M274%20142h-14M200%20218v-14M126%20142h14M252%2090l-10%2010M252%20194l-10-10M148%20194l10-10M148%2090l10%2010'%2F%3E%3C%2Fg%3E%3Cpath%20d%3D'M200%20142L246%2096'%20stroke%3D'%23b3261e'%20stroke-width%3D'5'%20stroke-linecap%3D'round'%2F%3E%3Ccircle%20cx%3D'200'%20cy%3D'142'%20r%3D'9'%20fill%3D'%233a3a3f'%2F%3E%3Ctext%20x%3D'200'%20y%3D'190'%20font-family%3D'monospace'%20font-size%3D'15'%20fill%3D'%234a4a52'%20text-anchor%3D'middle'%3EBAR%3C%2Ftext%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3ETest%20pressure%20held%20at%206.0%20Bar%3C%2Ftext%3E%3C%2Fsvg%3E"
+   },
+   {
+    "id": "ph-unit-2168",
+    "label": "WATER TRUCK 20KL WTK-0388-04 under test",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23c6d2da'%2F%3E%3Crect%20y%3D'196'%20width%3D'400'%20height%3D'104'%20fill%3D'%23b0a89c'%2F%3E%3Crect%20x%3D'40'%20y%3D'96'%20width%3D'320'%20height%3D'104'%20rx%3D'48'%20fill%3D'%23d8d4cc'%20stroke%3D'%235a564f'%20stroke-width%3D'4'%2F%3E%3Crect%20x%3D'34'%20y%3D'88'%20width%3D'332'%20height%3D'120'%20rx%3D'7'%20fill%3D'none'%20stroke%3D'%233f3b36'%20stroke-width%3D'5'%2F%3E%3Cg%20fill%3D'%235a564f'%3E%3Ccircle%20cx%3D'104'%20cy%3D'210'%20r%3D'19'%2F%3E%3Ccircle%20cx%3D'296'%20cy%3D'210'%20r%3D'19'%2F%3E%3C%2Fg%3E%3Cpath%20d%3D'M40%20148h320'%20stroke%3D'%23c8621e'%20stroke-width%3D'9'%2F%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EWATER%20TRUCK%2020KL%20WTK-0388-04%20under%20test%3C%2Ftext%3E%3C%2Fsvg%3E"
+   }
+  ],
   "createdAt": "2026-07-07T07:40:00.000Z",
-  "updatedAt": "2026-07-07T15:29:00.000Z",
+  "updatedAt": "2026-07-07T15:50:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-07-07T15:29:00.000Z",
-  "syncedAt": "2026-07-07T15:29:00.000Z"
+  "approvedAt": "2026-07-07T15:50:00.000Z",
+  "syncedAt": "2026-07-07T15:50:00.000Z"
  },
  {
   "id": "demo-1000320004-BPR-01",
@@ -10237,27 +10941,27 @@ export const SEED_REPORTS = [
    "surfacePrep": "SA 2½",
    "sspc": "SP 10",
    "abrasive": "Steel grit G-40",
-   "anchorProfile": "65",
-   "dryTemp": "32.1",
+   "anchorProfile": "70",
+   "dryTemp": "31.2",
    "wetTemp": "26.6",
-   "matlTemp": "33.7",
-   "prepResult": "Acc",
+   "matlTemp": "34.3",
+   "prepResult": "Reject",
    "coatingPrep": "Primer",
-   "paintDesc": "2-pack epoxy primer",
+   "paintDesc": "Epoxy mastic MIO",
    "thinner": "Epoxy thinner",
-   "batchPaint": "B21100",
-   "batchThinner": "T3495",
+   "batchPaint": "B21330",
+   "batchThinner": "T3202",
    "finalStatus": "Accept",
    "ncr": "Inspection carried out per the referenced procedure. No outstanding items.",
    "signInspector": {
     "name": "Inspector One",
-    "at": "2026-07-08T09:24:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-07-08T09:42:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-07-08T15:17:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-07-08T15:46:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
@@ -10267,11 +10971,11 @@ export const SEED_REPORTS = [
     "coat": "Coat 1",
     "area": "Exterior — Zone A",
     "pts": [
-     "131",
-     "145",
-     "137",
-     "156",
-     "141"
+     "160",
+     "127",
+     "132",
+     "160",
+     "156"
     ],
     "std": "120"
    },
@@ -10279,11 +10983,11 @@ export const SEED_REPORTS = [
     "coat": "Coat 2",
     "area": "Exterior — Zone B",
     "pts": [
-     "238",
-     "186",
-     "180",
-     "242",
-     "231"
+     "259",
+     "214",
+     "219",
+     "196",
+     "212"
     ],
     "std": "175"
    },
@@ -10291,22 +10995,33 @@ export const SEED_REPORTS = [
     "coat": "Coat 3",
     "area": "Frame & walkway",
     "pts": [
-     "249",
-     "199",
-     "240",
-     "259",
-     "186"
+     "211",
+     "212",
+     "251",
+     "191",
+     "213"
     ],
     "std": "175"
    }
   ],
-  "photos": [],
+  "photos": [
+   {
+    "id": "ph-coating-9029",
+    "label": "DFT reading, Primer coat",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23d9d6d0'%2F%3E%3Crect%20y%3D'150'%20width%3D'400'%20height%3D'150'%20fill%3D'%236b6660'%2F%3E%3Crect%20y%3D'120'%20width%3D'400'%20height%3D'30'%20fill%3D'%23c8621e'%2F%3E%3Crect%20y%3D'104'%20width%3D'400'%20height%3D'16'%20fill%3D'%23d8d3cb'%2F%3E%3Cg%20stroke%3D'%232a2a30'%20stroke-width%3D'2.5'%3E%3Cpath%20d%3D'M300%20104v46M292%20104h16M292%20150h16'%2F%3E%3C%2Fg%3E%3Ctext%20x%3D'318'%20y%3D'132'%20font-family%3D'monospace'%20font-size%3D'17'%20fill%3D'%232a2a30'%3EDFT%3C%2Ftext%3E%3Crect%20x%3D'16'%20y%3D'226'%20width%3D'150'%20height%3D'34'%20rx%3D'4'%20fill%3D'%23fbfbf9'%20stroke%3D'%235a564f'%2F%3E%3Ctext%20x%3D'91'%20y%3D'250'%20font-family%3D'monospace'%20font-size%3D'18'%20fill%3D'%232a2a30'%20text-anchor%3D'middle'%3E168%20um%3C%2Ftext%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EDFT%20reading%2C%20Primer%20coat%3C%2Ftext%3E%3C%2Fsvg%3E"
+   },
+   {
+    "id": "ph-unit-8498",
+    "label": "WATER TRUCK 20KL WTK-0388-04 after coating",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23c6d2da'%2F%3E%3Crect%20y%3D'196'%20width%3D'400'%20height%3D'104'%20fill%3D'%23b0a89c'%2F%3E%3Crect%20x%3D'40'%20y%3D'96'%20width%3D'320'%20height%3D'104'%20rx%3D'48'%20fill%3D'%23d8d4cc'%20stroke%3D'%235a564f'%20stroke-width%3D'4'%2F%3E%3Crect%20x%3D'34'%20y%3D'88'%20width%3D'332'%20height%3D'120'%20rx%3D'7'%20fill%3D'none'%20stroke%3D'%233f3b36'%20stroke-width%3D'5'%2F%3E%3Cg%20fill%3D'%235a564f'%3E%3Ccircle%20cx%3D'104'%20cy%3D'210'%20r%3D'19'%2F%3E%3Ccircle%20cx%3D'296'%20cy%3D'210'%20r%3D'19'%2F%3E%3C%2Fg%3E%3Cpath%20d%3D'M40%20148h320'%20stroke%3D'%23c8621e'%20stroke-width%3D'9'%2F%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EWATER%20TRUCK%2020KL%20WTK-0388-04%20after%20coating%3C%2Ftext%3E%3C%2Fsvg%3E"
+   }
+  ],
   "createdAt": "2026-07-08T07:40:00.000Z",
-  "updatedAt": "2026-07-08T15:17:00.000Z",
+  "updatedAt": "2026-07-08T15:46:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-07-08T15:17:00.000Z",
-  "syncedAt": "2026-07-08T15:17:00.000Z"
+  "approvedAt": "2026-07-08T15:46:00.000Z",
+  "syncedAt": "2026-07-08T15:46:00.000Z"
  },
  {
   "id": "demo-1000320004-VG-01",
@@ -10332,44 +11047,36 @@ export const SEED_REPORTS = [
    "ncr": "Inspection carried out per the referenced procedure. No outstanding items.",
    "signInspector": {
     "name": "Inspector One",
-    "at": "2026-07-09T09:21:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-07-09T09:38:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-07-09T15:30:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-07-09T15:43:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
   "results": [
    {
-    "point": "Data plate",
-    "welderId": "W-20",
-    "description": "Tank diameter",
-    "judgement": "OK",
-    "defectType": "N/A",
-    "remark": "N/A"
-   },
-   {
-    "point": "Data plate",
-    "welderId": "W-12",
-    "description": "Baffle pitch",
-    "judgement": "OK",
-    "defectType": "N/A",
-    "remark": "N/A"
-   },
-   {
-    "point": "Spray bar",
-    "welderId": "W-13",
-    "description": "Sump depth",
+    "point": "Pump guard",
+    "welderId": "W-27",
+    "description": "Tank length",
     "judgement": "OK",
     "defectType": "N/A",
     "remark": "N/A"
    },
    {
     "point": "Pump guard",
-    "welderId": "W-45",
+    "welderId": "W-48",
+    "description": "Sub-frame length",
+    "judgement": "OK",
+    "defectType": "N/A",
+    "remark": "N/A"
+   },
+   {
+    "point": "Data plate",
+    "welderId": "W-14",
     "description": "Baffle pitch",
     "judgement": "OK",
     "defectType": "N/A",
@@ -10377,7 +11084,15 @@ export const SEED_REPORTS = [
    },
    {
     "point": "Data plate",
-    "welderId": "W-40",
+    "welderId": "W-38",
+    "description": "Baffle pitch",
+    "judgement": "OK",
+    "defectType": "N/A",
+    "remark": "N/A"
+   },
+   {
+    "point": "Tank external",
+    "welderId": "W-42",
     "description": "Sub-frame length",
     "judgement": "OK",
     "defectType": "N/A",
@@ -10385,13 +11100,24 @@ export const SEED_REPORTS = [
    }
   ],
   "coats": [],
-  "photos": [],
+  "photos": [
+   {
+    "id": "ph-unit-2236",
+    "label": "Pump guard",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23c6d2da'%2F%3E%3Crect%20y%3D'196'%20width%3D'400'%20height%3D'104'%20fill%3D'%23b0a89c'%2F%3E%3Crect%20x%3D'40'%20y%3D'96'%20width%3D'320'%20height%3D'104'%20rx%3D'48'%20fill%3D'%23d8d4cc'%20stroke%3D'%235a564f'%20stroke-width%3D'4'%2F%3E%3Crect%20x%3D'34'%20y%3D'88'%20width%3D'332'%20height%3D'120'%20rx%3D'7'%20fill%3D'none'%20stroke%3D'%233f3b36'%20stroke-width%3D'5'%2F%3E%3Cg%20fill%3D'%235a564f'%3E%3Ccircle%20cx%3D'104'%20cy%3D'210'%20r%3D'19'%2F%3E%3Ccircle%20cx%3D'296'%20cy%3D'210'%20r%3D'19'%2F%3E%3C%2Fg%3E%3Cpath%20d%3D'M40%20148h320'%20stroke%3D'%23c8621e'%20stroke-width%3D'9'%2F%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EPump%20guard%3C%2Ftext%3E%3C%2Fsvg%3E"
+   },
+   {
+    "id": "ph-plate-9265",
+    "label": "Data plate, WTK-0388-04",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23cdcac4'%2F%3E%3Crect%20x%3D'52'%20y%3D'58'%20width%3D'296'%20height%3D'184'%20rx%3D'5'%20fill%3D'%23b7b2ab'%20stroke%3D'%235a564f'%20stroke-width%3D'4'%2F%3E%3Cg%20font-family%3D'monospace'%20fill%3D'%23232328'%3E%3Ctext%20x%3D'76'%20y%3D'100'%20font-size%3D'19'%3EMANUFACTURING%20CO.%3C%2Ftext%3E%3Ctext%20x%3D'76'%20y%3D'134'%20font-size%3D'14'%3ESERIAL%3C%2Ftext%3E%3Ctext%20x%3D'76'%20y%3D'162'%20font-size%3D'14'%3EDESIGN%20P.%20%204.0%20BAR%3C%2Ftext%3E%3Ctext%20x%3D'76'%20y%3D'190'%20font-size%3D'14'%3ETEST%20P.%20%20%20%206.0%20BAR%3C%2Ftext%3E%3Ctext%20x%3D'76'%20y%3D'218'%20font-size%3D'14'%3EYEAR%20%20%20%20%20%20%202026%3C%2Ftext%3E%3C%2Fg%3E%3Cg%20fill%3D'%236e6a64'%3E%3Ccircle%20cx%3D'68'%20cy%3D'72'%20r%3D'5'%2F%3E%3Ccircle%20cx%3D'332'%20cy%3D'72'%20r%3D'5'%2F%3E%3Ccircle%20cx%3D'68'%20cy%3D'228'%20r%3D'5'%2F%3E%3Ccircle%20cx%3D'332'%20cy%3D'228'%20r%3D'5'%2F%3E%3C%2Fg%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EData%20plate%2C%20WTK-0388-04%3C%2Ftext%3E%3C%2Fsvg%3E"
+   }
+  ],
   "createdAt": "2026-07-09T07:40:00.000Z",
-  "updatedAt": "2026-07-09T15:30:00.000Z",
+  "updatedAt": "2026-07-09T15:43:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-07-09T15:30:00.000Z",
-  "syncedAt": "2026-07-09T15:30:00.000Z"
+  "approvedAt": "2026-07-09T15:43:00.000Z",
+  "syncedAt": "2026-07-09T15:43:00.000Z"
  },
  {
   "id": "demo-1000320005-DIM-01",
@@ -10412,34 +11138,34 @@ export const SEED_REPORTS = [
    "sn": "WTK-0388-05",
    "unit": "WTK-0388-05",
    "customer": "Customer 05",
-   "drawingNo": "DWG-WTK-4111-R2",
+   "drawingNo": "DWG-WTK-4103-R1",
    "drawingFile": "N/A",
    "ncr": "Inspection carried out per the referenced procedure. No outstanding items.",
    "signInspector": {
     "name": "Inspector Two",
-    "at": "2026-07-08T09:50:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-07-08T09:29:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-07-08T15:36:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-07-08T15:06:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
   "results": [
    {
     "description": "Tank length",
-    "itemNo": "6",
+    "itemNo": "9",
     "nominal": "7200",
     "min": "7197",
     "max": "7203",
     "actual": "7199",
-    "note": "Verified twice."
+    "note": ""
    },
    {
     "description": "Tank diameter",
-    "itemNo": "4",
+    "itemNo": "7",
     "nominal": "2200",
     "min": "2197",
     "max": "2203",
@@ -10448,40 +11174,51 @@ export const SEED_REPORTS = [
    },
    {
     "description": "Sub-frame length",
-    "itemNo": "1",
+    "itemNo": "10",
     "nominal": "6800",
     "min": "6797",
     "max": "6803",
     "actual": "6801",
-    "note": "Measured with steel tape."
+    "note": "Verified twice."
    },
    {
     "description": "Baffle pitch",
-    "itemNo": "5",
+    "itemNo": "12",
     "nominal": "1500",
     "min": "1497",
     "max": "1503",
     "actual": "1499",
-    "note": "Measured with steel tape."
+    "note": "Verified twice."
    },
    {
     "description": "Sump depth",
-    "itemNo": "4",
+    "itemNo": "2",
     "nominal": "320",
     "min": "317",
     "max": "323",
     "actual": "320",
-    "note": "Measured with steel tape."
+    "note": "Verified twice."
    }
   ],
   "coats": [],
-  "photos": [],
+  "photos": [
+   {
+    "id": "ph-tape-3702",
+    "label": "Tank length — 7199 mm",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23dedbd5'%2F%3E%3Crect%20y%3D'96'%20width%3D'400'%20height%3D'108'%20fill%3D'%23a9a49c'%2F%3E%3Crect%20y%3D'128'%20width%3D'400'%20height%3D'30'%20fill%3D'%23f0c419'%2F%3E%3Cg%20stroke%3D'%232a2a30'%20stroke-width%3D'2'%3E%3Cpath%20d%3D'M0%20128v30'%2F%3E%3Cpath%20d%3D'M20%20128v14'%2F%3E%3Cpath%20d%3D'M40%20128v14'%2F%3E%3Cpath%20d%3D'M60%20128v14'%2F%3E%3Cpath%20d%3D'M80%20128v14'%2F%3E%3Cpath%20d%3D'M100%20128v30'%2F%3E%3Cpath%20d%3D'M120%20128v14'%2F%3E%3Cpath%20d%3D'M140%20128v14'%2F%3E%3Cpath%20d%3D'M160%20128v14'%2F%3E%3Cpath%20d%3D'M180%20128v14'%2F%3E%3Cpath%20d%3D'M200%20128v30'%2F%3E%3Cpath%20d%3D'M220%20128v14'%2F%3E%3Cpath%20d%3D'M240%20128v14'%2F%3E%3Cpath%20d%3D'M260%20128v14'%2F%3E%3Cpath%20d%3D'M280%20128v14'%2F%3E%3Cpath%20d%3D'M300%20128v30'%2F%3E%3Cpath%20d%3D'M320%20128v14'%2F%3E%3Cpath%20d%3D'M340%20128v14'%2F%3E%3Cpath%20d%3D'M360%20128v14'%2F%3E%3Cpath%20d%3D'M380%20128v14'%2F%3E%3C%2Fg%3E%3Cg%20font-family%3D'monospace'%20font-size%3D'12'%20fill%3D'%232a2a30'%3E%3Ctext%20x%3D'4'%20y%3D'176'%3E0%3C%2Ftext%3E%3Ctext%20x%3D'104'%20y%3D'176'%3E500%3C%2Ftext%3E%3Ctext%20x%3D'204'%20y%3D'176'%3E1000%3C%2Ftext%3E%3Ctext%20x%3D'304'%20y%3D'176'%3E1500%3C%2Ftext%3E%3C%2Fg%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3ETank%20length%20%E2%80%94%207199%20mm%3C%2Ftext%3E%3C%2Fsvg%3E"
+   },
+   {
+    "id": "ph-unit-1232",
+    "label": "WATER TRUCK 30KL WTK-0388-05",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23c6d2da'%2F%3E%3Crect%20y%3D'196'%20width%3D'400'%20height%3D'104'%20fill%3D'%23b0a89c'%2F%3E%3Crect%20x%3D'40'%20y%3D'96'%20width%3D'320'%20height%3D'104'%20rx%3D'48'%20fill%3D'%23d8d4cc'%20stroke%3D'%235a564f'%20stroke-width%3D'4'%2F%3E%3Crect%20x%3D'34'%20y%3D'88'%20width%3D'332'%20height%3D'120'%20rx%3D'7'%20fill%3D'none'%20stroke%3D'%233f3b36'%20stroke-width%3D'5'%2F%3E%3Cg%20fill%3D'%235a564f'%3E%3Ccircle%20cx%3D'104'%20cy%3D'210'%20r%3D'19'%2F%3E%3Ccircle%20cx%3D'296'%20cy%3D'210'%20r%3D'19'%2F%3E%3C%2Fg%3E%3Cpath%20d%3D'M40%20148h320'%20stroke%3D'%23c8621e'%20stroke-width%3D'9'%2F%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EWATER%20TRUCK%2030KL%20WTK-0388-05%3C%2Ftext%3E%3C%2Fsvg%3E"
+   }
+  ],
   "createdAt": "2026-07-08T07:40:00.000Z",
-  "updatedAt": "2026-07-08T15:36:00.000Z",
+  "updatedAt": "2026-07-08T15:06:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-07-08T15:36:00.000Z",
-  "syncedAt": "2026-07-08T15:36:00.000Z"
+  "approvedAt": "2026-07-08T15:06:00.000Z",
+  "syncedAt": "2026-07-08T15:06:00.000Z"
  },
  {
   "id": "demo-1000320005-UT-01",
@@ -10507,104 +11244,115 @@ export const SEED_REPORTS = [
    "ncrRef": "N/A",
    "instrument": "Olympus EPOCH 650",
    "model": "EPOCH 650",
-   "serialNo": "SN-16291",
+   "serialNo": "SN-44629",
    "cable": "Coaxial BNC, 2.0 m",
    "couplant": "CMC gel",
-   "technique": "Contact — Angle Beam",
-   "scanSurface": "From A",
+   "technique": "Straight Beam",
+   "scanSurface": "From B",
    "scanTechnique": "Half Skip Distance",
-   "scanDirection": "Essentially parallel to weld axis",
+   "scanDirection": "Swivel",
    "lengthInd": "14 dB Drop",
    "heightInd": "14 dB Drop",
-   "suAngle": "45°",
-   "suSerial": "SU-6087",
-   "suFreq": "60.1",
+   "suAngle": "0°",
+   "suSerial": "SU-3030",
+   "suFreq": "92.1",
    "suSize": "10 mm dia.",
-   "blockId": "V2",
+   "blockId": "V1",
    "hole": "SDH Ø 2.4 mm",
-   "amplitude": "28",
+   "amplitude": "64",
    "refReflector": "IIW V1 block",
-   "refLevel": "27.5",
-   "scanLevel": "33.6",
-   "testRange": "26.8",
+   "refLevel": "3.4",
+   "scanLevel": "80.9",
+   "testRange": "92.4",
    "notes": "Inspection carried out per the referenced procedure. No outstanding items.",
    "signInspector": {
     "name": "Inspector Two",
-    "at": "2026-07-09T09:16:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-07-09T09:53:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-07-09T15:14:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-07-09T15:44:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
   "results": [
    {
+    "partId": "Sump weld",
+    "thickness": "9.1",
+    "soundpath": "27.8",
+    "amplitude": "53",
+    "length": "4",
+    "depth": "10.5",
+    "judgement": "Acc",
+    "discontinuity": "None",
+    "remark": "N/A"
+   },
+   {
     "partId": "Baffle to shell",
-    "thickness": "10.8",
-    "soundpath": "18.6",
-    "amplitude": "32",
+    "thickness": "12.6",
+    "soundpath": "31.3",
+    "amplitude": "64",
+    "length": "5",
+    "depth": "10.7",
+    "judgement": "Acc",
+    "discontinuity": "None",
+    "remark": "N/A"
+   },
+   {
+    "partId": "Filler neck",
+    "thickness": "8.6",
+    "soundpath": "32.1",
+    "amplitude": "49",
     "length": "20",
-    "depth": "10.1",
+    "depth": "2.3",
+    "judgement": "Acc",
+    "discontinuity": "None",
+    "remark": "N/A"
+   },
+   {
+    "partId": "Tank barrel seam",
+    "thickness": "11.1",
+    "soundpath": "12.3",
+    "amplitude": "60",
+    "length": "15",
+    "depth": "8.8",
     "judgement": "Acc",
     "discontinuity": "None",
     "remark": "N/A"
    },
    {
     "partId": "Baffle to shell",
-    "thickness": "13.1",
-    "soundpath": "32.6",
-    "amplitude": "68",
-    "length": "25",
-    "depth": "9.2",
-    "judgement": "Acc",
-    "discontinuity": "None",
-    "remark": "N/A"
-   },
-   {
-    "partId": "Baffle to shell",
-    "thickness": "12.3",
-    "soundpath": "12.4",
-    "amplitude": "67",
-    "length": "12",
-    "depth": "11.6",
-    "judgement": "Acc",
-    "discontinuity": "None",
-    "remark": "N/A"
-   },
-   {
-    "partId": "Chassis mounting bracket",
-    "thickness": "7.0",
-    "soundpath": "13.5",
-    "amplitude": "68",
-    "length": "22",
-    "depth": "7.6",
-    "judgement": "Acc",
-    "discontinuity": "None",
-    "remark": "N/A"
-   },
-   {
-    "partId": "Chassis mounting bracket",
-    "thickness": "11.9",
-    "soundpath": "10.8",
-    "amplitude": "39",
-    "length": "7",
-    "depth": "4.0",
+    "thickness": "6.2",
+    "soundpath": "10.1",
+    "amplitude": "63",
+    "length": "18",
+    "depth": "8.1",
     "judgement": "Acc",
     "discontinuity": "None",
     "remark": "N/A"
    }
   ],
   "coats": [],
-  "photos": [],
+  "photos": [
+   {
+    "id": "ph-weld-1128",
+    "label": "Sump weld after examination",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23cfcbc4'%2F%3E%3Cpath%20d%3D'M0%20150h400'%20stroke%3D'%238e8880'%20stroke-width%3D'58'%2F%3E%3Cpath%20d%3D'M0%20150q20%20-13%2040%200t40%200%2040%200%2040%200%2040%200%2040%200%2040%200%2040%200%2040%200%2040%200'%20fill%3D'none'%20stroke%3D'%23a8a29a'%20stroke-width%3D'30'%2F%3E%3Cpath%20d%3D'M0%20136q20%20-11%2040%200t40%200%2040%200%2040%200%2040%200%2040%200%2040%200%2040%200%2040%200%2040%200'%20fill%3D'none'%20stroke%3D'%23bdb7ae'%20stroke-width%3D'7'%2F%3E%3Cg%20fill%3D'%236e6a64'%3E%3Ccircle%20cx%3D'96'%20cy%3D'150'%20r%3D'4'%2F%3E%3Ccircle%20cx%3D'214'%20cy%3D'156'%20r%3D'3'%2F%3E%3Ccircle%20cx%3D'300'%20cy%3D'146'%20r%3D'3.5'%2F%3E%3C%2Fg%3E%3Crect%20x%3D'16'%20y%3D'232'%20width%3D'118'%20height%3D'30'%20fill%3D'%23f5f3ef'%20stroke%3D'%235a564f'%2F%3E%3Ctext%20x%3D'75'%20y%3D'253'%20font-family%3D'monospace'%20font-size%3D'16'%20fill%3D'%232a2a30'%20text-anchor%3D'middle'%3E10%20mm%3C%2Ftext%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3ESump%20weld%20after%20examination%3C%2Ftext%3E%3C%2Fsvg%3E"
+   },
+   {
+    "id": "ph-unit-8282",
+    "label": "WATER TRUCK 30KL WTK-0388-05",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23c6d2da'%2F%3E%3Crect%20y%3D'196'%20width%3D'400'%20height%3D'104'%20fill%3D'%23b0a89c'%2F%3E%3Crect%20x%3D'40'%20y%3D'96'%20width%3D'320'%20height%3D'104'%20rx%3D'48'%20fill%3D'%23d8d4cc'%20stroke%3D'%235a564f'%20stroke-width%3D'4'%2F%3E%3Crect%20x%3D'34'%20y%3D'88'%20width%3D'332'%20height%3D'120'%20rx%3D'7'%20fill%3D'none'%20stroke%3D'%233f3b36'%20stroke-width%3D'5'%2F%3E%3Cg%20fill%3D'%235a564f'%3E%3Ccircle%20cx%3D'104'%20cy%3D'210'%20r%3D'19'%2F%3E%3Ccircle%20cx%3D'296'%20cy%3D'210'%20r%3D'19'%2F%3E%3C%2Fg%3E%3Cpath%20d%3D'M40%20148h320'%20stroke%3D'%23c8621e'%20stroke-width%3D'9'%2F%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EWATER%20TRUCK%2030KL%20WTK-0388-05%3C%2Ftext%3E%3C%2Fsvg%3E"
+   }
+  ],
   "createdAt": "2026-07-09T07:40:00.000Z",
-  "updatedAt": "2026-07-09T15:14:00.000Z",
+  "updatedAt": "2026-07-09T15:44:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-07-09T15:14:00.000Z",
-  "syncedAt": "2026-07-09T15:14:00.000Z"
+  "approvedAt": "2026-07-09T15:44:00.000Z",
+  "syncedAt": "2026-07-09T15:44:00.000Z"
  },
  {
   "id": "demo-1000320005-LHT-01",
@@ -10626,9 +11374,9 @@ export const SEED_REPORTS = [
    "unit": "WTK-0388-05",
    "customer": "Customer 05",
    "testType": "Hydrostatic Test",
-   "testDesc": "Pipe",
+   "testDesc": "Body",
    "testMedia": "Water",
-   "pressureUnit": "PsiG",
+   "pressureUnit": "Bar",
    "gauges": "2 Gauges",
    "useRecorder": "Used",
    "useTemp": "Used",
@@ -10641,80 +11389,91 @@ export const SEED_REPORTS = [
    "map": "-",
    "testPressure": "6.0",
    "holding": "30",
-   "pg1": "PG-002 · Pressure Gauge 0–25 Bar · Cal 2026-01-14",
+   "pg1": "PG-001 · Pressure Gauge 0–25 Bar · Cal 2026-01-14",
    "pg2": "PG-003 · Pressure Gauge 0–40 Bar · Cal 2026-03-02",
    "pressRecorder": "BRT-001 · Chart Recorder · Cal 2026-02-11",
    "scale": "1 div = 0.2 Bar",
    "tempRecorder": "TMP-001 · Digital Thermometer · Cal 2026-01-20",
-   "tempGauge": "TG-011 · Dial Temperature Gauge · Cal 2026-05-19",
+   "tempGauge": "TG-012 · Dial Temperature Gauge · Cal 2026-06-02",
    "testResult": "Satisfactory",
    "signInspector": {
     "name": "Inspector Two",
-    "at": "2026-07-10T09:55:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-07-10T09:22:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-07-10T15:28:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-07-10T15:19:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [
    {
-    "time": "08:25",
+    "time": "08:37",
     "pg1": "0.00",
     "pg2": "0.00",
     "rec": "0.00",
-    "water": "29.1",
-    "ambient": "31.6",
-    "remark": "Start, 0 PsiG"
+    "water": "29.6",
+    "ambient": "31.1",
+    "remark": "Start, 0 Bar"
    },
    {
-    "time": "09:50",
+    "time": "09:48",
     "pg1": "5.99",
     "pg2": "5.99",
     "rec": "5.99",
-    "water": "28.4",
-    "ambient": "31.6",
+    "water": "29.4",
+    "ambient": "32.3",
     "remark": "Stable"
    },
    {
-    "time": "010:30",
+    "time": "010:34",
     "pg1": "5.98",
     "pg2": "5.98",
     "rec": "5.98",
-    "water": "30.7",
-    "ambient": "33.3",
+    "water": "30.1",
+    "ambient": "32.7",
     "remark": "Stable"
    },
    {
-    "time": "011:40",
+    "time": "011:13",
     "pg1": "5.97",
     "pg2": "5.97",
     "rec": "5.97",
-    "water": "30.7",
-    "ambient": "33.0",
+    "water": "30.3",
+    "ambient": "32.9",
     "remark": "Stable"
    },
    {
-    "time": "012:27",
+    "time": "012:42",
     "pg1": "5.96",
     "pg2": "5.96",
     "rec": "5.96",
-    "water": "28.0",
-    "ambient": "31.6",
+    "water": "29.2",
+    "ambient": "31.3",
     "remark": "Hold complete, no drop"
    }
   ],
   "results": [],
   "coats": [],
-  "photos": [],
+  "photos": [
+   {
+    "id": "ph-gauge-7610",
+    "label": "Test pressure held at 6.0 Bar",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23e8e6e1'%2F%3E%3Ccircle%20cx%3D'200'%20cy%3D'142'%20r%3D'96'%20fill%3D'%23fbfbf9'%20stroke%3D'%233a3a3f'%20stroke-width%3D'7'%2F%3E%3Ccircle%20cx%3D'200'%20cy%3D'142'%20r%3D'84'%20fill%3D'none'%20stroke%3D'%23c9c6bf'%20stroke-width%3D'1.5'%2F%3E%3Cg%20stroke%3D'%232a2a30'%20stroke-width%3D'3'%3E%3Cpath%20d%3D'M200%2066v14M274%20142h-14M200%20218v-14M126%20142h14M252%2090l-10%2010M252%20194l-10-10M148%20194l10-10M148%2090l10%2010'%2F%3E%3C%2Fg%3E%3Cpath%20d%3D'M200%20142L246%2096'%20stroke%3D'%23b3261e'%20stroke-width%3D'5'%20stroke-linecap%3D'round'%2F%3E%3Ccircle%20cx%3D'200'%20cy%3D'142'%20r%3D'9'%20fill%3D'%233a3a3f'%2F%3E%3Ctext%20x%3D'200'%20y%3D'190'%20font-family%3D'monospace'%20font-size%3D'15'%20fill%3D'%234a4a52'%20text-anchor%3D'middle'%3EBAR%3C%2Ftext%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3ETest%20pressure%20held%20at%206.0%20Bar%3C%2Ftext%3E%3C%2Fsvg%3E"
+   },
+   {
+    "id": "ph-unit-8763",
+    "label": "WATER TRUCK 30KL WTK-0388-05 under test",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23c6d2da'%2F%3E%3Crect%20y%3D'196'%20width%3D'400'%20height%3D'104'%20fill%3D'%23b0a89c'%2F%3E%3Crect%20x%3D'40'%20y%3D'96'%20width%3D'320'%20height%3D'104'%20rx%3D'48'%20fill%3D'%23d8d4cc'%20stroke%3D'%235a564f'%20stroke-width%3D'4'%2F%3E%3Crect%20x%3D'34'%20y%3D'88'%20width%3D'332'%20height%3D'120'%20rx%3D'7'%20fill%3D'none'%20stroke%3D'%233f3b36'%20stroke-width%3D'5'%2F%3E%3Cg%20fill%3D'%235a564f'%3E%3Ccircle%20cx%3D'104'%20cy%3D'210'%20r%3D'19'%2F%3E%3Ccircle%20cx%3D'296'%20cy%3D'210'%20r%3D'19'%2F%3E%3C%2Fg%3E%3Cpath%20d%3D'M40%20148h320'%20stroke%3D'%23c8621e'%20stroke-width%3D'9'%2F%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EWATER%20TRUCK%2030KL%20WTK-0388-05%20under%20test%3C%2Ftext%3E%3C%2Fsvg%3E"
+   }
+  ],
   "createdAt": "2026-07-10T07:40:00.000Z",
-  "updatedAt": "2026-07-10T15:28:00.000Z",
+  "updatedAt": "2026-07-10T15:19:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-07-10T15:28:00.000Z",
-  "syncedAt": "2026-07-10T15:28:00.000Z"
+  "approvedAt": "2026-07-10T15:19:00.000Z",
+  "syncedAt": "2026-07-10T15:19:00.000Z"
  },
  {
   "id": "demo-1000320005-BPR-01",
@@ -10739,27 +11498,27 @@ export const SEED_REPORTS = [
    "surfacePrep": "SA 2½",
    "sspc": "SP 10",
    "abrasive": "Steel grit G-40",
-   "anchorProfile": "53",
-   "dryTemp": "32.8",
-   "wetTemp": "24.3",
-   "matlTemp": "33.8",
+   "anchorProfile": "60",
+   "dryTemp": "30.9",
+   "wetTemp": "25.9",
+   "matlTemp": "32.2",
    "prepResult": "Acc",
-   "coatingPrep": "Top",
-   "paintDesc": "Polyurethane topcoat",
+   "coatingPrep": "Primer",
+   "paintDesc": "2-pack epoxy primer",
    "thinner": "Epoxy thinner",
-   "batchPaint": "B27244",
-   "batchThinner": "T3391",
+   "batchPaint": "B27910",
+   "batchThinner": "T3038",
    "finalStatus": "Accept",
    "ncr": "Inspection carried out per the referenced procedure. No outstanding items.",
    "signInspector": {
     "name": "Inspector Two",
-    "at": "2026-07-11T09:54:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-07-11T09:12:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-07-11T15:11:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-07-11T15:26:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
@@ -10769,11 +11528,11 @@ export const SEED_REPORTS = [
     "coat": "Coat 1",
     "area": "Exterior — Zone A",
     "pts": [
-     "126",
-     "166",
-     "151",
      "171",
-     "128"
+     "165",
+     "156",
+     "168",
+     "138"
     ],
     "std": "120"
    },
@@ -10781,11 +11540,11 @@ export const SEED_REPORTS = [
     "coat": "Coat 2",
     "area": "Exterior — Zone B",
     "pts": [
-     "253",
-     "230",
-     "247",
-     "184",
-     "216"
+     "204",
+     "192",
+     "245",
+     "202",
+     "250"
     ],
     "std": "175"
    },
@@ -10793,22 +11552,33 @@ export const SEED_REPORTS = [
     "coat": "Coat 3",
     "area": "Frame & walkway",
     "pts": [
-     "195",
-     "237",
-     "237",
-     "216",
-     "235"
+     "204",
+     "196",
+     "228",
+     "186",
+     "228"
     ],
     "std": "175"
    }
   ],
-  "photos": [],
+  "photos": [
+   {
+    "id": "ph-coating-9730",
+    "label": "DFT reading, Primer coat",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23d9d6d0'%2F%3E%3Crect%20y%3D'150'%20width%3D'400'%20height%3D'150'%20fill%3D'%236b6660'%2F%3E%3Crect%20y%3D'120'%20width%3D'400'%20height%3D'30'%20fill%3D'%23c8621e'%2F%3E%3Crect%20y%3D'104'%20width%3D'400'%20height%3D'16'%20fill%3D'%23d8d3cb'%2F%3E%3Cg%20stroke%3D'%232a2a30'%20stroke-width%3D'2.5'%3E%3Cpath%20d%3D'M300%20104v46M292%20104h16M292%20150h16'%2F%3E%3C%2Fg%3E%3Ctext%20x%3D'318'%20y%3D'132'%20font-family%3D'monospace'%20font-size%3D'17'%20fill%3D'%232a2a30'%3EDFT%3C%2Ftext%3E%3Crect%20x%3D'16'%20y%3D'226'%20width%3D'150'%20height%3D'34'%20rx%3D'4'%20fill%3D'%23fbfbf9'%20stroke%3D'%235a564f'%2F%3E%3Ctext%20x%3D'91'%20y%3D'250'%20font-family%3D'monospace'%20font-size%3D'18'%20fill%3D'%232a2a30'%20text-anchor%3D'middle'%3E168%20um%3C%2Ftext%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EDFT%20reading%2C%20Primer%20coat%3C%2Ftext%3E%3C%2Fsvg%3E"
+   },
+   {
+    "id": "ph-unit-5323",
+    "label": "WATER TRUCK 30KL WTK-0388-05 after coating",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23c6d2da'%2F%3E%3Crect%20y%3D'196'%20width%3D'400'%20height%3D'104'%20fill%3D'%23b0a89c'%2F%3E%3Crect%20x%3D'40'%20y%3D'96'%20width%3D'320'%20height%3D'104'%20rx%3D'48'%20fill%3D'%23d8d4cc'%20stroke%3D'%235a564f'%20stroke-width%3D'4'%2F%3E%3Crect%20x%3D'34'%20y%3D'88'%20width%3D'332'%20height%3D'120'%20rx%3D'7'%20fill%3D'none'%20stroke%3D'%233f3b36'%20stroke-width%3D'5'%2F%3E%3Cg%20fill%3D'%235a564f'%3E%3Ccircle%20cx%3D'104'%20cy%3D'210'%20r%3D'19'%2F%3E%3Ccircle%20cx%3D'296'%20cy%3D'210'%20r%3D'19'%2F%3E%3C%2Fg%3E%3Cpath%20d%3D'M40%20148h320'%20stroke%3D'%23c8621e'%20stroke-width%3D'9'%2F%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EWATER%20TRUCK%2030KL%20WTK-0388-05%20after%20coating%3C%2Ftext%3E%3C%2Fsvg%3E"
+   }
+  ],
   "createdAt": "2026-07-11T07:40:00.000Z",
-  "updatedAt": "2026-07-11T15:11:00.000Z",
+  "updatedAt": "2026-07-11T15:26:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-07-11T15:11:00.000Z",
-  "syncedAt": "2026-07-11T15:11:00.000Z"
+  "approvedAt": "2026-07-11T15:26:00.000Z",
+  "syncedAt": "2026-07-11T15:26:00.000Z"
  },
  {
   "id": "demo-1000320005-VG-01",
@@ -10834,21 +11604,21 @@ export const SEED_REPORTS = [
    "ncr": "Inspection carried out per the referenced procedure. No outstanding items.",
    "signInspector": {
     "name": "Inspector Two",
-    "at": "2026-07-12T09:49:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-07-12T09:29:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-07-12T15:10:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-07-12T15:49:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
   "results": [
    {
-    "point": "Spray bar",
-    "welderId": "W-15",
-    "description": "Tank diameter",
+    "point": "Pump guard",
+    "welderId": "W-41",
+    "description": "Sub-frame length",
     "judgement": "OK",
     "defectType": "N/A",
     "remark": "N/A"
@@ -10856,44 +11626,55 @@ export const SEED_REPORTS = [
    {
     "point": "Data plate",
     "welderId": "W-45",
-    "description": "Sump depth",
-    "judgement": "OK",
-    "defectType": "N/A",
-    "remark": "N/A"
-   },
-   {
-    "point": "Data plate",
-    "welderId": "W-25",
-    "description": "Sump depth",
-    "judgement": "OK",
-    "defectType": "N/A",
-    "remark": "N/A"
-   },
-   {
-    "point": "Ladder & walkway",
-    "welderId": "W-43",
-    "description": "Sump depth",
+    "description": "Baffle pitch",
     "judgement": "OK",
     "defectType": "N/A",
     "remark": "N/A"
    },
    {
     "point": "Spray bar",
-    "welderId": "W-18",
-    "description": "Tank length",
+    "welderId": "W-26",
+    "description": "Sub-frame length",
+    "judgement": "OK",
+    "defectType": "N/A",
+    "remark": "N/A"
+   },
+   {
+    "point": "Pump guard",
+    "welderId": "W-12",
+    "description": "Baffle pitch",
+    "judgement": "OK",
+    "defectType": "N/A",
+    "remark": "N/A"
+   },
+   {
+    "point": "Tank external",
+    "welderId": "W-15",
+    "description": "Sub-frame length",
     "judgement": "OK",
     "defectType": "N/A",
     "remark": "N/A"
    }
   ],
   "coats": [],
-  "photos": [],
+  "photos": [
+   {
+    "id": "ph-unit-4625",
+    "label": "Pump guard",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23c6d2da'%2F%3E%3Crect%20y%3D'196'%20width%3D'400'%20height%3D'104'%20fill%3D'%23b0a89c'%2F%3E%3Crect%20x%3D'40'%20y%3D'96'%20width%3D'320'%20height%3D'104'%20rx%3D'48'%20fill%3D'%23d8d4cc'%20stroke%3D'%235a564f'%20stroke-width%3D'4'%2F%3E%3Crect%20x%3D'34'%20y%3D'88'%20width%3D'332'%20height%3D'120'%20rx%3D'7'%20fill%3D'none'%20stroke%3D'%233f3b36'%20stroke-width%3D'5'%2F%3E%3Cg%20fill%3D'%235a564f'%3E%3Ccircle%20cx%3D'104'%20cy%3D'210'%20r%3D'19'%2F%3E%3Ccircle%20cx%3D'296'%20cy%3D'210'%20r%3D'19'%2F%3E%3C%2Fg%3E%3Cpath%20d%3D'M40%20148h320'%20stroke%3D'%23c8621e'%20stroke-width%3D'9'%2F%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EPump%20guard%3C%2Ftext%3E%3C%2Fsvg%3E"
+   },
+   {
+    "id": "ph-plate-3600",
+    "label": "Data plate, WTK-0388-05",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'400'%20height%3D'300'%20viewBox%3D'0%200%20400%20300'%3E%3Crect%20width%3D'400'%20height%3D'300'%20fill%3D'%23cdcac4'%2F%3E%3Crect%20x%3D'52'%20y%3D'58'%20width%3D'296'%20height%3D'184'%20rx%3D'5'%20fill%3D'%23b7b2ab'%20stroke%3D'%235a564f'%20stroke-width%3D'4'%2F%3E%3Cg%20font-family%3D'monospace'%20fill%3D'%23232328'%3E%3Ctext%20x%3D'76'%20y%3D'100'%20font-size%3D'19'%3EMANUFACTURING%20CO.%3C%2Ftext%3E%3Ctext%20x%3D'76'%20y%3D'134'%20font-size%3D'14'%3ESERIAL%3C%2Ftext%3E%3Ctext%20x%3D'76'%20y%3D'162'%20font-size%3D'14'%3EDESIGN%20P.%20%204.0%20BAR%3C%2Ftext%3E%3Ctext%20x%3D'76'%20y%3D'190'%20font-size%3D'14'%3ETEST%20P.%20%20%20%206.0%20BAR%3C%2Ftext%3E%3Ctext%20x%3D'76'%20y%3D'218'%20font-size%3D'14'%3EYEAR%20%20%20%20%20%20%202026%3C%2Ftext%3E%3C%2Fg%3E%3Cg%20fill%3D'%236e6a64'%3E%3Ccircle%20cx%3D'68'%20cy%3D'72'%20r%3D'5'%2F%3E%3Ccircle%20cx%3D'332'%20cy%3D'72'%20r%3D'5'%2F%3E%3Ccircle%20cx%3D'68'%20cy%3D'228'%20r%3D'5'%2F%3E%3Ccircle%20cx%3D'332'%20cy%3D'228'%20r%3D'5'%2F%3E%3C%2Fg%3E%3Crect%20y%3D'272'%20width%3D'400'%20height%3D'28'%20fill%3D'%23000000'%20fill-opacity%3D'0.55'%2F%3E%3Ctext%20x%3D'9'%20y%3D'291'%20font-family%3D'monospace'%20font-size%3D'13'%20fill%3D'%23ffffff'%3EData%20plate%2C%20WTK-0388-05%3C%2Ftext%3E%3C%2Fsvg%3E"
+   }
+  ],
   "createdAt": "2026-07-12T07:40:00.000Z",
-  "updatedAt": "2026-07-12T15:10:00.000Z",
+  "updatedAt": "2026-07-12T15:49:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-07-12T15:10:00.000Z",
-  "syncedAt": "2026-07-12T15:10:00.000Z"
+  "approvedAt": "2026-07-12T15:49:00.000Z",
+  "syncedAt": "2026-07-12T15:49:00.000Z"
  },
  {
   "id": "demo-1000320006-DIM-01",
@@ -10914,48 +11695,48 @@ export const SEED_REPORTS = [
    "sn": "WTK-0388-06",
    "unit": "WTK-0388-06",
    "customer": "Customer 05",
-   "drawingNo": "DWG-WTK-4158-R1",
+   "drawingNo": "DWG-WTK-4163-R1",
    "drawingFile": "N/A",
    "ncr": "Inspection carried out per the referenced procedure. No outstanding items.",
    "signInspector": {
     "name": "Inspector One",
-    "at": "2026-07-11T09:46:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-07-11T09:35:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-07-11T15:39:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-07-11T15:40:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
   "results": [
    {
     "description": "Tank length",
-    "itemNo": "1",
+    "itemNo": "11",
     "nominal": "7200",
     "min": "7197",
     "max": "7203",
     "actual": "7199",
-    "note": "Measured with steel tape."
+    "note": ""
    },
    {
     "description": "Tank diameter",
-    "itemNo": "7",
+    "itemNo": "4",
     "nominal": "2200",
     "min": "2197",
     "max": "2203",
     "actual": "2200",
-    "note": "Verified twice."
+    "note": ""
    },
    {
     "description": "Sub-frame length",
-    "itemNo": "3",
+    "itemNo": "12",
     "nominal": "6800",
     "min": "6797",
     "max": "6803",
     "actual": "6801",
-    "note": ""
+    "note": "Verified twice."
    },
    {
     "description": "Baffle pitch",
@@ -10964,11 +11745,11 @@ export const SEED_REPORTS = [
     "min": "1497",
     "max": "1503",
     "actual": "1499",
-    "note": ""
+    "note": "Verified twice."
    },
    {
     "description": "Sump depth",
-    "itemNo": "5",
+    "itemNo": "11",
     "nominal": "320",
     "min": "317",
     "max": "323",
@@ -10979,11 +11760,11 @@ export const SEED_REPORTS = [
   "coats": [],
   "photos": [],
   "createdAt": "2026-07-11T07:40:00.000Z",
-  "updatedAt": "2026-07-11T15:39:00.000Z",
+  "updatedAt": "2026-07-11T15:40:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-07-11T15:39:00.000Z",
-  "syncedAt": "2026-07-11T15:39:00.000Z"
+  "approvedAt": "2026-07-11T15:40:00.000Z",
+  "syncedAt": "2026-07-11T15:40:00.000Z"
  },
  {
   "id": "demo-1000320006-MT-01",
@@ -11008,49 +11789,58 @@ export const SEED_REPORTS = [
    "materialSpec": "ASTM A516 Gr.70",
    "ncrRef": "N/A",
    "lightEquip": "LED floodlight 50W",
-   "lightmeter": "LUX-001 · Digital Light Meter · Cal 2026-01-09",
-   "lightIntensity": "1345",
+   "lightmeter": "LUX-002 · Digital Light Meter · Cal 2026-04-23",
+   "lightIntensity": "1422",
    "mtEquipment": "Prod.",
    "equipId": "YK-2201",
-   "currentType": "Other",
+   "currentType": "AC",
    "particle": "Wet (WPC2/7HF)",
-   "particleApp": "Spray",
+   "particleApp": "Other",
    "brand": "Magnaflux 7HF",
-   "particleDesc": "Wet fluorescent, batch WF420",
-   "whiteContrast": "Contrast paint, batch WC293",
-   "cleanerBatch": "Solvent cleaner, batch CL225",
-   "method": "Other",
-   "surfacePreparation": "As Grounded",
-   "stage": "Other",
-   "weldingProcess": "SMAW",
-   "scope": "Edge Prep.",
+   "particleDesc": "Wet fluorescent, batch WF403",
+   "whiteContrast": "Contrast paint, batch WC355",
+   "cleanerBatch": "Solvent cleaner, batch CL392",
+   "method": "Continuous",
+   "surfacePreparation": "Solvent Wipe",
+   "stage": "After Welding",
+   "weldingProcess": "GTAW",
+   "scope": "Back Chipping",
    "signInspector": {
     "name": "Inspector One",
-    "at": "2026-07-12T09:30:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-07-12T09:50:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-07-12T15:31:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-07-12T15:37:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
   "results": [
    {
+    "partId": "Sump weld",
+    "material": "ASTM A516 Gr.70",
+    "weldNo": "WS-21",
+    "thickness": "10.8",
+    "judgement": "Acc",
+    "discontinuity": "None",
+    "remark": "N/A"
+   },
+   {
+    "partId": "Sump weld",
+    "material": "ASTM A516 Gr.70",
+    "weldNo": "WS-36",
+    "thickness": "12.8",
+    "judgement": "Acc",
+    "discontinuity": "None",
+    "remark": "N/A"
+   },
+   {
     "partId": "Tank barrel seam",
     "material": "ASTM A516 Gr.70",
-    "weldNo": "WS-1",
-    "thickness": "13.2",
-    "judgement": "Acc",
-    "discontinuity": "None",
-    "remark": "N/A"
-   },
-   {
-    "partId": "Filler neck",
-    "material": "ASTM A516 Gr.70",
-    "weldNo": "WS-9",
-    "thickness": "6.1",
+    "weldNo": "WS-20",
+    "thickness": "6.5",
     "judgement": "Acc",
     "discontinuity": "None",
     "remark": "N/A"
@@ -11058,26 +11848,17 @@ export const SEED_REPORTS = [
    {
     "partId": "Chassis mounting bracket",
     "material": "ASTM A516 Gr.70",
-    "weldNo": "WS-35",
-    "thickness": "6.2",
+    "weldNo": "WS-20",
+    "thickness": "8.8",
     "judgement": "Acc",
     "discontinuity": "None",
     "remark": "N/A"
    },
    {
-    "partId": "Chassis mounting bracket",
+    "partId": "Tank barrel seam",
     "material": "ASTM A516 Gr.70",
-    "weldNo": "WS-12",
-    "thickness": "13.3",
-    "judgement": "Acc",
-    "discontinuity": "None",
-    "remark": "N/A"
-   },
-   {
-    "partId": "Filler neck",
-    "material": "ASTM A516 Gr.70",
-    "weldNo": "WS-22",
-    "thickness": "8.3",
+    "weldNo": "WS-19",
+    "thickness": "11.2",
     "judgement": "Acc",
     "discontinuity": "None",
     "remark": "N/A"
@@ -11086,11 +11867,11 @@ export const SEED_REPORTS = [
   "coats": [],
   "photos": [],
   "createdAt": "2026-07-12T07:40:00.000Z",
-  "updatedAt": "2026-07-12T15:31:00.000Z",
+  "updatedAt": "2026-07-12T15:37:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-07-12T15:31:00.000Z",
-  "syncedAt": "2026-07-12T15:31:00.000Z"
+  "approvedAt": "2026-07-12T15:37:00.000Z",
+  "syncedAt": "2026-07-12T15:37:00.000Z"
  },
  {
   "id": "demo-1000320006-LHT-01",
@@ -11112,9 +11893,9 @@ export const SEED_REPORTS = [
    "unit": "WTK-0388-06",
    "customer": "Customer 05",
    "testType": "Hydrostatic Test",
-   "testDesc": "Tank",
+   "testDesc": "Body",
    "testMedia": "Water",
-   "pressureUnit": "PsiG",
+   "pressureUnit": "Bar",
    "gauges": "2 Gauges",
    "useRecorder": "Used",
    "useTemp": "Used",
@@ -11127,68 +11908,68 @@ export const SEED_REPORTS = [
    "map": "-",
    "testPressure": "6.0",
    "holding": "30",
-   "pg1": "PG-003 · Pressure Gauge 0–40 Bar · Cal 2026-03-02",
-   "pg2": "PG-001 · Pressure Gauge 0–25 Bar · Cal 2026-01-14",
-   "pressRecorder": "BRT-001 · Chart Recorder · Cal 2026-02-11",
+   "pg1": "PG-001 · Pressure Gauge 0–25 Bar · Cal 2026-01-14",
+   "pg2": "PG-002 · Pressure Gauge 0–25 Bar · Cal 2026-01-14",
+   "pressRecorder": "BRT-002 · Chart Recorder · Cal 2026-04-08",
    "scale": "1 div = 0.2 Bar",
    "tempRecorder": "TMP-001 · Digital Thermometer · Cal 2026-01-20",
-   "tempGauge": "TG-012 · Dial Temperature Gauge · Cal 2026-06-02",
+   "tempGauge": "TG-011 · Dial Temperature Gauge · Cal 2026-05-19",
    "testResult": "Satisfactory",
    "signInspector": {
     "name": "Inspector One",
-    "at": "2026-07-13T09:11:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-07-13T09:20:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-07-13T15:47:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-07-13T15:06:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [
    {
-    "time": "08:42",
+    "time": "08:35",
     "pg1": "0.00",
     "pg2": "0.00",
     "rec": "0.00",
-    "water": "29.2",
-    "ambient": "31.3",
-    "remark": "Start, 0 PsiG"
+    "water": "28.0",
+    "ambient": "30.8",
+    "remark": "Start, 0 Bar"
    },
    {
-    "time": "09:31",
+    "time": "09:55",
     "pg1": "5.99",
     "pg2": "5.99",
     "rec": "5.99",
-    "water": "30.2",
-    "ambient": "33.5",
+    "water": "30.7",
+    "ambient": "32.0",
     "remark": "Stable"
    },
    {
-    "time": "010:19",
+    "time": "010:36",
     "pg1": "5.98",
     "pg2": "5.98",
     "rec": "5.98",
-    "water": "28.9",
-    "ambient": "31.5",
+    "water": "29.9",
+    "ambient": "30.4",
     "remark": "Stable"
    },
    {
-    "time": "011:28",
+    "time": "011:05",
     "pg1": "5.97",
     "pg2": "5.97",
     "rec": "5.97",
-    "water": "29.9",
+    "water": "30.6",
     "ambient": "31.2",
     "remark": "Stable"
    },
    {
-    "time": "012:27",
+    "time": "012:48",
     "pg1": "5.96",
     "pg2": "5.96",
     "rec": "5.96",
-    "water": "28.1",
-    "ambient": "30.8",
+    "water": "30.2",
+    "ambient": "32.0",
     "remark": "Hold complete, no drop"
    }
   ],
@@ -11196,11 +11977,11 @@ export const SEED_REPORTS = [
   "coats": [],
   "photos": [],
   "createdAt": "2026-07-13T07:40:00.000Z",
-  "updatedAt": "2026-07-13T15:47:00.000Z",
+  "updatedAt": "2026-07-13T15:06:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-07-13T15:47:00.000Z",
-  "syncedAt": "2026-07-13T15:47:00.000Z"
+  "approvedAt": "2026-07-13T15:06:00.000Z",
+  "syncedAt": "2026-07-13T15:06:00.000Z"
  },
  {
   "id": "demo-1000320006-BPR-01",
@@ -11225,27 +12006,27 @@ export const SEED_REPORTS = [
    "surfacePrep": "SA 2½",
    "sspc": "SP 10",
    "abrasive": "Steel grit G-40",
-   "anchorProfile": "71",
-   "dryTemp": "31.6",
-   "wetTemp": "26.6",
-   "matlTemp": "32.3",
-   "prepResult": "Acc",
+   "anchorProfile": "53",
+   "dryTemp": "30.8",
+   "wetTemp": "24.9",
+   "matlTemp": "31.2",
+   "prepResult": "Reject",
    "coatingPrep": "Primer",
-   "paintDesc": "Polyurethane topcoat",
+   "paintDesc": "2-pack epoxy primer",
    "thinner": "Epoxy thinner",
-   "batchPaint": "B22752",
-   "batchThinner": "T3870",
+   "batchPaint": "B21860",
+   "batchThinner": "T3749",
    "finalStatus": "Accept",
    "ncr": "Inspection carried out per the referenced procedure. No outstanding items.",
    "signInspector": {
     "name": "Inspector One",
-    "at": "2026-07-14T09:37:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-07-14T09:14:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-07-14T15:40:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-07-14T15:06:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
@@ -11255,11 +12036,11 @@ export const SEED_REPORTS = [
     "coat": "Coat 1",
     "area": "Exterior — Zone A",
     "pts": [
-     "137",
-     "131",
-     "153",
-     "124",
-     "153"
+     "159",
+     "151",
+     "168",
+     "152",
+     "166"
     ],
     "std": "120"
    },
@@ -11267,11 +12048,11 @@ export const SEED_REPORTS = [
     "coat": "Coat 2",
     "area": "Exterior — Zone B",
     "pts": [
-     "206",
-     "258",
-     "218",
-     "184",
-     "218"
+     "211",
+     "213",
+     "237",
+     "244",
+     "193"
     ],
     "std": "175"
    },
@@ -11279,22 +12060,22 @@ export const SEED_REPORTS = [
     "coat": "Coat 3",
     "area": "Frame & walkway",
     "pts": [
-     "243",
-     "244",
-     "228",
-     "224",
-     "256"
+     "240",
+     "242",
+     "216",
+     "202",
+     "250"
     ],
     "std": "175"
    }
   ],
   "photos": [],
   "createdAt": "2026-07-14T07:40:00.000Z",
-  "updatedAt": "2026-07-14T15:40:00.000Z",
+  "updatedAt": "2026-07-14T15:06:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-07-14T15:40:00.000Z",
-  "syncedAt": "2026-07-14T15:40:00.000Z"
+  "approvedAt": "2026-07-14T15:06:00.000Z",
+  "syncedAt": "2026-07-14T15:06:00.000Z"
  },
  {
   "id": "demo-1000320007-DIM-01",
@@ -11315,61 +12096,61 @@ export const SEED_REPORTS = [
    "sn": "WTK-0388-07",
    "unit": "WTK-0388-07",
    "customer": "Customer 05",
-   "drawingNo": "DWG-WTK-4146-R1",
+   "drawingNo": "DWG-WTK-4154-R0",
    "drawingFile": "N/A",
    "ncr": "Inspection carried out per the referenced procedure. No outstanding items.",
    "signInspector": {
     "name": "Inspector Two",
-    "at": "2026-07-14T09:17:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-07-14T09:52:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-07-14T15:27:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-07-14T15:33:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
   "results": [
    {
     "description": "Tank length",
-    "itemNo": "9",
+    "itemNo": "8",
     "nominal": "7200",
     "min": "7197",
     "max": "7203",
     "actual": "7199",
-    "note": "Measured with steel tape."
+    "note": "Verified twice."
    },
    {
     "description": "Tank diameter",
-    "itemNo": "6",
+    "itemNo": "4",
     "nominal": "2200",
     "min": "2197",
     "max": "2203",
     "actual": "2200",
-    "note": ""
+    "note": "Measured with steel tape."
    },
    {
     "description": "Sub-frame length",
-    "itemNo": "6",
+    "itemNo": "2",
     "nominal": "6800",
     "min": "6797",
     "max": "6803",
     "actual": "6801",
-    "note": "Verified twice."
+    "note": "Measured with steel tape."
    },
    {
     "description": "Baffle pitch",
-    "itemNo": "11",
+    "itemNo": "9",
     "nominal": "1500",
     "min": "1497",
     "max": "1503",
     "actual": "1499",
-    "note": "Verified twice."
+    "note": "Measured with steel tape."
    },
    {
     "description": "Sump depth",
-    "itemNo": "10",
+    "itemNo": "4",
     "nominal": "320",
     "min": "317",
     "max": "323",
@@ -11380,11 +12161,11 @@ export const SEED_REPORTS = [
   "coats": [],
   "photos": [],
   "createdAt": "2026-07-14T07:40:00.000Z",
-  "updatedAt": "2026-07-14T15:27:00.000Z",
+  "updatedAt": "2026-07-14T15:33:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-07-14T15:27:00.000Z",
-  "syncedAt": "2026-07-14T15:27:00.000Z"
+  "approvedAt": "2026-07-14T15:33:00.000Z",
+  "syncedAt": "2026-07-14T15:33:00.000Z"
  },
  {
   "id": "demo-1000320007-PT-01",
@@ -11409,45 +12190,37 @@ export const SEED_REPORTS = [
    "materialSpec": "ASTM A516 Gr.70",
    "ncrRef": "N/A",
    "lightEquip": "LED floodlight 50W",
-   "lightmeter": "LUX-001 · Digital Light Meter · Cal 2026-01-09",
-   "lightIntensity": "1381",
+   "lightmeter": "LUX-002 · Digital Light Meter · Cal 2026-04-23",
+   "lightIntensity": "1352",
    "penetrantMethod": "Other",
    "penetrantType": "Visible",
-   "dwellTime": "38",
-   "applicationBy": "Brushing",
-   "appTemp": "58.5",
+   "dwellTime": "34",
+   "applicationBy": "Other",
+   "appTemp": "80.1",
    "developerType": "Non Aqueous",
-   "developingTime": "88.8",
-   "interpretationTime": "51.1",
+   "developingTime": "47.6",
+   "interpretationTime": "84.8",
    "cleaner": "SKC-S",
-   "stage": "After Hydrostatic",
-   "weldingProcess": "FCAW",
-   "scope": "Other",
+   "stage": "Other",
+   "weldingProcess": "GTAW",
+   "scope": "Repair Weld",
    "signInspector": {
     "name": "Inspector Two",
-    "at": "2026-07-15T09:37:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-07-15T09:28:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-07-15T15:27:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-07-15T15:39:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
   "results": [
    {
-    "partId": "Sump weld",
+    "partId": "Baffle to shell",
     "material": "ASTM A516 Gr.70",
-    "thickness": "12.2",
-    "judgement": "Acc",
-    "discontinuity": "None",
-    "remark": "N/A"
-   },
-   {
-    "partId": "Filler neck",
-    "material": "ASTM A516 Gr.70",
-    "thickness": "9.7",
+    "thickness": "11.3",
     "judgement": "Acc",
     "discontinuity": "None",
     "remark": "N/A"
@@ -11455,23 +12228,31 @@ export const SEED_REPORTS = [
    {
     "partId": "Baffle to shell",
     "material": "ASTM A516 Gr.70",
-    "thickness": "11.7",
+    "thickness": "10.9",
     "judgement": "Acc",
     "discontinuity": "None",
     "remark": "N/A"
    },
    {
-    "partId": "Chassis mounting bracket",
+    "partId": "Baffle to shell",
     "material": "ASTM A516 Gr.70",
-    "thickness": "9.1",
+    "thickness": "7.9",
     "judgement": "Acc",
     "discontinuity": "None",
     "remark": "N/A"
    },
    {
-    "partId": "Chassis mounting bracket",
+    "partId": "Filler neck",
     "material": "ASTM A516 Gr.70",
-    "thickness": "6.4",
+    "thickness": "11.4",
+    "judgement": "Acc",
+    "discontinuity": "None",
+    "remark": "N/A"
+   },
+   {
+    "partId": "Filler neck",
+    "material": "ASTM A516 Gr.70",
+    "thickness": "11.2",
     "judgement": "Acc",
     "discontinuity": "None",
     "remark": "N/A"
@@ -11480,11 +12261,11 @@ export const SEED_REPORTS = [
   "coats": [],
   "photos": [],
   "createdAt": "2026-07-15T07:40:00.000Z",
-  "updatedAt": "2026-07-15T15:27:00.000Z",
+  "updatedAt": "2026-07-15T15:39:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-07-15T15:27:00.000Z",
-  "syncedAt": "2026-07-15T15:27:00.000Z"
+  "approvedAt": "2026-07-15T15:39:00.000Z",
+  "syncedAt": "2026-07-15T15:39:00.000Z"
  },
  {
   "id": "demo-1000320007-LHT-01",
@@ -11508,7 +12289,7 @@ export const SEED_REPORTS = [
    "testType": "Hydrostatic Test",
    "testDesc": "Tank",
    "testMedia": "Water",
-   "pressureUnit": "PsiG",
+   "pressureUnit": "Bar",
    "gauges": "2 Gauges",
    "useRecorder": "Used",
    "useTemp": "Used",
@@ -11526,64 +12307,64 @@ export const SEED_REPORTS = [
    "pressRecorder": "BRT-002 · Chart Recorder · Cal 2026-04-08",
    "scale": "1 div = 0.2 Bar",
    "tempRecorder": "TMP-001 · Digital Thermometer · Cal 2026-01-20",
-   "tempGauge": "TG-012 · Dial Temperature Gauge · Cal 2026-06-02",
+   "tempGauge": "TG-011 · Dial Temperature Gauge · Cal 2026-05-19",
    "testResult": "Unsatisfactory",
    "ncr": "Non-conformance raised against this unit. Rework and re-inspection required before release.",
    "signInspector": {
     "name": "Inspector Two",
-    "at": "2026-07-16T09:13:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-07-16T09:43:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-07-16T15:31:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-07-16T15:25:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [
    {
-    "time": "08:41",
+    "time": "08:35",
     "pg1": "0.00",
     "pg2": "0.00",
     "rec": "0.00",
     "water": "28.0",
-    "ambient": "32.0",
-    "remark": "Start, 0 PsiG"
+    "ambient": "30.2",
+    "remark": "Start, 0 Bar"
    },
    {
-    "time": "09:07",
+    "time": "09:46",
     "pg1": "5.99",
     "pg2": "5.99",
     "rec": "5.99",
-    "water": "30.7",
-    "ambient": "33.3",
+    "water": "30.2",
+    "ambient": "30.3",
     "remark": "Stable"
    },
    {
-    "time": "010:30",
+    "time": "010:05",
     "pg1": "5.98",
     "pg2": "5.98",
     "rec": "5.98",
-    "water": "29.0",
-    "ambient": "31.2",
+    "water": "28.8",
+    "ambient": "32.1",
     "remark": "Stable"
    },
    {
-    "time": "011:09",
+    "time": "011:20",
     "pg1": "5.97",
     "pg2": "5.97",
     "rec": "5.97",
-    "water": "29.4",
-    "ambient": "32.6",
+    "water": "30.5",
+    "ambient": "31.7",
     "remark": "Stable"
    },
    {
-    "time": "012:50",
+    "time": "012:19",
     "pg1": "5.58",
     "pg2": "5.58",
     "rec": "5.58",
-    "water": "30.6",
-    "ambient": "32.8",
+    "water": "30.1",
+    "ambient": "34.0",
     "remark": "Pressure drop observed — leak at outlet nozzle. Test failed."
    }
   ],
@@ -11591,11 +12372,11 @@ export const SEED_REPORTS = [
   "coats": [],
   "photos": [],
   "createdAt": "2026-07-16T07:40:00.000Z",
-  "updatedAt": "2026-07-16T15:31:00.000Z",
+  "updatedAt": "2026-07-16T15:25:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-07-16T15:31:00.000Z",
-  "syncedAt": "2026-07-16T15:31:00.000Z"
+  "approvedAt": "2026-07-16T15:25:00.000Z",
+  "syncedAt": "2026-07-16T15:25:00.000Z"
  },
  {
   "id": "demo-1000320007-LHT-02",
@@ -11619,426 +12400,7 @@ export const SEED_REPORTS = [
    "testType": "Hydrostatic Test",
    "testDesc": "Pipe",
    "testMedia": "Water",
-   "pressureUnit": "PsiG",
-   "gauges": "2 Gauges",
-   "useRecorder": "Used",
-   "useTemp": "Used",
-   "thirdParty": "No",
-   "standard": "ASME Sect. VIII, Div. 1, 2019 Edition",
-   "material": "ASTM A516 Gr.70",
-   "surfaceCond": "As-welded, blast cleaned",
-   "designPressure": "4.0",
-   "mawp": "4.0",
-   "map": "-",
-   "testPressure": "6.0",
-   "holding": "30",
-   "pg1": "PG-001 · Pressure Gauge 0–25 Bar · Cal 2026-01-14",
-   "pg2": "PG-002 · Pressure Gauge 0–25 Bar · Cal 2026-01-14",
-   "pressRecorder": "BRT-002 · Chart Recorder · Cal 2026-04-08",
-   "scale": "1 div = 0.2 Bar",
-   "tempRecorder": "TMP-001 · Digital Thermometer · Cal 2026-01-20",
-   "tempGauge": "TG-011 · Dial Temperature Gauge · Cal 2026-05-19",
-   "testResult": "Satisfactory",
-   "signInspector": {
-    "name": "Inspector One",
-    "at": "2026-07-25T09:31:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
-   },
-   "signQc": {
-    "name": "QA Lead",
-    "at": "2026-07-25T15:18:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
-   }
-  },
-  "readings": [
-   {
-    "time": "08:55",
-    "pg1": "0.00",
-    "pg2": "0.00",
-    "rec": "0.00",
-    "water": "30.7",
-    "ambient": "32.0",
-    "remark": "Start, 0 PsiG"
-   },
-   {
-    "time": "09:36",
-    "pg1": "5.99",
-    "pg2": "5.99",
-    "rec": "5.99",
-    "water": "29.9",
-    "ambient": "30.4",
-    "remark": "Stable"
-   },
-   {
-    "time": "010:05",
-    "pg1": "5.98",
-    "pg2": "5.98",
-    "rec": "5.98",
-    "water": "30.6",
-    "ambient": "31.2",
-    "remark": "Stable"
-   },
-   {
-    "time": "011:48",
-    "pg1": "5.97",
-    "pg2": "5.97",
-    "rec": "5.97",
-    "water": "30.2",
-    "ambient": "32.0",
-    "remark": "Stable"
-   },
-   {
-    "time": "012:19",
-    "pg1": "5.96",
-    "pg2": "5.96",
-    "rec": "5.96",
-    "water": "28.7",
-    "ambient": "30.2",
-    "remark": "Hold complete, no drop"
-   }
-  ],
-  "results": [],
-  "coats": [],
-  "photos": [],
-  "createdAt": "2026-07-25T07:40:00.000Z",
-  "updatedAt": "2026-07-25T15:18:00.000Z",
-  "synced": true,
-  "approvedBy": "QA Lead",
-  "approvedAt": "2026-07-25T15:18:00.000Z",
-  "syncedAt": "2026-07-25T15:18:00.000Z",
-  "supersedes": "MFG/LHT/1000320007/01",
-  "supersedesId": "demo-1000320007-LHT-01"
- },
- {
-  "id": "demo-1000320007-BPR-01",
-  "reportId": "MFG/BPR/1000320007/01",
-  "formKey": "blasting",
-  "jobNo": "1000320007",
-  "deliverable": "Painting",
-  "status": "approved",
-  "inspector": "Inspector Two",
-  "values": {
-   "reportId": "MFG/BPR/1000320007/01",
-   "inspDate": "2026-07-17",
-   "inspector": "Inspector Two",
-   "jobNo": "1000320007",
-   "poNo": "PO-2026-WTK-0388",
-   "wbsNo": "WBS-26-0788",
-   "jobDesc": "WATER TRUCK 20KL",
-   "sn": "WTK-0388-07",
-   "unit": "WTK-0388-07",
-   "customer": "Customer 05",
-   "blastDate": "2026-07-17",
-   "surfacePrep": "SA 2½",
-   "sspc": "SP 10",
-   "abrasive": "Steel grit G-40",
-   "anchorProfile": "51",
-   "dryTemp": "32.4",
-   "wetTemp": "24.2",
-   "matlTemp": "31.5",
-   "prepResult": "Acc",
-   "coatingPrep": "Top",
-   "paintDesc": "Polyurethane topcoat",
-   "thinner": "Epoxy thinner",
-   "batchPaint": "B25607",
-   "batchThinner": "T3868",
-   "finalStatus": "Accept",
-   "ncr": "Inspection carried out per the referenced procedure. No outstanding items.",
-   "signInspector": {
-    "name": "Inspector Two",
-    "at": "2026-07-17T09:12:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
-   },
-   "signQc": {
-    "name": "QA Lead",
-    "at": "2026-07-17T15:05:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
-   }
-  },
-  "readings": [],
-  "results": [],
-  "coats": [
-   {
-    "coat": "Coat 1",
-    "area": "Exterior — Zone A",
-    "pts": [
-     "152",
-     "166",
-     "141",
-     "143",
-     "159"
-    ],
-    "std": "120"
-   },
-   {
-    "coat": "Coat 2",
-    "area": "Exterior — Zone B",
-    "pts": [
-     "244",
-     "193",
-     "240",
-     "242",
-     "216"
-    ],
-    "std": "175"
-   },
-   {
-    "coat": "Coat 3",
-    "area": "Frame & walkway",
-    "pts": [
-     "202",
-     "250",
-     "243",
-     "188",
-     "183"
-    ],
-    "std": "175"
-   }
-  ],
-  "photos": [],
-  "createdAt": "2026-07-17T07:40:00.000Z",
-  "updatedAt": "2026-07-17T15:05:00.000Z",
-  "synced": true,
-  "approvedBy": "QA Lead",
-  "approvedAt": "2026-07-17T15:05:00.000Z",
-  "syncedAt": "2026-07-17T15:05:00.000Z"
- },
- {
-  "id": "demo-1000320008-DIM-01",
-  "reportId": "MFG/DIM/1000320008/01",
-  "formKey": "dimensional",
-  "jobNo": "1000320008",
-  "deliverable": "Dimension Report",
-  "status": "approved",
-  "inspector": "Inspector One",
-  "values": {
-   "reportId": "MFG/DIM/1000320008/01",
-   "inspDate": "2026-07-17",
-   "inspector": "Inspector One",
-   "jobNo": "1000320008",
-   "poNo": "PO-2026-WTK-0388",
-   "wbsNo": "WBS-26-0888",
-   "jobDesc": "WATER TRUCK 30KL",
-   "sn": "WTK-0388-08",
-   "unit": "WTK-0388-08",
-   "customer": "Customer 05",
-   "drawingNo": "DWG-WTK-4148-R1",
-   "drawingFile": "N/A",
-   "ncr": "Inspection carried out per the referenced procedure. No outstanding items.",
-   "signInspector": {
-    "name": "Inspector One",
-    "at": "2026-07-17T09:33:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
-   },
-   "signQc": {
-    "name": "QA Lead",
-    "at": "2026-07-17T15:39:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
-   }
-  },
-  "readings": [],
-  "results": [
-   {
-    "description": "Tank length",
-    "itemNo": "5",
-    "nominal": "7200",
-    "min": "7197",
-    "max": "7203",
-    "actual": "7199",
-    "note": "Verified twice."
-   },
-   {
-    "description": "Tank diameter",
-    "itemNo": "3",
-    "nominal": "2200",
-    "min": "2197",
-    "max": "2203",
-    "actual": "2200",
-    "note": ""
-   },
-   {
-    "description": "Sub-frame length",
-    "itemNo": "4",
-    "nominal": "6800",
-    "min": "6797",
-    "max": "6803",
-    "actual": "6801",
-    "note": ""
-   },
-   {
-    "description": "Baffle pitch",
-    "itemNo": "12",
-    "nominal": "1500",
-    "min": "1497",
-    "max": "1503",
-    "actual": "1499",
-    "note": "Verified twice."
-   },
-   {
-    "description": "Sump depth",
-    "itemNo": "1",
-    "nominal": "320",
-    "min": "317",
-    "max": "323",
-    "actual": "320",
-    "note": "Verified twice."
-   }
-  ],
-  "coats": [],
-  "photos": [],
-  "createdAt": "2026-07-17T07:40:00.000Z",
-  "updatedAt": "2026-07-17T15:39:00.000Z",
-  "synced": true,
-  "approvedBy": "QA Lead",
-  "approvedAt": "2026-07-17T15:39:00.000Z",
-  "syncedAt": "2026-07-17T15:39:00.000Z"
- },
- {
-  "id": "demo-1000320008-UT-01",
-  "reportId": "MFG/UT/1000320008/01",
-  "formKey": "ut",
-  "jobNo": "1000320008",
-  "deliverable": "NDE Report",
-  "status": "approved",
-  "inspector": "Inspector One",
-  "values": {
-   "reportId": "MFG/UT/1000320008/01",
-   "inspDate": "2026-07-18",
-   "inspector": "Inspector One",
-   "jobNo": "1000320008",
-   "poNo": "PO-2026-WTK-0388",
-   "wbsNo": "WBS-26-0888",
-   "jobDesc": "WATER TRUCK 30KL",
-   "sn": "WTK-0388-08",
-   "unit": "WTK-0388-08",
-   "customer": "Customer 05",
-   "code": "AWS D1.1",
-   "materialSpec": "ASTM A516 Gr.70",
-   "ncrRef": "N/A",
-   "instrument": "Olympus EPOCH 650",
-   "model": "EPOCH 650",
-   "serialNo": "SN-10019",
-   "cable": "Coaxial BNC, 2.0 m",
-   "couplant": "CMC gel",
-   "technique": "Angle Beam",
-   "scanSurface": "From A",
-   "scanTechnique": "Other",
-   "scanDirection": "Essentially parallel to weld axis",
-   "lengthInd": "6 dB Drop",
-   "heightInd": "14 dB Drop",
-   "suAngle": "45°",
-   "suSerial": "SU-8946",
-   "suFreq": "13.6",
-   "suSize": "10 mm dia.",
-   "blockId": "Nozzle",
-   "hole": "SDH Ø 2.4 mm",
-   "amplitude": "31",
-   "refReflector": "IIW V1 block",
-   "refLevel": "66.7",
-   "scanLevel": "20.3",
-   "testRange": "37.7",
-   "notes": "Inspection carried out per the referenced procedure. No outstanding items.",
-   "signInspector": {
-    "name": "Inspector One",
-    "at": "2026-07-18T09:43:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
-   },
-   "signQc": {
-    "name": "QA Lead",
-    "at": "2026-07-18T15:25:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
-   }
-  },
-  "readings": [],
-  "results": [
-   {
-    "partId": "Filler neck",
-    "thickness": "12.7",
-    "soundpath": "27.8",
-    "amplitude": "31",
-    "length": "16",
-    "depth": "9.3",
-    "judgement": "Acc",
-    "discontinuity": "None",
-    "remark": "N/A"
-   },
-   {
-    "partId": "Sump weld",
-    "thickness": "11.4",
-    "soundpath": "39.0",
-    "amplitude": "52",
-    "length": "13",
-    "depth": "9.5",
-    "judgement": "Acc",
-    "discontinuity": "None",
-    "remark": "N/A"
-   },
-   {
-    "partId": "Baffle to shell",
-    "thickness": "7.9",
-    "soundpath": "54.7",
-    "amplitude": "65",
-    "length": "4",
-    "depth": "8.1",
-    "judgement": "Acc",
-    "discontinuity": "None",
-    "remark": "N/A"
-   },
-   {
-    "partId": "Tank barrel seam",
-    "thickness": "12.5",
-    "soundpath": "42.8",
-    "amplitude": "23",
-    "length": "4",
-    "depth": "4.5",
-    "judgement": "Acc",
-    "discontinuity": "None",
-    "remark": "N/A"
-   },
-   {
-    "partId": "Baffle to shell",
-    "thickness": "12.7",
-    "soundpath": "29.2",
-    "amplitude": "33",
-    "length": "19",
-    "depth": "11.9",
-    "judgement": "Acc",
-    "discontinuity": "None",
-    "remark": "N/A"
-   }
-  ],
-  "coats": [],
-  "photos": [],
-  "createdAt": "2026-07-18T07:40:00.000Z",
-  "updatedAt": "2026-07-18T15:25:00.000Z",
-  "synced": true,
-  "approvedBy": "QA Lead",
-  "approvedAt": "2026-07-18T15:25:00.000Z",
-  "syncedAt": "2026-07-18T15:25:00.000Z"
- },
- {
-  "id": "demo-1000320008-LHT-01",
-  "reportId": "MFG/LHT/1000320008/01",
-  "formKey": "hydrotest",
-  "jobNo": "1000320008",
-  "deliverable": "Leak & Hydro Test",
-  "status": "approved",
-  "inspector": "Inspector One",
-  "values": {
-   "reportId": "MFG/LHT/1000320008/01",
-   "inspDate": "2026-07-19",
-   "inspector": "Inspector One",
-   "jobNo": "1000320008",
-   "poNo": "PO-2026-WTK-0388",
-   "wbsNo": "WBS-26-0888",
-   "jobDesc": "WATER TRUCK 30KL",
-   "sn": "WTK-0388-08",
-   "unit": "WTK-0388-08",
-   "customer": "Customer 05",
-   "testType": "Hydrostatic Test",
-   "testDesc": "Pipe",
-   "testMedia": "Water",
-   "pressureUnit": "PsiG",
+   "pressureUnit": "Bar",
    "gauges": "2 Gauges",
    "useRecorder": "Used",
    "useTemp": "Used",
@@ -12060,13 +12422,13 @@ export const SEED_REPORTS = [
    "testResult": "Satisfactory",
    "signInspector": {
     "name": "Inspector One",
-    "at": "2026-07-19T09:15:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-07-25T09:15:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-07-19T15:32:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-07-25T15:32:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [
@@ -12077,7 +12439,7 @@ export const SEED_REPORTS = [
     "rec": "0.00",
     "water": "29.0",
     "ambient": "30.1",
-    "remark": "Start, 0 PsiG"
+    "remark": "Start, 0 Bar"
    },
    {
     "time": "09:07",
@@ -12119,33 +12481,35 @@ export const SEED_REPORTS = [
   "results": [],
   "coats": [],
   "photos": [],
-  "createdAt": "2026-07-19T07:40:00.000Z",
-  "updatedAt": "2026-07-19T15:32:00.000Z",
+  "createdAt": "2026-07-25T07:40:00.000Z",
+  "updatedAt": "2026-07-25T15:32:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-07-19T15:32:00.000Z",
-  "syncedAt": "2026-07-19T15:32:00.000Z"
+  "approvedAt": "2026-07-25T15:32:00.000Z",
+  "syncedAt": "2026-07-25T15:32:00.000Z",
+  "supersedes": "MFG/LHT/1000320007/01",
+  "supersedesId": "demo-1000320007-LHT-01"
  },
  {
-  "id": "demo-1000320008-BPR-01",
-  "reportId": "MFG/BPR/1000320008/01",
+  "id": "demo-1000320007-BPR-01",
+  "reportId": "MFG/BPR/1000320007/01",
   "formKey": "blasting",
-  "jobNo": "1000320008",
+  "jobNo": "1000320007",
   "deliverable": "Painting",
   "status": "approved",
-  "inspector": "Inspector One",
+  "inspector": "Inspector Two",
   "values": {
-   "reportId": "MFG/BPR/1000320008/01",
-   "inspDate": "2026-07-20",
-   "inspector": "Inspector One",
-   "jobNo": "1000320008",
+   "reportId": "MFG/BPR/1000320007/01",
+   "inspDate": "2026-07-17",
+   "inspector": "Inspector Two",
+   "jobNo": "1000320007",
    "poNo": "PO-2026-WTK-0388",
-   "wbsNo": "WBS-26-0888",
-   "jobDesc": "WATER TRUCK 30KL",
-   "sn": "WTK-0388-08",
-   "unit": "WTK-0388-08",
+   "wbsNo": "WBS-26-0788",
+   "jobDesc": "WATER TRUCK 20KL",
+   "sn": "WTK-0388-07",
+   "unit": "WTK-0388-07",
    "customer": "Customer 05",
-   "blastDate": "2026-07-20",
+   "blastDate": "2026-07-17",
    "surfacePrep": "SA 2½",
    "sspc": "SP 10",
    "abrasive": "Steel grit G-40",
@@ -12162,14 +12526,14 @@ export const SEED_REPORTS = [
    "finalStatus": "Accept",
    "ncr": "Inspection carried out per the referenced procedure. No outstanding items.",
    "signInspector": {
-    "name": "Inspector One",
-    "at": "2026-07-20T09:27:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "name": "Inspector Two",
+    "at": "2026-07-17T09:27:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-07-20T15:35:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-07-17T15:35:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
@@ -12213,44 +12577,44 @@ export const SEED_REPORTS = [
    }
   ],
   "photos": [],
-  "createdAt": "2026-07-20T07:40:00.000Z",
-  "updatedAt": "2026-07-20T15:35:00.000Z",
+  "createdAt": "2026-07-17T07:40:00.000Z",
+  "updatedAt": "2026-07-17T15:35:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-07-20T15:35:00.000Z",
-  "syncedAt": "2026-07-20T15:35:00.000Z"
+  "approvedAt": "2026-07-17T15:35:00.000Z",
+  "syncedAt": "2026-07-17T15:35:00.000Z"
  },
  {
-  "id": "demo-1000320009-DIM-01",
-  "reportId": "MFG/DIM/1000320009/01",
+  "id": "demo-1000320008-DIM-01",
+  "reportId": "MFG/DIM/1000320008/01",
   "formKey": "dimensional",
-  "jobNo": "1000320009",
+  "jobNo": "1000320008",
   "deliverable": "Dimension Report",
   "status": "approved",
-  "inspector": "Inspector Two",
+  "inspector": "Inspector One",
   "values": {
-   "reportId": "MFG/DIM/1000320009/01",
-   "inspDate": "2026-07-20",
-   "inspector": "Inspector Two",
-   "jobNo": "1000320009",
+   "reportId": "MFG/DIM/1000320008/01",
+   "inspDate": "2026-07-17",
+   "inspector": "Inspector One",
+   "jobNo": "1000320008",
    "poNo": "PO-2026-WTK-0388",
-   "wbsNo": "WBS-26-0988",
-   "jobDesc": "WATER TRUCK 35KL",
-   "sn": "WTK-0388-09",
-   "unit": "WTK-0388-09",
+   "wbsNo": "WBS-26-0888",
+   "jobDesc": "WATER TRUCK 30KL",
+   "sn": "WTK-0388-08",
+   "unit": "WTK-0388-08",
    "customer": "Customer 05",
    "drawingNo": "DWG-WTK-4172-R1",
    "drawingFile": "N/A",
    "ncr": "Inspection carried out per the referenced procedure. No outstanding items.",
    "signInspector": {
-    "name": "Inspector Two",
-    "at": "2026-07-20T09:51:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "name": "Inspector One",
+    "at": "2026-07-17T09:51:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-07-20T15:06:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-07-17T15:06:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
@@ -12303,12 +12667,429 @@ export const SEED_REPORTS = [
   ],
   "coats": [],
   "photos": [],
-  "createdAt": "2026-07-20T07:40:00.000Z",
-  "updatedAt": "2026-07-20T15:06:00.000Z",
+  "createdAt": "2026-07-17T07:40:00.000Z",
+  "updatedAt": "2026-07-17T15:06:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-07-20T15:06:00.000Z",
-  "syncedAt": "2026-07-20T15:06:00.000Z"
+  "approvedAt": "2026-07-17T15:06:00.000Z",
+  "syncedAt": "2026-07-17T15:06:00.000Z"
+ },
+ {
+  "id": "demo-1000320008-UT-01",
+  "reportId": "MFG/UT/1000320008/01",
+  "formKey": "ut",
+  "jobNo": "1000320008",
+  "deliverable": "NDE Report",
+  "status": "approved",
+  "inspector": "Inspector One",
+  "values": {
+   "reportId": "MFG/UT/1000320008/01",
+   "inspDate": "2026-07-18",
+   "inspector": "Inspector One",
+   "jobNo": "1000320008",
+   "poNo": "PO-2026-WTK-0388",
+   "wbsNo": "WBS-26-0888",
+   "jobDesc": "WATER TRUCK 30KL",
+   "sn": "WTK-0388-08",
+   "unit": "WTK-0388-08",
+   "customer": "Customer 05",
+   "code": "AWS D1.1",
+   "materialSpec": "ASTM A516 Gr.70",
+   "ncrRef": "N/A",
+   "instrument": "Olympus EPOCH 650",
+   "model": "EPOCH 650",
+   "serialNo": "SN-58320",
+   "cable": "Coaxial BNC, 2.0 m",
+   "couplant": "CMC gel",
+   "technique": "Contact — Straight Beam",
+   "scanSurface": "From C",
+   "scanTechnique": "Half Skip Distance",
+   "scanDirection": "Essentially parallel to weld axis",
+   "lengthInd": "14 dB Drop",
+   "heightInd": "14 dB Drop",
+   "suAngle": "0°",
+   "suSerial": "SU-3105",
+   "suFreq": "86.0",
+   "suSize": "10 mm dia.",
+   "blockId": "V1",
+   "hole": "SDH Ø 2.4 mm",
+   "amplitude": "28",
+   "refReflector": "IIW V1 block",
+   "refLevel": "49.1",
+   "scanLevel": "41.1",
+   "testRange": "21.6",
+   "notes": "Inspection carried out per the referenced procedure. No outstanding items.",
+   "signInspector": {
+    "name": "Inspector One",
+    "at": "2026-07-18T09:51:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+   },
+   "signQc": {
+    "name": "QA Lead",
+    "at": "2026-07-18T15:50:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+   }
+  },
+  "readings": [],
+  "results": [
+   {
+    "partId": "Filler neck",
+    "thickness": "11.5",
+    "soundpath": "36.9",
+    "amplitude": "60",
+    "length": "20",
+    "depth": "8.3",
+    "judgement": "Acc",
+    "discontinuity": "None",
+    "remark": "N/A"
+   },
+   {
+    "partId": "Sump weld",
+    "thickness": "7.7",
+    "soundpath": "40.7",
+    "amplitude": "68",
+    "length": "7",
+    "depth": "8.8",
+    "judgement": "Acc",
+    "discontinuity": "None",
+    "remark": "N/A"
+   },
+   {
+    "partId": "Chassis mounting bracket",
+    "thickness": "7.8",
+    "soundpath": "53.4",
+    "amplitude": "59",
+    "length": "5",
+    "depth": "5.4",
+    "judgement": "Acc",
+    "discontinuity": "None",
+    "remark": "N/A"
+   },
+   {
+    "partId": "Chassis mounting bracket",
+    "thickness": "9.8",
+    "soundpath": "14.7",
+    "amplitude": "59",
+    "length": "6",
+    "depth": "11.2",
+    "judgement": "Acc",
+    "discontinuity": "None",
+    "remark": "N/A"
+   },
+   {
+    "partId": "Tank barrel seam",
+    "thickness": "7.0",
+    "soundpath": "39.5",
+    "amplitude": "48",
+    "length": "22",
+    "depth": "10.4",
+    "judgement": "Acc",
+    "discontinuity": "None",
+    "remark": "N/A"
+   }
+  ],
+  "coats": [],
+  "photos": [],
+  "createdAt": "2026-07-18T07:40:00.000Z",
+  "updatedAt": "2026-07-18T15:50:00.000Z",
+  "synced": true,
+  "approvedBy": "QA Lead",
+  "approvedAt": "2026-07-18T15:50:00.000Z",
+  "syncedAt": "2026-07-18T15:50:00.000Z"
+ },
+ {
+  "id": "demo-1000320008-LHT-01",
+  "reportId": "MFG/LHT/1000320008/01",
+  "formKey": "hydrotest",
+  "jobNo": "1000320008",
+  "deliverable": "Leak & Hydro Test",
+  "status": "approved",
+  "inspector": "Inspector One",
+  "values": {
+   "reportId": "MFG/LHT/1000320008/01",
+   "inspDate": "2026-07-19",
+   "inspector": "Inspector One",
+   "jobNo": "1000320008",
+   "poNo": "PO-2026-WTK-0388",
+   "wbsNo": "WBS-26-0888",
+   "jobDesc": "WATER TRUCK 30KL",
+   "sn": "WTK-0388-08",
+   "unit": "WTK-0388-08",
+   "customer": "Customer 05",
+   "testType": "Hydrostatic Test",
+   "testDesc": "Pipe",
+   "testMedia": "Water",
+   "pressureUnit": "Bar",
+   "gauges": "2 Gauges",
+   "useRecorder": "Used",
+   "useTemp": "Used",
+   "thirdParty": "No",
+   "standard": "ASME Sect. VIII, Div. 1, 2019 Edition",
+   "material": "ASTM A516 Gr.70",
+   "surfaceCond": "As-welded, blast cleaned",
+   "designPressure": "4.0",
+   "mawp": "4.0",
+   "map": "-",
+   "testPressure": "6.0",
+   "holding": "30",
+   "pg1": "PG-003 · Pressure Gauge 0–40 Bar · Cal 2026-03-02",
+   "pg2": "PG-001 · Pressure Gauge 0–25 Bar · Cal 2026-01-14",
+   "pressRecorder": "BRT-001 · Chart Recorder · Cal 2026-02-11",
+   "scale": "1 div = 0.2 Bar",
+   "tempRecorder": "TMP-001 · Digital Thermometer · Cal 2026-01-20",
+   "tempGauge": "TG-012 · Dial Temperature Gauge · Cal 2026-06-02",
+   "testResult": "Satisfactory",
+   "signInspector": {
+    "name": "Inspector One",
+    "at": "2026-07-19T09:52:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+   },
+   "signQc": {
+    "name": "QA Lead",
+    "at": "2026-07-19T15:12:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+   }
+  },
+  "readings": [
+   {
+    "time": "08:49",
+    "pg1": "0.00",
+    "pg2": "0.00",
+    "rec": "0.00",
+    "water": "29.3",
+    "ambient": "32.1",
+    "remark": "Start, 0 Bar"
+   },
+   {
+    "time": "09:46",
+    "pg1": "5.99",
+    "pg2": "5.99",
+    "rec": "5.99",
+    "water": "29.1",
+    "ambient": "30.4",
+    "remark": "Stable"
+   },
+   {
+    "time": "010:46",
+    "pg1": "5.98",
+    "pg2": "5.98",
+    "rec": "5.98",
+    "water": "28.0",
+    "ambient": "30.8",
+    "remark": "Stable"
+   },
+   {
+    "time": "011:13",
+    "pg1": "5.97",
+    "pg2": "5.97",
+    "rec": "5.97",
+    "water": "30.1",
+    "ambient": "32.9",
+    "remark": "Stable"
+   },
+   {
+    "time": "012:28",
+    "pg1": "5.96",
+    "pg2": "5.96",
+    "rec": "5.96",
+    "water": "29.7",
+    "ambient": "31.5",
+    "remark": "Hold complete, no drop"
+   }
+  ],
+  "results": [],
+  "coats": [],
+  "photos": [],
+  "createdAt": "2026-07-19T07:40:00.000Z",
+  "updatedAt": "2026-07-19T15:12:00.000Z",
+  "synced": true,
+  "approvedBy": "QA Lead",
+  "approvedAt": "2026-07-19T15:12:00.000Z",
+  "syncedAt": "2026-07-19T15:12:00.000Z"
+ },
+ {
+  "id": "demo-1000320008-BPR-01",
+  "reportId": "MFG/BPR/1000320008/01",
+  "formKey": "blasting",
+  "jobNo": "1000320008",
+  "deliverable": "Painting",
+  "status": "approved",
+  "inspector": "Inspector One",
+  "values": {
+   "reportId": "MFG/BPR/1000320008/01",
+   "inspDate": "2026-07-20",
+   "inspector": "Inspector One",
+   "jobNo": "1000320008",
+   "poNo": "PO-2026-WTK-0388",
+   "wbsNo": "WBS-26-0888",
+   "jobDesc": "WATER TRUCK 30KL",
+   "sn": "WTK-0388-08",
+   "unit": "WTK-0388-08",
+   "customer": "Customer 05",
+   "blastDate": "2026-07-20",
+   "surfacePrep": "SA 2½",
+   "sspc": "SP 10",
+   "abrasive": "Steel grit G-40",
+   "anchorProfile": "53",
+   "dryTemp": "30.5",
+   "wetTemp": "26.8",
+   "matlTemp": "34.6",
+   "prepResult": "Acc",
+   "coatingPrep": "Top",
+   "paintDesc": "Epoxy mastic MIO",
+   "thinner": "Epoxy thinner",
+   "batchPaint": "B25971",
+   "batchThinner": "T3783",
+   "finalStatus": "Accept",
+   "ncr": "Inspection carried out per the referenced procedure. No outstanding items.",
+   "signInspector": {
+    "name": "Inspector One",
+    "at": "2026-07-20T09:43:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+   },
+   "signQc": {
+    "name": "QA Lead",
+    "at": "2026-07-20T15:15:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+   }
+  },
+  "readings": [],
+  "results": [],
+  "coats": [
+   {
+    "coat": "Coat 1",
+    "area": "Exterior — Zone A",
+    "pts": [
+     "140",
+     "140",
+     "171",
+     "170",
+     "135"
+    ],
+    "std": "120"
+   },
+   {
+    "coat": "Coat 2",
+    "area": "Exterior — Zone B",
+    "pts": [
+     "246",
+     "227",
+     "190",
+     "186",
+     "194"
+    ],
+    "std": "175"
+   },
+   {
+    "coat": "Coat 3",
+    "area": "Frame & walkway",
+    "pts": [
+     "222",
+     "247",
+     "205",
+     "212",
+     "189"
+    ],
+    "std": "175"
+   }
+  ],
+  "photos": [],
+  "createdAt": "2026-07-20T07:40:00.000Z",
+  "updatedAt": "2026-07-20T15:15:00.000Z",
+  "synced": true,
+  "approvedBy": "QA Lead",
+  "approvedAt": "2026-07-20T15:15:00.000Z",
+  "syncedAt": "2026-07-20T15:15:00.000Z"
+ },
+ {
+  "id": "demo-1000320009-DIM-01",
+  "reportId": "MFG/DIM/1000320009/01",
+  "formKey": "dimensional",
+  "jobNo": "1000320009",
+  "deliverable": "Dimension Report",
+  "status": "approved",
+  "inspector": "Inspector Two",
+  "values": {
+   "reportId": "MFG/DIM/1000320009/01",
+   "inspDate": "2026-07-20",
+   "inspector": "Inspector Two",
+   "jobNo": "1000320009",
+   "poNo": "PO-2026-WTK-0388",
+   "wbsNo": "WBS-26-0988",
+   "jobDesc": "WATER TRUCK 35KL",
+   "sn": "WTK-0388-09",
+   "unit": "WTK-0388-09",
+   "customer": "Customer 05",
+   "drawingNo": "DWG-WTK-4135-R1",
+   "drawingFile": "N/A",
+   "ncr": "Inspection carried out per the referenced procedure. No outstanding items.",
+   "signInspector": {
+    "name": "Inspector Two",
+    "at": "2026-07-20T09:43:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+   },
+   "signQc": {
+    "name": "QA Lead",
+    "at": "2026-07-20T15:27:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+   }
+  },
+  "readings": [],
+  "results": [
+   {
+    "description": "Tank length",
+    "itemNo": "10",
+    "nominal": "7200",
+    "min": "7197",
+    "max": "7203",
+    "actual": "7199",
+    "note": "Verified twice."
+   },
+   {
+    "description": "Tank diameter",
+    "itemNo": "11",
+    "nominal": "2200",
+    "min": "2197",
+    "max": "2203",
+    "actual": "2200",
+    "note": ""
+   },
+   {
+    "description": "Sub-frame length",
+    "itemNo": "9",
+    "nominal": "6800",
+    "min": "6797",
+    "max": "6803",
+    "actual": "6801",
+    "note": "Verified twice."
+   },
+   {
+    "description": "Baffle pitch",
+    "itemNo": "1",
+    "nominal": "1500",
+    "min": "1497",
+    "max": "1503",
+    "actual": "1499",
+    "note": ""
+   },
+   {
+    "description": "Sump depth",
+    "itemNo": "11",
+    "nominal": "320",
+    "min": "317",
+    "max": "323",
+    "actual": "320",
+    "note": "Verified twice."
+   }
+  ],
+  "coats": [],
+  "photos": [],
+  "createdAt": "2026-07-20T07:40:00.000Z",
+  "updatedAt": "2026-07-20T15:27:00.000Z",
+  "synced": true,
+  "approvedBy": "QA Lead",
+  "approvedAt": "2026-07-20T15:27:00.000Z",
+  "syncedAt": "2026-07-20T15:27:00.000Z"
  },
  {
   "id": "demo-1000320009-MT-01",
@@ -12334,48 +13115,39 @@ export const SEED_REPORTS = [
    "ncrRef": "N/A",
    "lightEquip": "LED floodlight 50W",
    "lightmeter": "LUX-002 · Digital Light Meter · Cal 2026-04-23",
-   "lightIntensity": "1196",
+   "lightIntensity": "1320",
    "mtEquipment": "Coil",
    "equipId": "YK-2201",
-   "currentType": "HWDC-HWAC",
+   "currentType": "AC",
    "particle": "Visible, Wet",
-   "particleApp": "Other",
+   "particleApp": "Spray",
    "brand": "Magnaflux 7HF",
-   "particleDesc": "Wet fluorescent, batch WF799",
-   "whiteContrast": "Contrast paint, batch WC123",
-   "cleanerBatch": "Solvent cleaner, batch CL316",
-   "method": "Other",
-   "surfacePreparation": "As Welded",
-   "stage": "After Welding",
-   "weldingProcess": "SMAW",
-   "scope": "Weld Part",
+   "particleDesc": "Wet fluorescent, batch WF625",
+   "whiteContrast": "Contrast paint, batch WC114",
+   "cleanerBatch": "Solvent cleaner, batch CL586",
+   "method": "Continuous",
+   "surfacePreparation": "As Grounded",
+   "stage": "After Hydrostatic",
+   "weldingProcess": "FCAW",
+   "scope": "Repair Weld",
    "signInspector": {
     "name": "Inspector Two",
-    "at": "2026-07-21T09:25:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-07-21T09:21:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-07-21T15:06:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-07-21T15:17:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
   "results": [
    {
-    "partId": "Baffle to shell",
+    "partId": "Filler neck",
     "material": "ASTM A516 Gr.70",
-    "weldNo": "WS-29",
-    "thickness": "11.5",
-    "judgement": "Acc",
-    "discontinuity": "None",
-    "remark": "N/A"
-   },
-   {
-    "partId": "Chassis mounting bracket",
-    "material": "ASTM A516 Gr.70",
-    "weldNo": "WS-30",
-    "thickness": "11.0",
+    "weldNo": "WS-35",
+    "thickness": "11.2",
     "judgement": "Acc",
     "discontinuity": "None",
     "remark": "N/A"
@@ -12383,26 +13155,35 @@ export const SEED_REPORTS = [
    {
     "partId": "Sump weld",
     "material": "ASTM A516 Gr.70",
-    "weldNo": "WS-9",
-    "thickness": "11.5",
-    "judgement": "Acc",
-    "discontinuity": "None",
-    "remark": "N/A"
-   },
-   {
-    "partId": "Tank barrel seam",
-    "material": "ASTM A516 Gr.70",
-    "weldNo": "WS-28",
-    "thickness": "7.6",
-    "judgement": "Acc",
-    "discontinuity": "None",
-    "remark": "N/A"
-   },
-   {
-    "partId": "Baffle to shell",
-    "material": "ASTM A516 Gr.70",
-    "weldNo": "WS-39",
+    "weldNo": "WS-22",
     "thickness": "12.5",
+    "judgement": "Acc",
+    "discontinuity": "None",
+    "remark": "N/A"
+   },
+   {
+    "partId": "Filler neck",
+    "material": "ASTM A516 Gr.70",
+    "weldNo": "WS-4",
+    "thickness": "9.7",
+    "judgement": "Acc",
+    "discontinuity": "None",
+    "remark": "N/A"
+   },
+   {
+    "partId": "Filler neck",
+    "material": "ASTM A516 Gr.70",
+    "weldNo": "WS-27",
+    "thickness": "12.8",
+    "judgement": "Acc",
+    "discontinuity": "None",
+    "remark": "N/A"
+   },
+   {
+    "partId": "Chassis mounting bracket",
+    "material": "ASTM A516 Gr.70",
+    "weldNo": "WS-18",
+    "thickness": "10.6",
     "judgement": "Acc",
     "discontinuity": "None",
     "remark": "N/A"
@@ -12411,11 +13192,11 @@ export const SEED_REPORTS = [
   "coats": [],
   "photos": [],
   "createdAt": "2026-07-21T07:40:00.000Z",
-  "updatedAt": "2026-07-21T15:06:00.000Z",
+  "updatedAt": "2026-07-21T15:17:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-07-21T15:06:00.000Z",
-  "syncedAt": "2026-07-21T15:06:00.000Z"
+  "approvedAt": "2026-07-21T15:17:00.000Z",
+  "syncedAt": "2026-07-21T15:17:00.000Z"
  },
  {
   "id": "demo-1000320009-LHT-01",
@@ -12437,9 +13218,9 @@ export const SEED_REPORTS = [
    "unit": "WTK-0388-09",
    "customer": "Customer 05",
    "testType": "Hydrostatic Test",
-   "testDesc": "Pipe",
+   "testDesc": "Tank",
    "testMedia": "Water",
-   "pressureUnit": "PsiG",
+   "pressureUnit": "Bar",
    "gauges": "2 Gauges",
    "useRecorder": "Used",
    "useTemp": "Used",
@@ -12454,66 +13235,66 @@ export const SEED_REPORTS = [
    "holding": "30",
    "pg1": "PG-002 · Pressure Gauge 0–25 Bar · Cal 2026-01-14",
    "pg2": "PG-001 · Pressure Gauge 0–25 Bar · Cal 2026-01-14",
-   "pressRecorder": "BRT-002 · Chart Recorder · Cal 2026-04-08",
+   "pressRecorder": "BRT-001 · Chart Recorder · Cal 2026-02-11",
    "scale": "1 div = 0.2 Bar",
    "tempRecorder": "TMP-001 · Digital Thermometer · Cal 2026-01-20",
    "tempGauge": "TG-012 · Dial Temperature Gauge · Cal 2026-06-02",
    "testResult": "Satisfactory",
    "signInspector": {
     "name": "Inspector Two",
-    "at": "2026-07-22T09:50:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-07-22T09:37:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-07-22T15:25:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-07-22T15:17:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [
    {
-    "time": "08:08",
+    "time": "08:06",
     "pg1": "0.00",
     "pg2": "0.00",
     "rec": "0.00",
-    "water": "28.5",
-    "ambient": "30.5",
-    "remark": "Start, 0 PsiG"
+    "water": "29.5",
+    "ambient": "31.7",
+    "remark": "Start, 0 Bar"
    },
    {
-    "time": "09:38",
+    "time": "09:22",
     "pg1": "5.99",
     "pg2": "5.99",
     "rec": "5.99",
-    "water": "29.7",
-    "ambient": "33.2",
+    "water": "30.8",
+    "ambient": "30.3",
     "remark": "Stable"
    },
    {
-    "time": "010:47",
+    "time": "010:33",
     "pg1": "5.98",
     "pg2": "5.98",
     "rec": "5.98",
-    "water": "29.1",
-    "ambient": "33.6",
+    "water": "30.3",
+    "ambient": "33.4",
     "remark": "Stable"
    },
    {
-    "time": "011:55",
+    "time": "011:29",
     "pg1": "5.97",
     "pg2": "5.97",
     "rec": "5.97",
-    "water": "30.5",
-    "ambient": "34.0",
+    "water": "29.1",
+    "ambient": "32.2",
     "remark": "Stable"
    },
    {
-    "time": "012:18",
+    "time": "012:52",
     "pg1": "5.96",
     "pg2": "5.96",
     "rec": "5.96",
-    "water": "28.8",
-    "ambient": "30.4",
+    "water": "28.1",
+    "ambient": "30.8",
     "remark": "Hold complete, no drop"
    }
   ],
@@ -12521,11 +13302,11 @@ export const SEED_REPORTS = [
   "coats": [],
   "photos": [],
   "createdAt": "2026-07-22T07:40:00.000Z",
-  "updatedAt": "2026-07-22T15:25:00.000Z",
+  "updatedAt": "2026-07-22T15:17:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-07-22T15:25:00.000Z",
-  "syncedAt": "2026-07-22T15:25:00.000Z"
+  "approvedAt": "2026-07-22T15:17:00.000Z",
+  "syncedAt": "2026-07-22T15:17:00.000Z"
  },
  {
   "id": "demo-1000320009-BPR-01",
@@ -12550,27 +13331,27 @@ export const SEED_REPORTS = [
    "surfacePrep": "SA 2½",
    "sspc": "SP 10",
    "abrasive": "Steel grit G-40",
-   "anchorProfile": "63",
-   "dryTemp": "32.3",
-   "wetTemp": "25.1",
-   "matlTemp": "31.4",
-   "prepResult": "Reject",
+   "anchorProfile": "51",
+   "dryTemp": "29.0",
+   "wetTemp": "24.6",
+   "matlTemp": "33.4",
+   "prepResult": "Acc",
    "coatingPrep": "Primer",
    "paintDesc": "2-pack epoxy primer",
    "thinner": "Epoxy thinner",
-   "batchPaint": "B21717",
-   "batchThinner": "T3707",
+   "batchPaint": "B22846",
+   "batchThinner": "T3137",
    "finalStatus": "Accept",
    "ncr": "Inspection carried out per the referenced procedure. No outstanding items.",
    "signInspector": {
     "name": "Inspector Two",
-    "at": "2026-07-23T09:27:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-07-23T09:36:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-07-23T15:21:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-07-23T15:32:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
@@ -12580,11 +13361,11 @@ export const SEED_REPORTS = [
     "coat": "Coat 1",
     "area": "Exterior — Zone A",
     "pts": [
-     "160",
-     "145",
-     "152",
-     "140",
-     "125"
+     "171",
+     "133",
+     "141",
+     "153",
+     "126"
     ],
     "std": "120"
    },
@@ -12592,11 +13373,11 @@ export const SEED_REPORTS = [
     "coat": "Coat 2",
     "area": "Exterior — Zone B",
     "pts": [
-     "254",
-     "192",
-     "188",
-     "210",
-     "254"
+     "198",
+     "233",
+     "217",
+     "227",
+     "203"
     ],
     "std": "175"
    },
@@ -12604,22 +13385,22 @@ export const SEED_REPORTS = [
     "coat": "Coat 3",
     "area": "Frame & walkway",
     "pts": [
-     "253",
-     "220",
-     "256",
-     "215",
-     "228"
+     "190",
+     "210",
+     "244",
+     "234",
+     "220"
     ],
     "std": "175"
    }
   ],
   "photos": [],
   "createdAt": "2026-07-23T07:40:00.000Z",
-  "updatedAt": "2026-07-23T15:21:00.000Z",
+  "updatedAt": "2026-07-23T15:32:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-07-23T15:21:00.000Z",
-  "syncedAt": "2026-07-23T15:21:00.000Z"
+  "approvedAt": "2026-07-23T15:32:00.000Z",
+  "syncedAt": "2026-07-23T15:32:00.000Z"
  },
  {
   "id": "demo-1000320010-DIM-01",
@@ -12640,43 +13421,43 @@ export const SEED_REPORTS = [
    "sn": "WTK-0388-10",
    "unit": "WTK-0388-10",
    "customer": "Customer 05",
-   "drawingNo": "DWG-WTK-4174-R2",
+   "drawingNo": "DWG-WTK-4127-R2",
    "drawingFile": "N/A",
    "ncr": "Inspection carried out per the referenced procedure. No outstanding items.",
    "signInspector": {
     "name": "Inspector One",
-    "at": "2026-07-23T09:48:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-07-23T09:41:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-07-23T15:25:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-07-23T15:26:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
   "results": [
    {
     "description": "Tank length",
-    "itemNo": "10",
+    "itemNo": "1",
     "nominal": "7200",
     "min": "7197",
     "max": "7203",
     "actual": "7199",
-    "note": "Verified twice."
+    "note": ""
    },
    {
     "description": "Tank diameter",
-    "itemNo": "4",
+    "itemNo": "2",
     "nominal": "2200",
     "min": "2197",
     "max": "2203",
     "actual": "2200",
-    "note": "Measured with steel tape."
+    "note": ""
    },
    {
     "description": "Sub-frame length",
-    "itemNo": "5",
+    "itemNo": "8",
     "nominal": "6800",
     "min": "6797",
     "max": "6803",
@@ -12685,7 +13466,7 @@ export const SEED_REPORTS = [
    },
    {
     "description": "Baffle pitch",
-    "itemNo": "5",
+    "itemNo": "10",
     "nominal": "1500",
     "min": "1497",
     "max": "1503",
@@ -12694,7 +13475,7 @@ export const SEED_REPORTS = [
    },
    {
     "description": "Sump depth",
-    "itemNo": "10",
+    "itemNo": "4",
     "nominal": "320",
     "min": "317",
     "max": "323",
@@ -12705,11 +13486,11 @@ export const SEED_REPORTS = [
   "coats": [],
   "photos": [],
   "createdAt": "2026-07-23T07:40:00.000Z",
-  "updatedAt": "2026-07-23T15:25:00.000Z",
+  "updatedAt": "2026-07-23T15:26:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-07-23T15:25:00.000Z",
-  "syncedAt": "2026-07-23T15:25:00.000Z"
+  "approvedAt": "2026-07-23T15:26:00.000Z",
+  "syncedAt": "2026-07-23T15:26:00.000Z"
  },
  {
   "id": "demo-1000320010-PT-01",
@@ -12735,60 +13516,44 @@ export const SEED_REPORTS = [
    "ncrRef": "N/A",
    "lightEquip": "LED floodlight 50W",
    "lightmeter": "LUX-002 · Digital Light Meter · Cal 2026-04-23",
-   "lightIntensity": "1091",
+   "lightIntensity": "1208",
    "penetrantMethod": "Other",
    "penetrantType": "Visible",
-   "dwellTime": "13",
-   "applicationBy": "Other",
-   "appTemp": "95.9",
-   "developerType": "Dry",
-   "developingTime": "90.4",
-   "interpretationTime": "25.9",
-   "cleaner": "SKC-S",
-   "stage": "After Hydrostatic",
-   "weldingProcess": "FCAW",
-   "scope": "Weld Part",
+   "dwellTime": "11",
+   "applicationBy": "Brushing",
+   "appTemp": "7.8",
+   "developerType": "Aqueous",
+   "developingTime": "28.3",
+   "interpretationTime": "98.6",
+   "cleaner": "Other",
+   "stage": "After Welding",
+   "weldingProcess": "GTAW",
+   "scope": "Back Chipping",
    "signInspector": {
     "name": "Inspector One",
-    "at": "2026-07-24T09:42:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-07-24T09:35:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-07-24T15:39:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-07-24T15:36:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
   "results": [
    {
-    "partId": "Filler neck",
-    "material": "ASTM A516 Gr.70",
-    "thickness": "9.9",
-    "judgement": "Acc",
-    "discontinuity": "None",
-    "remark": "N/A"
-   },
-   {
     "partId": "Sump weld",
     "material": "ASTM A516 Gr.70",
-    "thickness": "13.4",
+    "thickness": "12.6",
     "judgement": "Acc",
     "discontinuity": "None",
     "remark": "N/A"
    },
    {
-    "partId": "Chassis mounting bracket",
+    "partId": "Baffle to shell",
     "material": "ASTM A516 Gr.70",
-    "thickness": "8.2",
-    "judgement": "Acc",
-    "discontinuity": "None",
-    "remark": "N/A"
-   },
-   {
-    "partId": "Tank barrel seam",
-    "material": "ASTM A516 Gr.70",
-    "thickness": "12.2",
+    "thickness": "6.7",
     "judgement": "Acc",
     "discontinuity": "None",
     "remark": "N/A"
@@ -12796,7 +13561,23 @@ export const SEED_REPORTS = [
    {
     "partId": "Filler neck",
     "material": "ASTM A516 Gr.70",
-    "thickness": "9.6",
+    "thickness": "11.0",
+    "judgement": "Acc",
+    "discontinuity": "None",
+    "remark": "N/A"
+   },
+   {
+    "partId": "Filler neck",
+    "material": "ASTM A516 Gr.70",
+    "thickness": "12.0",
+    "judgement": "Acc",
+    "discontinuity": "None",
+    "remark": "N/A"
+   },
+   {
+    "partId": "Filler neck",
+    "material": "ASTM A516 Gr.70",
+    "thickness": "10.6",
     "judgement": "Acc",
     "discontinuity": "None",
     "remark": "N/A"
@@ -12805,11 +13586,11 @@ export const SEED_REPORTS = [
   "coats": [],
   "photos": [],
   "createdAt": "2026-07-24T07:40:00.000Z",
-  "updatedAt": "2026-07-24T15:39:00.000Z",
+  "updatedAt": "2026-07-24T15:36:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-07-24T15:39:00.000Z",
-  "syncedAt": "2026-07-24T15:39:00.000Z"
+  "approvedAt": "2026-07-24T15:36:00.000Z",
+  "syncedAt": "2026-07-24T15:36:00.000Z"
  },
  {
   "id": "demo-1000320010-LHT-01",
@@ -12831,9 +13612,9 @@ export const SEED_REPORTS = [
    "unit": "WTK-0388-10",
    "customer": "Customer 05",
    "testType": "Hydrostatic Test",
-   "testDesc": "Pipe",
+   "testDesc": "Body",
    "testMedia": "Water",
-   "pressureUnit": "PsiG",
+   "pressureUnit": "Bar",
    "gauges": "2 Gauges",
    "useRecorder": "Used",
    "useTemp": "Used",
@@ -12846,68 +13627,68 @@ export const SEED_REPORTS = [
    "map": "-",
    "testPressure": "6.0",
    "holding": "30",
-   "pg1": "PG-002 · Pressure Gauge 0–25 Bar · Cal 2026-01-14",
+   "pg1": "PG-003 · Pressure Gauge 0–40 Bar · Cal 2026-03-02",
    "pg2": "PG-001 · Pressure Gauge 0–25 Bar · Cal 2026-01-14",
-   "pressRecorder": "BRT-001 · Chart Recorder · Cal 2026-02-11",
+   "pressRecorder": "BRT-002 · Chart Recorder · Cal 2026-04-08",
    "scale": "1 div = 0.2 Bar",
    "tempRecorder": "TMP-001 · Digital Thermometer · Cal 2026-01-20",
    "tempGauge": "TG-012 · Dial Temperature Gauge · Cal 2026-06-02",
    "testResult": "Satisfactory",
    "signInspector": {
     "name": "Inspector One",
-    "at": "2026-07-25T09:27:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-07-25T09:14:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-07-25T15:25:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-07-25T15:48:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [
    {
-    "time": "08:23",
+    "time": "08:12",
     "pg1": "0.00",
     "pg2": "0.00",
     "rec": "0.00",
-    "water": "30.1",
-    "ambient": "30.3",
-    "remark": "Start, 0 PsiG"
+    "water": "29.7",
+    "ambient": "30.1",
+    "remark": "Start, 0 Bar"
    },
    {
-    "time": "09:28",
+    "time": "09:27",
     "pg1": "5.99",
     "pg2": "5.99",
     "rec": "5.99",
-    "water": "28.0",
-    "ambient": "32.6",
+    "water": "28.1",
+    "ambient": "31.1",
     "remark": "Stable"
    },
    {
-    "time": "010:38",
+    "time": "010:37",
     "pg1": "5.98",
     "pg2": "5.98",
     "rec": "5.98",
-    "water": "30.6",
-    "ambient": "33.3",
+    "water": "29.2",
+    "ambient": "32.1",
     "remark": "Stable"
    },
    {
-    "time": "011:54",
+    "time": "011:05",
     "pg1": "5.97",
     "pg2": "5.97",
     "rec": "5.97",
-    "water": "29.3",
-    "ambient": "32.3",
+    "water": "29.4",
+    "ambient": "31.4",
     "remark": "Stable"
    },
    {
-    "time": "012:29",
+    "time": "012:23",
     "pg1": "5.96",
     "pg2": "5.96",
     "rec": "5.96",
-    "water": "28.8",
-    "ambient": "31.1",
+    "water": "30.2",
+    "ambient": "33.7",
     "remark": "Hold complete, no drop"
    }
   ],
@@ -12915,11 +13696,11 @@ export const SEED_REPORTS = [
   "coats": [],
   "photos": [],
   "createdAt": "2026-07-25T07:40:00.000Z",
-  "updatedAt": "2026-07-25T15:25:00.000Z",
+  "updatedAt": "2026-07-25T15:48:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-07-25T15:25:00.000Z",
-  "syncedAt": "2026-07-25T15:25:00.000Z"
+  "approvedAt": "2026-07-25T15:48:00.000Z",
+  "syncedAt": "2026-07-25T15:48:00.000Z"
  },
  {
   "id": "demo-1000320011-DIM-01",
@@ -12940,76 +13721,76 @@ export const SEED_REPORTS = [
    "sn": "WTK-0388-11",
    "unit": "WTK-0388-11",
    "customer": "Customer 05",
-   "drawingNo": "DWG-WTK-4122-R0",
+   "drawingNo": "DWG-WTK-4139-R0",
    "drawingFile": "N/A",
    "ncr": "Inspection carried out per the referenced procedure. No outstanding items.",
    "signInspector": {
     "name": "Inspector Two",
     "at": "2026-07-26T09:30:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-07-26T15:31:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-07-26T15:44:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
   "results": [
    {
     "description": "Tank length",
-    "itemNo": "1",
+    "itemNo": "6",
     "nominal": "7200",
     "min": "7197",
     "max": "7203",
     "actual": "7199",
-    "note": "Measured with steel tape."
+    "note": "Verified twice."
    },
    {
     "description": "Tank diameter",
-    "itemNo": "10",
+    "itemNo": "3",
     "nominal": "2200",
     "min": "2197",
     "max": "2203",
     "actual": "2200",
-    "note": ""
+    "note": "Verified twice."
    },
    {
     "description": "Sub-frame length",
-    "itemNo": "3",
+    "itemNo": "12",
     "nominal": "6800",
     "min": "6797",
     "max": "6803",
     "actual": "6801",
-    "note": "Measured with steel tape."
+    "note": "Verified twice."
    },
    {
     "description": "Baffle pitch",
-    "itemNo": "8",
+    "itemNo": "3",
     "nominal": "1500",
     "min": "1497",
     "max": "1503",
     "actual": "1499",
-    "note": "Measured with steel tape."
+    "note": ""
    },
    {
     "description": "Sump depth",
-    "itemNo": "3",
+    "itemNo": "4",
     "nominal": "320",
     "min": "317",
     "max": "323",
     "actual": "320",
-    "note": "Verified twice."
+    "note": "Measured with steel tape."
    }
   ],
   "coats": [],
   "photos": [],
   "createdAt": "2026-07-26T07:40:00.000Z",
-  "updatedAt": "2026-07-26T15:31:00.000Z",
+  "updatedAt": "2026-07-26T15:44:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-07-26T15:31:00.000Z",
-  "syncedAt": "2026-07-26T15:31:00.000Z"
+  "approvedAt": "2026-07-26T15:44:00.000Z",
+  "syncedAt": "2026-07-26T15:44:00.000Z"
  },
  {
   "id": "demo-1000320011-UT-01",
@@ -13035,91 +13816,91 @@ export const SEED_REPORTS = [
    "ncrRef": "N/A",
    "instrument": "Olympus EPOCH 650",
    "model": "EPOCH 650",
-   "serialNo": "SN-35843",
+   "serialNo": "SN-72872",
    "cable": "Coaxial BNC, 2.0 m",
    "couplant": "CMC gel",
    "technique": "Contact — Straight Beam",
-   "scanSurface": "One Side of Weld",
-   "scanTechnique": "Other",
+   "scanSurface": "From A",
+   "scanTechnique": "Half Skip Distance",
    "scanDirection": "Essentially parallel to weld axis",
-   "lengthInd": "6 dB Drop",
+   "lengthInd": "14 dB Drop",
    "heightInd": "6 dB Drop",
-   "suAngle": "60°",
-   "suSerial": "SU-6449",
-   "suFreq": "34.7",
+   "suAngle": "0°",
+   "suSerial": "SU-7369",
+   "suFreq": "12.4",
    "suSize": "10 mm dia.",
-   "blockId": "Nozzle",
+   "blockId": "BCB",
    "hole": "SDH Ø 2.4 mm",
-   "amplitude": "67",
+   "amplitude": "46",
    "refReflector": "IIW V1 block",
-   "refLevel": "5.7",
-   "scanLevel": "92.8",
-   "testRange": "78.4",
+   "refLevel": "53.2",
+   "scanLevel": "81.3",
+   "testRange": "58.4",
    "notes": "Inspection carried out per the referenced procedure. No outstanding items.",
    "signInspector": {
     "name": "Inspector Two",
-    "at": "2026-07-27T09:44:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-07-27T09:25:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-07-27T15:25:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-07-27T15:16:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
   "results": [
    {
-    "partId": "Sump weld",
-    "thickness": "6.2",
-    "soundpath": "47.4",
-    "amplitude": "59",
-    "length": "6",
-    "depth": "6.0",
-    "judgement": "Acc",
-    "discontinuity": "None",
-    "remark": "N/A"
-   },
-   {
-    "partId": "Baffle to shell",
-    "thickness": "10.7",
-    "soundpath": "54.7",
-    "amplitude": "38",
-    "length": "18",
-    "depth": "7.3",
+    "partId": "Filler neck",
+    "thickness": "12.7",
+    "soundpath": "46.1",
+    "amplitude": "51",
+    "length": "20",
+    "depth": "6.7",
     "judgement": "Acc",
     "discontinuity": "None",
     "remark": "N/A"
    },
    {
     "partId": "Chassis mounting bracket",
-    "thickness": "6.3",
-    "soundpath": "33.9",
-    "amplitude": "28",
-    "length": "22",
-    "depth": "9.2",
+    "thickness": "7.0",
+    "soundpath": "13.8",
+    "amplitude": "58",
+    "length": "5",
+    "depth": "4.9",
     "judgement": "Acc",
     "discontinuity": "None",
     "remark": "N/A"
    },
    {
-    "partId": "Filler neck",
-    "thickness": "6.4",
-    "soundpath": "38.4",
-    "amplitude": "41",
-    "length": "10",
-    "depth": "9.8",
+    "partId": "Sump weld",
+    "thickness": "12.5",
+    "soundpath": "35.8",
+    "amplitude": "68",
+    "length": "11",
+    "depth": "5.5",
     "judgement": "Acc",
     "discontinuity": "None",
     "remark": "N/A"
    },
    {
     "partId": "Tank barrel seam",
-    "thickness": "13.5",
-    "soundpath": "53.5",
-    "amplitude": "53",
-    "length": "14",
-    "depth": "10.8",
+    "thickness": "7.9",
+    "soundpath": "27.8",
+    "amplitude": "32",
+    "length": "8",
+    "depth": "10.6",
+    "judgement": "Acc",
+    "discontinuity": "None",
+    "remark": "N/A"
+   },
+   {
+    "partId": "Filler neck",
+    "thickness": "6.1",
+    "soundpath": "25.3",
+    "amplitude": "33",
+    "length": "19",
+    "depth": "6.5",
     "judgement": "Acc",
     "discontinuity": "None",
     "remark": "N/A"
@@ -13128,11 +13909,11 @@ export const SEED_REPORTS = [
   "coats": [],
   "photos": [],
   "createdAt": "2026-07-27T07:40:00.000Z",
-  "updatedAt": "2026-07-27T15:25:00.000Z",
+  "updatedAt": "2026-07-27T15:16:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-07-27T15:25:00.000Z",
-  "syncedAt": "2026-07-27T15:25:00.000Z"
+  "approvedAt": "2026-07-27T15:16:00.000Z",
+  "syncedAt": "2026-07-27T15:16:00.000Z"
  },
  {
   "id": "demo-1000320011-LHT-01",
@@ -13154,9 +13935,9 @@ export const SEED_REPORTS = [
    "unit": "WTK-0388-11",
    "customer": "Customer 05",
    "testType": "Hydrostatic Test",
-   "testDesc": "Body",
+   "testDesc": "Pipe",
    "testMedia": "Water",
-   "pressureUnit": "PsiG",
+   "pressureUnit": "Bar",
    "gauges": "2 Gauges",
    "useRecorder": "Used",
    "useTemp": "Used",
@@ -13169,68 +13950,68 @@ export const SEED_REPORTS = [
    "map": "-",
    "testPressure": "6.0",
    "holding": "30",
-   "pg1": "PG-001 · Pressure Gauge 0–25 Bar · Cal 2026-01-14",
-   "pg2": "PG-002 · Pressure Gauge 0–25 Bar · Cal 2026-01-14",
-   "pressRecorder": "BRT-002 · Chart Recorder · Cal 2026-04-08",
+   "pg1": "PG-002 · Pressure Gauge 0–25 Bar · Cal 2026-01-14",
+   "pg2": "PG-001 · Pressure Gauge 0–25 Bar · Cal 2026-01-14",
+   "pressRecorder": "BRT-001 · Chart Recorder · Cal 2026-02-11",
    "scale": "1 div = 0.2 Bar",
    "tempRecorder": "TMP-001 · Digital Thermometer · Cal 2026-01-20",
-   "tempGauge": "TG-012 · Dial Temperature Gauge · Cal 2026-06-02",
+   "tempGauge": "TG-011 · Dial Temperature Gauge · Cal 2026-05-19",
    "testResult": "Satisfactory",
    "signInspector": {
     "name": "Inspector Two",
-    "at": "2026-07-28T09:44:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-07-28T09:15:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-07-28T15:31:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-07-28T15:40:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [
    {
-    "time": "08:41",
+    "time": "08:37",
     "pg1": "0.00",
     "pg2": "0.00",
     "rec": "0.00",
-    "water": "28.5",
-    "ambient": "30.7",
-    "remark": "Start, 0 PsiG"
+    "water": "28.8",
+    "ambient": "31.4",
+    "remark": "Start, 0 Bar"
    },
    {
-    "time": "09:31",
+    "time": "09:42",
     "pg1": "5.99",
     "pg2": "5.99",
     "rec": "5.99",
-    "water": "29.6",
-    "ambient": "33.3",
+    "water": "29.2",
+    "ambient": "30.1",
     "remark": "Stable"
    },
    {
-    "time": "010:52",
+    "time": "010:06",
     "pg1": "5.98",
     "pg2": "5.98",
     "rec": "5.98",
-    "water": "29.0",
-    "ambient": "30.4",
+    "water": "28.8",
+    "ambient": "33.8",
     "remark": "Stable"
    },
    {
-    "time": "011:12",
+    "time": "011:35",
     "pg1": "5.97",
     "pg2": "5.97",
     "rec": "5.97",
-    "water": "30.0",
-    "ambient": "32.5",
+    "water": "30.5",
+    "ambient": "33.7",
     "remark": "Stable"
    },
    {
-    "time": "012:24",
+    "time": "012:44",
     "pg1": "5.96",
     "pg2": "5.96",
     "rec": "5.96",
-    "water": "29.9",
-    "ambient": "33.0",
+    "water": "30.1",
+    "ambient": "33.4",
     "remark": "Hold complete, no drop"
    }
   ],
@@ -13238,11 +14019,11 @@ export const SEED_REPORTS = [
   "coats": [],
   "photos": [],
   "createdAt": "2026-07-28T07:40:00.000Z",
-  "updatedAt": "2026-07-28T15:31:00.000Z",
+  "updatedAt": "2026-07-28T15:40:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-07-28T15:31:00.000Z",
-  "syncedAt": "2026-07-28T15:31:00.000Z"
+  "approvedAt": "2026-07-28T15:40:00.000Z",
+  "syncedAt": "2026-07-28T15:40:00.000Z"
  },
  {
   "id": "demo-1000320012-DIM-01",
@@ -13263,25 +14044,25 @@ export const SEED_REPORTS = [
    "sn": "WTK-0388-12",
    "unit": "WTK-0388-12",
    "customer": "Customer 05",
-   "drawingNo": "DWG-WTK-4147-R1",
+   "drawingNo": "DWG-WTK-4103-R2",
    "drawingFile": "N/A",
    "ncr": "Inspection carried out per the referenced procedure. No outstanding items.",
    "signInspector": {
     "name": "Inspector One",
-    "at": "2026-07-29T09:21:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-07-29T09:20:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-07-29T15:42:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-07-29T15:30:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
   "results": [
    {
     "description": "Tank length",
-    "itemNo": "4",
+    "itemNo": "11",
     "nominal": "7200",
     "min": "7197",
     "max": "7203",
@@ -13290,49 +14071,49 @@ export const SEED_REPORTS = [
    },
    {
     "description": "Tank diameter",
-    "itemNo": "7",
+    "itemNo": "1",
     "nominal": "2200",
     "min": "2197",
     "max": "2203",
     "actual": "2200",
-    "note": "Verified twice."
+    "note": ""
    },
    {
     "description": "Sub-frame length",
-    "itemNo": "7",
+    "itemNo": "9",
     "nominal": "6800",
     "min": "6797",
     "max": "6803",
     "actual": "6801",
-    "note": ""
+    "note": "Measured with steel tape."
    },
    {
     "description": "Baffle pitch",
-    "itemNo": "9",
+    "itemNo": "11",
     "nominal": "1500",
     "min": "1497",
     "max": "1503",
     "actual": "1499",
-    "note": ""
+    "note": "Verified twice."
    },
    {
     "description": "Sump depth",
-    "itemNo": "8",
+    "itemNo": "6",
     "nominal": "320",
     "min": "317",
     "max": "323",
     "actual": "320",
-    "note": "Measured with steel tape."
+    "note": ""
    }
   ],
   "coats": [],
   "photos": [],
   "createdAt": "2026-07-29T07:40:00.000Z",
-  "updatedAt": "2026-07-29T15:42:00.000Z",
+  "updatedAt": "2026-07-29T15:30:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-07-29T15:42:00.000Z",
-  "syncedAt": "2026-07-29T15:42:00.000Z"
+  "approvedAt": "2026-07-29T15:30:00.000Z",
+  "syncedAt": "2026-07-29T15:30:00.000Z"
  },
  {
   "id": "demo-1000320012-MT-01",
@@ -13357,67 +14138,40 @@ export const SEED_REPORTS = [
    "materialSpec": "ASTM A516 Gr.70",
    "ncrRef": "N/A",
    "lightEquip": "LED floodlight 50W",
-   "lightmeter": "LUX-001 · Digital Light Meter · Cal 2026-01-09",
-   "lightIntensity": "1619",
+   "lightmeter": "LUX-002 · Digital Light Meter · Cal 2026-04-23",
+   "lightIntensity": "1396",
    "mtEquipment": "Yoke",
    "equipId": "YK-2201",
    "currentType": "HWDC-HWAC",
-   "particle": "Visible, Wet",
+   "particle": "Wet (WPC2/7HF)",
    "particleApp": "Other",
    "brand": "Magnaflux 7HF",
-   "particleDesc": "Wet fluorescent, batch WF717",
-   "whiteContrast": "Contrast paint, batch WC106",
-   "cleanerBatch": "Solvent cleaner, batch CL448",
+   "particleDesc": "Wet fluorescent, batch WF525",
+   "whiteContrast": "Contrast paint, batch WC260",
+   "cleanerBatch": "Solvent cleaner, batch CL617",
    "method": "Continuous",
-   "surfacePreparation": "Machining",
+   "surfacePreparation": "Solvent Wipe",
    "stage": "After Welding",
-   "weldingProcess": "GTAW",
+   "weldingProcess": "Other",
    "scope": "Edge Prep.",
    "signInspector": {
     "name": "Inspector One",
-    "at": "2026-07-30T09:19:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-07-30T09:13:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-07-30T15:37:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-07-30T15:05:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
   "results": [
    {
-    "partId": "Baffle to shell",
-    "material": "ASTM A516 Gr.70",
-    "weldNo": "WS-8",
-    "thickness": "7.7",
-    "judgement": "Acc",
-    "discontinuity": "None",
-    "remark": "N/A"
-   },
-   {
-    "partId": "Filler neck",
-    "material": "ASTM A516 Gr.70",
-    "weldNo": "WS-13",
-    "thickness": "12.9",
-    "judgement": "Acc",
-    "discontinuity": "None",
-    "remark": "N/A"
-   },
-   {
-    "partId": "Filler neck",
-    "material": "ASTM A516 Gr.70",
-    "weldNo": "WS-10",
-    "thickness": "6.8",
-    "judgement": "Acc",
-    "discontinuity": "None",
-    "remark": "N/A"
-   },
-   {
     "partId": "Chassis mounting bracket",
     "material": "ASTM A516 Gr.70",
-    "weldNo": "WS-28",
-    "thickness": "7.5",
+    "weldNo": "WS-17",
+    "thickness": "13.6",
     "judgement": "Acc",
     "discontinuity": "None",
     "remark": "N/A"
@@ -13425,8 +14179,35 @@ export const SEED_REPORTS = [
    {
     "partId": "Sump weld",
     "material": "ASTM A516 Gr.70",
-    "weldNo": "WS-37",
-    "thickness": "13.5",
+    "weldNo": "WS-12",
+    "thickness": "7.9",
+    "judgement": "Acc",
+    "discontinuity": "None",
+    "remark": "N/A"
+   },
+   {
+    "partId": "Filler neck",
+    "material": "ASTM A516 Gr.70",
+    "weldNo": "WS-1",
+    "thickness": "13.4",
+    "judgement": "Acc",
+    "discontinuity": "None",
+    "remark": "N/A"
+   },
+   {
+    "partId": "Filler neck",
+    "material": "ASTM A516 Gr.70",
+    "weldNo": "WS-38",
+    "thickness": "8.3",
+    "judgement": "Acc",
+    "discontinuity": "None",
+    "remark": "N/A"
+   },
+   {
+    "partId": "Sump weld",
+    "material": "ASTM A516 Gr.70",
+    "weldNo": "WS-23",
+    "thickness": "7.0",
     "judgement": "Acc",
     "discontinuity": "None",
     "remark": "N/A"
@@ -13435,11 +14216,11 @@ export const SEED_REPORTS = [
   "coats": [],
   "photos": [],
   "createdAt": "2026-07-30T07:40:00.000Z",
-  "updatedAt": "2026-07-30T15:37:00.000Z",
+  "updatedAt": "2026-07-30T15:05:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-07-30T15:37:00.000Z",
-  "syncedAt": "2026-07-30T15:37:00.000Z"
+  "approvedAt": "2026-07-30T15:05:00.000Z",
+  "syncedAt": "2026-07-30T15:05:00.000Z"
  },
  {
   "id": "demo-1000320012-LHT-01",
@@ -13461,9 +14242,9 @@ export const SEED_REPORTS = [
    "unit": "WTK-0388-12",
    "customer": "Customer 05",
    "testType": "Hydrostatic Test",
-   "testDesc": "Body",
+   "testDesc": "Tank",
    "testMedia": "Water",
-   "pressureUnit": "PsiG",
+   "pressureUnit": "Bar",
    "gauges": "2 Gauges",
    "useRecorder": "Used",
    "useTemp": "Used",
@@ -13476,58 +14257,58 @@ export const SEED_REPORTS = [
    "map": "-",
    "testPressure": "6.0",
    "holding": "30",
-   "pg1": "PG-003 · Pressure Gauge 0–40 Bar · Cal 2026-03-02",
-   "pg2": "PG-002 · Pressure Gauge 0–25 Bar · Cal 2026-01-14",
+   "pg1": "PG-001 · Pressure Gauge 0–25 Bar · Cal 2026-01-14",
+   "pg2": "PG-003 · Pressure Gauge 0–40 Bar · Cal 2026-03-02",
    "pressRecorder": "BRT-002 · Chart Recorder · Cal 2026-04-08",
    "scale": "1 div = 0.2 Bar",
    "tempRecorder": "TMP-001 · Digital Thermometer · Cal 2026-01-20",
-   "tempGauge": "TG-012 · Dial Temperature Gauge · Cal 2026-06-02",
+   "tempGauge": "TG-011 · Dial Temperature Gauge · Cal 2026-05-19",
    "testResult": "Satisfactory"
   },
   "readings": [
    {
-    "time": "08:37",
+    "time": "08:28",
     "pg1": "0.00",
     "pg2": "0.00",
     "rec": "0.00",
-    "water": "30.5",
-    "ambient": "33.2",
-    "remark": "Start, 0 PsiG"
+    "water": "30.7",
+    "ambient": "31.6",
+    "remark": "Start, 0 Bar"
    },
    {
-    "time": "09:37",
+    "time": "09:21",
     "pg1": "5.99",
     "pg2": "5.99",
     "rec": "5.99",
-    "water": "30.2",
-    "ambient": "31.9",
+    "water": "29.5",
+    "ambient": "32.0",
     "remark": "Stable"
    },
    {
-    "time": "010:48",
+    "time": "010:21",
     "pg1": "5.98",
     "pg2": "5.98",
     "rec": "5.98",
     "water": "30.4",
-    "ambient": "30.5",
-    "remark": "Stable"
-   },
-   {
-    "time": "011:09",
-    "pg1": "5.97",
-    "pg2": "5.97",
-    "rec": "5.97",
-    "water": "30.3",
     "ambient": "30.3",
     "remark": "Stable"
    },
    {
-    "time": "012:19",
+    "time": "011:41",
+    "pg1": "5.97",
+    "pg2": "5.97",
+    "rec": "5.97",
+    "water": "31.0",
+    "ambient": "30.9",
+    "remark": "Stable"
+   },
+   {
+    "time": "012:30",
     "pg1": "5.96",
     "pg2": "5.96",
     "rec": "5.96",
-    "water": "28.5",
-    "ambient": "32.0",
+    "water": "30.3",
+    "ambient": "32.2",
     "remark": "Hold complete, no drop"
    }
   ],
@@ -13535,7 +14316,7 @@ export const SEED_REPORTS = [
   "coats": [],
   "photos": [],
   "createdAt": "2026-07-31T07:40:00.000Z",
-  "updatedAt": "2026-07-31T09:36:00.000Z",
+  "updatedAt": "2026-07-31T09:33:00.000Z",
   "synced": false
  },
  {
@@ -13557,30 +14338,30 @@ export const SEED_REPORTS = [
    "sn": "WTK-0388-13",
    "unit": "WTK-0388-13",
    "customer": "Customer 05",
-   "drawingNo": "DWG-WTK-4125-R1",
+   "drawingNo": "DWG-WTK-4154-R0",
    "drawingFile": "N/A",
    "ncr": "Inspection carried out per the referenced procedure. No outstanding items.",
    "signInspector": {
     "name": "Inspector Two",
-    "at": "2026-08-01T09:45:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-08-01T09:39:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M10%2062C22%2030%2036%2024%2042%2052C46%2070%2055%2066%2060%2040C65%2018%2078%2022%2083%2048C87%2068%2098%2064%20112%2042C122%2026%20132%2030%20136%2054C139%2070%20150%2066%20166%2046C178%2031%20194%2034%20204%2050'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    },
    "signQc": {
     "name": "QA Lead",
-    "at": "2026-08-01T15:36:00.000Z",
-    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%252317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
+    "at": "2026-08-01T15:12:00.000Z",
+    "img": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'240'%20height%3D'90'%3E%3Cpath%20d%3D'M8%2056C26%2018%2040%2020%2045%2050C48%2068%2056%2070%2062%2044C68%2022%2079%2025%2082%2052C84%2071%2095%2067%20107%2039C115%2021%20123%2025%20125%2051C127%2069%20137%2067%20153%2043C171%2017%20193%2019%20199%2043'%20fill%3D'none'%20stroke%3D'%2317171a'%20stroke-width%3D'2.6'%20stroke-linecap%3D'round'%2F%3E%3C%2Fsvg%3E"
    }
   },
   "readings": [],
   "results": [
    {
     "description": "Tank length",
-    "itemNo": "1",
+    "itemNo": "10",
     "nominal": "7200",
     "min": "7197",
     "max": "7203",
     "actual": "7199",
-    "note": ""
+    "note": "Verified twice."
    },
    {
     "description": "Tank diameter",
@@ -13589,29 +14370,29 @@ export const SEED_REPORTS = [
     "min": "2197",
     "max": "2203",
     "actual": "2200",
-    "note": "Verified twice."
+    "note": "Measured with steel tape."
    },
    {
     "description": "Sub-frame length",
-    "itemNo": "4",
+    "itemNo": "6",
     "nominal": "6800",
     "min": "6797",
     "max": "6803",
     "actual": "6801",
-    "note": "Measured with steel tape."
+    "note": ""
    },
    {
     "description": "Baffle pitch",
-    "itemNo": "2",
+    "itemNo": "3",
     "nominal": "1500",
     "min": "1497",
     "max": "1503",
     "actual": "1499",
-    "note": "Verified twice."
+    "note": "Measured with steel tape."
    },
    {
     "description": "Sump depth",
-    "itemNo": "1",
+    "itemNo": "8",
     "nominal": "320",
     "min": "317",
     "max": "323",
@@ -13622,11 +14403,11 @@ export const SEED_REPORTS = [
   "coats": [],
   "photos": [],
   "createdAt": "2026-08-01T07:40:00.000Z",
-  "updatedAt": "2026-08-01T15:36:00.000Z",
+  "updatedAt": "2026-08-01T15:12:00.000Z",
   "synced": true,
   "approvedBy": "QA Lead",
-  "approvedAt": "2026-08-01T15:36:00.000Z",
-  "syncedAt": "2026-08-01T15:36:00.000Z"
+  "approvedAt": "2026-08-01T15:12:00.000Z",
+  "syncedAt": "2026-08-01T15:12:00.000Z"
  }
 ]
 
