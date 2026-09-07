@@ -1,4 +1,5 @@
 import { COMPANY } from './company.js'
+import { allJobs } from './jobOrders.js'
 import { SEED_REPORTS, SEED_COUNTERS } from '../data/seedReports.js'
 // Front-end persistence layer (localStorage). PRD v1 scope = no back-end.
 const KEYS = {
@@ -68,20 +69,42 @@ export const clearSession = () => localStorage.removeItem(KEYS.session)
 // because nothing calls ensureSeed during module initialisation.
 const ISSUE_KEY = 'qc.issueCounters'
 
-/* Bumped with the fixture itself. A browser that already holds reports
-   keeps them — the guard below only writes into an empty store — but one
-   that has been cleared gets the current demo rather than the old one. */
-const SEEDED_KEY = 'qc.seeded.v2'
+/* Installing the fixture on a browser that has been here before.
+
+   This used to skip entirely if any reports were stored — the idea being
+   not to touch somebody's work. That was right until the job list itself
+   was replaced. Then every stored report pointed at a job number that no
+   longer existed, the new fixture was never installed because the store
+   was not empty, and the app opened showing forty jobs at 0 of 5 with a
+   Reports list full of documents that answer "Job not found." when you
+   open them.
+
+   So the version bump now does the migration properly. A report whose
+   job is gone cannot be opened and cannot be bound into anything: it is
+   dropped. Whatever is left is somebody's real work on a job that still
+   exists, and it is kept — the fixture is merged in beside it, never
+   over it. */
+const SEEDED_KEY = 'qc.seeded.v3'
 function ensureSeed() {
   try {
     if (localStorage.getItem(SEEDED_KEY)) return
     localStorage.setItem(SEEDED_KEY, '1')
-    if (!localStorage.getItem(KEYS.reports)) {
-      write(KEYS.reports, SEED_REPORTS)
-      // The numbers those reports already spent, so the next issue for a
-      // seeded job carries on rather than colliding with one of them.
-      if (!localStorage.getItem(ISSUE_KEY)) write(ISSUE_KEY, SEED_COUNTERS)
+
+    const held = read(KEYS.reports, [])
+    const live = new Set(allJobs().map((j) => String(j.jobNo)))
+    const kept = held.filter((r) => r && live.has(String(r.jobNo)))
+    const have = new Set(kept.map((r) => r.id))
+    write(KEYS.reports, [...kept, ...SEED_REPORTS.filter((r) => !have.has(r.id))])
+
+    // The numbers those reports already spent, so the next issue for a
+    // seeded job carries on rather than colliding with one of them.
+    // Whichever mark is higher wins; a number that has been on a
+    // document is spent either way.
+    const counters = { ...read(ISSUE_KEY, {}) }
+    for (const [k, n] of Object.entries(SEED_COUNTERS)) {
+      counters[k] = Math.max(counters[k] || 0, n)
     }
+    write(ISSUE_KEY, counters)
   } catch { /* private mode: run without the fixture */ }
 }
 
