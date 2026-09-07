@@ -1,0 +1,10 @@
+<!-- The maskable variant. Android crops this to a circle or squircle, so
+     the mark sits inside the inner 80% safe zone and the background runs
+     to the very edge with no rounding of its own. -->
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <rect width="512" height="512" fill="#16161a"/>
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M256 140 368 204v128l-112 64-112-64V204z" stroke="#ffffff" stroke-width="22"/>
+    <polyline points="212,266 242,296 300,232" stroke="#f86300" stroke-width="28"/>
+  </g>
+</svg>

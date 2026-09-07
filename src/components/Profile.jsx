@@ -7,6 +7,7 @@ import { ncrReports, fmtDate, fmtDateTime } from '../lib/status.js'
 import { storageUsage, fmtBytes } from '../lib/storage.js'
 import { getThemePref, resolveTheme, setThemePref, watchSystemTheme } from '../lib/theme.js'
 import { getSettings } from '../lib/settings.js'
+import InstallApp from './InstallApp.jsx'
 import {
   IconCloudUp, IconCloudOff, IconGear, IconLogout, IconAlertCircle,
   IconCheck, IconClose, IconDatabase, IconFile, IconList, IconBack,
@@ -254,6 +255,8 @@ export default function Profile() {
             ))}
           </div>
         } />
+
+      <InstallApp />
 
       <div className="pf-actions">
         {role.canManage && (

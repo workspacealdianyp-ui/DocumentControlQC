@@ -5108,3 +5108,23 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber); outline-
   white-space: nowrap;
 }
 .rep-state { display: inline-flex; align-items: center; gap: 6px; }
+
+/* The install offer. One row, stated as what you get rather than as a
+   feature name — "full screen, its own icon, opens without a signal" is
+   the part somebody standing at a tank cares about. */
+.install-card {
+  display: flex; align-items: center; gap: 12px;
+  margin: 16px 0 0; padding: 13px 15px;
+  border: 1px solid var(--line-2); border-radius: var(--r-lg);
+  background: var(--surface);
+}
+.install-ico {
+  flex: none; width: 34px; height: 34px; border-radius: 10px;
+  display: grid; place-items: center;
+  color: var(--surface); background: var(--steel);
+}
+.install-card.is-done .install-ico { background: var(--done); }
+.install-text { display: flex; flex-direction: column; gap: 2px; min-width: 0; flex: 1 1 auto; }
+.install-text strong { font-size: 14px; font-weight: 600; }
+.install-text small { font-size: 12px; line-height: 1.45; color: var(--text-2); }
+.install-text b { font-weight: 600; color: var(--text); }

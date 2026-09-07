@@ -26,11 +26,35 @@ export function getThemePref() {
 export const resolveTheme = (pref = getThemePref()) =>
   pref === 'system' ? (media()?.matches ? 'dark' : 'light') : pref
 
+/* Installed to a home screen there is no browser chrome, so the phone
+   paints its own status bar from theme-color. Two tags carry the media
+   queries for a system-following user; when the choice is explicit those
+   queries are wrong, and this overrides them with a single tag. */
+const BAR = { light: '#ffffff', dark: '#0f0f12' }
+function paintStatusBar(mode, pref) {
+  if (typeof document === 'undefined') return
+  const media = [...document.querySelectorAll('meta[name="theme-color"][media]')]
+  let fixed = document.querySelector('meta[name="theme-color"]:not([media])')
+  if (pref === 'system') {
+    // Hand it back to the media queries.
+    fixed?.remove()
+    media.forEach((m) => m.removeAttribute('data-off'))
+    return
+  }
+  if (!fixed) {
+    fixed = document.createElement('meta')
+    fixed.setAttribute('name', 'theme-color')
+    document.head.appendChild(fixed)
+  }
+  fixed.setAttribute('content', BAR[mode] || BAR.light)
+}
+
 export function applyTheme(pref = getThemePref()) {
   const mode = resolveTheme(pref)
   const root = document.documentElement
   root.setAttribute('data-theme', mode)
   root.style.colorScheme = mode
+  paintStatusBar(mode, pref)
   return mode
 }
 
