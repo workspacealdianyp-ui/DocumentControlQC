@@ -4840,3 +4840,81 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber); outline-
   .masthead.is-job .masthead-side { display: none; }
   .masthead.is-job .masthead-side:has(.state-overdue) { display: block; }
 }
+
+
+/* ── the document register ────────────────────────────────────
+   The same card the report register uses, because these are the same
+   objects seen from the job rather than from the pile.
+
+   What the job adds is the issue history. nextReportId() numbers by form
+   type and job, so /01, /02 and /03 are three issues of one document,
+   and showing them flat is how a superseded revision ends up bound into
+   a data book. The current issue leads; what it replaced folds under it
+   and says so. */
+.doc-stack { display: flex; flex-direction: column; }
+
+.doc-issue {
+  font-family: var(--mono); font-weight: 600; color: var(--text-2);
+  font-variant-numeric: tabular-nums;
+}
+
+.doc-more {
+  align-self: flex-start;
+  display: inline-flex; align-items: center; gap: 6px;
+  margin: 2px 0 0 54px; padding: 5px 8px;
+  border: 0; border-radius: 7px; background: none;
+  font-family: var(--sans); font-size: 11.5px; font-weight: 450; color: var(--text-2);
+  cursor: pointer;
+  transition: color .14s ease, background-color .14s ease;
+}
+.doc-more:hover { color: var(--text); background: var(--surface-2); }
+.doc-more:focus-visible { outline: none; color: var(--text); box-shadow: 0 0 0 3px var(--surface-3); }
+.doc-more svg { transition: transform .22s cubic-bezier(0.22, 1, 0.36, 1); }
+.doc-more.is-open svg { transform: rotate(180deg); }
+
+/* The earlier issues hang off the current one on a rule, the way a
+   revision block hangs off its parent on a drawing. */
+.doc-past {
+  display: flex; flex-direction: column; gap: 1px;
+  margin: 2px 0 2px 68px; padding-left: 12px;
+  border-left: 1px solid var(--line-2);
+  animation: doc-past-in .26s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes doc-past-in {
+  from { opacity: 0; transform: translate3d(0, -4px, 0); }
+  to   { opacity: 1; transform: none; }
+}
+.doc-past-row {
+  display: flex; align-items: center; gap: 10px; width: 100%; text-align: left;
+  padding: 8px 10px; border: 0; border-radius: 7px;
+  background: none; cursor: pointer;
+  transition: background-color .12s ease;
+}
+.doc-past-row:hover { background: var(--surface-2); }
+.doc-past-row:focus-visible { outline: none; background: var(--surface-2); box-shadow: 0 0 0 3px var(--surface-3); }
+.doc-past-txt { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; gap: 1px; }
+.doc-past-txt strong {
+  font-family: var(--mono); font-size: 12px; font-weight: 500; color: var(--text-2);
+  text-decoration: line-through; text-decoration-thickness: 1px;
+  text-decoration-color: var(--line-2);
+}
+.doc-past-txt small { font-size: 11px; color: var(--text-3); }
+.doc-past-row em {
+  flex: none; font-style: normal;
+  font-family: var(--mono); font-size: 10px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.07em; color: var(--text-3);
+  padding: 3px 7px; border: 1px solid var(--line-2); border-radius: 5px;
+}
+
+@media (max-width: 430px) {
+  /* The indent is what says these hang off the card above; past about
+     50px it is just width taken from the line. */
+  .doc-more { margin-left: 44px; }
+  .doc-past { margin-left: 44px; padding-left: 10px; }
+  .doc-past-row { padding: 8px 6px; gap: 8px; }
+  .doc-past-row em { font-size: 9px; padding: 3px 5px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .doc-past { animation: none; }
+  .doc-more svg { transition: none; }
+}

@@ -8,9 +8,10 @@ import { reportsFor } from '../lib/store.js'
 import { requiredFor } from '../lib/jobOrders.js'
 import StatusChip, { StateBadge } from './StatusChip.jsx'
 import MdrReport from './MdrReport.jsx'
+import { ReportId } from './Reports.jsx'
 import CompletionDial from './CompletionDial.jsx'
 import { reportResult } from '../lib/verdict.js'
-import { IconDoc, IconPrint } from './Icons.jsx'
+import { IconDoc, IconPrint, IconChevronD } from './Icons.jsx'
 import Masthead from './Masthead.jsx'
 
 const KAT_LABEL = { SUPEQ: 'Support Equipment', TRAILER: 'Trailer', 'NON TRAILER': 'Non Trailer' }
@@ -21,6 +22,35 @@ const Meta = ({ label, value }) => (
     <span className="meta-value">{value || '—'}</span>
   </div>
 )
+
+
+/* The document register, as a register.
+
+   nextReportId() numbers by form type and job, so MFG/LHT/1000200002/01,
+   /02 and /03 are three issues of the same document, not three
+   documents. The list showed them flat, which is how a superseded
+   revision ends up bound into a data book: the latest issue leads, the
+   ones it replaced fold underneath it and say what they are. */
+const issueNo = (reportId = '') => {
+  const m = String(reportId).match(/\/(\d+)$/)
+  return m ? Number(m[1]) : 0
+}
+
+function byDocument(reports) {
+  const m = new Map()
+  for (const r of reports) {
+    const key = `${r.formKey}::${r.deliverable}`
+    if (!m.has(key)) m.set(key, [])
+    m.get(key).push(r)
+  }
+  return [...m.values()]
+    .map((issues) => {
+      const sorted = issues.slice().sort((a, b) => issueNo(b.reportId) - issueNo(a.reportId)
+        || (b.updatedAt || '').localeCompare(a.updatedAt || ''))
+      return { current: sorted[0], superseded: sorted.slice(1) }
+    })
+    .sort((a, b) => (b.current.updatedAt || '').localeCompare(a.current.updatedAt || ''))
+}
 
 const Chevron = () => (
   <svg className="deliv-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none"
@@ -33,6 +63,7 @@ export default function JobDetail({ job }) {
   const { role, tick, session, notify } = useApp()
   const [ndePicker, setNdePicker] = useState(false)
   const [docFilter, setDocFilter] = useState('All')
+  const [openIssues, setOpenIssues] = useState(null)
   const [sumPicker, setSumPicker] = useState(false)
   const [sumSel, setSumSel] = useState([])
   const [summary, setSummary] = useState(null)
@@ -41,6 +72,22 @@ export default function JobDetail({ job }) {
     () => (job ? reportsFor(job.jobNo).slice().sort((a, b) => (b.updatedAt || '').localeCompare(a.updatedAt || '')) : []),
     [job, tick]
   )
+
+  /* Grouped into documents, then filtered — filtering first would split a
+     document from its own earlier issues. */
+  const shownDocs = useMemo(
+    () => byDocument(docs).filter(({ current }) => docFilter === 'All' || current.deliverable === docFilter),
+    [docs, docFilter]
+  )
+  // Only a current issue may be bound: a data book carrying a revision
+  // that something else replaced is a finding, not a document.
+  const bindable = useMemo(
+    () => byDocument(docs).map((g) => g.current).filter((r) => r.status === 'approved'),
+    [docs]
+  )
+
+  const openDoc = (r) =>
+    navigate(`/job/${job.jobNo}/form/${r.formKey}?d=${encodeURIComponent(r.deliverable)}&rid=${encodeURIComponent(r.id)}`)
 
   if (!job) {
     return (
@@ -139,10 +186,12 @@ export default function JobDetail({ job }) {
 
       {/* Documents — categorized by type, with filter + summary generator */}
       <div className="page-head" style={{ marginTop: 24, marginBottom: 10 }}>
-        <h3 className="section-title" style={{ margin: 0 }}>Documents ({docs.length})</h3>
-        <button className="btn btn-primary btn-sm" disabled={!docs.some((d) => d.status === 'approved')}
-          title={docs.some((d) => d.status === 'approved') ? 'Compile the Manufacturing Data Report from approved documents' : 'Needs at least one approved document'}
-          onClick={() => { setSumSel(docs.filter((d) => d.status === 'approved').map((d) => d.id)); setSumPicker(true) }}>
+        {/* The list shows documents, so the count is documents. The
+            issues behind each one are stated on the card itself. */}
+        <h3 className="section-title" style={{ margin: 0 }}>Documents ({shownDocs.length})</h3>
+        <button className="btn btn-primary btn-sm" disabled={!bindable.length}
+          title={bindable.length ? 'Compile the Manufacturing Data Report from the approved current issues' : 'Needs at least one approved document'}
+          onClick={() => { setSumSel(bindable.map((d) => d.id)); setSumPicker(true) }}>
           <IconPrint size={13} /> Generate MDR
         </button>
       </div>
@@ -157,29 +206,64 @@ export default function JobDetail({ job }) {
         </div>
       )}
 
-      <div className="card table-card deliv-list">
-        {docs.length === 0 ? (
-          <div className="empty-state">
-            <p><strong>No documents yet for this job.</strong></p>
-            <p>Submitted inspection forms will appear here, grouped by type.</p>
-          </div>
-        ) : (
-          docs.filter((d) => docFilter === 'All' || d.deliverable === docFilter).map((r) => (
-            <button key={r.id} className="deliv-row tappable"
-              onClick={() => navigate(`/job/${job.jobNo}/form/${r.formKey}?d=${encodeURIComponent(r.deliverable)}&rid=${encodeURIComponent(r.id)}`)}>
-              <span className="deliv-ico"><IconDoc size={17} /></span>
-              <span className="deliv-main">
-                <strong>{r.reportId}</strong>
-                <small>{[FORM_SCHEMAS[r.formKey]?.title, r.deliverable, fmtDateTime(r.updatedAt), r.inspector].filter(Boolean).join(' · ')}</small>
-              </span>
-              <span className="deliv-end">
-                <StateBadge status={r.status} />
-                <Chevron />
-              </span>
-            </button>
-          ))
-        )}
-      </div>
+      {docs.length === 0 ? (
+        <div className="card empty-state">
+          <p><strong>No documents yet for this job.</strong></p>
+          <p>Submitted inspection forms appear here, latest issue first.</p>
+        </div>
+      ) : (
+        <div className="rep-list">
+          {shownDocs.map(({ current: r, superseded }) => {
+            const open = openIssues === r.id
+            const n = issueNo(r.reportId)
+            return (
+              <div className="doc-stack" key={r.id}>
+                <div className={`rep-card tone-${r.status}`} role="button" tabIndex={0}
+                  onClick={() => openDoc(r)}
+                  onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openDoc(r) } }}>
+                  <span className="rep-code" aria-hidden="true">{FORM_SCHEMAS[r.formKey]?.code || '—'}</span>
+                  <strong className="rep-id"><ReportId id={r.reportId} /></strong>
+                  <span className="rep-state"><StateBadge status={r.status} /></span>
+                  <small className="rep-sub">{FORM_SCHEMAS[r.formKey]?.title || r.deliverable}</small>
+                  <small className="rep-foot">
+                    {n > 0 && <span className="doc-issue">Issue {String(n).padStart(2, '0')}</span>}
+                    <span className="rep-dot" aria-hidden="true">·</span>
+                    {fmtDateTime(r.updatedAt)}{r.inspector ? ` · ${r.inspector}` : ''}
+                  </small>
+                  <span className="rep-go" aria-hidden="true"><Chevron /></span>
+                </div>
+
+                {/* What this issue replaced. Kept, because a QC record is
+                    the history as well as the current sheet, and quiet,
+                    because only one of them is the live document. */}
+                {superseded.length > 0 && (
+                  <>
+                    <button className={`doc-more${open ? ' is-open' : ''}`}
+                      aria-expanded={open}
+                      onClick={() => setOpenIssues(open ? null : r.id)}>
+                      <IconChevronD size={13} />
+                      {open ? 'Hide' : 'Show'} {superseded.length} earlier issue{superseded.length === 1 ? '' : 's'}
+                    </button>
+                    {open && (
+                      <div className="doc-past">
+                        {superseded.map((o) => (
+                          <button key={o.id} className="doc-past-row" onClick={() => openDoc(o)}>
+                            <span className="doc-past-txt">
+                              <strong><ReportId id={o.reportId} /></strong>
+                              <small>{fmtDateTime(o.updatedAt)}{o.inspector ? ` · ${o.inspector}` : ''}</small>
+                            </span>
+                            <em>Superseded</em>
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                  </>
+                )}
+              </div>
+            )
+          })}
+        </div>
+      )}
 
       {/* MDR document picker — approved only */}
       {sumPicker && (
@@ -189,11 +273,12 @@ export default function JobDetail({ job }) {
             <h3>Generate MDR</h3>
             <p className="page-sub">
               Choose the documents to bind into the Manufacturing Data Report. Each one is reproduced in
-              full, on its own page, behind a cover and a table of contents. Only{' '}
-              <strong>approved</strong> documents can be issued.
+              full, on its own page, behind a cover and a table of contents. Only the{' '}
+              <strong>approved current issue</strong> of each document can be bound; a revision
+              something else replaced is not eligible.
             </p>
             <div className="unit-list" style={{ margin: '14px 0' }}>
-              {docs.map((r) => {
+              {byDocument(docs).map(({ current: r, superseded }) => {
                 const ok = r.status === 'approved'
                 const checked = sumSel.includes(r.id)
                 return (
@@ -202,7 +287,10 @@ export default function JobDetail({ job }) {
                       onChange={() => setSumSel(checked ? sumSel.filter((x) => x !== r.id) : [...sumSel, r.id])} />
                     <span className="act-main">
                       <strong>{r.reportId}</strong>
-                      <small>{FORM_SCHEMAS[r.formKey]?.title} · {reportResult(r)} · {ok ? 'approved' : `${r.status} — not eligible`}</small>
+                      <small>
+                        {FORM_SCHEMAS[r.formKey]?.title} · {reportResult(r)} · {ok ? 'approved' : `${r.status} — not eligible`}
+                        {superseded.length > 0 && ` · replaces ${superseded.length} earlier issue${superseded.length === 1 ? '' : 's'}`}
+                      </small>
                     </span>
                   </label>
                 )

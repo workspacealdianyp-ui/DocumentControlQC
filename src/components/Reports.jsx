@@ -32,7 +32,7 @@ const GROUPS = [
    slashes are its real joints: marking them lets the line break where a
    person would read a break. */
 const idParts = (id = '') => String(id).split('/')
-const ReportId = ({ id }) => (
+export const ReportId = ({ id }) => (
   <>{idParts(id).map((part, i, all) => (
     <span key={i}>{part}{i < all.length - 1 ? <>/<wbr /></> : null}</span>
   ))}</>
