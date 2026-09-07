@@ -1682,7 +1682,11 @@ td.th-action { display: flex; gap: 6px; justify-content: flex-end; align-items: 
 .ps-result-rej { font-weight: 800; text-decoration: underline; }
 .ps-sign-table td { height: 25mm; vertical-align: bottom; text-align: center; width: 33.3%; padding-bottom: 5pt; }
 .ps-sign-head td { height: auto; vertical-align: middle; background: #f3f3f3; font-weight: 700; font-size: 7pt; text-transform: uppercase; letter-spacing: 0.06em; border-bottom: 1pt solid #000; }
-.ps-sign-script { font-family: 'Segoe Script', 'Brush Script MT', cursive; font-size: 13.5pt; }
+/* There is no script face here any more. A name set in cursive above the
+   signature rule is a signature to anyone reading the sheet, and the app
+   was drawing one for people who had never signed. A captured mark
+   prints as .ps-sign-img; with none, the space stays clear to sign by
+   hand and .ps-sign-name records who it belongs to. */
 .ps-sign-img { max-height: 16mm; max-width: 80%; object-fit: contain; }
 .ps-sign-name { font-weight: 700; border-top: 0.8pt solid #000; margin: 3pt 5mm 0; padding-top: 2.5pt; font-size: 8pt; }
 .ps-sign-date { font-size: 6.8pt; color: #444; margin-top: 1pt; }

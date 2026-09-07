@@ -1,6 +1,6 @@
 import { useRef, useEffect, useState } from 'react'
 import { IconPlus, IconTrash, IconPen } from './Icons.jsx'
-import { getSavedSignature, saveSignatureFor } from '../lib/mockSign.js'
+import { getSavedSignature, saveSignatureFor } from '../lib/signatures.js'
 
 // Signature capture: use a saved signature, draw on canvas, OR upload a PNG/JPG.
 // Returns { name, at, img } where img is a data URL.
@@ -85,9 +85,14 @@ export default function SignaturePad({ name, saved, onSave, onClose }) {
   }
 
   /* A signature drawn in Settings is this person's actual mark, so it
-     wins over anything else on offer here. */
+     wins over the one last applied here. If neither exists there is
+     nothing to offer and the button does not appear: it used to fall
+     back to a cursive drawing the app made up, which put a mark on an
+     inspection record that nobody had made. */
+  const onFile = saved || getSavedSignature(name)
   const useSaved = () => {
-    onSave({ name, at: new Date().toISOString(), img: saved || getSavedSignature(name) })
+    if (!onFile) return
+    onSave({ name, at: new Date().toISOString(), img: onFile })
   }
 
   const canSave = !!uploaded || hasInk
@@ -100,12 +105,16 @@ export default function SignaturePad({ name, saved, onSave, onClose }) {
         <p className="page-sub">
           {saved
             ? 'Apply the signature you drew in Settings, draw a fresh one below, or upload an image.'
-            : 'Use your saved signature, draw below, or upload an image.'}
+            : onFile
+              ? 'Apply the signature you used last time, draw a fresh one below, or upload an image.'
+              : 'Draw your signature below, or upload an image of it.'}
         </p>
 
-        <button className="btn btn-secondary btn-block" style={{ marginTop: 6 }} onClick={useSaved}>
-          <IconPen size={14} /> {saved ? 'Use the signature from my profile' : 'Use my saved signature'}
-        </button>
+        {onFile && (
+          <button className="btn btn-secondary btn-block" style={{ marginTop: 6 }} onClick={useSaved}>
+            <IconPen size={14} /> {saved ? 'Use the signature from my profile' : 'Use the signature I saved'}
+          </button>
+        )}
         {saved && <img className="sign-saved-preview" src={saved} alt="Signature saved in Settings" />}
 
         {uploaded ? (

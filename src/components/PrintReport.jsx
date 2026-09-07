@@ -238,10 +238,23 @@ function Signatures({ fields, v }) {
     <table className="ps-sign-table"><tbody>
       <tr className="ps-sign-head">{vis.map((f) => <td key={f.id}>{f.label}</td>)}</tr>
       <tr>{vis.map((f) => {
+        // The pad stores { name, at, img }; older fixtures stored the image
+        // on its own. Either way, no image means nobody signed — the block
+        // then leaves the space clear for a wet signature and records the
+        // name under the rule. It used to set the typed name in a script
+        // face there, which reads as a signature and is not one.
         const s = v[f.id]
+        const img = typeof s === 'string' ? s : s?.img
+        const who = typeof s === 'string' ? '' : s?.name
+        const at = typeof s === 'string' ? '' : s?.at
         return <td key={f.id}>
-          {s ? <>{s.img ? <img className="ps-sign-img" src={s.img} alt="" /> : <div className="ps-sign-script">{s.name}</div>}<div className="ps-sign-name">{s.name}</div><div className="ps-sign-date">{fmtLong(s.at)}</div></>
-            : <><div style={{ height: '14mm' }} /><div className="ps-sign-name">Name / Signature</div><div className="ps-sign-date">Date:</div></>}
+          {img ? <img className="ps-sign-img" src={img} alt="" /> : <div style={{ height: '14mm' }} />}
+          {/* "Name / Signature" and "Date:" are prompts for whoever signs
+              the printed page by hand. Under a mark that is already
+              there they are wrong, so they only appear when the block is
+              still waiting for a signature. The rule stays either way. */}
+          <div className="ps-sign-name">{who || (img ? '' : 'Name / Signature')}</div>
+          <div className="ps-sign-date">{at ? fmtLong(at) : (img ? '' : 'Date:')}</div>
         </td>
       })}</tr>
     </tbody></table>

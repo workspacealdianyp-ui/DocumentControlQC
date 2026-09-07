@@ -138,8 +138,13 @@ export default function MdrReport({ job, reports, session, onClose }) {
           <td>Compiled by — QA/QC</td><td>Reviewed by — QC Supervisor</td><td>Accepted by — Customer</td>
         </tr>
         <tr>
+          {/* Compiling the book is not signing it. The name and date are
+              the record of who assembled it; the space above stays clear
+              for their actual signature, the way the other two columns
+              do. It used to carry the name in a script face, which put a
+              signature on the cover that nobody had made. */}
           <td>
-            <div className="ps-sign-script">{session.name}</div>
+            <div style={{ height: '14mm' }} />
             <div className="ps-sign-name">{session.name}</div>
             <div className="ps-sign-date">{fmtDate(today.toISOString())}</div>
           </td>
