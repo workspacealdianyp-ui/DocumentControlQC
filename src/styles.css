@@ -2304,6 +2304,7 @@ input:focus-visible, select:focus-visible, textarea:focus-visible {
   font-family: var(--sans); font-size: 12.5px; font-weight: 350;
   color: var(--text-2); white-space: nowrap;
   transition: background-color .12s ease, color .12s ease;
+  text-decoration: none;
 }
 .mon-tab:hover { background: var(--surface-2); color: var(--text); }
 .mon-tab.on { background: var(--surface-2); color: var(--text); font-weight: 500; }
@@ -2391,6 +2392,8 @@ input:focus-visible, select:focus-visible, textarea:focus-visible {
 .mon-check input { width: 14px; height: 14px; min-height: 0; accent-color: var(--ink); cursor: pointer; }
 .mon-act { width: 62px; text-align: right; }
 .mon-empty { padding: 34px 12px; text-align: center; color: var(--text-3); font-size: 12.5px; }
+.mon-empty > span { display: block; }
+.mon-empty .btn { margin-top: 10px; }
 
 /* ── Row menu. */
 .rowmenu { position: relative; display: inline-block; }
@@ -2606,6 +2609,52 @@ tr:has(.chip-done) .jobs-prog-bar span { background: var(--done); }
 /* The status chip is the row's verdict; give it the width to stay on
    one line next to the bar. */
 .jobs-table .chip { white-space: nowrap; }
+.jobs-job-link { text-decoration: none; }
+.jobs-job-link:hover { color: var(--amber-ink); text-decoration: underline; text-underline-offset: 3px; }
+.jobs-clickable-row { cursor: pointer; }
+.jobs-clickable-row td:first-child { box-shadow: inset 2px 0 0 transparent; transition: box-shadow .12s ease; }
+.jobs-clickable-row:hover td:first-child { box-shadow: inset 2px 0 0 var(--amber); }
+.jobs-clickable-row:active { background: var(--surface-3); }
+.jobs-status-inner { display: flex; align-items: center; justify-content: space-between; gap: 7px; }
+.jobs-open-icon { flex: 0 0 auto; color: var(--text-3); transition: color .12s ease, transform .12s ease; }
+.jobs-clickable-row:hover .jobs-open-icon { color: var(--amber-ink); transform: translateX(2px); }
+.jobs-table .jobs-urgency { display: block; margin-top: 2px; font-family: var(--sans); font-size: 10px; font-weight: 600; }
+.jobs-urgency.is-overdue { color: var(--overdue); }
+.jobs-urgency.is-today, .jobs-urgency.is-soon { color: var(--inprog); }
+.jobs-mobile-register, .jobs-mobile-sort { display: none; }
+
+@media (max-width: 639px) {
+  .jobs-page-bar { align-items: stretch; }
+  .jobs-page-bar .mon-tabs { flex-basis: 100%; order: 1; }
+  .jobs-page-bar .mon-head-actions { order: 2; width: 100%; }
+  .jobs-page-bar .mon-head-actions .btn { flex: 1 1 auto; }
+  .jobs-desktop-register { display: none; }
+  .jobs-mobile-register { display: block; }
+  .jobs-mobile-sort {
+    display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    width: 100%; font-size: 11px; color: var(--text-2);
+  }
+  .jobs-mobile-sort select { width: auto; min-height: 34px; padding-block: 5px; font-size: 12px; }
+  .jobs-mobile-row {
+    display: flex; flex-direction: column; gap: 7px;
+    padding: 13px 12px; border-bottom: 1px solid var(--line);
+    color: var(--text); text-decoration: none;
+    transition: background-color .12s ease;
+  }
+  .jobs-mobile-row:hover { background: var(--surface-2); }
+  .jobs-mobile-row:focus-visible { outline: 2px solid var(--steel); outline-offset: -3px; }
+  .jobs-mobile-row:last-child { border-bottom: 0; }
+  .jobs-mobile-top, .jobs-mobile-foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .jobs-mobile-top .mon-primary { font-size: 12.5px; }
+  .jobs-mobile-row .jobs-desc { font-size: 13.5px; white-space: normal; line-height: 1.35; }
+  .jobs-mobile-meta { display: flex; gap: 6px; font-size: 11.5px; color: var(--text-2); }
+  .jobs-mobile-foot { margin-top: 2px; }
+  .jobs-mobile-foot .jobs-prog { flex: 1 1 auto; min-width: 0; }
+  .jobs-mobile-foot .jobs-prog-n { white-space: nowrap; }
+  .jobs-date, .jobs-urgency { flex: 0 0 auto; font-size: 10.5px; color: var(--text-2); }
+  .jobs-urgency { font-weight: 600; }
+  .jobs-mobile-empty { padding: 34px 14px; }
+}
 
 @media (max-width: 720px) {
   .jobs-table { min-width: 720px; }
