@@ -1,5 +1,6 @@
 import { DELIVERABLES } from './constants.js'
 import { getReports, getOverrides } from './store.js'
+import { reportResult } from './verdict.js'
 
 const TODAY = new Date()
 
@@ -182,14 +183,16 @@ export function recentActivity(limit = 8) {
 }
 
 // ---- NCR / findings list (reports carrying non-conformance notes) ----
+/* Reports carrying a non-conformance.
+
+   This used to count a report whose NCR notes box had any text in it,
+   alongside the actual verdict. Notes get written and findings get
+   closed, and filler in that box turned passing reports into
+   non-conformances. The verdict is the fact; reportResult is what the
+   rest of the app reads, so this reads it too rather than keeping a
+   second opinion. */
 export function ncrReports() {
   return getReports()
-    .filter((r) => {
-      const v = r.values || {}
-      const hasNcr = typeof v.ncr === 'string' && v.ncr.trim() !== ''
-      const rejected = v.finalStatus === 'Reject' || v.testResult === 'Unsatisfactory'
-      const rowRej = (r.results || []).some((row) => ['Reject', 'Rej', 'NG'].includes(row.judgement))
-      return hasNcr || rejected || rowRej
-    })
+    .filter((r) => reportResult(r) === 'Reject')
     .sort((a, b) => (b.updatedAt || '').localeCompare(a.updatedAt || ''))
 }

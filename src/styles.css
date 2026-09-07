@@ -5128,3 +5128,186 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber); outline-
 .install-text strong { font-size: 14px; font-weight: 600; }
 .install-text small { font-size: 12px; line-height: 1.45; color: var(--text-2); }
 .install-text b { font-weight: 600; color: var(--text); }
+
+
+/* ── customers, orders, units ─────────────────────────────────────
+
+   Three registers of the same shape: identity on the left, the figures
+   that matter in the middle, a bar and a chevron on the right. They are
+   rows rather than cards because the job is comparison down a column —
+   which customer has the most open, which unit is holding an order — and
+   cards put a border between every two numbers you are trying to weigh
+   against each other.
+
+   No gradients and no rings here. A ring reads as one object's
+   completion; these are sums across many. */
+
+.cust-rows, .po-list, .unit-list { display: flex; flex-direction: column; }
+.cust-rows { padding: 2px 0 6px; }
+
+.cust-row, .po-row, .unit-row {
+  display: grid; align-items: center;
+  width: 100%; text-align: left;
+  padding: 12px 18px; gap: 14px;
+  border: 0; border-top: 1px solid var(--line);
+  background: none; color: inherit; cursor: pointer;
+  font: inherit;
+  transition: background .13s ease;
+}
+.cust-rows > .cust-row:first-child,
+.po-list > .po-row:first-child,
+.unit-list > .unit-row:first-child { border-top: 0; }
+.cust-row:hover, .po-row:hover, .unit-row:hover { background: var(--surface-2); }
+.cust-row:focus-visible, .po-row:focus-visible, .unit-row:focus-visible {
+  outline: none; background: var(--surface-2); box-shadow: inset 0 0 0 2px var(--amber);
+}
+
+.cust-row { grid-template-columns: minmax(0, 1fr) auto 90px 44px 18px; }
+.po-row   { grid-template-columns: minmax(0, 1fr) auto 190px 18px; }
+.unit-row { grid-template-columns: minmax(0, 1fr) auto 54px 96px 18px; }
+
+.po-list, .unit-list {
+  border: 1px solid var(--line-2); border-radius: var(--r-lg);
+  background: var(--surface); overflow: hidden;
+}
+
+.cust-row-id, .po-id, .unit-id { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.cust-row-id strong, .po-id strong, .unit-id strong {
+  font-size: 14px; font-weight: 600; letter-spacing: -0.005em;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.cust-row-id small, .po-id small, .unit-id small {
+  font-size: 11.5px; color: var(--text-2);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.po-id strong, .unit-id strong { font-family: var(--mono); font-size: 13px; }
+
+/* The counts. Tabular figures so a column of them lines up, and the
+   label under the number rather than beside it, which is what lets four
+   of them sit in the width a phone has. */
+.cust-row-figs, .po-figs, .unit-state { display: flex; align-items: center; gap: 14px; }
+.cust-row-figs i, .po-figs i {
+  display: flex; flex-direction: column; align-items: center; gap: 1px;
+  font-style: normal; font-size: 10px; font-weight: 500;
+  letter-spacing: 0.04em; text-transform: uppercase; color: var(--text-3);
+}
+.cust-row-figs b, .po-figs b {
+  font-family: var(--mono); font-size: 15px; font-weight: 600;
+  font-variant-numeric: tabular-nums; color: var(--text);
+}
+.cust-row-figs .is-work b, .po-figs .is-work b { color: var(--inprog); }
+.cust-row-figs .is-late b, .po-figs .is-late b { color: var(--overdue); }
+.cust-row-figs .is-late, .po-figs .is-late { color: var(--overdue); }
+
+.cust-row-bar, .unit-bar {
+  height: 6px; border-radius: 999px; overflow: hidden;
+  background: var(--line); display: block;
+}
+.cust-row-bar i, .unit-bar i {
+  display: block; height: 100%; border-radius: inherit;
+  background: var(--amber);
+}
+.cust-row-bar i.is-done, .unit-bar i.is-done { background: var(--done); }
+.cust-row-pct {
+  font-family: var(--mono); font-size: 12.5px; font-weight: 600;
+  font-variant-numeric: tabular-nums; text-align: right; color: var(--text-2);
+}
+.cust-row-go, .po-go, .unit-go { color: var(--text-3); display: grid; place-items: center; }
+
+.unit-count {
+  font-family: var(--mono); font-size: 12.5px; font-variant-numeric: tabular-nums;
+  color: var(--text-2); text-align: right;
+}
+.unit-state i {
+  font-style: normal; font-size: 10.5px; font-weight: 600;
+  letter-spacing: 0.04em; padding: 3px 8px; border-radius: 5px; white-space: nowrap;
+}
+.u-done { color: var(--done); background: var(--done-bg); }
+.u-work { color: var(--inprog); background: var(--inprog-bg); }
+.u-late { color: var(--overdue); background: var(--overdue-bg); }
+.u-idle { color: var(--text-3); background: var(--surface-2); }
+.u-ncr  { color: var(--overdue); background: var(--overdue-bg); border: 1px solid var(--overdue-line); }
+.unit-row.is-done .unit-id strong { color: var(--text-2); }
+
+/* The figure strip on a customer or order page. Plain numbers on the
+   page ground: six bordered cards would put five borders between six
+   things whose whole purpose is to be read together. */
+.fig-row {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 1px; margin-top: 16px;
+  border: 1px solid var(--line-2); border-radius: var(--r-lg);
+  background: var(--line); overflow: hidden;
+}
+.fig { display: flex; flex-direction: column; gap: 3px; padding: 14px 16px; background: var(--surface); }
+.fig b {
+  font-family: var(--mono); font-size: 22px; font-weight: 600;
+  font-variant-numeric: tabular-nums; letter-spacing: -0.02em; line-height: 1;
+}
+.fig span { font-size: 11.5px; color: var(--text-2); }
+.fig-done b { color: var(--done); }
+.fig-work b { color: var(--inprog); }
+.fig-late b { color: var(--overdue); }
+
+.meter { display: flex; flex-direction: column; gap: 6px; min-width: 150px; }
+.meter-top { display: flex; align-items: baseline; gap: 8px; }
+.meter-top strong {
+  font-family: var(--display); font-size: 24px; font-weight: 680;
+  letter-spacing: -0.03em; line-height: 1;
+}
+.meter-top strong i { font-style: normal; font-size: 13px; font-weight: 600; margin-left: 1px; }
+.meter-top small { font-size: 11.5px; color: var(--text-2); white-space: nowrap; }
+.meter-track { height: 6px; border-radius: 999px; background: var(--line); overflow: hidden; }
+.meter-track > span { display: block; height: 100%; border-radius: inherit; background: var(--amber); }
+.meter-track > span.is-done { background: var(--done); }
+.mh-meter { min-width: 190px; }
+.mh-meter .meter-top strong { text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5); }
+.mh-meter .meter-top small { color: #43434f; text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5); }
+:root[data-theme="dark"] .mh-meter .meter-top strong { color: #fafaff; text-shadow: 0 1px 2px rgba(0, 0, 0, 0.55); }
+:root[data-theme="dark"] .mh-meter .meter-top small { color: #f2f2f8; text-shadow: 0 1px 2px rgba(0, 0, 0, 0.55); }
+:root[data-theme="dark"] .mh-meter .meter-track { background: rgba(255, 255, 255, 0.22); }
+
+.cust-mono {
+  font-family: var(--mono); font-size: 17px; font-weight: 700; letter-spacing: 0.02em;
+}
+
+/* A phone has room for the identity and the bar, not for four labelled
+   counts beside them. The figures wrap under the name and the chevron
+   goes: the whole row is the target. */
+@media (max-width: 720px) {
+  .cust-row { grid-template-columns: minmax(0, 1fr) 46px; row-gap: 9px; }
+  .cust-row-figs { grid-column: 1 / -1; order: 3; gap: 18px; }
+  .cust-row-bar { grid-column: 1 / -1; order: 4; }
+  .cust-row-pct { order: 2; }
+  .cust-row-go { display: none; }
+
+  .po-row { grid-template-columns: minmax(0, 1fr); row-gap: 10px; }
+  .po-figs { gap: 18px; }
+  .po-go { display: none; }
+  .po-meter { min-width: 0; }
+
+  .unit-row { grid-template-columns: minmax(0, 1fr) auto; row-gap: 9px; }
+  .unit-state { grid-column: 1 / -1; order: 3; }
+  .unit-bar { grid-column: 1 / -1; order: 4; }
+  .unit-go { display: none; }
+  .fig b { font-size: 19px; }
+}
+
+
+/* A phone gives the band about 390px, and the reading was claiming 190
+   of them beside a title that then wrapped underneath it. Narrow, the
+   figure alone carries the meaning; the fraction moves to the page,
+   which states it in the figure strip a moment later anyway. */
+@media (max-width: 720px) {
+  .mh-meter { min-width: 0; gap: 4px; }
+  .mh-meter .meter-top small { display: none; }
+  .mh-meter .meter-top strong { font-size: 21px; }
+  .mh-meter .meter-track { display: none; }
+}
+
+/* Five figures in a two-column grid leaves a hole at the end. The odd
+   one out spans the row instead: an empty cell reads as a missing
+   number, which on a page of counts is the wrong thing to suggest. */
+@media (max-width: 640px) {
+  .fig-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .fig-row .fig:last-child:nth-child(odd) { grid-column: 1 / -1; }
+}

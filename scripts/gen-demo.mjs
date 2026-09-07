@@ -248,6 +248,12 @@ function fillField(f, ctx, values) {
   if (f.id === 'drawingNo') return `DWG-${ctx.order.prefix}-${int(4100, 4180)}-R${int(0, 2)}`
   if (BY_ID[f.id]) return BY_ID[f.id]()
   if (t === 'number') return dec(1, 100, 1)
+  /* Non-conformance notes belong on a non-conformance. The blanket
+     textarea filler was writing "No outstanding items." into the NCR box
+     of every clean report, which is contradictory on the face of the
+     document and made 27 passing reports read as non-conformances to
+     anything counting them. The reject path fills this field itself. */
+  if (f.id === 'ncr') return undefined
   if (t === 'textarea') return 'Inspection carried out per the referenced procedure. No outstanding items.'
   if (f.default != null) return f.default
   if (f.placeholder) return f.placeholder.replace(/^e\.g\.\s*/i, '')

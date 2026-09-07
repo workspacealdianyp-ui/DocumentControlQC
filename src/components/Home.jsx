@@ -6,6 +6,7 @@ import { getReports } from '../lib/store.js'
 import JobPicker from './JobPicker.jsx'
 import { docStats, recentActivity, ncrReports, buildContext, jobStatuses, jobProgress, fmtDate, fmtDateTime } from '../lib/status.js'
 import { DELIVERABLES } from '../lib/constants.js'
+import { byCustomer } from '../lib/rollup.js'
 import { IconAlert, IconDoc, IconChevronR, IconPlus, IconPen, IconGrid, IconList, IconApprove, IconClock } from './Icons.jsx'
 
 const FORM_ORDER = ['hydrotest', 'blasting', 'mt', 'pt', 'ut', 'visual', 'dimensional']
@@ -36,18 +37,14 @@ const CUST_GRADIENTS = [
 ]
 const custInitials = (name = '') => name.replace(/\b(pt|cv|tbk|persero)\b\.?/gi, '').trim().split(/\s+/).filter(Boolean).slice(0, 2).map((w) => w[0]).join('').toUpperCase() || '–'
 
-// deterministic mock metrics per customer (real data is thin — fabricate trend/on-time/NCR/tier)
-const hashStr = (s = '') => { let h = 2166136261; for (let i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619) } return h >>> 0 }
-const mulberry = (a) => () => { a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296 }
-function mockCust(name, real) {
-  const rng = mulberry(hashStr(name))
-  const pct = real.app ? Math.round((real.done / real.app) * 100) : Math.round(40 + rng() * 55)
-  const trend = []; let v = Math.max(10, pct - 18 - Math.round(rng() * 14))
-  for (let i = 0; i < 6; i++) { v = Math.max(6, Math.min(100, v + Math.round((rng() - 0.32) * 22))); trend.push(v) }
-  trend[5] = pct
-  return { pct, trend, delta: trend[5] - trend[4], onTime: 72 + Math.round(rng() * 26), ncr: rng() < 0.5 ? 0 : 1 + Math.floor(rng() * 3), tier: real.jobs >= 15 ? 'Gold' : real.jobs >= 5 ? 'Silver' : 'Bronze', since: 2014 + Math.floor(rng() * 10) }
-}
+/* The customer roll-up used to sit here as mockCust(): a seeded random
+   generator producing an on-time percentage, an NCR count, a
+   Gold/Silver/Bronze tier, a "customer since" year and a six-point trend
+   line. The comment above it said "real data is thin, fabricate". A card
+   reading "On-time 84%" was not a measurement of anything.
 
+   It is now lib/rollup.js, which counts orders, units, reports and
+   non-conformances from the record and offers nothing it cannot count. */
 // gradient completion ring
 function Ring({ pct, c1, c2, gid, size = 48 }) {
   const sw = 5, r = (size - sw) / 2, circ = 2 * Math.PI * r
@@ -112,16 +109,19 @@ export default function Home() {
   const [slide, setSlide] = useState(0) // current unit in the showcase
   const [custAll, setCustAll] = useState(false) // expand top-customers list
 
+  // One status context for the whole page. It used to be rebuilt inside
+  // each useMemo, which also meant it was not in scope for anything else.
+  const ctx = useMemo(() => buildContext(), [tick])
+
   const stats = useMemo(() => docStats(), [tick])
   const activity = useMemo(() => recentActivity(6), [tick])
   const ncrs = useMemo(() => ncrReports(), [tick])
 
   /* fleet-wide cell distribution + overdue spotlight + top customers */
   const fleet = useMemo(() => {
-    const ctx = buildContext()
     const dist = { done: 0, inprogress: 0, notstarted: 0, overdue: 0 }
     const overdueJobs = []
-    const byCustomer = new Map()
+    const custMap = new Map()
     const DSHORT = Object.fromEntries(DELIVERABLES.map((d) => [d.key, d.short]))
     for (const job of jobs) {
       const sts = jobStatuses(job, ctx)
@@ -140,24 +140,23 @@ export default function Home() {
         }
       }
       if (jobOver > 0) overdueJobs.push({ job, missing: jobOver })
-      const c = byCustomer.get(job.customerName) || { jobs: 0, done: 0, app: 0, ip: 0, od: 0, pend: {} }
+      const c = custMap.get(job.customerName) || { jobs: 0, done: 0, app: 0, ip: 0, od: 0, pend: {} }
       c.jobs++; c.done += jobDone; c.app += jobApp; c.ip += jobIp; c.od += jobOver
       for (const sh of jobPend) c.pend[sh] = (c.pend[sh] || 0) + 1
-      byCustomer.set(job.customerName, c)
+      custMap.set(job.customerName, c)
     }
     overdueJobs.sort((a, b) => (a.job.datePdiRelease || '').localeCompare(b.job.datePdiRelease || ''))
-    const customers = [...byCustomer.entries()]
+    const customers = [...custMap.entries()]
     const applicable = dist.done + dist.inprogress + dist.notstarted + dist.overdue
     return { dist, applicable, overdueJobs, customers }
   }, [jobs, tick])
 
   /* units to showcase — prefer jobs with active/overdue work, fall back to the fleet */
   const featured = useMemo(() => {
-    const ctx = buildContext()
     const all = jobs.map((job) => ({ job, prog: jobProgress(job, ctx) }))
     const active = all.filter((x) => x.prog.inprogress || x.prog.overdue)
     return (active.length ? active : all).slice(0, 6)
-  }, [jobs, tick])
+  }, [jobs, ctx])
 
   useEffect(() => {
     if (featured.length <= 1) return
@@ -172,12 +171,11 @@ export default function Home() {
     [tick, session.name]
   )
 
-  // customers enriched with mock metrics, ranked by completion
-  const custData = useMemo(() => {
-    const list = fleet.customers.map(([name, c]) => ({ name, c, m: mockCust(name, c) }))
-    list.sort((a, b) => b.m.pct - a.m.pct || b.c.jobs - a.c.jobs)
-    return list.map((x, i) => ({ ...x, c1: CUST_GRADIENTS[i % CUST_GRADIENTS.length][0], c2: CUST_GRADIENTS[i % CUST_GRADIENTS.length][1] }))
-  }, [fleet.customers])
+  /* Counted, not ranked by completion: whoever has the most unfinished
+     units comes first. Sorting by percentage put the customer with
+     nothing left to do at the top of a list somebody opens to find out
+     what needs doing. */
+  const custData = useMemo(() => byCustomer(jobs, ctx), [jobs, ctx])
 
   const h = new Date().getHours()
   const greet = h < 11 ? 'Good morning' : h < 15 ? 'Good afternoon' : h < 19 ? 'Good evening' : 'Good night'
@@ -385,40 +383,44 @@ export default function Home() {
           )}
         </section>
 
-        {/* ── top customers — KPI cards ── */}
+        {/* ── customers ── */}
         <section className="card bento-customers cust-card">
           <div className="widget-head">
-            <h3 className="widget-title">Top customers</h3>
+            <h3 className="widget-title">Customers</h3>
             <span className="count-pill">{custData.length}</span>
           </div>
 
-          {custData.length === 0 ? <div className="widget-empty"><p>No customer data yet.</p></div> : (
+          {custData.length === 0 ? (
+            <div className="widget-empty"><p>No customer work on file yet. Raise a job order to start one.</p></div>
+          ) : (
             <>
-              <div className="cust-cards2">
-                {(custAll ? custData : custData.slice(0, 4)).map((x, i) => {
-                  const pend = Object.entries(x.c.pend || {}).sort((a, b) => b[1] - a[1]).map(([sh]) => sh)
-                  return (
-                    <div key={x.name} className="cc2">
-                      <div className="cc2-head">
-                        <span className="cc2-name" title={x.name}>{x.name}</span>
-                        <Ring pct={x.m.pct} c1={x.c1} c2={x.c2} gid={`rgc${i}`} size={50} />
-                      </div>
-                      <div className="cc2-kpis">
-                        <div className="k-blue"><b>{x.c.jobs}</b><span>Jobs</span></div>
-                        <div className="k-green"><b>{x.m.onTime}%</b><span>On-time</span></div>
-                        <div className="k-violet"><b>{x.c.done}/{x.c.app}</b><span>Reports</span></div>
-                      </div>
-                      <div className="cc2-pend">
-                        <span className="cc2-pend-lab">Pending</span>
-                        {pend.length
-                          ? <span className="cc2-pend-chips">{pend.slice(0, 5).map((sh) => <i key={sh}>{sh}</i>)}{pend.length > 5 && <i className="more">+{pend.length - 5}</i>}</span>
-                          : <span className="cc2-pend-done">All reports done ✓</span>}
-                      </div>
-                    </div>
-                  )
-                })}
+              <div className="cust-rows">
+                {(custAll ? custData : custData.slice(0, 4)).map((c) => (
+                  <button key={c.name} className="cust-row"
+                    onClick={() => navigate(`/customer/${encodeURIComponent(c.name)}`)}>
+                    <span className="cust-row-id">
+                      <strong>{c.name}</strong>
+                      <small>{c.orders} order{c.orders === 1 ? '' : 's'} · {c.units} unit{c.units === 1 ? '' : 's'}</small>
+                    </span>
+                    <span className="cust-row-figs">
+                      <i><b>{c.complete}</b>done</i>
+                      <i className={c.open ? 'is-work' : ''}><b>{c.open}</b>open</i>
+                      {c.overdue > 0 && <i className="is-late"><b>{c.overdue}</b>late</i>}
+                      {c.ncr > 0 && <i className="is-late"><b>{c.ncr}</b>NCR</i>}
+                    </span>
+                    <span className="cust-row-bar" aria-label={`${c.pct}% of the reports on this customer's work are done`}>
+                      <i className={c.pct === 100 ? 'is-done' : ''} style={{ width: `${Math.max(2, c.pct)}%` }} />
+                    </span>
+                    <span className="cust-row-pct">{c.pct}%</span>
+                    <span className="cust-row-go" aria-hidden="true"><IconChevronR size={15} /></span>
+                  </button>
+                ))}
               </div>
-              {custData.length > 4 && <button className="btn btn-ghost btn-sm cust-seeall" onClick={() => setCustAll((v) => !v)}>{custAll ? 'Show less' : `See all ${custData.length}`}</button>}
+              {custData.length > 4 && (
+                <button className="btn btn-ghost btn-sm cust-seeall" onClick={() => setCustAll((v) => !v)}>
+                  {custAll ? 'Show fewer' : `Show all ${custData.length}`}
+                </button>
+              )}
             </>
           )}
         </section>

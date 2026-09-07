@@ -1,5 +1,7 @@
 import { DELIVERABLES } from './constants.js'
-import joblist from '../data/joblist.json'
+// The attribute is required by Node's ESM loader, which the generator
+// scripts run under; Vite does not need it but accepts it.
+import joblist from '../data/joblist.json' with { type: 'json' }
 
 /* Job orders.
 

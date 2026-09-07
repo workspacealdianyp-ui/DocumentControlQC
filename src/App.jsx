@@ -15,6 +15,8 @@ import { isPaletteChord } from './lib/keys.js'
 import Home from './components/Home.jsx'
 import Dashboard from './components/Dashboard.jsx'
 import JobsPage from './components/JobsPage.jsx'
+import CustomerPage from './components/CustomerPage.jsx'
+import PoPage from './components/PoPage.jsx'
 import JobDetail from './components/JobDetail.jsx'
 import FormView from './components/FormView.jsx'
 import Reports from './components/Reports.jsx'
@@ -40,6 +42,10 @@ function parseHash() {
   if (parts[0] === 'settings') return { page: 'settings', query }
   if (parts[0] === 'help') return { page: 'help', query }
   if (parts[0] === 'profile') return { page: 'profile', query }
+  // Customer names and PO numbers carry spaces and slashes, so the
+  // segment is decoded rather than read raw.
+  if (parts[0] === 'customer' && parts[1]) return { page: 'customer', name: decodeURIComponent(parts[1]), query }
+  if (parts[0] === 'po' && parts[1]) return { page: 'po', poNo: decodeURIComponent(parts.slice(1).join('/')), query }
   if (parts[0] === 'job' && parts[1]) {
     if (parts[2] === 'form' && parts[3]) return { page: 'form', jobNo: parts[1], formKey: parts[3], query }
     return { page: 'job', jobNo: parts[1], query }
@@ -179,6 +185,8 @@ export default function App() {
             {route.page === 'jobs' && <JobsPage kat={route.query.kat} />}
             {route.page === 'joborder' && <NewJobOrder />}
             {route.page === 'job' && <JobDetail job={job} />}
+            {route.page === 'customer' && <CustomerPage name={route.name} />}
+            {route.page === 'po' && <PoPage poNo={route.poNo} />}
             {route.page === 'form' && <FormView job={job} formKey={route.formKey} query={route.query} />}
             {route.page === 'reports' && <Reports query={route.query} />}
             {route.page === 'settings' && <Settings section={route.query.s} />}
