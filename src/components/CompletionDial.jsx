@@ -17,7 +17,7 @@ const R = 34
 const C = 2 * Math.PI * R
 const TICKS = [0, 90, 180, 270]
 
-export default function CompletionDial({ done, total, size = 88 }) {
+export default function CompletionDial({ done, total, size = 88, className = '' }) {
   const pct = total ? Math.round((done / total) * 100) : 0
   const [shown, setShown] = useState(() => (prefersStill() ? pct : 0))
   const raf = useRef(0)
@@ -38,7 +38,7 @@ export default function CompletionDial({ done, total, size = 88 }) {
 
   const full = pct >= 100
   return (
-    <div className={`dial${full ? ' is-full' : ''}`} style={{ width: size, height: size }}
+    <div className={`dial${full ? ' is-full' : ''}${className ? ' ' + className : ''}`} style={{ width: size, height: size }}
       role="img" aria-label={`${pct}% of the required reports are done — ${done} of ${total}`}>
       <svg viewBox="0 0 80 80" width={size} height={size} aria-hidden="true">
         <g transform="rotate(-90 40 40)">

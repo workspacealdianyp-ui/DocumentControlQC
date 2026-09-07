@@ -4840,49 +4840,104 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber); outline-
 :root[data-theme="dark"] .dial-tick { stroke: rgba(255, 255, 255, 0.48); }
 :root[data-theme="dark"] .dial-read { color: #fafaff; }
 
-/* ── the plate's shape ────────────────────────────────────────
-   Back and category on one line, the name under it, the job under that,
-   and the dial centred against all three down the right. Same grid at
-   every width; only the sizes change. */
-.masthead.is-job .masthead-inner {
-  display: grid; align-items: center;
-  grid-template-columns: auto minmax(0, 1fr) auto;
-  grid-template-areas:
-    "back eyebrow dial"
-    "name name    dial"
-    "line line    dial";
-  column-gap: 12px; row-gap: 3px;
+/* ── the plate's shape ──────────────────────────────────────
+   The same shape a report's band has: chip, then the name and its two
+   lines, then the reading on the right. The job band only differs in
+   what the reading is. */
+.masthead.is-job .masthead-side { gap: 12px; }
+/* The badges on a report band need an opaque plate because their tints
+   are translucent. The reading does not: it is type, it already clears
+   AA against the stone itself, and a plate under it reads as something
+   stuck on rather than something written there. */
+.masthead.is-job .jd-meter,
+.masthead.is-job .dial {
+  background: none; border: 0; box-shadow: none; padding: 0;
 }
-/* The eyebrow and the two lines under it are children of the text
-   block; display:contents lets the grid place them itself rather than
-   placing the box they happen to sit in. */
-.masthead.is-job .masthead-txt { display: contents; }
-.masthead.is-job .masthead-back { grid-area: back; }
-.masthead.is-job .masthead-eyebrow { grid-area: eyebrow; }
-.masthead.is-job .masthead-txt h2 { grid-area: name; margin-top: 4px; }
-.masthead.is-job .masthead-id { grid-area: line; }
-.masthead.is-job .masthead-mark {
-  grid-area: dial; align-self: center; justify-self: end;
-  margin: 0; transform: none; background: none; border-radius: 0;
-}
-/* Late is the one reading the dial cannot give, so it is the one chip
-   that stays. */
-.masthead.is-job .masthead-side { grid-area: line; justify-self: end; align-self: center; margin: 0; }
+.masthead.is-job .jd-meter-top strong,
+.masthead.is-job .jd-meter-top small,
+.masthead.is-job .dial-read { text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5); }
+:root[data-theme="dark"] .masthead.is-job .jd-meter-top strong,
+:root[data-theme="dark"] .masthead.is-job .jd-meter-top small,
+:root[data-theme="dark"] .masthead.is-job .dial-read { text-shadow: 0 1px 0 rgba(0, 0, 0, 0.55); }
 
 @media (max-width: 720px) {
-  .masthead.is-job .masthead-inner { padding: 13px 14px; column-gap: 11px; }
-  .masthead.is-job .masthead-mark.is-wide {
-    /* the mobile mark rules elsewhere shrink and disc the old ring; the
-       dial is drawn for this size already */
-    transform: none; background: none; border-radius: 0; margin: 0;
+  /* The phone band keeps the arrangement it already had: the way out and
+     the category share the first line, the name and the job line follow,
+     and the reading stands against all three. The code chip steps aside
+     there - at this width it would be a third object competing for the
+     first line with the two that carry meaning. */
+  .masthead.is-job .masthead-inner {
+    display: grid; align-items: center;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    grid-template-areas:
+      "back eyebrow read"
+      "name name    read"
+      "line line    read";
+    column-gap: 11px; row-gap: 2px;
+    padding: 13px 14px;
   }
-  .masthead.is-job .dial { width: 74px !important; height: 74px !important; }
-  .masthead.is-job .dial svg { width: 74px; height: 74px; }
-  .masthead.is-job .dial-read strong { font-size: 19px; }
-  .masthead.is-job .masthead-side { display: none; }
-  .masthead.is-job .masthead-side:has(.state-overdue) { display: block; }
+  .masthead.is-job .masthead-txt { display: contents; }
+  .masthead.is-job .masthead-back { grid-area: back; }
+  .masthead.is-job .masthead-eyebrow { grid-area: eyebrow; }
+  .masthead.is-job .masthead-txt h2 { grid-area: name; margin-top: 4px; }
+  .masthead.is-job .masthead-id { grid-area: line; }
+  .masthead.is-job .masthead-mark { display: none; }
+  .masthead.is-job .masthead-side {
+    grid-area: read; align-self: center; justify-self: end;
+    margin: 0; gap: 8px; flex-direction: column; align-items: flex-end;
+  }
+  .masthead.is-job .jd-dial-sm { width: 74px !important; height: 74px !important; }
+  .masthead.is-job .jd-dial-sm svg { width: 74px; height: 74px; }
 }
 
+/* ── the reading ──────────────────────────────────────────────
+   A circle is right on a phone, where the band is short and the number
+   has to be compact. A desktop band is a thousand pixels of width and a
+   circle spends none of it, so there the same number is a meter with
+   room to say what the fraction counts. One reading, two shapes, and
+   never both on screen at once. */
+.jd-meter { display: none; }
+.jd-dial-sm { display: grid; }
+
+@media (min-width: 721px) {
+  .jd-dial-sm { display: none; }
+  .jd-meter {
+    display: flex; flex-direction: column; gap: 7px;
+    min-width: 210px;
+  }
+  .jd-meter-top { display: flex; align-items: baseline; gap: 9px; }
+  .jd-meter-top strong {
+    font-family: var(--display); font-size: 30px; font-weight: 680;
+    letter-spacing: -0.035em; line-height: 1; color: #101018;
+    font-variant-numeric: tabular-nums; font-variation-settings: 'opsz' 32;
+  }
+  .jd-meter-top strong i { font-style: normal; font-size: 15px; font-weight: 600; margin-left: 1px; }
+  .jd-meter-top small { font-size: 11.5px; font-weight: 500; color: #43434f; }
+  .jd-meter-track {
+    display: block; height: 5px; border-radius: 99px;
+    background: rgba(20, 20, 28, 0.16);
+    box-shadow: inset 0 1px 0 rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+  }
+  .jd-meter-track > span {
+    display: block; height: 100%; border-radius: inherit;
+    background: #16161a;
+    /* it fills from nothing when the band arrives, like the dial sweeps */
+    animation: jd-fill .9s cubic-bezier(0.16, 1, 0.3, 1) both;
+    transform-origin: left center;
+  }
+  .jd-meter-track > span.is-done { background: var(--done); }
+  @keyframes jd-fill { from { transform: scaleX(0); } to { transform: none; } }
+
+  :root[data-theme="dark"] .jd-meter-top strong { color: #fafaff; }
+  /* #b6b6c2 measured 3.10:1 over the dark stone, under AA for 11.5px. */
+  :root[data-theme="dark"] .jd-meter-top small { color: #e8e8f0; text-shadow: 0 1px 0 rgba(0,0,0,0.5); }
+  :root[data-theme="dark"] .jd-meter-track { background: rgba(255, 255, 255, 0.2); }
+  :root[data-theme="dark"] .jd-meter-track > span { background: #fafaff; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .jd-meter-track > span { animation: none; }
+}
 
 /* ── the document register ────────────────────────────────────
    The same card the report register uses, because these are the same

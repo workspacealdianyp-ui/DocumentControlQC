@@ -15,6 +15,8 @@ import { IconDoc, IconPrint, IconChevronD } from './Icons.jsx'
 import Masthead from './Masthead.jsx'
 
 const KAT_LABEL = { SUPEQ: 'Support Equipment', TRAILER: 'Trailer', 'NON TRAILER': 'Non Trailer' }
+// The chip carries a code, the way a report's carries LHT or DIM.
+const KAT_SHORT = { SUPEQ: 'SE', TRAILER: 'TRL', 'NON TRAILER': 'NTR' }
 
 const Meta = ({ label, value }) => (
   <div className="meta-item">
@@ -130,15 +132,36 @@ export default function JobDetail({ job }) {
           where the stone's scrim is fully opaque. Back goes to the
           category this job belongs to, so returning keeps the list where
           the reader left it. */}
+      {/* Built to the same model as a report's band: a code chip on the
+          left, the name and its two lines beside it, and the state on
+          the right. A job and a report are the same kind of object to
+          the person reading them, so they should not arrive in two
+          different shapes. */}
       <Masthead variant="job"
-        mark={<CompletionDial done={p.done} total={p.applicable} />} wide
+        code={KAT_SHORT[job.kategori] || 'JOB'}
         eyebrow={<>{KAT_LABEL[job.kategori] || 'Job'}{job.poNo ? <> · PO {job.poNo}</> : null}</>}
         title={job.customerName || `Job ${job.jobNo}`}
         sub={<>Job {job.jobNo}{job.productDesc ? <> · {job.productDesc}</> : null}</>}
         backLabel={`Back to ${KAT_LABEL[job.kategori] || 'jobs'}`}
         onBack={() => navigate(job.kategori ? `/jobs?kat=${encodeURIComponent(job.kategori)}` : '/jobs')}>
-        {/* The dial reads the number at both widths, so the only thing
-            left to say is the one state it cannot show: late. */}
+
+        {/* A circle is the right shape on a phone, where the band is
+            short and the reading has to be compact. A desktop band is
+            1100px of width and a circle wastes it, so there the same
+            number is a meter that can also say what the fraction is
+            counting. One reading, two shapes, never both at once. */}
+        <CompletionDial done={p.done} total={p.applicable} size={64} className="jd-dial-sm" />
+
+        <span className="jd-meter">
+          <span className="jd-meter-top">
+            <strong>{pct}<i>%</i></strong>
+            <small>{p.done} of {p.applicable} reports done</small>
+          </span>
+          <span className="jd-meter-track" aria-hidden="true">
+            <span className={done ? 'is-done' : ''} style={{ width: `${Math.max(2, pct)}%` }} />
+          </span>
+        </span>
+
         {p.overdue && !done && <span className="report-state jd-state state-overdue">Overdue</span>}
       </Masthead>
 

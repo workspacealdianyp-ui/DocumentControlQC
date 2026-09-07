@@ -1,50 +1,57 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 200" preserveAspectRatio="xMidYMid slice">
-  <!-- The same stone at night: the white ground becomes graphite and the
-       pour becomes an ember, so the type sitting on it stays legible
-       without the band changing its shape. Pairs with marble-light.svg. -->
+  <!-- The same drawing at night; see marble-light.svg for the reference: white ground, orange bands with a
+       chrome highlight along their crest, and black ribbons threading
+       between them, all running horizontally in one flow. Pairs with
+       marble-light.svg; see .masthead in styles.css. -->
   <defs>
-    <linearGradient id="d-stone" x1="0" y1="1" x2="1" y2="0">
-      <stop offset="0" stop-color="#101014"/>
-      <stop offset="0.5" stop-color="#191920"/>
-      <stop offset="1" stop-color="#22222a"/>
+    <linearGradient id="d-ground" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#17171d"/>
+      <stop offset="0.5" stop-color="#101015"/>
+      <stop offset="1" stop-color="#1b1b22"/>
     </linearGradient>
-    <linearGradient id="d-pour" x1="0.1" y1="1" x2="0.95" y2="0">
-      <stop offset="0" stop-color="#7a2c00"/>
-      <stop offset="0.42" stop-color="#c24a00"/>
-      <stop offset="1" stop-color="#ff8a33"/>
+    <!-- an orange band is lit along its top edge and falls away under it -->
+    <linearGradient id="d-band" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ff9a4a"/>
+      <stop offset="0.22" stop-color="#e0620a"/>
+      <stop offset="0.6" stop-color="#b84a00"/>
+      <stop offset="1" stop-color="#7d3200"/>
     </linearGradient>
-    <filter id="d-flow" x="-25%" y="-60%" width="150%" height="220%" color-interpolation-filters="sRGB">
-      <feTurbulence type="fractalNoise" baseFrequency="0.0034 0.010" numOctaves="3" seed="7" result="n"/>
-      <feDisplacementMap in="SourceGraphic" in2="n" scale="54" xChannelSelector="R" yChannelSelector="G"/>
-      <feGaussianBlur stdDeviation="0.6"/>
+    <linearGradient id="d-band2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffb478"/>
+      <stop offset="0.3" stop-color="#d96c14"/>
+      <stop offset="1" stop-color="#8f3800"/>
+    </linearGradient>
+    <linearGradient id="d-ink" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#31313a"/>
+      <stop offset="0.35" stop-color="#08080c"/>
+      <stop offset="1" stop-color="#000003"/>
+    </linearGradient>
+    <linearGradient id="d-silver" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#9a9aa8"/>
+      <stop offset="0.45" stop-color="#54545f"/>
+      <stop offset="1" stop-color="#8a8a97"/>
+    </linearGradient>
+    <filter id="d-soft" x="-4%" y="-30%" width="108%" height="160%">
+      <feGaussianBlur stdDeviation="0.7"/>
     </filter>
   </defs>
 
-  <rect width="1200" height="200" fill="url(#d-stone)"/>
+  <rect width="1200" height="200" fill="url(#d-ground)"/>
 
-  <g filter="url(#d-flow)">
-    <path d="M -80 -70 H 1280 V 92 C 1050 156 950 58 790 102 C 630 146 470 56 300 50 C 190 46 55 72 -80 58 Z" fill="url(#d-pour)"/>
+  <g filter="url(#d-soft)">
+    <!-- upper flow -->
+    <path d="M-40 34 C 180 6 330 58 520 44 C 720 30 860 -4 1060 12 C 1130 18 1180 26 1240 22 L1240 60 C 1180 64 1130 56 1060 50 C 860 34 720 68 520 82 C 330 96 180 44 -40 72 Z" fill="url(#d-band)"/>
+    <path d="M-40 34 C 180 6 330 58 520 44 C 720 30 860 -4 1060 12 C 1130 18 1180 26 1240 22" fill="none" stroke="#ffc48c" stroke-width="2.5" opacity="0.85"/>
 
-    <path d="M -80 66 C 90 82 250 58 400 66 C 560 74 690 118 850 108 C 990 99 1130 128 1280 104"
-      fill="none" stroke="#050507" stroke-opacity="0.5" stroke-width="2.4" stroke-linecap="round"/>
-    <path d="M -80 84 C 120 104 260 76 430 88 C 600 100 700 136 880 126 C 1020 118 1150 146 1280 124"
-      fill="none" stroke="#050507" stroke-opacity="0.28" stroke-width="1.3" stroke-linecap="round"/>
+    <path d="M-40 72 C 180 44 330 96 520 82 C 720 68 860 34 1060 50 C 1130 56 1180 64 1240 60 L1240 78 C 1180 82 1130 74 1060 68 C 860 52 720 86 520 100 C 330 114 180 62 -40 90 Z" fill="url(#d-ink)"/>
 
+    <!-- silver run under the ink -->
+    <path d="M-40 90 C 180 62 330 114 520 100 C 720 86 860 52 1060 68 C 1130 74 1180 82 1240 78 L1240 104 C 1180 108 1130 100 1060 94 C 860 78 720 112 520 126 C 330 140 180 88 -40 116 Z" fill="url(#d-silver)"/>
 
-    <!-- fine veining carried down into the white, the way the stone
-         actually breaks past the pour -->
-    <path d="M -80 104 C 140 96 280 124 470 118 C 660 112 790 146 980 136 C 1110 130 1200 150 1280 142"
-      fill="none" stroke="#050507" stroke-opacity="0.34" stroke-width="1.1" stroke-linecap="round"/>
-    <path d="M 120 118 C 300 112 420 136 600 130 C 760 125 880 152 1060 146"
-      fill="none" stroke="#8f8f9c" stroke-opacity="0.2" stroke-width="0.9" stroke-linecap="round"/>
-    <path d="M 640 92 C 760 88 840 110 960 106 C 1080 102 1180 118 1280 112"
-      fill="none" stroke="#050507" stroke-opacity="0.34" stroke-width="1.6" stroke-linecap="round"/>
-    <path d="M -80 132 C 160 118 300 152 500 146 C 700 140 830 168 1010 158 C 1130 152 1210 170 1280 164"
-      fill="none" stroke="#8f8f9c" stroke-opacity="0.24" stroke-width="1.8" stroke-linecap="round"/>
-    <path d="M -80 168 C 200 158 340 186 560 178 C 780 170 920 194 1120 186"
-      fill="none" stroke="#8f8f9c" stroke-opacity="0.14" stroke-width="1.2" stroke-linecap="round"/>
+    <!-- lower flow -->
+    <path d="M-40 126 C 200 100 340 150 540 138 C 740 126 880 96 1080 110 C 1145 115 1190 121 1240 118 L1240 152 C 1190 155 1145 149 1080 144 C 880 130 740 160 540 172 C 340 184 200 134 -40 160 Z" fill="url(#d-band2)"/>
+    <path d="M-40 126 C 200 100 340 150 540 138 C 740 126 880 96 1080 110 C 1145 115 1190 121 1240 118" fill="none" stroke="#ffd0a8" stroke-width="2" opacity="0.8"/>
 
-    <ellipse cx="880" cy="30" rx="300" ry="26" fill="#ffd0a8" opacity="0.16"/>
-    <ellipse cx="330" cy="14" rx="240" ry="18" fill="#ffffff" opacity="0.06"/>
+    <path d="M-40 160 C 200 134 340 184 540 172 C 740 160 880 130 1080 144 C 1145 149 1190 155 1240 152 L1240 166 C 1190 169 1145 163 1080 158 C 880 144 740 174 540 186 C 340 198 200 148 -40 174 Z" fill="url(#d-ink)" opacity="0.9"/>
   </g>
 </svg>
