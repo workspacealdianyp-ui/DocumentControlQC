@@ -11,22 +11,9 @@
   "PDI"
  ],
  "customers": [
-  "Customer 01",
   "Customer 03",
-  "Customer 04",
   "Customer 05",
-  "Customer 06",
-  "Customer 07",
-  "Customer 13",
-  "Customer 14",
-  "Customer 15",
-  "Customer 16",
-  "Customer 17",
-  "Customer 19",
-  "Customer 20",
-  "Customer 21",
-  "Customer 22",
-  "Customer 27"
+  "Customer 07"
  ],
  "kategoris": [
   "SUPEQ",
@@ -35,20 +22,7 @@
  ],
  "types": [
   "BUCKET",
-  "BULK LORRY",
-  "BULL BAR",
-  "CARGO",
-  "CRANE TRUCK",
-  "DUMP BODY",
-  "FLAT TOP",
-  "FUEL TRUCK 25KL",
   "ISO TANK SPARGES",
-  "LIGHT VEHICLE",
-  "MAN BASKET",
-  "MANHAUL",
-  "SDT",
-  "TANDEM BOTTOM DUMP",
-  "TRAILER",
   "WATER TRUCK 20KL",
   "WATER TRUCK 30KL",
   "WATER TRUCK 35KL"
@@ -56,17 +30,26 @@
  "jobs": [
   {
    "no": 1,
-   "kategori": "SUPEQ",
-   "type": "BULL BAR",
-   "productDesc": "BULL BAR",
-   "datePB": "2025-02-06",
-   "jobNo": "1000200002",
-   "wbsNo": "WBS-26-0002",
-   "arasSN": "200002-001",
-   "customerId": "CUST-001",
-   "customerName": "Customer 01",
-   "cogm": "226100000",
-   "datePdiRelease": null,
+   "kategori": "NON TRAILER",
+   "type": "ISO TANK SPARGES",
+   "productDesc": "ISO TANK SPARGES",
+   "datePB": "2026-03-02",
+   "jobNo": "1000300001",
+   "wbsNo": "WBS-26-0147",
+   "arasSN": "IST-0447-01",
+   "unitNo": "IST-0447-01",
+   "poNo": "PO-2026-ISO-0447",
+   "customerId": "CUST-007",
+   "customerName": "Customer 07",
+   "cogm": "226000137",
+   "datePdiRelease": "2026-11-20",
+   "required": [
+    "Dimension Report",
+    "NDE Report",
+    "Leak & Hydro Test",
+    "Painting",
+    "Pre-Shipment"
+   ],
    "deliverables": {
     "ITP": {
      "status": "na",
@@ -89,7 +72,7 @@
      "ref": null
     },
     "PTR": {
-     "status": "not-started",
+     "status": "na",
      "ref": null
     },
     "Pre-Shipment": {
@@ -97,29 +80,37 @@
      "ref": null
     },
     "IRN": {
-     "status": "not-started",
+     "status": "na",
      "ref": null
     },
     "PDI": {
-     "status": "not-started",
+     "status": "na",
      "ref": null
     }
-   },
-   "doneCount": 0
+   }
   },
   {
    "no": 2,
-   "kategori": "SUPEQ",
-   "type": "BULL BAR",
-   "productDesc": "WET KIT",
-   "datePB": "2025-06-30",
-   "jobNo": "1000200020",
-   "wbsNo": "WBS-26-0020",
-   "arasSN": "200020-001",
-   "customerId": "CUST-001",
-   "customerName": "Customer 01",
-   "cogm": "544400000",
-   "datePdiRelease": null,
+   "kategori": "NON TRAILER",
+   "type": "ISO TANK SPARGES",
+   "productDesc": "ISO TANK SPARGES",
+   "datePB": "2026-03-02",
+   "jobNo": "1000300002",
+   "wbsNo": "WBS-26-0247",
+   "arasSN": "IST-0447-02",
+   "unitNo": "IST-0447-02",
+   "poNo": "PO-2026-ISO-0447",
+   "customerId": "CUST-007",
+   "customerName": "Customer 07",
+   "cogm": "226000274",
+   "datePdiRelease": "2026-11-20",
+   "required": [
+    "Dimension Report",
+    "NDE Report",
+    "Leak & Hydro Test",
+    "Painting",
+    "Pre-Shipment"
+   ],
    "deliverables": {
     "ITP": {
      "status": "na",
@@ -142,7 +133,7 @@
      "ref": null
     },
     "PTR": {
-     "status": "not-started",
+     "status": "na",
      "ref": null
     },
     "Pre-Shipment": {
@@ -150,297 +141,345 @@
      "ref": null
     },
     "IRN": {
-     "status": "not-started",
+     "status": "na",
      "ref": null
     },
     "PDI": {
-     "status": "not-started",
+     "status": "na",
      "ref": null
     }
-   },
-   "doneCount": 0
+   }
   },
   {
    "no": 3,
-   "kategori": "SUPEQ",
-   "type": "FUEL TRUCK 25KL",
-   "productDesc": "FUEL TRUCK 25KL",
-   "datePB": "2025-04-22",
-   "jobNo": "1000200026",
-   "wbsNo": "WBS-26-0026",
-   "arasSN": "200025-001",
-   "customerId": "CUST-004",
-   "customerName": "Customer 04",
-   "cogm": "1110500000",
-   "datePdiRelease": "2025-08-13",
+   "kategori": "NON TRAILER",
+   "type": "ISO TANK SPARGES",
+   "productDesc": "ISO TANK SPARGES",
+   "datePB": "2026-03-02",
+   "jobNo": "1000300003",
+   "wbsNo": "WBS-26-0347",
+   "arasSN": "IST-0447-03",
+   "unitNo": "IST-0447-03",
+   "poNo": "PO-2026-ISO-0447",
+   "customerId": "CUST-007",
+   "customerName": "Customer 07",
+   "cogm": "226000411",
+   "datePdiRelease": "2026-11-20",
+   "required": [
+    "Dimension Report",
+    "NDE Report",
+    "Leak & Hydro Test",
+    "Painting",
+    "Pre-Shipment"
+   ],
    "deliverables": {
     "ITP": {
-     "status": "not-started",
+     "status": "na",
      "ref": null
     },
     "Dimension Report": {
-     "status": "done",
-     "ref": "1000200026 - FUEL TRUCK 25KL"
-    },
-    "NDE Report": {
-     "status": "done",
-     "ref": "1000200026 - NDE FUEL TRUCK 25KL"
-    },
-    "Leak & Hydro Test": {
-     "status": "done",
-     "ref": "1000200026 - LTR FUEL TRUCK 25KL"
-    },
-    "Painting": {
-     "status": "done",
-     "ref": "1000200026 - PR FUEL TRUCK 25KL"
-    },
-    "PTR": {
-     "status": "done",
-     "ref": "1000200026 - PTR FUEL TRUCK 25KL"
-    },
-    "Pre-Shipment": {
-     "status": "done",
-     "ref": "1000200026 - PSIR FUEL TRUCK 25KL"
-    },
-    "IRN": {
      "status": "not-started",
      "ref": null
     },
+    "NDE Report": {
+     "status": "not-started",
+     "ref": null
+    },
+    "Leak & Hydro Test": {
+     "status": "not-started",
+     "ref": null
+    },
+    "Painting": {
+     "status": "not-started",
+     "ref": null
+    },
+    "PTR": {
+     "status": "na",
+     "ref": null
+    },
+    "Pre-Shipment": {
+     "status": "not-started",
+     "ref": null
+    },
+    "IRN": {
+     "status": "na",
+     "ref": null
+    },
     "PDI": {
-     "status": "done",
-     "ref": "1000200026 - PDI FUEL TRUCK 25KL"
+     "status": "na",
+     "ref": null
     }
-   },
-   "doneCount": 7
+   }
   },
   {
    "no": 4,
-   "kategori": "SUPEQ",
-   "type": "FUEL TRUCK 25KL",
-   "productDesc": "FUEL TRUCK 25KL",
-   "datePB": "2025-04-22",
-   "jobNo": "1000200027",
-   "wbsNo": "WBS-26-0027",
-   "arasSN": "200026-001",
-   "customerId": "CUST-004",
-   "customerName": "Customer 04",
-   "cogm": "1110500000",
-   "datePdiRelease": "2025-08-13",
+   "kategori": "NON TRAILER",
+   "type": "ISO TANK SPARGES",
+   "productDesc": "ISO TANK SPARGES",
+   "datePB": "2026-03-02",
+   "jobNo": "1000300004",
+   "wbsNo": "WBS-26-0447",
+   "arasSN": "IST-0447-04",
+   "unitNo": "IST-0447-04",
+   "poNo": "PO-2026-ISO-0447",
+   "customerId": "CUST-007",
+   "customerName": "Customer 07",
+   "cogm": "226000548",
+   "datePdiRelease": "2026-11-20",
+   "required": [
+    "Dimension Report",
+    "NDE Report",
+    "Leak & Hydro Test",
+    "Painting",
+    "Pre-Shipment"
+   ],
    "deliverables": {
     "ITP": {
-     "status": "not-started",
+     "status": "na",
      "ref": null
     },
     "Dimension Report": {
-     "status": "done",
-     "ref": "1000200027 - FUEL TRUCK 25KL"
-    },
-    "NDE Report": {
-     "status": "done",
-     "ref": "1000200027 - NDE FUEL TRUCK 25KL"
-    },
-    "Leak & Hydro Test": {
-     "status": "done",
-     "ref": "1000200027 - LTR FUEL TRUCK 25KL"
-    },
-    "Painting": {
-     "status": "done",
-     "ref": "1000200027 - PR FUEL TRUCK 25KL"
-    },
-    "PTR": {
-     "status": "done",
-     "ref": "1000200027 - PTR FUEL TRUCK 25KL"
-    },
-    "Pre-Shipment": {
-     "status": "done",
-     "ref": "1000200027 - PSIR FUEL TRUCK 25KL"
-    },
-    "IRN": {
      "status": "not-started",
      "ref": null
     },
+    "NDE Report": {
+     "status": "not-started",
+     "ref": null
+    },
+    "Leak & Hydro Test": {
+     "status": "not-started",
+     "ref": null
+    },
+    "Painting": {
+     "status": "not-started",
+     "ref": null
+    },
+    "PTR": {
+     "status": "na",
+     "ref": null
+    },
+    "Pre-Shipment": {
+     "status": "not-started",
+     "ref": null
+    },
+    "IRN": {
+     "status": "na",
+     "ref": null
+    },
     "PDI": {
-     "status": "done",
-     "ref": "1000200027 - PDI FUEL TRUCK 25KL"
+     "status": "na",
+     "ref": null
     }
-   },
-   "doneCount": 7
+   }
   },
   {
    "no": 5,
-   "kategori": "SUPEQ",
-   "type": "FUEL TRUCK 25KL",
-   "productDesc": "FUEL TRUCK 25KL",
-   "datePB": "2025-04-22",
-   "jobNo": "1000200028",
-   "wbsNo": "WBS-26-0028",
-   "arasSN": "200027-001",
-   "customerId": "CUST-004",
-   "customerName": "Customer 04",
-   "cogm": "1110500000",
-   "datePdiRelease": "2025-09-23",
+   "kategori": "NON TRAILER",
+   "type": "ISO TANK SPARGES",
+   "productDesc": "ISO TANK SPARGES",
+   "datePB": "2026-03-02",
+   "jobNo": "1000300005",
+   "wbsNo": "WBS-26-0547",
+   "arasSN": "IST-0447-05",
+   "unitNo": "IST-0447-05",
+   "poNo": "PO-2026-ISO-0447",
+   "customerId": "CUST-007",
+   "customerName": "Customer 07",
+   "cogm": "226000685",
+   "datePdiRelease": "2026-11-20",
+   "required": [
+    "Dimension Report",
+    "NDE Report",
+    "Leak & Hydro Test",
+    "Painting",
+    "Pre-Shipment"
+   ],
    "deliverables": {
     "ITP": {
-     "status": "not-started",
+     "status": "na",
      "ref": null
     },
     "Dimension Report": {
-     "status": "done",
-     "ref": "1000200028 - FUEL TRUCK 25KL"
-    },
-    "NDE Report": {
-     "status": "done",
-     "ref": "1000200028 - NDE FUEL TRUCK 25KL"
-    },
-    "Leak & Hydro Test": {
-     "status": "done",
-     "ref": "1000200028 - LTR FUEL TRUCK 25KL"
-    },
-    "Painting": {
-     "status": "done",
-     "ref": "1000200028 - PR FUEL TRUCK 25KL"
-    },
-    "PTR": {
-     "status": "done",
-     "ref": "1000200028 - PTR FUEL TRUCK 25KL"
-    },
-    "Pre-Shipment": {
-     "status": "done",
-     "ref": "1000200028 - PSIR FUEL TRUCK 25KL"
-    },
-    "IRN": {
      "status": "not-started",
      "ref": null
     },
+    "NDE Report": {
+     "status": "not-started",
+     "ref": null
+    },
+    "Leak & Hydro Test": {
+     "status": "not-started",
+     "ref": null
+    },
+    "Painting": {
+     "status": "not-started",
+     "ref": null
+    },
+    "PTR": {
+     "status": "na",
+     "ref": null
+    },
+    "Pre-Shipment": {
+     "status": "not-started",
+     "ref": null
+    },
+    "IRN": {
+     "status": "na",
+     "ref": null
+    },
     "PDI": {
-     "status": "done",
-     "ref": "1000200028 - PDI FUEL TRUCK 25KL"
+     "status": "na",
+     "ref": null
     }
-   },
-   "doneCount": 7
+   }
   },
   {
    "no": 6,
-   "kategori": "SUPEQ",
-   "type": "FUEL TRUCK 25KL",
-   "productDesc": "FUEL TRUCK 25KL",
-   "datePB": "2025-04-22",
-   "jobNo": "1000200029",
-   "wbsNo": "WBS-26-0029",
-   "arasSN": "200028-001",
-   "customerId": "CUST-004",
-   "customerName": "Customer 04",
-   "cogm": "1110500000",
-   "datePdiRelease": "2025-09-30",
+   "kategori": "NON TRAILER",
+   "type": "ISO TANK SPARGES",
+   "productDesc": "ISO TANK SPARGES",
+   "datePB": "2026-03-02",
+   "jobNo": "1000300006",
+   "wbsNo": "WBS-26-0647",
+   "arasSN": "IST-0447-06",
+   "unitNo": "IST-0447-06",
+   "poNo": "PO-2026-ISO-0447",
+   "customerId": "CUST-007",
+   "customerName": "Customer 07",
+   "cogm": "226000822",
+   "datePdiRelease": "2026-11-20",
+   "required": [
+    "Dimension Report",
+    "NDE Report",
+    "Leak & Hydro Test",
+    "Painting",
+    "Pre-Shipment"
+   ],
    "deliverables": {
     "ITP": {
-     "status": "not-started",
+     "status": "na",
      "ref": null
     },
     "Dimension Report": {
-     "status": "done",
-     "ref": "1000200029 - FUEL TRUCK 25KL"
-    },
-    "NDE Report": {
-     "status": "done",
-     "ref": "1000200029 - NDE FUEL TRUCK 25KL"
-    },
-    "Leak & Hydro Test": {
-     "status": "done",
-     "ref": "1000200029 - LTR FUEL TRUCK 25KL"
-    },
-    "Painting": {
-     "status": "done",
-     "ref": "1000200029 - PR FUEL TRUCK 25KL"
-    },
-    "PTR": {
-     "status": "done",
-     "ref": "1000200029 - PTR FUEL TRUCK 25KL"
-    },
-    "Pre-Shipment": {
-     "status": "done",
-     "ref": "1000200029 - PSIR FUEL TRUCK 25KL"
-    },
-    "IRN": {
      "status": "not-started",
      "ref": null
     },
+    "NDE Report": {
+     "status": "not-started",
+     "ref": null
+    },
+    "Leak & Hydro Test": {
+     "status": "not-started",
+     "ref": null
+    },
+    "Painting": {
+     "status": "not-started",
+     "ref": null
+    },
+    "PTR": {
+     "status": "na",
+     "ref": null
+    },
+    "Pre-Shipment": {
+     "status": "not-started",
+     "ref": null
+    },
+    "IRN": {
+     "status": "na",
+     "ref": null
+    },
     "PDI": {
-     "status": "done",
-     "ref": "1000200029 - PDI FUEL TRUCK 25KL"
+     "status": "na",
+     "ref": null
     }
-   },
-   "doneCount": 7
+   }
   },
   {
    "no": 7,
-   "kategori": "SUPEQ",
-   "type": "FUEL TRUCK 25KL",
-   "productDesc": "FUEL TRUCK 25KL",
-   "datePB": "2025-04-22",
-   "jobNo": "1000200030",
-   "wbsNo": "WBS-26-0030",
-   "arasSN": "200029-001",
-   "customerId": "CUST-004",
-   "customerName": "Customer 04",
-   "cogm": "1110500000",
-   "datePdiRelease": "2025-09-30",
+   "kategori": "NON TRAILER",
+   "type": "ISO TANK SPARGES",
+   "productDesc": "ISO TANK SPARGES",
+   "datePB": "2026-03-02",
+   "jobNo": "1000300007",
+   "wbsNo": "WBS-26-0747",
+   "arasSN": "IST-0447-07",
+   "unitNo": "IST-0447-07",
+   "poNo": "PO-2026-ISO-0447",
+   "customerId": "CUST-007",
+   "customerName": "Customer 07",
+   "cogm": "226000959",
+   "datePdiRelease": "2026-11-20",
+   "required": [
+    "Dimension Report",
+    "NDE Report",
+    "Leak & Hydro Test",
+    "Painting",
+    "Pre-Shipment"
+   ],
    "deliverables": {
     "ITP": {
-     "status": "not-started",
+     "status": "na",
      "ref": null
     },
     "Dimension Report": {
-     "status": "done",
-     "ref": "1000200030 - FUEL TRUCK 25KL"
-    },
-    "NDE Report": {
-     "status": "done",
-     "ref": "1000200030 - NDE FUEL TRUCK 25KL"
-    },
-    "Leak & Hydro Test": {
-     "status": "done",
-     "ref": "1000200030 - LTR FUEL TRUCK 25KL"
-    },
-    "Painting": {
-     "status": "done",
-     "ref": "1000200030 - PR FUEL TRUCK 25KL"
-    },
-    "PTR": {
-     "status": "done",
-     "ref": "1000200030 - PTR FUEL TRUCK 25KL"
-    },
-    "Pre-Shipment": {
-     "status": "done",
-     "ref": "1000200030 - PSIR FUEL TRUCK 25KL"
-    },
-    "IRN": {
      "status": "not-started",
      "ref": null
     },
+    "NDE Report": {
+     "status": "not-started",
+     "ref": null
+    },
+    "Leak & Hydro Test": {
+     "status": "not-started",
+     "ref": null
+    },
+    "Painting": {
+     "status": "not-started",
+     "ref": null
+    },
+    "PTR": {
+     "status": "na",
+     "ref": null
+    },
+    "Pre-Shipment": {
+     "status": "not-started",
+     "ref": null
+    },
+    "IRN": {
+     "status": "na",
+     "ref": null
+    },
     "PDI": {
-     "status": "done",
-     "ref": "1000200030 - PDI FUEL TRUCK 25KL"
+     "status": "na",
+     "ref": null
     }
-   },
-   "doneCount": 7
+   }
   },
   {
    "no": 8,
-   "kategori": "SUPEQ",
-   "type": "LIGHT VEHICLE",
-   "productDesc": "OPERATION LV",
-   "datePB": "2025-01-01",
-   "jobNo": "1000200037",
-   "wbsNo": "WBS-26-0040",
-   "arasSN": "200038-001",
-   "customerId": null,
-   "customerName": "Customer 06",
-   "cogm": null,
-   "datePdiRelease": "2026-02-03",
+   "kategori": "NON TRAILER",
+   "type": "ISO TANK SPARGES",
+   "productDesc": "ISO TANK SPARGES",
+   "datePB": "2026-03-02",
+   "jobNo": "1000300008",
+   "wbsNo": "WBS-26-0847",
+   "arasSN": "IST-0447-08",
+   "unitNo": "IST-0447-08",
+   "poNo": "PO-2026-ISO-0447",
+   "customerId": "CUST-007",
+   "customerName": "Customer 07",
+   "cogm": "226001096",
+   "datePdiRelease": "2026-11-20",
+   "required": [
+    "Dimension Report",
+    "NDE Report",
+    "Leak & Hydro Test",
+    "Painting",
+    "Pre-Shipment"
+   ],
    "deliverables": {
     "ITP": {
-     "status": "not-started",
+     "status": "na",
      "ref": null
     },
     "Dimension Report": {
@@ -460,40 +499,48 @@
      "ref": null
     },
     "PTR": {
-     "status": "not-started",
+     "status": "na",
      "ref": null
     },
     "Pre-Shipment": {
-     "status": "done",
-     "ref": "1000200037 - PSIR OPERATION LV"
-    },
-    "IRN": {
      "status": "not-started",
      "ref": null
     },
+    "IRN": {
+     "status": "na",
+     "ref": null
+    },
     "PDI": {
-     "status": "done",
-     "ref": "1000200037 - PDI OPERATION LV"
+     "status": "na",
+     "ref": null
     }
-   },
-   "doneCount": 2
+   }
   },
   {
    "no": 9,
-   "kategori": "SUPEQ",
-   "type": "MANHAUL",
-   "productDesc": "LLI FOR MANHAUL 51 SEAT UG",
-   "datePB": "2025-01-01",
-   "jobNo": "1000200042",
-   "wbsNo": null,
-   "arasSN": null,
-   "customerId": "CUST-001",
-   "customerName": "Customer 01",
-   "cogm": "624000000",
-   "datePdiRelease": null,
+   "kategori": "NON TRAILER",
+   "type": "ISO TANK SPARGES",
+   "productDesc": "ISO TANK SPARGES",
+   "datePB": "2026-03-02",
+   "jobNo": "1000300009",
+   "wbsNo": "WBS-26-0947",
+   "arasSN": "IST-0447-09",
+   "unitNo": "IST-0447-09",
+   "poNo": "PO-2026-ISO-0447",
+   "customerId": "CUST-007",
+   "customerName": "Customer 07",
+   "cogm": "226001233",
+   "datePdiRelease": "2026-11-20",
+   "required": [
+    "Dimension Report",
+    "NDE Report",
+    "Leak & Hydro Test",
+    "Painting",
+    "Pre-Shipment"
+   ],
    "deliverables": {
     "ITP": {
-     "status": "not-started",
+     "status": "na",
      "ref": null
     },
     "Dimension Report": {
@@ -513,7 +560,7 @@
      "ref": null
     },
     "PTR": {
-     "status": "not-started",
+     "status": "na",
      "ref": null
     },
     "Pre-Shipment": {
@@ -521,32 +568,40 @@
      "ref": null
     },
     "IRN": {
-     "status": "not-started",
+     "status": "na",
      "ref": null
     },
     "PDI": {
-     "status": "not-started",
+     "status": "na",
      "ref": null
     }
-   },
-   "doneCount": 0
+   }
   },
   {
    "no": 10,
-   "kategori": "SUPEQ",
-   "type": "MANHAUL",
-   "productDesc": "LLI FOR MANHAUL 51 SEAT UG",
-   "datePB": "2025-01-01",
-   "jobNo": "1000200051",
-   "wbsNo": null,
-   "arasSN": null,
-   "customerId": "CUST-001",
-   "customerName": "Customer 01",
-   "cogm": "624000000",
-   "datePdiRelease": null,
+   "kategori": "NON TRAILER",
+   "type": "ISO TANK SPARGES",
+   "productDesc": "ISO TANK SPARGES",
+   "datePB": "2026-03-02",
+   "jobNo": "1000300010",
+   "wbsNo": "WBS-26-1047",
+   "arasSN": "IST-0447-10",
+   "unitNo": "IST-0447-10",
+   "poNo": "PO-2026-ISO-0447",
+   "customerId": "CUST-007",
+   "customerName": "Customer 07",
+   "cogm": "226001370",
+   "datePdiRelease": "2026-11-20",
+   "required": [
+    "Dimension Report",
+    "NDE Report",
+    "Leak & Hydro Test",
+    "Painting",
+    "Pre-Shipment"
+   ],
    "deliverables": {
     "ITP": {
-     "status": "not-started",
+     "status": "na",
      "ref": null
     },
     "Dimension Report": {
@@ -566,7 +621,7 @@
      "ref": null
     },
     "PTR": {
-     "status": "not-started",
+     "status": "na",
      "ref": null
     },
     "Pre-Shipment": {
@@ -574,85 +629,101 @@
      "ref": null
     },
     "IRN": {
-     "status": "not-started",
+     "status": "na",
      "ref": null
     },
     "PDI": {
-     "status": "not-started",
+     "status": "na",
      "ref": null
     }
-   },
-   "doneCount": 0
+   }
   },
   {
    "no": 11,
-   "kategori": "SUPEQ",
-   "type": "WATER TRUCK 20KL",
-   "productDesc": "WATER WASHING 20KL",
-   "datePB": "2025-04-22",
-   "jobNo": "1000200059",
-   "wbsNo": "WBS-26-0049",
-   "arasSN": "200046-001",
-   "customerId": "CUST-004",
-   "customerName": "Customer 04",
-   "cogm": "703000000",
-   "datePdiRelease": "2025-07-30",
+   "kategori": "NON TRAILER",
+   "type": "ISO TANK SPARGES",
+   "productDesc": "ISO TANK SPARGES",
+   "datePB": "2026-03-02",
+   "jobNo": "1000300011",
+   "wbsNo": "WBS-26-1147",
+   "arasSN": "IST-0447-11",
+   "unitNo": "IST-0447-11",
+   "poNo": "PO-2026-ISO-0447",
+   "customerId": "CUST-007",
+   "customerName": "Customer 07",
+   "cogm": "226001507",
+   "datePdiRelease": "2026-11-20",
+   "required": [
+    "Dimension Report",
+    "NDE Report",
+    "Leak & Hydro Test",
+    "Painting",
+    "Pre-Shipment"
+   ],
    "deliverables": {
     "ITP": {
-     "status": "not-started",
+     "status": "na",
      "ref": null
     },
     "Dimension Report": {
-     "status": "done",
-     "ref": "1000200059 - WATER WASHING 20KL"
-    },
-    "NDE Report": {
-     "status": "done",
-     "ref": "1000200059 - NDE WATER WASHING 20KL"
-    },
-    "Leak & Hydro Test": {
-     "status": "done",
-     "ref": "1000200059 - LTR WATER WASHING 20KL"
-    },
-    "Painting": {
-     "status": "done",
-     "ref": "1000200059 - PR WATER WASHING 20KL"
-    },
-    "PTR": {
-     "status": "done",
-     "ref": "1000200059 - PTR WATER WASHING 20KL"
-    },
-    "Pre-Shipment": {
-     "status": "done",
-     "ref": "1000200059 - PSIR WATER WASHING 20KL"
-    },
-    "IRN": {
      "status": "not-started",
      "ref": null
     },
+    "NDE Report": {
+     "status": "not-started",
+     "ref": null
+    },
+    "Leak & Hydro Test": {
+     "status": "not-started",
+     "ref": null
+    },
+    "Painting": {
+     "status": "not-started",
+     "ref": null
+    },
+    "PTR": {
+     "status": "na",
+     "ref": null
+    },
+    "Pre-Shipment": {
+     "status": "not-started",
+     "ref": null
+    },
+    "IRN": {
+     "status": "na",
+     "ref": null
+    },
     "PDI": {
-     "status": "done",
-     "ref": "1000200059 - PDI WATER WASHING 20KL"
+     "status": "na",
+     "ref": null
     }
-   },
-   "doneCount": 7
+   }
   },
   {
    "no": 12,
-   "kategori": "SUPEQ",
-   "type": "WATER TRUCK 20KL",
-   "productDesc": "WATER WASHING TRUCK 20KL",
-   "datePB": "2025-02-20",
-   "jobNo": "1000200065",
-   "wbsNo": "WBS-26-0054",
-   "arasSN": "200052-001",
-   "customerId": "CUST-005",
+   "kategori": "NON TRAILER",
+   "type": "ISO TANK SPARGES",
+   "productDesc": "ISO TANK SPARGES",
+   "datePB": "2026-03-02",
+   "jobNo": "1000300012",
+   "wbsNo": "WBS-26-1247",
+   "arasSN": "IST-0447-12",
+   "unitNo": "IST-0447-12",
+   "poNo": "PO-2026-ISO-0447",
+   "customerId": "CUST-007",
    "customerName": "Customer 07",
-   "cogm": "84400000",
-   "datePdiRelease": "2025-05-16",
+   "cogm": "226001644",
+   "datePdiRelease": "2026-11-20",
+   "required": [
+    "Dimension Report",
+    "NDE Report",
+    "Leak & Hydro Test",
+    "Painting",
+    "Pre-Shipment"
+   ],
    "deliverables": {
     "ITP": {
-     "status": "not-started",
+     "status": "na",
      "ref": null
     },
     "Dimension Report": {
@@ -672,45 +743,53 @@
      "ref": null
     },
     "PTR": {
-     "status": "not-started",
+     "status": "na",
      "ref": null
     },
     "Pre-Shipment": {
-     "status": "done",
-     "ref": "1000200065 - PSIR WATER WASHING TRUCK 20KL"
-    },
-    "IRN": {
      "status": "not-started",
      "ref": null
     },
+    "IRN": {
+     "status": "na",
+     "ref": null
+    },
     "PDI": {
-     "status": "done",
-     "ref": "1000200065 - PDI WATER WASHING TRUCK 20KL"
+     "status": "na",
+     "ref": null
     }
-   },
-   "doneCount": 2
+   }
   },
   {
    "no": 13,
-   "kategori": "SUPEQ",
-   "type": "WATER TRUCK 30KL",
-   "productDesc": "WATER TRUCK 30KL",
-   "datePB": "2025-07-15",
-   "jobNo": "1000200069",
-   "wbsNo": "WBS-26-0058",
-   "arasSN": "200056-001",
-   "customerId": "CUST-003",
-   "customerName": "Customer 03",
-   "cogm": "859200000",
-   "datePdiRelease": "2025-10-31",
+   "kategori": "NON TRAILER",
+   "type": "ISO TANK SPARGES",
+   "productDesc": "ISO TANK SPARGES",
+   "datePB": "2026-03-02",
+   "jobNo": "1000300013",
+   "wbsNo": "WBS-26-1347",
+   "arasSN": "IST-0447-13",
+   "unitNo": "IST-0447-13",
+   "poNo": "PO-2026-ISO-0447",
+   "customerId": "CUST-007",
+   "customerName": "Customer 07",
+   "cogm": "226001781",
+   "datePdiRelease": "2026-11-20",
+   "required": [
+    "Dimension Report",
+    "NDE Report",
+    "Leak & Hydro Test",
+    "Painting",
+    "Pre-Shipment"
+   ],
    "deliverables": {
     "ITP": {
-     "status": "not-started",
+     "status": "na",
      "ref": null
     },
     "Dimension Report": {
-     "status": "done",
-     "ref": "1000200069 - WATER TRUCK 30KL"
+     "status": "not-started",
+     "ref": null
     },
     "NDE Report": {
      "status": "not-started",
@@ -721,268 +800,306 @@
      "ref": null
     },
     "Painting": {
-     "status": "done",
-     "ref": "1000200069 - PR WATER TRUCK 30KL"
-    },
-    "PTR": {
-     "status": "done",
-     "ref": "1000200069 - PTR WATER TRUCK 30KL"
-    },
-    "Pre-Shipment": {
-     "status": "done",
-     "ref": "1000200069 - PSIR WATER TRUCK 30KL"
-    },
-    "IRN": {
      "status": "not-started",
      "ref": null
     },
+    "PTR": {
+     "status": "na",
+     "ref": null
+    },
+    "Pre-Shipment": {
+     "status": "not-started",
+     "ref": null
+    },
+    "IRN": {
+     "status": "na",
+     "ref": null
+    },
     "PDI": {
-     "status": "done",
-     "ref": "1000200069 - PDI WATER TRUCK 30KL"
+     "status": "na",
+     "ref": null
     }
-   },
-   "doneCount": 5
+   }
   },
   {
    "no": 14,
-   "kategori": "SUPEQ",
-   "type": "WATER TRUCK 35KL",
-   "productDesc": "WATER TRUCK 35KL",
-   "datePB": "2025-04-24",
-   "jobNo": "1000200073",
-   "wbsNo": "WBS-26-0062",
-   "arasSN": "200060-001",
-   "customerId": "CUST-004",
-   "customerName": "Customer 04",
-   "cogm": "1320600000",
-   "datePdiRelease": "2025-08-26",
+   "kategori": "NON TRAILER",
+   "type": "ISO TANK SPARGES",
+   "productDesc": "ISO TANK SPARGES",
+   "datePB": "2026-03-02",
+   "jobNo": "1000300014",
+   "wbsNo": "WBS-26-1447",
+   "arasSN": "IST-0447-14",
+   "unitNo": "IST-0447-14",
+   "poNo": "PO-2026-ISO-0447",
+   "customerId": "CUST-007",
+   "customerName": "Customer 07",
+   "cogm": "226001918",
+   "datePdiRelease": "2026-11-20",
+   "required": [
+    "Dimension Report",
+    "NDE Report",
+    "Leak & Hydro Test",
+    "Painting",
+    "Pre-Shipment"
+   ],
    "deliverables": {
     "ITP": {
-     "status": "not-started",
+     "status": "na",
      "ref": null
     },
     "Dimension Report": {
-     "status": "done",
-     "ref": "1000200073 - WATER TRUCK 35KL"
-    },
-    "NDE Report": {
-     "status": "done",
-     "ref": "1000200073 - NDE WATER TRUCK 35KL"
-    },
-    "Leak & Hydro Test": {
-     "status": "done",
-     "ref": "1000200073 - LTR WATER TRUCK 35KL"
-    },
-    "Painting": {
-     "status": "done",
-     "ref": "1000200073 - PR WATER TRUCK 35KL"
-    },
-    "PTR": {
-     "status": "done",
-     "ref": "1000200073 - PTR WATER TRUCK 35KL"
-    },
-    "Pre-Shipment": {
-     "status": "done",
-     "ref": "1000200073 - PSIR WATER TRUCK 35KL"
-    },
-    "IRN": {
      "status": "not-started",
      "ref": null
     },
+    "NDE Report": {
+     "status": "not-started",
+     "ref": null
+    },
+    "Leak & Hydro Test": {
+     "status": "not-started",
+     "ref": null
+    },
+    "Painting": {
+     "status": "not-started",
+     "ref": null
+    },
+    "PTR": {
+     "status": "na",
+     "ref": null
+    },
+    "Pre-Shipment": {
+     "status": "not-started",
+     "ref": null
+    },
+    "IRN": {
+     "status": "na",
+     "ref": null
+    },
     "PDI": {
-     "status": "done",
-     "ref": "1000200073 - PDI WATER TRUCK 35KL"
+     "status": "na",
+     "ref": null
     }
-   },
-   "doneCount": 7
+   }
   },
   {
    "no": 15,
-   "kategori": "SUPEQ",
-   "type": "WATER TRUCK 35KL",
-   "productDesc": "WATER TRUCK 35KL",
-   "datePB": "2025-04-22",
-   "jobNo": "1000200076",
-   "wbsNo": "WBS-26-0065",
-   "arasSN": "200063-001",
-   "customerId": "CUST-004",
-   "customerName": "Customer 04",
-   "cogm": "1320600000",
-   "datePdiRelease": "2025-09-30",
+   "kategori": "NON TRAILER",
+   "type": "ISO TANK SPARGES",
+   "productDesc": "ISO TANK SPARGES",
+   "datePB": "2026-03-02",
+   "jobNo": "1000300015",
+   "wbsNo": "WBS-26-1547",
+   "arasSN": "IST-0447-15",
+   "unitNo": "IST-0447-15",
+   "poNo": "PO-2026-ISO-0447",
+   "customerId": "CUST-007",
+   "customerName": "Customer 07",
+   "cogm": "226002055",
+   "datePdiRelease": "2026-11-20",
+   "required": [
+    "Dimension Report",
+    "NDE Report",
+    "Leak & Hydro Test",
+    "Painting",
+    "Pre-Shipment"
+   ],
    "deliverables": {
     "ITP": {
-     "status": "not-started",
+     "status": "na",
      "ref": null
     },
     "Dimension Report": {
-     "status": "done",
-     "ref": "1000200076 - WATER TRUCK 35KL"
-    },
-    "NDE Report": {
-     "status": "done",
-     "ref": "1000200076 - NDE WATER TRUCK 35KL"
-    },
-    "Leak & Hydro Test": {
-     "status": "done",
-     "ref": "1000200076 - LTR WATER TRUCK 35KL"
-    },
-    "Painting": {
-     "status": "done",
-     "ref": "1000200076 - PR WATER TRUCK 35KL"
-    },
-    "PTR": {
-     "status": "done",
-     "ref": "1000200076 - PTR WATER TRUCK 35KL"
-    },
-    "Pre-Shipment": {
-     "status": "done",
-     "ref": "1000200076 - PSIR WATER TRUCK 35KL"
-    },
-    "IRN": {
      "status": "not-started",
      "ref": null
     },
+    "NDE Report": {
+     "status": "not-started",
+     "ref": null
+    },
+    "Leak & Hydro Test": {
+     "status": "not-started",
+     "ref": null
+    },
+    "Painting": {
+     "status": "not-started",
+     "ref": null
+    },
+    "PTR": {
+     "status": "na",
+     "ref": null
+    },
+    "Pre-Shipment": {
+     "status": "not-started",
+     "ref": null
+    },
+    "IRN": {
+     "status": "na",
+     "ref": null
+    },
     "PDI": {
-     "status": "done",
-     "ref": "1000200076 - PDI WATER TRUCK 35KL"
+     "status": "na",
+     "ref": null
     }
-   },
-   "doneCount": 7
+   }
   },
   {
    "no": 16,
-   "kategori": "TRAILER",
-   "type": "SDT",
-   "productDesc": "MODIFY SDT 45M3 TO 80M3",
-   "datePB": "2025-11-03",
-   "jobNo": "1000200086",
-   "wbsNo": "WBS-26-0075",
-   "arasSN": "200073-001",
-   "customerId": "CUST-009",
-   "customerName": "Customer 14",
-   "cogm": "978800000",
-   "datePdiRelease": "2026-01-15",
+   "kategori": "NON TRAILER",
+   "type": "ISO TANK SPARGES",
+   "productDesc": "ISO TANK SPARGES",
+   "datePB": "2026-03-02",
+   "jobNo": "1000300016",
+   "wbsNo": "WBS-26-1647",
+   "arasSN": "IST-0447-16",
+   "unitNo": "IST-0447-16",
+   "poNo": "PO-2026-ISO-0447",
+   "customerId": "CUST-007",
+   "customerName": "Customer 07",
+   "cogm": "226002192",
+   "datePdiRelease": "2026-11-20",
+   "required": [
+    "Dimension Report",
+    "NDE Report",
+    "Leak & Hydro Test",
+    "Painting",
+    "Pre-Shipment"
+   ],
    "deliverables": {
     "ITP": {
-     "status": "done",
-     "ref": "1000200086 - ITP MODIFY SDT 45M3 TO 80M3"
+     "status": "na",
+     "ref": null
     },
     "Dimension Report": {
-     "status": "done",
-     "ref": "1000200086 - MODIFY MODIFY SDT 45M3 TO 80M3"
+     "status": "not-started",
+     "ref": null
     },
     "NDE Report": {
-     "status": "done",
-     "ref": "1000200086 - NDE MODIFY SDT 45M3 TO 80M3"
+     "status": "not-started",
+     "ref": null
     },
     "Leak & Hydro Test": {
      "status": "not-started",
      "ref": null
     },
     "Painting": {
-     "status": "done",
-     "ref": "1000200086 - PR MODIFY SDT 45M3 TO 80M3"
+     "status": "not-started",
+     "ref": null
     },
     "PTR": {
-     "status": "not-started",
+     "status": "na",
      "ref": null
     },
     "Pre-Shipment": {
-     "status": "done",
-     "ref": "1000200086 - PSIR MODIFY SDT 45M3 TO 80M3"
-    },
-    "IRN": {
      "status": "not-started",
      "ref": null
     },
+    "IRN": {
+     "status": "na",
+     "ref": null
+    },
     "PDI": {
-     "status": "done",
-     "ref": "1000200086 - PDI MODIFY SDT 45M3 TO 80M3"
+     "status": "na",
+     "ref": null
     }
-   },
-   "doneCount": 6
+   }
   },
   {
    "no": 17,
-   "kategori": "TRAILER",
-   "type": "SDT",
-   "productDesc": "BODY DUMP MODIFICATION",
-   "datePB": "2025-01-01",
-   "jobNo": "1000200087",
-   "wbsNo": "WBS-26-0076",
-   "arasSN": "200074-001",
-   "customerId": "CUST-009",
-   "customerName": "Customer 14",
-   "cogm": null,
-   "datePdiRelease": "2026-01-26",
+   "kategori": "NON TRAILER",
+   "type": "BUCKET",
+   "productDesc": "BUCKET",
+   "datePB": "2026-03-02",
+   "jobNo": "1000310001",
+   "wbsNo": "WBS-26-0112",
+   "arasSN": "BKT-0512-01",
+   "unitNo": "BKT-0512-01",
+   "poNo": "PO-2026-BKT-0512",
+   "customerId": "CUST-003",
+   "customerName": "Customer 03",
+   "cogm": "226002329",
+   "datePdiRelease": "2026-11-20",
+   "required": [
+    "Dimension Report",
+    "NDE Report",
+    "Painting",
+    "Pre-Shipment"
+   ],
    "deliverables": {
     "ITP": {
-     "status": "done",
-     "ref": "1000200087 - ITP BODY DUMP MODIFICATION"
+     "status": "na",
+     "ref": null
     },
     "Dimension Report": {
-     "status": "done",
-     "ref": "1000200087 - BODY BODY DUMP MODIFICATION"
+     "status": "not-started",
+     "ref": null
     },
     "NDE Report": {
-     "status": "done",
-     "ref": "1000200087 - NDE BODY DUMP MODIFICATION"
+     "status": "not-started",
+     "ref": null
     },
     "Leak & Hydro Test": {
-     "status": "not-started",
+     "status": "na",
      "ref": null
     },
     "Painting": {
-     "status": "done",
-     "ref": "1000200087 - PR BODY DUMP MODIFICATION"
+     "status": "not-started",
+     "ref": null
     },
     "PTR": {
-     "status": "not-started",
+     "status": "na",
      "ref": null
     },
     "Pre-Shipment": {
-     "status": "done",
-     "ref": "1000200087 - PSIR BODY DUMP MODIFICATION"
-    },
-    "IRN": {
      "status": "not-started",
      "ref": null
     },
+    "IRN": {
+     "status": "na",
+     "ref": null
+    },
     "PDI": {
-     "status": "done",
-     "ref": "1000200087 - PDI BODY DUMP MODIFICATION"
+     "status": "na",
+     "ref": null
     }
-   },
-   "doneCount": 6
+   }
   },
   {
    "no": 18,
-   "kategori": "TRAILER",
-   "type": "FLAT TOP",
-   "productDesc": "13,5 FLAT TOP SEMI TRAILER",
-   "datePB": "2025-02-14",
-   "jobNo": "1000200100",
-   "wbsNo": "WBS-26-0090",
-   "arasSN": "200085-001",
-   "customerId": "CUST-010",
-   "customerName": "Customer 15",
-   "cogm": "1058700000",
-   "datePdiRelease": "2025-12-08",
+   "kategori": "NON TRAILER",
+   "type": "BUCKET",
+   "productDesc": "BUCKET",
+   "datePB": "2026-03-02",
+   "jobNo": "1000310002",
+   "wbsNo": "WBS-26-0212",
+   "arasSN": "BKT-0512-02",
+   "unitNo": "BKT-0512-02",
+   "poNo": "PO-2026-BKT-0512",
+   "customerId": "CUST-003",
+   "customerName": "Customer 03",
+   "cogm": "226002466",
+   "datePdiRelease": "2026-11-20",
+   "required": [
+    "Dimension Report",
+    "NDE Report",
+    "Painting",
+    "Pre-Shipment"
+   ],
    "deliverables": {
     "ITP": {
-     "status": "not-started",
+     "status": "na",
      "ref": null
     },
     "Dimension Report": {
-     "status": "done",
-     "ref": "1000200100 - 13,5 FLAT TOP SEMI TRAILER"
+     "status": "not-started",
+     "ref": null
     },
     "NDE Report": {
      "status": "not-started",
      "ref": null
     },
     "Leak & Hydro Test": {
-     "status": "not-started",
+     "status": "na",
      "ref": null
     },
     "Painting": {
@@ -990,93 +1107,107 @@
      "ref": null
     },
     "PTR": {
-     "status": "not-started",
+     "status": "na",
      "ref": null
     },
     "Pre-Shipment": {
-     "status": "done",
-     "ref": "1000200100 - PSIR 13,5 FLAT TOP SEMI TRAILER"
-    },
-    "IRN": {
      "status": "not-started",
      "ref": null
     },
+    "IRN": {
+     "status": "na",
+     "ref": null
+    },
     "PDI": {
-     "status": "done",
-     "ref": "1000200100 - PDI 13,5 FLAT TOP SEMI TRAILER"
+     "status": "na",
+     "ref": null
     }
-   },
-   "doneCount": 3
+   }
   },
   {
    "no": 19,
-   "kategori": "TRAILER",
-   "type": "SDT",
-   "productDesc": "SIDE DUMP TIPPER TRAILER 90M3",
-   "datePB": "2025-06-05",
-   "jobNo": "1000200101",
-   "wbsNo": "WBS-26-0091",
-   "arasSN": "200086-001",
-   "customerId": "CUST-001",
-   "customerName": "Customer 16",
-   "cogm": "1270600000",
-   "datePdiRelease": "2025-09-30",
+   "kategori": "NON TRAILER",
+   "type": "BUCKET",
+   "productDesc": "BUCKET",
+   "datePB": "2026-03-02",
+   "jobNo": "1000310003",
+   "wbsNo": "WBS-26-0312",
+   "arasSN": "BKT-0512-03",
+   "unitNo": "BKT-0512-03",
+   "poNo": "PO-2026-BKT-0512",
+   "customerId": "CUST-003",
+   "customerName": "Customer 03",
+   "cogm": "226002603",
+   "datePdiRelease": "2026-11-20",
+   "required": [
+    "Dimension Report",
+    "NDE Report",
+    "Painting",
+    "Pre-Shipment"
+   ],
    "deliverables": {
     "ITP": {
-     "status": "not-started",
+     "status": "na",
      "ref": null
     },
     "Dimension Report": {
-     "status": "done",
-     "ref": "1000200101 - SIDE DUMP TIPPER TRAILER 90M3"
+     "status": "not-started",
+     "ref": null
     },
     "NDE Report": {
      "status": "not-started",
      "ref": null
     },
     "Leak & Hydro Test": {
-     "status": "not-started",
+     "status": "na",
      "ref": null
     },
     "Painting": {
-     "status": "done",
-     "ref": "1000200101 - PR SIDE DUMP TIPPER TRAILER 90M3"
-    },
-    "PTR": {
-     "status": "done",
-     "ref": "1000200101 - PTR SIDE DUMP TIPPER TRAILER 90M3"
-    },
-    "Pre-Shipment": {
-     "status": "done",
-     "ref": "1000200101 - PSIR SIDE DUMP TIPPER TRAILER 90M3"
-    },
-    "IRN": {
      "status": "not-started",
      "ref": null
     },
+    "PTR": {
+     "status": "na",
+     "ref": null
+    },
+    "Pre-Shipment": {
+     "status": "not-started",
+     "ref": null
+    },
+    "IRN": {
+     "status": "na",
+     "ref": null
+    },
     "PDI": {
-     "status": "done",
-     "ref": "1000200101 - PDI SIDE DUMP TIPPER TRAILER 90M3"
+     "status": "na",
+     "ref": null
     }
-   },
-   "doneCount": 5
+   }
   },
   {
    "no": 20,
-   "kategori": "TRAILER",
-   "type": "SDT",
-   "productDesc": "SET 42M3 SIDE TIP A-DOUBLE TRAILER",
-   "datePB": "2025-04-29",
-   "jobNo": "1000200107",
-   "wbsNo": "WBS-26-0093",
-   "arasSN": "200090-001",
-   "customerId": null,
-   "customerName": "Customer 17",
-   "cogm": "1032500000",
-   "datePdiRelease": "2026-02-09",
+   "kategori": "NON TRAILER",
+   "type": "BUCKET",
+   "productDesc": "BUCKET",
+   "datePB": "2026-03-02",
+   "jobNo": "1000310004",
+   "wbsNo": "WBS-26-0412",
+   "arasSN": "BKT-0512-04",
+   "unitNo": "BKT-0512-04",
+   "poNo": "PO-2026-BKT-0512",
+   "customerId": "CUST-003",
+   "customerName": "Customer 03",
+   "cogm": "226002740",
+   "datePdiRelease": "2026-11-20",
+   "required": [
+    "Dimension Report",
+    "NDE Report",
+    "Painting",
+    "Pre-Shipment"
+   ],
    "deliverables": {
     "ITP": {
-     "status": "not-started",
+     "status": "na",
      "ref": null
     },
     "Dimension Report": {
@@ -1088,48 +1219,55 @@
      "ref": null
     },
     "Leak & Hydro Test": {
-     "status": "not-started",
+     "status": "na",
      "ref": null
     },
     "Painting": {
-     "status": "done",
-     "ref": "1000200107 - PR SET 42M3 SIDE TIP A-DOUBLE TRAILER"
+     "status": "not-started",
+     "ref": null
     },
     "PTR": {
-     "status": "not-started",
+     "status": "na",
      "ref": null
     },
     "Pre-Shipment": {
-     "status": "done",
-     "ref": "1000200107 - PSIR SET 42M3 SIDE TIP A-DOUBLE TRAILER"
-    },
-    "IRN": {
      "status": "not-started",
      "ref": null
     },
+    "IRN": {
+     "status": "na",
+     "ref": null
+    },
     "PDI": {
-     "status": "done",
-     "ref": "1000200107 - PDI SET 42M3 SIDE TIP A-DOUBLE TRAILER"
+     "status": "na",
+     "ref": null
     }
-   },
-   "doneCount": 3
+   }
   },
   {
    "no": 21,
-   "kategori": "TRAILER",
-   "type": "TRAILER",
-   "productDesc": "TRAILER TAB BODY ASSEMBLY 42M3 SIDE TIP TRAILER",
-   "datePB": "2025-02-20",
-   "jobNo": "1000200114",
-   "wbsNo": "WBS-26-0100",
-   "arasSN": "200096-001",
-   "customerId": null,
-   "customerName": "Customer 17",
-   "cogm": "1023500000",
-   "datePdiRelease": null,
+   "kategori": "NON TRAILER",
+   "type": "BUCKET",
+   "productDesc": "BUCKET",
+   "datePB": "2026-03-02",
+   "jobNo": "1000310005",
+   "wbsNo": "WBS-26-0512",
+   "arasSN": "BKT-0512-05",
+   "unitNo": "BKT-0512-05",
+   "poNo": "PO-2026-BKT-0512",
+   "customerId": "CUST-003",
+   "customerName": "Customer 03",
+   "cogm": "226002877",
+   "datePdiRelease": "2026-11-20",
+   "required": [
+    "Dimension Report",
+    "NDE Report",
+    "Painting",
+    "Pre-Shipment"
+   ],
    "deliverables": {
     "ITP": {
-     "status": "not-started",
+     "status": "na",
      "ref": null
     },
     "Dimension Report": {
@@ -1141,7 +1279,7 @@
      "ref": null
     },
     "Leak & Hydro Test": {
-     "status": "not-started",
+     "status": "na",
      "ref": null
     },
     "Painting": {
@@ -1149,7 +1287,7 @@
      "ref": null
     },
     "PTR": {
-     "status": "not-started",
+     "status": "na",
      "ref": null
     },
     "Pre-Shipment": {
@@ -1157,150 +1295,171 @@
      "ref": null
     },
     "IRN": {
-     "status": "not-started",
+     "status": "na",
      "ref": null
     },
     "PDI": {
-     "status": "not-started",
+     "status": "na",
      "ref": null
     }
-   },
-   "doneCount": 0
+   }
   },
   {
    "no": 22,
-   "kategori": "TRAILER",
-   "type": "CARGO",
-   "productDesc": "FRONT CARGO TRAILER",
-   "datePB": "2025-02-14",
-   "jobNo": "1000200118",
-   "wbsNo": "WBS-26-0104",
-   "arasSN": "200100-001",
-   "customerId": "CUST-010",
-   "customerName": "Customer 15",
-   "cogm": "821500000",
-   "datePdiRelease": "2025-12-19",
+   "kategori": "NON TRAILER",
+   "type": "BUCKET",
+   "productDesc": "BUCKET",
+   "datePB": "2026-03-02",
+   "jobNo": "1000310006",
+   "wbsNo": "WBS-26-0612",
+   "arasSN": "BKT-0512-06",
+   "unitNo": "BKT-0512-06",
+   "poNo": "PO-2026-BKT-0512",
+   "customerId": "CUST-003",
+   "customerName": "Customer 03",
+   "cogm": "226003014",
+   "datePdiRelease": "2026-11-20",
+   "required": [
+    "Dimension Report",
+    "NDE Report",
+    "Painting",
+    "Pre-Shipment"
+   ],
    "deliverables": {
     "ITP": {
-     "status": "not-started",
+     "status": "na",
      "ref": null
     },
     "Dimension Report": {
-     "status": "done",
-     "ref": "1000200118 - FRONT CARGO TRAILER"
+     "status": "not-started",
+     "ref": null
     },
     "NDE Report": {
      "status": "not-started",
      "ref": null
     },
     "Leak & Hydro Test": {
-     "status": "not-started",
+     "status": "na",
      "ref": null
     },
     "Painting": {
-     "status": "done",
-     "ref": "1000200118 - PR FRONT CARGO TRAILER"
+     "status": "not-started",
+     "ref": null
     },
     "PTR": {
-     "status": "not-started",
+     "status": "na",
      "ref": null
     },
     "Pre-Shipment": {
-     "status": "done",
-     "ref": "1000200118 - PSIR FRONT CARGO TRAILER"
-    },
-    "IRN": {
      "status": "not-started",
      "ref": null
     },
+    "IRN": {
+     "status": "na",
+     "ref": null
+    },
     "PDI": {
-     "status": "done",
-     "ref": "1000200118 - PDI FRONT CARGO TRAILER"
+     "status": "na",
+     "ref": null
     }
-   },
-   "doneCount": 4
+   }
   },
   {
    "no": 23,
-   "kategori": "TRAILER",
-   "type": "CARGO",
-   "productDesc": "REAR CARGO TRAILER",
-   "datePB": "2025-02-14",
-   "jobNo": "1000200120",
-   "wbsNo": "WBS-26-0106",
-   "arasSN": "200102-001",
-   "customerId": "CUST-010",
-   "customerName": "Customer 15",
-   "cogm": "653000000",
-   "datePdiRelease": "2025-12-08",
+   "kategori": "NON TRAILER",
+   "type": "BUCKET",
+   "productDesc": "BUCKET",
+   "datePB": "2026-03-02",
+   "jobNo": "1000310007",
+   "wbsNo": "WBS-26-0712",
+   "arasSN": "BKT-0512-07",
+   "unitNo": "BKT-0512-07",
+   "poNo": "PO-2026-BKT-0512",
+   "customerId": "CUST-003",
+   "customerName": "Customer 03",
+   "cogm": "226003151",
+   "datePdiRelease": "2026-11-20",
+   "required": [
+    "Dimension Report",
+    "NDE Report",
+    "Painting",
+    "Pre-Shipment"
+   ],
    "deliverables": {
     "ITP": {
-     "status": "not-started",
+     "status": "na",
      "ref": null
     },
     "Dimension Report": {
-     "status": "done",
-     "ref": "1000200120 - REAR CARGO TRAILER"
+     "status": "not-started",
+     "ref": null
     },
     "NDE Report": {
      "status": "not-started",
      "ref": null
     },
     "Leak & Hydro Test": {
-     "status": "not-started",
+     "status": "na",
      "ref": null
     },
     "Painting": {
-     "status": "done",
-     "ref": "1000200120 - PR REAR CARGO TRAILER"
+     "status": "not-started",
+     "ref": null
     },
     "PTR": {
-     "status": "not-started",
+     "status": "na",
      "ref": null
     },
     "Pre-Shipment": {
-     "status": "done",
-     "ref": "1000200120 - PSIR REAR CARGO TRAILER"
-    },
-    "IRN": {
      "status": "not-started",
      "ref": null
     },
+    "IRN": {
+     "status": "na",
+     "ref": null
+    },
     "PDI": {
-     "status": "done",
-     "ref": "1000200120 - PDI REAR CARGO TRAILER"
+     "status": "na",
+     "ref": null
     }
-   },
-   "doneCount": 4
+   }
   },
   {
    "no": 24,
-   "kategori": "TRAILER",
-   "type": "SDT",
-   "productDesc": "BODY FOR SIDE TIP 33M3",
-   "datePB": "2025-10-01",
-   "jobNo": "1000200131",
-   "wbsNo": "WBS-26-0117",
-   "arasSN": "200113-001",
-   "customerId": "CUST-010",
-   "customerName": "Customer 15",
-   "cogm": "1500400000",
-   "datePdiRelease": "2026-04-13",
+   "kategori": "NON TRAILER",
+   "type": "BUCKET",
+   "productDesc": "BUCKET",
+   "datePB": "2026-03-02",
+   "jobNo": "1000310008",
+   "wbsNo": "WBS-26-0812",
+   "arasSN": "BKT-0512-08",
+   "unitNo": "BKT-0512-08",
+   "poNo": "PO-2026-BKT-0512",
+   "customerId": "CUST-003",
+   "customerName": "Customer 03",
+   "cogm": "226003288",
+   "datePdiRelease": "2026-11-20",
+   "required": [
+    "Dimension Report",
+    "NDE Report",
+    "Painting",
+    "Pre-Shipment"
+   ],
    "deliverables": {
     "ITP": {
-     "status": "done",
-     "ref": "1000200131 - ITP BODY FOR SIDE TIP 33M3"
+     "status": "na",
+     "ref": null
     },
     "Dimension Report": {
-     "status": "done",
-     "ref": "1000200131 - BODY FOR SIDE TIP 33M3"
+     "status": "not-started",
+     "ref": null
     },
     "NDE Report": {
-     "status": "done",
-     "ref": "1000200131 - NDE BODY FOR SIDE TIP 33M3"
+     "status": "not-started",
+     "ref": null
     },
     "Leak & Hydro Test": {
-     "status": "not-started",
+     "status": "na",
      "ref": null
     },
     "Painting": {
@@ -1308,151 +1467,173 @@
      "ref": null
     },
     "PTR": {
-     "status": "not-started",
+     "status": "na",
      "ref": null
     },
     "Pre-Shipment": {
-     "status": "done",
-     "ref": "1000200131 - PSIR BODY FOR SIDE TIP 33M3"
-    },
-    "IRN": {
-     "status": "done",
-     "ref": "1000200131 - IRN BODY FOR SIDE TIP 33M3"
-    },
-    "PDI": {
      "status": "not-started",
      "ref": null
+    },
+    "IRN": {
+     "status": "na",
+     "ref": null
+    },
+    "PDI": {
+     "status": "na",
+     "ref": null
     }
-   },
-   "doneCount": 5
+   }
   },
   {
    "no": 25,
-   "kategori": "TRAILER",
-   "type": "SDT",
-   "productDesc": "BODY FOR SIDE TIP 33M3",
-   "datePB": "2025-10-01",
-   "jobNo": "1000200132",
-   "wbsNo": "WBS-26-0118",
-   "arasSN": "200114-001",
-   "customerId": "CUST-010",
-   "customerName": "Customer 15",
-   "cogm": "1500400000",
-   "datePdiRelease": "2026-04-13",
+   "kategori": "NON TRAILER",
+   "type": "BUCKET",
+   "productDesc": "BUCKET",
+   "datePB": "2026-03-02",
+   "jobNo": "1000310009",
+   "wbsNo": "WBS-26-0912",
+   "arasSN": "BKT-0512-09",
+   "unitNo": "BKT-0512-09",
+   "poNo": "PO-2026-BKT-0512",
+   "customerId": "CUST-003",
+   "customerName": "Customer 03",
+   "cogm": "226003425",
+   "datePdiRelease": "2026-11-20",
+   "required": [
+    "Dimension Report",
+    "NDE Report",
+    "Painting",
+    "Pre-Shipment"
+   ],
    "deliverables": {
     "ITP": {
-     "status": "done",
-     "ref": "1000200132 - ITP BODY FOR SIDE TIP 33M3"
+     "status": "na",
+     "ref": null
     },
     "Dimension Report": {
      "status": "not-started",
      "ref": null
     },
     "NDE Report": {
-     "status": "done",
-     "ref": "1000200132 - NDE BODY FOR SIDE TIP 33M3"
+     "status": "not-started",
+     "ref": null
     },
     "Leak & Hydro Test": {
-     "status": "not-started",
+     "status": "na",
      "ref": null
     },
     "Painting": {
-     "status": "done",
-     "ref": "1000200132 - PR BODY FOR SIDE TIP 33M3"
+     "status": "not-started",
+     "ref": null
     },
     "PTR": {
-     "status": "not-started",
+     "status": "na",
      "ref": null
     },
     "Pre-Shipment": {
-     "status": "done",
-     "ref": "1000200132 - PSIR BODY FOR SIDE TIP 33M3"
-    },
-    "IRN": {
-     "status": "done",
-     "ref": "1000200132 - IRN BODY FOR SIDE TIP 33M3"
-    },
-    "PDI": {
      "status": "not-started",
      "ref": null
+    },
+    "IRN": {
+     "status": "na",
+     "ref": null
+    },
+    "PDI": {
+     "status": "na",
+     "ref": null
     }
-   },
-   "doneCount": 5
+   }
   },
   {
    "no": 26,
-   "kategori": "TRAILER",
-   "type": "SDT",
-   "productDesc": "FRAME SDT 50M3 (REAR)",
-   "datePB": "2025-11-12",
-   "jobNo": "1000200133",
-   "wbsNo": "WBS-26-0119",
-   "arasSN": "200115-001",
-   "customerId": "CUST-010",
-   "customerName": "Customer 15",
-   "cogm": "1138400000",
-   "datePdiRelease": "2026-04-22",
+   "kategori": "NON TRAILER",
+   "type": "BUCKET",
+   "productDesc": "BUCKET",
+   "datePB": "2026-03-02",
+   "jobNo": "1000310010",
+   "wbsNo": "WBS-26-1012",
+   "arasSN": "BKT-0512-10",
+   "unitNo": "BKT-0512-10",
+   "poNo": "PO-2026-BKT-0512",
+   "customerId": "CUST-003",
+   "customerName": "Customer 03",
+   "cogm": "226003562",
+   "datePdiRelease": "2026-11-20",
+   "required": [
+    "Dimension Report",
+    "NDE Report",
+    "Painting",
+    "Pre-Shipment"
+   ],
    "deliverables": {
     "ITP": {
-     "status": "done",
-     "ref": "1000200133 - ITP FRAME SDT 50M3 (REAR)"
+     "status": "na",
+     "ref": null
     },
     "Dimension Report": {
-     "status": "done",
-     "ref": "1000200133 - FRAME SDT 50M3 (REAR)"
+     "status": "not-started",
+     "ref": null
     },
     "NDE Report": {
      "status": "not-started",
      "ref": null
     },
     "Leak & Hydro Test": {
-     "status": "not-started",
+     "status": "na",
      "ref": null
     },
     "Painting": {
-     "status": "done",
-     "ref": "1000200133 - PR FRAME SDT 50M3 (REAR)"
+     "status": "not-started",
+     "ref": null
     },
     "PTR": {
-     "status": "not-started",
+     "status": "na",
      "ref": null
     },
     "Pre-Shipment": {
-     "status": "done",
-     "ref": "1000200133 - PSIR FRAME SDT 50M3 (REAR)"
-    },
-    "IRN": {
-     "status": "done",
-     "ref": "1000200133 - IRN FRAME SDT 50M3 (REAR)"
-    },
-    "PDI": {
      "status": "not-started",
      "ref": null
+    },
+    "IRN": {
+     "status": "na",
+     "ref": null
+    },
+    "PDI": {
+     "status": "na",
+     "ref": null
     }
-   },
-   "doneCount": 5
+   }
   },
   {
    "no": 27,
-   "kategori": "TRAILER",
-   "type": "SDT",
-   "productDesc": "FRAME SDT 50M3 (REAR)",
-   "datePB": "2025-11-12",
-   "jobNo": "1000200134",
-   "wbsNo": "WBS-26-0120",
-   "arasSN": "200116-001",
-   "customerId": "CUST-010",
-   "customerName": "Customer 15",
-   "cogm": "1138400000",
-   "datePdiRelease": "2026-04-22",
+   "kategori": "SUPEQ",
+   "type": "WATER TRUCK 20KL",
+   "productDesc": "WATER TRUCK 20KL",
+   "datePB": "2026-03-02",
+   "jobNo": "1000320001",
+   "wbsNo": "WBS-26-0188",
+   "arasSN": "WTK-0388-01",
+   "unitNo": "WTK-0388-01",
+   "poNo": "PO-2026-WTK-0388",
+   "customerId": "CUST-005",
+   "customerName": "Customer 05",
+   "cogm": "226003699",
+   "datePdiRelease": "2026-11-20",
+   "required": [
+    "Dimension Report",
+    "NDE Report",
+    "Leak & Hydro Test",
+    "Painting",
+    "PDI"
+   ],
    "deliverables": {
     "ITP": {
-     "status": "done",
-     "ref": "1000200134 - ITP FRAME SDT 50M3 (REAR)"
+     "status": "na",
+     "ref": null
     },
     "Dimension Report": {
-     "status": "done",
-     "ref": "1000200134 - FRAME SDT 50M3 (REAR)"
+     "status": "not-started",
+     "ref": null
     },
     "NDE Report": {
      "status": "not-started",
@@ -1463,44 +1644,52 @@
      "ref": null
     },
     "Painting": {
-     "status": "done",
-     "ref": "1000200134 - PR FRAME SDT 50M3 (REAR)"
-    },
-    "PTR": {
      "status": "not-started",
      "ref": null
     },
+    "PTR": {
+     "status": "na",
+     "ref": null
+    },
     "Pre-Shipment": {
-     "status": "done",
-     "ref": "1000200134 - PSIR FRAME SDT 50M3 (REAR)"
+     "status": "na",
+     "ref": null
     },
     "IRN": {
-     "status": "done",
-     "ref": "1000200134 - IRN FRAME SDT 50M3 (REAR)"
+     "status": "na",
+     "ref": null
     },
     "PDI": {
      "status": "not-started",
      "ref": null
     }
-   },
-   "doneCount": 5
+   }
   },
   {
    "no": 28,
-   "kategori": "TRAILER",
-   "type": "TANDEM BOTTOM DUMP",
-   "productDesc": "36M3 TANDEM BOTTOM DUMP TRAILER FOR A-DOUBLE",
-   "datePB": "2025-01-24",
-   "jobNo": "1000200137",
-   "wbsNo": "WBS-26-0123",
-   "arasSN": "200117-001",
-   "customerId": "CUST-011",
+   "kategori": "SUPEQ",
+   "type": "WATER TRUCK 30KL",
+   "productDesc": "WATER TRUCK 30KL",
+   "datePB": "2026-03-02",
+   "jobNo": "1000320002",
+   "wbsNo": "WBS-26-0288",
+   "arasSN": "WTK-0388-02",
+   "unitNo": "WTK-0388-02",
+   "poNo": "PO-2026-WTK-0388",
+   "customerId": "CUST-005",
    "customerName": "Customer 05",
-   "cogm": "701100000",
-   "datePdiRelease": "2025-12-10",
+   "cogm": "226003836",
+   "datePdiRelease": "2026-11-20",
+   "required": [
+    "Dimension Report",
+    "NDE Report",
+    "Leak & Hydro Test",
+    "Painting",
+    "PDI"
+   ],
    "deliverables": {
     "ITP": {
-     "status": "not-started",
+     "status": "na",
      "ref": null
     },
     "Dimension Report": {
@@ -1516,415 +1705,479 @@
      "ref": null
     },
     "Painting": {
-     "status": "done",
-     "ref": "1000200137 - PR 36M3 TANDEM BOTTOM DUMP TRAILER FOR A-DOUBLE"
+     "status": "not-started",
+     "ref": null
     },
     "PTR": {
-     "status": "not-started",
+     "status": "na",
      "ref": null
     },
     "Pre-Shipment": {
-     "status": "done",
-     "ref": "1000200137 - PSIR 36M3 TANDEM BOTTOM DUMP TRAILER FOR A-DOUBLE"
+     "status": "na",
+     "ref": null
     },
     "IRN": {
-     "status": "not-started",
+     "status": "na",
      "ref": null
     },
     "PDI": {
-     "status": "done",
-     "ref": "1000200137 - PDI 36M3 TANDEM BOTTOM DUMP TRAILER FOR A-DOUBLE"
+     "status": "not-started",
+     "ref": null
     }
-   },
-   "doneCount": 3
+   }
   },
   {
    "no": 29,
-   "kategori": "TRAILER",
-   "type": "BULK LORRY",
-   "productDesc": "BULK LORRY CATALYST",
-   "datePB": "2025-08-19",
-   "jobNo": "1000200139",
-   "wbsNo": "WBS-26-0125",
-   "arasSN": "200119-001",
-   "customerId": "CUST-013",
-   "customerName": "Customer 19",
-   "cogm": "1010600000",
-   "datePdiRelease": "2026-01-24",
+   "kategori": "SUPEQ",
+   "type": "WATER TRUCK 35KL",
+   "productDesc": "WATER TRUCK 35KL",
+   "datePB": "2026-03-02",
+   "jobNo": "1000320003",
+   "wbsNo": "WBS-26-0388",
+   "arasSN": "WTK-0388-03",
+   "unitNo": "WTK-0388-03",
+   "poNo": "PO-2026-WTK-0388",
+   "customerId": "CUST-005",
+   "customerName": "Customer 05",
+   "cogm": "226003973",
+   "datePdiRelease": "2026-11-20",
+   "required": [
+    "Dimension Report",
+    "NDE Report",
+    "Leak & Hydro Test",
+    "Painting",
+    "PDI"
+   ],
    "deliverables": {
     "ITP": {
-     "status": "done",
-     "ref": "1000200139 - ITP BULK LORRY CATALYST"
+     "status": "na",
+     "ref": null
     },
     "Dimension Report": {
-     "status": "done",
-     "ref": "1000200139 - BULK LORRY CATALYST"
-    },
-    "NDE Report": {
-     "status": "done",
-     "ref": "1000200139 - NDE BULK LORRY CATALYST"
-    },
-    "Leak & Hydro Test": {
-     "status": "done",
-     "ref": "1000200139 - BULK LORRY CATALYST"
-    },
-    "Painting": {
-     "status": "done",
-     "ref": "1000200139 - PR BULK LORRY CATALYST"
-    },
-    "PTR": {
      "status": "not-started",
      "ref": null
     },
+    "NDE Report": {
+     "status": "not-started",
+     "ref": null
+    },
+    "Leak & Hydro Test": {
+     "status": "not-started",
+     "ref": null
+    },
+    "Painting": {
+     "status": "not-started",
+     "ref": null
+    },
+    "PTR": {
+     "status": "na",
+     "ref": null
+    },
     "Pre-Shipment": {
-     "status": "done",
-     "ref": "1000200139 - PSIR BULK LORRY CATALYST"
+     "status": "na",
+     "ref": null
     },
     "IRN": {
-     "status": "done",
-     "ref": "1000200139 - IRN BULK LORRY CATALYST"
+     "status": "na",
+     "ref": null
     },
     "PDI": {
-     "status": "done",
-     "ref": "1000200139 - PDI BULK LORRY CATALYST"
+     "status": "not-started",
+     "ref": null
     }
-   },
-   "doneCount": 8
+   }
   },
   {
    "no": 30,
-   "kategori": "TRAILER",
-   "type": "BULK LORRY",
-   "productDesc": "BULK LORRY CATALYST",
-   "datePB": "2025-08-19",
-   "jobNo": "1000200140",
-   "wbsNo": "WBS-26-0126",
-   "arasSN": "200120-001",
-   "customerId": "CUST-013",
-   "customerName": "Customer 19",
-   "cogm": "1010600000",
-   "datePdiRelease": "2026-01-24",
+   "kategori": "SUPEQ",
+   "type": "WATER TRUCK 20KL",
+   "productDesc": "WATER TRUCK 20KL",
+   "datePB": "2026-03-02",
+   "jobNo": "1000320004",
+   "wbsNo": "WBS-26-0488",
+   "arasSN": "WTK-0388-04",
+   "unitNo": "WTK-0388-04",
+   "poNo": "PO-2026-WTK-0388",
+   "customerId": "CUST-005",
+   "customerName": "Customer 05",
+   "cogm": "226004110",
+   "datePdiRelease": "2026-11-20",
+   "required": [
+    "Dimension Report",
+    "NDE Report",
+    "Leak & Hydro Test",
+    "Painting",
+    "PDI"
+   ],
    "deliverables": {
     "ITP": {
-     "status": "done",
-     "ref": "1000200140 - ITP BULK LORRY CATALYST"
+     "status": "na",
+     "ref": null
     },
     "Dimension Report": {
-     "status": "done",
-     "ref": "1000200140 - BULK LORRY CATALYST"
-    },
-    "NDE Report": {
-     "status": "done",
-     "ref": "1000200140 - NDE BULK LORRY CATALYST"
-    },
-    "Leak & Hydro Test": {
-     "status": "done",
-     "ref": "1000200140 - BULK LORRY CATALYST"
-    },
-    "Painting": {
-     "status": "done",
-     "ref": "1000200140 - PR BULK LORRY CATALYST"
-    },
-    "PTR": {
      "status": "not-started",
      "ref": null
     },
+    "NDE Report": {
+     "status": "not-started",
+     "ref": null
+    },
+    "Leak & Hydro Test": {
+     "status": "not-started",
+     "ref": null
+    },
+    "Painting": {
+     "status": "not-started",
+     "ref": null
+    },
+    "PTR": {
+     "status": "na",
+     "ref": null
+    },
     "Pre-Shipment": {
-     "status": "done",
-     "ref": "1000200140 - PSIR BULK LORRY CATALYST"
+     "status": "na",
+     "ref": null
     },
     "IRN": {
-     "status": "done",
-     "ref": "1000200140 - IRN BULK LORRY CATALYST"
+     "status": "na",
+     "ref": null
     },
     "PDI": {
-     "status": "done",
-     "ref": "1000200140 - IRN BULK LORRY CATALYST"
+     "status": "not-started",
+     "ref": null
     }
-   },
-   "doneCount": 8
+   }
   },
   {
    "no": 31,
-   "kategori": "NON TRAILER",
-   "type": "ISO TANK SPARGES",
-   "productDesc": "ISO TANK SPARGES",
-   "datePB": "2025-04-16",
-   "jobNo": "1000200141",
-   "wbsNo": "WBS-26-0127",
-   "arasSN": "200121-001",
-   "customerId": "CUST-014",
-   "customerName": "Customer 20",
-   "cogm": "535100000",
-   "datePdiRelease": "2025-08-26",
+   "kategori": "SUPEQ",
+   "type": "WATER TRUCK 30KL",
+   "productDesc": "WATER TRUCK 30KL",
+   "datePB": "2026-03-02",
+   "jobNo": "1000320005",
+   "wbsNo": "WBS-26-0588",
+   "arasSN": "WTK-0388-05",
+   "unitNo": "WTK-0388-05",
+   "poNo": "PO-2026-WTK-0388",
+   "customerId": "CUST-005",
+   "customerName": "Customer 05",
+   "cogm": "226004247",
+   "datePdiRelease": "2026-11-20",
+   "required": [
+    "Dimension Report",
+    "NDE Report",
+    "Leak & Hydro Test",
+    "Painting",
+    "PDI"
+   ],
    "deliverables": {
     "ITP": {
-     "status": "done",
-     "ref": "1000200141 - ITP ISO TANK SPARGES"
+     "status": "na",
+     "ref": null
     },
     "Dimension Report": {
-     "status": "done",
-     "ref": "1000200141 - ISO TANK SPARGES"
+     "status": "not-started",
+     "ref": null
     },
     "NDE Report": {
-     "status": "done",
-     "ref": "1000200141 - NDE ISO TANK SPARGES"
+     "status": "not-started",
+     "ref": null
     },
     "Leak & Hydro Test": {
-     "status": "done",
-     "ref": "1000200141 - LTR ISO TANK SPARGES"
+     "status": "not-started",
+     "ref": null
     },
     "Painting": {
-     "status": "done",
-     "ref": "1000200141 - PR ISO TANK SPARGES"
+     "status": "not-started",
+     "ref": null
     },
     "PTR": {
-     "status": "done",
-     "ref": "1000200141 - ISO TANK SPARGES"
+     "status": "na",
+     "ref": null
     },
     "Pre-Shipment": {
-     "status": "done",
-     "ref": "1000200141 - PSIR ISO TANK SPARGES"
+     "status": "na",
+     "ref": null
     },
     "IRN": {
-     "status": "done",
-     "ref": "1000200141 - IRN ISO TANK SPARGES"
+     "status": "na",
+     "ref": null
     },
     "PDI": {
      "status": "not-started",
      "ref": null
     }
-   },
-   "doneCount": 8
+   }
   },
   {
    "no": 32,
-   "kategori": "NON TRAILER",
-   "type": "ISO TANK SPARGES",
-   "productDesc": "ISO TANK SPARGES",
-   "datePB": "2025-04-16",
-   "jobNo": "1000200142",
-   "wbsNo": "WBS-26-0128",
-   "arasSN": "200122-001",
-   "customerId": "CUST-014",
-   "customerName": "Customer 20",
-   "cogm": "535100000",
-   "datePdiRelease": "2025-08-26",
+   "kategori": "SUPEQ",
+   "type": "WATER TRUCK 35KL",
+   "productDesc": "WATER TRUCK 35KL",
+   "datePB": "2026-03-02",
+   "jobNo": "1000320006",
+   "wbsNo": "WBS-26-0688",
+   "arasSN": "WTK-0388-06",
+   "unitNo": "WTK-0388-06",
+   "poNo": "PO-2026-WTK-0388",
+   "customerId": "CUST-005",
+   "customerName": "Customer 05",
+   "cogm": "226004384",
+   "datePdiRelease": "2026-11-20",
+   "required": [
+    "Dimension Report",
+    "NDE Report",
+    "Leak & Hydro Test",
+    "Painting",
+    "PDI"
+   ],
    "deliverables": {
     "ITP": {
-     "status": "done",
-     "ref": "1000200142 - ITP ISO TANK SPARGES"
+     "status": "na",
+     "ref": null
     },
     "Dimension Report": {
-     "status": "done",
-     "ref": "1000200142 - ISO TANK SPARGES"
+     "status": "not-started",
+     "ref": null
     },
     "NDE Report": {
-     "status": "done",
-     "ref": "1000200142 - NDE ISO TANK SPARGES"
+     "status": "not-started",
+     "ref": null
     },
     "Leak & Hydro Test": {
-     "status": "done",
-     "ref": "1000200142 - LTR ISO TANK SPARGES"
+     "status": "not-started",
+     "ref": null
     },
     "Painting": {
-     "status": "done",
-     "ref": "1000200142 - PR ISO TANK SPARGES"
+     "status": "not-started",
+     "ref": null
     },
     "PTR": {
-     "status": "done",
-     "ref": "1000200142 - ISO TANK SPARGES"
+     "status": "na",
+     "ref": null
     },
     "Pre-Shipment": {
-     "status": "done",
-     "ref": "1000200142 - PSIR ISO TANK SPARGES"
+     "status": "na",
+     "ref": null
     },
     "IRN": {
-     "status": "done",
-     "ref": "1000200142 - IRN ISO TANK SPARGES"
+     "status": "na",
+     "ref": null
     },
     "PDI": {
      "status": "not-started",
      "ref": null
     }
-   },
-   "doneCount": 8
+   }
   },
   {
    "no": 33,
-   "kategori": "NON TRAILER",
-   "type": "ISO TANK SPARGES",
-   "productDesc": "ISO TANK SPARGES",
-   "datePB": "2025-04-16",
-   "jobNo": "1000200143",
-   "wbsNo": "WBS-26-0129",
-   "arasSN": "200123-001",
-   "customerId": "CUST-014",
-   "customerName": "Customer 20",
-   "cogm": "535100000",
-   "datePdiRelease": "2025-08-26",
+   "kategori": "SUPEQ",
+   "type": "WATER TRUCK 20KL",
+   "productDesc": "WATER TRUCK 20KL",
+   "datePB": "2026-03-02",
+   "jobNo": "1000320007",
+   "wbsNo": "WBS-26-0788",
+   "arasSN": "WTK-0388-07",
+   "unitNo": "WTK-0388-07",
+   "poNo": "PO-2026-WTK-0388",
+   "customerId": "CUST-005",
+   "customerName": "Customer 05",
+   "cogm": "226004521",
+   "datePdiRelease": "2026-11-20",
+   "required": [
+    "Dimension Report",
+    "NDE Report",
+    "Leak & Hydro Test",
+    "Painting",
+    "PDI"
+   ],
    "deliverables": {
     "ITP": {
-     "status": "done",
-     "ref": "1000200143 - ITP ISO TANK SPARGES"
+     "status": "na",
+     "ref": null
     },
     "Dimension Report": {
-     "status": "done",
-     "ref": "1000200143 - ISO TANK SPARGES"
+     "status": "not-started",
+     "ref": null
     },
     "NDE Report": {
-     "status": "done",
-     "ref": "1000200143 - NDE ISO TANK SPARGES"
+     "status": "not-started",
+     "ref": null
     },
     "Leak & Hydro Test": {
-     "status": "done",
-     "ref": "1000200143 - LTR ISO TANK SPARGES"
+     "status": "not-started",
+     "ref": null
     },
     "Painting": {
-     "status": "done",
-     "ref": "1000200143 - PR ISO TANK SPARGES"
+     "status": "not-started",
+     "ref": null
     },
     "PTR": {
-     "status": "done",
-     "ref": "1000200143 - ISO TANK SPARGES"
+     "status": "na",
+     "ref": null
     },
     "Pre-Shipment": {
-     "status": "done",
-     "ref": "1000200143 - PSIR ISO TANK SPARGES"
+     "status": "na",
+     "ref": null
     },
     "IRN": {
-     "status": "done",
-     "ref": "1000200143 - IRN ISO TANK SPARGES"
+     "status": "na",
+     "ref": null
     },
     "PDI": {
      "status": "not-started",
      "ref": null
     }
-   },
-   "doneCount": 8
+   }
   },
   {
    "no": 34,
-   "kategori": "NON TRAILER",
-   "type": "ISO TANK SPARGES",
-   "productDesc": "ISO TANK SPARGES",
-   "datePB": "2025-04-16",
-   "jobNo": "1000200144",
-   "wbsNo": "WBS-26-0130",
-   "arasSN": "200124-001",
-   "customerId": "CUST-014",
-   "customerName": "Customer 20",
-   "cogm": "535100000",
-   "datePdiRelease": "2025-08-26",
+   "kategori": "SUPEQ",
+   "type": "WATER TRUCK 30KL",
+   "productDesc": "WATER TRUCK 30KL",
+   "datePB": "2026-03-02",
+   "jobNo": "1000320008",
+   "wbsNo": "WBS-26-0888",
+   "arasSN": "WTK-0388-08",
+   "unitNo": "WTK-0388-08",
+   "poNo": "PO-2026-WTK-0388",
+   "customerId": "CUST-005",
+   "customerName": "Customer 05",
+   "cogm": "226004658",
+   "datePdiRelease": "2026-11-20",
+   "required": [
+    "Dimension Report",
+    "NDE Report",
+    "Leak & Hydro Test",
+    "Painting",
+    "PDI"
+   ],
    "deliverables": {
     "ITP": {
-     "status": "done",
-     "ref": "1000200144 - ITP ISO TANK SPARGES"
+     "status": "na",
+     "ref": null
     },
     "Dimension Report": {
-     "status": "done",
-     "ref": "1000200144 - ISO TANK SPARGES"
+     "status": "not-started",
+     "ref": null
     },
     "NDE Report": {
-     "status": "done",
-     "ref": "1000200144 - NDE ISO TANK SPARGES"
+     "status": "not-started",
+     "ref": null
     },
     "Leak & Hydro Test": {
-     "status": "done",
-     "ref": "1000200144 - LTR ISO TANK SPARGES"
+     "status": "not-started",
+     "ref": null
     },
     "Painting": {
-     "status": "done",
-     "ref": "1000200144 - PR ISO TANK SPARGES"
+     "status": "not-started",
+     "ref": null
     },
     "PTR": {
-     "status": "done",
-     "ref": "1000200144 - ISO TANK SPARGES"
+     "status": "na",
+     "ref": null
     },
     "Pre-Shipment": {
-     "status": "done",
-     "ref": "1000200144 - PSIR ISO TANK SPARGES"
+     "status": "na",
+     "ref": null
     },
     "IRN": {
-     "status": "done",
-     "ref": "1000200144 - IRN ISO TANK SPARGES"
+     "status": "na",
+     "ref": null
     },
     "PDI": {
      "status": "not-started",
      "ref": null
     }
-   },
-   "doneCount": 8
+   }
   },
   {
    "no": 35,
-   "kategori": "NON TRAILER",
-   "type": "ISO TANK SPARGES",
-   "productDesc": "ISO TANK SPARGES",
-   "datePB": "2025-04-16",
-   "jobNo": "1000200145",
-   "wbsNo": "WBS-26-0131",
-   "arasSN": "200125-001",
-   "customerId": "CUST-014",
-   "customerName": "Customer 20",
-   "cogm": "535100000",
-   "datePdiRelease": "2025-10-17",
+   "kategori": "SUPEQ",
+   "type": "WATER TRUCK 35KL",
+   "productDesc": "WATER TRUCK 35KL",
+   "datePB": "2026-03-02",
+   "jobNo": "1000320009",
+   "wbsNo": "WBS-26-0988",
+   "arasSN": "WTK-0388-09",
+   "unitNo": "WTK-0388-09",
+   "poNo": "PO-2026-WTK-0388",
+   "customerId": "CUST-005",
+   "customerName": "Customer 05",
+   "cogm": "226004795",
+   "datePdiRelease": "2026-11-20",
+   "required": [
+    "Dimension Report",
+    "NDE Report",
+    "Leak & Hydro Test",
+    "Painting",
+    "PDI"
+   ],
    "deliverables": {
     "ITP": {
-     "status": "done",
-     "ref": "1000200145 - ITP ISO TANK SPARGES"
+     "status": "na",
+     "ref": null
     },
     "Dimension Report": {
-     "status": "done",
-     "ref": "1000200145 - ISO TANK SPARGES"
+     "status": "not-started",
+     "ref": null
     },
     "NDE Report": {
-     "status": "done",
-     "ref": "1000200145 - NDE ISO TANK SPARGES"
+     "status": "not-started",
+     "ref": null
     },
     "Leak & Hydro Test": {
-     "status": "done",
-     "ref": "1000200145 - LTR ISO TANK SPARGES"
+     "status": "not-started",
+     "ref": null
     },
     "Painting": {
-     "status": "done",
-     "ref": "1000200145 - PR ISO TANK SPARGES"
+     "status": "not-started",
+     "ref": null
     },
     "PTR": {
-     "status": "done",
-     "ref": "1000200145 - ISO TANK SPARGES"
+     "status": "na",
+     "ref": null
     },
     "Pre-Shipment": {
-     "status": "done",
-     "ref": "1000200145 - PSIR ISO TANK SPARGES"
+     "status": "na",
+     "ref": null
     },
     "IRN": {
-     "status": "done",
-     "ref": "1000200145 - IRN ISO TANK SPARGES"
+     "status": "na",
+     "ref": null
     },
     "PDI": {
      "status": "not-started",
      "ref": null
     }
-   },
-   "doneCount": 8
+   }
   },
   {
    "no": 36,
-   "kategori": "NON TRAILER",
-   "type": "ISO TANK SPARGES",
-   "productDesc": "ISO TANK SPARGES",
-   "datePB": "2025-12-02",
-   "jobNo": "1000200173",
-   "wbsNo": "WBS-26-0159",
-   "arasSN": "200153-001",
-   "customerId": null,
-   "customerName": "Customer 21",
-   "cogm": "638600000",
-   "datePdiRelease": null,
+   "kategori": "SUPEQ",
+   "type": "WATER TRUCK 20KL",
+   "productDesc": "WATER TRUCK 20KL",
+   "datePB": "2026-03-02",
+   "jobNo": "1000320010",
+   "wbsNo": "WBS-26-1088",
+   "arasSN": "WTK-0388-10",
+   "unitNo": "WTK-0388-10",
+   "poNo": "PO-2026-WTK-0388",
+   "customerId": "CUST-005",
+   "customerName": "Customer 05",
+   "cogm": "226004932",
+   "datePdiRelease": "2026-11-20",
+   "required": [
+    "Dimension Report",
+    "NDE Report",
+    "Leak & Hydro Test",
+    "Painting",
+    "PDI"
+   ],
    "deliverables": {
     "ITP": {
-     "status": "not-started",
+     "status": "na",
      "ref": null
     },
     "Dimension Report": {
@@ -1944,98 +2197,114 @@
      "ref": null
     },
     "PTR": {
-     "status": "not-started",
+     "status": "na",
      "ref": null
     },
     "Pre-Shipment": {
-     "status": "not-started",
+     "status": "na",
      "ref": null
     },
     "IRN": {
-     "status": "not-started",
+     "status": "na",
      "ref": null
     },
     "PDI": {
      "status": "not-started",
      "ref": null
     }
-   },
-   "doneCount": 0
+   }
   },
   {
    "no": 37,
-   "kategori": "NON TRAILER",
-   "type": "BUCKET",
-   "productDesc": "BUCKET 15.7M3",
-   "datePB": "2025-09-15",
-   "jobNo": "1000200181",
-   "wbsNo": "WBS-26-0167",
-   "arasSN": "200161-001",
-   "customerId": "CUST-015",
-   "customerName": "Customer 22",
-   "cogm": "992500000",
-   "datePdiRelease": "2025-10-16",
+   "kategori": "SUPEQ",
+   "type": "WATER TRUCK 30KL",
+   "productDesc": "WATER TRUCK 30KL",
+   "datePB": "2026-03-02",
+   "jobNo": "1000320011",
+   "wbsNo": "WBS-26-1188",
+   "arasSN": "WTK-0388-11",
+   "unitNo": "WTK-0388-11",
+   "poNo": "PO-2026-WTK-0388",
+   "customerId": "CUST-005",
+   "customerName": "Customer 05",
+   "cogm": "226005069",
+   "datePdiRelease": "2026-11-20",
+   "required": [
+    "Dimension Report",
+    "NDE Report",
+    "Leak & Hydro Test",
+    "Painting",
+    "PDI"
+   ],
    "deliverables": {
     "ITP": {
-     "status": "done",
-     "ref": "1000200181 - ITP BUCKET 15.7M3"
+     "status": "na",
+     "ref": null
     },
     "Dimension Report": {
-     "status": "done",
-     "ref": "1000200181 - BUCKET 15.7M3"
+     "status": "not-started",
+     "ref": null
     },
     "NDE Report": {
-     "status": "done",
-     "ref": "1000200181 - NDE BUCKET 15.7M3"
+     "status": "not-started",
+     "ref": null
     },
     "Leak & Hydro Test": {
      "status": "not-started",
      "ref": null
     },
     "Painting": {
-     "status": "done",
-     "ref": "1000200181 - PR BUCKET 15.7M3"
-    },
-    "PTR": {
      "status": "not-started",
      "ref": null
     },
+    "PTR": {
+     "status": "na",
+     "ref": null
+    },
     "Pre-Shipment": {
-     "status": "done",
-     "ref": "1000200181 - PSIR BUCKET 15.7M3"
+     "status": "na",
+     "ref": null
     },
     "IRN": {
-     "status": "done",
-     "ref": "1000200181 - IRN BUCKET 15.7M3"
+     "status": "na",
+     "ref": null
     },
     "PDI": {
      "status": "not-started",
      "ref": null
     }
-   },
-   "doneCount": 6
+   }
   },
   {
    "no": 38,
-   "kategori": "NON TRAILER",
-   "type": "CRANE TRUCK",
-   "productDesc": "WELDING TRUCK",
-   "datePB": "2025-08-05",
-   "jobNo": "1000200198",
-   "wbsNo": "WBS-26-0180",
-   "arasSN": "200176-001",
-   "customerId": "CUST-004",
-   "customerName": "Customer 04",
-   "cogm": "1032700000",
-   "datePdiRelease": "2026-04-27",
+   "kategori": "SUPEQ",
+   "type": "WATER TRUCK 35KL",
+   "productDesc": "WATER TRUCK 35KL",
+   "datePB": "2026-03-02",
+   "jobNo": "1000320012",
+   "wbsNo": "WBS-26-1288",
+   "arasSN": "WTK-0388-12",
+   "unitNo": "WTK-0388-12",
+   "poNo": "PO-2026-WTK-0388",
+   "customerId": "CUST-005",
+   "customerName": "Customer 05",
+   "cogm": "226005206",
+   "datePdiRelease": "2026-11-20",
+   "required": [
+    "Dimension Report",
+    "NDE Report",
+    "Leak & Hydro Test",
+    "Painting",
+    "PDI"
+   ],
    "deliverables": {
     "ITP": {
-     "status": "not-started",
+     "status": "na",
      "ref": null
     },
     "Dimension Report": {
-     "status": "done",
-     "ref": "1000200198 - WELDING TRUCK"
+     "status": "not-started",
+     "ref": null
     },
     "NDE Report": {
      "status": "not-started",
@@ -2050,40 +2319,48 @@
      "ref": null
     },
     "PTR": {
-     "status": "done",
-     "ref": "1000200198 - PTR WELDING TRUCK"
+     "status": "na",
+     "ref": null
     },
     "Pre-Shipment": {
-     "status": "done",
-     "ref": "1000200198 - PSIR WELDING TRUCK"
+     "status": "na",
+     "ref": null
     },
     "IRN": {
-     "status": "not-started",
+     "status": "na",
      "ref": null
     },
     "PDI": {
-     "status": "done",
-     "ref": "1000200198 - PDI WELDING TRUCK"
+     "status": "not-started",
+     "ref": null
     }
-   },
-   "doneCount": 4
+   }
   },
   {
    "no": 39,
-   "kategori": "NON TRAILER",
-   "type": "MAN BASKET",
-   "productDesc": "DOUBLE DECK PLATFORM",
-   "datePB": "2025-07-14",
-   "jobNo": "1000200250",
-   "wbsNo": "WBS-26-0225",
-   "arasSN": "200224-001",
-   "customerId": "CUST-010",
-   "customerName": "Customer 15",
-   "cogm": "550800000",
-   "datePdiRelease": "2025-10-17",
+   "kategori": "SUPEQ",
+   "type": "WATER TRUCK 20KL",
+   "productDesc": "WATER TRUCK 20KL",
+   "datePB": "2026-03-02",
+   "jobNo": "1000320013",
+   "wbsNo": "WBS-26-1388",
+   "arasSN": "WTK-0388-13",
+   "unitNo": "WTK-0388-13",
+   "poNo": "PO-2026-WTK-0388",
+   "customerId": "CUST-005",
+   "customerName": "Customer 05",
+   "cogm": "226005343",
+   "datePdiRelease": "2026-11-20",
+   "required": [
+    "Dimension Report",
+    "NDE Report",
+    "Leak & Hydro Test",
+    "Painting",
+    "PDI"
+   ],
    "deliverables": {
     "ITP": {
-     "status": "not-started",
+     "status": "na",
      "ref": null
     },
     "Dimension Report": {
@@ -2099,44 +2376,52 @@
      "ref": null
     },
     "Painting": {
-     "status": "done",
-     "ref": "1000200250 - PR DOUBLE DECK PLATFORM"
-    },
-    "PTR": {
      "status": "not-started",
      "ref": null
     },
+    "PTR": {
+     "status": "na",
+     "ref": null
+    },
     "Pre-Shipment": {
-     "status": "done",
-     "ref": "1000200250 - PSIR DOUBLE DECK PLATFORM"
+     "status": "na",
+     "ref": null
     },
     "IRN": {
-     "status": "done",
-     "ref": "1000200250 - IRN DOUBLE DECK PLATFORM"
+     "status": "na",
+     "ref": null
     },
     "PDI": {
      "status": "not-started",
      "ref": null
     }
-   },
-   "doneCount": 3
+   }
   },
   {
    "no": 40,
-   "kategori": "NON TRAILER",
-   "type": "DUMP BODY",
-   "productDesc": "DUMP BODY 100M3 OVERBURDEN",
-   "datePB": "2026-01-13",
-   "jobNo": "1000200294",
-   "wbsNo": "WBS-26-0261",
-   "arasSN": "200255-001",
-   "customerId": "CUST-017",
-   "customerName": "Customer 22",
-   "cogm": "818000000",
-   "datePdiRelease": null,
+   "kategori": "SUPEQ",
+   "type": "WATER TRUCK 30KL",
+   "productDesc": "WATER TRUCK 30KL",
+   "datePB": "2026-03-02",
+   "jobNo": "1000320014",
+   "wbsNo": "WBS-26-1488",
+   "arasSN": "WTK-0388-14",
+   "unitNo": "WTK-0388-14",
+   "poNo": "PO-2026-WTK-0388",
+   "customerId": "CUST-005",
+   "customerName": "Customer 05",
+   "cogm": "226005480",
+   "datePdiRelease": "2026-11-20",
+   "required": [
+    "Dimension Report",
+    "NDE Report",
+    "Leak & Hydro Test",
+    "Painting",
+    "PDI"
+   ],
    "deliverables": {
     "ITP": {
-     "status": "not-started",
+     "status": "na",
      "ref": null
     },
     "Dimension Report": {
@@ -2156,288 +2441,22 @@
      "ref": null
     },
     "PTR": {
-     "status": "not-started",
+     "status": "na",
      "ref": null
     },
     "Pre-Shipment": {
-     "status": "not-started",
+     "status": "na",
      "ref": null
     },
     "IRN": {
-     "status": "not-started",
+     "status": "na",
      "ref": null
     },
     "PDI": {
      "status": "not-started",
      "ref": null
     }
-   },
-   "doneCount": 0
-  },
-  {
-   "no": 41,
-   "kategori": "NON TRAILER",
-   "type": "DUMP BODY",
-   "productDesc": "DUMP BODY 100M3 OVERBURDEN",
-   "datePB": "2026-01-13",
-   "jobNo": "1000200297",
-   "wbsNo": "WBS-26-0264",
-   "arasSN": "200258-001",
-   "customerId": "CUST-017",
-   "customerName": "Customer 22",
-   "cogm": "818000000",
-   "datePdiRelease": null,
-   "deliverables": {
-    "ITP": {
-     "status": "not-started",
-     "ref": null
-    },
-    "Dimension Report": {
-     "status": "not-started",
-     "ref": null
-    },
-    "NDE Report": {
-     "status": "not-started",
-     "ref": null
-    },
-    "Leak & Hydro Test": {
-     "status": "not-started",
-     "ref": null
-    },
-    "Painting": {
-     "status": "not-started",
-     "ref": null
-    },
-    "PTR": {
-     "status": "not-started",
-     "ref": null
-    },
-    "Pre-Shipment": {
-     "status": "not-started",
-     "ref": null
-    },
-    "IRN": {
-     "status": "not-started",
-     "ref": null
-    },
-    "PDI": {
-     "status": "not-started",
-     "ref": null
-    }
-   },
-   "doneCount": 0
-  },
-  {
-   "no": 42,
-   "kategori": "NON TRAILER",
-   "type": "DUMP BODY",
-   "productDesc": "BOTTOM DUMP, 36M3",
-   "datePB": null,
-   "jobNo": "1000200300",
-   "wbsNo": null,
-   "arasSN": null,
-   "customerId": null,
-   "customerName": "Customer 27",
-   "cogm": null,
-   "datePdiRelease": null,
-   "deliverables": {
-    "ITP": {
-     "status": "not-started",
-     "ref": null
-    },
-    "Dimension Report": {
-     "status": "not-started",
-     "ref": null
-    },
-    "NDE Report": {
-     "status": "not-started",
-     "ref": null
-    },
-    "Leak & Hydro Test": {
-     "status": "not-started",
-     "ref": null
-    },
-    "Painting": {
-     "status": "not-started",
-     "ref": null
-    },
-    "PTR": {
-     "status": "not-started",
-     "ref": null
-    },
-    "Pre-Shipment": {
-     "status": "not-started",
-     "ref": null
-    },
-    "IRN": {
-     "status": "not-started",
-     "ref": null
-    },
-    "PDI": {
-     "status": "not-started",
-     "ref": null
-    }
-   },
-   "doneCount": 0
-  },
-  {
-   "no": 43,
-   "kategori": "NON TRAILER",
-   "type": "CRANE TRUCK",
-   "productDesc": "CRANE TRUCK",
-   "datePB": null,
-   "jobNo": "1000200303",
-   "wbsNo": "WBS-26-0267",
-   "arasSN": "200261-001",
-   "customerId": null,
-   "customerName": "Customer 13",
-   "cogm": null,
-   "datePdiRelease": "2026-05-25",
-   "deliverables": {
-    "ITP": {
-     "status": "not-started",
-     "ref": null
-    },
-    "Dimension Report": {
-     "status": "not-started",
-     "ref": null
-    },
-    "NDE Report": {
-     "status": "not-started",
-     "ref": null
-    },
-    "Leak & Hydro Test": {
-     "status": "not-started",
-     "ref": null
-    },
-    "Painting": {
-     "status": "not-started",
-     "ref": null
-    },
-    "PTR": {
-     "status": "not-started",
-     "ref": null
-    },
-    "Pre-Shipment": {
-     "status": "not-started",
-     "ref": null
-    },
-    "IRN": {
-     "status": "not-started",
-     "ref": null
-    },
-    "PDI": {
-     "status": "not-started",
-     "ref": null
-    }
-   },
-   "doneCount": 0
-  },
-  {
-   "no": 44,
-   "kategori": "NON TRAILER",
-   "type": "ISO TANK SPARGES",
-   "productDesc": "ISO TANK SPARGES",
-   "datePB": "2025-12-02",
-   "jobNo": "1000200315",
-   "wbsNo": "WBS-26-0288",
-   "arasSN": "200276-001",
-   "customerId": null,
-   "customerName": "Customer 21",
-   "cogm": "638600000",
-   "datePdiRelease": null,
-   "deliverables": {
-    "ITP": {
-     "status": "not-started",
-     "ref": null
-    },
-    "Dimension Report": {
-     "status": "not-started",
-     "ref": null
-    },
-    "NDE Report": {
-     "status": "not-started",
-     "ref": null
-    },
-    "Leak & Hydro Test": {
-     "status": "not-started",
-     "ref": null
-    },
-    "Painting": {
-     "status": "not-started",
-     "ref": null
-    },
-    "PTR": {
-     "status": "not-started",
-     "ref": null
-    },
-    "Pre-Shipment": {
-     "status": "not-started",
-     "ref": null
-    },
-    "IRN": {
-     "status": "not-started",
-     "ref": null
-    },
-    "PDI": {
-     "status": "not-started",
-     "ref": null
-    }
-   },
-   "doneCount": 0
-  },
-  {
-   "no": 45,
-   "kategori": "NON TRAILER",
-   "type": "ISO TANK SPARGES",
-   "productDesc": "ISO TANK SPARGES",
-   "datePB": "2025-12-02",
-   "jobNo": "1000200316",
-   "wbsNo": "WBS-26-0289",
-   "arasSN": "200277-001",
-   "customerId": null,
-   "customerName": "Customer 21",
-   "cogm": "638600000",
-   "datePdiRelease": null,
-   "deliverables": {
-    "ITP": {
-     "status": "not-started",
-     "ref": null
-    },
-    "Dimension Report": {
-     "status": "not-started",
-     "ref": null
-    },
-    "NDE Report": {
-     "status": "not-started",
-     "ref": null
-    },
-    "Leak & Hydro Test": {
-     "status": "not-started",
-     "ref": null
-    },
-    "Painting": {
-     "status": "not-started",
-     "ref": null
-    },
-    "PTR": {
-     "status": "not-started",
-     "ref": null
-    },
-    "Pre-Shipment": {
-     "status": "not-started",
-     "ref": null
-    },
-    "IRN": {
-     "status": "not-started",
-     "ref": null
-    },
-    "PDI": {
-     "status": "not-started",
-     "ref": null
-    }
-   },
-   "doneCount": 0
+   }
   }
  ]
 }

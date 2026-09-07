@@ -1,5 +1,5 @@
 import { COMPANY } from './company.js'
-import { SEED_REPORTS } from '../data/seedReports.js'
+import { SEED_REPORTS, SEED_COUNTERS } from '../data/seedReports.js'
 // Front-end persistence layer (localStorage). PRD v1 scope = no back-end.
 const KEYS = {
   session: 'qc.session',
@@ -63,12 +63,25 @@ export const clearSession = () => localStorage.removeItem(KEYS.session)
 // First run installs the demo fixture so the app opens with filled forms
 // instead of empty ones. The flag is separate from the reports key, so
 // clearing your reports afterwards does not bring the fixture back.
-const SEEDED_KEY = 'qc.seeded.v1'
+// Where the issue high-water marks live. Declared here because
+// ensureSeed below writes it; leaving it further down worked only
+// because nothing calls ensureSeed during module initialisation.
+const ISSUE_KEY = 'qc.issueCounters'
+
+/* Bumped with the fixture itself. A browser that already holds reports
+   keeps them — the guard below only writes into an empty store — but one
+   that has been cleared gets the current demo rather than the old one. */
+const SEEDED_KEY = 'qc.seeded.v2'
 function ensureSeed() {
   try {
     if (localStorage.getItem(SEEDED_KEY)) return
     localStorage.setItem(SEEDED_KEY, '1')
-    if (!localStorage.getItem(KEYS.reports)) write(KEYS.reports, SEED_REPORTS)
+    if (!localStorage.getItem(KEYS.reports)) {
+      write(KEYS.reports, SEED_REPORTS)
+      // The numbers those reports already spent, so the next issue for a
+      // seeded job carries on rather than colliding with one of them.
+      if (!localStorage.getItem(ISSUE_KEY)) write(ISSUE_KEY, SEED_COUNTERS)
+    }
   } catch { /* private mode: run without the fixture */ }
 }
 
@@ -188,7 +201,6 @@ export function reportsFor(jobNo, deliverable) {
    mark outlives the record: deleting a report frees nothing, because a
    number that has been on a document is spent whether or not the
    document is still here. */
-const ISSUE_KEY = 'qc.issueCounters'
 const issueKey = (code, jobNo) => `${code}/${jobNo}`
 
 const readCounters = () => read(ISSUE_KEY, {})

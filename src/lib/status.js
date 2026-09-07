@@ -4,8 +4,10 @@ import { getReports, getOverrides } from './store.js'
 const TODAY = new Date()
 
 // Status for one job x deliverable cell.
-// Layering: admin override > app report (draft=inprogress, submitted=done) > Excel data,
+// Layering: admin override > app report (draft=inprogress, submitted=done),
 // then Overdue rule: not done + applicable + PDI already released in the past.
+// The imported sheet only decides applicability; it cannot make a cell done,
+// because done has to mean there is a document to bind.
 export function cellStatus(job, delivKey, ctx) {
   const { overrides, reportIndex } = ctx
   // An order says outright which reports it wants; anything outside that
@@ -19,8 +21,18 @@ export function cellStatus(job, delivKey, ctx) {
   if (finished) return { status: 'done', source: 'report', report: finished }
   if (reps.length > 0) return { status: 'inprogress', source: 'report', report: reps[0] }
 
+  /* An imported status sheet can say a deliverable was finished, but it
+     cannot produce the document. This used to return done on that word
+     alone: a job read 8 of 9 complete, its Documents list was empty,
+     and clicking one of the eight opened a blank new form — because
+     there was nothing to open. A count that cannot be printed into a
+     data book is not a count of finished work.
+
+     So done is only what a report makes done, or what an admin has
+     deliberately overridden above. The sheet still decides what is not
+     applicable, which is a statement about scope rather than about
+     evidence. */
   const base = job.deliverables[delivKey]?.status || 'notstarted'
-  if (base === 'done') return { status: 'done', source: 'excel', ref: job.deliverables[delivKey].ref }
   if (base === 'na') return { status: 'na', source: 'excel' }
 
   if (job.datePdiRelease && new Date(job.datePdiRelease) < TODAY) {

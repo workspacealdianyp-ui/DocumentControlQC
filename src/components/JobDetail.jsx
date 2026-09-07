@@ -189,8 +189,13 @@ export default function JobDetail({ job }) {
           const reps = reportsFor(job.jobNo, d.key)
           const last = reps.length ? reps[reps.length - 1] : null
           const tappable = !!d.form && (role.canEdit || !!last)
-          const foot = cell.ref
-            || (last ? [last.reportId, fmtDate(last.updatedAt), last.inspector].filter(Boolean).join(' · ') : null)
+          /* cell.ref is gone with the branch that set it: an imported
+             sheet can no longer make a cell done, so there is no ref
+             without a report. What is left is a cell an admin marked
+             done by hand — a deliberate statement, but not a document,
+             and the row has to say which of the two it is. */
+          const foot = (last ? [last.reportId, fmtDate(last.updatedAt), last.inspector].filter(Boolean).join(' · ') : null)
+            || (cell.status === 'done' ? 'Marked done by an admin — no document held here' : null)
             || (d.form ? (role.canEdit ? 'Not started — open to fill the form' : 'No report yet') : 'Document deliverable, tracked manually')
           return (
             <div key={d.key} className={`rep-card is-deliv tone-${cell.status}${tappable ? '' : ' is-flat'}`}
