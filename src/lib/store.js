@@ -17,13 +17,46 @@ function read(key, fallback) {
     return fallback
   }
 }
+/* A write that cannot happen must say so.
+
+   localStorage gives us on the order of 9-10 MB and then refuses. This
+   used to be an unguarded setItem: an inspector filled in a report, hit
+   Submit, and the call threw where nobody was listening — the record was
+   simply gone, with the app still showing the form as if all was well.
+   Silence is not better: jobOrders.js swallows the same error, so a
+   published order can fail to save and look as though it saved.
+
+   So the failure is raised, named, and every caller that holds work a
+   person typed has to deal with it. */
+export class StorageFullError extends Error {
+  constructor(cause) {
+    super('There is no room left in this browser to save. Export your records in Settings → Storage, then clear the ones already backed up.')
+    this.name = 'StorageFullError'
+    this.cause = cause
+  }
+}
+
 function write(key, value) {
-  localStorage.setItem(key, JSON.stringify(value))
+  try {
+    localStorage.setItem(key, JSON.stringify(value))
+    return true
+  } catch (e) {
+    throw new StorageFullError(e)
+  }
+}
+
+// For writes that are a convenience rather than a record — a filter, a
+// preference. Losing one is not worth interrupting anybody.
+function writeQuietly(key, value) {
+  try { return write(key, value) } catch { return false }
 }
 
 // ---- Session (login / role) ----
 export const getSession = () => read(KEYS.session, null)
-export const setSession = (s) => write(KEYS.session, s)
+/* Quiet on purpose: if the session cannot be written the app simply
+   shows the login screen again, which is a state it already handles.
+   Throwing here would break the one screen that could explain it. */
+export const setSession = (s) => writeQuietly(KEYS.session, s)
 export const clearSession = () => localStorage.removeItem(KEYS.session)
 
 // ---- Reports (drafts + submitted inspection forms) ----
@@ -48,6 +81,9 @@ export function saveReport(report) {
   if (i >= 0) all[i] = report
   else all.push(report)
   write(KEYS.reports, all)
+  // Only once the write went through: a number spent on a report that
+  // was never stored would leave a gap in the register for no reason.
+  claimIssue(report.reportId)
   return report
 }
 
@@ -86,9 +122,58 @@ export function reportsFor(jobNo, deliverable) {
   )
 }
 
+/* Issue numbers, and why a count is the wrong way to get one.
+
+   This used to be "how many reports exist for this job and form, plus
+   one". Delete issue 02 of three and the next report is handed 03 —
+   which the third report is already carrying. Two different inspection
+   records, one document number, and no way to tell them apart in a data
+   book afterwards.
+
+   So the number comes from the highest ever issued, and the high-water
+   mark outlives the record: deleting a report frees nothing, because a
+   number that has been on a document is spent whether or not the
+   document is still here. */
+const ISSUE_KEY = 'qc.issueCounters'
+const issueKey = (code, jobNo) => `${code}/${jobNo}`
+
+const readCounters = () => read(ISSUE_KEY, {})
+
+// Highest issue visible on the reports still on file.
+function highestLive(code, jobNo) {
+  const prefix = `/${code}/${jobNo}/`
+  let hi = 0
+  for (const r of getReports()) {
+    if (!r.reportId || !r.reportId.includes(prefix)) continue
+    const m = String(r.reportId).match(/\/(\d+)$/)
+    if (m) hi = Math.max(hi, Number(m[1]))
+  }
+  return hi
+}
+
+export function nextIssueNo(code, jobNo) {
+  const counters = readCounters()
+  return Math.max(counters[issueKey(code, jobNo)] || 0, highestLive(code, jobNo)) + 1
+}
+
+/* Pure: asking twice gives the same answer. An abandoned form must not
+   burn a number, so the mark is only moved when a report is actually
+   written — see saveReport. */
 export function nextReportId(code, jobNo) {
-  const n = getReports().filter((r) => r.reportId && r.reportId.includes(`/${code}/${jobNo}/`)).length
-  return `${COMPANY.short}/${code}/${jobNo}/${String(n + 1).padStart(2, '0')}`
+  return `${COMPANY.short}/${code}/${jobNo}/${String(nextIssueNo(code, jobNo)).padStart(2, '0')}`
+}
+
+// Record that a number has been used, so nothing can be handed it again.
+function claimIssue(reportId) {
+  const m = String(reportId || '').match(/^[^/]+\/([^/]+)\/([^/]+)\/(\d+)$/)
+  if (!m) return
+  const [, code, jobNo, num] = m
+  const counters = readCounters()
+  const k = issueKey(code, jobNo)
+  const n = Number(num)
+  if ((counters[k] || 0) >= n) return
+  counters[k] = n
+  try { write(ISSUE_KEY, counters) } catch { /* the report itself matters more; highestLive still covers the common case */ }
 }
 
 // ---- Admin status overrides (inline matrix edit) ----

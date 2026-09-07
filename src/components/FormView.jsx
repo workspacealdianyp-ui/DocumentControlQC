@@ -8,6 +8,7 @@ import { fmtDate } from '../lib/status.js'
 import { buildResume } from '../lib/resume.js'
 import { jobIdentity } from '../lib/jobOrders.js'
 import { getSettings } from '../lib/settings.js'
+import { shrink, EVIDENCE_PX } from '../lib/image.js'
 import PrintReport from './PrintReport.jsx'
 import ReportDetail from './ReportDetail.jsx'
 import SignaturePad from './SignaturePad.jsx'
@@ -103,6 +104,51 @@ function Confirm({ title, body, confirm, onConfirm, danger, onDanger, onClose })
           <button className="btn btn-primary" autoFocus onClick={onConfirm}>{confirm}</button>
           {danger && <button className="btn btn-secondary is-danger" onClick={onDanger}>{danger}</button>}
           <button className="btn btn-ghost" onClick={onClose}>Cancel</button>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+
+/* The browser refused to store the report.
+
+   This is the one failure where the right move is not to apologise and
+   carry on. The readings are still on screen and still in memory; what
+   is gone is the place to put them. So the form is left untouched, the
+   way out is named, and the work can be taken out of the browser as a
+   file right here — an inspector standing at a tank with a full phone
+   should not have to choose between losing the record and finding a
+   free megabyte first. */
+function SaveFailed({ message, report, onRetry, onClose }) {
+  useEffect(() => {
+    const esc = (e) => { if (e.key === 'Escape') onClose() }
+    document.addEventListener('keydown', esc)
+    return () => document.removeEventListener('keydown', esc)
+  }, [onClose])
+  const download = () => {
+    const blob = new Blob([JSON.stringify(report, null, 2)], { type: 'application/json' })
+    const a = document.createElement('a')
+    a.href = URL.createObjectURL(blob)
+    a.download = `${(report.reportId || 'report').replace(/[\\/]/g, '-')}.json`
+    a.click()
+    URL.revokeObjectURL(a.href)
+  }
+  return (
+    <div className="modal-backdrop" onClick={onClose}>
+      <div className="modal confirm-modal" onClick={(e) => e.stopPropagation()}
+        role="alertdialog" aria-modal="true" aria-label="The report could not be saved">
+        <div className="sheet-handle" />
+        <h3>This report was not saved</h3>
+        <p className="confirm-body">{message}</p>
+        <p className="confirm-body">
+          Nothing on the form has been lost — it is all still here. Download it now
+          and it can be brought back in from Settings once there is room.
+        </p>
+        <div className="confirm-acts">
+          <button className="btn btn-primary" autoFocus onClick={download}>Download this report</button>
+          <button className="btn btn-secondary" onClick={onRetry}>Try saving again</button>
+          <button className="btn btn-ghost" onClick={onClose}>Back to the form</button>
         </div>
       </div>
     </div>
@@ -379,12 +425,27 @@ function IdentitySection({ sec, values, job, locked, onJobChange }) {
 // ───────────────────────── photo strip ─────────────────────────
 function PhotoStrip({ photos, disabled, onChange }) {
   const [zoom, setZoom] = useState(null)
+  const [addErr, setAddErr] = useState(null)
+  /* Photos are scaled on the way in. Straight off a phone they are 3-5 MB
+     each and a data URL adds a third; the whole browser store is about
+     9 MB, so three untouched photos would leave no room for the report
+     they belong to. Each file is settled on its own, so one unreadable
+     image (HEIC is the usual one) does not take the rest down with it. */
   const add = (e) => {
     const files = Array.from(e.target.files || [])
-    Promise.all(files.map((file) => new Promise((res) => {
-      const r = new FileReader(); r.onload = () => res({ id: 'p' + Date.now() + Math.random(), img: r.result, label: '' }); r.readAsDataURL(file)
-    }))).then((imgs) => onChange([...photos, ...imgs]))
     e.target.value = ''
+    if (!files.length) return
+    setAddErr(null)
+    Promise.allSettled(files.map((f) => shrink(f, EVIDENCE_PX))).then((settled) => {
+      const ok = []
+      const bad = []
+      settled.forEach((r, i) => {
+        if (r.status === 'fulfilled') ok.push({ id: 'p' + Date.now() + Math.random(), img: r.value, label: '' })
+        else bad.push(files[i]?.name || 'one file')
+      })
+      if (ok.length) onChange([...photos, ...ok])
+      if (bad.length) setAddErr(`${bad.join(', ')} could not be added — try a JPEG or PNG.`)
+    })
   }
   return (
     <div className="photo-strip">
@@ -396,6 +457,7 @@ function PhotoStrip({ photos, disabled, onChange }) {
           {!disabled && <button type="button" className="photo-x" onClick={() => onChange(photos.filter((_, xi) => xi !== i))} aria-label="Remove"><IconTrash size={13} /></button>}
         </div>
       ))}
+      {addErr && <p className="photo-err" role="alert">{addErr}</p>}
       {!disabled && (
         <label className="photo-add">
           <IconPlus size={18} /><span>Add photo</span>
@@ -708,6 +770,7 @@ export default function FormView({ job, formKey, query }) {
   const [signField, setSignField] = useState(null)
   const [forceEdit, setForceEdit] = useState(false) // override roles can switch the detail view into edit mode
   const [ask, setAsk] = useState(null)   // 'draft' | 'leave'
+  const [saveFailed, setSaveFailed] = useState(null)
   const [missing, setMissing] = useState(null)
 
   /* What the form looked like before anyone touched it. Leaving a report
@@ -853,11 +916,28 @@ export default function FormView({ job, formKey, query }) {
     Object.keys(e).some((k) => k.startsWith(`${sec.id}.`)) ||
     (sec.id === 'approvals' && (sec.fields || []).some((f) => e[f.id]))
 
+  /* Returns the saved report, or null if the browser refused it.
+
+     Every caller has to check. A failed save used to throw into nothing
+     and leave the form looking saved, which is how an hour of readings
+     disappeared. Now the form stays exactly as it is — nothing is
+     cleared, nothing navigates — and the inspector is told, with a way
+     to get the work out of the browser. */
   const persist = (status) => {
     const rep = { ...report, id: report.id || `${Date.now()}-${Math.random().toString(36).slice(2, 7)}`, reportId: v.reportId, formKey, jobNo: cur.jobNo, deliverable, inspector: v.inspector || session.name, status, createdAt: report.createdAt || new Date().toISOString(), synced: false }
-    saveReport(rep); setReport(rep); refresh(); return rep
+    try {
+      saveReport(rep)
+    } catch (err) {
+      setSaveFailed({ report: rep, message: err?.message || 'This browser refused to save the report.' })
+      return null
+    }
+    setReport(rep); refresh(); return rep
   }
-  const onDraft = () => { persist('draft'); notify('Draft saved — status In Progress') }
+  const onDraft = () => {
+    const saved = persist('draft')
+    if (saved) notify('Draft saved — status In Progress')
+    return saved
+  }
   const leave = () => navigate(`/job/${cur.jobNo}`)
   /* An untouched form has nothing to lose, so back is just back. Once
      there are readings in it, going back is a decision and the form says
@@ -893,7 +973,8 @@ export default function FormView({ job, formKey, query }) {
       setMissing(missingItems(schema, errs, vAll))
       return
     }
-    persist('submitted'); notify('Report submitted — deliverable marked Done'); setTimeout(() => navigate(`/job/${cur.jobNo}`), 600)
+    if (!persist('submitted')) return
+    notify('Report submitted — deliverable marked Done'); setTimeout(() => navigate(`/job/${cur.jobNo}`), 600)
   }
 
   // navigate between sections, flagging any incomplete section left behind
@@ -1038,9 +1119,14 @@ export default function FormView({ job, formKey, query }) {
         <Confirm title="Leave this report?"
           body={<>There are entries on this form that have not been saved. Keep them as a draft you can return to, or discard the form and leave nothing behind.</>}
           confirm="Save as draft and leave"
-          onConfirm={() => { setAsk(null); onDraft(); setTimeout(leave, 350) }}
+          onConfirm={() => { setAsk(null); if (onDraft()) setTimeout(leave, 350) }}
           danger="Discard" onDanger={() => { setAsk(null); leave() }}
           onClose={() => setAsk(null)} />, document.body)}
+
+      {saveFailed && createPortal(
+        <SaveFailed message={saveFailed.message} report={saveFailed.report}
+          onRetry={() => { setSaveFailed(null); persist(saveFailed.report.status) }}
+          onClose={() => setSaveFailed(null)} />, document.body)}
 
       {missing && missing.length > 0 && createPortal(
         <MissingDialog items={missing} onGo={goTo} onClose={() => setMissing(null)} />, document.body)}

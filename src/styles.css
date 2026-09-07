@@ -1148,6 +1148,13 @@ td.th-action { display: flex; gap: 6px; justify-content: flex-end; align-items: 
 .dft-pts input { text-align: center; font-family: var(--mono); padding: 0 6px; min-height: 42px; }
 
 /* photos — compact thumbnails, click to view full */
+/* A file the browser cannot decode is worth saying out loud: the photo
+   is evidence, and silently dropping it means the report ships without
+   the thing it was meant to show. */
+.photo-err {
+  flex-basis: 100%; margin: 6px 0 0;
+  font-size: 12px; font-weight: 500; color: var(--overdue);
+}
 .photo-strip { display: grid; grid-template-columns: repeat(auto-fill, minmax(108px, 1fr)); gap: 10px; }
 .photo-item { position: relative; border-radius: var(--r); overflow: hidden; border: 1px solid var(--line); background: var(--surface-2); }
 .photo-thumb { display: block; width: 100%; padding: 0; border: 0; background: #0f1b2d; cursor: zoom-in; position: relative; }
@@ -5048,4 +5055,18 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber); outline-
 @media (prefers-reduced-motion: reduce) {
   .doc-past { animation: none; }
   .doc-more svg { transition: none; }
+}
+
+/* The three numbers a restore turns on. Set as a list because they are
+   three separate facts about the same file, not a sentence. */
+.set-restore-plan {
+  margin: 4px 0 12px; padding: 12px 14px;
+  list-style: none; display: flex; flex-direction: column; gap: 6px;
+  border: 1px solid var(--line); border-radius: var(--r);
+  background: var(--surface-2);
+  font-size: 13px; color: var(--text-2);
+}
+.set-restore-plan strong {
+  font-family: var(--mono); font-size: 14px; color: var(--text);
+  min-width: 2.2em; display: inline-block;
 }

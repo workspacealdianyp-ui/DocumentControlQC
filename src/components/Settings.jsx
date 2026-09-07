@@ -3,6 +3,8 @@ import { createPortal } from 'react-dom'
 import { useApp, navigate } from '../App.jsx'
 import { ROLES, DELIVERABLES } from '../lib/constants.js'
 import { getAssets, setAssets } from '../lib/store.js'
+import { shrink, PORTRAIT_PX } from '../lib/image.js'
+import { downloadBackup, readBackupFile, planImport, applyImport } from '../lib/backup.js'
 import { getSettings, setSettings, resetSettings, UNITS, DEFAULT_SETTINGS } from '../lib/settings.js'
 import { storageUsage, fmtBytes } from '../lib/storage.js'
 import { hasLock, setLock, clearLock, verify } from '../lib/lock.js'
@@ -121,27 +123,6 @@ const TOOL_CATS = [
    gives this origin about five in total. Scale it down and re-encode it
    before it is ever saved, so a profile picture cannot eat the space the
    reports need. */
-function shrink(file, max) {
-  return new Promise((resolve, reject) => {
-    const fr = new FileReader()
-    fr.onerror = reject
-    fr.onload = () => {
-      const img = new Image()
-      img.onerror = reject
-      img.onload = () => {
-        const scale = Math.min(1, max / Math.max(img.width, img.height))
-        const w = Math.round(img.width * scale), h = Math.round(img.height * scale)
-        const c = document.createElement('canvas')
-        c.width = w; c.height = h
-        c.getContext('2d').drawImage(img, 0, 0, w, h)
-        resolve(c.toDataURL('image/jpeg', 0.82))
-      }
-      img.src = fr.result
-    }
-    fr.readAsDataURL(file)
-  })
-}
-
 /* ── Row primitives ──────────────────────────────────────────────── */
 
 // Icon, title, one line of explanation, switch. The explanation is the
@@ -210,6 +191,7 @@ export default function Settings({ section }) {
   const [q, setQ] = useState('')
   const [signing, setSigning] = useState(false)
   const [locked, setLocked] = useState(hasLock)
+  const [restore, setRestore] = useState(null)   // { payload, plan } — waiting to be confirmed
   const [pin, setPin] = useState(null)      // { mode: 'set' | 'change' | 'remove' }
   const [pinErr, setPinErr] = useState('')
   const used = storageUsage()
@@ -392,7 +374,7 @@ export default function Settings({ section }) {
                         <input type="file" accept="image/*" hidden onChange={(e) => {
                           const file = e.target.files?.[0]; e.target.value = ''
                           if (!file) return
-                          shrink(file, 256).then((url) => { patch('profile', 'photo', url); notify('Photo saved to this browser') })
+                          shrink(file, PORTRAIT_PX).then((url) => { patch('profile', 'photo', url); notify('Photo saved to this browser') })
                         }} />
                       </label>
                       {cfg.profile.photo && (
@@ -698,11 +680,57 @@ export default function Settings({ section }) {
                 <small>{fmtBytes(used.bytes)} of {fmtBytes(used.budget)} used by reports, photos, signatures and job orders</small>
               </div>
               <div className="set-rows set-actions">
+                {/* The records first, then the preferences. Until there is
+                    a back end this file is the only copy of the archive
+                    that survives a cleared browser, so it is the action
+                    at the top of the panel rather than a footnote under
+                    the settings export. */}
+                <div className="set-row">
+                  <span className="set-row-ico"><IconDownload size={15} /></span>
+                  <span className="set-row-text">
+                    <strong>Back up all records</strong>
+                    <small>
+                      Reports, job orders, status overrides, the instrument register and
+                      signatures, as one JSON file. This is the only copy that survives
+                      clearing this browser.
+                    </small>
+                  </span>
+                  <button className="btn btn-primary btn-sm" onClick={() => {
+                    try {
+                      const c = downloadBackup()
+                      notify(`Backed up ${c.reports} report${c.reports === 1 ? '' : 's'} (${c.approved} approved)`)
+                    } catch (e) { notify(e.message || 'The backup could not be written', 'err') }
+                  }}>Back up</button>
+                </div>
+
+                <div className="set-row">
+                  <span className="set-row-ico"><IconPlus size={15} /></span>
+                  <span className="set-row-text">
+                    <strong>Restore from a backup</strong>
+                    <small>
+                      Merges the file into what is already here. Records are matched by
+                      their id and the newer one wins, so restoring an older file never
+                      undoes newer work, and nothing is deleted.
+                    </small>
+                  </span>
+                  <label className="btn btn-secondary btn-sm">
+                    Choose file
+                    <input type="file" accept="application/json,.json" hidden onChange={(e) => {
+                      const f = e.target.files?.[0]
+                      e.target.value = ''
+                      if (!f) return
+                      readBackupFile(f)
+                        .then((payload) => { setRestore({ payload, plan: planImport(payload) }) })
+                        .catch((err) => notify(err.message || 'That file could not be read', 'err'))
+                    }} />
+                  </label>
+                </div>
+
                 <div className="set-row">
                   <span className="set-row-ico"><IconDownload size={15} /></span>
                   <span className="set-row-text">
                     <strong>Export settings</strong>
-                    <small>Download this panel's choices as JSON</small>
+                    <small>Download this panel's choices on their own</small>
                   </span>
                   <button className="btn btn-secondary btn-sm" onClick={() => {
                     const blob = new Blob([JSON.stringify(cfg, null, 2)], { type: 'application/json' })
@@ -755,6 +783,40 @@ export default function Settings({ section }) {
           }} />,
         document.body
       )}
+
+      {/* A restore is shown as a count before it happens. "Import 42
+          records" means nothing next to knowing that 3 are new, 1 is
+          newer than what is here, and 38 are already on file — that is
+          what tells you whether this is the file you meant. */}
+      {restore && createPortal(
+        <div className="modal-backdrop" onClick={() => setRestore(null)}>
+          <div className="modal confirm-modal" onClick={(e) => e.stopPropagation()}
+            role="dialog" aria-modal="true" aria-label="Restore from a backup">
+            <div className="sheet-handle" />
+            <h3>Restore this backup?</h3>
+            <p className="confirm-body">
+              The file holds {restore.plan.inFile} report{restore.plan.inFile === 1 ? '' : 's'}.
+              This browser has {restore.plan.alreadyHere}.
+            </p>
+            <ul className="set-restore-plan">
+              <li><strong>{restore.plan.added}</strong> would be added</li>
+              <li><strong>{restore.plan.updated}</strong> would be replaced by a newer version from the file</li>
+              <li><strong>{restore.plan.kept}</strong> already here and the same or newer, so left alone</li>
+            </ul>
+            <p className="confirm-body">Nothing is deleted by a restore.</p>
+            <div className="confirm-acts">
+              <button className="btn btn-primary" autoFocus onClick={() => {
+                try {
+                  const done = applyImport(restore.payload)
+                  setRestore(null)
+                  notify(`Restored — ${done.added} added, ${done.updated} updated`)
+                  setTimeout(() => window.location.reload(), 700)
+                } catch (e) { notify(e.message || 'The restore failed', 'err'); setRestore(null) }
+              }}>Restore {restore.plan.added + restore.plan.updated} record{restore.plan.added + restore.plan.updated === 1 ? '' : 's'}</button>
+              <button className="btn btn-ghost" onClick={() => setRestore(null)}>Cancel</button>
+            </div>
+          </div>
+        </div>, document.body)}
 
       {pin && createPortal(<PinDialog mode={pin.mode} err={pinErr}
         onClose={() => { setPin(null); setPinErr('') }}
