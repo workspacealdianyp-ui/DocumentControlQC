@@ -1,0 +1,4 @@
+interface:
+  display_name: "Frontend Taste & Grill"
+  short_description: "Grill briefs and ship polished interfaces"
+  default_prompt: "Use $frontend-taste-grill to question me about this frontend, propose a visual direction, implement the approved slice, and verify it in the browser."
