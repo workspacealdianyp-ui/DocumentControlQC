@@ -2,7 +2,7 @@ import { useMemo, useState, useEffect, useRef } from 'react'
 import { createPortal } from 'react-dom'
 import { useApp, navigate } from '../App.jsx'
 import { FORM_SCHEMAS, IDENT_GROUPS, dimRowStatus, dimDeviation, dimBreach } from '../data/formSchemas.js'
-import { getReport, saveReport, nextReportId, approveReport } from '../lib/store.js'
+import { getReport, saveReport, nextReportId, approveReport, canApprove, reviseReport } from '../lib/store.js'
 import { MR } from '../lib/compute.js'
 import { fmtDate } from '../lib/status.js'
 import { buildResume } from '../lib/resume.js'
@@ -248,6 +248,15 @@ function MissingDialog({ items, onGo, onClose }) {
 }
 
 // ───────────────────────── one field ─────────────────────────
+/* Options may be a list frozen into the schema, or a function of the
+   current values. A function is what lets a field draw on the
+   calibrated-instrument register instead of a list written into the
+   form — and it is handed the value already recorded, so a tag stays
+   selectable after its calibration lapses. The record says what was
+   used; hiding it would blank a submitted field. */
+const optsOf = (f, v) =>
+  typeof f.options === 'function' ? (f.options(v, v[f.id] || '') || []) : (f.options || [])
+
 function EngineField({ f, values, reqValues, report, set, locked, invalid, onRequestSign, signLocked, session, jobs, onJobChange }) {
   const v = values
   const disabled = locked || (f.adminOnly && false)
@@ -262,22 +271,27 @@ function EngineField({ f, values, reqValues, report, set, locked, invalid, onReq
   let control
   switch (f.type) {
     case 'segmented':
-      control = <Segmented value={v[f.id] || ''} options={f.options} disabled={disabled} invalid={invalid} onChange={(x) => set(f.id, x)} />
-      break
     case 'toggle':
-      control = <Segmented value={v[f.id] || ''} options={f.options} disabled={disabled} invalid={invalid} onChange={(x) => set(f.id, x)} />
+      control = <Segmented value={v[f.id] || ''} options={optsOf(f, v)} disabled={disabled} invalid={invalid} onChange={(x) => set(f.id, x)} />
       break
     case 'choice':
-      control = <Choice value={v[f.id] || ''} options={f.options} disabled={disabled} invalid={invalid} onChange={(x) => set(f.id, x)} />
+      control = <Choice value={v[f.id] || ''} options={optsOf(f, v)} disabled={disabled} invalid={invalid} onChange={(x) => set(f.id, x)} />
       break
-    case 'select':
+    case 'select': {
+      /* Options may be a function so a field can draw on the instrument
+         register rather than a list frozen into the schema. It is passed
+         the current value too, so a tag already recorded on the report
+         stays selectable even after its calibration lapses — the record
+         says what was used. */
+      const opts = optsOf(f, v)
       control = (
         <select value={v[f.id] || ''} disabled={disabled} className={invalid ? 'invalid' : undefined} onChange={(e) => set(f.id, e.target.value)}>
           <option value="">Select</option>
-          {f.options.map((o) => <option key={o} value={o}>{o}</option>)}
+          {opts.map((o) => <option key={o} value={o}>{o}</option>)}
         </select>
       )
       break
+    }
     case 'number':
       control = <NumberInput value={v[f.id]} unit={unit} disabled={disabled} invalid={invalid} placeholder={f.placeholder} onChange={(x) => set(f.id, x)} />
       break
@@ -812,12 +826,40 @@ export default function FormView({ job, formKey, query }) {
     return (
       <>
         <ReportDetail
-          schema={schema} report={report} job={cur} deliverable={deliverable} status={reportStatus} role={role}
+          schema={schema} report={report} job={cur} deliverable={deliverable} status={reportStatus} role={role} session={session}
           onBack={() => navigate(`/job/${cur.jobNo}`)}
           onPdf={() => setShowPdf(true)}
-          onApprove={() => { approveReport(report.id, session.name); setReport((r) => ({ ...r, status: 'approved' })); refresh(); notify(`${report.values.reportId} approved`) }}
-          onEdit={() => setForceEdit(true)}
+          onApprove={() => {
+            try {
+              approveReport(report.id, session.name)
+              setReport((r) => ({ ...r, status: 'approved' })); refresh()
+              notify(`${report.values.reportId} approved`)
+            } catch (e) { notify(e.message, 'err') }
+          }}
+          /* Correcting a report that is only submitted is ordinary work
+             and edits it in place. Amending one that has been approved
+             does not: that document has been read and relied on, so the
+             change becomes the next issue and the approved one stays as
+             it was approved. */
+          onEdit={() => { if (reportStatus === 'approved') setAsk('revise'); else setForceEdit(true) }}
         />
+      {ask === 'revise' && createPortal(
+        <Confirm title="Amend an approved report?"
+          body={<>{report.reportId} was approved and stays on file exactly as it was approved.
+            Your changes become {nextReportId(schema.code, cur.jobNo)}, a new issue that supersedes it
+            and has to be submitted and approved on its own.</>}
+          confirm={`Raise ${nextReportId(schema.code, cur.jobNo)}`}
+          onConfirm={() => {
+            setAsk(null)
+            try {
+              const rev = reviseReport(report, schema.code)
+              notify(`${rev.reportId} raised — ${report.reportId} is unchanged`)
+              navigate(`/job/${cur.jobNo}/form/${formKey}?d=${encodeURIComponent(deliverable)}&rid=${encodeURIComponent(rev.id)}`)
+              setTimeout(() => window.location.reload(), 120)
+            } catch (e) { notify(e.message || 'The revision could not be saved', 'err') }
+          }}
+          onClose={() => setAsk(null)} />, document.body)}
+
       {showPdf && createPortal(<PrintReport schema={schema} report={report} job={cur} deliverable={deliverable} status={reportStatus} onClose={() => setShowPdf(false)} />, document.body)}
       </>
     )
@@ -1099,8 +1141,20 @@ export default function FormView({ job, formKey, query }) {
             {!readOnly && (
               <button className="btn btn-secondary" onClick={() => setAsk('draft')}>Save Draft</button>
             )}
+            {/* Approval is a second person's judgement, so it is not
+                offered to whoever recorded the report — with a line
+                saying why, rather than a button that quietly is not
+                there. */}
             {role.canOverride && reportStatus === 'submitted' && existing && (
-              <button className="btn btn-primary" onClick={() => { approveReport(report.id, session.name); setReport((r) => ({ ...r, status: 'approved' })); refresh(); notify(`${v.reportId} approved`) }}>Approve</button>
+              canApprove(report, session.name)
+                ? <button className="btn btn-primary" onClick={() => {
+                    try {
+                      approveReport(report.id, session.name)
+                      setReport((r) => ({ ...r, status: 'approved' })); refresh()
+                      notify(`${v.reportId} approved`)
+                    } catch (e) { notify(e.message, 'err') }
+                  }}>Approve</button>
+                : <p className="rail-note">You recorded this report, so someone else has to approve it.</p>
             )}
           </div>
         </aside>

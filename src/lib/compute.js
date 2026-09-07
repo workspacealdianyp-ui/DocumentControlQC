@@ -1,6 +1,6 @@
 // Auto-calculation registry + conditional-visibility evaluator.
 // Shared by the live form renderer (FormView) and the printable report (PrintReport).
-import { getAssets } from './store.js'
+import { getRegister, labelOf } from './instruments.js'
 
 function minutesOf(t) {
   if (!t || !/^\d{2}:\d{2}/.test(t)) return null
@@ -65,7 +65,18 @@ export const COMPUTE = {
     if (!nums.length) return ''
     return (nums.reduce((a, b) => a + b, 0) / nums.length).toFixed(1)
   },
-  mtEquipSn: (vals) => getAssets().mtEquipment?.[vals.mtEquip] || '',
+  /* The MT equipment serial, looked up from the register by the method
+     the inspector chose. This read `vals.mtEquip` against a register
+     keyed 'Yoke' / 'Prod' / 'Coil' while the field is called
+     `mtEquipment` and offers 'Yoke' / 'Prod.' / 'Other' — three
+     mismatches, so it returned nothing every time. Matching on the
+     method recorded against each instrument makes the register the
+     single place those names are written down. */
+  mtEquipSn: (vals) => {
+    const pick = vals.mtEquipment || vals.mtEquip || ''
+    const inst = (getRegister().mtEquipment || []).find((i) => i.method === pick)
+    return inst ? labelOf(inst) : ''
+  },
   deviation: (row) => {
     const n = parseFloat(row.nominal), a = parseFloat(row.actual)
     return isNaN(n) || isNaN(a) ? '' : (a - n).toFixed(2)

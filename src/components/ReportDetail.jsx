@@ -5,6 +5,7 @@ import { MR } from '../lib/compute.js'
 import { fmtDate } from '../lib/status.js'
 import { buildResume } from '../lib/resume.js'
 import { IconPrint, IconPen, IconChevronR, IconApprove, IconSend, IconXCircle } from './Icons.jsx'
+import { canApprove } from '../lib/store.js'
 import Masthead from './Masthead.jsx'
 
 // read-only detail view of a submitted/approved report — shows the entered data, never edits
@@ -138,7 +139,7 @@ function DetailSignatures({ fields, v }) {
 
 const VIEW_KEY = 'qc.detailView'
 
-export default function ReportDetail({ schema, report, job, deliverable, status, role, onBack, onPdf, onApprove, onEdit }) {
+export default function ReportDetail({ schema, report, job, deliverable, status, role, session, onBack, onPdf, onApprove, onEdit }) {
   const v = report.values || {}
   const [zoom, setZoom] = useState(null)
   const secs = schema.sections.filter((s) => !s.noPrint && s.id !== 'setup')
@@ -204,7 +205,10 @@ export default function ReportDetail({ schema, report, job, deliverable, status,
             <button className={view === 'paged' ? 'on' : ''} aria-pressed={view === 'paged'}
               onClick={() => setViewMode('paged')}>Pages</button>
           </div>
-          {role.canOverride && status === 'submitted' && (
+          {/* Not offered to whoever recorded it: approval is the second
+              person's judgement, and a button you are not allowed to
+              press is worse than one that is not there. */}
+          {role.canOverride && status === 'submitted' && canApprove(report, session?.name) && (
             <button className="dbtn is-primary" onClick={onApprove}><IconApprove size={14} /> Approve</button>
           )}
           <button className="dbtn" onClick={onPdf}><IconPrint size={14} /> PDF Report</button>

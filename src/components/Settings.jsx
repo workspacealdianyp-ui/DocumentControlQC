@@ -5,6 +5,7 @@ import { ROLES, DELIVERABLES } from '../lib/constants.js'
 import { getAssets, setAssets } from '../lib/store.js'
 import { shrink, PORTRAIT_PX } from '../lib/image.js'
 import { downloadBackup, readBackupFile, planImport, applyImport } from '../lib/backup.js'
+import { getRegister, calState, INSTRUMENT_KINDS } from '../lib/instruments.js'
 import { getSettings, setSettings, resetSettings, UNITS, DEFAULT_SETTINGS } from '../lib/settings.js'
 import { storageUsage, fmtBytes } from '../lib/storage.js'
 import { hasLock, setLock, clearLock, verify } from '../lib/lock.js'
@@ -81,48 +82,27 @@ function changedCount(cfg, id) {
   return n
 }
 
-/* An instrument is registered as free text, and the last thing on the
-   line is normally its calibration date. Read it when it is there and
-   say nothing when it is not: guessing a date would be worse than
-   admitting none was recorded. */
-/* Three shapes turn up in a real register: a full ISO date, a day-first
-   date, and a year-month, which is how a certificate that only names the
-   month gets written down. A year-month is read as the end of that
-   month, which is when it actually lapses. */
-const DATE_RE = /(\d{4}-\d{2}-\d{2})|(\d{1,2}[\/.-]\d{1,2}[\/.-]\d{4})|(\d{4}-\d{2})\s*$/
-function calStatus(text) {
-  const m = String(text).match(DATE_RE)
-  if (!m) return { state: 'none', label: 'No date' }
-  let d
-  if (m[1]) d = new Date(m[1] + 'T00:00:00')
-  else if (m[2]) {
-    const [a, b, c] = m[2].split(/[\/.-]/).map(Number)
-    d = new Date(c, b - 1, a)
-  } else {
-    const [y, mo] = m[3].split('-').map(Number)
-    d = new Date(y, mo, 0)   // day 0 of the next month is the last of this one
-  }
-  if (isNaN(d)) return { state: 'none', label: 'No date' }
-  const days = Math.round((d - new Date()) / 86400000)
-  if (days < 0) return { state: 'over', label: days > -400 ? `Expired ${Math.abs(days)}d ago` : 'Expired' }
-  if (days <= 30) return { state: 'soon', label: `Due in ${days}d` }
-  if (days <= 365) return { state: 'ok', label: `Due in ${Math.round(days / 30)} mo` }
-  return { state: 'ok', label: 'In date' }
+/* How an instrument's calibration is read is now the register's own
+   business (lib/instruments.js), so the form and this panel cannot
+   disagree about whether a gauge may be used. What is left here is only
+   the wording. */
+function calLabel(inst) {
+  const state = calState(inst)
+  if (state === 'unknown') return { state, label: 'No due date' }
+  const days = Math.round((new Date(inst.due + 'T00:00:00') - new Date()) / 86400000)
+  if (days < 0) return { state, label: days > -400 ? `Expired ${Math.abs(days)}d ago` : 'Expired' }
+  if (days <= 30) return { state, label: `Due in ${days}d` }
+  if (days <= 365) return { state, label: `Due in ${Math.round(days / 30)} mo` }
+  return { state, label: 'In date' }
 }
 
-const TOOL_CATS = [
-  { key: 'pressureGauge', label: 'Pressure Gauges' },
-  { key: 'barton', label: 'Barton Recorders' },
-  { key: 'thermometer', label: 'Thermometers' },
-  { key: 'hygrometer', label: 'Hygrometers / Ambient Meters' },
-  { key: 'lightmeter', label: 'Lightmeters' },
-]
+/* Straight from the register's own list of kinds, so a category the
+   forms can draw on cannot be missing a panel to edit it — temperature
+   gauges and MT equipment were both being offered on forms with no way
+   to register anything for them. */
+const TOOL_CATS = Object.entries(INSTRUMENT_KINDS).map(([key, label]) => ({ key, label }))
 
 
-/* A photo off a phone camera is two to four megabytes, and localStorage
-   gives this origin about five in total. Scale it down and re-encode it
-   before it is ever saved, so a profile picture cannot eat the space the
-   reports need. */
 /* ── Row primitives ──────────────────────────────────────────────── */
 
 // Icon, title, one line of explanation, switch. The explanation is the
@@ -573,17 +553,19 @@ export default function Settings({ section }) {
             <Panel title="Measurement Tools"
               desc="The calibrated instruments an inspector can pick on a form. Type the ID, what it is, and the calibration date; the date is read back and checked against today.">
               {(() => {
-                const every = TOOL_CATS.flatMap((c) => assets[c.key] || [])
-                const over = every.filter((a) => calStatus(a).state === 'over').length
-                const soon = every.filter((a) => calStatus(a).state === 'soon').length
-                const none = every.filter((a) => calStatus(a).state === 'none').length
+                const reg = getRegister()
+                const every = TOOL_CATS.flatMap((c) => reg[c.key] || [])
+                const over = every.filter((a) => calState(a) === 'over').length
+                const soon = every.filter((a) => calState(a) === 'soon').length
+                const none = every.filter((a) => calState(a) === 'unknown').length
                 return (
                   <div className="set-note set-cal-summary">
                     <strong>{every.length} instrument{every.length === 1 ? '' : 's'} registered</strong>
                     <p>
-                      {over > 0 && <>{over} past calibration and still selectable. </>}
+                      {over > 0 && <>{over} past calibration, and no longer offered on a form. </>}
                       {soon > 0 && <>{soon} due within 30 days. </>}
-                      {none > 0 && <>{none} with no date recorded. </>}
+                      {none > 0 && <>{none} with no due date recorded — still offered, because a
+                        missing date is an incomplete register rather than an expired instrument. </>}
                       {!over && !soon && !none && every.length > 0 && <>Every one is in date. </>}
                       {every.length === 0 && <>Nothing registered yet, so no instrument can be picked on a form. </>}
                     </p>
@@ -598,39 +580,56 @@ export default function Settings({ section }) {
                       <span className="set-tool-n">{(assets[c.key] || []).length}</span>
                     </div>
                     <ul className="asset-list">
-                      {(assets[c.key] || []).map((a, i) => {
-                        const cal = calStatus(a)
+                      {(getRegister()[c.key] || []).map((inst, i) => {
+                        const cal = calLabel(inst)
                         return (
                         <li key={i} className={`cal-${cal.state}`}>
-                          <span>{a}</span>
-                          {/* An instrument past its calibration date must
-                              not be picked on a form, so the list says so
-                              rather than leaving it to be read off the
-                              end of a free-text line. */}
+                          <span><strong>{inst.tag}</strong>{inst.desc ? ` · ${inst.desc}` : ''}
+                            {inst.method ? ` · ${inst.method}` : ''}</span>
+                          {/* An instrument past its due date is not offered
+                              on a form at all now, so this line says what
+                              already happened rather than warning about
+                              something nobody acts on. */}
                           <em className="asset-cal">{cal.label}</em>
-                          <button className="btn btn-ghost btn-icon" aria-label={`Remove ${a}`}
+                          <button className="btn btn-ghost btn-icon" aria-label={`Remove ${inst.tag}`}
                             onClick={() => {
-                              saveAssets({ ...assets, [c.key]: assets[c.key].filter((_, xi) => xi !== i) })
+                              saveAssets({ ...assets, [c.key]: (getRegister()[c.key] || []).filter((_, xi) => xi !== i) })
                               notify('Instrument removed')
                             }}><IconTrash size={12} /></button>
                         </li>
                       )})}
-                      {!(assets[c.key] || []).length && <li className="asset-empty">Nothing registered yet.</li>}
+                      {!(getRegister()[c.key] || []).length && <li className="asset-empty">Nothing registered yet.</li>}
                     </ul>
+                    {/* The due date is its own field. It used to be read off
+                        the end of a free-text line, which meant a typo
+                        silently turned into "no date recorded" and the
+                        instrument stayed selectable for ever. */}
                     <div className="asset-add">
-                      <input placeholder="ID · description · calibration date"
-                        value={draft[c.key] || ''}
-                        onChange={(e) => setDraft({ ...draft, [c.key]: e.target.value })}
-                        onKeyDown={(e) => {
-                          if (e.key === 'Enter' && draft[c.key]?.trim()) {
-                            saveAssets({ ...assets, [c.key]: [...(assets[c.key] || []), draft[c.key].trim()] })
-                            setDraft({ ...draft, [c.key]: '' }); notify('Instrument added')
-                          }
-                        }} />
-                      <button className="btn btn-secondary btn-sm" disabled={!draft[c.key]?.trim()}
+                      <input placeholder="Tag — e.g. PG-005" className="asset-tag"
+                        value={draft[c.key + '.tag'] || ''}
+                        onChange={(e) => setDraft({ ...draft, [c.key + '.tag']: e.target.value })} />
+                      <input placeholder="What it is" className="asset-desc"
+                        value={draft[c.key + '.desc'] || ''}
+                        onChange={(e) => setDraft({ ...draft, [c.key + '.desc']: e.target.value })} />
+                      <label className="asset-date">Calibrated
+                        <input type="date" value={draft[c.key + '.cal'] || ''}
+                          onChange={(e) => setDraft({ ...draft, [c.key + '.cal']: e.target.value })} />
+                      </label>
+                      <label className="asset-date">Due
+                        <input type="date" value={draft[c.key + '.due'] || ''}
+                          onChange={(e) => setDraft({ ...draft, [c.key + '.due']: e.target.value })} />
+                      </label>
+                      <button className="btn btn-secondary btn-sm" disabled={!draft[c.key + '.tag']?.trim()}
                         onClick={() => {
-                          saveAssets({ ...assets, [c.key]: [...(assets[c.key] || []), draft[c.key].trim()] })
-                          setDraft({ ...draft, [c.key]: '' }); notify('Instrument added')
+                          const inst = {
+                            tag: (draft[c.key + '.tag'] || '').trim(),
+                            desc: (draft[c.key + '.desc'] || '').trim(),
+                            cal: draft[c.key + '.cal'] || '',
+                            due: draft[c.key + '.due'] || '',
+                          }
+                          saveAssets({ ...assets, [c.key]: [...(getRegister()[c.key] || []), inst] })
+                          setDraft({ ...draft, [c.key + '.tag']: '', [c.key + '.desc']: '', [c.key + '.cal']: '', [c.key + '.due']: '' })
+                          notify(inst.due ? 'Instrument added' : 'Added — no due date, so it will be flagged')
                         }}><IconPlus size={12} /> Add</button>
                     </div>
                   </div>

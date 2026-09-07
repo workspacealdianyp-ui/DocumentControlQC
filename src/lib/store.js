@@ -87,15 +87,69 @@ export function saveReport(report) {
   return report
 }
 
+/* An approved report is amended by raising the next issue, never by
+   rewriting it.
+
+   An override role could open an approved report and edit it in place:
+   same id, same document number, changed content, with approvedBy and
+   approvedAt still sitting on it from the version somebody actually
+   read. Anyone holding the old printout had no way to know. So an
+   amendment becomes its own record that says what it supersedes, and the
+   approved issue stays exactly as it was approved.
+
+   The revision starts as a draft, because it has not been approved
+   either — and it cannot be approved by whoever raises it. */
+export function reviseReport(base, code) {
+  const reportId = nextReportId(code, base.jobNo)
+  const rev = {
+    ...base,
+    id: `${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
+    reportId,
+    status: 'draft',
+    supersedes: base.reportId,
+    supersedesId: base.id,
+    revisedFromApprovedAt: base.approvedAt || null,
+    createdAt: new Date().toISOString(),
+    synced: false,
+    values: { ...(base.values || {}), reportId },
+  }
+  delete rev.approvedBy
+  delete rev.approvedAt
+  delete rev.updatedAt
+  saveReport(rev)
+  return rev
+}
+
 export function deleteReport(id) {
   write(KEYS.reports, getReports().filter((r) => r.id !== id))
 }
 
-// Lifecycle: draft -> submitted -> approved (Admin/QA Lead approves)
+/* Lifecycle: draft -> submitted -> approved.
+
+   Approval is a second person saying the record is sound. Nobody can do
+   that for their own work, so the one thing this has to refuse is the
+   inspector who filled the report approving it — which it did not: the
+   name was written down and never compared to anything.
+
+   This is a control, not a security boundary. Without a back end anyone
+   can sign in as anyone, so it stops the ordinary mistake of approving
+   your own report rather than a determined person. Saying which of the
+   two this is matters more than the check itself. */
+export class SelfApprovalError extends Error {
+  constructor(name) {
+    super(`${name} recorded this report, so cannot also approve it. Approval is a second person's judgement.`)
+    this.name = 'SelfApprovalError'
+  }
+}
+
+export const canApprove = (report, byName) =>
+  !!report && !!byName && (report.inspector || '').trim().toLowerCase() !== byName.trim().toLowerCase()
+
 export function approveReport(id, byName) {
   const all = getReports()
   const r = all.find((x) => x.id === id)
   if (!r) return null
+  if (!canApprove(r, byName)) throw new SelfApprovalError(byName)
   r.status = 'approved'
   r.approvedBy = byName
   r.approvedAt = new Date().toISOString()

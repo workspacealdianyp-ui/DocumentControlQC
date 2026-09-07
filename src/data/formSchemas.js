@@ -1,3 +1,4 @@
+import { optionsFor, methodsFor } from '../lib/instruments.js'
 // The 7 inspection form templates — ported from the old app/ engine model
 // (see memory: port-old-form-engine). Each form: { key, code, title, deliverable,
 //   reportTitle(v), signRoles(v), formNo, headerExtra[], derive(key,val,v), sections[] }
@@ -79,12 +80,12 @@ export const FORM_SCHEMAS = {
         { id: 'holding', label: 'Holding Period', type: 'number', unit: 'min', half: true, req: 'M' },
       ]},
       { id: 'equip', title: 'Test Equipment', subtitle: 'Pick the calibrated instrument — locked once the test starts', lockable: true, fields: [
-        { id: 'pg1', label: (v) => v.gauges === '2 Gauges' ? 'PG 1 (Top)' : 'Pressure Gauge', type: 'select', options: ['PG-64 · 0–230 PsiG', 'PG-12 · 0–400 PsiG', 'PG-88 · 0–600 PsiG'], locks: true, req: 'M' },
-        { id: 'pg2', label: 'PG 2 (Bottom)', type: 'select', options: ['PG-65 · 0–230 PsiG', 'PG-13 · 0–400 PsiG', 'PG-89 · 0–600 PsiG'], locks: true, req: 'M', showIf: (v) => v.gauges === '2 Gauges' },
-        { id: 'pressRecorder', label: 'Pressure Recorder', type: 'select', options: ['Chart Recorder A', 'Chart Recorder B', 'Digital Recorder'], locks: true, showIf: (v) => v.useRecorder !== 'Not used' },
+        { id: 'pg1', label: (v) => v.gauges === '2 Gauges' ? 'PG 1 (Top)' : 'Pressure Gauge', type: 'select', options: (v, keep) => optionsFor('pressureGauge', { on: v.inspDate, keep }), locks: true, req: 'M' },
+        { id: 'pg2', label: 'PG 2 (Bottom)', type: 'select', options: (v, keep) => optionsFor('pressureGauge', { on: v.inspDate, keep }), locks: true, req: 'M', showIf: (v) => v.gauges === '2 Gauges' },
+        { id: 'pressRecorder', label: 'Pressure Recorder', type: 'select', options: (v, keep) => optionsFor('barton', { on: v.inspDate, keep }), locks: true, showIf: (v) => v.useRecorder !== 'Not used' },
         { id: 'scale', label: 'Scale', type: 'text', placeholder: 'e.g. 1 div = 4 PsiG', half: true, showIf: (v) => v.useRecorder !== 'Not used' },
-        { id: 'tempRecorder', label: 'Temp. Recorder (TR)', type: 'select', options: ['TR-01', 'TR-02', 'Digital Thermometer'], locks: true, showIf: (v) => v.useTemp !== 'Not used' },
-        { id: 'tempGauge', label: 'Temp. Gauge (TG)', type: 'select', options: ['TG-11', 'TG-12', 'Dial Temp. Gauge'], locks: true, showIf: (v) => v.useTemp !== 'Not used' },
+        { id: 'tempRecorder', label: 'Temp. Recorder (TR)', type: 'select', options: (v, keep) => optionsFor('thermometer', { on: v.inspDate, keep }), locks: true, showIf: (v) => v.useTemp !== 'Not used' },
+        { id: 'tempGauge', label: 'Temp. Gauge (TG)', type: 'select', options: (v, keep) => optionsFor('tempGauge', { on: v.inspDate, keep }), locks: true, showIf: (v) => v.useTemp !== 'Not used' },
       ]},
       { id: 'recording', title: 'Recording Table', subtitle: 'Checkpoint readings — columns follow your test setup', type: 'recording' },
       { id: 'photos', title: 'Documentation', subtitle: 'Printed mid-page on the report', type: 'photos' },
@@ -143,11 +144,11 @@ export const FORM_SCHEMAS = {
     midSections: [
       { id: 'lighting', title: 'Lighting', fields: [
         { id: 'lightEquip', label: 'Lighting Equipment', type: 'text', placeholder: 'e.g. LED Floodlight 50W' },
-        { id: 'lightmeter', label: 'Lightmeter ID', type: 'text', half: true },
+        { id: 'lightmeter', label: 'Lightmeter', type: 'select', half: true, options: (v, keep) => optionsFor('lightmeter', { on: v.inspDate, keep }) },
         { id: 'lightIntensity', label: 'Light Intensity', type: 'number', unit: 'lux', half: true, req: 'M', hint: 'Min. 1000 lux' },
       ]},
       { id: 'equipment', title: 'Equipment & Technique', fields: [
-        { id: 'mtEquipment', label: 'MT Equipment', type: 'segmented', options: ['Yoke', 'Prod.', 'Other'], req: 'M' },
+        { id: 'mtEquipment', label: 'MT Equipment', type: 'segmented', options: (v) => methodsFor('mtEquipment', v.inspDate), req: 'M' },
         { id: 'equipId', label: 'Equipment ID / Serial No.', type: 'text', half: true },
         { id: 'currentType', label: 'Type of Current', type: 'segmented', options: ['AC', 'HWDC-HWAC', 'Other'], half: true },
         { id: 'particle', label: 'Type of Particle', type: 'choice', options: ['Wet (WPC2/7HF)', 'Dry', 'Visible, Wet'] },
@@ -182,7 +183,7 @@ export const FORM_SCHEMAS = {
     midSections: [
       { id: 'lighting', title: 'Lighting', fields: [
         { id: 'lightEquip', label: 'Lighting Equipment', type: 'text' },
-        { id: 'lightmeter', label: 'Lightmeter ID', type: 'text', half: true },
+        { id: 'lightmeter', label: 'Lightmeter', type: 'select', half: true, options: (v, keep) => optionsFor('lightmeter', { on: v.inspDate, keep }) },
         { id: 'lightIntensity', label: 'Light Intensity', type: 'number', unit: 'lux', half: true, req: 'M', hint: 'Min. 1000 lux' },
       ]},
       { id: 'system', title: 'Penetrant System', fields: [

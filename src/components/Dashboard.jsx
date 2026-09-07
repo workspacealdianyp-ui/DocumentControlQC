@@ -1,7 +1,7 @@
 import { Fragment, useEffect, useMemo, useRef, useState } from 'react'
 import { useApp, navigate } from '../App.jsx'
 import { FORM_SCHEMAS } from '../data/formSchemas.js'
-import { getReports, approveReport, deleteReport } from '../lib/store.js'
+import { getReports, approveReport, deleteReport, canApprove } from '../lib/store.js'
 import { fmtDate } from '../lib/status.js'
 import { reportResult } from '../lib/verdict.js'
 import { StateBadge } from './StatusChip.jsx'
@@ -38,7 +38,7 @@ const matchTab = (r, tab) =>
     : tab === 'reject' ? reportResult(r) === 'Reject'
       : r.status === tab
 
-function RowMenu({ report, onOpen, onApprove, onDelete, canManage }) {
+function RowMenu({ report, onOpen, onApprove, onDelete, canManage, canApproveIt }) {
   const [open, setOpen] = useState(false)
   const ref = useRef(null)
   useEffect(() => {
@@ -54,7 +54,7 @@ function RowMenu({ report, onOpen, onApprove, onDelete, canManage }) {
       {open && (
         <div className="rowmenu-pop" role="menu">
           <button role="menuitem" onClick={() => { setOpen(false); onOpen() }}><IconPrint size={13} /> Open report</button>
-          {canManage && report.status === 'submitted' && (
+          {canManage && report.status === 'submitted' && canApproveIt && (
             <button role="menuitem" onClick={() => { setOpen(false); onApprove() }}><IconApprove size={13} /> Approve</button>
           )}
           {canManage && (
@@ -67,7 +67,7 @@ function RowMenu({ report, onOpen, onApprove, onDelete, canManage }) {
 }
 
 export default function Dashboard() {
-  const { jobs, role, tick, refresh, notify } = useApp()
+  const { jobs, role, tick, refresh, notify, session } = useApp()
   const [tab, setTab] = useState('all')
   const [q, setQ] = useState('')
   const [size, setSize] = useState(15)
@@ -305,9 +305,16 @@ export default function Dashboard() {
                       <StateBadge status={r.status} />
                     </td>
                     <td className="mon-act" onClick={(e) => e.stopPropagation()}>
-                      <RowMenu report={r} canManage={role.canOverride}
+                      <RowMenu report={r} canManage={role.canOverride} canApproveIt={canApprove(r, session.name)}
                         onOpen={() => open(r)}
-                        onApprove={() => { approveReport(r.id, 'QA Lead'); refresh(); notify(`${r.reportId} approved`) }}
+                        onApprove={() => {
+                          /* The approver used to be the literal string
+                             'QA Lead' regardless of who was signed in, so
+                             every approval from this screen was recorded
+                             against a name that may not have been there. */
+                          try { approveReport(r.id, session.name); refresh(); notify(`${r.reportId} approved`) }
+                          catch (e) { notify(e.message, 'err') }
+                        }}
                         onDelete={() => { deleteReport(r.id); refresh(); notify(`${r.reportId} deleted`) }} />
                     </td>
                   </tr>
