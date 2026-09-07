@@ -188,7 +188,14 @@
 }
 :root[data-theme="dark"] .rb-btn { box-shadow: none; }
 :root[data-theme="dark"] .report-state { background: rgba(255, 255, 255, 0.06); }
-:root[data-theme="dark"] .masthead-side > * { box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5); }
+/* Dark, .report-state above sets a 6% white wash at (0,3,0), which outranks
+   the plate rule in the masthead block; carrying the ground here as well
+   settles it. Without this a New badge is grey type on the orange pour at
+   1.86:1 — it looked like a plate and was not one. */
+:root[data-theme="dark"] .masthead .masthead-side > * {
+  background-color: var(--surface);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
 :root[data-theme="dark"] .masthead-mark:not(.is-free) { background: var(--text); color: #101014; border-color: var(--text); }
 
 /* --steel and --ink name the dark chip, so the handful of rules that
@@ -836,10 +843,11 @@ td.th-action { display: flex; gap: 6px; justify-content: flex-end; align-items: 
    filtered, because an orange pour and a graphite one are different
    pictures, not the same picture at a different brightness.
 
-   The type never sits on the pour. A scrim carries the surface colour
-   across the left two-thirds and lets go by the right edge, so the
-   words keep a measured contrast against a flat ground and the stone
-   is what you see behind the badge. */
+   The picture runs the full width. It is masked back under the words —
+   about a quarter of its strength there, rising to full by the right
+   third — and the ink ribbons in the drawing thin out that way too, so
+   the type is read against the pale part of the same picture rather
+   than against a panel laid over half the band. */
 .masthead {
   position: relative; isolation: isolate;
   border: 1px solid var(--line-2);
@@ -853,18 +861,30 @@ td.th-action { display: flex; gap: 6px; justify-content: flex-end; align-items: 
   background-image: var(--masthead-stone);
   background-size: cover; background-position: center right;
 }
-/* The scrim, not the image, is what makes the type readable — so it is
-   opaque where the words are and gone where they are not. */
-.masthead-stone::after {
-  content: ''; position: absolute; inset: 0;
-  background: linear-gradient(96deg,
-    var(--surface) 0%, var(--surface) 54%,
-    color-mix(in srgb, var(--surface) 62%, transparent) 68%,
-    color-mix(in srgb, var(--surface) 18%, transparent) 82%,
-    transparent 94%);
-}
-@supports not (color: color-mix(in srgb, white 50%, transparent)) {
-  .masthead-stone::after { background: linear-gradient(96deg, var(--surface) 0%, var(--surface) 54%, transparent 94%); }
+/* The picture runs the full width of the band, end to end. What keeps
+   the type readable is the drawing's own strength easing off under the
+   words — the stone is masked back to a quarter there, not covered by a
+   panel — so on the left you still see the pour, pale, and on the right
+   it is at full weight behind the reading. A wipe that goes opaque is
+   the thing this replaces: it turned half a band into blank card. */
+.masthead-stone::after { content: ''; position: absolute; inset: 0; }
+@media (min-width: 721px) {
+  .masthead-stone {
+    -webkit-mask-image: linear-gradient(96deg,
+      rgba(0, 0, 0, 0.38) 0%, rgba(0, 0, 0, 0.42) 30%,
+      rgba(0, 0, 0, 0.62) 54%, rgba(0, 0, 0, 0.92) 70%, #000 82%);
+    mask-image: linear-gradient(96deg,
+      rgba(0, 0, 0, 0.38) 0%, rgba(0, 0, 0, 0.42) 30%,
+      rgba(0, 0, 0, 0.62) 54%, rgba(0, 0, 0, 0.92) 70%, #000 82%);
+  }
+  /* Without masking the type would sit on the pour at full strength, so
+     a browser that cannot mask gets the old wipe back rather than an
+     unreadable band. */
+  @supports not ((mask-image: linear-gradient(#000, #000)) or (-webkit-mask-image: linear-gradient(#000, #000))) {
+    .masthead-stone::after {
+      background: linear-gradient(96deg, var(--surface) 0%, var(--surface) 54%, transparent 94%);
+    }
+  }
 }
 .masthead-inner {
   position: relative; z-index: 1;
@@ -906,9 +926,13 @@ td.th-action { display: flex; gap: 6px; justify-content: flex-end; align-items: 
 .masthead-mark.is-wide { margin: -6px 2px -6px 0; }
 
 .masthead-txt { display: flex; flex-direction: column; gap: 2px; min-width: 0; flex: 1 1 auto; max-width: 42%; }
+/* The stone runs the full width of every band now, so these two lines are
+   read against a picture rather than a flat card. Amber on the pale pour
+   measured 2.63:1 and --text-2 on it 3.57:1; one ink and one steel, dark
+   over the light drawing and light over the night one, clear both ways. */
 .masthead-eyebrow {
   font-family: var(--mono); font-size: 10.5px; font-weight: 600;
-  text-transform: uppercase; letter-spacing: 0.08em; color: var(--amber-ink);
+  text-transform: uppercase; letter-spacing: 0.08em; color: #24242e;
   overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
 }
 .masthead-txt h2 {
@@ -916,9 +940,15 @@ td.th-action { display: flex; gap: 6px; justify-content: flex-end; align-items: 
   overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
 }
 .masthead-id {
-  font-family: var(--mono); font-size: 11.5px; color: var(--text-2);
+  font-family: var(--mono); font-size: 11.5px; color: #43434f;
   overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
 }
+/* Dark, both cross the silver run in the drawing — a mid grey, not the
+   night ground — so they sit brighter than a caption normally would.
+   The shadow is for the eye; the colour is what carries the measurement. */
+:root[data-theme="dark"] .masthead-eyebrow { color: #f0f0f6; text-shadow: 0 1px 2px rgba(0, 0, 0, 0.55); }
+:root[data-theme="dark"] .masthead-txt h2 { color: #fafaff; }
+:root[data-theme="dark"] .masthead-id { color: #f2f2f8; text-shadow: 0 1px 2px rgba(0, 0, 0, 0.55); }
 .masthead-side {
   flex: none; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; justify-content: flex-end;
   /* pinned to the far edge, so it reads as the band's own state rather
@@ -928,8 +958,13 @@ td.th-action { display: flex; gap: 6px; justify-content: flex-end; align-items: 
 /* A badge over the pour has no ground of its own — its tint is
    translucent, which is right on a white card and unreadable on orange.
    Over the stone it gets an opaque plate, and keeps its own colour for
-   the text and the rule. */
-.masthead-side > * {
+   the text and the rule.
+
+   Qualified with .masthead so it outranks the .state-* rules further
+   down the file: those set `background` as a shorthand, which reset the
+   plate to their own translucent tint and left the badge sitting on the
+   stone — New measured 1.86:1 in dark, which is how this was found. */
+.masthead .masthead-side > * {
   background-color: var(--surface);
   background-image: none;
   border-color: currentColor;
@@ -4787,24 +4822,19 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber); outline-
   font-size: 10.5px; font-weight: 700;
   letter-spacing: 0.14em; text-transform: uppercase;
   font-variation-settings: 'opsz' 14;
-  color: #24242e;
 }
 .masthead.is-job .masthead-txt h2 {
   font-family: var(--display);
   font-size: 26px; font-weight: 680;
   letter-spacing: -0.025em; line-height: 1.1;
   font-variation-settings: 'opsz' 32;
-  color: #101018;
 }
 .masthead.is-job .masthead-id {
   font-family: var(--sans);
   font-size: 12.5px; font-weight: 500; letter-spacing: 0.005em;
   font-variant-numeric: tabular-nums;
-  color: #43434f;
 }
-:root[data-theme="dark"] .masthead.is-job .masthead-eyebrow { color: #d8d8e0; }
-:root[data-theme="dark"] .masthead.is-job .masthead-txt h2 { color: #fafaff; }
-:root[data-theme="dark"] .masthead.is-job .masthead-id { color: #b6b6c2; }
+
 @media (min-width: 721px) {
   .masthead.is-job .masthead-txt h2 { font-size: 30px; }
   .masthead.is-job .masthead-txt { max-width: 52%; }
