@@ -199,7 +199,15 @@ export default function JobDetail({ job }) {
               onKeyDown={tappable ? (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openDeliv(d, cell, last) } } : undefined}>
               <span className="rep-code" aria-hidden="true">{d.short}</span>
               <strong className="rep-id">{d.label}</strong>
-              <span className="rep-state"><StatusChip status={cell.status} /></span>
+              {/* Done and rejected are not the same fact. A deliverable
+                  whose report found a non-conformance still counts as
+                  done — the inspection happened — but a register that
+                  shows only "Done" hides the one thing somebody scanning
+                  this page is looking for. */}
+              <span className="rep-state">
+                {last && reportResult(last) === 'Reject' && <span className="rep-ncr" title="Non-conformance recorded">NCR</span>}
+                <StatusChip status={cell.status} />
+              </span>
               <small className="rep-foot">{foot}</small>
               {tappable && <span className="rep-go" aria-hidden="true"><Chevron /></span>}
             </div>
@@ -246,7 +254,10 @@ export default function JobDetail({ job }) {
                   onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openDoc(r) } }}>
                   <span className="rep-code" aria-hidden="true">{FORM_SCHEMAS[r.formKey]?.code || '—'}</span>
                   <strong className="rep-id"><ReportId id={r.reportId} /></strong>
-                  <span className="rep-state"><StateBadge status={r.status} /></span>
+                  <span className="rep-state">
+                    {reportResult(r) === 'Reject' && <span className="rep-ncr" title="Non-conformance recorded">NCR</span>}
+                    <StateBadge status={r.status} />
+                  </span>
                   <small className="rep-sub">{FORM_SCHEMAS[r.formKey]?.title || r.deliverable}</small>
                   <small className="rep-foot">
                     {n > 0 && <span className="doc-issue">Issue {String(n).padStart(2, '0')}</span>}
