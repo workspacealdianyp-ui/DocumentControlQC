@@ -7,6 +7,7 @@ import { buildResume } from '../lib/resume.js'
 import { IconPrint, IconPen, IconChevronR, IconApprove, IconSend, IconXCircle } from './Icons.jsx'
 import { canApprove } from '../lib/store.js'
 import Masthead from './Masthead.jsx'
+import { artFor } from '../lib/productArt.js'
 
 // read-only detail view of a submitted/approved report — shows the entered data, never edits
 const lbl = (f, v) => (typeof f.label === 'function' ? f.label(v) : f.label)
@@ -176,9 +177,10 @@ export default function ReportDetail({ schema, report, job, deliverable, status,
 
   return (
     <div className="page form-page form-page-pad">
-      <Masthead code={schema.code} title={schema.title} onBack={onBack} backLabel="Back to job"
+      <Masthead variant="job" title={schema.title} onBack={onBack} backLabel="Back to job"
         eyebrow={<>{deliverable}{job ? <> · Job {job.jobNo}</> : null}</>}
-        sub={<>{v.reportId}{job?.productDesc ? <> · {job.productDesc}</> : null}</>}>
+        sub={<>{v.reportId}{job?.productDesc ? <> · {job.productDesc}</> : null}</>}
+        art={artFor(job?.productDesc, job?.type)}>
         {/* State: where the document stands, and what was decided. Two
             badges of the same shape, so they read as one kind of fact. */}
         <span className={`dbadge state-${status}`}>

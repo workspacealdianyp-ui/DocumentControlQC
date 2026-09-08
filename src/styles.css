@@ -857,6 +857,11 @@ td.th-action { display: flex; gap: 6px; justify-content: flex-end; align-items: 
    picture rather than against a panel laid over half the band. */
 .masthead {
   position: relative; isolation: isolate;
+  /* The band is a flex box so its inner row fills it. It did not, and a
+     band held open by min-height left the back strip 99px tall in a
+     148px band — a column of hover that stopped short of the edge it is
+     supposed to be. */
+  display: flex;
   border: 1px solid var(--line-2);
   border-radius: var(--r-lg);
   margin-bottom: 16px;
@@ -899,6 +904,7 @@ td.th-action { display: flex; gap: 6px; justify-content: flex-end; align-items: 
 .masthead-inner {
   position: relative; z-index: 1;
   --mh-pad-x: 18px; --mh-pad-y: 15px;
+  flex: 1 1 auto; min-width: 0;
   display: flex; align-items: center; gap: 14px;
   padding: var(--mh-pad-y) var(--mh-pad-x);
 }
@@ -964,9 +970,14 @@ td.th-action { display: flex; gap: 6px; justify-content: flex-end; align-items: 
   text-transform: uppercase; letter-spacing: 0.08em; color: #24242e;
   overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
 }
+/* Two lines before it gives up. A customer name is short and a report
+   title is not — "Dimensional Inspection Report" set at 30px came out as
+   "DIMENSIONAL INSPECTION REP…" on a tablet, and a document band that
+   cannot say the document's name is not doing its one job. */
 .masthead-txt h2 {
   margin: 0; font-size: 19px; font-weight: 600; letter-spacing: -0.014em; color: var(--text);
-  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2;
+  overflow: hidden; white-space: normal; overflow-wrap: anywhere;
 }
 .masthead-id {
   font-family: var(--mono); font-size: 11.5px; color: #43434f;
@@ -4921,14 +4932,41 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber); outline-
    left the roof of the cab 3px inside the top bar at tablet width — and
    a photograph sliced off by a piece of furniture reads as a bug, not as
    a bleed. 14px clears it at both. */
-.masthead.has-art { margin: 14px 0 26px; }
+/* The unit is driving out of the band.
+
+   It used to stand inside the rectangle with its roof over the top edge
+   — one edge crossed, which reads as a picture placed high rather than
+   as a machine leaving. So the band steps back from the right margin and
+   the art crosses the edge it stepped back from, past the corner on
+   three sides. The gap the band gives up is the gap the art claims: the
+   card is narrower than the page, the machine is not.
+
+   The numbers are tied together on purpose. --mh-inset is how far the
+   band pulls in, and the art's right offset is that inset plus 8px, so
+   the machine ends 8px outside where the card would have ended and the
+   page never has to scroll sideways to show it — the content gutter is
+   14px at tablet width and 26px above 1024. */
+.masthead.has-art { --mh-inset: 20px; margin: 14px var(--mh-inset) 30px 0; }
 .masthead-art {
-  position: absolute; right: 16px; bottom: -10px; z-index: 0;
-  height: calc(100% + 38px); width: auto; max-width: 42%;
+  position: absolute; right: calc(var(--mh-inset) * -1 - 8px); bottom: -16px; z-index: 0;
+  height: calc(100% + 54px); width: auto; max-width: 44%;
   object-fit: contain; object-position: right bottom;
   pointer-events: none; user-select: none;
-  filter: drop-shadow(0 12px 16px rgba(20, 20, 24, 0.22));
+  /* Cast further than the band's own, so the machine reads as standing
+     in front of the card rather than printed on it. */
+  filter: drop-shadow(0 18px 22px rgba(20, 20, 24, 0.28));
 }
+/* The card recedes as the art advances: the shadow that lifts a plate
+   off the page is the wrong cue on the thing that is meant to be
+   behind. */
+.masthead.has-art { box-shadow: none; }
+
+/* Bands that carry state or actions on the right — a report's PDF button
+   and its status — keep that column clear of the machine rather than
+   sitting on top of it. The reserve is the art's own max-width plus a
+   gap, so the two cannot meet at any width: at 760px a 30% reserve put
+   the PDF button 42px into the cab. */
+.masthead.has-art .masthead-side { position: relative; z-index: 2; margin-right: calc(44% + 24px); }
 /* Against a photograph the drawn plate is a second texture competing
    for the same surface, and the reference this follows is a plain white
    card. It stays, at a whisper, so the band is not flat card stock —
@@ -4943,7 +4981,8 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber); outline-
    which is what it was before the photograph existed. */
 @media (max-width: 720px) {
   .masthead-art { display: none; }
-  .masthead.has-art { margin: 0 0 16px; }
+  .masthead.has-art { --mh-inset: 0px; margin: 0 0 16px; }
+  .masthead.has-art .masthead-side { margin-right: 0; }
   .masthead.has-art .masthead-plate { opacity: 1; }
 }
 
@@ -4953,6 +4992,13 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber); outline-
   .masthead.is-job.has-art { min-height: 148px; }
   .masthead.is-job.has-art .masthead-inner { align-items: center; --mh-pad-x: 22px; --mh-pad-y: 18px; }
   .masthead.is-job.has-art .masthead-txt { max-width: 56%; }
+}
+
+/* Between a phone and a desktop the band keeps the desktop's 30px title
+   in a column a tablet does not have the width for, so a three-word
+   document name gets the third line rather than an ellipsis. */
+@media (min-width: 721px) and (max-width: 1023px) {
+  .masthead.is-job .masthead-txt h2 { -webkit-line-clamp: 3; }
 }
 
 /* ── the dial ─────────────────────────────────────────────────
@@ -5038,6 +5084,9 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber); outline-
   .masthead.is-job .masthead-txt h2 {
     grid-area: name; margin-top: 4px;
     font-size: 20px; font-weight: 750; letter-spacing: -0.004em;
+    /* A phone splits a report title across three words where a desktop
+       takes two, and the band's whole job is to name the document. */
+    -webkit-line-clamp: 3;
   }
   .masthead.is-job .masthead-id { grid-area: line; }
   /* Its own row under the identity, as on the desktop band. On a job the

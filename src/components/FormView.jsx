@@ -14,6 +14,7 @@ import ReportDetail from './ReportDetail.jsx'
 import SignaturePad from './SignaturePad.jsx'
 import JobPicker from './JobPicker.jsx'
 import Masthead from './Masthead.jsx'
+import { artFor } from '../lib/productArt.js'
 import { IconPlus, IconTrash, IconPrint, IconPen, IconCheck, IconClock, IconAlert, IconSearch, IconChevronD, IconChevronR } from './Icons.jsx'
 
 // resolve a field label that may be a function of values
@@ -1084,9 +1085,10 @@ export default function FormView({ job, formKey, query }) {
     <div className="page form-page form-page-pad">
       {/* State only. Every action lives in the rail on the right, so
           there is one place to look for something to press. */}
-      <Masthead code={schema.code} title={schema.title} backLabel="Back to job"
+      <Masthead variant="job" title={schema.title} backLabel="Back to job"
         eyebrow={<>{deliverable}{cur ? <> · Job {cur.jobNo}</> : null}</>}
         sub={<>{v.reportId}{cur?.productDesc ? <> · {cur.productDesc}</> : null}</>}
+        art={artFor(cur?.productDesc, cur?.type)}
         onBack={onBack}>
         <button className="btn btn-secondary btn-sm" onClick={() => setShowPdf(true)}>
           <IconPrint size={13} /> PDF
