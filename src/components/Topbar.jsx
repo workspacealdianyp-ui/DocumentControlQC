@@ -61,6 +61,10 @@ export default function Topbar({ route, job, searchOpen, onOpenSearch, onCloseSe
     title = job ? `Job ${job.jobNo}` : (FORM_SCHEMAS[route.formKey]?.title || 'Form')
     sub = job ? [job.productDesc, job.customerName].filter(Boolean).join(' · ') : ''
   }
+  // The same screen raises an order and revises one, so the bar has to
+  // say which — "New order" over an order being edited is a small lie
+  // in the one place that states where you are standing.
+  if (route.page === 'joborder' && route.orderId) sub = 'Revise order'
 
   /* ── the palette ──────────────────────────────────────────────
      Empty, it offers what you were last working on and the handful of

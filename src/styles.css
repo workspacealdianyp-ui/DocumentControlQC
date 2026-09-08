@@ -3810,6 +3810,42 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber); outline-
 .jo-pick.on .jo-pick-box { background: var(--amber); border-color: var(--amber); color: #fff; }
 .jo-pick input:focus-visible + .jo-pick-box { box-shadow: 0 0 0 3px var(--amber-soft); border-color: var(--amber); }
 .jo-pick-text { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
+
+/* A deliverable with documents behind it: still ticked, no longer a
+   choice. It reads as settled rather than disabled — the sub-line says
+   what is holding it, so the greyed box is never the only explanation. */
+.jo-pick.is-held { cursor: default; border-style: solid; }
+.jo-pick.is-held:hover { border-color: var(--amber); background: var(--amber-soft); }
+.jo-pick.is-held .jo-pick-box { opacity: 0.55; }
+.jo-pick.is-held .jo-pick-text small { color: var(--text-2); font-weight: 500; }
+
+/* A locked job number states its reason in the field's own hint, so the
+   read-only input needs to look inert rather than broken. */
+.jo-field input[readonly] { background: var(--surface-2); color: var(--text-2); cursor: default; }
+
+/* Withdrawing the order. Set apart from the save row and below the
+   problems list, because it is the one control here that removes
+   something rather than recording it. */
+.jo-withdraw {
+  display: flex; align-items: center; justify-content: space-between; gap: 18px; flex-wrap: wrap;
+  margin: 26px 0 0; padding: 15px 17px;
+  border: 1px solid var(--line-2); border-radius: var(--r-lg);
+  background: var(--surface-2);
+}
+.jo-withdraw h4 { margin: 0 0 3px; font-size: 13.5px; font-weight: 600; color: var(--text); }
+.jo-withdraw p { margin: 0; max-width: 62ch; font-size: 12px; line-height: 1.55; color: var(--text-2); }
+.jo-withdraw .btn { flex: none; }
+.jo-withdraw .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* The order's own administration, on the purchase order page: who
+   raised it, and the way into revising it. */
+.po-admin {
+  display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap;
+  margin: 0 0 16px; padding: 10px 14px;
+  border: 1px solid var(--line); border-radius: var(--r);
+  background: var(--surface-2);
+  font-size: 12px; color: var(--text-2);
+}
 .jo-pick-text strong { font-size: 12.5px; font-weight: 500; }
 .jo-pick-text small {
   display: inline-flex; align-items: center; gap: 4px;

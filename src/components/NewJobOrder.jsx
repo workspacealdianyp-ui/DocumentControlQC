@@ -2,7 +2,9 @@ import { useMemo, useState } from 'react'
 import { useApp, navigate } from '../App.jsx'
 import { DELIVERABLES } from '../lib/constants.js'
 import { FORM_SCHEMAS } from '../data/formSchemas.js'
-import { saveOrder, takenJobNos } from '../lib/jobOrders.js'
+import { saveOrder, deleteOrder, orderById, takenJobNos } from '../lib/jobOrders.js'
+import { getReports } from '../lib/store.js'
+import { fmtDate } from '../lib/status.js'
 import { IconPlus, IconTrash, IconCheck, IconDoc, IconPen, IconCloudUp } from './Icons.jsx'
 import Masthead from './Masthead.jsx'
 import { artFor } from '../lib/productArt.js'
@@ -43,30 +45,62 @@ const RECORDS = DELIVERABLES.filter((d) => isRecord(d))
 const formName = (d) =>
   d.form === 'nde' ? 'MT / PT / UT' : FORM_SCHEMAS[d.form]?.title || ''
 
-export default function NewJobOrder() {
+/* What is already filed against an order.
+
+   An order is not a form somebody is still filling in: the moment it is
+   published, inspectors record documents against its units. Which means
+   revising one can destroy evidence without touching a single report —
+   untick a deliverable and cellStatus returns n/a for it, so the
+   document that answers it disappears from the register while sitting
+   in storage; rename a unit's job number and every report keyed to the
+   old number is orphaned; delete the unit and they are stranded.
+
+   So the editor is built around this: it counts what is filed, per unit
+   and per deliverable, and refuses the edits that would hide any of it.
+   Counting once here rather than per row — outstandingBy walks every
+   deliverable of every unit and this screen renders nine of them. */
+function useFiled(order) {
+  return useMemo(() => {
+    if (!order) return { byJob: new Map(), byDeliv: new Map(), total: 0 }
+    const jobNos = new Set((order.units || []).map((u) => String(u.jobNo)))
+    const byJob = new Map()
+    const byDeliv = new Map()
+    let total = 0
+    for (const r of getReports()) {
+      if (!jobNos.has(String(r.jobNo))) continue
+      total++
+      byJob.set(String(r.jobNo), (byJob.get(String(r.jobNo)) || 0) + 1)
+      if (r.deliverable) byDeliv.set(r.deliverable, (byDeliv.get(r.deliverable) || 0) + 1)
+    }
+    return { byJob, byDeliv, total }
+  }, [order])
+}
+
+const docCount = (n) => `${n} document${n === 1 ? '' : 's'}`
+
+export default function NewJobOrder({ orderId }) {
   const { role, session, meta, notify, refresh } = useApp()
-  const [po, setPo] = useState({
-    poNo: '', customerName: '', customerId: '', kategori: 'SUPEQ',
-    datePB: '', datePdiRelease: '',
-  })
-  const [units, setUnits] = useState([blankUnit()])
-  const [required, setRequired] = useState(() => new Set(FILLABLE.map((d) => d.key)))
+  // Read once: the editor holds the order it opened with, so a later
+  // save cannot be built on a copy that changed underneath it.
+  const held = useMemo(() => (orderId ? orderById(orderId) : null), [orderId])
+  const editing = !!held
+  const filed = useFiled(held)
+
+  const [po, setPo] = useState(() => ({
+    poNo: held?.poNo || '', customerName: held?.customerName || '', customerId: held?.customerId || '',
+    kategori: held?.kategori || 'SUPEQ', datePB: held?.datePB || '', datePdiRelease: held?.datePdiRelease || '',
+  }))
+  const [units, setUnits] = useState(() => (held?.units?.length
+    ? held.units.map((u) => ({ jobNo: u.jobNo || '', wbsNo: u.wbsNo || '', unitNo: u.unitNo || '', productDesc: u.productDesc || '', type: u.type || '' }))
+    : [blankUnit()]))
+  const [required, setRequired] = useState(() => new Set(held?.required || FILLABLE.map((d) => d.key)))
   const [touched, setTouched] = useState(false)
+  const [ask, setAsk] = useState(null)   // 'withdraw'
 
-  if (!role.canManage) {
-    return (
-      <div className="page">
-        <Masthead variant="job" eyebrow="Job order" title="New job order"
-          art={artFor()} onBack={() => navigate('/monitoring')} backLabel="Back to monitoring" />
-        <div className="card empty-state">
-          <p><strong>Only QC head or admin can create a job order.</strong></p>
-          <p>Ask an admin to raise the order; it will appear in your Jobs list once published.</p>
-        </div>
-      </div>
-    )
-  }
-
-  const taken = useMemo(() => takenJobNos(), [])
+  /* Above the early returns below, with the rest of the hooks. React
+     calls these in order on every render, so one sitting after a
+     conditional return is a bug waiting for the condition to change. */
+  const taken = useMemo(() => takenJobNos(orderId), [orderId])
 
   // Every reason this order cannot be published yet, named rather than
   // just disabling the button.
@@ -83,8 +117,59 @@ export default function NewJobOrder() {
     })
     if (new Set(nos).size !== nos.length) out.push('Two units share a job number.')
     if (!required.size) out.push('Choose at least one report.')
+    /* The two edits that would hide a document. Blocked in the controls
+       as well, so this is the backstop rather than the explanation —
+       but an order that reached this state must not save. */
+    if (editing) {
+      for (const u of held.units || []) {
+        const n = filed.byJob.get(String(u.jobNo)) || 0
+        if (!n) continue
+        if (!units.some((x) => x.jobNo.trim() === String(u.jobNo))) {
+          out.push(`Unit ${u.jobNo} carries ${docCount(n)} and cannot be removed or renumbered.`)
+        }
+      }
+      for (const [key, n] of filed.byDeliv) {
+        if (!required.has(key)) out.push(`${key} has ${docCount(n)} filed against it and cannot be dropped from the order.`)
+      }
+    }
     return out
-  }, [po, units, required, taken])
+  }, [po, units, required, taken, editing, held, filed])
+
+  if (!role.canManage) {
+    return (
+      <div className="page">
+        <Masthead variant="job" eyebrow="Job order" title={editing ? 'Revise job order' : 'New job order'}
+          art={artFor()} onBack={() => navigate('/monitoring')} backLabel="Back to monitoring" />
+        <div className="card empty-state">
+          <p><strong>Only QC head or admin can {editing ? 'revise a job order' : 'create a job order'}.</strong></p>
+          <p>Ask an admin to raise the order; it will appear in your Jobs list once published.</p>
+        </div>
+      </div>
+    )
+  }
+
+  // An id that no longer resolves is a stale link, not an empty form:
+  // filling one in here would publish a second order for the same PO.
+  if (orderId && !held) {
+    return (
+      <div className="page">
+        <Masthead variant="job" eyebrow="Job order" title="Order not found"
+          art={artFor()} onBack={() => navigate('/monitoring')} backLabel="Back to monitoring" />
+        <div className="card empty-state">
+          <p><strong>That order is no longer on file.</strong></p>
+          <p>It may have been withdrawn. The register shows what is live.</p>
+          <button className="btn btn-secondary btn-sm" onClick={() => navigate('/monitoring')}>Open monitoring</button>
+        </div>
+      </div>
+    )
+  }
+
+  // A unit that already carries documents cannot be renumbered or
+  // removed: its reports are keyed to that job number.
+  const filedOn = (jobNo) => filed.byJob.get(String((jobNo || '').trim())) || 0
+  const lockedUnit = (u) => editing && filedOn(u.jobNo) > 0
+  // Nor can a deliverable that answers to a document be made n/a.
+  const filedFor = (key) => (editing ? filed.byDeliv.get(key) || 0 : 0)
 
   const setUnit = (i, patch) =>
     setUnits((us) => us.map((u, x) => (x === i ? { ...u, ...patch } : u)))
@@ -98,13 +183,24 @@ export default function NewJobOrder() {
     return [...us, { ...last, jobNo: '', wbsNo: '', unitNo: '' }]
   })
 
-  const removeUnit = (i) => setUnits((us) => (us.length === 1 ? us : us.filter((_, x) => x !== i)))
+  const removeUnit = (i) => setUnits((us) => {
+    if (us.length === 1) return us
+    const n = filedOn(us[i]?.jobNo)
+    if (n > 0) {
+      notify(`Unit ${us[i].jobNo} carries ${docCount(n)}. Removing it would strand them.`, 'err')
+      return us
+    }
+    return us.filter((_, x) => x !== i)
+  })
 
   const publish = () => {
     setTouched(true)
     if (problems.length) { notify('Fix the highlighted details first', 'err'); return }
     saveOrder({
-      id: `po-${Date.now()}`,
+      /* Revising keeps the order's identity — its id is what every unit
+         it produced is stamped with, so a new one would fork the
+         order and leave the documents pointing at the old half. */
+      id: held?.id || `po-${Date.now()}`,
       poNo: po.poNo.trim(),
       customerName: po.customerName.trim(),
       customerId: po.customerId.trim(),
@@ -116,11 +212,29 @@ export default function NewJobOrder() {
         jobNo: u.jobNo.trim(), wbsNo: u.wbsNo.trim(), unitNo: u.unitNo.trim(),
         productDesc: u.productDesc.trim(), type: u.type.trim(),
       })),
-      createdBy: session?.name || 'QA Lead',
-      createdAt: new Date().toISOString(),
+      createdBy: held?.createdBy || session?.name || 'QA Lead',
+      createdAt: held?.createdAt || new Date().toISOString(),
+      ...(editing ? { revisedBy: session?.name || 'QA Lead', revisedAt: new Date().toISOString() } : {}),
     })
     refresh()
-    notify(`PO ${po.poNo.trim()} published — ${units.length} job${units.length === 1 ? '' : 's'} ready to inspect`)
+    notify(editing
+      ? `PO ${po.poNo.trim()} revised — ${units.length} job${units.length === 1 ? '' : 's'} on the order`
+      : `PO ${po.poNo.trim()} published — ${units.length} job${units.length === 1 ? '' : 's'} ready to inspect`)
+    navigate(editing ? `/po/${encodeURIComponent(po.poNo.trim())}` : '/monitoring')
+  }
+
+  /* Withdrawing an order deletes its units, and a unit is where a
+     report is bound. So it is only ever offered while nothing is filed
+     against any of them; past that the order has a history and the way
+     to close it is the work, not the delete key. */
+  const withdraw = () => {
+    if (filed.total > 0) {
+      notify(`${docCount(filed.total)} filed against this order. It cannot be withdrawn.`, 'err')
+      return
+    }
+    deleteOrder(held.id)
+    refresh()
+    notify(`PO ${held.poNo} withdrawn — ${(held.units || []).length} job${(held.units || []).length === 1 ? '' : 's'} removed`)
     navigate('/monitoring')
   }
 
@@ -130,12 +244,23 @@ export default function NewJobOrder() {
 
   return (
     <div className="page jo">
-      <Masthead variant="job" eyebrow="Job order" title="New job order"
-        sub="The order, its units, and the reports they owe"
-        art={artFor()} onBack={() => navigate('/monitoring')} backLabel="Back to monitoring" />
+      <Masthead variant="job" eyebrow="Job order"
+        title={editing ? `Revise ${held.poNo}` : 'New job order'}
+        sub={editing
+          ? [`Raised by ${held.createdBy || 'an admin'}`,
+            held.revisedAt ? `revised ${fmtDate(held.revisedAt)}` : null,
+            'the order, its units, and the reports they owe'].filter(Boolean).join(' · ')
+          : 'The order, its units, and the reports they owe'}
+        art={artFor(...(editing ? (held.units || []).map((u) => u.productDesc) : []))}
+        onBack={() => navigate(editing ? `/po/${encodeURIComponent(held.poNo)}` : '/monitoring')}
+        backLabel={editing ? `Back to ${held.poNo}` : 'Back to monitoring'} />
 
       <p className="page-sub jo-lede">
-        Publishing puts these jobs in front of the inspectors.
+        {editing
+          ? filed.total > 0
+            ? <>{docCount(filed.total)} already filed against this order. Anything they answer to is held.</>
+            : <>Nothing is filed against this order yet, so every part of it can still change.</>
+          : <>Publishing puts these jobs in front of the inspectors.</>}
       </p>
 
       {/* ── 1. the order ── */}
@@ -188,9 +313,10 @@ export default function NewJobOrder() {
               <div className="jo-unit" key={i}>
                 <span className="jo-unit-n">{i + 1}</span>
                 <div className="jo-grid jo-grid-unit">
-                  <F label="Job number">
+                  <F label="Job number"
+                    hint={lockedUnit(u) ? `${docCount(filedOn(u.jobNo))} filed — this number is what they are keyed to` : undefined}>
                     <input value={u.jobNo} onChange={(e) => setUnit(i, { jobNo: e.target.value })}
-                      placeholder="1000200301"
+                      placeholder="1000200301" readOnly={lockedUnit(u)}
                       className={touched && (!u.jobNo.trim() || taken.has(u.jobNo.trim())) ? 'is-bad' : ''} />
                   </F>
                   <F label="WBS number">
@@ -212,7 +338,8 @@ export default function NewJobOrder() {
                   </F>
                 </div>
                 <button className="btn btn-ghost btn-icon jo-unit-del" aria-label={`Remove unit ${i + 1}`}
-                  disabled={units.length === 1} onClick={() => removeUnit(i)}>
+                  disabled={units.length === 1 || lockedUnit(u)} onClick={() => removeUnit(i)}
+                  title={lockedUnit(u) ? `${docCount(filedOn(u.jobNo))} filed against this unit` : 'Remove this unit'}>
                   <IconTrash size={13} />
                 </button>
               </div>
@@ -245,29 +372,41 @@ export default function NewJobOrder() {
           </p>
           <p className="set-legend">Inspection reports — filled in the app</p>
           <div className="jo-picks">
-            {FILLABLE.map((d) => (
-              <label key={d.key} className={`jo-pick${required.has(d.key) ? ' on' : ''}`}>
-                <input type="checkbox" checked={required.has(d.key)} onChange={() => toggle(d.key)} />
-                <span className="jo-pick-box" aria-hidden="true"><IconCheck size={11} /></span>
-                <span className="jo-pick-text">
-                  <strong>{d.label}</strong>
-                  <small><IconPen size={10} /> {formName(d)}</small>
-                </span>
-              </label>
-            ))}
+            {FILLABLE.map((d) => {
+              const n = filedFor(d.key)
+              return (
+                <label key={d.key} className={`jo-pick${required.has(d.key) ? ' on' : ''}${n ? ' is-held' : ''}`}>
+                  <input type="checkbox" checked={required.has(d.key)} disabled={n > 0} onChange={() => toggle(d.key)} />
+                  <span className="jo-pick-box" aria-hidden="true"><IconCheck size={11} /></span>
+                  <span className="jo-pick-text">
+                    <strong>{d.label}</strong>
+                    {/* Dropping this would return every one of those
+                        documents to n/a and hide it from the register
+                        while it sat in storage. */}
+                    <small>{n ? <>{docCount(n)} filed — held on the order</> : <><IconPen size={10} /> {formName(d)}</>}</small>
+                  </span>
+                </label>
+              )
+            })}
           </div>
           <p className="set-legend">Document deliverables — issued elsewhere, filed here with the signed pages</p>
           <div className="jo-picks">
-            {RECORDS.map((d) => (
-              <label key={d.key} className={`jo-pick${required.has(d.key) ? ' on' : ''}`}>
-                <input type="checkbox" checked={required.has(d.key)} onChange={() => toggle(d.key)} />
-                <span className="jo-pick-box" aria-hidden="true"><IconCheck size={11} /></span>
-                <span className="jo-pick-text">
-                  <strong>{d.label}</strong>
-                  <small><IconDoc size={10} /> {formName(d)}</small>
-                </span>
-              </label>
-            ))}
+            {RECORDS.map((d) => {
+              const n = filedFor(d.key)
+              return (
+                <label key={d.key} className={`jo-pick${required.has(d.key) ? ' on' : ''}${n ? ' is-held' : ''}`}>
+                  <input type="checkbox" checked={required.has(d.key)} disabled={n > 0} onChange={() => toggle(d.key)} />
+                  <span className="jo-pick-box" aria-hidden="true"><IconCheck size={11} /></span>
+                  <span className="jo-pick-text">
+                    <strong>{d.label}</strong>
+                    {/* Dropping this would return every one of those
+                        documents to n/a and hide it from the register
+                        while it sat in storage. */}
+                    <small>{n ? <>{docCount(n)} filed — held on the order</> : <><IconDoc size={10} /> {formName(d)}</>}</small>
+                  </span>
+                </label>
+              )
+            })}
           </div>
         </div>
       </section>
@@ -282,13 +421,59 @@ export default function NewJobOrder() {
           </span>
         </div>
         <button className="btn btn-primary" onClick={publish}>
-          <IconCloudUp size={15} /> Publish job order
+          <IconCloudUp size={15} /> {editing ? 'Save changes' : 'Publish job order'}
         </button>
       </div>
       {touched && problems.length > 0 && (
         <ul className="jo-problems" role="alert">
           {[...new Set(problems)].map((p) => <li key={p}>{p}</li>)}
         </ul>
+      )}
+
+      {/* Withdrawing an order takes its units with it, and a unit is
+          where a report is bound. Offered plainly while the order is
+          still empty; once anything is filed the block is stated rather
+          than the button being greyed out with no reason. */}
+      {editing && (
+        <section className="jo-withdraw">
+          <div>
+            <h4>Withdraw this order</h4>
+            <p>
+              {filed.total > 0
+                ? <>Not possible: {docCount(filed.total)} {filed.total === 1 ? 'is' : 'are'} filed against
+                  its units, and withdrawing the order would strand {filed.total === 1 ? 'it' : 'them'}. Close
+                  the work out instead.</>
+                : <>Removes the order and its {(held.units || []).length} unit{(held.units || []).length === 1 ? '' : 's'} from
+                  the register. Nothing is filed against {(held.units || []).length === 1 ? 'it' : 'them'}, so nothing is lost.</>}
+            </p>
+          </div>
+          <button className="btn btn-secondary is-danger" disabled={filed.total > 0}
+            onClick={() => setAsk('withdraw')}>
+            <IconTrash size={14} /> Withdraw order
+          </button>
+        </section>
+      )}
+
+      {ask === 'withdraw' && (
+        <div className="modal-backdrop" onClick={() => setAsk(null)}>
+          <div className="modal confirm-modal" onClick={(e) => e.stopPropagation()}
+            role="dialog" aria-modal="true" aria-label={`Withdraw PO ${held.poNo}`}>
+            <div className="sheet-handle" />
+            <h3>Withdraw PO {held.poNo}?</h3>
+            <p className="confirm-body">
+              Its {(held.units || []).length} unit{(held.units || []).length === 1 ? '' : 's'}{' '}
+              {(held.units || []).length === 1 ? 'leaves' : 'leave'} the register and the inspectors' lists. No
+              document is filed against {(held.units || []).length === 1 ? 'it' : 'them'}, so this loses no
+              evidence — but the order will have to be raised again to bring the work back.
+            </p>
+            <div className="confirm-acts">
+              <button className="btn btn-secondary is-danger" onClick={() => { setAsk(null); withdraw() }}>
+                Withdraw the order
+              </button>
+              <button className="btn btn-ghost" onClick={() => setAsk(null)}>Keep it</button>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   )
