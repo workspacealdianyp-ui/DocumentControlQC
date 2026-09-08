@@ -23,7 +23,12 @@ const KAT_LABEL = { SUPEQ: 'Support Equipment', TRAILER: 'Trailer', 'NON TRAILER
 const PAGE_TITLES = {
   home: ['Dashboard', ''],
   monitor: ['Monitor', 'Job × report status matrix'],
-  jobs: ['Jobs', 'Job register'],
+  customers: ['Jobs', 'Customers'],
+  jobs: ['Jobs', 'All jobs'],
+  // Customer and PO carry their own name in the masthead below, so the
+  // bar names the level of the register you are standing on.
+  customer: ['Jobs', 'Customer'],
+  po: ['Jobs', 'Purchase order'],
   // The masthead on this page names the order; the bar names the
   // section it lives in, so the two do not say the same thing twice.
   joborder: ['Jobs', 'New order'],

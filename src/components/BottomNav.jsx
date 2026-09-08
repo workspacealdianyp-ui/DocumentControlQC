@@ -21,8 +21,9 @@ const RIGHT = [
   { id: 'profile', label: 'Profile', to: '/profile', icon: IconUser },
 ]
 
-const isOn = (page, id) =>
-  page === id || (id === 'jobs' && (page === 'job' || page === 'form' || page === 'joborder'))
+const JOB_PAGES = ['customers', 'jobs', 'job', 'form', 'joborder', 'customer', 'po']
+
+const isOn = (page, id) => page === id || (id === 'jobs' && JOB_PAGES.includes(page))
 
 function Tab({ t, page }) {
   const active = isOn(page, t.id)

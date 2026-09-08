@@ -12,7 +12,7 @@ import { IconList, IconFile, IconGrid, IconDatabase, IconLock, IconPrint } from 
 
 const SCREENS = [
   { icon: IconList, name: 'Jobs', to: '/jobs',
-    what: 'The register of units under inspection. A job comes from a job order: one purchase order covering one or more units, each with its own job number, WBS and description.' },
+    what: 'The register, entered the way the work is sold: customer, then purchase order, then the unit. One search covers all three, so a job number can be looked up without knowing whose it is. "All jobs" opens the flat list of every unit.' },
   { icon: IconFile, name: 'Reports', to: '/reports',
     what: 'Every inspection document, filled or attached, with its verdict. Opening one shows the record; approving happens inside the document, not from the list.' },
   { icon: IconGrid, name: 'Monitor', to: '/monitor',

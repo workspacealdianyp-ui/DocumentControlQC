@@ -5159,7 +5159,7 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber); outline-
 .unit-list > .unit-row:first-child { border-top: 0; }
 .cust-row:hover, .po-row:hover, .unit-row:hover { background: var(--surface-2); }
 .cust-row:focus-visible, .po-row:focus-visible, .unit-row:focus-visible {
-  outline: none; background: var(--surface-2); box-shadow: inset 0 0 0 2px var(--amber);
+  outline: none; background: var(--surface-2); box-shadow: inset 0 0 0 2px var(--text);
 }
 
 .cust-row { grid-template-columns: minmax(0, 1fr) auto 90px 44px 18px; }
@@ -5170,6 +5170,10 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber); outline-
   border: 1px solid var(--line-2); border-radius: var(--r-lg);
   background: var(--surface); overflow: hidden;
 }
+/* The order page lists every unit on the order. The capped, scrolling
+   .unit-list is the picker inside the job-order card; sharing the class
+   clipped 16 units to 8 under a heading that said 16. */
+.po-units { max-height: none; overflow: visible; margin: 0; }
 
 .cust-row-id, .po-id, .unit-id { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
 .cust-row-id strong, .po-id strong, .unit-id strong {
@@ -5195,7 +5199,7 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber); outline-
   font-family: var(--mono); font-size: 15px; font-weight: 600;
   font-variant-numeric: tabular-nums; color: var(--text);
 }
-.cust-row-figs .is-work b, .po-figs .is-work b { color: var(--inprog); }
+.cust-row-figs .is-work b, .po-figs .is-work b { color: var(--text); }
 .cust-row-figs .is-late b, .po-figs .is-late b { color: var(--overdue); }
 .cust-row-figs .is-late, .po-figs .is-late { color: var(--overdue); }
 
@@ -5205,9 +5209,12 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber); outline-
 }
 .cust-row-bar i, .unit-bar i {
   display: block; height: 100%; border-radius: inherit;
-  background: var(--amber);
+  background: var(--text);
 }
-.cust-row-bar i.is-done, .unit-bar i.is-done { background: var(--done); }
+/* Finished used to turn the bar green. Progress is not an exception, and
+   a bar that is full has already said it is finished; the colour is
+   worth more held back for the things that need somebody to act. */
+.cust-row-bar i.is-done, .unit-bar i.is-done { background: var(--text); }
 .cust-row-pct {
   font-family: var(--mono); font-size: 12.5px; font-weight: 600;
   font-variant-numeric: tabular-nums; text-align: right; color: var(--text-2);
@@ -5222,8 +5229,8 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber); outline-
   font-style: normal; font-size: 10.5px; font-weight: 600;
   letter-spacing: 0.04em; padding: 3px 8px; border-radius: 5px; white-space: nowrap;
 }
-.u-done { color: var(--done); background: var(--done-bg); }
-.u-work { color: var(--inprog); background: var(--inprog-bg); }
+.u-done { color: var(--surface); background: var(--text); }
+.u-work { color: var(--text); background: var(--surface-2); box-shadow: inset 0 0 0 1px var(--line-2); }
 .u-late { color: var(--overdue); background: var(--overdue-bg); }
 .u-idle { color: var(--text-3); background: var(--surface-2); }
 .u-ncr  { color: var(--overdue); background: var(--overdue-bg); border: 1px solid var(--overdue-line); }
@@ -5244,8 +5251,10 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber); outline-
   font-variant-numeric: tabular-nums; letter-spacing: -0.02em; line-height: 1;
 }
 .fig span { font-size: 11.5px; color: var(--text-2); }
-.fig-done b { color: var(--done); }
-.fig-work b { color: var(--inprog); }
+/* Finished and in-progress are the ordinary states of a live order, so
+   they read in ink. Past release and non-conformance are the two that
+   need somebody today, and they are the only two that get colour. */
+.fig-done b, .fig-work b { color: var(--text); }
 .fig-late b { color: var(--overdue); }
 
 .meter { display: flex; flex-direction: column; gap: 6px; min-width: 150px; }
@@ -5257,8 +5266,8 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber); outline-
 .meter-top strong i { font-style: normal; font-size: 13px; font-weight: 600; margin-left: 1px; }
 .meter-top small { font-size: 11.5px; color: var(--text-2); white-space: nowrap; }
 .meter-track { height: 6px; border-radius: 999px; background: var(--line); overflow: hidden; }
-.meter-track > span { display: block; height: 100%; border-radius: inherit; background: var(--amber); }
-.meter-track > span.is-done { background: var(--done); }
+.meter-track > span { display: block; height: 100%; border-radius: inherit; background: var(--text); }
+.meter-track > span.is-done { background: var(--text); }
 .mh-meter { min-width: 190px; }
 .mh-meter .meter-top strong { text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5); }
 .mh-meter .meter-top small { color: #43434f; text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5); }
@@ -5311,3 +5320,141 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber); outline-
   .fig-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .fig-row .fig:last-child:nth-child(odd) { grid-column: 1 / -1; }
 }
+
+
+/* ── the register: customer → order → unit ───────────────────────────
+   Jobs opens here, so this is the list that has to hold up to being
+   read a hundred times a day. Three decisions carry it:
+
+   The spine. Every row at every level starts with the same fixed cell —
+   a customer's initials, PO, a job's category — so descending from
+   customers into an order into a unit never moves the column the eye is
+   already following. It is the one structural device on the page, and
+   it encodes what kind of thing the row is.
+
+   No accent. Progress is ink on a hairline: density says how much is
+   done without spending a hue on it, and it inverts correctly in dark
+   mode. The only colour left in the register marks the two states that
+   need somebody today — past release, and a non-conformance.
+
+   Identifiers are monospace, names are not. A PO number, a job number
+   and a WBS are things you compare character by character; a customer
+   name is something you read. */
+
+.reg-card { padding: 0; overflow: hidden; }
+
+.reg-bar {
+  display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+  padding: 12px 16px; border-bottom: 1px solid var(--line);
+  background: var(--surface-2);
+}
+.reg-bar .rb-search { flex: 1 1 260px; min-width: 0; }
+.reg-summary { margin: 0; font-size: 12px; color: var(--text-2); white-space: nowrap; }
+.reg-summary b { font-family: var(--mono); font-weight: 600; color: var(--text); }
+.reg-summary b.is-late { color: var(--overdue); }
+
+.reg-list { display: flex; flex-direction: column; }
+
+/* The kind of thing the matches below are. One query can legitimately
+   hit all three levels, and a job number landing silently on a unit is
+   only obvious once you already know the answer. */
+.reg-kind {
+  margin: 0; padding: 9px 16px 7px;
+  font-size: 10px; font-weight: 600; letter-spacing: 0.09em; text-transform: uppercase;
+  color: var(--text-3); background: var(--surface-2);
+  border-top: 1px solid var(--line);
+}
+.reg-list > .reg-kind:first-child { border-top: 0; }
+
+.reg-row {
+  display: grid; align-items: center; width: 100%; text-align: left;
+  grid-template-columns: 44px minmax(0, 1fr) 184px 92px 44px 18px;
+  gap: 14px; padding: 13px 16px;
+  border: 0; border-top: 1px solid var(--line);
+  background: none; color: inherit; font: inherit; cursor: pointer;
+  transition: background .13s ease;
+}
+.reg-list > .reg-row:first-child { border-top: 0; }
+.reg-row:hover { background: var(--surface-2); }
+.reg-row:focus-visible {
+  outline: none; background: var(--surface-2);
+  box-shadow: inset 0 0 0 2px var(--text);
+}
+
+.spine {
+  display: grid; place-items: center; height: 30px; border-radius: 6px;
+  font-family: var(--mono); font-size: 11.5px; font-weight: 600;
+  letter-spacing: 0.04em; color: var(--text-2);
+  background: var(--surface-2); box-shadow: inset 0 0 0 1px var(--line-2);
+}
+.reg-row.cust .spine { color: var(--surface); background: var(--text); box-shadow: none; }
+
+.reg-id { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.reg-id strong {
+  font-size: 14px; font-weight: 600; letter-spacing: -0.005em;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.reg-id strong.is-code { font-family: var(--mono); font-size: 13px; letter-spacing: 0; }
+.reg-id small {
+  font-size: 11.5px; color: var(--text-2);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+
+.reg-counts { display: grid; grid-template-columns: repeat(4, 46px); align-items: center; }
+.reg-counts i {
+  display: flex; flex-direction: column; align-items: center; gap: 1px;
+  min-height: 26px; justify-content: center;
+  font-style: normal; font-size: 10px; font-weight: 500;
+  letter-spacing: 0.04em; text-transform: uppercase; color: var(--text-3);
+}
+.reg-counts b {
+  font-family: var(--mono); font-size: 15px; font-weight: 600;
+  font-variant-numeric: tabular-nums; color: var(--text);
+}
+.reg-counts .is-late, .reg-counts .is-late b { color: var(--overdue); }
+/* A unit counts reports, not units, so its figure is a fraction and
+   needs two of the four slots. The columns still line up with the rows
+   above it because the block itself is the same width. */
+.reg-counts i.wide { grid-column: span 2; }
+.reg-counts i.wide b { font-size: 13.5px; }
+
+.ink-bar {
+  display: block; height: 6px; border-radius: 999px;
+  background: var(--line); overflow: hidden;
+}
+.ink-bar i { display: block; height: 100%; border-radius: inherit; background: var(--text); }
+.ink-pct {
+  font-family: var(--mono); font-size: 12.5px; font-weight: 600;
+  font-variant-numeric: tabular-nums; text-align: right; color: var(--text-2);
+}
+.ink-pct i { font-style: normal; font-size: 10px; margin-left: 1px; color: var(--text-3); }
+
+.reg-go { color: var(--text-3); display: grid; place-items: center; }
+
+.reg-empty { padding: 46px 20px; text-align: center; }
+.reg-empty p { margin: 0 0 6px; font-size: 13px; color: var(--text-2); }
+.reg-empty p strong { color: var(--text); font-size: 14px; }
+.reg-empty .btn { margin-top: 12px; }
+
+/* A phone has room for the spine, the identity and the reading. The
+   counts wrap underneath and the chevron goes — the whole row is the
+   target, so an arrow saying so costs width and adds nothing. */
+@media (max-width: 720px) {
+  .reg-row { grid-template-columns: 40px minmax(0, 1fr) 44px; gap: 12px; row-gap: 10px; padding: 12px 14px; }
+  .reg-counts { grid-column: 1 / -1; order: 3; grid-template-columns: repeat(4, 52px); }
+  .ink-bar { grid-column: 1 / -1; order: 4; }
+  .reg-go { display: none; }
+  .reg-bar { padding: 11px 14px; }
+  .reg-summary { white-space: normal; }
+}
+
+/* The register has no accent, and that has to include the controls
+   sitting inside it: the tab's count, the search field's focus ring and
+   its clear button all pick up the brand orange by default. Ink here
+   instead, so the one coloured thing on the page stays the overdue red. */
+.jobs-page-bar .mon-tab.on .mon-tab-n { background: var(--ink); color: #fff; }
+.reg-bar .rb-search:focus-within { border-color: var(--steel); }
+.reg-bar .rb-search.has-value .rb-search-btn {
+  border-color: var(--ink); background: var(--ink);
+}
+:root[data-theme="dark"] .reg-bar .rb-search:focus-within { box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.5); }

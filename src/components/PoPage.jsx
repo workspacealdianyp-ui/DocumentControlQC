@@ -30,7 +30,7 @@ export default function PoPage({ poNo }) {
       <div className="page">
         <div className="card empty-state">
           <p><strong>No such order.</strong></p>
-          <button className="btn btn-secondary" onClick={() => navigate('/')}>Back to the dashboard</button>
+          <button className="btn btn-secondary" onClick={() => navigate('/jobs')}>Back to customers</button>
         </div>
       </div>
     )
@@ -60,7 +60,10 @@ export default function PoPage({ poNo }) {
 
       <h3 className="section-title" style={{ marginTop: 24 }}>Units ({rows.length})</h3>
 
-      <div className="unit-list">
+      {/* Not the job-order picker, which is a capped box inside a card:
+          this is the page. Sixteen units were being clipped to eight
+          behind an inner scrollbar under a heading that said 16. */}
+      <div className="unit-list po-units">
         {rows.map((r) => (
           <button key={r.job.jobNo} className={`unit-row${r.complete ? ' is-done' : ''}`}
             onClick={() => navigate(`/job/${r.job.jobNo}`)}>

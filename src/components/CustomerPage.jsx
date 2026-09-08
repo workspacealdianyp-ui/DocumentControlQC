@@ -2,6 +2,7 @@ import { useMemo } from 'react'
 import { useApp, navigate } from '../App.jsx'
 import { buildContext, fmtDate } from '../lib/status.js'
 import { byCustomer, ordersFor } from '../lib/rollup.js'
+import { initials } from '../lib/label.js'
 import Masthead from './Masthead.jsx'
 import { IconChevronR } from './Icons.jsx'
 
@@ -12,10 +13,6 @@ import { IconChevronR } from './Icons.jsx'
    and what is holding. Every figure is counted from the record; there is
    no on-time score or tier here because the app does not hold the data
    those would need, and inventing them is what this page replaced. */
-
-const initials = (name = '') =>
-  name.replace(/\b(pt|cv|tbk|persero)\b\.?/gi, '').trim().split(/\s+/).filter(Boolean)
-    .slice(0, 2).map((w) => w[0]).join('').toUpperCase() || '--'
 
 export function Figure({ value, label, tone }) {
   return (
@@ -55,7 +52,7 @@ export default function CustomerPage({ name }) {
       <div className="page">
         <div className="card empty-state">
           <p><strong>No such customer.</strong></p>
-          <button className="btn btn-secondary" onClick={() => navigate('/')}>Back to the dashboard</button>
+          <button className="btn btn-secondary" onClick={() => navigate('/jobs')}>Back to customers</button>
         </div>
       </div>
     )
@@ -68,8 +65,8 @@ export default function CustomerPage({ name }) {
         eyebrow="Customer"
         title={cust.name}
         sub={<>{cust.orders} order{cust.orders === 1 ? '' : 's'} · {cust.units} unit{cust.units === 1 ? '' : 's'}</>}
-        backLabel="Back to the dashboard"
-        onBack={() => navigate('/')}>
+        backLabel="Back to customers"
+        onBack={() => navigate('/jobs')}>
         <Meter done={cust.done} total={cust.applicable} className="mh-meter" />
       </Masthead>
 

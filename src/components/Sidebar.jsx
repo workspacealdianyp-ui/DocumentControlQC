@@ -15,27 +15,27 @@ import {
    that actually governs this app, since every report, photo and
    signature lives in this browser's storage. */
 
-// Sub-items map to the `kategori` values that actually exist in the job
-// list, so each one filters to a real set rather than a made-up label.
-const JOB_CATEGORIES = [
-  { label: 'Support Equipment', kat: 'SUPEQ' },
-  { label: 'Trailer', kat: 'TRAILER' },
-  { label: 'Non Trailer', kat: 'NON TRAILER' },
+// Jobs are entered the way they are sold — customer, then order, then
+// unit — so the two sub-items are the two ways in, not the shop's filing
+// categories. Those still filter the flat list, from its own tabs.
+const JOB_WAYS = [
+  { id: 'customers', label: 'Customers', to: '/jobs' },
+  { id: 'jobs', label: 'All jobs', to: '/jobs?view=all' },
 ]
 
 const NAV = [
   { id: 'home', label: 'Dashboard', to: '/', icon: IconHome },
-  { id: 'jobs', label: 'Jobs', to: '/jobs', icon: IconList, sub: JOB_CATEGORIES },
+  { id: 'jobs', label: 'Jobs', to: '/jobs', icon: IconList, sub: JOB_WAYS },
   { id: 'reports', label: 'Reports', to: '/reports', icon: IconFile },
   { id: 'monitor', label: 'Monitor', to: '/monitor', icon: IconGrid },
 ]
 
 export default function Sidebar({ page, onToggle, collapsed, onSearch }) {
   const { role, tick } = useApp()
-  const activeKat = new URLSearchParams(window.location.hash.split('?')[1] || '').get('kat')
   // Open the group when you are already inside it; otherwise remember
   // whatever the user last chose.
-  const [openGroup, setOpenGroup] = useState(page === 'jobs' || page === 'job' || page === 'form')
+  const [openGroup, setOpenGroup] = useState(
+    page === 'customers' || page === 'jobs' || page === 'job' || page === 'form')
 
   // Measured, not decorative: the fraction of this browser's storage the
   // app has actually used, re-read whenever anything is saved.
@@ -56,7 +56,8 @@ export default function Sidebar({ page, onToggle, collapsed, onSearch }) {
   const chooseTheme = (pref) => { setPref(pref); setMode(setThemePref(pref)) }
 
   const item = (n) => {
-    const active = page === n.id || (n.id === 'jobs' && (page === 'job' || page === 'form'))
+    const active = page === n.id
+      || (n.id === 'jobs' && ['customers', 'jobs', 'job', 'form', 'customer', 'po'].includes(page))
     return (
       <li key={n.id}>
         {/* Two controls side by side, not one inside the other: go to the
@@ -80,12 +81,12 @@ export default function Sidebar({ page, onToggle, collapsed, onSearch }) {
         {n.sub && !collapsed && openGroup && (
           <ul className="nav-sub">
             {n.sub.map((sItem) => {
-              const on = active && activeKat === sItem.kat
+              const on = page === sItem.id
               return (
-                <li key={sItem.kat}>
+                <li key={sItem.id}>
                   <button className={`nav-subitem${on ? ' active' : ''}`}
                     aria-current={on ? 'page' : undefined}
-                    onClick={() => navigate(`/jobs?kat=${encodeURIComponent(sItem.kat)}`)}>
+                    onClick={() => navigate(sItem.to)}>
                     {sItem.label}
                   </button>
                 </li>

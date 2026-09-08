@@ -15,6 +15,7 @@ import { isPaletteChord } from './lib/keys.js'
 import Home from './components/Home.jsx'
 import Dashboard from './components/Dashboard.jsx'
 import JobsPage from './components/JobsPage.jsx'
+import CustomersPage from './components/CustomersPage.jsx'
 import CustomerPage from './components/CustomerPage.jsx'
 import PoPage from './components/PoPage.jsx'
 import JobDetail from './components/JobDetail.jsx'
@@ -36,7 +37,11 @@ function parseHash() {
   if (parts[0] === 'monitor') return { page: 'monitor', query }
   if (parts[0] === 'jobs') {
     if (parts[1] === 'new') return { page: 'joborder', query }
-    return { page: 'jobs', query }
+    // Jobs opens on the customer register. The flat list is still there
+    // for anyone who wants to scan or filter the whole fleet at once —
+    // ?view=all, and the category deep links that already exist.
+    if (query.view === 'all' || query.kat) return { page: 'jobs', query }
+    return { page: 'customers', query }
   }
   if (parts[0] === 'reports') return { page: 'reports', query }
   if (parts[0] === 'settings') return { page: 'settings', query }
@@ -182,6 +187,7 @@ export default function App() {
           <main className="content" key={route.page + (route.jobNo || '') + (route.formKey || '')}>
             {route.page === 'home' && <Home />}
             {route.page === 'monitor' && <Dashboard />}
+            {route.page === 'customers' && <CustomersPage />}
             {route.page === 'jobs' && <JobsPage kat={route.query.kat} />}
             {route.page === 'joborder' && <NewJobOrder />}
             {route.page === 'job' && <JobDetail job={job} />}

@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { useApp, navigate } from '../App.jsx'
+import { katCode } from '../lib/label.js'
 import { DELIVERABLES, NDE_FORMS } from '../lib/constants.js'
 import { FORM_SCHEMAS } from '../data/formSchemas.js'
 import { buildContext, jobProgress, fmtDate, fmtDateTime } from '../lib/status.js'
@@ -16,7 +17,6 @@ import Masthead from './Masthead.jsx'
 
 const KAT_LABEL = { SUPEQ: 'Support Equipment', TRAILER: 'Trailer', 'NON TRAILER': 'Non Trailer' }
 // The chip carries a code, the way a report's carries LHT or DIM.
-const KAT_SHORT = { SUPEQ: 'SE', TRAILER: 'TRL', 'NON TRAILER': 'NTR' }
 
 const Meta = ({ label, value }) => (
   <div className="meta-item">
@@ -137,13 +137,16 @@ export default function JobDetail({ job }) {
           the right. A job and a report are the same kind of object to
           the person reading them, so they should not arrive in two
           different shapes. */}
+      {/* Back goes up the register the unit was reached through — the
+          order it belongs to — not sideways into the category it happens
+          to be filed under. */}
       <Masthead variant="job"
-        code={KAT_SHORT[job.kategori] || 'JOB'}
+        code={katCode(job.kategori)}
         eyebrow={<>{KAT_LABEL[job.kategori] || 'Job'}{job.poNo ? <> · PO {job.poNo}</> : null}</>}
         title={job.customerName || `Job ${job.jobNo}`}
         sub={<>Job {job.jobNo}{job.productDesc ? <> · {job.productDesc}</> : null}</>}
-        backLabel={`Back to ${KAT_LABEL[job.kategori] || 'jobs'}`}
-        onBack={() => navigate(job.kategori ? `/jobs?kat=${encodeURIComponent(job.kategori)}` : '/jobs')}>
+        backLabel={job.poNo ? `Back to ${job.poNo}` : 'Back to jobs'}
+        onBack={() => navigate(job.poNo ? `/po/${encodeURIComponent(job.poNo)}` : '/jobs')}>
 
         {/* A circle is the right shape on a phone, where the band is
             short and the reading has to be compact. A desktop band is
