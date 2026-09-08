@@ -89,7 +89,18 @@ export const requiredFor = (job) =>
 
 // Every job number in play, so a new one cannot collide with a bundled
 // job or with another order.
-export const takenJobNos = () => new Set(allJobs().map((j) => String(j.jobNo)))
+/* Job numbers already in use.
+
+   `except` is the order being revised: its own units are not a clash
+   with themselves, and without this an editor would report every unit
+   it is holding as already taken. */
+export const takenJobNos = (exceptOrderId) => new Set(
+  allJobs().filter((j) => !exceptOrderId || j.orderId !== exceptOrderId).map((j) => String(j.jobNo)))
+
+export const orderById = (id) => getOrders().find((o) => o.id === id) || null
+// The register knows a PO number, not an order id, so the way in from a
+// purchase order page is by the number printed on it.
+export const orderByPo = (poNo) => getOrders().find((o) => o.poNo === poNo) || null
 
 /* The identity a report's first page shows.
 

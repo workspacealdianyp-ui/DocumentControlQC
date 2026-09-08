@@ -23,6 +23,7 @@ const TABS = [
   { id: 'all', label: 'All' },
   { id: 'draft', label: 'Draft' },
   { id: 'submitted', label: 'Submitted' },
+  { id: 'returned', label: 'Sent back' },
   { id: 'approved', label: 'Approved' },
   { id: 'ncr', label: 'NCR' },
 ]
@@ -123,6 +124,7 @@ export default function Reports({ query }) {
     all: all.length,
     draft: all.filter((r) => r.status === 'draft').length,
     submitted: all.filter((r) => r.status === 'submitted').length,
+    returned: all.filter((r) => r.status === 'returned').length,
     approved: all.filter((r) => r.status === 'approved').length,
     ncr: ncrs.length,
   }), [all, ncrs])

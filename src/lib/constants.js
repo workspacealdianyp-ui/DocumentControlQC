@@ -1,13 +1,13 @@
 // Deliverable columns from JOBLIST (the 9 report types per PRD)
 export const DELIVERABLES = [
-  { key: 'ITP', label: 'ITP', short: 'ITP', form: null },
+  { key: 'ITP', label: 'ITP', short: 'ITP', form: 'itp' },
   { key: 'Dimension Report', label: 'Dimension Report', short: 'DIM', form: 'dimensional' },
   { key: 'NDE Report', label: 'NDE Report', short: 'NDE', form: 'nde' }, // nde => choose MT/PT/UT
   { key: 'Leak & Hydro Test', label: 'Leak & Hydro Test', short: 'L&H', form: 'hydrotest' },
   { key: 'Painting', label: 'Painting', short: 'PNT', form: 'blasting' },
-  { key: 'PTR', label: 'Performance Test (PTR)', short: 'PTR', form: null },
+  { key: 'PTR', label: 'Performance Test (PTR)', short: 'PTR', form: 'ptr' },
   { key: 'Pre-Shipment', label: 'Pre-Shipment Inspection', short: 'PSI', form: 'visual' },
-  { key: 'IRN', label: 'Inspection Release Note', short: 'IRN', form: null },
+  { key: 'IRN', label: 'Inspection Release Note', short: 'IRN', form: 'irn' },
   { key: 'PDI', label: 'Pre-Delivery Inspection', short: 'PDI', form: 'visual' },
 ]
 

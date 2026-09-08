@@ -1058,10 +1058,51 @@ td.th-action { display: flex; gap: 6px; justify-content: flex-end; align-items: 
 .state-new { color: var(--amber-deep); background: rgba(245,158,11,0.14); }
 .state-draft { color: var(--inprog); background: var(--inprog-bg); }
 .state-submitted { color: #7fb0ff; background: rgba(127,176,255,0.14); }
+/* Sent back reads as the one state that is asking for something, so it
+   takes the same red the register uses for a date that has gone. */
+.state-returned { color: var(--overdue); background: var(--overdue-bg); }
 .state-approved { color: var(--done); background: var(--done-bg); }
 .state-overdue { color: var(--overdue); background: var(--overdue-bg); }
 .readonly-note, .locked-note, .grid-err { background: var(--inprog-bg); border: 1px solid var(--inprog); color: var(--inprog); font-size: 13px; font-weight: 500; border-radius: var(--r); padding: 11px 14px; margin-bottom: 14px; }
 .grid-err { background: var(--overdue-bg); border-color: var(--overdue); color: var(--overdue); }
+
+/* Why the report came back. Not the read-only note's cousin — that one
+   states a condition, this one carries somebody's sentence — so the
+   reason gets reading size and the heading around it stays small. */
+.return-note {
+  display: flex; gap: 12px; align-items: flex-start;
+  padding: 13px 15px; margin-bottom: 14px;
+  border: 1px solid var(--overdue); border-left-width: 3px; border-radius: var(--r);
+  background: var(--overdue-bg);
+}
+.return-note-ico { flex: none; display: grid; place-items: center; color: var(--overdue); padding-top: 1px; }
+.return-note-txt { min-width: 0; }
+.return-note-txt strong {
+  display: block; font-family: var(--mono); font-size: 10.5px; font-weight: 600;
+  letter-spacing: 0.07em; text-transform: uppercase; color: var(--overdue);
+}
+.return-note-txt p {
+  margin: 5px 0 0; font-size: 13.5px; line-height: 1.5; color: var(--text);
+  overflow-wrap: anywhere;
+}
+.return-note-txt small { display: block; margin-top: 5px; font-size: 11.5px; color: var(--text-2); }
+
+/* The send-back dialog: the note is the action, so it is sized to be
+   written in rather than tucked under the question. */
+.sendback-label {
+  display: block; margin: 4px 0 6px;
+  font-family: var(--mono); font-size: 10px; font-weight: 600;
+  letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-2);
+}
+.sendback-note {
+  width: 100%; box-sizing: border-box; resize: vertical;
+  padding: 10px 12px; border: 1px solid var(--line-2); border-radius: var(--r);
+  background: var(--surface); color: var(--text);
+  font-family: var(--sans); font-size: 13.5px; line-height: 1.5;
+}
+.sendback-note:focus-visible { outline: none; border-color: var(--text); box-shadow: 0 0 0 3px var(--amber-soft); }
+.sendback-hint { margin: 7px 0 0; font-size: 11.5px; color: var(--text-3); }
+.confirm-modal .btn-primary:disabled { opacity: 0.45; cursor: not-allowed; }
 
 /* two-column body + right rail (sections, then actions) */
 .form-body { display: grid; grid-template-columns: 1fr; gap: 16px; align-items: start; }
@@ -2584,6 +2625,7 @@ input:focus-visible, select:focus-visible, textarea:focus-visible {
 .dbadge.state-approved { color: var(--done); background: var(--done-bg); }
 .dbadge.state-submitted { color: var(--inprog); background: var(--inprog-bg); }
 .dbadge.state-draft { color: var(--notstart); background: var(--notstart-bg); }
+.dbadge.state-returned { color: var(--overdue); background: var(--overdue-bg); }
 .dbadge.verdict.is-acc { color: #fff; background: var(--done); border-color: var(--done); }
 .dbadge.verdict.is-rej { color: #fff; background: var(--overdue); border-color: var(--overdue); }
 
@@ -3768,6 +3810,42 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber); outline-
 .jo-pick.on .jo-pick-box { background: var(--amber); border-color: var(--amber); color: #fff; }
 .jo-pick input:focus-visible + .jo-pick-box { box-shadow: 0 0 0 3px var(--amber-soft); border-color: var(--amber); }
 .jo-pick-text { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
+
+/* A deliverable with documents behind it: still ticked, no longer a
+   choice. It reads as settled rather than disabled — the sub-line says
+   what is holding it, so the greyed box is never the only explanation. */
+.jo-pick.is-held { cursor: default; border-style: solid; }
+.jo-pick.is-held:hover { border-color: var(--amber); background: var(--amber-soft); }
+.jo-pick.is-held .jo-pick-box { opacity: 0.55; }
+.jo-pick.is-held .jo-pick-text small { color: var(--text-2); font-weight: 500; }
+
+/* A locked job number states its reason in the field's own hint, so the
+   read-only input needs to look inert rather than broken. */
+.jo-field input[readonly] { background: var(--surface-2); color: var(--text-2); cursor: default; }
+
+/* Withdrawing the order. Set apart from the save row and below the
+   problems list, because it is the one control here that removes
+   something rather than recording it. */
+.jo-withdraw {
+  display: flex; align-items: center; justify-content: space-between; gap: 18px; flex-wrap: wrap;
+  margin: 26px 0 0; padding: 15px 17px;
+  border: 1px solid var(--line-2); border-radius: var(--r-lg);
+  background: var(--surface-2);
+}
+.jo-withdraw h4 { margin: 0 0 3px; font-size: 13.5px; font-weight: 600; color: var(--text); }
+.jo-withdraw p { margin: 0; max-width: 62ch; font-size: 12px; line-height: 1.55; color: var(--text-2); }
+.jo-withdraw .btn { flex: none; }
+.jo-withdraw .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* The order's own administration, on the purchase order page: who
+   raised it, and the way into revising it. */
+.po-admin {
+  display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap;
+  margin: 0 0 16px; padding: 10px 14px;
+  border: 1px solid var(--line); border-radius: var(--r);
+  background: var(--surface-2);
+  font-size: 12px; color: var(--text-2);
+}
 .jo-pick-text strong { font-size: 12.5px; font-weight: 500; }
 .jo-pick-text small {
   display: inline-flex; align-items: center; gap: 4px;
@@ -3967,6 +4045,7 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber); outline-
 .rep-card.tone-draft     .rep-code { background: var(--inprog-bg); color: var(--inprog); border-color: var(--inprog-bg); }
 .rep-card.tone-submitted .rep-code { background: rgba(127, 176, 255, 0.16); color: #2f6fd0; border-color: transparent; }
 .rep-card.tone-approved  .rep-code { background: var(--done-bg); color: var(--done); border-color: var(--done-bg); }
+.rep-card.tone-returned  .rep-code { background: var(--overdue-bg); color: var(--overdue); border-color: var(--overdue-bg); }
 .rep-card.tone-ncr       .rep-code { background: var(--overdue-bg); color: var(--overdue); border-color: var(--overdue-bg); }
 :root[data-theme="dark"] .rep-card.tone-submitted .rep-code { color: #7fb0ff; }
 
@@ -6051,6 +6130,9 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber); outline-
 .vt-track { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px; align-items: center; }
 .vt-track i { display: block; height: 6px; border-radius: 2px; background: var(--line); }
 .vt-track i.on { background: var(--text); }
+/* Back at step one, and not for the same reason a draft is there. */
+.vt-track.is-back i.on { background: var(--overdue); }
+.vt-standing b.is-back { color: var(--overdue); }
 
 /* The state filter. Small enough to sit beside the search field rather
    than take a row of its own, since five states is the whole vocabulary

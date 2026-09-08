@@ -306,8 +306,13 @@ export default function Profile() {
       <div className="pf-grants">
         <Grant on={role.canEdit} title="Fill and submit reports"
           body="Open an inspection form, record readings, sign it and send it for approval." />
-        <Grant on={role.canOverride} title="Approve and reopen"
-          body="Approve a submitted report, or reopen one that has already been signed." />
+        {/* This said "Approve and reopen", and reopening did not exist —
+            nor should it: a signed report is not un-signed here, it is
+            superseded by the next issue, which is the rule the whole
+            evidence trail rests on. So the claim now names the three
+            things the role actually does. */}
+        <Grant on={role.canOverride} title="Approve, send back and amend"
+          body="Approve a submitted report, send it back to its inspector with the reason it cannot be signed, or raise the next issue of one already signed — the signed issue stays on file as it was." />
         <Grant on={role.canManage} title="Raise job orders and settings"
           body="Publish a purchase order, manage the instrument register and clear stored data." />
       </div>

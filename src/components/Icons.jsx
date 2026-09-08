@@ -55,10 +55,14 @@ export const STATUS_ICONS = {
 
 // Document lifecycle, distinct from deliverable status: a report is
 // written, sent, then signed off.
+// Sent back: the arrow leaves the line it came in on and turns round.
+export const IconReturn = (p) => <I {...p}><polyline points="9.5 14.5 5 10 9.5 5.5" /><path d="M5 10h9a5 5 0 0 1 0 10H8.5" /></I>
+
 export const STATE_META = {
   new:       { label: 'New',       icon: IconPlus },
   draft:     { label: 'Draft',     icon: IconPen },
   submitted: { label: 'Submitted', icon: IconSend },
+  returned:  { label: 'Sent back', icon: IconReturn },
   approved:  { label: 'Approved',  icon: IconApprove },
 }
 

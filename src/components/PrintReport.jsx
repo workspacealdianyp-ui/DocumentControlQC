@@ -475,8 +475,14 @@ export function ReportSheets({ schema, report, job, deliverable, status, pageMap
     </>
   )
 
-  // 3 — the formal statement of result, on its own sheet
-  bodies.push(
+  /* 3 — the formal statement of result, on its own sheet.
+
+     Not for a document record: that sheet declares that this shop
+     carried out the inspection and hereby accepts the object. For a
+     filed ITP or release note neither half is true, and a data book is
+     the last place to print a statement nobody made. The record's own
+     pages are the statement. */
+  if (schema.kind !== 'record') bodies.push(
     <>
       {contNote}
       {(() => {

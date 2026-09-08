@@ -14,15 +14,16 @@ const SCREENS = [
   { icon: IconGrid, name: 'Monitoring', to: '/monitoring',
     what: 'The register, entered the way the work is sold: customer, then purchase order, then the unit. One search covers all three, so a job number can be looked up without knowing whose it is. "All jobs" opens the flat list of every unit.' },
   { icon: IconFile, name: 'Reports', to: '/reports',
-    what: 'Every inspection document in the company, filled or attached, with its verdict and what it is waiting on. Filter by status, form or job; a submitted report can be approved from the list by anyone who did not write it.' },
+    what: 'Every inspection document in the company, filled or attached, with its verdict and what it is waiting on. Filter by status, form or job; a submitted report can be approved from the list by anyone who did not write it, and sent back — with a reason — from the report itself.' },
   { icon: IconLock, name: 'Vault', to: '/vault',
-    what: 'The same documents, narrowed to yours: what you wrote and, if you approve, what you signed. Ordered by what is still on you — drafts first, then waiting, then done.' },
+    what: 'The same documents, narrowed to yours: what you wrote and, if you approve, what you signed. Ordered by what is still on you — anything sent back to you first, then drafts, then waiting, then done.' },
 ]
 
 const STEPS = [
   ['Raise the job order', 'QC head or admin enters the PO, the units it covers, and which reports every unit has to produce.'],
   ['Inspect', 'An inspector opens a unit and fills only the reports that order asked for. Page 1 of every form is the job identity, quoted from the order and not editable.'],
-  ['Submit and approve', 'A submitted report becomes read-only. An admin opens it and approves it there, where the evidence is.'],
+  ['Submit and approve', 'A submitted report becomes read-only. An admin opens it and either approves it there, where the evidence is, or sends it back with the reason — which returns the deliverable to In Progress until it is submitted again.'],
+  ['Amend what is signed', 'An approved report is never rewritten. Editing one raises the next issue against the same job and form; the approved issue stays on file exactly as it was approved, and the amendment has to be submitted and approved on its own.'],
   ['Issue the data book', 'Generate MDR binds the approved documents behind a cover, a contents page and a register — each report in full, on its own page.'],
 ]
 
