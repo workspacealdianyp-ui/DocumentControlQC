@@ -252,7 +252,12 @@ export function returnReport(id, byName, note) {
 
 /* The three fields that describe an open return are about where the
    report stands, so going in again clears them. What does not clear is
-   `returns` — that it was sent back, by whom and why, is the record. */
+   `returns` — that it was sent back, by whom and why, is the record.
+
+   The three names are destructured to drop them and never read, which
+   is the point of writing it this way rather than deleting keys off a
+   copy; a linter reading it as three unused variables is reading it
+   right and drawing the wrong conclusion. */
 export function withoutOpenReturn(report) {
   const { returnedBy, returnedAt, returnNote, ...rest } = report
   return rest
