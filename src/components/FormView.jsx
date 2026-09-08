@@ -981,6 +981,13 @@ export default function FormView({ job, formKey, query }) {
         })
       } else if (sec.type === 'dft') {
         ;(report.coats || []).forEach((c, i) => { if (!c.area) errs[`dft.${i}.area`] = true; if (!c.std) errs[`dft.${i}.std`] = true })
+      } else if (sec.type === 'photos') {
+        /* Photographs are evidence rather than a field, so they were
+           never required by anything. On a document record they are the
+           evidence: a reference number with no page behind it closes a
+           deliverable on somebody's word, which is what this record
+           exists to stop. Only sections that ask. */
+        if (sec.req && !(report.photos || []).length) errs[sec.id] = 'Attach at least one page of the signed document.'
       } else if (sec.fields) {
         for (const f of sec.fields) {
           if (!showField(f, v)) continue
@@ -1004,6 +1011,7 @@ export default function FormView({ job, formKey, query }) {
       return rows.some((row) => sec.columns.some((c) => c.req === 'M' && !row[c.id]))
     }
     if (sec.type === 'dft') return (report.coats || []).some((c) => !c.area || !c.std)
+    if (sec.type === 'photos') return !!sec.req && !(report.photos || []).length
     if (sec.fields) {
       return sec.fields.some((f) => {
         if (!showField(f, v)) return false
@@ -1143,7 +1151,12 @@ export default function FormView({ job, formKey, query }) {
     if (sec.type === 'recording') return <RecordingSection report={report} update={update} setValue={setValue} locked={readOnly} />
     if (sec.type === 'results') return <>{errors[sec.id] && <div className="grid-err">{errors[sec.id]}</div>}<ResultsSection sec={sec} report={report} update={update} locked={readOnly} showErrors={Object.keys(errors).length > 0} /></>
     if (sec.type === 'dft') return <DftSection report={report} update={update} locked={readOnly} showErrors={Object.keys(errors).length > 0} />
-    if (sec.type === 'photos') return <PhotoStrip photos={report.photos || []} disabled={readOnly} onChange={(p) => update({ photos: p })} />
+    if (sec.type === 'photos') return (
+      <>
+        {errors[sec.id] && <div className="grid-err">{errors[sec.id]}</div>}
+        <PhotoStrip photos={report.photos || []} disabled={readOnly} onChange={(p) => update({ photos: p })} />
+      </>
+    )
     return null
   }
 

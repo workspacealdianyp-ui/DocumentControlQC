@@ -187,10 +187,15 @@ export default function ReportDetail({ schema, report, job, deliverable, status,
           {status === 'approved' ? <IconApprove size={13} /> : <IconSend size={13} />}
           {statusLabel}
         </span>
-        <span className={`dbadge verdict ${r.released ? 'is-acc' : 'is-rej'}`}>
-          {r.released ? <IconApprove size={13} /> : <IconXCircle size={13} />}
-          {r.released ? 'Accept' : 'Reject'}
-        </span>
+        {/* A verdict badge on a filed plan or release note would be
+            this app's opinion of somebody else's document. Records show
+            one only when the document itself recorded a result. */}
+        {(schema.kind !== 'record' || schema.verdict) && (
+          <span className={`dbadge verdict ${r.released ? 'is-acc' : 'is-rej'}`}>
+            {r.released ? <IconApprove size={13} /> : <IconXCircle size={13} />}
+            {r.released ? 'Accept' : 'Reject'}
+          </span>
+        )}
       </Masthead>
 
       {/* What the report decided, and what can be done about it. The

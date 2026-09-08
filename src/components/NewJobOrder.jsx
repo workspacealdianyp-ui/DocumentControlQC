@@ -25,11 +25,20 @@ const F = ({ label, children, hint }) => (
   </label>
 )
 
-// The deliverables split by whether this build can actually fill them
-// in. Only the fillable ones are on by default, because those are the
-// forms we have; the rest are documents someone attaches by hand.
-const FILLABLE = DELIVERABLES.filter((d) => d.form)
-const MANUAL = DELIVERABLES.filter((d) => !d.form)
+/* The deliverables split by what closing one actually involves.
+
+   This used to split on whether a form existed at all — anything
+   without one was "attached by hand", which meant nothing in the app.
+   Every deliverable can be closed here now, so the line moved to the
+   real difference: six are inspections this shop carries out and
+   records as it goes, and three are documents issued elsewhere that
+   this shop files. Both produce a report; only the first is a test.
+
+   The inspections stay ticked by default, as they were. A document is
+   the order's decision to ask for, not ours. */
+const isRecord = (d) => FORM_SCHEMAS[d.form]?.kind === 'record'
+const FILLABLE = DELIVERABLES.filter((d) => d.form && !isRecord(d))
+const RECORDS = DELIVERABLES.filter((d) => isRecord(d))
 
 const formName = (d) =>
   d.form === 'nde' ? 'MT / PT / UT' : FORM_SCHEMAS[d.form]?.title || ''
@@ -247,15 +256,15 @@ export default function NewJobOrder() {
               </label>
             ))}
           </div>
-          <p className="set-legend">Document deliverables — attached by hand</p>
+          <p className="set-legend">Document deliverables — issued elsewhere, filed here with the signed pages</p>
           <div className="jo-picks">
-            {MANUAL.map((d) => (
+            {RECORDS.map((d) => (
               <label key={d.key} className={`jo-pick${required.has(d.key) ? ' on' : ''}`}>
                 <input type="checkbox" checked={required.has(d.key)} onChange={() => toggle(d.key)} />
                 <span className="jo-pick-box" aria-hidden="true"><IconCheck size={11} /></span>
                 <span className="jo-pick-text">
                   <strong>{d.label}</strong>
-                  <small><IconDoc size={10} /> tracked manually</small>
+                  <small><IconDoc size={10} /> {formName(d)}</small>
                 </span>
               </label>
             ))}

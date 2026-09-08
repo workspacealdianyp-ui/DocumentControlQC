@@ -70,6 +70,20 @@ export function buildResume(schema, report, job) {
     )
     facts.push(`${rows.length} inspection point${rows.length === 1 ? '' : 's'} were checked`)
     facts.push(ng === 0 ? 'and all were found acceptable' : `of which ${ng} were marked NG`)
+  } else if (schema.kind === 'record') {
+    /* A document record states what is on file, not what was measured.
+       Everything else in this function describes an inspection this
+       shop carried out; saying that about somebody else's release note
+       would be an invention. */
+    const pages = (report.photos || []).length
+    stats.push(
+      { label: 'Document', value: v.docRef || '—' },
+      { label: 'Issued', value: v.issuedOn ? new Date(v.issuedOn).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }) : '—' },
+      { label: 'Revision', value: v.rev || '—' },
+      { label: 'By', value: v.issuedBy || '—' },
+      { label: 'Pages held', value: String(pages) },
+    )
+    if (schema.verdict) stats.push({ label: 'Result', value: v.finalStatus || '—' })
   } else if (schema.key === 'dimensional') {
     const rows = report.results || []
     const rej = rows.filter((r) => dimRowStatus(r) === 'Reject').length
@@ -83,9 +97,28 @@ export function buildResume(schema, report, job) {
 
   // ── verdict line ──
   const released = verdict === 'Accept'
-  const headline = released ? 'Acceptable. Conforms to requirements' : 'Non-conforming. See findings'
-
   const dateStr = v.inspDate ? new Date(v.inspDate).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) : '—'
+
+  /* A record says what is held and, only if the document itself
+     concluded something, what it concluded. It never claims a verdict
+     this shop did not reach. */
+  if (schema.kind === 'record') {
+    const pages = (report.photos || []).length
+    const issued = v.issuedOn ? new Date(v.issuedOn).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) : dateStr
+    let p = `${schema.title.replace(' Record', '')} ${v.docRef || '(unnumbered)'}${v.rev ? ` ${v.rev}` : ''}, issued ${issued}${v.issuedBy ? ` by ${v.issuedBy}` : ''}, is filed against ${unit} for ${customer}. `
+    p += pages
+      ? `${pages} signed page${pages === 1 ? '' : 's'} ${pages === 1 ? 'is' : 'are'} held with this record.`
+      : 'No page of the document is held with this record.'
+    if (v.notes) p += ` ${v.notes}`
+    return {
+      verdict, released, stats, paragraph: p,
+      headline: schema.verdict
+        ? (released ? `Document on file — result Accept` : 'Document on file — result Reject')
+        : 'Document on file',
+    }
+  }
+
+  const headline = released ? 'Acceptable. Conforms to requirements' : 'Non-conforming. See findings'
   let paragraph = `On ${dateStr}, ${unit} owned by ${customer} was inspected and tested by ${COMPANY.legalName} (${COMPANY.department}). `
   if (facts.length) paragraph += cap(facts.join(', ')) + '. '
   paragraph += released
