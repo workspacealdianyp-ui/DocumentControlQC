@@ -49,6 +49,37 @@ const OPEN_KEY = 'qc.jobs.reg.open.v1'
 const AUTO_OPEN_UPTO = 6
 const ORDERS_SHOWN = 3
 
+/* How many document types the waiting line names before it starts
+   counting instead.
+
+   Three chips and a label fit one line on a desktop. On a phone they did
+   not: the line wrapped to two or three rows, every panel grew by the
+   height of the rows it wrapped, and the customer under it was pushed
+   off the screen by a summary. So the cap is what the width can hold on
+   one line, the rest is a count, and the count opens the rest in place
+   for anybody who wants it. */
+const WAIT_CAPS = [['(max-width: 460px)', 1], ['(max-width: 720px)', 2]]
+const WAIT_CAP_WIDE = 3
+
+const waitCap = () => {
+  for (const [q, n] of WAIT_CAPS) if (window.matchMedia?.(q).matches) return n
+  return WAIT_CAP_WIDE
+}
+
+/* One set of listeners for the page rather than one per customer panel:
+   the answer is the same for every card on the screen. */
+function useWaitCap() {
+  const [cap, setCap] = useState(waitCap)
+  useEffect(() => {
+    const mqs = WAIT_CAPS.map(([q]) => window.matchMedia?.(q)).filter(Boolean)
+    const read = () => setCap(waitCap())
+    read()
+    mqs.forEach((m) => m.addEventListener('change', read))
+    return () => mqs.forEach((m) => m.removeEventListener('change', read))
+  }, [])
+  return cap
+}
+
 /* The status filter on the All-jobs list, as a link — but only when
    there is something behind it. A figure of zero that opens an empty
    list is a dead end dressed as an answer, so a zero stays a statement
@@ -73,10 +104,13 @@ const Spine = ({ children }) => <span className="spine">{children}</span>
    The head is the link to their page and carries the identity and the
    reading; everything under it is the detail that used to require
    opening that page to see. */
-function CustomerCard({ c, orders, waiting, open, onToggle }) {
+function CustomerCard({ c, orders, waiting, waitCap: cap, open, onToggle }) {
   const href = `#/customer/${encodeURIComponent(c.name)}`
   const shown = open ? orders : orders.slice(0, ORDERS_SHOWN)
   const hidden = orders.length - shown.length
+  const [allWait, setAllWait] = useState(false)
+  const waitShown = allWait ? waiting : waiting.slice(0, cap)
+  const waitRest = waiting.length - waitShown.length
   return (
     <section className="reg-cust">
       <a className="reg-cust-head" href={href}>
@@ -125,7 +159,9 @@ function CustomerCard({ c, orders, waiting, open, onToggle }) {
         </div>
       )}
 
-      <p className="reg-cust-wait">
+      {/* The one-line rule is for the chips only: the sentence that stands
+          in for them when nothing is outstanding has to be able to wrap. */}
+      <p className={`reg-cust-wait${waiting.length > 0 && !allWait ? ' is-one-line' : ''}`}>
         {waiting.length === 0
           ? c.applicable === 0
             ? <><b>No reports required.</b> None of this customer&rsquo;s units asks for one.</>
@@ -133,12 +169,17 @@ function CustomerCard({ c, orders, waiting, open, onToggle }) {
           : (
             <>
               <span className="wait-label">Waiting on</span>
-              {waiting.slice(0, 3).map((w) => (
+              {waitShown.map((w) => (
                 <span key={w.key} className={`wait-chip${w.late ? ' is-late' : ''}`}>
-                  {w.label}<b>{w.units}</b>
+                  <span>{w.label}</span><b>{w.units}</b>
                 </span>
               ))}
-              {waiting.length > 3 && <span className="wait-rest">+{waiting.length - 3} more</span>}
+              {waiting.length > cap && (
+                <button type="button" className="wait-rest" aria-expanded={allWait}
+                  onClick={() => setAllWait((v) => !v)}>
+                  {allWait ? 'Show fewer' : `+${waitRest} more`}
+                </button>
+              )}
             </>
           )}
       </p>
@@ -150,6 +191,8 @@ export default function CustomersPage() {
   const { jobs, role, tick } = useApp()
   const ctx = useMemo(() => buildContext(), [tick])
   const [q, setQ] = useState('')
+
+  const cap = useWaitCap()
 
   const customers = useMemo(() => byCustomer(jobs, ctx), [jobs, ctx])
   const orders = useMemo(() => ordersByCustomer(jobs, ctx), [jobs, ctx])
@@ -273,6 +316,7 @@ export default function CustomersPage() {
               <CustomerCard key={c.name} c={c}
                 orders={orders.get(c.name) || []}
                 waiting={waiting.get(c.name) || []}
+                waitCap={cap}
                 open={open.has(c.name)}
                 onToggle={() => toggle(c.name)} />
             ))}

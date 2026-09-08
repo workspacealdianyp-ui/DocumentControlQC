@@ -4130,8 +4130,23 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber); outline-
   border: 1px solid var(--line-2); border-radius: var(--r-lg);
   margin-bottom: 22px;
   background: var(--surface);
+  /* The tilt the pointer writes. Two properties, one transform, no
+     layout and no repaint — the face turns on the compositor. */
+  transform: perspective(1100px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  transition: transform .55s cubic-bezier(0.22, 0.61, 0.36, 1);
+  will-change: transform;
 }
-.pf-metal { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+/* Under the pointer the face keeps up; when the pointer leaves, the
+   variables go back to zero and the longer transition above lets it
+   settle rather than snap flat. */
+.pf-banner.is-lit { transition: transform .16s ease-out; }
+
+.pf-metal {
+  position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  animation: pf-lightup 1.1s ease both;
+}
+/* The face lights before anything is written on it. */
+@keyframes pf-lightup { from { opacity: 0; } to { opacity: 1; } }
 .pf-metal::before {
   content: ''; position: absolute; inset: 0;
   background: linear-gradient(156deg,
@@ -4204,6 +4219,21 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber); outline-
     transparent 3px 5px);
 }
 
+/* The lamp, where the pointer is. A fixed circle moved by transform
+   rather than a gradient whose stops are recomputed every frame: the
+   second one repaints the whole face on every pointer event. It is only
+   ever switched on by a real pointer, so a phone never pays for it. */
+.pf-spot {
+  left: 0; top: 0; z-index: 2;
+  width: 400px; height: 400px; margin: -200px 0 0 -200px;
+  border-radius: 50%;
+  background: radial-gradient(closest-side,
+    rgba(255,255,255,0.9), rgba(255,255,255,0.3) 44%, transparent 74%);
+  opacity: 0; transform: translate3d(var(--sx, 0px), var(--sy, 0px), 0);
+  transition: opacity .32s ease;
+}
+.pf-banner.is-lit .pf-spot { opacity: 1; }
+
 /* A surface that moves is a surface that has to stop moving on request. */
 @media (prefers-reduced-motion: reduce) {
   .pf-sheen-a, .pf-sheen-b, .pf-fall { animation: none; }
@@ -4224,23 +4254,85 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber); outline-
 .pf-back:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(30, 30, 38, 0.3); }
 @supports not (backdrop-filter: blur(6px)) { .pf-back { background: rgba(255, 255, 255, 0.92); } }
 
+/* The stamp in the top band: mono, uppercase and low contrast, because
+   it is marked into the face rather than printed on it. */
+.pf-mark {
+  position: absolute; z-index: 2; top: 18px; right: 18px;
+  display: inline-flex; align-items: center; gap: 8px;
+  max-width: calc(100% - 80px); margin: 0;
+  font-family: var(--mono); font-size: 10px; font-weight: 600;
+  letter-spacing: 0.09em; text-transform: uppercase; color: #40404b;
+  text-shadow: 0 1px 0 rgba(255,255,255,0.55);
+  animation: pf-rise .6s .34s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+.pf-mark i {
+  flex: none; width: 7px; height: 7px; border-radius: 50%;
+  box-shadow: inset 0 0 0 1px rgba(24,24,30,0.45);
+}
+/* Something is still only on this device: the mark keeps breathing
+   until it is not. */
+.pf-mark.is-pending i {
+  background: #17171c; box-shadow: none;
+  animation: pf-pulse 2.8s ease-in-out infinite;
+}
+@keyframes pf-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(24,24,30,0.42); }
+  55%      { box-shadow: 0 0 0 6px rgba(24,24,30,0); }
+}
+
 .pf-banner-in {
   position: relative; z-index: 2;
   display: flex; align-items: flex-end; gap: 18px; flex-wrap: wrap;
   padding: 58px 22px 20px;
 }
 
-/* the monogram, stamped rather than printed */
+/* the monogram, stamped rather than printed — and it arrives that way:
+   it comes in oversized and settles onto the face, which is the one
+   moment on this page where something is put in place rather than
+   revealed. */
 .pf-plate {
+  position: relative; overflow: hidden;
   flex: none;
   display: grid; place-items: center;
   width: 76px; height: 76px; border-radius: 10px;
   background: #17171c; color: #f2f2f5;
   font-family: var(--mono); font-size: 27px; font-weight: 600; letter-spacing: 0.01em;
   box-shadow: 0 2px 0 rgba(255,255,255,0.55), 0 10px 24px rgba(20,20,26,0.34);
+  animation: pf-stamp .6s .12s cubic-bezier(0.2, 0.82, 0.24, 1) both;
+}
+@keyframes pf-stamp {
+  from { opacity: 0; transform: scale(1.18); }
+  to   { opacity: 1; transform: scale(1); }
 }
 
+/* Light catching a stamped tag. Long period, low contrast: it is a
+   glint on a 76px square, not a highlight sweep across the page. */
+.pf-plate-gleam {
+  position: absolute; inset: -35%; pointer-events: none;
+  background: linear-gradient(90deg,
+    transparent 34%, rgba(255,255,255,0.42) 50%, transparent 66%);
+  transform: rotate(18deg) translate3d(-170%, 0, 0);
+  animation: pf-gleam 7.5s 1.1s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+@keyframes pf-gleam {
+  0%        { transform: rotate(18deg) translate3d(-170%, 0, 0); }
+  26%, 100% { transform: rotate(18deg) translate3d(170%, 0, 0); }
+}
+.pf-plate.has-photo .pf-plate-gleam { z-index: 1; }
+
 .pf-who { flex: 1 1 220px; min-width: 0; color: #16161a; }
+/* Name, then role, then company: the order somebody would read them
+   in, arriving in that order and then holding still. Nothing written on
+   this plate moves after it has landed. */
+.pf-who > * {
+  animation: pf-rise .6s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  animation-delay: calc(120ms + var(--i, 0) * 80ms);
+}
+@keyframes pf-rise {
+  from { opacity: 0; transform: translate3d(0, 9px, 0); }
+  to   { opacity: 1; transform: none; }
+}
+.pf-back { animation: pf-rise .5s .3s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
 .pf-who h2 { margin: 0; font-size: 25px; font-weight: 650; letter-spacing: -0.02em; line-height: 1.15; color: #16161a; }
 .pf-who-role { margin: 3px 0 0; font-size: 13px; font-weight: 500; color: #35353e; }
 .pf-who-co { margin: 1px 0 0; font-size: 12px; color: #4a4a55; }
@@ -4248,12 +4340,40 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber); outline-
 /* Three facts cut into the plate. Engraving reads as recessed: a dark
    line with a light one under it. */
 .pf-engraved {
+  position: relative;
   flex: 1 1 100%; margin: 16px 0 0;
   display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
   border-top: 1px solid rgba(28,28,36,0.16);
   box-shadow: 0 -1px 0 rgba(255,255,255,0.6);
 }
-.pf-engraved > div { padding: 11px 0 1px; min-width: 0; }
+/* The rule scored left to right, once, and then gone — the facts under
+   it are cut into the plate, so the line that holds them is drawn
+   before they appear. */
+.pf-engraved::before {
+  content: ''; position: absolute; left: 0; right: 0; top: -1px; height: 1px;
+  background: rgba(24,24,30,0.55); transform-origin: left;
+  /* Hidden at rest, so that where the animation never runs — somebody
+     who has asked for no motion — the plate's own rule is left alone. */
+  opacity: 0; transform: scaleX(0);
+  animation: pf-score .75s .3s cubic-bezier(0.3, 0.7, 0.2, 1) both;
+}
+@keyframes pf-score {
+  from { transform: scaleX(0); opacity: 1; }
+  70%  { transform: scaleX(1); opacity: 1; }
+  to   { transform: scaleX(1); opacity: 0; }
+}
+.pf-engraved > div {
+  padding: 11px 0 1px; min-width: 0;
+  animation: pf-rise .55s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  animation-delay: calc(360ms + var(--i, 0) * 90ms);
+}
+
+/* The settled reading, for a screen reader. The visible figure runs up
+   to its value over the first second and must not be the one announced. */
+.pf-sr {
+  position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0;
+  overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0;
+}
 .pf-engraved > div + div { border-left: 1px solid rgba(28,28,36,0.12); padding-left: 14px; }
 .pf-engraved dt {
   font-family: var(--mono); font-size: 10px; font-weight: 600;
@@ -4284,6 +4404,19 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber); outline-
   background: linear-gradient(90deg, transparent, rgba(255,255,255,0.24), transparent);
 }
 :root[data-theme="dark"] .pf-fall { opacity: 0.34; }
+:root[data-theme="dark"] .pf-spot {
+  background: radial-gradient(closest-side,
+    rgba(255,255,255,0.34), rgba(255,255,255,0.11) 44%, transparent 74%);
+}
+:root[data-theme="dark"] .pf-engraved::before { background: rgba(255,255,255,0.5); }
+:root[data-theme="dark"] .pf-mark { color: #b4b4c0; text-shadow: 0 1px 0 rgba(0,0,0,0.5); }
+:root[data-theme="dark"] .pf-mark i { box-shadow: inset 0 0 0 1px rgba(255,255,255,0.4); }
+:root[data-theme="dark"] .pf-mark.is-pending i { background: #ededf0; box-shadow: none; }
+:root[data-theme="dark"] .pf-mark.is-pending i { animation-name: pf-pulse-dark; }
+@keyframes pf-pulse-dark {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255,255,255,0.34); }
+  55%      { box-shadow: 0 0 0 6px rgba(255,255,255,0); }
+}
 :root[data-theme="dark"] .pf-grain {
   background: repeating-linear-gradient(92deg,
     rgba(255,255,255,0.1) 0 1px, transparent 1px 2px,
@@ -5647,9 +5780,20 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber); outline-
    panel scale rather than row scale. Nothing new was invented to fill
    the space; what fills it is the level below, brought up. */
 
-.reg-custs { display: flex; flex-direction: column; }
-.reg-cust { border-top: 1px solid var(--line); }
-.reg-custs > .reg-cust:first-child { border-top: 0; }
+/* Panels, not a stack of rows fused at the border. A customer panel is
+   four bands tall — head, ribbon, orders, waiting line — and a hairline
+   between two of them left the eye to work out where one customer ended
+   and the next began. Space does that without a rule: the panels sit on
+   the same recessed ground the search bar uses, so each one is visibly
+   a card of its own. */
+.reg-custs {
+  display: flex; flex-direction: column; gap: 12px;
+  padding: 12px; background: var(--surface-2);
+}
+.reg-cust {
+  border: 1px solid var(--line-2); border-radius: var(--r);
+  background: var(--surface); overflow: hidden;
+}
 
 .reg-cust-head {
   display: grid; align-items: center;
@@ -5731,7 +5875,23 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber); outline-
 }
 .wait-chip.is-late { color: var(--overdue); background: var(--overdue-bg); box-shadow: inset 0 0 0 1px var(--overdue-line); }
 .wait-chip.is-late b { color: var(--overdue); }
-.wait-rest { font-size: 11px; color: var(--text-3); }
+/* The label and the count hold their width; only the document type gives
+   way, so a long name is clipped rather than wrapping the line. */
+.wait-label, .wait-rest, .wait-chip b { flex: none; }
+.wait-chip > span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* The count is the way into what it counts: tapping it opens the rest of
+   the types in place, and tapping again puts them back. */
+.wait-rest {
+  padding: 3px 7px; border: 0; border-radius: var(--r-sm);
+  background: none; color: var(--text-3);
+  font: inherit; font-size: 11px; cursor: pointer;
+  transition: color .13s ease, background .13s ease;
+}
+.wait-rest:hover { color: var(--text); background: var(--surface-2); }
+.wait-rest:focus-visible { outline: none; color: var(--text); box-shadow: inset 0 0 0 2px var(--text); }
+.reg-cust-wait.is-one-line { flex-wrap: nowrap; overflow: hidden; }
+.reg-cust-wait.is-one-line .wait-chip { min-width: 0; }
 
 /* ── the ribbon: where a set of units stands ─────────────────────────
    Four segments in a fixed order — finished, in progress, not started,
@@ -5850,6 +6010,7 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber); outline-
 .fig-link:focus-visible { outline: none; box-shadow: inset 0 0 0 2px var(--text); }
 
 @media (max-width: 720px) {
+  .reg-custs { gap: 10px; padding: 10px; }
   .reg-cust-head { grid-template-columns: 40px minmax(0, 1fr) auto; gap: 12px; padding: 13px 14px 9px; }
   .reg-cust-head .reg-go { display: none; }
   .reg-cust-ribbon, .reg-cust-wait { padding-left: 14px; padding-right: 14px; }
