@@ -1,3 +1,4 @@
+import { DELIVERABLES } from './constants.js'
 import { jobProgress } from './status.js'
 import { getReports } from './store.js'
 import { reportResult } from './verdict.js'
@@ -48,7 +49,8 @@ function currentIssues(reports) {
 }
 
 function blank() {
-  return { units: 0, complete: 0, overdue: 0, inprogress: 0, done: 0, applicable: 0, ncr: 0, lastAt: '' }
+  return { units: 0, complete: 0, overdue: 0, inprogress: 0, done: 0, applicable: 0, ncr: 0,
+           lastAt: '', nextRelease: '' }
 }
 
 function fold(acc, job, ctx, reportsByJob) {
@@ -56,9 +58,16 @@ function fold(acc, job, ctx, reportsByJob) {
   acc.units++
   acc.done += p.done
   acc.applicable += p.applicable
-  if (p.applicable && p.done === p.applicable) acc.complete++
+  const finished = !!p.applicable && p.done === p.applicable
+  if (finished) acc.complete++
   if (p.overdue) acc.overdue++
   else if (p.inprogress || (p.done && p.done < p.applicable)) acc.inprogress++
+  /* The date somebody is working towards is the earliest one still owed.
+     A finished unit's release date has already been met, so including it
+     would make a customer read as due sooner than they are. */
+  if (!finished && job.datePdiRelease && (!acc.nextRelease || job.datePdiRelease < acc.nextRelease)) {
+    acc.nextRelease = job.datePdiRelease
+  }
   for (const r of currentIssues(reportsByJob.get(String(job.jobNo)) || [])) {
     if (isNcr(r)) acc.ncr++
     if ((r.updatedAt || '') > acc.lastAt) acc.lastAt = r.updatedAt || ''
@@ -94,12 +103,15 @@ export function byCustomer(jobs, ctx) {
     .sort((a, b) => b.open - a.open || b.units - a.units || a.name.localeCompare(b.name))
 }
 
-// The orders one customer has placed, newest release date first.
-export function ordersFor(customer, jobs, ctx) {
-  const reportsByJob = indexReports()
+/* The orders a set of units belongs to, newest release date first.
+
+   The report index is passed in rather than read here: the register
+   draws every customer's orders on one screen, and re-reading and
+   re-parsing the whole report store once per customer is how that page
+   got slow enough to notice. */
+function foldOrders(jobs, ctx, reportsByJob) {
   const m = new Map()
   for (const job of jobs) {
-    if ((job.customerName || 'Unassigned') !== customer) continue
     const po = job.poNo || 'No PO'
     if (!m.has(po)) {
       m.set(po, { poNo: po, kategori: job.kategori, product: job.productDesc,
@@ -116,12 +128,40 @@ export function ordersFor(customer, jobs, ctx) {
     .sort((a, b) => (b.datePdiRelease || '').localeCompare(a.datePdiRelease || '') || a.poNo.localeCompare(b.poNo))
 }
 
-// The units on one order, unfinished first — the ones needing attention
-// are the reason somebody opened the order.
-export function unitsFor(poNo, jobs, ctx) {
+const nameOf = (job) => job.customerName || 'Unassigned'
+
+// The orders one customer has placed, newest release date first.
+export function ordersFor(customer, jobs, ctx) {
+  return foldOrders(jobs.filter((j) => nameOf(j) === customer), ctx, indexReports())
+}
+
+// Every customer's orders in one pass, keyed by customer name — what the
+// register needs to show a customer's orders without leaving the page.
+export function ordersByCustomer(jobs, ctx) {
   const reportsByJob = indexReports()
+  const grouped = new Map()
+  for (const job of jobs) {
+    const name = nameOf(job)
+    if (!grouped.has(name)) grouped.set(name, [])
+    grouped.get(name).push(job)
+  }
+  const out = new Map()
+  for (const [name, list] of grouped) out.set(name, foldOrders(list, ctx, reportsByJob))
+  return out
+}
+
+/* Needs-attention first, then unfinished, then the rest.
+
+   "Unfinished first" was the rule and it read past the one case it
+   exists for: a unit whose reports are all signed but whose verdict
+   carries a non-conformance is finished by the count and is the first
+   thing anybody wants to see. It sat among the finished ones, forty rows
+   down. A unit past its release date is already unfinished, so it comes
+   along with the same rank. */
+const attentionRank = (r) => (r.overdue || r.ncr > 0 ? 0 : r.complete ? 2 : 1)
+
+function foldUnits(jobs, ctx, reportsByJob) {
   return jobs
-    .filter((j) => (j.poNo || 'No PO') === poNo)
     .map((job) => {
       const p = jobProgress(job, ctx)
       const mine = currentIssues(reportsByJob.get(String(job.jobNo)) || [])
@@ -134,7 +174,74 @@ export function unitsFor(poNo, jobs, ctx) {
         lastAt: mine.reduce((a, r) => ((r.updatedAt || '') > a ? r.updatedAt : a), ''),
       }
     })
-    .sort((a, b) => Number(a.complete) - Number(b.complete) || a.pct - b.pct || String(a.job.jobNo).localeCompare(String(b.job.jobNo)))
+    .sort((a, b) => attentionRank(a) - attentionRank(b) || a.pct - b.pct
+      || String(a.job.jobNo).localeCompare(String(b.job.jobNo)))
+}
+
+// The units on one order.
+export function unitsFor(poNo, jobs, ctx) {
+  return foldUnits(jobs.filter((j) => (j.poNo || 'No PO') === poNo), ctx, indexReports())
+}
+
+/* Every unit a customer has on the books, across all of their orders.
+   The order page cannot answer "which of this customer's units is
+   behind" when the answer spans two purchase orders. */
+export function unitsForCustomer(customer, jobs, ctx) {
+  return foldUnits(jobs.filter((j) => nameOf(j) === customer), ctx, indexReports())
+}
+
+/* The mix of unit states behind a customer or an order roll-up.
+
+   fold counts finished, past-release and in-progress; whatever is left
+   has had nothing recorded against it. Deriving the fourth here keeps
+   the four adding up to the unit count, which is what lets them be drawn
+   as one bar. */
+export const unitMix = (r) => ({
+  units: r.units,
+  complete: r.complete,
+  overdue: r.overdue,
+  inprogress: r.inprogress,
+  notstarted: Math.max(0, r.units - r.complete - r.overdue - r.inprogress),
+})
+
+/* Which document type is holding the work up.
+
+   "64% done" says how much is left but not what it is. This counts, for
+   each of the nine deliverables, how many units still owe it — the fact
+   a QC lead actually acts on, because it names the inspection to
+   schedule next. Deliverables an order does not require are not owed by
+   anybody and never appear. */
+export function outstandingBy(jobs, ctx) {
+  const m = new Map()
+  for (const job of jobs) {
+    const { statuses } = jobProgress(job, ctx)
+    for (const d of DELIVERABLES) {
+      const s = statuses[d.key]?.status
+      if (!s || s === 'na' || s === 'done') continue
+      if (!m.has(d.key)) m.set(d.key, { key: d.key, label: d.label, units: 0, late: 0 })
+      const c = m.get(d.key)
+      c.units++
+      if (s === 'overdue') c.late++
+    }
+  }
+  return [...m.values()].sort((a, b) => b.units - a.units || b.late - a.late || a.label.localeCompare(b.label))
+}
+
+/* The whole book of work, summed from the customer roll-up rather than
+   walked a second time. */
+export function bookTotals(customers) {
+  const t = customers.reduce((a, c) => ({
+    customers: a.customers + 1,
+    orders: a.orders + c.orders,
+    units: a.units + c.units,
+    complete: a.complete + c.complete,
+    overdue: a.overdue + c.overdue,
+    inprogress: a.inprogress + c.inprogress,
+    done: a.done + c.done,
+    applicable: a.applicable + c.applicable,
+    ncr: a.ncr + c.ncr,
+  }), { customers: 0, orders: 0, units: 0, complete: 0, overdue: 0, inprogress: 0, done: 0, applicable: 0, ncr: 0 })
+  return { ...t, ...unitMix(t), open: t.units - t.complete, pct: pct(t.done, t.applicable) }
 }
 
 export const customerOf = (name, jobs, ctx) => byCustomer(jobs, ctx).find((c) => c.name === name) || null

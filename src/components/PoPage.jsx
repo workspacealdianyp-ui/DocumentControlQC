@@ -1,10 +1,10 @@
 import { useMemo } from 'react'
 import { useApp, navigate } from '../App.jsx'
 import { buildContext, fmtDate } from '../lib/status.js'
-import { unitsFor } from '../lib/rollup.js'
-import { Figure, Meter } from './CustomerPage.jsx'
+import { outstandingBy, unitMix, unitsFor } from '../lib/rollup.js'
+import { Figure, Meter, Outstanding, Ribbon } from './Readings.jsx'
 import Masthead from './Masthead.jsx'
-import { IconChevronR } from './Icons.jsx'
+import UnitList from './UnitList.jsx'
 
 /* One purchase order, unit by unit.
 
@@ -16,14 +16,20 @@ export default function PoPage({ poNo }) {
   const { jobs, tick } = useApp()
   const ctx = useMemo(() => buildContext(), [tick])
   const rows = useMemo(() => unitsFor(poNo, jobs, ctx), [poNo, jobs, ctx])
+  const waiting = useMemo(
+    () => outstandingBy(jobs.filter((j) => (j.poNo || 'No PO') === poNo), ctx), [poNo, jobs, ctx])
 
   const head = rows[0]?.job
+  // Shaped like a roll-up from rollup.js so unitMix can derive the
+  // fourth unit state from it the same way the customer page does.
   const roll = rows.reduce((a, r) => ({
+    units: a.units + 1,
     done: a.done + r.done, applicable: a.applicable + r.applicable,
     complete: a.complete + (r.complete ? 1 : 0),
     overdue: a.overdue + (r.overdue ? 1 : 0),
+    inprogress: a.inprogress + (!r.complete && !r.overdue && r.done > 0 ? 1 : 0),
     ncr: a.ncr + r.ncr,
-  }), { done: 0, applicable: 0, complete: 0, overdue: 0, ncr: 0 })
+  }), { units: 0, done: 0, applicable: 0, complete: 0, overdue: 0, inprogress: 0, ncr: 0 })
 
   if (!head) {
     return (
@@ -58,34 +64,37 @@ export default function PoPage({ poNo }) {
         <Figure value={roll.ncr} label="Non-conformances" tone={roll.ncr ? 'late' : undefined} />
       </div>
 
-      <h3 className="section-title" style={{ marginTop: 24 }}>Units ({rows.length})</h3>
+      <div className="cust-layout">
+        <aside className="cust-aside">
+          <section className="card brief">
+            <h3 className="brief-title">Where the units stand</h3>
+            <Ribbon mix={unitMix(roll)} ncr={roll.ncr} className="brief-ribbon" />
+            <dl className="brief-facts">
+              <div>
+                <dt>Release date</dt>
+                <dd>{head.datePdiRelease ? fmtDate(head.datePdiRelease) : 'Not set'}</dd>
+              </div>
+              <div>
+                <dt>Product</dt>
+                <dd>{products.length === 1 ? products[0] : `${products.length} products`}</dd>
+              </div>
+            </dl>
+          </section>
 
-      {/* Not the job-order picker, which is a capped box inside a card:
-          this is the page. Sixteen units were being clipped to eight
-          behind an inner scrollbar under a heading that said 16. */}
-      <div className="unit-list po-units">
-        {rows.map((r) => (
-          <button key={r.job.jobNo} className={`unit-row${r.complete ? ' is-done' : ''}`}
-            onClick={() => navigate(`/job/${r.job.jobNo}`)}>
-            <span className="unit-id">
-              <strong>{r.job.unitNo || r.job.arasSN || r.job.jobNo}</strong>
-              <small>Job {r.job.jobNo}{r.job.wbsNo ? ` · ${r.job.wbsNo}` : ''}</small>
-            </span>
-            <span className="unit-state">
-              {r.complete
-                ? <i className="u-done">Finished</i>
-                : r.overdue
-                  ? <i className="u-late">Past release</i>
-                  : r.done ? <i className="u-work">In progress</i> : <i className="u-idle">Not started</i>}
-              {r.ncr > 0 && <i className="u-ncr">NCR {r.ncr}</i>}
-            </span>
-            <span className="unit-count">{r.done}/{r.applicable}</span>
-            <span className="unit-bar" aria-label={`${r.pct}% done`}>
-              <i className={r.complete ? 'is-done' : ''} style={{ width: `${Math.max(2, r.pct)}%` }} />
-            </span>
-            <span className="unit-go" aria-hidden="true"><IconChevronR size={16} /></span>
-          </button>
-        ))}
+          <section className="card brief">
+            <h3 className="brief-title">Waiting on</h3>
+            <Outstanding rows={waiting} units={rows.length} done={roll.done} applicable={roll.applicable} />
+          </section>
+        </aside>
+
+        <div className="cust-main">
+          <h3 className="section-title">Units ({rows.length})</h3>
+          {/* Not the job-order picker, which is a capped box inside a
+              card: this is the page. Sixteen units were being clipped to
+              eight behind an inner scrollbar under a heading that said
+              16. */}
+          <UnitList rows={rows} />
+        </div>
       </div>
     </div>
   )
