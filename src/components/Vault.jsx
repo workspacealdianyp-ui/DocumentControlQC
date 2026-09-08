@@ -6,7 +6,7 @@ import { fmtDateTime } from '../lib/status.js'
 import { reportResult } from '../lib/verdict.js'
 import { initials } from '../lib/label.js'
 import Masthead from './Masthead.jsx'
-import { Figure } from './CustomerPage.jsx'
+import { Figure } from './Readings.jsx'
 import { SearchField } from './RegisterBar.jsx'
 import { IconChevronR } from './Icons.jsx'
 

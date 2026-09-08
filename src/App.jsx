@@ -43,8 +43,8 @@ function parseHash() {
     if (parts[1] === 'new') return { page: 'joborder', query }
     // The section opens on the customer register. The flat list is still
     // there for anyone who wants to scan or filter the whole fleet at
-    // once — ?view=all, and the category deep links that already exist.
-    if (query.view === 'all' || query.kat) return { page: 'jobs', query }
+    // once — ?view=all, and the deep links that already exist.
+    if (query.view === 'all' || query.kat || query.state) return { page: 'jobs', query }
     return { page: 'customers', query }
   }
   if (parts[0] === 'reports') return { page: 'reports', query }
@@ -192,7 +192,7 @@ export default function App() {
           <main className="content" key={route.page + (route.jobNo || '') + (route.formKey || '')}>
             {route.page === 'home' && <Home />}
             {route.page === 'customers' && <CustomersPage />}
-            {route.page === 'jobs' && <JobsPage kat={route.query.kat} />}
+            {route.page === 'jobs' && <JobsPage kat={route.query.kat} state={route.query.state} />}
             {route.page === 'joborder' && <NewJobOrder />}
             {route.page === 'job' && <JobDetail job={job} />}
             {route.page === 'customer' && <CustomerPage name={route.name} />}

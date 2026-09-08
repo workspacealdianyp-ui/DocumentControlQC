@@ -79,14 +79,28 @@ function urgency(job, state) {
   return null
 }
 
-export default function JobsPage({ kat }) {
+/* A status asked for in the address bar.
+
+   The register's figures link here — "3 past release" has to land on
+   those three, not on the list you happened to leave behind. A named
+   status wins over the remembered view for exactly that reason, and it
+   takes a comma-separated list because "still open" is three of them. */
+const askedStates = (state) => {
+  if (!state) return null
+  const want = new Set(STATES.map((s) => s.id))
+  const picked = String(state).split(',').map((s) => s.trim()).filter((s) => want.has(s))
+  return picked.length ? picked : null
+}
+
+export default function JobsPage({ kat, state }) {
   const { jobs, tick, role } = useApp()
   const initial = useMemo(readView, [])
+  const asked = askedStates(state)
   const [q, setQ] = useState(initial.q || '')
   const [size, setSize] = useState(PAGE_SIZES.includes(initial.size) ? initial.size : 15)
   const [page, setPage] = useState(initial.page || 1)
   const [sort, setSort] = useState(initial.sort || { key: 'jobNo', dir: 'asc' })
-  const [states, setStates] = useState(() => new Set(initial.states || []))
+  const [states, setStates] = useState(() => new Set(asked || initial.states || []))
   const [group, setGroup] = useState(GROUPS.some((g) => g.id === initial.group) ? initial.group : 'none')
   const [sentinel, stuck] = useStuck()
 
@@ -153,6 +167,10 @@ export default function JobsPage({ kat }) {
     return counts
   }, [rows, group])
 
+  // A link that names a status re-applies it when the address changes,
+  // not only on the first mount — the register's figures are six links
+  // to the same page.
+  useEffect(() => { if (asked) setStates(new Set(asked)) }, [state])
   useEffect(() => { setPage(1) }, [kat, q, size, states, group])
   useEffect(() => {
     try {
