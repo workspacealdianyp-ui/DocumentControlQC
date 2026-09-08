@@ -40,7 +40,7 @@ function parseHash() {
     // Jobs opens on the customer register. The flat list is still there
     // for anyone who wants to scan or filter the whole fleet at once —
     // ?view=all, and the category deep links that already exist.
-    if (query.view === 'all' || query.kat) return { page: 'jobs', query }
+    if (query.view === 'all' || query.kat || query.state) return { page: 'jobs', query }
     return { page: 'customers', query }
   }
   if (parts[0] === 'reports') return { page: 'reports', query }
@@ -188,7 +188,7 @@ export default function App() {
             {route.page === 'home' && <Home />}
             {route.page === 'monitor' && <Dashboard />}
             {route.page === 'customers' && <CustomersPage />}
-            {route.page === 'jobs' && <JobsPage kat={route.query.kat} />}
+            {route.page === 'jobs' && <JobsPage kat={route.query.kat} state={route.query.state} />}
             {route.page === 'joborder' && <NewJobOrder />}
             {route.page === 'job' && <JobDetail job={job} />}
             {route.page === 'customer' && <CustomerPage name={route.name} />}

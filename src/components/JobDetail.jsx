@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { useApp, navigate } from '../App.jsx'
+import { artFor } from '../lib/productArt.js'
 import { katCode } from '../lib/label.js'
 import { DELIVERABLES, NDE_FORMS } from '../lib/constants.js'
 import { FORM_SCHEMAS } from '../data/formSchemas.js'
@@ -146,24 +147,31 @@ export default function JobDetail({ job }) {
         title={job.customerName || `Job ${job.jobNo}`}
         sub={<>Job {job.jobNo}{job.productDesc ? <> · {job.productDesc}</> : null}</>}
         backLabel={job.poNo ? `Back to ${job.poNo}` : 'Back to jobs'}
-        onBack={() => navigate(job.poNo ? `/po/${encodeURIComponent(job.poNo)}` : '/jobs')}>
+        onBack={() => navigate(job.poNo ? `/po/${encodeURIComponent(job.poNo)}` : '/jobs')}
+        art={artFor(job.productDesc, job.type)}
+        reading={
+          <span className="jd-meter">
+            <span className="jd-meter-top">
+              <strong>{pct}<i>%</i></strong>
+              <small>{p.done} of {p.applicable} reports done</small>
+            </span>
+            <span className="jd-meter-track" aria-hidden="true">
+              <span className={done ? 'is-done' : ''} style={{ width: `${Math.max(2, pct)}%` }} />
+            </span>
+          </span>
+        }>
 
         {/* A circle is the right shape on a phone, where the band is
             short and the reading has to be compact. A desktop band is
             1100px of width and a circle wastes it, so there the same
             number is a meter that can also say what the fraction is
-            counting. One reading, two shapes, never both at once. */}
-        <CompletionDial done={p.done} total={p.applicable} size={64} className="jd-dial-sm" />
+            counting. One reading, two shapes, never both at once.
 
-        <span className="jd-meter">
-          <span className="jd-meter-top">
-            <strong>{pct}<i>%</i></strong>
-            <small>{p.done} of {p.applicable} reports done</small>
-          </span>
-          <span className="jd-meter-track" aria-hidden="true">
-            <span className={done ? 'is-done' : ''} style={{ width: `${Math.max(2, pct)}%` }} />
-          </span>
-        </span>
+            The circle stays in the side slot rather than moving under the
+            title with the meter: on a phone that slot is the tall right
+            column the band's grid keeps for it, and the meter it swaps
+            with is not on screen at that width anyway. */}
+        <CompletionDial done={p.done} total={p.applicable} size={64} className="jd-dial-sm" />
 
         {p.overdue && !done && <span className="report-state jd-state state-overdue">Overdue</span>}
       </Masthead>
