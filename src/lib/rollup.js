@@ -1,7 +1,7 @@
 import { DELIVERABLES } from './constants.js'
 import { jobProgress } from './status.js'
 import { getReports } from './store.js'
-import { reportResult } from './verdict.js'
+import { currentIssues, reportResult } from './verdict.js'
 
 /* What a customer's work actually amounts to, and what one of their
    purchase orders amounts to.
@@ -33,20 +33,6 @@ const pct = (done, total) => (total ? Math.round((done / total) * 100) : 0)
    reportResult is also what the badges on the job page use, so the count
    and the badge cannot disagree. */
 const isNcr = (r) => reportResult(r) === 'Reject'
-
-/* Only the current issue of each document counts. An amendment that was
-   raised because /01 was rejected should not leave the unit reading as
-   non-conforming once /02 is approved and clean. */
-const issueNo = (id = '') => { const m = String(id).match(/\/(\d+)$/); return m ? Number(m[1]) : 0 }
-function currentIssues(reports) {
-  const byDoc = new Map()
-  for (const r of reports) {
-    const k = `${r.jobNo}::${r.formKey}::${r.deliverable}`
-    const held = byDoc.get(k)
-    if (!held || issueNo(r.reportId) > issueNo(held.reportId)) byDoc.set(k, r)
-  }
-  return [...byDoc.values()]
-}
 
 function blank() {
   return { units: 0, complete: 0, overdue: 0, inprogress: 0, done: 0, applicable: 0, ncr: 0,

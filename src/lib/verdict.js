@@ -20,3 +20,28 @@ export const reportResult = (r) => {
   if ((r.readings || []).some((row) => /fail|leak|drop/i.test(row.remark || ''))) return 'Reject'
   return 'Accept'
 }
+
+/* Which reports are the live ones.
+
+   A document can be amended: /01 is raised, rejected, and /02 is raised
+   against the same job, form and deliverable to close it out. Only the
+   highest issue is the document's current state, so a rejection that has
+   already been answered by a clean amendment is history rather than an
+   open finding.
+
+   This lives here with reportResult because the two are always used
+   together — "what does this document say" is only meaningful about the
+   issue that is current. It used to be a private copy inside rollup.js,
+   which is how the register came to count two non-conformances while the
+   list it linked to opened four.  */
+const issueNo = (id = '') => { const m = String(id).match(/\/(\d+)$/); return m ? Number(m[1]) : 0 }
+
+export function currentIssues(reports) {
+  const byDoc = new Map()
+  for (const r of reports) {
+    const k = `${r.jobNo}::${r.formKey}::${r.deliverable}`
+    const held = byDoc.get(k)
+    if (!held || issueNo(r.reportId) > issueNo(held.reportId)) byDoc.set(k, r)
+  }
+  return [...byDoc.values()]
+}

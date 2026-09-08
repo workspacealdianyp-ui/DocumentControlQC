@@ -1,6 +1,6 @@
 import { DELIVERABLES } from './constants.js'
 import { getReports, getOverrides } from './store.js'
-import { reportResult } from './verdict.js'
+import { currentIssues, reportResult } from './verdict.js'
 
 const TODAY = new Date()
 
@@ -190,9 +190,18 @@ export function recentActivity(limit = 8) {
    closed, and filler in that box turned passing reports into
    non-conformances. The verdict is the fact; reportResult is what the
    rest of the app reads, so this reads it too rather than keeping a
-   second opinion. */
+   second opinion.
+
+   And only the current issue of each document, for the same reason the
+   register counts it that way: an amendment raised because /01 was
+   rejected is not a second finding once /02 is approved and clean. The
+   two disagreed - the register tile read two non-conformances and the
+   list it links to opened four, two of them already closed out - so a QA
+   lead could not get from the figure to the rows behind it. Nothing is
+   hidden by narrowing it: the superseded issue is still in the full
+   report register, it is just not an open finding. */
 export function ncrReports() {
-  return getReports()
+  return currentIssues(getReports())
     .filter((r) => reportResult(r) === 'Reject')
     .sort((a, b) => (b.updatedAt || '').localeCompare(a.updatedAt || ''))
 }
