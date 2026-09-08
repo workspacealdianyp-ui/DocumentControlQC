@@ -5361,7 +5361,7 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber); outline-
 .reg-kind {
   margin: 0; padding: 9px 16px 7px;
   font-size: 10px; font-weight: 600; letter-spacing: 0.09em; text-transform: uppercase;
-  color: var(--text-3); background: var(--surface-2);
+  color: var(--text-2); background: var(--surface-2);
   border-top: 1px solid var(--line);
 }
 .reg-list > .reg-kind:first-child { border-top: 0; }
@@ -5405,7 +5405,7 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber); outline-
   display: flex; flex-direction: column; align-items: center; gap: 1px;
   min-height: 26px; justify-content: center;
   font-style: normal; font-size: 10px; font-weight: 500;
-  letter-spacing: 0.04em; text-transform: uppercase; color: var(--text-3);
+  letter-spacing: 0.04em; text-transform: uppercase; color: var(--text-2);
 }
 .reg-counts b {
   font-family: var(--mono); font-size: 15px; font-weight: 600;
@@ -5427,7 +5427,7 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber); outline-
   font-family: var(--mono); font-size: 12.5px; font-weight: 600;
   font-variant-numeric: tabular-nums; text-align: right; color: var(--text-2);
 }
-.ink-pct i { font-style: normal; font-size: 10px; margin-left: 1px; color: var(--text-3); }
+.ink-pct i { font-style: normal; font-size: 10px; margin-left: 1px; color: var(--text-2); }
 
 .reg-go { color: var(--text-3); display: grid; place-items: center; }
 
@@ -5458,3 +5458,83 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber); outline-
   border-color: var(--ink); background: var(--ink);
 }
 :root[data-theme="dark"] .reg-bar .rb-search:focus-within { box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.5); }
+
+/* ── the vault ───────────────────────────────────────────────────────
+   The same row shape as the register — spine, identity, reading — so a
+   document found here looks like a unit found there. What changes is the
+   reading: not how much is done, but where this one has got to and who
+   it is sitting with. */
+
+.vt-lanes { margin-top: 16px; }
+.vt-row { grid-template-columns: 44px minmax(0, 1fr) 210px 40px 58px 18px; }
+.vt-standing { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.vt-standing b {
+  font-size: 12px; font-weight: 600; color: var(--text);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.vt-standing small { font-size: 11px; color: var(--text-2); white-space: nowrap; }
+
+.vt-ncr {
+  font-family: var(--mono); font-size: 10px; font-weight: 600; letter-spacing: 0.04em;
+  color: var(--overdue); text-align: center;
+}
+
+/* Draft, submitted, approved. Three segments rather than a bar, because
+   there are three states and a document is in one of them — a
+   continuous fill would imply a document can be 40% approved. */
+.vt-track { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px; align-items: center; }
+.vt-track i { display: block; height: 6px; border-radius: 2px; background: var(--line); }
+.vt-track i.on { background: var(--text); }
+
+/* The state filter. Small enough to sit beside the search field rather
+   than take a row of its own, since five states is the whole vocabulary
+   and hiding them behind a menu costs a tap to learn nothing. */
+.vt-states { display: flex; flex-wrap: wrap; gap: 4px; }
+.vt-state {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 6px 10px; border-radius: 7px;
+  border: 1px solid transparent; background: none; color: var(--text-2);
+  font: inherit; font-size: 12px; font-weight: 500; cursor: pointer;
+}
+.vt-state:hover { background: var(--surface-3); }
+.vt-state b {
+  font-family: var(--mono); font-size: 11px; font-weight: 600;
+  font-variant-numeric: tabular-nums; color: var(--text-2);
+}
+.vt-state.on { background: var(--ink); color: #fff; }
+.vt-state.on b { color: rgba(255, 255, 255, 0.72); }
+.vt-state.is-ncr b { color: var(--overdue); }
+.vt-state.on.is-ncr b { color: #fff; }
+.vt-state:focus-visible { outline: none; border-color: var(--text); }
+
+/* The register's search field takes the row on its own once the state
+   filter is beside it; below that the two stack. */
+@media (max-width: 900px) {
+  .reg-bar .rb-search { flex: 1 1 100%; }
+}
+@media (max-width: 720px) {
+  .vt-row { grid-template-columns: 40px minmax(0, 1fr) 40px; }
+  .vt-standing { grid-column: 1 / -1; order: 3; }
+  .vt-standing small { white-space: normal; }
+  .vt-track { grid-column: 1 / -1; order: 4; }
+  .vt-ncr { order: 2; }
+}
+
+/* Approving from the register. It is the one thing the second report
+   list could do that this one could not, so it came across with it. */
+.rep-approve {
+  grid-area: auto; align-self: center; justify-self: end;
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 6px 11px; border-radius: 7px;
+  border: 1px solid var(--ink); background: var(--ink); color: #fff;
+  font: inherit; font-size: 11.5px; font-weight: 600; cursor: pointer;
+}
+.rep-approve:hover { background: var(--ink-2); }
+.rep-approve:focus-visible { outline: 2px solid var(--text); outline-offset: 2px; }
+
+.rep-more { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 20px 0 4px; }
+.rep-more small { font-family: var(--mono); font-size: 11px; color: var(--text-2); }
+
+/* A divider in the tab row, between the way back up and the filters. */
+.mon-tab-div { width: 1px; align-self: stretch; margin: 6px 4px; background: var(--line-2); }
+.mon-tab.is-up { color: var(--text-2); }

@@ -5,7 +5,7 @@ import { storageUsage, fmtBytes } from '../lib/storage.js'
 import { getThemePref, resolveTheme, setThemePref, watchSystemTheme } from '../lib/theme.js'
 import { CMD_LABEL } from '../lib/keys.js'
 import {
-  IconBoltz, IconHome, IconList, IconFile, IconGrid, IconGear, IconPanel,
+  IconBoltz, IconHome, IconFile, IconGrid, IconGear, IconPanel, IconLock,
   IconChevronD, IconSearch, IconPlus, IconDatabase, IconUser, IconAlertCircle, IconTheme,
 } from './Icons.jsx'
 
@@ -15,19 +15,25 @@ import {
    that actually governs this app, since every report, photo and
    signature lives in this browser's storage. */
 
-// Jobs are entered the way they are sold — customer, then order, then
-// unit — so the two sub-items are the two ways in, not the shop's filing
+// Work is entered the way it is sold — customer, then order, then unit —
+// so the two sub-items are the two ways in, not the shop's filing
 // categories. Those still filter the flat list, from its own tabs.
 const JOB_WAYS = [
-  { id: 'customers', label: 'Customers', to: '/jobs' },
-  { id: 'jobs', label: 'All jobs', to: '/jobs?view=all' },
+  { id: 'customers', label: 'Customers', to: '/monitoring' },
+  { id: 'jobs', label: 'All jobs', to: '/monitoring?view=all' },
 ]
 
+/* Three registers, each answering a different question: where the work
+   stands, where the documents stand, and where mine stand.
+
+   There were four. Monitor listed the same reports as Reports, with the
+   same five status tabs, drawn as a table — so it is one register now,
+   and the name went to the section that does the monitoring. */
 const NAV = [
   { id: 'home', label: 'Dashboard', to: '/', icon: IconHome },
-  { id: 'jobs', label: 'Jobs', to: '/jobs', icon: IconList, sub: JOB_WAYS },
+  { id: 'jobs', label: 'Monitoring', to: '/monitoring', icon: IconGrid, sub: JOB_WAYS },
   { id: 'reports', label: 'Reports', to: '/reports', icon: IconFile },
-  { id: 'monitor', label: 'Monitor', to: '/monitor', icon: IconGrid },
+  { id: 'vault', label: 'Vault', to: '/vault', icon: IconLock },
 ]
 
 export default function Sidebar({ page, onToggle, collapsed, onSearch }) {
@@ -43,7 +49,7 @@ export default function Sidebar({ page, onToggle, collapsed, onSearch }) {
   useEffect(() => { setUsed(storageUsage()) }, [tick])
 
   const manage = [
-    role.canManage && { id: 'joborder', label: 'New job order', to: '/jobs/new', icon: IconPlus },
+    role.canManage && { id: 'joborder', label: 'New job order', to: '/monitoring/new', icon: IconPlus },
     { id: 'profile', label: 'Profile', to: '/profile', icon: IconUser },
   ].filter(Boolean)
 

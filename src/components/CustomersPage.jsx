@@ -93,10 +93,10 @@ export default function CustomersPage() {
     <div className="page">
       <div className="page-bar jobs-page-bar">
         <nav className="mon-tabs" aria-label="How to browse jobs">
-          <a className="mon-tab on" aria-current="page" href="#/jobs">
+          <a className="mon-tab on" aria-current="page" href="#/monitoring">
             Customers<span className="mon-tab-n">{customers.length}</span>
           </a>
-          <a className="mon-tab" href="#/jobs?view=all">
+          <a className="mon-tab" href="#/monitoring?view=all">
             All jobs<span className="mon-tab-n">{jobs.length}</span>
           </a>
         </nav>
@@ -105,7 +105,7 @@ export default function CustomersPage() {
             <IconDownload size={14} /> Export {jobs.length} jobs
           </button>
           {role.canManage && (
-            <button className="btn btn-primary btn-sm" onClick={() => navigate('/jobs/new')}>
+            <button className="btn btn-primary btn-sm" onClick={() => navigate('/monitoring/new')}>
               <IconPlus size={14} /> New job order
             </button>
           )}
@@ -131,7 +131,7 @@ export default function CustomersPage() {
             <p><strong>No work on file.</strong></p>
             <p>Raise a job order and the customer will appear here.</p>
             {role.canManage && (
-              <button className="btn btn-primary btn-sm" onClick={() => navigate('/jobs/new')}>
+              <button className="btn btn-primary btn-sm" onClick={() => navigate('/monitoring/new')}>
                 <IconPlus size={14} /> New job order
               </button>
             )}

@@ -30,7 +30,7 @@ export default function PoPage({ poNo }) {
       <div className="page">
         <div className="card empty-state">
           <p><strong>No such order.</strong></p>
-          <button className="btn btn-secondary" onClick={() => navigate('/jobs')}>Back to customers</button>
+          <button className="btn btn-secondary" onClick={() => navigate('/monitoring')}>Back to customers</button>
         </div>
       </div>
     )

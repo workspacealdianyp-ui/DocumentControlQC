@@ -1,5 +1,5 @@
 import { useApp, navigate } from '../App.jsx'
-import { IconHome, IconList, IconFile, IconGrid, IconUser } from './Icons.jsx'
+import { IconHome, IconFile, IconGrid, IconGear, IconLock, IconAlertCircle } from './Icons.jsx'
 
 /* Two destinations, the way home, two more.
 
@@ -9,16 +9,21 @@ import { IconHome, IconList, IconFile, IconGrid, IconUser } from './Icons.jsx'
    object, because it is not a peer of the registers: it is the way out
    of whatever you are in.
 
-   Profile joins the rail to make the split even. It was reachable only
-   from the avatar, which is a 30px target in the opposite corner from
-   the hand holding the phone. */
+   The three registers take three of the four slots. Profile is not one
+   of them any more — it is one tap from the avatar in the top bar on
+   every screen, and a tab that duplicates a control already on screen is
+   a tab not spent on somewhere you cannot otherwise reach. The last slot
+   goes to whichever of Settings or Help the signed-in role can use, so
+   the position never moves under the thumb. */
 const LEFT = [
-  { id: 'jobs', label: 'Jobs', to: '/jobs', icon: IconList },
+  { id: 'jobs', label: 'Monitoring', to: '/monitoring', icon: IconGrid },
   { id: 'reports', label: 'Reports', to: '/reports', icon: IconFile },
 ]
-const RIGHT = [
-  { id: 'monitor', label: 'Monitor', to: '/monitor', icon: IconGrid },
-  { id: 'profile', label: 'Profile', to: '/profile', icon: IconUser },
+const rightFor = (role) => [
+  { id: 'vault', label: 'Vault', to: '/vault', icon: IconLock },
+  role?.canManage
+    ? { id: 'settings', label: 'Settings', to: '/settings', icon: IconGear }
+    : { id: 'help', label: 'Help', to: '/help', icon: IconAlertCircle },
 ]
 
 const JOB_PAGES = ['customers', 'jobs', 'job', 'form', 'joborder', 'customer', 'po']
@@ -37,7 +42,8 @@ function Tab({ t, page }) {
 }
 
 export default function BottomNav({ page }) {
-  useApp()
+  const { role } = useApp()
+  const right = rightFor(role)
   const home = page === 'home'
   return (
     <nav className="bottomnav" aria-label="Primary">
@@ -48,7 +54,7 @@ export default function BottomNav({ page }) {
             disc reads as sitting in the bar rather than on top of it. */}
         <span className="bn-notch" aria-hidden="true" />
 
-        <div className="bn-side">{RIGHT.map((t) => <Tab key={t.id} t={t} page={page} />)}</div>
+        <div className="bn-side">{right.map((t) => <Tab key={t.id} t={t} page={page} />)}</div>
       </div>
 
       <button className={`bn-home${home ? ' active' : ''}`} onClick={() => navigate('/')}

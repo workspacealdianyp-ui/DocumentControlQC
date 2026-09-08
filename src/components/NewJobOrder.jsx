@@ -47,7 +47,7 @@ export default function NewJobOrder() {
     return (
       <div className="page">
         <Masthead code="PO" eyebrow="Job order" title="New job order"
-          onBack={() => navigate('/jobs')} backLabel="Back to jobs" />
+          onBack={() => navigate('/monitoring')} backLabel="Back to monitoring" />
         <div className="card empty-state">
           <p><strong>Only QC head or admin can create a job order.</strong></p>
           <p>Ask an admin to raise the order; it will appear in your Jobs list once published.</p>
@@ -111,7 +111,7 @@ export default function NewJobOrder() {
     })
     refresh()
     notify(`PO ${po.poNo.trim()} published — ${units.length} job${units.length === 1 ? '' : 's'} ready to inspect`)
-    navigate('/jobs')
+    navigate('/monitoring')
   }
 
   const toggle = (key) => setRequired((s) => {
@@ -122,7 +122,7 @@ export default function NewJobOrder() {
     <div className="page jo">
       <Masthead code="PO" eyebrow="Job order" title="New job order"
         sub="The order, its units, and the reports they owe"
-        onBack={() => navigate('/jobs')} backLabel="Back to jobs" />
+        onBack={() => navigate('/monitoring')} backLabel="Back to monitoring" />
 
       <p className="page-sub jo-lede">
         Publishing puts these jobs in front of the inspectors.

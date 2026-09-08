@@ -146,7 +146,7 @@ export default function JobDetail({ job }) {
         title={job.customerName || `Job ${job.jobNo}`}
         sub={<>Job {job.jobNo}{job.productDesc ? <> · {job.productDesc}</> : null}</>}
         backLabel={job.poNo ? `Back to ${job.poNo}` : 'Back to jobs'}
-        onBack={() => navigate(job.poNo ? `/po/${encodeURIComponent(job.poNo)}` : '/jobs')}>
+        onBack={() => navigate(job.poNo ? `/po/${encodeURIComponent(job.poNo)}` : '/monitoring')}>
 
         {/* A circle is the right shape on a phone, where the band is
             short and the reading has to be compact. A desktop band is

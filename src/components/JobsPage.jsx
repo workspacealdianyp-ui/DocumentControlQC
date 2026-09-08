@@ -177,10 +177,14 @@ export default function JobsPage({ kat }) {
           do with it on the right — the page title is in the top bar. */}
       <div className="page-bar jobs-page-bar">
         <nav className="mon-tabs" aria-label="Job category">
+          {/* The way back up. This is the flat list; the section opens on
+              customers, and without this the only route back is the rail. */}
+          <a className="mon-tab is-up" href="#/monitoring">Customers</a>
+          <span className="mon-tab-div" aria-hidden="true" />
           {KATS.map((k) => (
             <a key={k.kat || 'all'} aria-current={(kat || null) === k.kat ? 'page' : undefined}
               className={`mon-tab${(kat || null) === k.kat ? ' on' : ''}`}
-              href={`#${k.kat ? `/jobs?kat=${encodeURIComponent(k.kat)}` : '/jobs'}`}>
+              href={`#/monitoring?${k.kat ? `kat=${encodeURIComponent(k.kat)}` : 'view=all'}`}>
               {k.label}<span className="mon-tab-n">{counts[k.kat || 'all']}</span>
             </a>
           ))}
@@ -190,7 +194,7 @@ export default function JobsPage({ kat }) {
             <IconDownload size={14} /> Export {rows.length} jobs
           </button>
           {role.canManage && (
-            <button className="btn btn-primary btn-sm" onClick={() => navigate('/jobs/new')}>
+            <button className="btn btn-primary btn-sm" onClick={() => navigate('/monitoring/new')}>
               <IconPlus size={14} /> New job order
             </button>
           )}

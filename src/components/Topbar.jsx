@@ -9,7 +9,7 @@ import { buildContext, jobProgress, fmtDate } from '../lib/status.js'
 import { IS_MAC } from '../lib/keys.js'
 import {
   IconSearch, IconBell, IconAlert, IconApprove, IconPen,
-  IconList, IconFile, IconGrid, IconPlus, IconGear, IconClose, IconTheme,
+  IconList, IconFile, IconGrid, IconPlus, IconGear, IconClose, IconTheme, IconLock,
 } from './Icons.jsx'
 
 /* The bar across the top of the work area: where you are on the left,
@@ -22,17 +22,17 @@ const KAT_LABEL = { SUPEQ: 'Support Equipment', TRAILER: 'Trailer', 'NON TRAILER
 
 const PAGE_TITLES = {
   home: ['Dashboard', ''],
-  monitor: ['Monitor', 'Job × report status matrix'],
-  customers: ['Jobs', 'Customers'],
-  jobs: ['Jobs', 'All jobs'],
+  customers: ['Monitoring', 'Customers'],
+  jobs: ['Monitoring', 'All jobs'],
   // Customer and PO carry their own name in the masthead below, so the
   // bar names the level of the register you are standing on.
-  customer: ['Jobs', 'Customer'],
-  po: ['Jobs', 'Purchase order'],
+  customer: ['Monitoring', 'Customer'],
+  po: ['Monitoring', 'Purchase order'],
   // The masthead on this page names the order; the bar names the
   // section it lives in, so the two do not say the same thing twice.
-  joborder: ['Jobs', 'New order'],
-  reports: ['Reports', 'Documents & NCR'],
+  joborder: ['Monitoring', 'New order'],
+  reports: ['Reports', 'Every document & NCR'],
+  vault: ['Vault', 'Your documents'],
   settings: ['Settings', ''],
   help: ['Help & support', 'How this build works'],
   profile: ['Profile', 'Account & sync'],
@@ -51,7 +51,7 @@ export default function Topbar({ route, job, searchOpen, onOpenSearch, onCloseSe
   // Same on a job: its masthead carries the number, so the bar carries
   // the category the job was filed under.
   if (route.page === 'job' && job) {
-    title = 'Jobs'
+    title = 'Monitoring'
     sub = [KAT_LABEL[job.kategori] || 'Job register', job.jobNo].filter(Boolean).join(' · ')
   }
   // On a form the top bar says where you are — the job — and the
@@ -111,9 +111,10 @@ export default function Topbar({ route, job, searchOpen, onOpenSearch, onCloseSe
         to: `/job/${r.jobNo}/form/${r.formKey}?d=${encodeURIComponent(r.deliverable)}&rid=${encodeURIComponent(r.id)}`,
       }))
     const actions = [
-      role.canManage && { key: 'a1', icon: IconPlus, title: 'Raise a job order', sub: 'PO, units and the reports each one needs', to: '/jobs/new' },
-      { key: 'a2', icon: IconList, title: 'Open the job register', to: '/jobs' },
-      { key: 'a3', icon: IconGrid, title: 'Open the monitoring matrix', to: '/monitor' },
+      role.canManage && { key: 'a1', icon: IconPlus, title: 'Raise a job order', sub: 'PO, units and the reports each one needs', to: '/monitoring/new' },
+      { key: 'a2', icon: IconGrid, title: 'Open monitoring', sub: 'Customers, orders and units', to: '/monitoring' },
+      { key: 'a3', icon: IconList, title: 'Open the document register', sub: 'Every report, filed and draft', to: '/reports' },
+      { key: 'a5', icon: IconLock, title: 'Open your vault', sub: 'What you wrote and where it stands', to: '/vault' },
       role.canManage && { key: 'a4', icon: IconGear, title: 'Settings', to: '/settings' },
     ].filter(Boolean)
     return [
@@ -146,7 +147,7 @@ export default function Topbar({ route, job, searchOpen, onOpenSearch, onCloseSe
     if (overdue > 0) out.push({
       icon: IconAlert, cls: 'n-red',
       text: `${overdue} job${overdue === 1 ? '' : 's'} with overdue reports`,
-      sub: 'PDI released but deliverables incomplete', to: '/monitor',
+      sub: 'PDI released but deliverables incomplete', to: '/monitoring',
     })
     const reps = getReports()
     const pending = reps.filter((r) => r.status === 'submitted')

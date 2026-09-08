@@ -195,14 +195,14 @@ export default function Home() {
   const pctDone = fleet.applicable ? Math.round((fleet.dist.done / fleet.applicable) * 100) : 0
   const metrics = [
     { key: 'jobs', icon: IconList, label: 'Active jobs', value: fleet.customers.length ? jobs.length : 0,
-      foot: `${fleet.customers.length} customer${fleet.customers.length === 1 ? '' : 's'}`, to: '/jobs' },
+      foot: `${fleet.customers.length} customer${fleet.customers.length === 1 ? '' : 's'}`, to: '/monitoring' },
     { key: 'done', icon: IconApprove, label: 'Reports complete', value: `${pctDone}%`,
-      foot: `${fleet.dist.done} of ${fleet.applicable} required`, tone: pctDone >= 75 ? 'up' : '', to: '/monitor' },
+      foot: `${fleet.dist.done} of ${fleet.applicable} required`, tone: pctDone >= 75 ? 'up' : '', to: '/reports' },
     { key: 'prog', icon: IconClock, label: 'In progress', value: fleet.dist.inprogress,
       foot: `${stats.draft} draft${stats.draft === 1 ? '' : 's'} open`, to: '/reports?f=draft' },
     { key: 'late', icon: IconAlert, label: 'Overdue', value: fleet.dist.overdue,
       foot: `${fleet.overdueJobs.length} job${fleet.overdueJobs.length === 1 ? '' : 's'} affected`,
-      tone: fleet.dist.overdue ? 'down' : '', to: '/monitor' },
+      tone: fleet.dist.overdue ? 'down' : '', to: '/monitoring' },
   ]
 
   return (
@@ -215,8 +215,8 @@ export default function Home() {
           <span>{today}</span>
         </div>
         <div className="mon-head-actions">
-          <button className="btn btn-secondary btn-sm" onClick={() => navigate('/monitor')}>
-            <IconGrid size={14} /> Open Monitor
+          <button className="btn btn-secondary btn-sm" onClick={() => navigate('/monitoring')}>
+            <IconGrid size={14} /> Open monitoring
           </button>
           <button className="btn btn-primary btn-sm" onClick={() => setPickForm(true)}>
             <IconPlus size={14} /> New report
@@ -245,7 +245,7 @@ export default function Home() {
         <section className="card bento-hero panel-hero showcase-hero">
           <div className="panel-eyebrow">
             <span className="panel-kicker"><span className="panel-led" /> Unit Spotlight</span>
-            <button className="panel-monitor" onClick={() => navigate('/monitor')}><IconGrid size={13} /> Open Monitor</button>
+            <button className="panel-monitor" onClick={() => navigate('/monitoring')}><IconGrid size={13} /> Open monitoring</button>
           </div>
 
           <div className="showcase-body">
@@ -375,8 +375,8 @@ export default function Home() {
                 </button>
               ))}
               {fleet.overdueJobs.length > 4 && (
-                <button className="btn btn-ghost btn-sm" style={{ alignSelf: 'center' }} onClick={() => navigate('/monitor')}>
-                  View all {fleet.overdueJobs.length} in Monitor
+                <button className="btn btn-ghost btn-sm" style={{ alignSelf: 'center' }} onClick={() => navigate('/monitoring')}>
+                  View all {fleet.overdueJobs.length} in monitoring
                 </button>
               )}
             </div>

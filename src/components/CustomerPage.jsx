@@ -52,7 +52,7 @@ export default function CustomerPage({ name }) {
       <div className="page">
         <div className="card empty-state">
           <p><strong>No such customer.</strong></p>
-          <button className="btn btn-secondary" onClick={() => navigate('/jobs')}>Back to customers</button>
+          <button className="btn btn-secondary" onClick={() => navigate('/monitoring')}>Back to customers</button>
         </div>
       </div>
     )
@@ -66,7 +66,7 @@ export default function CustomerPage({ name }) {
         title={cust.name}
         sub={<>{cust.orders} order{cust.orders === 1 ? '' : 's'} · {cust.units} unit{cust.units === 1 ? '' : 's'}</>}
         backLabel="Back to customers"
-        onBack={() => navigate('/jobs')}>
+        onBack={() => navigate('/monitoring')}>
         <Meter done={cust.done} total={cust.applicable} className="mh-meter" />
       </Masthead>
 

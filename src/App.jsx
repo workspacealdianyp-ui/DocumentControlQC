@@ -13,9 +13,9 @@ import Help from './components/Help.jsx'
 import { applyTheme, watchSystemTheme } from './lib/theme.js'
 import { isPaletteChord } from './lib/keys.js'
 import Home from './components/Home.jsx'
-import Dashboard from './components/Dashboard.jsx'
 import JobsPage from './components/JobsPage.jsx'
 import CustomersPage from './components/CustomersPage.jsx'
+import Vault from './components/Vault.jsx'
 import CustomerPage from './components/CustomerPage.jsx'
 import PoPage from './components/PoPage.jsx'
 import JobDetail from './components/JobDetail.jsx'
@@ -34,16 +34,21 @@ function parseHash() {
   const parts = path.split('/').filter(Boolean)
   const query = Object.fromEntries(new URLSearchParams(qs || ''))
   if (parts.length === 0) return { page: 'home', query }
-  if (parts[0] === 'monitor') return { page: 'monitor', query }
-  if (parts[0] === 'jobs') {
+  /* Monitoring is the section that used to be called Jobs. Monitor —
+     the old second register of the same reports — is gone into Reports,
+     and its path lands here, because that is what the word now names.
+     The /jobs paths stay live: they are in bookmarks, and /jobs/new is
+     how a job order is raised from four different places. */
+  if (parts[0] === 'monitoring' || parts[0] === 'jobs' || parts[0] === 'monitor') {
     if (parts[1] === 'new') return { page: 'joborder', query }
-    // Jobs opens on the customer register. The flat list is still there
-    // for anyone who wants to scan or filter the whole fleet at once —
-    // ?view=all, and the category deep links that already exist.
+    // The section opens on the customer register. The flat list is still
+    // there for anyone who wants to scan or filter the whole fleet at
+    // once — ?view=all, and the category deep links that already exist.
     if (query.view === 'all' || query.kat) return { page: 'jobs', query }
     return { page: 'customers', query }
   }
   if (parts[0] === 'reports') return { page: 'reports', query }
+  if (parts[0] === 'vault') return { page: 'vault', query }
   if (parts[0] === 'settings') return { page: 'settings', query }
   if (parts[0] === 'help') return { page: 'help', query }
   if (parts[0] === 'profile') return { page: 'profile', query }
@@ -186,7 +191,6 @@ export default function App() {
             onCloseSearch={() => setSearchOpen(false)} />
           <main className="content" key={route.page + (route.jobNo || '') + (route.formKey || '')}>
             {route.page === 'home' && <Home />}
-            {route.page === 'monitor' && <Dashboard />}
             {route.page === 'customers' && <CustomersPage />}
             {route.page === 'jobs' && <JobsPage kat={route.query.kat} />}
             {route.page === 'joborder' && <NewJobOrder />}
@@ -195,6 +199,7 @@ export default function App() {
             {route.page === 'po' && <PoPage poNo={route.poNo} />}
             {route.page === 'form' && <FormView job={job} formKey={route.formKey} query={route.query} />}
             {route.page === 'reports' && <Reports query={route.query} />}
+            {route.page === 'vault' && <Vault />}
             {route.page === 'settings' && <Settings section={route.query.s} />}
             {route.page === 'help' && <Help />}
             {route.page === 'profile' && <Profile />}

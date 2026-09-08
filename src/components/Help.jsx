@@ -11,12 +11,12 @@ import { IconList, IconFile, IconGrid, IconDatabase, IconLock, IconPrint } from 
    to do, and where does any of this live. */
 
 const SCREENS = [
-  { icon: IconList, name: 'Jobs', to: '/jobs',
+  { icon: IconGrid, name: 'Monitoring', to: '/monitoring',
     what: 'The register, entered the way the work is sold: customer, then purchase order, then the unit. One search covers all three, so a job number can be looked up without knowing whose it is. "All jobs" opens the flat list of every unit.' },
   { icon: IconFile, name: 'Reports', to: '/reports',
-    what: 'Every inspection document, filled or attached, with its verdict. Opening one shows the record; approving happens inside the document, not from the list.' },
-  { icon: IconGrid, name: 'Monitor', to: '/monitor',
-    what: 'The job × report matrix. One row per job, one cell per required report — the fastest way to see what is missing before a delivery date.' },
+    what: 'Every inspection document in the company, filled or attached, with its verdict and what it is waiting on. Filter by status, form or job; a submitted report can be approved from the list by anyone who did not write it.' },
+  { icon: IconLock, name: 'Vault', to: '/vault',
+    what: 'The same documents, narrowed to yours: what you wrote and, if you approve, what you signed. Ordered by what is still on you — drafts first, then waiting, then done.' },
 ]
 
 const STEPS = [

@@ -1,13 +1,24 @@
 import { useMemo, useState, useEffect } from 'react'
 import { useApp, navigate } from '../App.jsx'
 import { FORM_SCHEMAS } from '../data/formSchemas.js'
-import { getReports, deleteReport } from '../lib/store.js'
+import { getReports, deleteReport, approveReport, canApprove } from '../lib/store.js'
 import { ncrReports, fmtDateTime } from '../lib/status.js'
 import { reportResult } from '../lib/verdict.js'
 import { StateBadge } from './StatusChip.jsx'
-import { IconTrash, IconDownload, IconCloudUp, IconCloudOff, IconFilter, IconGroup } from './Icons.jsx'
+import { IconTrash, IconDownload, IconCloudUp, IconCloudOff, IconFilter, IconGroup, IconApprove } from './Icons.jsx'
 import { SearchField, ToolButton, PopCheck, PopRadio, PopFooter } from './RegisterBar.jsx'
 
+/* One register, not two.
+
+   Monitor was a second list of exactly these reports — same five status
+   tabs, same filter and grouping tools — drawn as a table instead of
+   cards. Two screens answering one question means two places to look and
+   two things to keep in step, so the table is gone and the one thing it
+   could do that this could not came with it: approving a submitted
+   report without opening it.
+
+   Its row checkboxes did not come. They selected rows and no action ever
+   read the selection. */
 const TABS = [
   { id: 'all', label: 'All' },
   { id: 'draft', label: 'Draft' },
@@ -15,6 +26,19 @@ const TABS = [
   { id: 'approved', label: 'Approved' },
   { id: 'ncr', label: 'NCR' },
 ]
+
+// Sorting came from the table's column headers. The columns are gone;
+// the orders people actually used are not.
+const ORDERS = [
+  { id: 'new', label: 'Newest first', of: (a, b) => (b.updatedAt || '').localeCompare(a.updatedAt || '') },
+  { id: 'old', label: 'Oldest first', of: (a, b) => (a.updatedAt || '').localeCompare(b.updatedAt || '') },
+  { id: 'id', label: 'Report number', of: (a, b) => (a.reportId || '').localeCompare(b.reportId || '') },
+  { id: 'job', label: 'Job number', of: (a, b) => String(a.jobNo).localeCompare(String(b.jobNo)) || (a.reportId || '').localeCompare(b.reportId || '') },
+]
+
+// 154 cards is a long way to scroll past to reach a filter you meant to
+// change. The table paged; this asks for more when you want more.
+const PAGE = 30
 
 // Same tools as the other two registers. Reports has always grouped by
 // form type; that is the default now rather than the only option.
@@ -48,7 +72,7 @@ export const ReportId = ({ id }) => (
    this list is a document, so drawing one says nothing — and it is
    tinted by the report's state, which the badge beside it also names in
    words. Colour and text, so neither has to carry it alone. */
-function ReportCard({ r, tone, code, title, sub, foot, onOpen, onDelete, canDelete }) {
+function ReportCard({ r, tone, code, title, sub, foot, onOpen, onDelete, canDelete, onApprove }) {
   return (
     <div className={`rep-card tone-${tone}`} role="button" tabIndex={0}
       onClick={onOpen}
@@ -58,6 +82,11 @@ function ReportCard({ r, tone, code, title, sub, foot, onOpen, onDelete, canDele
       <span className="rep-state"><StateBadge status={r.status} /></span>
       <small className="rep-sub">{sub}</small>
       <small className="rep-foot">{foot}</small>
+      {onApprove && (
+        <button className="rep-approve" onClick={(e) => { e.stopPropagation(); onApprove() }}>
+          <IconApprove size={13} /> Approve
+        </button>
+      )}
       {canDelete && (
         <button className="rep-del" aria-label={`Delete ${r.reportId}`} onClick={onDelete}>
           <IconTrash size={14} />
@@ -68,15 +97,16 @@ function ReportCard({ r, tone, code, title, sub, foot, onOpen, onDelete, canDele
 }
 
 export default function Reports({ query }) {
-  const { role, tick, refresh, notify } = useApp()
+  const { role, session, tick, refresh, notify } = useApp()
   const [tab, setTab] = useState(query?.f && TABS.some((t) => t.id === query.f) ? query.f : 'all')
   useEffect(() => {
     if (query?.f && TABS.some((t) => t.id === query.f)) setTab(query.f)
   }, [query?.f])
   const [q, setQ] = useState('')
-  const [newestFirst, setNewestFirst] = useState(true)
+  const [order, setOrder] = useState('new')
   const [forms, setForms] = useState(() => new Set())
   const [group, setGroup] = useState('form')
+  const [limit, setLimit] = useState(PAGE)
 
   const all = useMemo(() => getReports(), [tick])
   const ncrs = useMemo(() => ncrReports(), [tick])
@@ -106,13 +136,15 @@ export default function Reports({ query }) {
     return [...m.values()].sort((a, b) => a.label.localeCompare(b.label))
   }, [scoped])
 
-  const shown = scoped
+  const matched = scoped
     .filter((r) => !forms.size || forms.has(r.formKey))
     .slice()
-    .sort((a, b) => {
-      const cmp = (b.updatedAt || '').localeCompare(a.updatedAt || '')
-      return newestFirst ? cmp : -cmp
-    })
+    .sort(ORDERS.find((o) => o.id === order)?.of)
+  const shown = matched.slice(0, limit)
+
+  // Anything that changes what is being listed starts the count again,
+  // or you carry a scroll position from a list you are no longer in.
+  useEffect(() => { setLimit(PAGE) }, [tab, q, order, forms, group])
 
   const groups = useMemo(() => {
     const of = GROUPS.find((g) => g.id === group)?.of
@@ -136,7 +168,7 @@ export default function Reports({ query }) {
   const exportCsv = () => {
     const head = ['Report ID', 'Form', 'Job No', 'Deliverable', 'Inspector', 'Status', 'Result', 'Updated', 'Synced']
     const lines = [head.join(',')]
-    for (const r of shown) {
+    for (const r of matched) {
       lines.push([r.reportId, FORM_SCHEMAS[r.formKey]?.title, r.jobNo, r.deliverable, r.inspector, r.status,
         reportResult(r), r.updatedAt?.slice(0, 16), r.synced ? r.syncedAt?.slice(0, 16) : 'offline']
         .map((x) => `"${x || ''}"`).join(','))
@@ -197,16 +229,20 @@ export default function Reports({ query }) {
                     onChange={() => { setGroup(g.id); close() }} />
                 ))}
                 <div className="rb-pop-legend">Order</div>
-                <PopRadio label="Newest first" on={newestFirst} onChange={() => setNewestFirst(true)} />
-                <PopRadio label="Oldest first" on={!newestFirst} onChange={() => setNewestFirst(false)} />
+                {ORDERS.map((o) => (
+                  <PopRadio key={o.id} label={o.label} on={order === o.id} onChange={() => setOrder(o.id)} />
+                ))}
               </>
             )}
           </ToolButton>
         </div>
-        <span className="mon-count">{shown.length} report{shown.length === 1 ? '' : 's'}</span>
+        <span className="mon-count">
+          {matched.length} report{matched.length === 1 ? '' : 's'}
+          {matched.length > shown.length && <> · showing {shown.length}</>}
+        </span>
       </div>
 
-      {shown.length === 0 ? (
+      {matched.length === 0 ? (
         <div className="card empty-state">
           <p><strong>{tab === 'ncr' ? 'No NCR findings.' : 'No reports here yet.'}</strong></p>
           <p>{tab === 'ncr' ? 'Reports with non-conformance notes or rejected results will appear here.' : 'Create a report from the Home quick actions.'}</p>
@@ -243,11 +279,26 @@ export default function Reports({ query }) {
                   </>}
                   onOpen={() => openReport(r)}
                   onDelete={(e) => onDelete(e, r)}
-                  canDelete={role.canManage} />
+                  canDelete={role.canManage}
+                  onApprove={role.canOverride && r.status === 'submitted' && canApprove(r, session.name)
+                    ? () => {
+                        try { approveReport(r.id, session.name); refresh(); notify(`${r.reportId} approved`) }
+                        catch (err) { notify(err.message, 'err') }
+                      }
+                    : null} />
               ))}
             </div>
           </div>
         ))
+      )}
+
+      {matched.length > shown.length && (
+        <div className="rep-more">
+          <button className="btn btn-secondary btn-sm" onClick={() => setLimit((n) => n + PAGE)}>
+            Show {Math.min(PAGE, matched.length - shown.length)} more
+          </button>
+          <small>{shown.length} of {matched.length}</small>
+        </div>
       )}
     </div>
   )
