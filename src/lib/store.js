@@ -160,24 +160,30 @@ export function deleteReport(id) {
   write(KEYS.reports, getReports().filter((r) => r.id !== id))
 }
 
-/* Lifecycle: draft -> submitted -> approved.
+/* Lifecycle: draft -> submitted -> approved, and submitted -> returned
+   -> submitted for the half that was missing.
 
-   Approval is a second person saying the record is sound. Nobody can do
+   Review is a second person saying the record is sound. Nobody can do
    that for their own work, so the one thing this has to refuse is the
-   inspector who filled the report approving it — which it did not: the
+   inspector who filled the report reviewing it — which it did not: the
    name was written down and never compared to anything.
 
    This is a control, not a security boundary. Without a back end anyone
    can sign in as anyone, so it stops the ordinary mistake of approving
    your own report rather than a determined person. Saying which of the
    two this is matters more than the check itself. */
+const secondPerson = (name, act) =>
+  `${name} recorded this report, so cannot also ${act}. That call belongs to a second person.`
+
 export class SelfApprovalError extends Error {
-  constructor(name) {
-    super(`${name} recorded this report, so cannot also approve it. Approval is a second person's judgement.`)
+  constructor(name, act = 'approve it') {
+    super(secondPerson(name, act))
     this.name = 'SelfApprovalError'
   }
 }
 
+// The same rule decides both ends of a review: whoever may approve a
+// report may send it back, and neither on their own work.
 export const canApprove = (report, byName) =>
   !!report && !!byName && (report.inspector || '').trim().toLowerCase() !== byName.trim().toLowerCase()
 
@@ -192,6 +198,64 @@ export function approveReport(id, byName) {
   r.updatedAt = r.approvedAt
   write(KEYS.reports, all)
   return r
+}
+
+/* Sending a submitted report back.
+
+   Approval was the only judgement this app could record: a report was
+   either approved or it sat in the waiting lane forever. A reviewer who
+   found a gap had nothing to press — the deliverable kept counting as
+   done on the strength of a document nobody would sign, and the only
+   way back was for an override role to quietly edit somebody else's
+   readings in place.
+
+   So the other half of the judgement exists now. It is not a rejection
+   of the inspection: the verdict on the work stays whatever the readings
+   say. It is the document going back to the person who recorded it,
+   with the reason attached.
+
+   The reason is required, because "sent back" without one is a message
+   nobody can act on. And each one is kept: a report that went back
+   twice for the same thing is a fact about the work, so `returns` is
+   appended to rather than overwritten. */
+export class ReturnReasonRequiredError extends Error {
+  constructor() {
+    super('Say what has to change before sending the report back — the inspector only sees this note.')
+    this.name = 'ReturnReasonRequiredError'
+  }
+}
+
+export function returnReport(id, byName, note) {
+  const all = getReports()
+  const r = all.find((x) => x.id === id)
+  if (!r) return null
+  /* An approved report is never pulled back: it has been read and
+     relied on, so a change to it is the next issue. Same rule as
+     reviseReport, stated where somebody might try the other thing. */
+  if (r.status !== 'submitted') {
+    throw new Error(`Only a report waiting for approval can be sent back. ${r.reportId} is ${r.status}.`)
+  }
+  if (!canApprove(r, byName)) throw new SelfApprovalError(byName, 'send it back')
+  const reason = String(note || '').trim()
+  if (!reason) throw new ReturnReasonRequiredError()
+
+  const at = new Date().toISOString()
+  r.status = 'returned'
+  r.returnedBy = byName
+  r.returnedAt = at
+  r.returnNote = reason
+  r.returns = [...(r.returns || []), { by: byName, at, note: reason }]
+  r.updatedAt = at
+  write(KEYS.reports, all)
+  return r
+}
+
+/* The three fields that describe an open return are about where the
+   report stands, so going in again clears them. What does not clear is
+   `returns` — that it was sent back, by whom and why, is the record. */
+export function withoutOpenReturn(report) {
+  const { returnedBy, returnedAt, returnNote, ...rest } = report
+  return rest
 }
 
 // Simulated sync (front-end only): reports start offline; "sync" marks uploaded.

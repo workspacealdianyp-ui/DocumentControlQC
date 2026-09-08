@@ -32,6 +32,7 @@ const LANES = [
 const STATES = [
   { id: 'all', label: 'All' },
   { id: 'draft', label: 'Draft' },
+  { id: 'returned', label: 'Sent back' },
   { id: 'submitted', label: 'Waiting' },
   { id: 'approved', label: 'Approved' },
   { id: 'ncr', label: 'NCR' },
@@ -46,11 +47,17 @@ const STATES = [
 const PAGE = 40
 
 const STEPS = ['draft', 'submitted', 'approved']
+/* A report that was sent back stands at the first step again, but not
+   for the same reason a draft does — it has been read and returned. So
+   it takes the draft position and marks it, rather than inventing a
+   fourth segment for a step that does not exist. */
 function Track({ status }) {
-  const at = Math.max(0, STEPS.indexOf(status))
+  const back = status === 'returned'
+  const at = back ? 0 : Math.max(0, STEPS.indexOf(status))
   return (
-    <span className="vt-track" role="img"
-      aria-label={`Step ${at + 1} of 3: ${status === 'submitted' ? 'waiting for approval' : status}`}>
+    <span className={`vt-track${back ? ' is-back' : ''}`} role="img"
+      aria-label={back ? 'Step 1 of 3: sent back to be corrected'
+        : `Step ${at + 1} of 3: ${status === 'submitted' ? 'waiting for approval' : status}`}>
       {STEPS.map((s, i) => (
         <i key={s} className={i <= at ? 'on' : ''} />
       ))}
@@ -61,6 +68,7 @@ function Track({ status }) {
 // What is holding this document, said as the thing to do about it.
 function standing(r) {
   if (r.status === 'draft') return 'Not submitted yet'
+  if (r.status === 'returned') return r.returnedBy ? `Sent back by ${r.returnedBy}` : 'Sent back'
   if (r.status === 'submitted') return 'Waiting for approval'
   // The date is on the line directly beneath, so naming it here only
   // made the sentence long enough to be cut off.
@@ -93,6 +101,7 @@ export default function Vault() {
   const counts = useMemo(() => ({
     all: mine.length,
     draft: mine.filter((r) => r.status === 'draft').length,
+    returned: mine.filter((r) => r.status === 'returned').length,
     submitted: mine.filter((r) => r.status === 'submitted').length,
     approved: mine.filter((r) => r.status === 'approved').length,
     ncr: mine.filter((r) => reportResult(r) === 'Reject').length,
@@ -100,7 +109,7 @@ export default function Vault() {
 
   const rows = useMemo(() => {
     const ql = q.trim().toLowerCase()
-    const rank = { draft: 0, submitted: 1, approved: 2 }
+    const rank = { returned: -1, draft: 0, submitted: 1, approved: 2 }
     return mine
       .filter((r) => (state === 'all' ? true : state === 'ncr' ? reportResult(r) === 'Reject' : r.status === state))
       .filter((r) => {
@@ -206,10 +215,13 @@ export default function Vault() {
                     </small>
                   </span>
                   <span className="vt-standing">
-                    <b>{standing(r)}</b>
+                    <b className={r.status === 'returned' ? 'is-back' : undefined}>{standing(r)}</b>
                     <small>
-                      {r.photos?.length ? `${r.photos.length} photo${r.photos.length === 1 ? '' : 's'} · ` : ''}
-                      {fmtDateTime(r.updatedAt)}
+                      {/* On a returned report the reason outranks the
+                          photo count: it is the thing to act on. */}
+                      {r.status === 'returned' && r.returnNote
+                        ? r.returnNote
+                        : <>{r.photos?.length ? `${r.photos.length} photo${r.photos.length === 1 ? '' : 's'} · ` : ''}{fmtDateTime(r.updatedAt)}</>}
                     </small>
                   </span>
                   {/* Always rendered, blank when clean: a cell that

@@ -8,7 +8,7 @@ import { resolveTheme, setThemePref, watchSystemTheme } from '../lib/theme.js'
 import { buildContext, jobProgress, fmtDate } from '../lib/status.js'
 import { IS_MAC } from '../lib/keys.js'
 import {
-  IconSearch, IconBell, IconAlert, IconApprove, IconPen,
+  IconSearch, IconBell, IconAlert, IconApprove, IconPen, IconReturn,
   IconList, IconFile, IconGrid, IconPlus, IconGear, IconClose, IconTheme, IconLock,
 } from './Icons.jsx'
 
@@ -155,6 +155,15 @@ export default function Topbar({ route, job, searchOpen, onOpenSearch, onCloseSe
       icon: IconApprove, cls: 'n-blue',
       text: `${pending.length} report${pending.length === 1 ? '' : 's'} awaiting approval`,
       sub: pending.slice(0, 2).map((r) => r.reportId).join(' · '), to: '/reports?f=submitted',
+    })
+    /* Above drafts, because a draft is work you have not finished and a
+       returned report is work somebody is waiting on you to fix. */
+    const back = reps.filter((r) => r.status === 'returned' && r.inspector === session.name)
+    if (back.length > 0) out.push({
+      icon: IconReturn, cls: 'n-red',
+      text: `${back.length} report${back.length === 1 ? '' : 's'} sent back to you`,
+      sub: back[0].returnNote || back.slice(0, 2).map((r) => r.reportId).join(' · '),
+      to: '/reports?f=returned',
     })
     const drafts = reps.filter((r) => r.status === 'draft' && r.inspector === session.name)
     if (drafts.length > 0) out.push({
