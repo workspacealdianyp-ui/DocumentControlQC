@@ -7,9 +7,9 @@ import { IconBack } from './Icons.jsx'
    it a third time. Now the top bar says where you are and this band says
    what the thing is, once, with the way back folded into it.
 
-   The band is the document's plate: a mark cut into a poured stone
-   ground, the way a shop stencils a code onto the thing it belongs to.
-   The stone is drawn in src/assets/marble-*.svg, one per theme, so the
+   The band is the document's plate: a mark set on a machined ground,
+   the way a shop stencils a code onto the thing it belongs to. The
+   ground is drawn in src/assets/banner-*.svg, one per theme, so the
    type on it keeps its contrast when the lights go out.
 
    `mark` takes anything — a three-letter code, a progress ring — and
@@ -19,7 +19,7 @@ import { IconBack } from './Icons.jsx'
 export default function Masthead({ mark, code, eyebrow, title, sub, onBack, backLabel = 'Back', wide = false, variant, children }) {
   return (
     <header className={`masthead${variant ? ` is-${variant}` : ''}`}>
-      <div className="masthead-stone" aria-hidden="true" />
+      <div className="masthead-plate" aria-hidden="true" />
       <div className="masthead-inner">
         {onBack && (
           <button type="button" className="masthead-back" onClick={onBack} aria-label={backLabel} title={backLabel}>

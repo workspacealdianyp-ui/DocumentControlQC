@@ -29,7 +29,7 @@
   --surface: #ffffff;      /* cards, rail */
   --surface-2: #f7f7f5;    /* hover, inset wells */
   --surface-3: #efefec;
-  --masthead-stone: url('./assets/marble-light.svg');
+  --masthead-plate: url('./assets/banner-light.svg');
   --line: #eaeae6;         /* hairline */
   --line-2: #dcdcd7;
   --text: #16161a;
@@ -129,7 +129,7 @@
   --surface: #17171b;
   --surface-2: #1e1e23;
   --surface-3: #26262c;
-  --masthead-stone: url('./assets/marble-dark.svg');
+  --masthead-plate: url('./assets/banner-dark.svg');
   --line: #292930;
   --line-2: #3a3a43;
   --text: #ededf0;
@@ -838,16 +838,23 @@ td.th-action { display: flex; gap: 6px; justify-content: flex-end; align-items: 
 /* ─────────────────────────── forms ─────────────────────────── */
 .form-page { max-width: 1180px; }
 /* ── the masthead ────────────────────────────────────────────────
-   One band where there used to be three headings. The stone is drawn
-   (src/assets/marble-*.svg), one file per theme rather than one file
-   filtered, because an orange pour and a graphite one are different
-   pictures, not the same picture at a different brightness.
+   One band where there used to be three headings. The plate is drawn
+   (src/assets/banner-*.svg, from scripts/gen-banner.mjs), one file per
+   theme rather than one file filtered, because a white field and a
+   graphite one are different pictures, not the same picture at a
+   different brightness.
 
-   The picture runs the full width. It is masked back under the words —
-   about a quarter of its strength there, rising to full by the right
-   third — and the ink ribbons in the drawing thin out that way too, so
-   the type is read against the pale part of the same picture rather
-   than against a panel laid over half the band. */
+   The drawing is a field of squares on a tilted lattice with a few
+   planes lifted off it — flat colour, one light, and real geometry
+   rather than a photograph of a texture, so it stays exact at any
+   width and on any display. It carries one orange square and no other
+   colour: enough for the band to belong to this product, quiet enough
+   that the accent still means something everywhere else.
+
+   The picture runs the full width and is masked back under the words —
+   about a third of its strength there, rising to full by the right
+   third — so the type is read against the pale part of the same
+   picture rather than against a panel laid over half the band. */
 .masthead {
   position: relative; isolation: isolate;
   border: 1px solid var(--line-2);
@@ -856,9 +863,9 @@ td.th-action { display: flex; gap: 6px; justify-content: flex-end; align-items: 
   overflow: hidden;
   background: var(--surface);
 }
-.masthead-stone {
+.masthead-plate {
   position: absolute; inset: 0; z-index: 0;
-  background-image: var(--masthead-stone);
+  background-image: var(--masthead-plate);
   background-size: cover; background-position: center right;
 }
 /* The picture runs the full width of the band, end to end. What keeps
@@ -867,9 +874,9 @@ td.th-action { display: flex; gap: 6px; justify-content: flex-end; align-items: 
    panel — so on the left you still see the pour, pale, and on the right
    it is at full weight behind the reading. A wipe that goes opaque is
    the thing this replaces: it turned half a band into blank card. */
-.masthead-stone::after { content: ''; position: absolute; inset: 0; }
+.masthead-plate::after { content: ''; position: absolute; inset: 0; }
 @media (min-width: 721px) {
-  .masthead-stone {
+  .masthead-plate {
     -webkit-mask-image: linear-gradient(96deg,
       rgba(0, 0, 0, 0.38) 0%, rgba(0, 0, 0, 0.42) 30%,
       rgba(0, 0, 0, 0.62) 54%, rgba(0, 0, 0, 0.92) 70%, #000 82%);
@@ -881,7 +888,7 @@ td.th-action { display: flex; gap: 6px; justify-content: flex-end; align-items: 
      a browser that cannot mask gets the old wipe back rather than an
      unreadable band. */
   @supports not ((mask-image: linear-gradient(#000, #000)) or (-webkit-mask-image: linear-gradient(#000, #000))) {
-    .masthead-stone::after {
+    .masthead-plate::after {
       background: linear-gradient(96deg, var(--surface) 0%, var(--surface) 54%, transparent 94%);
     }
   }
@@ -991,13 +998,17 @@ td.th-action { display: flex; gap: 6px; justify-content: flex-end; align-items: 
   }
   .masthead-side { order: 2; margin-left: auto; }
   .masthead-txt h2 { font-size: 17px; white-space: normal; }
-  /* Narrow, the stone has no room to show past the words, so it steps
-     back to a top edge instead of a side. */
-  .masthead-stone { background-position: center top; }
+  /* Narrow, the plate has no room to show past the words, so it steps
+     back to a top edge instead of a side — and to the left of the
+     drawing rather than the middle of it. The reading sits in the top
+     right corner at this width, and the middle of the plate is where
+     the accent square is: centred, the one coloured thing in the band
+     ends up directly behind the percentage. */
+  .masthead-plate { background-position: left top; }
   /* The whole drawing is visible at this width, so the scrim clears the
      top strip — where the pour meets the stone and the controls have
      their own grounds — and goes solid just above the type. */
-  .masthead-stone::after {
+  .masthead-plate::after {
     background: linear-gradient(178deg,
       transparent 0%,
       color-mix(in srgb, var(--surface) 18%, transparent) 30%,
@@ -1005,7 +1016,7 @@ td.th-action { display: flex; gap: 6px; justify-content: flex-end; align-items: 
       var(--surface) 62%, var(--surface) 100%);
   }
   @supports not (color: color-mix(in srgb, white 50%, transparent)) {
-    .masthead-stone::after { background: linear-gradient(178deg, transparent 0%, var(--surface) 60%); }
+    .masthead-plate::after { background: linear-gradient(178deg, transparent 0%, var(--surface) 60%); }
   }
 }
 
