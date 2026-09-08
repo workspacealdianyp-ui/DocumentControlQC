@@ -2,6 +2,7 @@ import { useMemo } from 'react'
 import { useApp, navigate } from '../App.jsx'
 import { buildContext, fmtDate } from '../lib/status.js'
 import { outstandingBy, unitMix, unitsFor } from '../lib/rollup.js'
+import { artFor } from '../lib/productArt.js'
 import { Figure, Meter, Outstanding, Ribbon } from './Readings.jsx'
 import Masthead from './Masthead.jsx'
 import UnitList from './UnitList.jsx'
@@ -52,9 +53,9 @@ export default function PoPage({ poNo }) {
         title={poNo}
         sub={<>{rows.length} unit{rows.length === 1 ? '' : 's'} · {products.length === 1 ? products[0] : `${products.length} products`}</>}
         backLabel={`Back to ${head.customerName}`}
-        onBack={() => navigate(`/customer/${encodeURIComponent(head.customerName)}`)}>
-        <Meter done={roll.done} total={roll.applicable} className="mh-meter" />
-      </Masthead>
+        onBack={() => navigate(`/customer/${encodeURIComponent(head.customerName)}`)}
+        art={artFor(...products)}
+        reading={<Meter done={roll.done} total={roll.applicable} className="mh-meter" />} />
 
       <div className="fig-row">
         <Figure value={rows.length} label="Units" />

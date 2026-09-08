@@ -3,6 +3,7 @@ import { useApp, navigate } from '../App.jsx'
 import { buildContext, fmtDate, fmtDateTime } from '../lib/status.js'
 import { byCustomer, ordersFor, outstandingBy, unitMix, unitsForCustomer } from '../lib/rollup.js'
 import { initials } from '../lib/label.js'
+import { artFor } from '../lib/productArt.js'
 import Masthead from './Masthead.jsx'
 import UnitList from './UnitList.jsx'
 import { Figure, Meter, Outstanding, Ribbon } from './Readings.jsx'
@@ -87,9 +88,12 @@ export default function CustomerPage({ name }) {
         title={cust.name}
         sub={<>{cust.orders} order{cust.orders === 1 ? '' : 's'} · {cust.units} unit{cust.units === 1 ? '' : 's'}</>}
         backLabel="Back to customers"
-        onBack={() => navigate('/jobs')}>
-        <Meter done={cust.done} total={cust.applicable} className="mh-meter" />
-      </Masthead>
+        onBack={() => navigate('/jobs')}
+        // Whatever this customer's units are. With one order of one
+        // product that is exact; across a mixed book it is the first
+        // product they have on the books.
+        art={artFor(...units.map((u) => u.job.productDesc))}
+        reading={<Meter done={cust.done} total={cust.applicable} className="mh-meter" />} />
 
       <div className="fig-row">
         <Figure value={cust.orders} label="Purchase orders" />

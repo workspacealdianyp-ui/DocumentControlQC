@@ -860,11 +860,14 @@ td.th-action { display: flex; gap: 6px; justify-content: flex-end; align-items: 
   border: 1px solid var(--line-2);
   border-radius: var(--r-lg);
   margin-bottom: 16px;
-  overflow: hidden;
   background: var(--surface);
 }
+/* Clipped on the layer rather than on the band. The band used to carry
+   overflow:hidden, which is also what stopped the product art rising out
+   of the top edge — and rising out of it is the whole of that idea. */
 .masthead-plate {
   position: absolute; inset: 0; z-index: 0;
+  border-radius: inherit; overflow: hidden;
   background-image: var(--masthead-plate);
   background-size: cover; background-position: center right;
 }
@@ -933,6 +936,10 @@ td.th-action { display: flex; gap: 6px; justify-content: flex-end; align-items: 
 .masthead-mark.is-wide { margin: -6px 2px -6px 0; }
 
 .masthead-txt { display: flex; flex-direction: column; gap: 2px; min-width: 0; flex: 1 1 auto; max-width: 42%; }
+/* The reading and the identifiers on one line under the title. They are
+   both statements about the record the title names, so they belong in
+   its column rather than out at the edge with the controls. */
+.masthead-read { display: flex; align-items: baseline; gap: 8px 16px; flex-wrap: wrap; min-width: 0; }
 /* The stone runs the full width of every band now, so these two lines are
    read against a picture rather than a flat card. Amber on the pale pour
    measured 2.63:1 and --text-2 on it 3.57:1; one ink and one steel, dark
@@ -4845,21 +4852,92 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber); outline-
   letter-spacing: 0.14em; text-transform: uppercase;
   font-variation-settings: 'opsz' 14;
 }
+/* The name, in the shop's orange and set the way the shop sets it:
+   uppercase, heavy, and the largest thing on the page.
+
+   Not the orange from the reference. That yellow measures about 1.7:1
+   on white — below every threshold there is, and this is an app read on
+   a tablet in a workshop under whatever light the roof lets in. This is
+   --amber-deep, 4.2:1 on the band, which clears AA for text at this size
+   with room to spare and is still unmistakably the same colour. */
 .masthead.is-job .masthead-txt h2 {
   font-family: var(--display);
-  font-size: 26px; font-weight: 680;
-  letter-spacing: -0.025em; line-height: 1.1;
+  font-size: 30px; font-weight: 750;
+  letter-spacing: -0.012em; line-height: 1.08;
+  text-transform: uppercase;
+  color: var(--amber-deep);
   font-variation-settings: 'opsz' 32;
 }
+:root[data-theme="dark"] .masthead.is-job .masthead-txt h2 { color: var(--amber); }
+
 .masthead.is-job .masthead-id {
   font-family: var(--sans);
   font-size: 12.5px; font-weight: 500; letter-spacing: 0.005em;
   font-variant-numeric: tabular-nums;
 }
 
+/* The reading, at the size the reference gives it: the percentage is the
+   headline figure of the band, and the fraction under it in the old
+   layout was doing the work of a caption from a caption's distance. The
+   track goes — the band has three lines of type and a photograph on it
+   already, and the number says the same thing the bar was saying. */
+.masthead.is-job .mh-meter { min-width: 0; gap: 0; flex: none; }
+.masthead.is-job .mh-meter .meter-track { display: none; }
+.masthead.is-job .mh-meter .meter-top { gap: 9px; }
+.masthead.is-job .mh-meter .meter-top strong { font-size: 30px; font-weight: 750; letter-spacing: -0.03em; }
+.masthead.is-job .mh-meter .meter-top strong i { font-size: 17px; }
+.masthead.is-job .mh-meter .meter-top small { font-size: 12.5px; font-weight: 500; }
+
+/* ── the product art ──────────────────────────────────────────────
+   A cut-out photograph, bottom-right, taller than the band so it breaks
+   the top edge. Breaking the edge is the whole device: it is what makes
+   the band read as a plate with something standing on it rather than as
+   a rectangle with a picture pasted inside.
+
+   The overhang is 16px, which is what the content gutter above the band
+   gives it — any more and the art is clipped by the top bar instead, and
+   a photograph cut off by a piece of furniture reads as a bug. */
+/* The band grows to give the art something to stand on. At the old
+   height the photograph came out 130px tall in a 1150px band and read
+   as a sticker, not as a machine.
+
+   The top margin is what the 28px overhang stands in. The content gutter
+   above the band is 16px under 1024 and 22px over it, so 8px of margin
+   left the roof of the cab 3px inside the top bar at tablet width — and
+   a photograph sliced off by a piece of furniture reads as a bug, not as
+   a bleed. 14px clears it at both. */
+.masthead.has-art { margin: 14px 0 26px; }
+.masthead-art {
+  position: absolute; right: 16px; bottom: -10px; z-index: 0;
+  height: calc(100% + 38px); width: auto; max-width: 42%;
+  object-fit: contain; object-position: right bottom;
+  pointer-events: none; user-select: none;
+  filter: drop-shadow(0 12px 16px rgba(20, 20, 24, 0.22));
+}
+/* Against a photograph the drawn plate is a second texture competing
+   for the same surface, and the reference this follows is a plain white
+   card. It stays, at a whisper, so the band is not flat card stock —
+   and at a whisper its orange square stops reading as a stain behind
+   the machine. */
+.masthead.has-art .masthead-plate { opacity: 0.3; }
+:root[data-theme="dark"] .masthead-art { filter: drop-shadow(0 12px 18px rgba(0, 0, 0, 0.55)); }
+
+/* A phone has no room to stand a machine beside three lines of type: the
+   art took 42% of the band and the customer name came out as "CUST… 03"
+   over two lines. The band goes back to type and the drawn plate there,
+   which is what it was before the photograph existed. */
+@media (max-width: 720px) {
+  .masthead-art { display: none; }
+  .masthead.has-art { margin: 0 0 16px; }
+  .masthead.has-art .masthead-plate { opacity: 1; }
+}
+
 @media (min-width: 721px) {
   .masthead.is-job .masthead-txt h2 { font-size: 30px; }
   .masthead.is-job .masthead-txt { max-width: 52%; }
+  .masthead.is-job.has-art { min-height: 148px; }
+  .masthead.is-job.has-art .masthead-inner { align-items: center; padding: 18px 22px; }
+  .masthead.is-job.has-art .masthead-txt { max-width: 56%; }
 }
 
 /* ── the dial ─────────────────────────────────────────────────
@@ -4931,8 +5009,20 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber); outline-
   .masthead.is-job .masthead-txt { display: contents; }
   .masthead.is-job .masthead-back { grid-area: back; }
   .masthead.is-job .masthead-eyebrow { grid-area: eyebrow; }
-  .masthead.is-job .masthead-txt h2 { grid-area: name; margin-top: 4px; }
-  .masthead.is-job .masthead-id { grid-area: line; }
+  /* Uppercase costs about a fifth of the width of the same words in
+     sentence case, and a customer name is already the longest thing on
+     the band. At the desktop size it came out as "CUST... 03" over two
+     lines on a phone. */
+  .masthead.is-job .masthead-txt h2 {
+    grid-area: name; margin-top: 4px;
+    font-size: 20px; font-weight: 750; letter-spacing: -0.004em;
+  }
+  /* The line row is the reading and the identifiers together now, so the
+     row is claimed by the box that holds them rather than by the id
+     itself — which stopped being a grid item when it moved inside. */
+  .masthead.is-job .masthead-read { grid-area: line; gap: 4px 12px; }
+  .masthead.is-job .mh-meter .meter-top strong { font-size: 21px; }
+  .masthead.is-job .mh-meter .meter-top strong i { font-size: 12px; }
   .masthead.is-job .masthead-mark { display: none; }
   .masthead.is-job .masthead-side {
     grid-area: read; align-self: center; justify-self: end;
