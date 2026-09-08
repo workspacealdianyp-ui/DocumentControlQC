@@ -2,7 +2,6 @@ import { useMemo } from 'react'
 import { useApp, navigate } from '../App.jsx'
 import { buildContext, fmtDate, fmtDateTime } from '../lib/status.js'
 import { byCustomer, ordersFor, outstandingBy, unitMix, unitsForCustomer } from '../lib/rollup.js'
-import { initials } from '../lib/label.js'
 import { artFor } from '../lib/productArt.js'
 import Masthead from './Masthead.jsx'
 import UnitList from './UnitList.jsx'
@@ -83,7 +82,6 @@ export default function CustomerPage({ name }) {
   return (
     <div className="page">
       <Masthead variant="job"
-        mark={<span className="cust-mono">{initials(cust.name)}</span>}
         eyebrow="Customer"
         title={cust.name}
         sub={<>{cust.orders} order{cust.orders === 1 ? '' : 's'} · {cust.units} unit{cust.units === 1 ? '' : 's'}</>}

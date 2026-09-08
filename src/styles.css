@@ -898,20 +898,34 @@ td.th-action { display: flex; gap: 6px; justify-content: flex-end; align-items: 
 }
 .masthead-inner {
   position: relative; z-index: 1;
+  --mh-pad-x: 18px; --mh-pad-y: 15px;
   display: flex; align-items: center; gap: 14px;
-  padding: 15px 18px;
+  padding: var(--mh-pad-y) var(--mh-pad-x);
 }
 
+/* The way back, as an edge rather than an object.
+
+   It used to be a 34px white tile floating on the drawing — a second
+   plate on a band that already has one, and a small target on a screen
+   that is often a tablet held in gloves. It is a bare column at the
+   band's own left edge now: nothing drawn until you reach for it, the
+   full height of the band to aim at, and narrow enough that the type
+   still starts where the eye expects a line to start. */
 .masthead-back {
-  flex: none;
+  flex: none; align-self: stretch;
   display: grid; place-items: center;
-  width: 34px; height: 34px;
-  border: 1px solid var(--line-2); border-radius: 10px;
-  background: var(--surface); color: var(--text-2);
-  cursor: pointer; transition: color .14s ease, border-color .14s ease, background .14s ease;
+  width: 38px; padding-right: 4px;
+  margin: calc(var(--mh-pad-y) * -1) 0 calc(var(--mh-pad-y) * -1) calc(var(--mh-pad-x) * -1);
+  border: 0; border-radius: var(--r-lg) 0 0 var(--r-lg);
+  background: none; color: var(--text);
+  cursor: pointer; transition: background .14s ease, color .14s ease;
 }
-.masthead-back:hover { color: var(--text); border-color: var(--steel); background: var(--surface-2); }
-.masthead-back:focus-visible { outline: none; border-color: var(--steel); box-shadow: 0 0 0 3px var(--amber-soft); }
+.masthead-back:hover { background: rgba(20, 20, 24, 0.07); }
+.masthead-back:active { background: rgba(20, 20, 24, 0.12); }
+.masthead-back:focus-visible { outline: none; box-shadow: inset 0 0 0 2px var(--text); }
+:root[data-theme="dark"] .masthead-back { color: #fafaff; }
+:root[data-theme="dark"] .masthead-back:hover { background: rgba(255, 255, 255, 0.12); }
+:root[data-theme="dark"] .masthead-back:active { background: rgba(255, 255, 255, 0.18); }
 
 /* The signature. A shop stencils the code onto the thing it belongs to;
    this is that stencil, cut out of the plate rather than printed on it. */
@@ -936,10 +950,11 @@ td.th-action { display: flex; gap: 6px; justify-content: flex-end; align-items: 
 .masthead-mark.is-wide { margin: -6px 2px -6px 0; }
 
 .masthead-txt { display: flex; flex-direction: column; gap: 2px; min-width: 0; flex: 1 1 auto; max-width: 42%; }
-/* The reading and the identifiers on one line under the title. They are
-   both statements about the record the title names, so they belong in
-   its column rather than out at the edge with the controls. */
-.masthead-read { display: flex; align-items: baseline; gap: 8px 16px; flex-wrap: wrap; min-width: 0; }
+/* The reading sits in the title's column, not out at the edge with the
+   controls — it is a statement about the record the title names, not a
+   control — but it is its own block, set off from the three lines of
+   identity above it. */
+.masthead-read { display: flex; align-items: baseline; gap: 8px 16px; flex-wrap: wrap; min-width: 0; margin-top: 12px; }
 /* The stone runs the full width of every band now, so these two lines are
    read against a picture rather than a flat card. Amber on the pale pour
    measured 2.63:1 and --text-2 on it 3.57:1; one ink and one steel, dark
@@ -986,7 +1001,7 @@ td.th-action { display: flex; gap: 6px; justify-content: flex-end; align-items: 
 }
 
 @media (max-width: 720px) {
-  .masthead-inner { flex-wrap: wrap; padding: 13px 14px; gap: 11px; }
+  .masthead-inner { flex-wrap: wrap; --mh-pad-x: 14px; --mh-pad-y: 13px; gap: 11px; }
   .masthead-txt { flex-basis: 100%; order: 3; max-width: none; }
   /* A 92px ring is a third of the band on a phone. It keeps its detail
      at two thirds the size, which is all the room there is. */
@@ -4936,7 +4951,7 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber); outline-
   .masthead.is-job .masthead-txt h2 { font-size: 30px; }
   .masthead.is-job .masthead-txt { max-width: 52%; }
   .masthead.is-job.has-art { min-height: 148px; }
-  .masthead.is-job.has-art .masthead-inner { align-items: center; padding: 18px 22px; }
+  .masthead.is-job.has-art .masthead-inner { align-items: center; --mh-pad-x: 22px; --mh-pad-y: 18px; }
   .masthead.is-job.has-art .masthead-txt { max-width: 56%; }
 }
 
@@ -5001,13 +5016,20 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber); outline-
     grid-template-columns: auto minmax(0, 1fr) auto;
     grid-template-areas:
       "back eyebrow read"
-      "name name    read"
-      "line line    read";
+      "back name    read"
+      "back line    read"
+      "back meas    read";
     column-gap: 11px; row-gap: 2px;
     padding: 13px 14px;
   }
   .masthead.is-job .masthead-txt { display: contents; }
-  .masthead.is-job .masthead-back { grid-area: back; }
+  /* The strip runs the whole band here too, so every line of type starts
+     at the same left edge rather than the first one starting past it. */
+  .masthead.is-job .masthead-back {
+    grid-area: back; align-self: stretch;
+    margin: calc(var(--mh-pad-y) * -1) 0 calc(var(--mh-pad-y) * -1) calc(var(--mh-pad-x) * -1);
+    width: 32px; padding-right: 2px;
+  }
   .masthead.is-job .masthead-eyebrow { grid-area: eyebrow; }
   /* Uppercase costs about a fifth of the width of the same words in
      sentence case, and a customer name is already the longest thing on
@@ -5017,10 +5039,13 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber); outline-
     grid-area: name; margin-top: 4px;
     font-size: 20px; font-weight: 750; letter-spacing: -0.004em;
   }
-  /* The line row is the reading and the identifiers together now, so the
-     row is claimed by the box that holds them rather than by the id
-     itself — which stopped being a grid item when it moved inside. */
-  .masthead.is-job .masthead-read { grid-area: line; gap: 4px 12px; }
+  .masthead.is-job .masthead-id { grid-area: line; }
+  /* Its own row under the identity, as on the desktop band. On a job the
+     row is empty here — the reading is the dial in the right column at
+     this width — so it carries no margin of its own and collapses to the
+     grid's row gap rather than leaving a band with a hole in it. */
+  .masthead.is-job .masthead-read { grid-area: meas; gap: 4px 12px; margin-top: 0; }
+  .masthead.is-job .mh-meter { margin-top: 6px; }
   .masthead.is-job .mh-meter .meter-top strong { font-size: 21px; }
   .masthead.is-job .mh-meter .meter-top strong i { font-size: 12px; }
   .masthead.is-job .masthead-mark { display: none; }

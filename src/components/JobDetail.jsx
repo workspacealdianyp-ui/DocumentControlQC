@@ -2,7 +2,6 @@ import { useMemo, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { useApp, navigate } from '../App.jsx'
 import { artFor } from '../lib/productArt.js'
-import { katCode } from '../lib/label.js'
 import { DELIVERABLES, NDE_FORMS } from '../lib/constants.js'
 import { FORM_SCHEMAS } from '../data/formSchemas.js'
 import { buildContext, jobProgress, fmtDate, fmtDateTime } from '../lib/status.js'
@@ -141,9 +140,12 @@ export default function JobDetail({ job }) {
       {/* Back goes up the register the unit was reached through — the
           order it belongs to — not sideways into the category it happens
           to be filed under. */}
+      {/* No code chip. It stamped NTR in a box beside an eyebrow that
+          already said NON TRAILER in full, and a box is a thing to read
+          around. The PO number carries its own PO- prefix, so the label
+          in front of it was saying it twice. */}
       <Masthead variant="job"
-        code={katCode(job.kategori)}
-        eyebrow={<>{KAT_LABEL[job.kategori] || 'Job'}{job.poNo ? <> · PO {job.poNo}</> : null}</>}
+        eyebrow={<>{KAT_LABEL[job.kategori] || 'Job'}{job.poNo ? <> · {job.poNo}</> : null}</>}
         title={job.customerName || `Job ${job.jobNo}`}
         sub={<>Job {job.jobNo}{job.productDesc ? <> · {job.productDesc}</> : null}</>}
         backLabel={job.poNo ? `Back to ${job.poNo}` : 'Back to jobs'}

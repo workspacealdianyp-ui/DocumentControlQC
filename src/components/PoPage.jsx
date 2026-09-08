@@ -48,7 +48,6 @@ export default function PoPage({ poNo }) {
   return (
     <div className="page">
       <Masthead variant="job"
-        code="PO"
         eyebrow={head.customerName}
         title={poNo}
         sub={<>{rows.length} unit{rows.length === 1 ? '' : 's'} · {products.length === 1 ? products[0] : `${products.length} products`}</>}

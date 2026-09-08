@@ -22,7 +22,14 @@ import { IconBack } from './Icons.jsx'
    the title is read in, the way a figure sits under the heading it
    belongs to. `children` is the far-right slot for state and actions:
    a status badge, a PDF button. Putting a measurement out there made it
-   read as another control. */
+   read as another control.
+
+   The column reads top to bottom as what this is, what it is called,
+   which one it is — then a gap, then how far along it is. The reading
+   used to share a line with the identifiers, which put a 30px figure and
+   a 12px job number on the same baseline and made neither the thing you
+   landed on. They are two different statements and they are two blocks
+   now, with air between them. */
 
 export default function Masthead({ mark, code, eyebrow, title, sub, onBack, backLabel = 'Back',
                                   wide = false, variant, art, reading, children }) {
@@ -51,12 +58,8 @@ export default function Masthead({ mark, code, eyebrow, title, sub, onBack, back
         <div className="masthead-txt">
           {eyebrow && <span className="masthead-eyebrow">{eyebrow}</span>}
           <h2>{title}</h2>
-          {(reading || sub) && (
-            <div className="masthead-read">
-              {reading}
-              {sub && <span className="masthead-id">{sub}</span>}
-            </div>
-          )}
+          {sub && <span className="masthead-id">{sub}</span>}
+          {reading && <div className="masthead-read">{reading}</div>}
         </div>
 
         {children && <div className="masthead-side">{children}</div>}

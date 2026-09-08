@@ -4,7 +4,6 @@ import { FORM_SCHEMAS } from '../data/formSchemas.js'
 import { getReports } from '../lib/store.js'
 import { fmtDateTime } from '../lib/status.js'
 import { reportResult } from '../lib/verdict.js'
-import { initials } from '../lib/label.js'
 import Masthead from './Masthead.jsx'
 import { Figure } from './Readings.jsx'
 import { SearchField } from './RegisterBar.jsx'
@@ -127,7 +126,6 @@ export default function Vault() {
   return (
     <div className="page">
       <Masthead variant="job"
-        mark={<span className="cust-mono">{initials(session?.name || '')}</span>}
         eyebrow="Vault"
         title={session?.name || 'Your documents'}
         sub={<>{lanes.mine.length} written{lanes.approved.length > 0 ? ` · ${lanes.approved.length} approved` : ''}</>} />
