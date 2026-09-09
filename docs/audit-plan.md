@@ -174,6 +174,22 @@ declaring the unit on all of them, or the per-report statement kept as
 it prints on its own. Measured on a nine-document book: 23 sheets
 against 27.
 
+**A device seeded once and never again.** — **done**
+
+Jobs are read from the bundle on every load; the documents under them
+live in the browser's storage and were put there once, on a device's
+first visit. So every unit added to the fixture after that was half
+invisible: the order appeared in the register with an empty document
+list beneath it, and no amount of reloading fixed it. Reported from a
+phone as "no document on customer 2".
+
+The fixture now carries a stamp of itself. When the store sees one it
+has not taken in, it adds the reports whose ids it has never held and
+leaves everything else exactly as it is — a record somebody made, an
+edit to a seeded one, a deletion, a void. `tests/unit/store.migration.test.js`
+holds all three: the new reports arrive, held work is untouched, and it
+runs once per fixture rather than once per read.
+
 **The demo fixture stopped weighing on the bundle.** — **done**
 
 Every picture in the fixture was carried expanded: four signature hands

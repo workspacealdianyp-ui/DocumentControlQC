@@ -105,6 +105,14 @@ const OUTLINE = {
     + `<g fill='#2a2a30'><circle cx='140' cy='280' r='22'/><circle cx='400' cy='280' r='22'/></g>`
     + `<path d='M196 96v140M300 96v140M404 96v140' stroke='#2a2a30' stroke-width='2' stroke-dasharray='6 5'/>`
     + `<rect x='268' y='74' width='40' height='24' fill='#d3d0ca' stroke='#2a2a30' stroke-width='2.5'/>`,
+  // A horizontal pressure vessel on saddles: dished ends, a manway on
+  // the crown, a drain at the bottom.
+  ART: `<path d='M110 96h340a52 52 0 0 1 0 148H110a52 52 0 0 1 0-148z' fill='#e4e2dd' stroke='#2a2a30' stroke-width='4'/>`
+    + `<path d='M110 96a52 52 0 0 0 0 148M450 96a52 52 0 0 1 0 148' fill='none' stroke='#2a2a30' stroke-width='2' stroke-dasharray='6 5'/>`
+    + `<rect x='252' y='72' width='56' height='26' rx='3' fill='#d3d0ca' stroke='#2a2a30' stroke-width='2.5'/>`
+    + `<path d='M280 244v22' stroke='#2a2a30' stroke-width='4'/>`
+    + `<g fill='#cfccc6' stroke='#2a2a30' stroke-width='3'><path d='M150 244h72l14 30h-100z'/><path d='M338 244h72l14 30h-100z'/></g>`
+    + `<circle cx='430' cy='128' r='13' fill='none' stroke='#2a2a30' stroke-width='2.5'/>`,
   FTK: `<rect x='74' y='84' width='412' height='158' rx='16' fill='#e4e2dd' stroke='#2a2a30' stroke-width='4'/>`
     + `<rect x='56' y='246' width='448' height='26' fill='#cfccc6' stroke='#2a2a30' stroke-width='3'/>`
     + `<path d='M74 132h412M74 194h412' stroke='#2a2a30' stroke-width='2' stroke-dasharray='6 5'/>`

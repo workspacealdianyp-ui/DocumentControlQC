@@ -1,6 +1,6 @@
 import { COMPANY } from './company.js'
 import { allJobs } from './jobOrders.js'
-import { seedReports, SEED_COUNTERS } from '../data/seedReports.js'
+import { seedReports, SEED_COUNTERS, SEED_STAMP } from '../data/seedReports.js'
 // Front-end persistence layer (localStorage). PRD v1 scope = no back-end.
 const KEYS = {
   session: 'qc.session',
@@ -95,6 +95,12 @@ const SEEDED_KEY = 'qc.seeded.v3'
 const VERSION_KEY = 'qc.storeVersion'
 const MIGRATION_KEY = 'qc.migrations'
 const SNAPSHOT_KEY = 'qc.snapshot'
+/* The fixture this device has taken in. A build that adds demo units
+   also adds the documents under them, and without this the second half
+   never arrived: seeding ran once, on the first visit, so a customer
+   added later showed up in the job list with an empty register beneath
+   it. */
+const STAMP_KEY = 'qc.seedStamp'
 const STORE_VERSION = 4
 
 /* Marks, never removes. Returns the same list with a flag on the
@@ -151,17 +157,31 @@ function ensureSeed() {
   try {
     const version = Number(read(VERSION_KEY, 0)) || 0
     const seeded = !!localStorage.getItem(SEEDED_KEY)
-    if (seeded && version >= STORE_VERSION) return
+    const stamp = localStorage.getItem(STAMP_KEY)
+    if (seeded && version >= STORE_VERSION && stamp === SEED_STAMP) return
 
     const held = read(KEYS.reports, [])
     if (held.length) snapshot(`v${version} → v${STORE_VERSION}`)
 
-    // The fixture goes in beside held work, never over it, and only once.
+    /* The fixture goes in beside held work, never over it.
+
+       It used to go in once, on a device's first visit, and never again.
+       Jobs are read from the bundle on every load, so a build that added
+       an order showed the order and nothing under it — the documents
+       belong in this browser's storage and nobody ever put them there.
+
+       So the top-up is by report id against a stamp of the whole
+       fixture: a record already held is left exactly as it is, whatever
+       has happened to it since, and only ids this store has never seen
+       are added. */
     let all = held
-    if (!seeded) {
+    let added = 0
+    if (!seeded || stamp !== SEED_STAMP) {
       localStorage.setItem(SEEDED_KEY, '1')
       const have = new Set(held.map((r) => r.id))
-      all = [...held, ...seedReports().filter((r) => !have.has(r.id))]
+      const fresh = seedReports().filter((r) => !have.has(r.id))
+      added = fresh.length
+      all = [...held, ...fresh]
 
       /* The numbers those reports already spent, so the next issue for a
          seeded job carries on rather than colliding with one of them.
@@ -172,6 +192,7 @@ function ensureSeed() {
         counters[k] = Math.max(counters[k] || 0, n)
       }
       write(ISSUE_KEY, counters)
+      localStorage.setItem(STAMP_KEY, SEED_STAMP)
     }
 
     const live = new Set(allJobs().map((j) => String(j.jobNo)))
@@ -179,7 +200,7 @@ function ensureSeed() {
     write(KEYS.reports, reports)
     localStorage.setItem(VERSION_KEY, String(STORE_VERSION))
     logMigration({ at: new Date().toISOString(), from: version, to: STORE_VERSION,
-                   held: held.length, kept: reports.length, orphaned, adopted })
+                   held: held.length, added, kept: reports.length, orphaned, adopted })
   } catch { /* private mode: run without the fixture */ }
 }
 

@@ -9,7 +9,7 @@ vi.mock('../../src/lib/jobOrders.js', () => ({
   takenJobNos: () => new Set(),
   requiredFor: () => [],
 }))
-vi.mock('../../src/data/seedReports.js', () => ({ seedReports: () => [], SEED_COUNTERS: {} }))
+vi.mock('../../src/data/seedReports.js', () => ({ seedReports: () => [], SEED_COUNTERS: {}, SEED_STAMP: 'test' }))
 
 const load = async () => { vi.resetModules(); return import('../../src/lib/status.js') }
 

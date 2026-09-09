@@ -12,11 +12,19 @@ vi.mock('../../src/lib/jobOrders.js', () => ({
   takenJobNos: () => new Set(),
   requiredFor: () => [],
 }))
-vi.mock('../../src/data/seedReports.js', () => ({
+/* The fixture is a module-level mock so a test can change what the next
+   build ships and reload the store against it. */
+const fixture = {
   // A draft, so the deletion rules let the "does not run twice" test
   // remove it through the real API rather than around it.
-  seedReports: () => [{ id: 'seed-1', jobNo: '900', reportId: 'MFG/DIM/900/01', status: 'draft' }],
-  SEED_COUNTERS: { 'DIM/900': 1 },
+  reports: [{ id: 'seed-1', jobNo: '900', reportId: 'MFG/DIM/900/01', status: 'draft' }],
+  counters: { 'DIM/900': 1 },
+  stamp: 'test-1',
+}
+vi.mock('../../src/data/seedReports.js', () => ({
+  seedReports: () => fixture.reports,
+  get SEED_COUNTERS() { return fixture.counters },
+  get SEED_STAMP() { return fixture.stamp },
 }))
 
 const load = async () => {
@@ -32,7 +40,65 @@ const report = (id, jobNo, extra = {}) => ({
   inspector: 'Inspector One', values: { jobNo }, ...extra,
 })
 
-beforeEach(() => { jobs.list = [{ jobNo: '900' }] })
+beforeEach(() => {
+  jobs.list = [{ jobNo: '900' }]
+  fixture.reports = [{ id: 'seed-1', jobNo: '900', reportId: 'MFG/DIM/900/01', status: 'draft' }]
+  fixture.counters = { 'DIM/900': 1 }
+  fixture.stamp = 'test-1'
+})
+
+/* A build that adds demo units also adds the documents under them, and
+   for a while the second half never arrived: seeding ran once, on a
+   device's first visit, so a customer added in a later build appeared in
+   the job list — which is read from the bundle every load — with an
+   empty register beneath it. Reported from a phone, as "no document on
+   customer 2". */
+describe('a fixture that grew after this device first seeded', () => {
+  it('takes in the reports the new build added', async () => {
+    jobs.list = [{ jobNo: '900' }, { jobNo: '901' }]
+    const first = await load()
+    expect(first.getAllReports().map((r) => r.id)).toEqual(['seed-1'])
+
+    fixture.reports = [
+      { id: 'seed-1', jobNo: '900', reportId: 'MFG/DIM/900/01', status: 'draft' },
+      { id: 'seed-2', jobNo: '901', reportId: 'MFG/DIM/901/01', status: 'approved' },
+    ]
+    fixture.counters = { 'DIM/900': 1, 'DIM/901': 1 }
+    fixture.stamp = 'test-2'
+
+    const next = await load()
+    expect(next.getAllReports().map((r) => r.id).sort()).toEqual(['seed-1', 'seed-2'])
+  })
+
+  it('leaves every held record exactly as it was', async () => {
+    jobs.list = [{ jobNo: '900' }, { jobNo: '901' }]
+    const first = await load()
+    first.getAllReports()   // seeding is lazy; nothing is written until something reads
+    // Somebody's own work, and an edit to a seeded one.
+    put([...raw().map((r) => ({ ...r, inspector: 'Edited By Hand' })), report('mine', '900', { id: 'mine' })])
+
+    fixture.reports = [
+      { id: 'seed-1', jobNo: '900', reportId: 'MFG/DIM/900/01', status: 'draft', inspector: 'From The Build' },
+      { id: 'seed-2', jobNo: '901', reportId: 'MFG/DIM/901/01', status: 'approved' },
+    ]
+    fixture.stamp = 'test-2'
+
+    const next = await load()
+    const all = next.getAllReports()
+    expect(all.find((r) => r.id === 'seed-1').inspector).toBe('Edited By Hand')
+    expect(all.find((r) => r.id === 'mine')).toBeTruthy()
+    expect(all.find((r) => r.id === 'seed-2')).toBeTruthy()
+  })
+
+  it('does it once per fixture, not once per read', async () => {
+    const mod = await load()
+    mod.getAllReports()
+    const before = mod.migrationLog().length
+    mod.getAllReports()
+    mod.getAllReports()
+    expect(mod.migrationLog()).toHaveLength(before)
+  })
+})
 
 describe('markOrphans', () => {
   it('marks a report whose job is gone instead of removing it', async () => {

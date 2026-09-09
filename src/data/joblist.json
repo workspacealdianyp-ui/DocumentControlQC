@@ -22,6 +22,7 @@
   "NON TRAILER"
  ],
  "types": [
+  "AIR RECEIVER TANK 3KL",
   "BUCKET",
   "FUEL TANK 25KL",
   "ISO TANK SPARGES",
@@ -2799,6 +2800,136 @@
    "customerId": "CUST-002",
    "customerName": "Customer 02",
    "cogm": "226006302",
+   "datePdiRelease": "2026-11-20",
+   "required": [
+    "ITP",
+    "Dimension Report",
+    "NDE Report",
+    "Leak & Hydro Test",
+    "Painting",
+    "PTR",
+    "Pre-Shipment",
+    "IRN",
+    "PDI"
+   ],
+   "deliverables": {
+    "ITP": {
+     "status": "not-started",
+     "ref": null
+    },
+    "Dimension Report": {
+     "status": "not-started",
+     "ref": null
+    },
+    "NDE Report": {
+     "status": "not-started",
+     "ref": null
+    },
+    "Leak & Hydro Test": {
+     "status": "not-started",
+     "ref": null
+    },
+    "Painting": {
+     "status": "not-started",
+     "ref": null
+    },
+    "PTR": {
+     "status": "not-started",
+     "ref": null
+    },
+    "Pre-Shipment": {
+     "status": "not-started",
+     "ref": null
+    },
+    "IRN": {
+     "status": "not-started",
+     "ref": null
+    },
+    "PDI": {
+     "status": "not-started",
+     "ref": null
+    }
+   }
+  },
+  {
+   "no": 47,
+   "kategori": "NON TRAILER",
+   "type": "AIR RECEIVER TANK 3KL",
+   "productDesc": "AIR RECEIVER TANK 3KL",
+   "datePB": "2026-03-02",
+   "jobNo": "1000340001",
+   "wbsNo": "WBS-26-0133",
+   "arasSN": "ART-0733-01",
+   "unitNo": "ART-0733-01",
+   "poNo": "PO-2026-ART-0733",
+   "customerId": "CUST-002",
+   "customerName": "Customer 02",
+   "cogm": "226006439",
+   "datePdiRelease": "2026-11-20",
+   "required": [
+    "ITP",
+    "Dimension Report",
+    "NDE Report",
+    "Leak & Hydro Test",
+    "Painting",
+    "PTR",
+    "Pre-Shipment",
+    "IRN",
+    "PDI"
+   ],
+   "deliverables": {
+    "ITP": {
+     "status": "not-started",
+     "ref": null
+    },
+    "Dimension Report": {
+     "status": "not-started",
+     "ref": null
+    },
+    "NDE Report": {
+     "status": "not-started",
+     "ref": null
+    },
+    "Leak & Hydro Test": {
+     "status": "not-started",
+     "ref": null
+    },
+    "Painting": {
+     "status": "not-started",
+     "ref": null
+    },
+    "PTR": {
+     "status": "not-started",
+     "ref": null
+    },
+    "Pre-Shipment": {
+     "status": "not-started",
+     "ref": null
+    },
+    "IRN": {
+     "status": "not-started",
+     "ref": null
+    },
+    "PDI": {
+     "status": "not-started",
+     "ref": null
+    }
+   }
+  },
+  {
+   "no": 48,
+   "kategori": "NON TRAILER",
+   "type": "AIR RECEIVER TANK 3KL",
+   "productDesc": "AIR RECEIVER TANK 3KL",
+   "datePB": "2026-03-02",
+   "jobNo": "1000340002",
+   "wbsNo": "WBS-26-0233",
+   "arasSN": "ART-0733-02",
+   "unitNo": "ART-0733-02",
+   "poNo": "PO-2026-ART-0733",
+   "customerId": "CUST-002",
+   "customerName": "Customer 02",
+   "cogm": "226006576",
    "datePdiRelease": "2026-11-20",
    "required": [
     "ITP",

@@ -177,6 +177,24 @@ const ORDERS = [
     nominal: [5400, 2100, 2000, 5600, 1350, 780],
     points: ['Shell external surface', 'Filler neck & breather', 'Sump & drain valve',
              'Skid frame weld toe', 'Ladder & platform', 'Data plate'] },
+
+  /* A short one, also for Customer 02, and also complete.
+
+     The fuel-tank order is six units and forty-eight documents, which is
+     the right size for showing a register but a lot to read through when
+     what you want is one finished unit and its data book. Two units,
+     every deliverable, nothing outstanding. */
+  { po: 'PO-2026-ART-0733', product: 'AIR RECEIVER TANK 3KL', kategori: 'NON TRAILER',
+    view: 'Vessel general arrangement',
+    customer: 'Customer 02', customerId: 'CUST-002', units: 2, prefix: 'ART', first: 1000340001,
+    required: DELIVERABLES.map((d) => d.key),
+    parts: ['Shell longitudinal seam', 'Dished end to shell', 'Manway nozzle N1',
+            'Outlet nozzle N2', 'Saddle to shell fillet', 'Drain nozzle N3'],
+    dims: ['Overall length', 'Overall height', 'Shell length', 'Shell diameter',
+           'Saddle centre distance', 'Manway centre offset'],
+    nominal: [3180, 1420, 2400, 1200, 1600, 640],
+    points: ['Shell external surface', 'Manway seal face', 'Saddle bearing plate',
+             'Drain & outlet nozzles', 'Nameplate bracket', 'Data plate'] },
 ]
 
 /* How far along each unit is. A live register is never uniformly
@@ -206,6 +224,7 @@ const STAGE_MIX = {
         'nearly', 'nearly', 'partway', 'partway', 'started', 'started', 'untouched', 'untouched'],
   // Every one of them, so the order it belongs to is the one to open.
   FTK: ['complete', 'complete', 'complete', 'complete', 'complete', 'complete'],
+  ART: ['complete', 'complete'],
 }
 function stageFor(prefix, i, total) {
   const mix = STAGE_MIX[prefix]
@@ -360,7 +379,13 @@ function makeReport({ order, job, unitIndex, deliverable, formKey, issue, dayOff
   }
 
   if (schema.key === 'hydrotest') values.testResult = reject ? 'Unsatisfactory' : 'Satisfactory'
-  if (schema.key === 'blasting') values.finalStatus = reject ? 'Reject' : 'Accept'
+  /* A verdict follows the case this report is, never a coin toss over
+     the options list. fillField picks at random from a segmented field
+     with no default, which is right for a technique and wrong for a
+     result: six Performance Test Records came out Reject with no NCR
+     behind them, and a data book cover reading ON HOLD for a
+     non-conformance nobody had raised. */
+  if (values.finalStatus !== undefined) values.finalStatus = reject ? 'Reject' : 'Accept'
   if (reject) {
     values.ncr = 'Non-conformance raised against this unit. Rework and re-inspection required before release.'
     if (values.ncrRef !== undefined) values.ncrRef = `NCR-26-${pad2(unitIndex + 1)}${issue}`
@@ -484,6 +509,12 @@ for (const r of reports) {
   const m = r.reportId.match(/^[^/]+\/([^/]+)\/([^/]+)\/(\d+)$/)
   if (m) { const k = `${m[1]}/${m[2]}`; counters[k] = Math.max(counters[k] || 0, Number(m[3])) }
 }
+/* A short mark for this fixture: how many reports and a digest of their
+   numbers. Any change to the set changes the stamp, and the store tops
+   itself up the next time it sees a new one. */
+const stamp = `${reports.length}-${reports.map((r) => r.id).join(',')
+  .split('').reduce((a, c) => ((a * 33 + c.charCodeAt(0)) >>> 0), 5381).toString(36)}`
+
 /* Written as a plain object literal.
 
    Emitting it as JSON.parse of a string is the usual advice for a large
@@ -512,6 +543,16 @@ const RAW = ${JSON.stringify(reports)}
    moment it needs them. */
 let built = null
 export const seedReports = () => (built ||= RAW.map(hydrate))
+
+/* Which fixture this is.
+
+   A device seeds once and never again, so every unit added here after
+   somebody's first visit was invisible to them: the job list is read
+   from the bundle each load and showed the new order, and the documents
+   under it — which live in their storage — were never put there. The
+   store compares this against what it last took in and adds what it is
+   missing, without touching a single record anybody made. */
+export const SEED_STAMP = ${JSON.stringify(stamp)}
 
 // Issue numbers already spent, so none can be handed out twice.
 export const SEED_COUNTERS = ${JSON.stringify(counters)}
