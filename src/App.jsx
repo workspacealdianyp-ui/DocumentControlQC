@@ -216,7 +216,7 @@ export default function App() {
           <main className="content" key={route.page + (route.jobNo || '') + (route.formKey || '') + (route.orderId || '')}>
             {route.page === 'home' && <Home />}
             {route.page === 'customers' && <CustomersPage />}
-            {route.page === 'jobs' && <JobsPage kat={route.query.kat} state={route.query.state} />}
+            {route.page === 'jobs' && <JobsPage kat={route.query.kat} state={route.query.state} resetView={route.query.from === 'home'} />}
             {route.page === 'joborder' && <NewJobOrder orderId={route.orderId} />}
             {route.page === 'job' && <JobDetail job={job} />}
             {route.page === 'customer' && <CustomerPage name={route.name} />}

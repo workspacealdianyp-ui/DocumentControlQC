@@ -1,11 +1,16 @@
 # DocumentControlQC — Home screen design
 
 **Direction:** QC Workbench  
-**Status:** Proposed design specification; application changes are not implemented.  
+**Status:** Implemented for review; browser and visual acceptance checks remain pending.
+
 **Prepared:** 9 September 2026  
 **Source baseline:** [`main` at `0b3e3a0`](https://github.com/workspacealdianyp-ui/DocumentControlQC/commit/0b3e3a0c113ec9701070e92a9e39dc10069759b2)
 
 > Put the job that needs a decision where the eye lands first. Make the next action clear, keep the evidence one step away, and make every number explainable.
+
+**Implementation record (9 September 2026):** Home now uses the attention register, connected readings, role-specific work lists, customer progress, report register, and recent updates described below. The new native-dialog report launcher includes ITP, PTR, IRN, and distinct PDI/Pre-Shipment choices, rechecks job applicability, and opens existing records. Scoped Home and picker styles preserve the shared report-print layout. Automated coverage exercises counts, roles, stale filters, invalid dates, unavailable jobs, storage errors, and report entry. The user requested code checks and personal visual review, so browser screenshots, responsive visual checks, and manual browser journeys have not been performed; the acceptance checklist below remains the review guide.
+
+**Code verification:** 134 tests pass across 12 files, including the existing print and report-lifecycle coverage. Lint completes with zero errors (87 warnings). The production build succeeds; entry JavaScript is 181.4 KB gzip against a 200 KB budget and CSS is 42.0 KB against 45 KB. No dependencies were added.
 
 ## 1. The experience to build
 

@@ -31,6 +31,17 @@ const startOfToday = (now = new Date()) => {
    used it as the deadline, so that is what it falls back to. */
 export const dueDate = (job) => job?.dateTarget || job?.datePdiRelease || null
 
+// Reject impossible calendar dates instead of allowing Date to roll them
+// into another month and invent an overdue deadline.
+export function validTarget(job) {
+  const value = dueDate(job)
+  if (!value || !/^\d{4}-\d{2}-\d{2}$/.test(value)) return null
+  const date = new Date(`${value}T00:00:00`)
+  if (Number.isNaN(date.getTime())) return null
+  const [year, month, day] = value.split('-').map(Number)
+  return date.getFullYear() === year && date.getMonth() + 1 === month && date.getDate() === day ? value : null
+}
+
 /* The final inspection this shop releases a unit on. PDI is the one the
    order names when it wants it; on a job whose set ends at Pre-Shipment
    that is the same gate under the other name, so it stands in rather
@@ -91,16 +102,16 @@ export function cellStatus(job, delivKey, ctx, now = new Date()) {
 
   /* Past its date and still not recorded. Compared at the start of the
      day, so a unit due today is not overdue until tomorrow. */
-  const due = dueDate(job)
+  const due = validTarget(job)
   if (due && new Date(`${due}T00:00:00`) < startOfToday(now)) {
     return { status: 'overdue', source: 'derived' }
   }
   return { status: 'notstarted', source: 'excel' }
 }
 
-export function buildContext() {
+export function buildContext(reports = getReports()) {
   const reportIndex = {}
-  for (const r of getReports()) {
+  for (const r of reports) {
     const k = `${r.jobNo}|${r.deliverable}`
     if (!reportIndex[k]) reportIndex[k] = []
     reportIndex[k].push(r)
@@ -257,8 +268,8 @@ export function recentActivity(limit = 8) {
    lead could not get from the figure to the rows behind it. Nothing is
    hidden by narrowing it: the superseded issue is still in the full
    report register, it is just not an open finding. */
-export function ncrReports() {
-  return currentIssues(getReports())
+export function ncrReports(reports = getReports()) {
+  return currentIssues(reports)
     .filter((r) => reportResult(r) === 'Reject')
     .sort((a, b) => (b.updatedAt || '').localeCompare(a.updatedAt || ''))
 }

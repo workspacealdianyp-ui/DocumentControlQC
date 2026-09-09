@@ -1,0 +1,47 @@
+.picker-dialog {
+  width: min(720px, calc(100% - 32px)); max-width: 720px;
+  max-height: calc(100dvh - 40px); padding: 0; color: var(--text);
+  background: var(--surface); border: 1px solid var(--line-2);
+  border-radius: var(--r-lg); box-shadow: var(--sh-pop); overflow: auto;
+  font-family: var(--sans);
+}
+.picker-dialog::backdrop { background: rgba(15, 15, 18, .56); }
+.picker-heading { padding: 24px 24px 16px; border-bottom: 1px solid var(--line); }
+.picker-heading h2 { font-size: 22px; line-height: 1.3; outline: none; }
+.picker-heading p { font-size: 14px; line-height: 1.5; color: var(--text-2); margin-top: 8px; }
+.picker-back { min-height: 44px; padding: 0; border: 0; background: none; color: var(--text-2); font-size: 14px; }
+.picker-body { padding: 20px 24px; }
+.picker-footer { padding: 16px 24px; border-top: 1px solid var(--line); display: flex; justify-content: flex-end; background: var(--surface); }
+.picker-dialog button, .picker-dialog input, .picker-dialog a { min-height: 44px; }
+.picker-dialog :is(button, input, a):focus-visible { outline: 2px solid var(--amber-ink); outline-offset: 3px; }
+.picker-dialog .rb-search { width: 100%; }
+.picker-dialog .rb-search input { font-size: 16px; }
+.picker-jobs { display: grid; margin: 12px 0 0; padding: 0; list-style: none; }
+.picker-job { width: 100%; display: grid; grid-template-columns: 140px minmax(0, 1fr); gap: 12px; padding: 14px 8px; text-align: left; border: 0; border-bottom: 1px solid var(--line); color: var(--text); background: transparent; }
+.picker-job:hover:not(:disabled), .picker-job.is-current { background: var(--surface-2); }
+.picker-job:disabled { cursor: not-allowed; }
+.picker-job span { min-width: 0; display: grid; gap: 4px; }
+.picker-job strong { font-size: 15px; overflow-wrap: anywhere; }
+.picker-job small { color: var(--text-2); font-size: 13px; line-height: 1.45; overflow-wrap: anywhere; }
+.picker-job .picker-unavailable { color: var(--overdue); }
+.picker-more { margin-top: 12px; }
+.picker-empty { color: var(--text-2); line-height: 1.5; padding: 20px 0; }
+.picker-group + .picker-group { margin-top: 22px; }
+.picker-group h3 { font-size: 14px; margin-bottom: 10px; color: var(--text-2); }
+.picker-group p { color: var(--text-2); font-size: 14px; line-height: 1.5; margin-bottom: 12px; }
+.picker-types { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.picker-type { display: flex; align-items: center; gap: 12px; padding: 14px; text-align: left; background: var(--surface); border: 1px solid var(--line-2); border-radius: var(--r); color: var(--text); }
+.picker-type:hover { border-color: var(--amber-ink); background: var(--amber-soft); }
+.picker-type b { flex: 0 0 38px; font-size: 14px; font-variant-numeric: tabular-nums; }
+.picker-type span { font-size: 14px; line-height: 1.4; }
+.picker-existing { padding: 18px; border: 1px solid var(--line-2); border-radius: var(--r); display: grid; gap: 12px; }
+.picker-existing strong { overflow-wrap: anywhere; font-size: 16px; }
+.picker-existing p { font-size: 14px; line-height: 1.5; color: var(--text-2); }
+.picker-error { padding: 12px; margin-bottom: 12px; color: var(--overdue); background: var(--overdue-bg); font-size: 14px; line-height: 1.5; }
+@media (max-width: 520px) {
+  .picker-dialog { width: 100%; max-width: 100%; max-height: calc(100dvh - 16px); margin: auto 0 0; border-radius: var(--r-lg) var(--r-lg) 0 0; }
+  .picker-heading, .picker-body, .picker-footer { padding: 16px; }
+  .picker-footer { padding-bottom: calc(16px + env(safe-area-inset-bottom)); }
+  .picker-job { grid-template-columns: 1fr; gap: 8px; }
+  .picker-types { grid-template-columns: 1fr; }
+}
