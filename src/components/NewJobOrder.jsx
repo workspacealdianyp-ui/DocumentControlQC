@@ -13,6 +13,20 @@ import { artFor } from '../lib/productArt.js'
 
 const blankUnit = () => ({ jobNo: '', wbsNo: '', unitNo: '', productDesc: '', type: '' })
 
+/* Step the last run of digits in an identifier, keeping its width.
+
+   1000200301 → 1000200302, WBS-26-0301 → WBS-26-0302, 200301-001 →
+   200301-002. It is the last run rather than the first because every
+   number in this shop is a prefix and a sequence: bumping WBS-26-0301
+   at the 26 would change the year. Width is kept so 001 becomes 002 and
+   not 2 — the zeros are part of how these read in a folder. */
+export const bumpTail = (s = '') => {
+  const m = String(s).match(/^(.*?)(\d+)(\D*)$/)
+  if (!m) return String(s)
+  const [, head, digits, tail] = m
+  return head + String(Number(digits) + 1).padStart(digits.length, '0') + tail
+}
+
 /* Declared here, not inside the screen. A component defined in a render
    body is a brand-new component type on every render, so React unmounts
    the old subtree and mounts a fresh one — which threw away the <input>
@@ -38,7 +52,7 @@ export default function NewJobOrder() {
   const { role, session, meta, notify, refresh } = useApp()
   const [po, setPo] = useState({
     poNo: '', customerName: '', customerId: '', kategori: 'SUPEQ',
-    datePB: '', datePdiRelease: '',
+    datePB: '', dateTarget: '',
   })
   const [units, setUnits] = useState([blankUnit()])
   const [required, setRequired] = useState(() => new Set(FILLABLE.map((d) => d.key)))
@@ -82,11 +96,32 @@ export default function NewJobOrder() {
 
   const addUnit = () => setUnits((us) => [...us, blankUnit()])
 
-  // Six identical tanks on one PO is the ordinary case, so copying the
-  // last row and only changing its numbers is the fast path.
+  /* Six identical tanks on one PO is the ordinary case, and they are
+     six consecutive numbers. Copying used to clear all three
+     identifiers and leave them to be typed again, which on a ten-unit
+     order is thirty numbers keyed by hand off the row above.
+
+     So the copy steps them: job, WBS and unit number each take the next
+     value, type and description carry over untouched. A job number that
+     is already on the order or already in the register keeps stepping
+     until it is free, so copying twice in a row cannot make a
+     duplicate — the one thing that would stop the order publishing. */
   const duplicateLast = () => setUnits((us) => {
     const last = us[us.length - 1] || blankUnit()
-    return [...us, { ...last, jobNo: '', wbsNo: '', unitNo: '' }]
+    const used = new Set([...taken, ...us.map((u) => u.jobNo.trim()).filter(Boolean)])
+    let jobNo = bumpTail(last.jobNo)
+    // A number with no digits cannot step, and stepping it forever would
+    // hang; leave it for the field to flag as missing instead.
+    if (jobNo !== last.jobNo) {
+      let guard = 0
+      while (used.has(jobNo) && guard++ < 999) jobNo = bumpTail(jobNo)
+    }
+    return [...us, {
+      ...last,
+      jobNo: jobNo === last.jobNo ? '' : jobNo,
+      wbsNo: bumpTail(last.wbsNo),
+      unitNo: bumpTail(last.unitNo),
+    }]
   })
 
   const removeUnit = (i) => setUnits((us) => (us.length === 1 ? us : us.filter((_, x) => x !== i)))
@@ -101,7 +136,7 @@ export default function NewJobOrder() {
       customerId: po.customerId.trim(),
       kategori: po.kategori,
       datePB: po.datePB || null,
-      datePdiRelease: po.datePdiRelease || null,
+      dateTarget: po.dateTarget || null,
       required: DELIVERABLES.filter((d) => required.has(d.key)).map((d) => d.key),
       units: units.map((u) => ({
         jobNo: u.jobNo.trim(), wbsNo: u.wbsNo.trim(), unitNo: u.unitNo.trim(),
@@ -158,9 +193,13 @@ export default function NewJobOrder() {
             <F label="Date PB">
               <input type="date" value={po.datePB || ''} onChange={(e) => setPo({ ...po, datePB: e.target.value })} />
             </F>
-            <F label="PDI release" hint="A unit past this date without its reports counts as overdue.">
-              <input type="date" value={po.datePdiRelease || ''}
-                onChange={(e) => setPo({ ...po, datePdiRelease: e.target.value })} />
+            {/* Not the PDI release date. That one is a fact about work
+                that has not happened yet — it is stamped when the
+                pre-delivery inspection is approved — and asking for it
+                here made a plan and a record share a field. */}
+            <F label="Target delivery" hint="When the unit is due out. Past it without its reports, a unit counts as overdue.">
+              <input type="date" value={po.dateTarget || ''}
+                onChange={(e) => setPo({ ...po, dateTarget: e.target.value })} />
             </F>
           </div>
         </div>
@@ -217,7 +256,7 @@ export default function NewJobOrder() {
             <button className="btn btn-secondary btn-sm" onClick={duplicateLast}>
               <IconPlus size={13} /> Copy last unit
             </button>
-            <span className="jo-hint">Six identical tanks on one PO: fill the first, then copy it.</span>
+            <span className="jo-hint">Six identical tanks on one PO: fill the first, then copy it — the numbers step up by one.</span>
           </div>
         </div>
       </section>

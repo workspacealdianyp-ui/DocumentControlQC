@@ -1,6 +1,6 @@
 import { Fragment, useEffect, useMemo, useState } from 'react'
 import { useApp, navigate } from '../App.jsx'
-import { buildContext, jobProgress, fmtDate, exportMatrixCsv } from '../lib/status.js'
+import { buildContext, jobProgress, fmtDate, exportMatrixCsv, dueDate } from '../lib/status.js'
 import { IconChevronR, IconDownload, IconFilter, IconGroup, IconPlus, STATUS_ICONS } from './Icons.jsx'
 import { SearchField, ToolButton, PopCheck, PopRadio, PopFooter } from './RegisterBar.jsx'
 import { useStuck } from '../lib/sticky.js'
@@ -67,8 +67,9 @@ function jobState(p) {
 }
 
 function urgency(job, state) {
-  if (!job.datePdiRelease) return null
-  const due = new Date(`${job.datePdiRelease}T00:00:00`)
+  const target = dueDate(job)
+  if (!target) return null
+  const due = new Date(`${target}T00:00:00`)
   if (Number.isNaN(due.getTime())) return null
   const today = new Date(); today.setHours(0, 0, 0, 0)
   const days = Math.round((due - today) / 86400000)
@@ -136,7 +137,7 @@ export default function JobsPage({ kat, state }) {
       if (sort.key === 'product') return j.productDesc || ''
       if (sort.key === 'customer') return j.customerName || ''
       if (sort.key === 'datePB') return j.datePB || ''
-      if (sort.key === 'pdi') return j.datePdiRelease || ''
+      if (sort.key === 'pdi') return dueDate(j) || ''
       if (sort.key === 'progress') {
         const p = progress.get(j.jobNo)
         return p?.applicable ? p.done / p.applicable : -1
@@ -265,7 +266,7 @@ export default function JobsPage({ kat, state }) {
               const [key, dir] = e.target.value.split('|'); setSort({ key, dir })
             }}>
               <option value="jobNo|asc">Job number</option>
-              <option value="pdi|asc">PDI release</option>
+              <option value="pdi|asc">Target delivery</option>
               <option value="progress|asc">Least complete</option>
               <option value="progress|desc">Most complete</option>
               <option value="customer|asc">Customer</option>
@@ -283,7 +284,7 @@ export default function JobsPage({ kat, state }) {
               <tr>
                 {[
                   ['jobNo', 'Job'], ['product', 'Product'], ['customer', 'Customer'],
-                  ['datePB', 'Date PB'], ['pdi', 'PDI release'], ['progress', 'Reports'],
+                  ['datePB', 'Date PB'], ['pdi', 'Target delivery'], ['progress', 'Reports'],
                 ].map(([key, label]) => (
                   <th key={key} aria-sort={sort.key === key ? (sort.dir === 'asc' ? 'ascending' : 'descending') : 'none'}>
                     <button onClick={() => toggleSort(key)}>{label}{sortMark(key)}</button>
@@ -326,7 +327,7 @@ export default function JobsPage({ kat, state }) {
                     </td>
                     <td className="num">{fmtDate(job.datePB)}</td>
                     <td className="num">
-                      {fmtDate(job.datePdiRelease) || '—'}
+                      {fmtDate(dueDate(job)) || '—'}
                       {due && <span className={`jobs-urgency is-${due.tone}`}>{due.label}</span>}
                     </td>
                     <td>
@@ -379,7 +380,7 @@ export default function JobsPage({ kat, state }) {
                     <span className="jobs-prog-n">{p.done}/{p.applicable} reports</span>
                   </span>
                   {due && <span className={`jobs-urgency is-${due.tone}`}>{due.label}</span>}
-                  {!due && <span className="jobs-date">PDI {fmtDate(job.datePdiRelease) || 'not set'}</span>}
+                  {!due && <span className="jobs-date">Due {fmtDate(dueDate(job)) || 'not set'}</span>}
                 </span>
               </a>
             )

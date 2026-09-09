@@ -1,7 +1,7 @@
 import { COMPANY } from '../lib/company.js'
 import { useEffect, useRef, useState } from 'react'
 import { FORM_SCHEMAS } from '../data/formSchemas.js'
-import { fmtDate } from '../lib/status.js'
+import { fmtDate, buildContext, releasedAt } from '../lib/status.js'
 import { reportResult } from '../lib/verdict.js'
 import { ReportSheets, reportSheetCount } from './PrintReport.jsx'
 import { useFitToPage, pageSpans, sameFit, oneEach, tighten, useSheetZoom } from '../lib/pagefit.js'
@@ -305,7 +305,7 @@ export default function MdrReport({ job, reports, session, onClose }) {
                 </tr>
                 <tr>
                   <td className="ps-label">Inspection Period</td><td className="ps-value">{span}</td>
-                  <td className="ps-label">PDI Release</td><td className="ps-value">{fmtDate(job.datePdiRelease)}</td>
+                  <td className="ps-label">PDI Release</td><td className="ps-value">{fmtDate(releasedAt(job, buildContext()))}</td>
                 </tr>
               </tbody>
             </table>

@@ -4,7 +4,7 @@ import { useApp, navigate } from '../App.jsx'
 import { artFor } from '../lib/productArt.js'
 import { DELIVERABLES, NDE_FORMS } from '../lib/constants.js'
 import { FORM_SCHEMAS } from '../data/formSchemas.js'
-import { buildContext, jobProgress, fmtDate, fmtDateTime } from '../lib/status.js'
+import { buildContext, jobProgress, fmtDate, fmtDateTime, dueDate, releasedAt } from '../lib/status.js'
 import { reportsFor } from '../lib/store.js'
 import { requiredFor } from '../lib/jobOrders.js'
 import StatusChip, { StateBadge } from './StatusChip.jsx'
@@ -103,6 +103,9 @@ export default function JobDetail({ job }) {
   }
 
   const p = jobProgress(job, ctx)
+  // Not a field on the job: the date its pre-delivery inspection was
+  // approved, read back off the reports.
+  const released = releasedAt(job, ctx)
   // What this job was actually raised for. Showing the other five as
   // greyed N/A rows was noise an inspector had to read past.
   const wanted = requiredFor(job)
@@ -190,7 +193,10 @@ export default function JobDetail({ job }) {
           <Meta label="Unit No." value={job.unitNo || job.arasSN} />
           <Meta label="Customer ID" value={job.customerId} />
           <Meta label="Date PB" value={fmtDate(job.datePB)} />
-          <Meta label="PDI Release" value={fmtDate(job.datePdiRelease)} />
+          <Meta label="Target delivery" value={fmtDate(dueDate(job))} />
+          {/* Read off the record, not off the order: the date the
+              pre-delivery inspection was approved. */}
+          <Meta label="PDI released" value={released ? fmtDate(released) : 'Not yet'} />
         </div>
       </div>
 

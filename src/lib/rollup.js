@@ -1,5 +1,5 @@
 import { DELIVERABLES } from './constants.js'
-import { jobProgress } from './status.js'
+import { jobProgress, dueDate } from './status.js'
 import { getReports } from './store.js'
 import { currentIssues, reportResult } from './verdict.js'
 
@@ -51,8 +51,9 @@ function fold(acc, job, ctx, reportsByJob) {
   /* The date somebody is working towards is the earliest one still owed.
      A finished unit's release date has already been met, so including it
      would make a customer read as due sooner than they are. */
-  if (!finished && job.datePdiRelease && (!acc.nextRelease || job.datePdiRelease < acc.nextRelease)) {
-    acc.nextRelease = job.datePdiRelease
+  const due = dueDate(job)
+  if (!finished && due && (!acc.nextRelease || due < acc.nextRelease)) {
+    acc.nextRelease = due
   }
   for (const r of currentIssues(reportsByJob.get(String(job.jobNo)) || [])) {
     if (isNcr(r)) acc.ncr++
@@ -101,7 +102,7 @@ function foldOrders(jobs, ctx, reportsByJob) {
     const po = job.poNo || 'No PO'
     if (!m.has(po)) {
       m.set(po, { poNo: po, kategori: job.kategori, product: job.productDesc,
-                  datePB: job.datePB, datePdiRelease: job.datePdiRelease, ...blank() })
+                  datePB: job.datePB, dueDate: dueDate(job), ...blank() })
     }
     const o = m.get(po)
     // An order can carry more than one product; say so rather than
@@ -111,7 +112,7 @@ function foldOrders(jobs, ctx, reportsByJob) {
   }
   return [...m.values()]
     .map((o) => ({ ...o, pct: pct(o.done, o.applicable), open: o.units - o.complete }))
-    .sort((a, b) => (b.datePdiRelease || '').localeCompare(a.datePdiRelease || '') || a.poNo.localeCompare(b.poNo))
+    .sort((a, b) => (b.dueDate || '').localeCompare(a.dueDate || '') || a.poNo.localeCompare(b.poNo))
 }
 
 const nameOf = (job) => job.customerName || 'Unassigned'

@@ -4,6 +4,40 @@ import { currentIssues, reportResult } from './verdict.js'
 
 const TODAY = new Date()
 
+/* When the unit is due out, and when it actually went.
+
+   These were one field. A job order asked for a "PDI release" date up
+   front and then measured lateness against it, which is two different
+   things wearing one name: the date somebody promised the customer, and
+   the date the pre-delivery inspection was actually signed. The first is
+   a plan and belongs on the order; the second is a fact and cannot be
+   known until the inspection is approved.
+
+   So an order now carries dateTarget, and the release date is read back
+   off the record. The bundled sheet only ever had the one field, and it
+   used it as the deadline, so that is what it falls back to. */
+export const dueDate = (job) => job?.dateTarget || job?.datePdiRelease || null
+
+/* The final inspection this shop releases a unit on. PDI is the one the
+   order names when it wants it; on a job whose set ends at Pre-Shipment
+   that is the same gate under the other name, so it stands in rather
+   than leaving the release date blank on a unit that has plainly been
+   released. */
+const RELEASE_KEYS = ['PDI', 'Pre-Shipment']
+
+export function releasedAt(job, ctx) {
+  if (!job || !ctx?.reportIndex) return null
+  for (const key of RELEASE_KEYS) {
+    if (job.required && !job.required.includes(key)) continue
+    const approved = (ctx.reportIndex[`${job.jobNo}|${key}`] || [])
+      .filter((r) => r.status === 'approved' && r.approvedAt)
+    if (approved.length) {
+      return approved.reduce((a, r) => (r.approvedAt > a ? r.approvedAt : a), '').slice(0, 10)
+    }
+  }
+  return null
+}
+
 // Status for one job x deliverable cell.
 // Layering: admin override > app report (draft=inprogress, submitted=done),
 // then Overdue rule: not done + applicable + PDI already released in the past.
@@ -36,7 +70,8 @@ export function cellStatus(job, delivKey, ctx) {
   const base = job.deliverables[delivKey]?.status || 'notstarted'
   if (base === 'na') return { status: 'na', source: 'excel' }
 
-  if (job.datePdiRelease && new Date(job.datePdiRelease) < TODAY) {
+  const due = dueDate(job)
+  if (due && new Date(due) < TODAY) {
     return { status: 'overdue', source: 'derived' }
   }
   return { status: 'notstarted', source: 'excel' }
@@ -126,7 +161,8 @@ export function filterJobs(jobs, f, ctx) {
 }
 
 export function exportMatrixCsv(jobs, ctx) {
-  const head = ['Job No', 'WBS No', 'Serial No', 'Category', 'Type', 'Product', 'Customer', 'Date PB', 'PDI Release',
+  const head = ['Job No', 'WBS No', 'Serial No', 'Category', 'Type', 'Product', 'Customer', 'Date PB',
+    'Target delivery', 'PDI released',
     ...DELIVERABLES.map((d) => d.label)]
   const lines = [head.join(',')]
   for (const job of jobs) {
@@ -134,7 +170,7 @@ export function exportMatrixCsv(jobs, ctx) {
     const row = [job.jobNo, job.wbsNo, job.arasSN, job.kategori, job.type,
       `"${(job.productDesc || '').replace(/"/g, "'")}"`,
       `"${(job.customerName || '').replace(/"/g, "'")}"`,
-      job.datePB || '', job.datePdiRelease || '',
+      job.datePB || '', dueDate(job) || '', releasedAt(job, ctx) || '',
       ...DELIVERABLES.map((d) => sts[d.key].status)]
     lines.push(row.join(','))
   }

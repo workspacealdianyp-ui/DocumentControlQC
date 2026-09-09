@@ -37,7 +37,7 @@ function OrderRow({ o }) {
     <button className="po-row" onClick={() => navigate(`/po/${encodeURIComponent(o.poNo)}`)}>
       <span className="po-id">
         <strong>{o.poNo}</strong>
-        <small>{o.mixed ? 'Mixed products' : o.product}{o.datePdiRelease ? ` · release ${fmtDate(o.datePdiRelease)}` : ''}</small>
+        <small>{o.mixed ? 'Mixed products' : o.product}{o.dueDate ? ` · due ${fmtDate(o.dueDate)}` : ''}</small>
       </span>
       <span className="po-figs">
         <i><b>{o.units}</b> units</i>
@@ -109,7 +109,7 @@ export default function CustomerPage({ name }) {
             <Ribbon mix={unitMix(cust)} ncr={cust.ncr} className="brief-ribbon" />
             <dl className="brief-facts">
               <div>
-                <dt>Next release owed</dt>
+                <dt>Next due</dt>
                 <dd>{cust.nextRelease ? fmtDate(cust.nextRelease) : 'Nothing outstanding'}</dd>
               </div>
               <div>

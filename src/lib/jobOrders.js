@@ -67,6 +67,9 @@ function unitToJob(order, unit) {
     customerName: order.customerName,
     customerId: order.customerId,
     datePB: order.datePB,
+    dateTarget: order.dateTarget,
+    // Orders raised before the target field existed put their promise
+    // in datePdiRelease; dueDate() reads either.
     datePdiRelease: order.datePdiRelease,
     required: order.required,
     deliverables,

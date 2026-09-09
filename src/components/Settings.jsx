@@ -455,7 +455,7 @@ export default function Settings({ section }) {
                   <Legend>Secondary options</Legend>
                   <div className="set-rows">
                     <ToggleRow icon={IconDoc} title="Daily overdue digest"
-                      desc="One summary of jobs past their PDI release date"
+                      desc="One summary of jobs past their target delivery date"
                       on={n.overdueDigest} onChange={(v) => patch('notify', 'overdueDigest', v)} />
                     <ToggleRow icon={IconTrash} title="Auto-delete old drafts"
                       desc="Clear drafts untouched for more than 90 days"

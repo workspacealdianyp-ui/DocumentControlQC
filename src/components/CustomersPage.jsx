@@ -85,7 +85,7 @@ function CustomerCard({ c, orders, waiting, open, onToggle }) {
           <strong>{c.name}</strong>
           <small>
             {c.orders} order{c.orders === 1 ? '' : 's'} · {c.units} unit{c.units === 1 ? '' : 's'}
-            {c.nextRelease ? ` · next release ${fmtDate(c.nextRelease)}` : ''}
+            {c.nextRelease ? ` · next due ${fmtDate(c.nextRelease)}` : ''}
           </small>
         </span>
         <span className="reg-cust-read">

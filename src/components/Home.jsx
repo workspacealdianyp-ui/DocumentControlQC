@@ -4,7 +4,7 @@ import { useApp, navigate } from '../App.jsx'
 import { FORM_SCHEMAS } from '../data/formSchemas.js'
 import { getReports } from '../lib/store.js'
 import JobPicker from './JobPicker.jsx'
-import { docStats, recentActivity, ncrReports, buildContext, jobStatuses, jobProgress, fmtDate, fmtDateTime } from '../lib/status.js'
+import { docStats, recentActivity, ncrReports, buildContext, jobStatuses, jobProgress, fmtDate, fmtDateTime, dueDate } from '../lib/status.js'
 import { DELIVERABLES } from '../lib/constants.js'
 import { byCustomer } from '../lib/rollup.js'
 import { IconAlert, IconDoc, IconChevronR, IconPlus, IconPen, IconGrid, IconList, IconApprove, IconClock } from './Icons.jsx'
@@ -145,7 +145,7 @@ export default function Home() {
       for (const sh of jobPend) c.pend[sh] = (c.pend[sh] || 0) + 1
       custMap.set(job.customerName, c)
     }
-    overdueJobs.sort((a, b) => (a.job.datePdiRelease || '').localeCompare(b.job.datePdiRelease || ''))
+    overdueJobs.sort((a, b) => (dueDate(a.job) || '').localeCompare(dueDate(b.job) || ''))
     const customers = [...custMap.entries()]
     const applicable = dist.done + dist.inprogress + dist.notstarted + dist.overdue
     return { dist, applicable, overdueJobs, customers }
@@ -369,7 +369,7 @@ export default function Home() {
                   <span className="act-main">
                     <strong>{job.jobNo}</strong>
                     <small>{job.productDesc}</small>
-                    <small>PDI released {fmtDate(job.datePdiRelease)} · {missing} report{missing === 1 ? '' : 's'} missing</small>
+                    <small>Due {fmtDate(dueDate(job))} · {missing} report{missing === 1 ? '' : 's'} missing</small>
                   </span>
                   <IconChevronR size={15} className="deliv-chevron" />
                 </button>

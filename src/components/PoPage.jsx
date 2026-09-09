@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 import { useApp, navigate } from '../App.jsx'
-import { buildContext, fmtDate } from '../lib/status.js'
+import { buildContext, fmtDate, dueDate } from '../lib/status.js'
 import { outstandingBy, unitMix, unitsFor } from '../lib/rollup.js'
 import { artFor } from '../lib/productArt.js'
 import { Figure, Meter, Outstanding, Ribbon } from './Readings.jsx'
@@ -71,8 +71,8 @@ export default function PoPage({ poNo }) {
             <Ribbon mix={unitMix(roll)} ncr={roll.ncr} className="brief-ribbon" />
             <dl className="brief-facts">
               <div>
-                <dt>Release date</dt>
-                <dd>{head.datePdiRelease ? fmtDate(head.datePdiRelease) : 'Not set'}</dd>
+                <dt>Target delivery</dt>
+                <dd>{dueDate(head) ? fmtDate(dueDate(head)) : 'Not set'}</dd>
               </div>
               <div>
                 <dt>Product</dt>

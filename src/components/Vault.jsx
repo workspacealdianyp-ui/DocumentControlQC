@@ -5,6 +5,7 @@ import { getReports } from '../lib/store.js'
 import { fmtDateTime } from '../lib/status.js'
 import { reportResult } from '../lib/verdict.js'
 import Masthead from './Masthead.jsx'
+import { artFor } from '../lib/productArt.js'
 import { Figure } from './Readings.jsx'
 import { SearchField } from './RegisterBar.jsx'
 import { IconChevronR } from './Icons.jsx'
@@ -125,10 +126,15 @@ export default function Vault() {
 
   return (
     <div className="page">
+      {/* The same band as everywhere else, machine and all. It is a
+          top-level section, so the way back is the way out: the
+          dashboard, not a level above it. */}
       <Masthead variant="job"
         eyebrow="Vault"
         title={session?.name || 'Your documents'}
-        sub={<>{lanes.mine.length} written{lanes.approved.length > 0 ? ` · ${lanes.approved.length} approved` : ''}</>} />
+        sub={<>{lanes.mine.length} written{lanes.approved.length > 0 ? ` · ${lanes.approved.length} approved` : ''}</>}
+        art={artFor()}
+        onBack={() => navigate('/')} backLabel="Back to the dashboard" />
 
       <div className="fig-row">
         <Figure value={counts.all} label={lane === 'mine' ? 'Documents written' : 'Documents approved'} />
