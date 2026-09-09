@@ -1632,6 +1632,32 @@ td.th-action { display: flex; gap: 6px; justify-content: flex-end; align-items: 
 .sum-row { display: flex; align-items: center; gap: 12px; padding: 10px 8px; border-bottom: 1px solid var(--line); cursor: pointer; }
 .sum-row input { width: 17px; height: 17px; min-height: 0; accent-color: var(--steel); flex-shrink: 0; }
 .sum-row.disabled { opacity: 0.45; cursor: not-allowed; }
+
+/* Where the declaration is made — asked once, when the book is
+   compiled, because that is the moment it is known. Two cards rather
+   than a checkbox: neither is the exception, and the difference between
+   them takes a sentence to state. */
+.mdr-stmt { margin: 4px 0 14px; }
+.mdr-stmt-opts { display: flex; flex-direction: column; gap: 8px; margin-top: 8px; }
+.mdr-stmt-opt {
+  display: flex; align-items: flex-start; gap: 11px;
+  padding: 11px 12px; cursor: pointer;
+  border: 1px solid var(--line); border-radius: var(--r);
+  background: var(--surface);
+  transition: border-color .14s ease, background-color .14s ease;
+}
+.mdr-stmt-opt:hover { border-color: var(--line-2); }
+.mdr-stmt-opt.is-on { border-color: var(--amber); background: var(--amber-soft); }
+.mdr-stmt-opt input { width: 16px; height: 16px; min-height: 0; margin-top: 2px; accent-color: var(--amber); flex-shrink: 0; }
+.mdr-stmt-opt .act-main { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.mdr-stmt-opt strong { font-size: 13px; font-weight: 550; }
+/* The sentence is the whole point of the option, so it wraps. The
+   register rows these borrow their shape from truncate to one line,
+   which here cut the explanation off mid-word. */
+.mdr-stmt-opt small {
+  font-family: var(--prose); font-size: 12px; line-height: 1.45; color: var(--text-2);
+  white-space: normal; overflow: visible; text-overflow: clip;
+}
 .group-count { font-family: var(--mono); background: var(--surface-2); color: var(--text-2); border: 1px solid var(--line); border-radius: 3px; font-size: 10.5px; padding: 2px 8px; margin-left: 6px; }
 .sync-tag { display: inline-flex; align-items: center; gap: 4px; color: var(--inprog) !important; font-weight: 500; white-space: nowrap; }
 .sync-tag.up { color: var(--done) !important; }
@@ -1868,6 +1894,8 @@ td.th-action { display: flex; gap: 6px; justify-content: flex-end; align-items: 
    column set in the mono face and never allowed to wrap. */
 .ps-meta-wide { width: 58mm; }
 .ps-meta-cell td.ps-docno { font-family: 'Fira Code', monospace; font-size: 6.8pt; white-space: nowrap; }
+/* A report number broken across two lines is not a report number. */
+.ps-grid td.ps-refno { white-space: nowrap; }
 .ps-toc td:last-child, .ps-toc th:last-child { font-family: 'Fira Code', monospace; font-weight: 700; white-space: nowrap; }
 .ps-toc td:nth-child(3) { font-family: 'Fira Code', monospace; font-size: 7.4pt; white-space: nowrap; }
 .ps-toc-note { margin-top: 3mm; font-size: 8pt; color: #555; font-style: italic; }
@@ -6365,6 +6393,71 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber); outline-
 
 /* Signing still needs somewhere to sign. */
 .ps-compact .ps-sign-table td { height: 20mm; padding: 3pt 5pt 4pt; }
+
+/* ── the dimensional sheet ───────────────────────────────────────
+   The marked drawing on top, the readings under it in two columns.
+   The drawing is not decoration on this form — it is the only thing
+   that says where "B" was measured — so it gets the room, and the
+   table earns its half back by running two columns wide. */
+
+/* The view the drawing shows, named the way the shop's own form names
+   it: set apart above the plate, not buried in a label/value cell. */
+.ps-dim-view {
+  font-family: 'Fira Code', monospace; font-size: 8pt; font-weight: 700;
+  font-style: italic; letter-spacing: 0.06em; text-transform: uppercase;
+  color: #111; border-bottom: 0.8pt solid #000;
+  display: inline-block; padding: 0 1mm 0.6mm 0; margin-bottom: 1.4mm;
+}
+.ps-dim-map { margin-bottom: 2.4mm; }
+/* The frame belongs to the drawing, not to the cell holding it — a
+   sheet-wide box around a drawing two-thirds that wide reads as an
+   empty margin somebody forgot to fill. */
+.ps-dim-maps { table-layout: fixed; border: 0 !important; }
+.ps-dim-maps td { border: 0 !important; text-align: center; vertical-align: top; padding: 0 2mm 0 0 !important; }
+.ps-dim-maps td:last-child { padding-right: 0 !important; }
+/* Tall enough to read a balloon letter on. One view gets a third of the
+   sheet's height; two views share the width and take less. */
+.ps-dim-img { max-height: 100mm; max-width: 100%; border: 0.5pt solid #999; }
+.ps-dim-img.is-half { max-height: 62mm; }
+/* A sheet whose map never arrived says so, rather than printing a table
+   of letters against nothing. */
+.ps-dim-nomap {
+  border: 0.8pt dashed #888; padding: 4mm; margin-bottom: 2.4mm;
+  text-align: center; font-size: 8pt; color: #444;
+}
+
+/* Two sets of six columns with a gutter between them. The gutter is a
+   column of its own rather than a border, so the two halves keep an
+   equal width whatever the notes do. */
+.ps-dim-grid { table-layout: fixed; }
+.ps-dim-grid .ps-dim-split { width: 3mm; border-top: 0; border-bottom: 0; background: #fff !important; padding: 0 !important; }
+.ps-dim-grid td, .ps-dim-grid th { font-size: 8pt; }
+/* Fixed columns, so the two halves are the same table twice and a note
+   in one does not shift the numbers in the other. The unit sits on its
+   own line under each heading rather than breaking wherever it lands —
+   "ACTUA / L (MM)" is not a column heading. */
+.ps-dim-grid .ps-dim-id { width: 18mm; }
+.ps-dim-grid .ps-dim-w-spec { width: 15mm; }
+.ps-dim-grid .ps-dim-w-act { width: 16mm; }
+.ps-dim-grid .ps-dim-w-dev { width: 13mm; }
+.ps-dim-grid .ps-dim-w-ar { width: 11mm; }
+.ps-dim-grid th small { display: block; font-size: 6.4pt; font-weight: 600; letter-spacing: 0.04em; }
+.ps-dim-grid .ps-dim-id strong { font-family: 'Fira Code', monospace; font-weight: 700; font-size: 8.5pt; }
+/* The name of the dimension under its letter: the letter ties the row to
+   the map, the name says what it is, and neither is worth a column of
+   its own at this width. */
+.ps-dim-grid .ps-dim-id small,
+.ps-dim-grid td small {
+  display: block; font-size: 6.4pt; line-height: 1.25; color: #555;
+  font-weight: 400; margin-top: 0.3mm;
+}
+.ps-dim-grid .ps-dim-act { font-weight: 700; }
+.ps-dim-grid .ps-dim-note { font-size: 7pt; color: #333; }
+/* An odd number of readings leaves one cell of the right column empty;
+   it stays plain rather than striped, so it does not read as a row
+   somebody forgot to fill in. */
+.ps-dim-grid .ps-dim-pad { background: #fff !important; }
+.ps-dim-key { font-size: 6.8pt; color: #444; margin: -1.2mm 0 2.2mm; }
 
 /* A build shipped while this tab was open.
 

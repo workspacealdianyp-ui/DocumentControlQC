@@ -69,6 +69,11 @@ export default function JobDetail({ job }) {
   const [sumPicker, setSumPicker] = useState(false)
   const [sumSel, setSumSel] = useState([])
   const [summary, setSummary] = useState(null)
+  /* Where the declaration is made. One statement for the book is the
+     default: nine reports about one unit, signed on one day, do not each
+     need their own page saying so. 'each' keeps the per-report
+     statement, for a customer who takes the documents loose. */
+  const [sumStmt, setSumStmt] = useState('book')
   const ctx = useMemo(() => buildContext(), [tick])
   const docs = useMemo(
     () => (job ? reportsFor(job.jobNo).slice().sort((a, b) => (b.updatedAt || '').localeCompare(a.updatedAt || '')) : []),
@@ -363,7 +368,13 @@ export default function JobDetail({ job }) {
                     <span className="act-main">
                       <strong>{r.reportId}</strong>
                       <small>
-                        {FORM_SCHEMAS[r.formKey]?.title} · {reportResult(r)} · {ok ? 'approved' : `${r.status} — not eligible`}
+                        {FORM_SCHEMAS[r.formKey]?.title}
+                        {/* One form can answer two deliverables — Pre-Shipment
+                            and PDI are both filled on the visual form — and two
+                            rows reading the same title with nothing to tell them
+                            apart is a document picked at random. */}
+                        {r.deliverable && r.deliverable !== FORM_SCHEMAS[r.formKey]?.deliverable
+                          ? ` · ${r.deliverable}` : ''} · {reportResult(r)} · {ok ? 'approved' : `${r.status} — not eligible`}
                         {superseded.length > 0 && ` · replaces ${superseded.length} earlier issue${superseded.length === 1 ? '' : 's'}`}
                       </small>
                     </span>
@@ -371,6 +382,24 @@ export default function JobDetail({ job }) {
                 )
               })}
             </div>
+            <div className="mdr-stmt">
+              <span className="set-group-label">Statement of result</span>
+              <div className="mdr-stmt-opts">
+                {[
+                  { id: 'book', title: 'One statement for the book',
+                    sub: 'A Statement of Inspection at the front, listing every inspection carried out and declaring the unit on all of them. The reports carry none of their own.' },
+                  { id: 'each', title: 'A statement in every report',
+                    sub: 'Each report keeps its own Statement of Result, as it prints on its own. The same declaration is then made once per document.' },
+                ].map((o) => (
+                  <label key={o.id} className={`mdr-stmt-opt${sumStmt === o.id ? ' is-on' : ''}`}>
+                    <input type="radio" name="mdr-stmt" checked={sumStmt === o.id}
+                      onChange={() => setSumStmt(o.id)} />
+                    <span className="act-main"><strong>{o.title}</strong><small>{o.sub}</small></span>
+                  </label>
+                ))}
+              </div>
+            </div>
+
             <div style={{ display: 'flex', gap: 10 }}>
               <button className="btn btn-ghost" style={{ flex: 1 }} onClick={() => setSumPicker(false)}>Cancel</button>
               <button className="btn btn-primary" style={{ flex: 2 }} disabled={!sumSel.length}
@@ -388,7 +417,8 @@ export default function JobDetail({ job }) {
       )}
 
       {summary && createPortal(
-        <MdrReport job={job} reports={summary} session={session} onClose={() => setSummary(null)} />,
+        <MdrReport job={job} reports={summary} session={session} statements={sumStmt}
+          onClose={() => setSummary(null)} />,
         document.body
       )}
 

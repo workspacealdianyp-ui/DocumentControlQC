@@ -1,6 +1,6 @@
 import { COMPANY } from './company.js'
 import { allJobs } from './jobOrders.js'
-import { SEED_REPORTS, SEED_COUNTERS } from '../data/seedReports.js'
+import { seedReports, SEED_COUNTERS } from '../data/seedReports.js'
 // Front-end persistence layer (localStorage). PRD v1 scope = no back-end.
 const KEYS = {
   session: 'qc.session',
@@ -161,7 +161,7 @@ function ensureSeed() {
     if (!seeded) {
       localStorage.setItem(SEEDED_KEY, '1')
       const have = new Set(held.map((r) => r.id))
-      all = [...held, ...SEED_REPORTS.filter((r) => !have.has(r.id))]
+      all = [...held, ...seedReports().filter((r) => !have.has(r.id))]
 
       /* The numbers those reports already spent, so the next issue for a
          seeded job carries on rather than colliding with one of them.

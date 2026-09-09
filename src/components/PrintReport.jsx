@@ -1,7 +1,7 @@
 import { COMPANY } from '../lib/company.js'
 import { useEffect, useRef, useState } from 'react'
 import { MR } from '../lib/compute.js'
-import { dimRowStatus, dimDeviation } from '../data/formSchemas.js'
+import { dimRowStatus, dimDeviation, dimLimits } from '../data/formSchemas.js'
 import { buildResume } from '../lib/resume.js'
 import { useFitToPage, pageSpans, sameFit, oneEach, tighten, useSheetZoom } from '../lib/pagefit.js'
 import { IconPrint } from './Icons.jsx'
@@ -275,7 +275,7 @@ const Cell = ({ label, children, span }) => (
 // The facts that belong to one thing, joined into one line.
 const joined = (...parts) => parts.filter((x) => x && String(x).trim() && String(x) !== '—').join(' · ') || '—'
 
-function CompactPage({ schema, report, job, v, approvalSec, chunk }) {
+function NdeCompactPage({ schema, report, job, v, approvalSec, chunk, noStatement }) {
   const rows = report.results || []
   const rej = rows.filter((r) => ['Reject', 'Rej', 'NG'].includes(r.judgement)).length
   const acc = rows.length - rej
@@ -374,7 +374,11 @@ function CompactPage({ schema, report, job, v, approvalSec, chunk }) {
         </td>
       </tr></tbody></table>
 
-      {/* the statement, where the table it refers to can still be seen */}
+      {/* The statement, where the table it refers to can still be seen —
+          unless the data book binding this report carries one statement
+          for the whole unit, in which case saying it again here is the
+          same declaration made twice about the same object. */}
+      {!noStatement && (
       <div className="ps-statement">
         <span className="ps-c-label">Statement of result</span>
         <p>
@@ -385,6 +389,208 @@ function CompactPage({ schema, report, job, v, approvalSec, chunk }) {
           in accordance with {acceptance}. Issued by and on behalf of {COMPANY.legalName}.
         </p>
       </div>
+      )}
+
+      {approvalSec && <Signatures fields={approvalSec.fields} v={v} />}
+    </div>
+  )
+}
+
+/* ── the dimensional report ──────────────────────────────────────
+
+   A dimensional report is a page of numbers against letters, and the
+   letters are meaningless on their own. On the shop's own form the
+   marked drawing is the top half of the sheet — every measurement
+   balloon-ed where it was taken — and the numbers are read against it.
+   This app printed the numbers and left the drawing in the Photo
+   Evidence attachment three pages later, if it was attached at all, so
+   "B · 1869 · 1867 · -2 · A" meant nothing to anybody who had not stood
+   at the unit.
+
+   So: the map first, at the size it has to be read at, then the
+   readings under it — two columns of six, the way the form does it,
+   because twelve dimensions down one column is a page of white space
+   beside a page of numbers. */
+
+// The deviation as an inspector writes it: +3, -2, 0 — never "3.00".
+const signedDev = (row) => {
+  const d = dimDeviation(row)
+  if (d === '') return '—'
+  const n = +d
+  return n > 0 ? `+${n}` : String(n)
+}
+
+/* What the measurement was judged against, under the nominal it is
+   judged around. A symmetric band prints as ±3, because that is what the
+   drawing says; anything else prints as the two limits themselves. */
+const specBand = (row) => {
+  const { lo, hi } = dimLimits(row)
+  if (lo == null && hi == null) return null
+  const n = parseFloat(row.nominal)
+  if (lo != null && hi != null && !isNaN(n) && Math.abs((n - lo) - (hi - n)) < 1e-9) return `±${+(hi - n)}`
+  return `${lo ?? '—'} – ${hi ?? '—'}`
+}
+
+const DimCells = ({ row, no }) => {
+  if (!row) return <><td className="ps-dim-pad" colSpan={6} /></>
+  const st = dimRowStatus(row)
+  const band = specBand(row)
+  return (
+    <>
+      <td className="ps-dim-id">
+        <strong>{row.itemNo || no}</strong>
+        {row.description ? <small>{row.description}</small> : null}
+      </td>
+      <td>
+        {row.nominal || '—'}
+        {band ? <small>{band}</small> : null}
+      </td>
+      <td className="ps-dim-act">{row.actual || '—'}</td>
+      <td>{signedDev(row)}</td>
+      <td className={st === 'Reject' ? 'ps-result-rej' : st === 'Accept' ? 'ps-result-acc' : ''}>
+        {st === 'Reject' ? 'R' : st === 'Accept' ? 'A' : '—'}
+      </td>
+      <td className="ps-left ps-dim-note">{row.note || ''}</td>
+    </>
+  )
+}
+
+const DimHead = () => (
+  <>
+    <th className="ps-dim-id">Dim</th>
+    <th className="ps-dim-w-spec">Spec<small>(mm)</small></th>
+    <th className="ps-dim-w-act">Actual<small>(mm)</small></th>
+    <th className="ps-dim-w-dev">Dev<small>(mm)</small></th>
+    <th className="ps-dim-w-ar">A/R*</th>
+    <th className="ps-left">Note</th>
+  </>
+)
+
+/* Two columns of readings, filled down the left before the right, the
+   way the form is read and the way a second sheet continues. */
+function DimGrid({ rows }) {
+  if (!rows.length) return <table className="ps-grid"><tbody><tr><td className="ps-na">No measurements recorded</td></tr></tbody></table>
+  const half = Math.ceil(rows.length / 2)
+  const left = rows.slice(0, half)
+  const right = rows.slice(half)
+  return (
+    <>
+      <table className="ps-grid ps-dim-grid"><thead><tr>
+        <DimHead /><th className="ps-dim-split" /><DimHead />
+      </tr></thead><tbody>
+        {left.map((row, i) => (
+          <tr key={i}>
+            <DimCells row={row} no={i + 1} />
+            <td className="ps-dim-split" />
+            <DimCells row={right[i]} no={half + i + 1} />
+          </tr>
+        ))}
+      </tbody></table>
+      <div className="ps-dim-key">A/R* = Accept / Reject · Dev = actual less nominal</div>
+    </>
+  )
+}
+
+/* The map itself. Whatever the inspector attached to the point-map
+   field, at the size the balloons can be read at — one across the sheet,
+   two side by side if there are two views. */
+function PointMap({ shots, view, drawingNo }) {
+  const list = (Array.isArray(shots) ? shots : []).filter((p) => p && p.img).slice(0, 2)
+  if (!list.length) {
+    return (
+      <div className="ps-dim-nomap">
+        No measurement point map attached. Refer to drawing {drawingNo || '—'} for the location of each dimension.
+      </div>
+    )
+  }
+  return (
+    <div className="ps-dim-map">
+      {view ? <div className="ps-dim-view">{view}</div> : null}
+      <table className="ps-dim-maps"><tbody><tr>
+        {list.map((p, i) => (
+          <td key={i} style={{ width: `${100 / list.length}%` }}>
+            <img className={`ps-dim-img${list.length > 1 ? ' is-half' : ''}`} src={p.img} alt="" />
+            {p.label ? <div className="ps-photo-cap">{p.label}</div> : null}
+          </td>
+        ))}
+      </tr></tbody></table>
+    </div>
+  )
+}
+
+function DimCompactPage({ schema, report, job, v, approvalSec, chunk, noStatement }) {
+  const all = report.results || []
+  const rows = all.slice(0, chunk)
+  const rej = all.filter((x) => dimRowStatus(x) === 'Reject').length
+  const acc = all.length - rej
+  const r = buildResume(schema, report, job)
+
+  return (
+    <div className="ps-compact">
+      {/* identity — the shop's own kop, three lines of three */}
+      <table className="ps-strip"><tbody>
+        <tr>
+          <Cell label="Customer">{v.customer || job?.customerName}</Cell>
+          <Cell label="Job No.">{job?.jobNo || v.jobNo}</Cell>
+          <Cell label="Unit / S.N.">{v.unit || job?.unitNo || v.sn || job?.arasSN}</Cell>
+        </tr>
+        <tr>
+          <Cell label="Product">{job?.productDesc || v.jobDesc}</Cell>
+          <Cell label="WBS / PO">{joined(v.wbsNo || job?.wbsNo, v.poNo || job?.poNo)}</Cell>
+          <Cell label="Inspection date">{fmtShort(v.inspDate)}</Cell>
+        </tr>
+        <tr>
+          <Cell label="Drawing No. / Rev">{v.drawingNo}</Cell>
+          <Cell label="Inspection stage">{v.inspStage}</Cell>
+          <Cell label="Tag number">{v.tagNumber}</Cell>
+        </tr>
+      </tbody></table>
+
+      {/* the map, then what was measured on it */}
+      <PointMap shots={v.drawingFile} view={v.viewName} drawingNo={v.drawingNo} />
+
+      <div className="ps-blk-head ps-blk-head-tight">Measurements</div>
+      <DimGrid rows={rows} />
+
+      <table className="ps-verdict"><tbody><tr>
+        <td className="ps-verdict-box">
+          <div className="ps-c-label">Result</div>
+          <div className={`ps-verdict-word ${r.released ? 'ps-result-acc' : 'ps-result-rej'}`}>
+            {r.released ? 'ACCEPTED' : 'REJECTED'}
+          </div>
+        </td>
+        <td className="ps-verdict-crit">
+          <table className="ps-strip ps-strip-tight"><tbody>
+            <tr>
+              <Cell label="Measured">{all.length}</Cell>
+              <Cell label="Accepted">{acc}</Cell>
+              <Cell label="Rejected">{rej}</Cell>
+              <Cell label="NCR ref.">{v.ncrRef || 'None'}</Cell>
+            </tr>
+          </tbody></table>
+        </td>
+      </tr></tbody></table>
+
+      {!noStatement && (
+        <div className="ps-statement">
+          <span className="ps-c-label">Statement of result</span>
+          <p>
+            Based on the measurements recorded above, taken at the points marked on{' '}
+            {v.drawingNo || 'the referenced drawing'}, the inspected object is declared{' '}
+            <strong className={r.released ? 'ps-result-acc' : 'ps-result-rej'}>
+              {r.released ? 'ACCEPTED' : 'REJECTED'}
+            </strong>{' '}
+            against the dimensions and tolerances stated. Issued by and on behalf of {COMPANY.legalName}.
+          </p>
+        </div>
+      )}
+
+      {v.ncr ? (
+        <div className="ps-statement">
+          <span className="ps-c-label">Non-conformance</span>
+          <p>{v.ncr}</p>
+        </div>
+      ) : null}
 
       {approvalSec && <Signatures fields={approvalSec.fields} v={v} />}
     </div>
@@ -439,23 +645,28 @@ function Signatures({ fields, v }) {
 const ROWS_FIRST = 14
 const ROWS_MORE = 26
 
-/* The forms that print as one page.
+/* The forms that print as one page, and how each of them does it.
 
-   MT first, as a trial. The compact page carries the identity, the
-   verdict, the criteria, the method, the map reference, the table and
-   the statement on one sheet, so it has room for fewer table rows than
-   the old spread-out first page did — anything past that continues on a
-   second sheet exactly as before. */
-const ONE_PAGE = new Set(['mt'])
-const isCompact = (schema) => ONE_PAGE.has(schema.key)
-const ROWS_COMPACT = 8
+   MT was the trial: the compact page carries the identity, the verdict,
+   the criteria, the method, the map reference, the table and the
+   statement on one sheet, so it has room for fewer table rows than the
+   old spread-out first page did — anything past that continues on a
+   second sheet exactly as before.
+
+   The dimensional report is the second, and it is laid out differently
+   because it is a different document: its top half is the marked
+   drawing and its bottom half is two columns of readings, so twice as
+   many rows fit as would down a single column. */
+const ONE_PAGE = { mt: NdeCompactPage, dimensional: DimCompactPage }
+const isCompact = (schema) => !!ONE_PAGE[schema.key]
+const COMPACT_ROWS = { mt: 8, dimensional: 22 }
 
 function resultChunks(schema, report, rowFit = 1) {
   const sec = schema.sections.find((s) => s.type === 'results' && !s.noPrint)
   const n = sec ? (report.results || []).length : 0
   // A row is as tall as its longest cell wraps, which differs by form, so
   // these are a starting guess that the measured fit corrects.
-  const first = Math.max(4, Math.round((isCompact(schema) ? ROWS_COMPACT : ROWS_FIRST) * rowFit))
+  const first = Math.max(4, Math.round((COMPACT_ROWS[schema.key] ?? ROWS_FIRST) * rowFit))
   const more = Math.max(4, Math.round(ROWS_MORE * rowFit))
   if (!sec || n <= first) return [[0, n]]
   const out = [[0, first]]
@@ -473,12 +684,13 @@ function sheetPlan(schema, report, rowFit) {
   return { photoSecs, mainSecs, hasChart, hasAttach: hasChart || photoSecs.length > 0, chunks }
 }
 
-export function reportSheetCount(schema, report, rowFit) {
+export function reportSheetCount(schema, report, rowFit, noStatement) {
   const { hasAttach, chunks } = sheetPlan(schema, report, rowFit)
-  // form + continuation sheets + attachments + statement. A compact
-  // report carries its statement on the form sheet, so it has no last
-  // page of its own.
-  const statement = isCompact(schema) || schema.kind === 'record' ? 0 : 1
+  /* form + continuation sheets + attachments + statement. A compact
+     report carries its statement on the form sheet, so it has no last
+     page of its own — and a report bound into a book that makes one
+     statement for the whole unit has none at all. */
+  const statement = noStatement || isCompact(schema) || schema.kind === 'record' ? 0 : 1
   return 1 + (chunks.length - 1) + (hasAttach ? 1 : 0) + statement
 }
 
@@ -523,7 +735,7 @@ export default function PrintReport({ schema, report, job, deliverable, status, 
    Standing on its own — rather than inside the preview overlay — is what
    lets the data book bind these same pages behind its cover and contents,
    numbered as part of the book instead of as a loose document. */
-export function ReportSheets({ schema, report, job, deliverable, status, pageMap, pageTotal, sectionNo, breakFirst, rowFit }) {
+export function ReportSheets({ schema, report, job, deliverable, status, pageMap, pageTotal, sectionNo, breakFirst, rowFit, noStatement }) {
   // pressureUnit may not be persisted if left at its default — fall back so units always print
   const v = schema.key === 'hydrotest' ? { pressureUnit: 'PsiG', ...(report.values || {}) } : (report.values || {})
   const isDraft = status !== 'submitted' && status !== 'approved'
@@ -590,8 +802,11 @@ export function ReportSheets({ schema, report, job, deliverable, status, pageMap
           <span className="ps-tab-title">{schema.title}</span>
         </div>
       )}
-      <CompactPage schema={schema} report={report} job={job} v={v}
-        approvalSec={approvalSec} chunk={chunks[0][1]} />
+      {(() => {
+        const Compact = ONE_PAGE[schema.key]
+        return <Compact schema={schema} report={report} job={job} v={v}
+          approvalSec={approvalSec} chunk={chunks[0][1]} noStatement={noStatement} />
+      })()}
     </>
   ) : (
     <>
@@ -666,7 +881,7 @@ export function ReportSheets({ schema, report, job, deliverable, status, pageMap
      filed ITP or release note neither half is true, and a data book is
      the last place to print a statement nobody made. The record's own
      pages are the statement. */
-  if (schema.kind !== 'record' && !isCompact(schema)) bodies.push(
+  if (!noStatement && schema.kind !== 'record' && !isCompact(schema)) bodies.push(
     <>
       {contNote}
       {(() => {

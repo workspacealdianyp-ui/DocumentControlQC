@@ -147,6 +147,44 @@ pressing it is how you find out the reason is required.
 
 ---
 
+## After the audit — what the forms and the book changed
+
+**The dimensional report prints its point map.** — **done**
+
+A dimensional report is letters against numbers, and the letters were
+meaningless: the marked drawing lived on paper beside the inspector and
+never reached the sheet, so a reader had six measurements and no way to
+know where on the unit any of them was taken. The form now asks for the
+map, the view it shows and the inspection stage, and the sheet puts the
+map above the table at the size a balloon letter can be read at. The
+readings run two columns wide underneath, the way the shop's own form
+sets them, so twelve dimensions do not leave half a page white.
+
+`tests/unit/print.test.js` holds the sheet counts, the row judgement and
+the schema's shape.
+
+**One statement for a data book, or one per report.** — **done**
+
+Every report printed its own Statement of Result. Bound into a book that
+is nine of them, one after another, about the same unit, on the same day,
+over the same signature — the declaration nine times and the evidence
+once. Generate MDR now asks where the declaration is made: a Statement of
+Inspection at the front, listing every inspection carried out and
+declaring the unit on all of them, or the per-report statement kept as
+it prints on its own. Measured on a nine-document book: 23 sheets
+against 27.
+
+**The demo fixture stopped weighing on the bundle.** — **done**
+
+Every picture in the fixture was carried expanded: four signature hands
+written out four hundred times, the same drawing paper forty-six times.
+`src/data/plates.js` draws them once and the fixture holds the recipe —
+which plate, what caption — built when the store seeds, which happens
+once on a device. 1.23 MB to 396 KB, with 54 more reports in it than
+before.
+
+---
+
 ## Not done, and why
 
 **Backup hardening** (checksums, per-record schema validation, a

@@ -24,6 +24,7 @@
 import { writeFileSync } from 'node:fs'
 import { FORM_SCHEMAS } from '../src/data/formSchemas.js'
 import { DELIVERABLES } from '../src/lib/constants.js'
+import { DIM_LINES, handOf } from '../src/data/plates.js'
 
 const QA = 'QA Lead'
 const INSPECTORS = ['Inspector One', 'Inspector Two']
@@ -35,70 +36,30 @@ const int = (lo, hi) => lo + Math.floor(rnd() * (hi - lo + 1))
 const dec = (lo, hi, p = 1) => (lo + rnd() * (hi - lo)).toFixed(p)
 const pad2 = (n) => String(n).padStart(2, '0')
 
-/* Four hands, so a data book does not carry one traced squiggle forty
-   times. Paths are written without separators — SVG allows it — because
-   every character here is multiplied by a hundred-odd reports and ends
-   up in the bundle. */
-const HANDS = [
-  'M8 56C26 18 40 20 45 50C48 68 56 70 62 44C68 22 79 25 82 52C84 71 95 67 107 39C115 21 123 25 125 51C127 69 137 67 153 43C171 17 193 19 199 43',
-  'M10 62C22 30 36 24 42 52C46 70 55 66 60 40C65 18 78 22 83 48C87 68 98 64 112 42C122 26 132 30 136 54C139 70 150 66 166 46C178 31 194 34 204 50',
-  'M9 50C20 22 33 26 39 54C43 72 53 68 58 44C63 20 75 24 80 50C84 70 96 66 108 44C118 26 130 28 134 52C137 70 148 68 162 48C174 32 190 30 202 44',
-  'M12 58C24 26 38 22 44 48C48 66 57 70 63 46C69 22 82 26 86 54C89 72 100 68 113 44C122 27 134 31 138 55C141 71 152 65 167 45C179 30 195 32 206 48',
-]
-/* Colours are written plainly here and the whole document is encoded
-   once, at the end.
+/* The pictures are drawn by src/data/plates.js, once each. What is
+   recorded here is which picture: a plate name and its caption, a hand,
+   a point map's drawing number. The fixture used to carry every one of
+   them expanded — four signature hands written out four hundred times —
+   and reached 1.2 MB, a quarter of the shipped bundle. */
+const sig = (name, at) => ({ name, at, h: handOf(name) })
+const photo = (kind, label, arg) => ({ id: `ph-${kind}-${int(1000, 9999)}`, label, k: kind, ...(arg ? { a: arg } : {}) })
 
-   They used to be written pre-escaped as %23rrggbb inside a template
-   that was then run through encodeURIComponent, which turned them into
-   %2523rrggbb — not a colour at all. SVG ignores an invalid stroke and
-   falls back to its initial value, which is none, so every seeded
-   signature this app has ever shipped drew nothing: an <img> element in
-   the right place with a blank rectangle inside it. Measured at zero
-   dark pixels against 248 for the same path written plainly. */
-const svgUrl = (body) => 'data:image/svg+xml;utf8,' + encodeURIComponent(body)
-
-const handOf = (n) => HANDS[[...n].reduce((a, c) => a + c.charCodeAt(0), 0) % HANDS.length]
-const sig = (name, at) => ({
-  name, at,
-  img: svgUrl(`<svg xmlns='http://www.w3.org/2000/svg' width='240' height='90'><path d='${handOf(name)}' fill='none' stroke='#17171a' stroke-width='2.6' stroke-linecap='round'/></svg>`),
-})
-
-
-/* Photo evidence.
-
-   Every schema has a Photo Evidence section and the visual form asks for
-   one per inspection point, so a report with none printed "No photos
-   attached" across a page of the data book — the section was there and
-   empty on all 138 of them.
-
-   These are drawings, not photographs, and they are meant to read as
-   drawings: a fixture that faked a site photograph would be the same
-   mistake as a fixture that faked a signature. They are SVG because a
-   plate is about two kilobytes where a JPEG of the same size is two
-   hundred, and because the same six repeat across the set, where gzip
-   collapses them to almost nothing.
-
-   Which plate goes on which report follows what was actually inspected —
-   a gauge face on a pressure test, a weld macro on an NDE report — since
-   a photo that does not match the test is worse than none. */
-const PLATE = {
-  gauge: (unit = 'Bar') => `<rect width='400' height='300' fill='#e8e6e1'/><circle cx='200' cy='142' r='96' fill='#fbfbf9' stroke='#3a3a3f' stroke-width='7'/><circle cx='200' cy='142' r='84' fill='none' stroke='#c9c6bf' stroke-width='1.5'/><g stroke='#2a2a30' stroke-width='3'><path d='M200 66v14M274 142h-14M200 218v-14M126 142h14M252 90l-10 10M252 194l-10-10M148 194l10-10M148 90l10 10'/></g><path d='M200 142L246 96' stroke='#b3261e' stroke-width='5' stroke-linecap='round'/><circle cx='200' cy='142' r='9' fill='#3a3a3f'/><text x='200' y='190' font-family='monospace' font-size='15' fill='#4a4a52' text-anchor='middle'>${unit.toUpperCase()}</text>`,
-  weld: () => `<rect width='400' height='300' fill='#cfcbc4'/><path d='M0 150h400' stroke='#8e8880' stroke-width='58'/><path d='M0 150q20 -13 40 0t40 0 40 0 40 0 40 0 40 0 40 0 40 0 40 0 40 0' fill='none' stroke='#a8a29a' stroke-width='30'/><path d='M0 136q20 -11 40 0t40 0 40 0 40 0 40 0 40 0 40 0 40 0 40 0 40 0' fill='none' stroke='#bdb7ae' stroke-width='7'/><g fill='#6e6a64'><circle cx='96' cy='150' r='4'/><circle cx='214' cy='156' r='3'/><circle cx='300' cy='146' r='3.5'/></g><rect x='16' y='232' width='118' height='30' fill='#f5f3ef' stroke='#5a564f'/><text x='75' y='253' font-family='monospace' font-size='16' fill='#2a2a30' text-anchor='middle'>10 mm</text>`,
-  coating: () => `<rect width='400' height='300' fill='#d9d6d0'/><rect y='150' width='400' height='150' fill='#6b6660'/><rect y='120' width='400' height='30' fill='#c8621e'/><rect y='104' width='400' height='16' fill='#d8d3cb'/><g stroke='#2a2a30' stroke-width='2.5'><path d='M300 104v46M292 104h16M292 150h16'/></g><text x='318' y='132' font-family='monospace' font-size='17' fill='#2a2a30'>DFT</text><rect x='16' y='226' width='150' height='34' rx='4' fill='#fbfbf9' stroke='#5a564f'/><text x='91' y='250' font-family='monospace' font-size='18' fill='#2a2a30' text-anchor='middle'>168 um</text>`,
-  tape: () => `<rect width='400' height='300' fill='#dedbd5'/><rect y='96' width='400' height='108' fill='#a9a49c'/><rect y='128' width='400' height='30' fill='#f0c419'/><g stroke='#2a2a30' stroke-width='2'>${Array.from({ length: 20 }, (_, i) => `<path d='M${i * 20} 128v${i % 5 === 0 ? 30 : 14}'/>`).join('')}</g><g font-family='monospace' font-size='12' fill='#2a2a30'>${Array.from({ length: 4 }, (_, i) => `<text x='${i * 100 + 4}' y='176'>${i * 500}</text>`).join('')}</g>`,
-  plate: () => `<rect width='400' height='300' fill='#cdcac4'/><rect x='52' y='58' width='296' height='184' rx='5' fill='#b7b2ab' stroke='#5a564f' stroke-width='4'/><g font-family='monospace' fill='#232328'><text x='76' y='100' font-size='19'>MANUFACTURING CO.</text><text x='76' y='134' font-size='14'>SERIAL</text><text x='76' y='162' font-size='14'>DESIGN P.  4.0 BAR</text><text x='76' y='190' font-size='14'>TEST P.    6.0 BAR</text><text x='76' y='218' font-size='14'>YEAR       2026</text></g><g fill='#6e6a64'><circle cx='68' cy='72' r='5'/><circle cx='332' cy='72' r='5'/><circle cx='68' cy='228' r='5'/><circle cx='332' cy='228' r='5'/></g>`,
-  unit: () => `<rect width='400' height='300' fill='#c6d2da'/><rect y='196' width='400' height='104' fill='#b0a89c'/><rect x='40' y='96' width='320' height='104' rx='48' fill='#d8d4cc' stroke='#5a564f' stroke-width='4'/><rect x='34' y='88' width='332' height='120' rx='7' fill='none' stroke='#3f3b36' stroke-width='5'/><g fill='#5a564f'><circle cx='104' cy='210' r='19'/><circle cx='296' cy='210' r='19'/></g><path d='M40 148h320' stroke='#c8621e' stroke-width='9'/>`,
+const pointMap = (order, rows, values) => {
+  const view = (order.view || 'General arrangement').toUpperCase()
+  const letters = rows.slice(0, DIM_LINES.length).map((r) => r.itemNo)
+  return {
+    id: `map-${order.prefix}-${int(1000, 9999)}`,
+    // The view is already named above the plate; the caption says what
+    // the balloons on it are.
+    label: `Measurement points ${letters.join(', ')}`,
+    m: { prefix: order.prefix, dwg: values.drawingNo, view, letters },
+  }
 }
-// The caption strip is part of the plate, the way a site photo carries one.
-const esc = (t) => String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
-const photo = (kind, label, arg) => ({
-  id: `ph-${kind}-${int(1000, 9999)}`,
-  label,
-  img: svgUrl(`<svg xmlns='http://www.w3.org/2000/svg' width='400' height='300' viewBox='0 0 400 300'>`
-    + PLATE[kind](arg)
-    + `<rect y='272' width='400' height='28' fill='#000000' fill-opacity='0.55'/>`
-    + `<text x='9' y='291' font-family='monospace' font-size='13' fill='#ffffff'>${esc(label).slice(0, 46)}</text>`
-    + `</svg>`),
+
+const docPage = (title, ref, issuer) => ({
+  id: `doc-${int(1000, 9999)}`,
+  label: `${title} ${ref} — signed page 1`,
+  d: { title, ref, issuer },
 })
 
 // Which plates suit which report, and what the caption should say.
@@ -158,6 +119,10 @@ const BY_ID = {
   suSerial: () => `SU-${int(1000, 9999)}`, suSize: () => '10 mm dia.',
   hole: () => 'SDH Ø 2.4 mm', refReflector: () => 'IIW V1 block',
   model: () => 'EPOCH 650', serialNo: () => `SN-${int(10000, 99999)}`,
+  viewName: () => 'Tank general arrangement', inspStage: () => 'After welding',
+  tagNumber: () => 'N/A',
+  rev: () => `Rev. ${int(0, 2)}`,
+  notes: () => 'Filed against this unit. Scope as stated on the document; no exclusions.',
   cable: () => 'Coaxial BNC, 2.0 m', couplant: () => 'CMC gel',
   sspc: () => 'SP 10', surfacePrep: () => 'SA 2½',
 }
@@ -165,7 +130,7 @@ const BY_ID = {
 /* ── the three orders ───────────────────────────────────────────── */
 const FORM_KEYS = new Set(DELIVERABLES.filter((d) => d.form).map((d) => d.key))
 const ORDERS = [
-  { po: 'PO-2026-ISO-0447', product: 'ISO TANK SPARGES', kategori: 'NON TRAILER',
+  { po: 'PO-2026-ISO-0447', product: 'ISO TANK SPARGES', kategori: 'NON TRAILER', view: 'Side elevation',
     customer: 'Customer 07', customerId: 'CUST-007', units: 16, prefix: 'IST', first: 1000300001,
     required: ['Dimension Report', 'NDE Report', 'Leak & Hydro Test', 'Painting', 'Pre-Shipment'],
     parts: ['Shell longitudinal seam', 'Shell circumferential seam', 'Manlid nozzle N1',
@@ -175,7 +140,7 @@ const ORDERS = [
     nominal: [6058, 2438, 2591, 6470, 1220, 900],
     points: ['Shell external surface', 'Ladder mounting', 'Manlid seal face',
              'Frame weld toe', 'Data plate', 'Outlet valve guard'] },
-  { po: 'PO-2026-BKT-0512', product: 'BUCKET', kategori: 'NON TRAILER',
+  { po: 'PO-2026-BKT-0512', product: 'BUCKET', kategori: 'NON TRAILER', view: 'Section A-A',
     customer: 'Customer 03', customerId: 'CUST-003', units: 10, prefix: 'BKT', first: 1000310001,
     required: ['Dimension Report', 'NDE Report', 'Painting', 'Pre-Shipment'],
     parts: ['Lip plate to side', 'Wear strip fillet', 'Pivot lug root',
@@ -183,7 +148,7 @@ const ORDERS = [
     dims: ['Lip width', 'Bucket depth', 'Pin centre distance', 'Back height', 'Side plate pitch'],
     nominal: [3200, 1450, 1180, 1620, 2960],
     points: ['Lip wear plate', 'Pivot bore', 'Internal weld toe', 'Paint coverage', 'Data plate'] },
-  { po: 'PO-2026-WTK-0388', product: 'WATER TRUCK', kategori: 'SUPEQ',
+  { po: 'PO-2026-WTK-0388', product: 'WATER TRUCK', kategori: 'SUPEQ', view: 'Tank general arrangement',
     customer: 'Customer 05', customerId: 'CUST-005', units: 14, prefix: 'WTK', first: 1000320001,
     required: ['Dimension Report', 'NDE Report', 'Leak & Hydro Test', 'Painting', 'PDI'],
     variants: ['WATER TRUCK 20KL', 'WATER TRUCK 30KL', 'WATER TRUCK 35KL'],
@@ -192,6 +157,26 @@ const ORDERS = [
     dims: ['Tank length', 'Tank diameter', 'Sub-frame length', 'Baffle pitch', 'Sump depth'],
     nominal: [7200, 2200, 6800, 1500, 320],
     points: ['Tank external', 'Ladder & walkway', 'Spray bar', 'Pump guard', 'Data plate'] },
+
+  /* The fourth order carries every deliverable there is.
+
+     The other three each drop three or four — a bucket has nothing to
+     hydrotest, an isotank order this shop runs needs no performance
+     test — which is true to how the shop works and means none of them
+     can show what a complete data book looks like. This one is the
+     opposite case on purpose: nine deliverables, six units, all of them
+     finished, approved and photographed, so an MDR can be compiled from
+     it without filling anything in first. */
+  { po: 'PO-2026-FTK-0621', product: 'FUEL TANK 25KL', kategori: 'SUPEQ', view: 'Tank general arrangement',
+    customer: 'Customer 02', customerId: 'CUST-002', units: 6, prefix: 'FTK', first: 1000330001,
+    required: DELIVERABLES.map((d) => d.key),
+    parts: ['Shell longitudinal seam', 'Shell circumferential seam', 'Sump to shell fillet',
+            'Filler neck to shell', 'Skid mounting bracket', 'Baffle to shell'],
+    dims: ['Tank length', 'Tank height', 'Shell diameter', 'Skid length',
+           'Baffle pitch', 'Sump centre offset'],
+    nominal: [5400, 2100, 2000, 5600, 1350, 780],
+    points: ['Shell external surface', 'Filler neck & breather', 'Sump & drain valve',
+             'Skid frame weld toe', 'Ladder & platform', 'Data plate'] },
 ]
 
 /* How far along each unit is. A live register is never uniformly
@@ -219,6 +204,8 @@ const STAGE_MIX = {
         'nearly', 'nearly', 'partway', 'partway', 'started'],
   WTK: ['complete', 'complete', 'complete', 'complete', 'complete', 'complete',
         'nearly', 'nearly', 'partway', 'partway', 'started', 'started', 'untouched', 'untouched'],
+  // Every one of them, so the order it belongs to is the one to open.
+  FTK: ['complete', 'complete', 'complete', 'complete', 'complete', 'complete'],
 }
 function stageFor(prefix, i, total) {
   const mix = STAGE_MIX[prefix]
@@ -246,6 +233,14 @@ function fillField(f, ctx, values) {
   if (f.id === 'description') return pick(ctx.order.dims)
   if (f.id === 'point') return pick(ctx.order.points)
   if (f.id === 'drawingNo') return `DWG-${ctx.order.prefix}-${int(4100, 4180)}-R${int(0, 2)}`
+  if (f.id === 'viewName') return ctx.order.view || 'General arrangement'
+  /* A document record carries somebody else's document: its own number,
+     the day it was issued, and who signed it. Left to the generic
+     fillers these came out as placeholder text on the one section a
+     record exists for. */
+  if (f.id === 'docRef') return `${ctx.code}-${ctx.order.po.slice(-4)}-${pad2(ctx.unitIndex + 1)}`
+  if (f.id === 'issuedOn') return ctx.date
+  if (f.id === 'issuedBy') return ctx.issuer || 'QC Engineering'
   if (BY_ID[f.id]) return BY_ID[f.id]()
   if (t === 'number') return dec(1, 100, 1)
   /* Non-conformance notes belong on a non-conformance. The blanket
@@ -272,18 +267,30 @@ const buildRow = (columns, ctx, values, force = {}) => {
 
 const NDE_ROTATION = ['mt', 'pt', 'ut']
 const FORM_FOR = { 'Dimension Report': 'dimensional', 'Leak & Hydro Test': 'hydrotest',
-                   'Painting': 'blasting', 'Pre-Shipment': 'visual', 'PDI': 'visual' }
+                   'Painting': 'blasting', 'Pre-Shipment': 'visual', 'PDI': 'visual',
+                   ITP: 'itp', PTR: 'ptr', IRN: 'irn' }
 
 const jobs = []
 const reports = []
 let jobNoCounter = 0
+// Numbers already handed out, per form and job. See makeReport.
+const issued = {}
 
 function makeReport({ order, job, unitIndex, deliverable, formKey, issue, dayOffset, reject, status, supersedes, withEvidence }) {
   const schema = FORM_SCHEMAS[formKey]
   const inspector = INSPECTORS[(unitIndex + issue) % INSPECTORS.length]
   const date = new Date(Date.UTC(2026, 3, 6 + dayOffset)).toISOString().slice(0, 10)
-  const ctx = { inspector, date, order }
-  const reportId = `MFG/${schema.code}/${job.jobNo}/${pad2(issue)}`
+  const ISSUER = { itp: 'QC Engineering & Client', ptr: 'Test house — PT Uji Mutu', irn: 'Client site inspector' }
+  const ctx = { inspector, date, order, code: schema.code, unitIndex, issuer: ISSUER[schema.key] }
+
+  /* The number is handed out per form and job, exactly as nextReportId
+     does at runtime — not per deliverable. Pre-Shipment and PDI are both
+     filled on the visual form, so an order carrying both used to produce
+     two different documents under one number, MFG/VG/<job>/01 twice, and
+     a data book cannot have that. */
+  const numKey = `${schema.code}/${job.jobNo}`
+  const seq = (issued[numKey] = (issued[numKey] || 0) + 1)
+  const reportId = `MFG/${schema.code}/${job.jobNo}/${pad2(seq)}`
 
   const values = { reportId, inspDate: date, inspector, jobNo: job.jobNo, poNo: order.po,
     wbsNo: job.wbsNo, jobDesc: job.productDesc, sn: job.arasSN, unit: job.unitNo, customer: order.customer }
@@ -299,7 +306,11 @@ function makeReport({ order, job, unitIndex, deliverable, formKey, issue, dayOff
       }
     } else if (type === 'results') {
       const rej = sec.rejValue || 'Reject', acc = sec.accValue || 'Acc'
-      for (let i = 0; i < 5; i++) {
+      /* A dimensional report has one row per balloon on its drawing, so
+         the count comes from the drawing rather than from a round
+         number: six lines, six letters, six rows. */
+      const count = sec.autoJudge === 'dim' ? Math.min(order.dims.length, DIM_LINES.length) : 5
+      for (let i = 0; i < count; i++) {
         const bad = reject && i === 2
         const force = sec.judgeKey && sec.autoJudge !== 'dim' ? { [sec.judgeKey]: bad ? rej : acc } : {}
         if (bad) {
@@ -309,10 +320,12 @@ function makeReport({ order, job, unitIndex, deliverable, formKey, issue, dayOff
         }
         if (sec.autoJudge === 'dim') {
           const nominal = order.nominal[i % order.nominal.length]
-          Object.assign(force, { description: order.dims[i % order.dims.length],
+          // The letter is the row's tie to the balloon on the map above it.
+          Object.assign(force, { itemNo: String.fromCharCode(65 + i),
+            description: order.dims[i % order.dims.length],
             nominal: String(nominal), min: String(nominal - 3), max: String(nominal + 3),
             actual: String(nominal + (bad ? 7 : (i % 3) - 1)) })
-          if (bad) force.note = 'Outside drawing tolerance. NCR raised.'
+          force.note = bad ? 'Outside drawing tolerance. NCR raised.' : ''
         }
         results.push(buildRow(sec.columns || [], ctx, values, force))
       }
@@ -362,12 +375,23 @@ function makeReport({ order, job, unitIndex, deliverable, formKey, issue, dayOff
      no evidence to show yet anyway. */
   if (withEvidence) photos.push(...photosFor(formKey, values, results))
 
+  /* The point map is not photo evidence — it is the drawing the table is
+     read against, and it belongs in the report whether or not this unit
+     was photographed. fillField wrote the string "N/A" into it, so every
+     dimensional report printed letters against nothing. */
+  if (schema.key === 'dimensional') values.drawingFile = [pointMap(order, results, values)]
+
+  /* A record is closed on the signed page it holds. Without one the
+     section that is the entire point of the form printed "No photos
+     attached". */
+  if (schema.kind === 'record') photos.push(docPage(schema.title, values.docRef, values.issuedBy))
+
   const submittedAt = `${date}T09:${pad2(int(10, 55))}:00.000Z`
   const approvedAt = `${date}T15:${pad2(int(5, 50))}:00.000Z`
   if (status !== 'draft') values.signInspector = sig(inspector, submittedAt)
   if (status === 'approved') values.signQc = sig(QA, approvedAt)
 
-  const rep = { id: `demo-${job.jobNo}-${schema.code}-${pad2(issue)}`, reportId, formKey,
+  const rep = { id: `demo-${job.jobNo}-${schema.code}-${pad2(seq)}`, reportId, formKey,
     jobNo: job.jobNo, deliverable, status, inspector, values, readings, results, coats, photos,
     createdAt: `${date}T07:40:00.000Z`,
     updatedAt: status === 'approved' ? approvedAt : submittedAt,
@@ -474,7 +498,20 @@ writeFileSync('src/data/seedReports.js',
 // ${reports.filter((r) => (r.photos || []).length).length} of them carrying photo evidence.
 // Every deliverable that reads Done has one of these behind it; the job
 // list marks nothing done on its own. Fictional people and customers.
-export const SEED_REPORTS = ${JSON.stringify(reports)}
+//
+// Pictures are recipes, not data URLs: { k } names a plate, { m } a
+// measurement point map, { d } a filed document, { h } a signing hand.
+// hydrate() in ./plates.js draws them, and the store calls it once, when
+// it seeds. Carrying them expanded here cost 1.2 MB.
+import { hydrate } from './plates.js'
+
+const RAW = ${JSON.stringify(reports)}
+
+/* Built on demand, and only ever once: a device that has already seeded
+   never asks, and a device that has not pays for the drawings at the one
+   moment it needs them. */
+let built = null
+export const seedReports = () => (built ||= RAW.map(hydrate))
 
 // Issue numbers already spent, so none can be handed out twice.
 export const SEED_COUNTERS = ${JSON.stringify(counters)}

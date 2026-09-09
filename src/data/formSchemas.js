@@ -369,15 +369,33 @@ export const FORM_SCHEMAS = {
     deliverable: 'Dimension Report', formNo: 'F.380.WS-3.061',
     sections: [
       headerSection,
-      { id: 'drawing', title: 'Drawing Reference', fields: [
-        { id: 'drawingNo', label: 'Drawing No. / Rev', type: 'text', req: 'M', half: true },
-        { id: 'drawingFile', label: 'Drawing Attachment', type: 'photos-inline', hint: 'Upload reference drawing' },
-      ]},
+      /* The map the measurements were taken from.
+
+         A dimensional report is a page of numbers against letters, and
+         the letters mean nothing without the drawing they are balloon-ed
+         on. That drawing lived on paper next to the inspector and never
+         reached the report, so a reader years later had six numbers and
+         no way to know where on the unit any of them was taken. It goes
+         above the table, at the size it has to be read at, because it is
+         what the table is read against. */
+      { id: 'drawing', title: 'Measurement Point Map',
+        subtitle: 'The marked-up drawing the table refers to — balloon each point A, B, C…',
+        fields: [
+          { id: 'drawingNo', label: 'Drawing No. / Rev', type: 'text', req: 'M', half: true },
+          { id: 'viewName', label: 'View / area shown', type: 'text', half: true, placeholder: 'e.g. TOP CLOSURE' },
+          { id: 'inspStage', label: 'Inspection stage', type: 'text', half: true, placeholder: 'e.g. AFTER WELDING' },
+          { id: 'tagNumber', label: 'Tag number', type: 'text', half: true, placeholder: 'N/A if none' },
+          { id: 'drawingFile', label: 'Point map', type: 'photos-inline',
+            hint: 'Photograph or export the marked drawing. Each balloon letter is a row below.' },
+        ]},
       { id: 'results', title: 'Measurement Grid', subtitle: 'Actual outside Min–Max is rejected automatically', type: 'results',
         judgeKey: 'rowStatus', accValue: 'Accept', rejValue: 'Reject', autoJudge: 'dim',
         columns: [
-          { id: 'description', label: 'Description', type: 'text', req: 'M', placeholder: 'e.g. Overall Length' },
-          { id: 'itemNo', label: 'Item No.', type: 'text', half: true },
+          /* The balloon letter leads: it is what ties the row to the map
+             above it, and it is the first thing anybody reading the two
+             together looks for. */
+          { id: 'itemNo', label: 'Dim.', type: 'text', req: 'M', half: true, placeholder: 'A' },
+          { id: 'description', label: 'Description', type: 'text', req: 'M', half: true, placeholder: 'e.g. Overall Length' },
           { id: 'nominal', label: 'Nominal', type: 'number', unit: 'mm', half: true },
           { id: 'min', label: 'Min', type: 'number', unit: 'mm', half: true, req: 'M', placeholder: 'lower limit' },
           { id: 'max', label: 'Max', type: 'number', unit: 'mm', half: true, req: 'M', placeholder: 'upper limit' },

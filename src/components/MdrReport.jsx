@@ -18,7 +18,23 @@ import { IconPrint } from './Icons.jsx'
 
 const reportDate = (r) => r.values?.inspDate || r.updatedAt || r.createdAt
 
-export default function MdrReport({ job, reports, session, onClose }) {
+/* Where the declaration is made.
+
+   Every report used to print its own Statement of Result — a page
+   saying, in a formal voice, that this shop carried out that inspection
+   and hereby accepts the object. Bound into a data book that is nine of
+   them, one after another, about the same unit, on the same day, over
+   the same signature. A reader gets the declaration nine times and the
+   evidence once.
+
+   So the book can make it once instead, at the front, listing what was
+   carried out and declaring the unit on the strength of all of it. Both
+   are legitimate: a customer who takes delivery of the reports
+   separately needs each to stand alone, and one who takes the book
+   needs it to say something the loose pages cannot. The choice is made
+   when the book is compiled, because that is when it is known. */
+export default function MdrReport({ job, reports, session, onClose, statements = 'book' }) {
+  const oneStatement = statements === 'book'
   const wrap = useRef(null)
   useEffect(() => {
     document.body.classList.add('printing')
@@ -51,13 +67,17 @@ export default function MdrReport({ job, reports, session, onClose }) {
      sheets — cover, contents, register — and each report contributes its
      own; the measured counts replace this assumption as soon as the
      first layout pass reports back. */
-  const FRONT = 3
-  const sheetsPer = printable.map((r) => reportSheetCount(FORM_SCHEMAS[r.formKey], r, rowFit[r.id]))
+  const FRONT = oneStatement ? 4 : 3
+  const sheetsPer = printable.map((r) => reportSheetCount(FORM_SCHEMAS[r.formKey], r, rowFit[r.id], oneStatement))
   const sheetTotal = FRONT + sheetsPer.reduce((a, b) => a + b, 0)
   const { spans, total: totalPages } = pageSpans(
     fit && fit.length === sheetTotal ? fit : oneEach(sheetTotal)
   )
   const REGISTER_PAGE = spans[2]?.[0] ?? 3
+  const STATEMENT_PAGE = spans[3]?.[0] ?? 4
+  // Section 1 is the register; the statement, when the book makes one,
+  // is Section 2 and the documents start after it.
+  const FIRST_DOC_SECTION = oneStatement ? 3 : 2
 
   let cursor = FRONT
   const items = printable.map((r, i) => {
@@ -68,7 +88,7 @@ export default function MdrReport({ job, reports, session, onClose }) {
       r, schema: FORM_SCHEMAS[r.formKey], sheets, at,
       map: spans.slice(at, at + sheets),
       page: spans[at]?.[0] ?? 0,
-      sectionNo: i + 2,
+      sectionNo: i + FIRST_DOC_SECTION,
     }
   })
 
@@ -77,7 +97,7 @@ export default function MdrReport({ job, reports, session, onClose }) {
      a report whose sheets would not fit is given fewer rows per sheet and
      measured again, rather than left to flow and be estimated. */
   useSheetZoom(wrap)
-  useFitToPage(wrap, [job.jobNo, reports.length, sheetTotal, Object.values(rowFit).join(',')], (f) => {
+  useFitToPage(wrap, [job.jobNo, reports.length, sheetTotal, statements, Object.values(rowFit).join(',')], (f) => {
     setFit((p) => (sameFit(p, f) ? p : f))
     if (f.length !== sheetTotal) return
     setRowFit((prev) => {
@@ -254,6 +274,16 @@ export default function MdrReport({ job, reports, session, onClose }) {
                   <td>—</td>
                   <td>{REGISTER_PAGE}</td>
                 </tr>
+                {oneStatement && (
+                  <tr>
+                    <td>2</td>
+                    <td className="ps-left">Statement of Inspection</td>
+                    <td className="ps-left">{mdrNo}</td>
+                    <td>{fmtDate(today.toISOString())}</td>
+                    <td className={pass ? 'ps-result-acc' : 'ps-result-rej'}>{pass ? 'ACCEPT' : 'HOLD'}</td>
+                    <td>{STATEMENT_PAGE}</td>
+                  </tr>
+                )}
                 {items.map((it) => {
                   const res = reportResult(it.r)
                   return (
@@ -394,11 +424,104 @@ export default function MdrReport({ job, reports, session, onClose }) {
         </table>
       </div>
 
-      {/* ══════════ SECTION 2..n — every report, in full ══════════ */}
+      {/* ══════════ SECTION 2 — the one statement ══════════
+
+          Made once, for the unit, on the strength of everything bound
+          behind it — rather than nine times, once per report, about the
+          same object over the same signature on the same day. */}
+      {oneStatement && (
+        <div className="print-sheet ps-sheet-break">
+          <table className="ps-doc">
+            {kop}{foot(3)}
+            <tbody><tr><td className="ps-runcell ps-body">
+              <div className="ps-tab">
+                <span className="ps-tab-no">Section 2</span>
+                <span className="ps-tab-title">Statement of Inspection</span>
+              </div>
+
+              <div className="ps-letter">
+                <div className="ps-letter-title">Statement of Inspection</div>
+                <div className="ps-letter-meta">{mdrNo} · Revision 0</div>
+
+                <p>
+                  {COMPANY.legalName} ({COMPANY.department}) states that the inspections and tests
+                  listed below were carried out on the product identified as follows, and that the
+                  signed records of each are reproduced in full in this data report.
+                </p>
+
+                <table className="ps-letter-id"><tbody>
+                  <tr><td>Job No.</td><td>: {job.jobNo}{job.wbsNo ? `  (WBS ${job.wbsNo})` : ''}</td></tr>
+                  <tr><td>Product</td><td>: {job.productDesc}</td></tr>
+                  <tr><td>Serial No.</td><td>: {job.arasSN || job.unitNo || '—'}</td></tr>
+                  <tr><td>Customer</td><td>: {job.customerName}{job.poNo ? `  (PO ${job.poNo})` : ''}</td></tr>
+                  <tr><td>Period</td><td>: {span}</td></tr>
+                </tbody></table>
+
+                {/* What was actually done — the list the statement is
+                    made on, so the declaration below is checkable
+                    against it without turning a page. */}
+                <table className="ps-grid ps-mt-3">
+                  <thead><tr>
+                    <th style={{ width: '10mm' }}>No</th>
+                    <th className="ps-left">Inspection carried out</th>
+                    <th style={{ width: '44mm' }}>Record No.</th>
+                    <th style={{ width: '24mm' }}>Date</th>
+                    <th style={{ width: '20mm' }}>Result</th>
+                  </tr></thead>
+                  <tbody>
+                    {items.map((it, i) => {
+                      const res = reportResult(it.r)
+                      return (
+                        <tr key={it.r.id}>
+                          <td>{i + 1}</td>
+                          <td className="ps-left">{it.schema?.title || it.r.formKey}</td>
+                          <td className="ps-left ps-refno">{it.r.reportId}</td>
+                          <td>{fmtDate(reportDate(it.r))}</td>
+                          <td className={res === 'Accept' ? 'ps-result-acc' : 'ps-result-rej'}>{res.toUpperCase()}</td>
+                        </tr>
+                      )
+                    })}
+                  </tbody>
+                </table>
+
+                <p className="ps-mt-3">
+                  On the results recorded above, the unit identified in this statement is declared{' '}
+                  <strong className={pass ? 'ps-result-acc' : 'ps-result-rej'}>
+                    {pass ? 'ACCEPTED' : 'ON HOLD'}
+                  </strong>
+                  {pass
+                    ? ' and released for shipment in accordance with the applicable requirements.'
+                    : ' pending closure of the non-conformances recorded against it.'}
+                </p>
+
+                {!pass && (
+                  <p>
+                    Non-conforming results are recorded in{' '}
+                    {rejected.map((it) => `${it.schema?.title} (${it.r.reportId}, Section ${it.sectionNo})`).join('; ')}.
+                    Reference is made to the associated Non-Conformance Reports for disposition and
+                    corrective action.
+                  </p>
+                )}
+
+                <p className="ps-letter-close">
+                  This statement is issued by and on behalf of {COMPANY.legalName}, and is made
+                  truthfully to be used as required. It covers every document bound in this data
+                  report; the individual records carry no separate statement of result.
+                </p>
+
+                {signRow}
+              </div>
+            </td></tr></tbody>
+          </table>
+        </div>
+      )}
+
+      {/* ══════════ the reports, in full ══════════ */}
       {items.map((it) => (
         <ReportSheets key={it.r.id} schema={it.schema} report={it.r} job={job}
           deliverable={it.r.deliverable} status={it.r.status} rowFit={rowFit[it.r.id]}
-          pageMap={it.map} pageTotal={totalPages} sectionNo={it.sectionNo} breakFirst />
+          pageMap={it.map} pageTotal={totalPages} sectionNo={it.sectionNo} breakFirst
+          noStatement={oneStatement} />
       ))}
       </div>
     </div>

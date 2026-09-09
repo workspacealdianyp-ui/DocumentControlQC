@@ -11,6 +11,7 @@
   "PDI"
  ],
  "customers": [
+  "Customer 02",
   "Customer 03",
   "Customer 05",
   "Customer 07"
@@ -22,6 +23,7 @@
  ],
  "types": [
   "BUCKET",
+  "FUEL TANK 25KL",
   "ISO TANK SPARGES",
   "WATER TRUCK 20KL",
   "WATER TRUCK 30KL",
@@ -2450,6 +2452,396 @@
     },
     "IRN": {
      "status": "na",
+     "ref": null
+    },
+    "PDI": {
+     "status": "not-started",
+     "ref": null
+    }
+   }
+  },
+  {
+   "no": 41,
+   "kategori": "SUPEQ",
+   "type": "FUEL TANK 25KL",
+   "productDesc": "FUEL TANK 25KL",
+   "datePB": "2026-03-02",
+   "jobNo": "1000330001",
+   "wbsNo": "WBS-26-0121",
+   "arasSN": "FTK-0621-01",
+   "unitNo": "FTK-0621-01",
+   "poNo": "PO-2026-FTK-0621",
+   "customerId": "CUST-002",
+   "customerName": "Customer 02",
+   "cogm": "226005617",
+   "datePdiRelease": "2026-11-20",
+   "required": [
+    "ITP",
+    "Dimension Report",
+    "NDE Report",
+    "Leak & Hydro Test",
+    "Painting",
+    "PTR",
+    "Pre-Shipment",
+    "IRN",
+    "PDI"
+   ],
+   "deliverables": {
+    "ITP": {
+     "status": "not-started",
+     "ref": null
+    },
+    "Dimension Report": {
+     "status": "not-started",
+     "ref": null
+    },
+    "NDE Report": {
+     "status": "not-started",
+     "ref": null
+    },
+    "Leak & Hydro Test": {
+     "status": "not-started",
+     "ref": null
+    },
+    "Painting": {
+     "status": "not-started",
+     "ref": null
+    },
+    "PTR": {
+     "status": "not-started",
+     "ref": null
+    },
+    "Pre-Shipment": {
+     "status": "not-started",
+     "ref": null
+    },
+    "IRN": {
+     "status": "not-started",
+     "ref": null
+    },
+    "PDI": {
+     "status": "not-started",
+     "ref": null
+    }
+   }
+  },
+  {
+   "no": 42,
+   "kategori": "SUPEQ",
+   "type": "FUEL TANK 25KL",
+   "productDesc": "FUEL TANK 25KL",
+   "datePB": "2026-03-02",
+   "jobNo": "1000330002",
+   "wbsNo": "WBS-26-0221",
+   "arasSN": "FTK-0621-02",
+   "unitNo": "FTK-0621-02",
+   "poNo": "PO-2026-FTK-0621",
+   "customerId": "CUST-002",
+   "customerName": "Customer 02",
+   "cogm": "226005754",
+   "datePdiRelease": "2026-11-20",
+   "required": [
+    "ITP",
+    "Dimension Report",
+    "NDE Report",
+    "Leak & Hydro Test",
+    "Painting",
+    "PTR",
+    "Pre-Shipment",
+    "IRN",
+    "PDI"
+   ],
+   "deliverables": {
+    "ITP": {
+     "status": "not-started",
+     "ref": null
+    },
+    "Dimension Report": {
+     "status": "not-started",
+     "ref": null
+    },
+    "NDE Report": {
+     "status": "not-started",
+     "ref": null
+    },
+    "Leak & Hydro Test": {
+     "status": "not-started",
+     "ref": null
+    },
+    "Painting": {
+     "status": "not-started",
+     "ref": null
+    },
+    "PTR": {
+     "status": "not-started",
+     "ref": null
+    },
+    "Pre-Shipment": {
+     "status": "not-started",
+     "ref": null
+    },
+    "IRN": {
+     "status": "not-started",
+     "ref": null
+    },
+    "PDI": {
+     "status": "not-started",
+     "ref": null
+    }
+   }
+  },
+  {
+   "no": 43,
+   "kategori": "SUPEQ",
+   "type": "FUEL TANK 25KL",
+   "productDesc": "FUEL TANK 25KL",
+   "datePB": "2026-03-02",
+   "jobNo": "1000330003",
+   "wbsNo": "WBS-26-0321",
+   "arasSN": "FTK-0621-03",
+   "unitNo": "FTK-0621-03",
+   "poNo": "PO-2026-FTK-0621",
+   "customerId": "CUST-002",
+   "customerName": "Customer 02",
+   "cogm": "226005891",
+   "datePdiRelease": "2026-11-20",
+   "required": [
+    "ITP",
+    "Dimension Report",
+    "NDE Report",
+    "Leak & Hydro Test",
+    "Painting",
+    "PTR",
+    "Pre-Shipment",
+    "IRN",
+    "PDI"
+   ],
+   "deliverables": {
+    "ITP": {
+     "status": "not-started",
+     "ref": null
+    },
+    "Dimension Report": {
+     "status": "not-started",
+     "ref": null
+    },
+    "NDE Report": {
+     "status": "not-started",
+     "ref": null
+    },
+    "Leak & Hydro Test": {
+     "status": "not-started",
+     "ref": null
+    },
+    "Painting": {
+     "status": "not-started",
+     "ref": null
+    },
+    "PTR": {
+     "status": "not-started",
+     "ref": null
+    },
+    "Pre-Shipment": {
+     "status": "not-started",
+     "ref": null
+    },
+    "IRN": {
+     "status": "not-started",
+     "ref": null
+    },
+    "PDI": {
+     "status": "not-started",
+     "ref": null
+    }
+   }
+  },
+  {
+   "no": 44,
+   "kategori": "SUPEQ",
+   "type": "FUEL TANK 25KL",
+   "productDesc": "FUEL TANK 25KL",
+   "datePB": "2026-03-02",
+   "jobNo": "1000330004",
+   "wbsNo": "WBS-26-0421",
+   "arasSN": "FTK-0621-04",
+   "unitNo": "FTK-0621-04",
+   "poNo": "PO-2026-FTK-0621",
+   "customerId": "CUST-002",
+   "customerName": "Customer 02",
+   "cogm": "226006028",
+   "datePdiRelease": "2026-11-20",
+   "required": [
+    "ITP",
+    "Dimension Report",
+    "NDE Report",
+    "Leak & Hydro Test",
+    "Painting",
+    "PTR",
+    "Pre-Shipment",
+    "IRN",
+    "PDI"
+   ],
+   "deliverables": {
+    "ITP": {
+     "status": "not-started",
+     "ref": null
+    },
+    "Dimension Report": {
+     "status": "not-started",
+     "ref": null
+    },
+    "NDE Report": {
+     "status": "not-started",
+     "ref": null
+    },
+    "Leak & Hydro Test": {
+     "status": "not-started",
+     "ref": null
+    },
+    "Painting": {
+     "status": "not-started",
+     "ref": null
+    },
+    "PTR": {
+     "status": "not-started",
+     "ref": null
+    },
+    "Pre-Shipment": {
+     "status": "not-started",
+     "ref": null
+    },
+    "IRN": {
+     "status": "not-started",
+     "ref": null
+    },
+    "PDI": {
+     "status": "not-started",
+     "ref": null
+    }
+   }
+  },
+  {
+   "no": 45,
+   "kategori": "SUPEQ",
+   "type": "FUEL TANK 25KL",
+   "productDesc": "FUEL TANK 25KL",
+   "datePB": "2026-03-02",
+   "jobNo": "1000330005",
+   "wbsNo": "WBS-26-0521",
+   "arasSN": "FTK-0621-05",
+   "unitNo": "FTK-0621-05",
+   "poNo": "PO-2026-FTK-0621",
+   "customerId": "CUST-002",
+   "customerName": "Customer 02",
+   "cogm": "226006165",
+   "datePdiRelease": "2026-11-20",
+   "required": [
+    "ITP",
+    "Dimension Report",
+    "NDE Report",
+    "Leak & Hydro Test",
+    "Painting",
+    "PTR",
+    "Pre-Shipment",
+    "IRN",
+    "PDI"
+   ],
+   "deliverables": {
+    "ITP": {
+     "status": "not-started",
+     "ref": null
+    },
+    "Dimension Report": {
+     "status": "not-started",
+     "ref": null
+    },
+    "NDE Report": {
+     "status": "not-started",
+     "ref": null
+    },
+    "Leak & Hydro Test": {
+     "status": "not-started",
+     "ref": null
+    },
+    "Painting": {
+     "status": "not-started",
+     "ref": null
+    },
+    "PTR": {
+     "status": "not-started",
+     "ref": null
+    },
+    "Pre-Shipment": {
+     "status": "not-started",
+     "ref": null
+    },
+    "IRN": {
+     "status": "not-started",
+     "ref": null
+    },
+    "PDI": {
+     "status": "not-started",
+     "ref": null
+    }
+   }
+  },
+  {
+   "no": 46,
+   "kategori": "SUPEQ",
+   "type": "FUEL TANK 25KL",
+   "productDesc": "FUEL TANK 25KL",
+   "datePB": "2026-03-02",
+   "jobNo": "1000330006",
+   "wbsNo": "WBS-26-0621",
+   "arasSN": "FTK-0621-06",
+   "unitNo": "FTK-0621-06",
+   "poNo": "PO-2026-FTK-0621",
+   "customerId": "CUST-002",
+   "customerName": "Customer 02",
+   "cogm": "226006302",
+   "datePdiRelease": "2026-11-20",
+   "required": [
+    "ITP",
+    "Dimension Report",
+    "NDE Report",
+    "Leak & Hydro Test",
+    "Painting",
+    "PTR",
+    "Pre-Shipment",
+    "IRN",
+    "PDI"
+   ],
+   "deliverables": {
+    "ITP": {
+     "status": "not-started",
+     "ref": null
+    },
+    "Dimension Report": {
+     "status": "not-started",
+     "ref": null
+    },
+    "NDE Report": {
+     "status": "not-started",
+     "ref": null
+    },
+    "Leak & Hydro Test": {
+     "status": "not-started",
+     "ref": null
+    },
+    "Painting": {
+     "status": "not-started",
+     "ref": null
+    },
+    "PTR": {
+     "status": "not-started",
+     "ref": null
+    },
+    "Pre-Shipment": {
+     "status": "not-started",
+     "ref": null
+    },
+    "IRN": {
+     "status": "not-started",
      "ref": null
     },
     "PDI": {

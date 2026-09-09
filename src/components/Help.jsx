@@ -24,7 +24,7 @@ const STEPS = [
   ['Inspect', 'An inspector opens a unit and fills only the reports that order asked for. Page 1 of every form is the job identity, quoted from the order and not editable.'],
   ['Submit and approve', 'A submitted report becomes read-only. An admin opens it and either approves it there, where the evidence is, or sends it back with the reason — which returns the deliverable to In Progress until it is submitted again.'],
   ['Amend what is signed', 'An approved report is never rewritten. Editing one raises the next issue against the same job and form; the approved issue stays on file exactly as it was approved, and the amendment has to be submitted and approved on its own.'],
-  ['Issue the data book', 'Generate MDR binds the approved documents behind a cover, a contents page and a register — each report in full, on its own page.'],
+  ['Issue the data book', 'Generate MDR binds the approved documents behind a cover, a contents page and a register — each report in full, on its own page. Choose where the declaration is made: one Statement of Inspection at the front for the whole unit, or the statement each report carries when it prints on its own.'],
 ]
 
 export default function Help() {

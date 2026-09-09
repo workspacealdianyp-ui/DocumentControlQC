@@ -15,7 +15,7 @@ vi.mock('../../src/lib/jobOrders.js', () => ({
 vi.mock('../../src/data/seedReports.js', () => ({
   // A draft, so the deletion rules let the "does not run twice" test
   // remove it through the real API rather than around it.
-  SEED_REPORTS: [{ id: 'seed-1', jobNo: '900', reportId: 'MFG/DIM/900/01', status: 'draft' }],
+  seedReports: () => [{ id: 'seed-1', jobNo: '900', reportId: 'MFG/DIM/900/01', status: 'draft' }],
   SEED_COUNTERS: { 'DIM/900': 1 },
 }))
 
