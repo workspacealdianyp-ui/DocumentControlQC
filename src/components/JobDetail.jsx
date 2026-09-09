@@ -284,15 +284,25 @@ export default function JobDetail({ job }) {
                   onClick={() => openDoc(r)}
                   onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openDoc(r) } }}>
                   <span className="rep-code" aria-hidden="true">{FORM_SCHEMAS[r.formKey]?.code || '—'}</span>
-                  <strong className="rep-id"><ReportId id={r.reportId} /></strong>
+                  {/* The document's name leads, the way the deliverable
+                      rows above are led by theirs — every number in this
+                      list shares the job's prefix, so the number is not
+                      what tells one row from another here. It moves to
+                      the line under the name, where it is still the
+                      thing you copy into an email. */}
+                  <strong className="rep-id">{FORM_SCHEMAS[r.formKey]?.title || r.deliverable}</strong>
                   <span className="rep-state">
                     {reportResult(r) === 'Reject' && <span className="rep-ncr" title="Non-conformance recorded">NCR</span>}
                     <StateBadge status={r.status} />
                   </span>
-                  <small className="rep-sub">{FORM_SCHEMAS[r.formKey]?.title || r.deliverable}</small>
+                  <small className="rep-sub doc-num"><ReportId id={r.reportId} /></small>
                   <small className="rep-foot">
-                    {n > 0 && <span className="doc-issue">Issue {String(n).padStart(2, '0')}</span>}
-                    <span className="rep-dot" aria-hidden="true">·</span>
+                    {n > 0 && (
+                      <>
+                        <span className="doc-issue">Issue {String(n).padStart(2, '0')}</span>
+                        <span className="rep-dot" aria-hidden="true">·</span>
+                      </>
+                    )}
                     {fmtDateTime(r.updatedAt)}{r.inspector ? ` · ${r.inspector}` : ''}
                   </small>
                   <span className="rep-go" aria-hidden="true"><Chevron /></span>

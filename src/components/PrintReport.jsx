@@ -382,7 +382,7 @@ function CompactPage({ schema, report, job, v, approvalSec, chunk }) {
           <strong className={r.released ? 'ps-result-acc' : 'ps-result-rej'}>
             {r.released ? 'ACCEPTED' : 'REJECTED'}
           </strong>{' '}
-          in accordance with {acceptance}. {r.headline}. Issued by and on behalf of {COMPANY.legalName}.
+          in accordance with {acceptance}. Issued by and on behalf of {COMPANY.legalName}.
         </p>
       </div>
 
@@ -684,7 +684,7 @@ export function ReportSheets({ schema, report, job, deliverable, status, pageMap
               <tr><td>Inspection</td><td>: {schema.title}{deliverable ? ` — ${deliverable}` : ''}</td></tr>
             </tbody></table>
             <p>{r.paragraph}</p>
-            <p>Based on the inspection results above, the object is hereby declared <strong className={r.released ? 'ps-result-acc' : 'ps-result-rej'}>{r.released ? 'ACCEPTED' : 'REJECTED'}</strong> — {r.headline}.</p>
+            <p>Based on the inspection results above, the object is hereby declared <strong className={r.released ? 'ps-result-acc' : 'ps-result-rej'}>{r.released ? 'ACCEPTED' : 'REJECTED'}</strong>.</p>
             <p className="ps-letter-close">This statement is issued by and on behalf of {COMPANY.legalName}, and is made truthfully to be used as required.</p>
             {approvalSec && <Signatures fields={approvalSec.fields} v={v} />}
           </div>

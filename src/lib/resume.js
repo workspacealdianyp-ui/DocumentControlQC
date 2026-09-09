@@ -1,6 +1,6 @@
 import { COMPANY } from './company.js'
 // Auto-generated, plain-English Resume of a report — compiled from all entered data.
-// Returns { verdict, headline, stats:[{label,value}], paragraph }.
+// Returns { verdict, released, stats:[{label,value}], paragraph }.
 import { MR } from './compute.js'
 import { dimRowStatus } from '../data/formSchemas.js'
 import { reportResult } from './verdict.js'
@@ -110,20 +110,14 @@ export function buildResume(schema, report, job) {
       ? `${pages} signed page${pages === 1 ? '' : 's'} ${pages === 1 ? 'is' : 'are'} held with this record.`
       : 'No page of the document is held with this record.'
     if (v.notes) p += ` ${v.notes}`
-    return {
-      verdict, released, stats, paragraph: p,
-      headline: schema.verdict
-        ? (released ? `Document on file — result Accept` : 'Document on file — result Reject')
-        : 'Document on file',
-    }
+    return { verdict, released, stats, paragraph: p }
   }
 
-  const headline = released ? 'Acceptable. Conforms to requirements' : 'Non-conforming. See findings'
   let paragraph = `On ${dateStr}, ${unit} owned by ${customer} was inspected and tested by ${COMPANY.legalName} (${COMPANY.department}). `
   if (facts.length) paragraph += cap(facts.join(', ')) + '. '
   paragraph += released
     ? 'All results were found within the applicable acceptance criteria, and the item is considered acceptable.'
     : 'One or more results did not meet the acceptance criteria; corrective action and re-inspection are required before acceptance.'
 
-  return { verdict, released, headline, stats, paragraph }
+  return { verdict, released, stats, paragraph }
 }

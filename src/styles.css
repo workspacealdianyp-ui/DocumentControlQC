@@ -2156,9 +2156,9 @@ input:focus-visible, select:focus-visible, textarea:focus-visible {
 /* ── The hero carries everything about the document: what it is, what
    was decided, what you can do with it, and how you want to read it.
    Four corners, four jobs. */
-/* The verdict sentence and the controls, on one line under the
-   masthead. It used to be the bottom half of a hero that also carried
-   the title; the title moved, so this is now only what it always was. */
+/* The badges and the controls, on one line under the masthead. It used
+   to be the bottom half of a hero that also carried the title; the title
+   moved, so this is now only what it always was. */
 .detail-bar {
   display: flex; align-items: center; justify-content: space-between;
   gap: 12px; flex-wrap: wrap; margin-bottom: 16px;
@@ -2629,7 +2629,10 @@ input:focus-visible, select:focus-visible, textarea:focus-visible {
 .dbadge.verdict.is-acc { color: #fff; background: var(--done); border-color: var(--done); }
 .dbadge.verdict.is-rej { color: #fff; background: var(--overdue); border-color: var(--overdue); }
 
-.detail-verdict-note { font-size: 12px; font-weight: 350; color: var(--text-2); }
+/* State sits at the head of the control row, not in the middle of the
+   band above it. Where the document stands and what may be done about
+   it are one thought, read left to right. */
+.detail-marks { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; min-width: 0; }
 
 /* ── Controls. One height, one radius, one border. The segmented view
    switch is built to the same spec so it sits in the row as an equal. */
@@ -3361,7 +3364,7 @@ tr:has(.chip-done) .jobs-prog-bar span { background: var(--done); }
    looser than a label, because it is meant to be read rather than
    scanned. */
 .set-panel-desc, .set-field-hint, .set-row-text small,
-.page-sub, .set-note p, .detail-verdict-note,
+.page-sub, .set-note p,
 .empty-state p, .set-check-label, .nde-option span,
 .modal .page-sub {
   font-family: var(--prose);
@@ -3371,7 +3374,6 @@ tr:has(.chip-done) .jobs-prog-bar span { background: var(--done); }
 .set-field-hint   { font-size: 11.5px; line-height: 1.5; }
 .page-sub         { font-size: 13.5px; line-height: 1.5; }
 .set-note p       { font-size: 13px; line-height: 1.6; }
-.detail-verdict-note { font-size: 13px; }
 .set-check-label  { font-size: 13px; }
 
 /* ── Labels. Small text that names a thing rather than explaining it
@@ -4008,9 +4010,10 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber); outline-
 .rep-card {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr) auto;
-  /* The state and the bin stand together at the right, centred on the
-     whole card rather than pinned to a line of it, so a three-line card
-     does not leave the bin stranded in a corner. */
+  /* The state and the trailing control — a bin in the register, a
+     chevron on a job — stand together at the right, centred on the whole
+     card rather than pinned to a line of it, so a three-line card does
+     not leave either stranded in a corner. */
   grid-template-areas:
     "code id   state act"
     "code sub  state act"
@@ -4127,18 +4130,24 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber); outline-
    report answers it or why none does yet. */
 .rep-card.is-deliv {
   grid-template-areas:
-    "code id   state go"
-    "code foot state go";
+    "code id   state act"
+    "code foot state act";
 }
 .rep-card.is-deliv .rep-id { align-self: end; }
 .rep-card.is-deliv .rep-foot { align-self: start; }
 .rep-card.is-flat { cursor: default; }
-.rep-card.is-deliv.is-flat::after { content: ''; grid-area: go; width: 22px; }
+.rep-card.is-deliv.is-flat::after { content: ''; grid-area: act; width: 22px; }
 .rep-card.is-flat:hover { border-color: var(--line); box-shadow: none; }
 .rep-card.is-flat:active { transform: none; }
 
+/* The chevron shares the trailing slot with the bin — one card never
+   carries both. It used to ask for an area named `go`, which only the
+   deliverable card declared: on a document card there was no such
+   column, so the browser opened an implicit row underneath and left the
+   arrow in the bottom corner of a card half again as tall as it needed
+   to be. */
 .rep-go {
-  grid-area: go; align-self: center; justify-self: end;
+  grid-area: act; align-self: center; justify-self: end;
   display: grid; place-items: center;
   width: 22px; color: var(--text-3);
   transition: color .14s ease, transform .14s ease;
@@ -4159,8 +4168,9 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber); outline-
       "code foot foot";
   }
   /* No room for a chevron beside a status word; the whole card is the
-     control, and it says so by being one. */
-  .rep-card.is-deliv .rep-go,
+     control, and it says so by being one. The narrow grid has three
+     columns and no trailing slot to put one in either. */
+  .rep-go,
   .rep-card.is-deliv.is-flat::after { display: none; }
   .rep-card.is-deliv .rep-foot { padding-right: 0; }
 }
@@ -5379,14 +5389,28 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber); outline-
 .doc-stack { display: flex; flex-direction: column; }
 
 .doc-issue {
-  font-family: var(--mono); font-weight: 600; color: var(--text-2);
+  font-family: var(--mono); font-weight: 500; color: var(--text-2);
+  font-variant-numeric: tabular-nums;
+}
+
+/* The document number, now on the second line. It is an identifier, so
+   it is set in the mono face at the weight the register gives it — the
+   line under the name is quieter than the name, not fainter than the
+   date beneath it. */
+.doc-num {
+  font-family: var(--mono); font-size: 11.5px; font-weight: 500;
+  letter-spacing: 0.01em; color: var(--text-2);
   font-variant-numeric: tabular-nums;
 }
 
 .doc-more {
   align-self: flex-start;
   display: inline-flex; align-items: center; gap: 6px;
-  margin: 2px 0 0 54px; padding: 5px 8px;
+  /* Indented to the card's text column, so the disclosure hangs under
+     the document's name rather than a few pixels short of it:
+     1px border + 13px card padding + 42px mark + 12px gap, less this
+     button's own 8px of padding. */
+  margin: 2px 0 0 60px; padding: 5px 8px;
   border: 0; border-radius: 7px; background: none;
   font-family: var(--sans); font-size: 11.5px; font-weight: 450; color: var(--text-2);
   cursor: pointer;
@@ -5434,7 +5458,8 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber); outline-
 @media (max-width: 430px) {
   /* The indent is what says these hang off the card above; past about
      50px it is just width taken from the line. */
-  .doc-more { margin-left: 44px; }
+  /* Same sum at the narrow card's measurements: 1 + 12 + 38 + 10, less 8. */
+  .doc-more { margin-left: 53px; }
   .doc-past { margin-left: 44px; padding-left: 10px; }
   .doc-past-row { padding: 8px 6px; gap: 8px; }
   .doc-past-row em { font-size: 9px; padding: 3px 5px; }
