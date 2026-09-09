@@ -1040,16 +1040,29 @@ td.th-action { display: flex; gap: 6px; justify-content: flex-end; align-items: 
   .masthead-plate { background-position: left top; }
   /* The whole drawing is visible at this width, so the scrim clears the
      top strip — where the pour meets the stone and the controls have
-     their own grounds — and goes solid just above the type. */
+     their own grounds — and goes solid just above the type.
+
+     "Just above the type" used to mean 62% of the way down, which is
+     below where the type starts: the customer's name ran across the
+     drawing at a fifth of the scrim's strength, over the darkest square
+     of the lattice, and measured 2.77:1. It is the band's accent at
+     20px bold, so it needs 3.0. The scrim now reaches full strength at
+     34%, above the first line of type rather than through it, and the
+     name measures 3.4:1 on the same square.
+
+     The alternative was a deeper orange on this band alone, which fixes
+     one number by giving the app a second accent colour. The drawing
+     gives up a third of its reach instead; it keeps the top strip,
+     which is where it was doing the work. */
   .masthead-plate::after {
     background: linear-gradient(178deg,
       transparent 0%,
-      color-mix(in srgb, var(--surface) 18%, transparent) 30%,
-      color-mix(in srgb, var(--surface) 76%, transparent) 50%,
-      var(--surface) 62%, var(--surface) 100%);
+      color-mix(in srgb, var(--surface) 22%, transparent) 12%,
+      color-mix(in srgb, var(--surface) 86%, transparent) 26%,
+      var(--surface) 34%, var(--surface) 100%);
   }
   @supports not (color: color-mix(in srgb, white 50%, transparent)) {
-    .masthead-plate::after { background: linear-gradient(178deg, transparent 0%, var(--surface) 60%); }
+    .masthead-plate::after { background: linear-gradient(178deg, transparent 0%, var(--surface) 30%); }
   }
 }
 
@@ -5320,11 +5333,17 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber); outline-
   }
   .masthead.is-job .masthead-txt { display: contents; }
   /* The strip runs the whole band here too, so every line of type starts
-     at the same left edge rather than the first one starting past it. */
+     at the same left edge rather than the first one starting past it.
+
+     44px wide, not 32. A cursor lands on a 32px column; a thumb reaching
+     in from the left edge of a phone does not, and width is the axis
+     that thumb has to hit — the strip was already the full height of the
+     band, so height was never the problem. The twelve pixels come off
+     the type column, which has them to give. */
   .masthead.is-job .masthead-back {
     grid-area: back; align-self: stretch;
     margin: calc(var(--mh-pad-y) * -1) 0 calc(var(--mh-pad-y) * -1) calc(var(--mh-pad-x) * -1);
-    width: 32px; padding-right: 2px;
+    width: 44px; padding-right: 4px;
   }
   .masthead.is-job .masthead-eyebrow { grid-area: eyebrow; }
   /* Uppercase costs about a fifth of the width of the same words in
@@ -5748,8 +5767,13 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber); outline-
    which states it in the figure strip a moment later anyway. */
 @media (max-width: 720px) {
   .mh-meter { min-width: 0; gap: 4px; }
-  .mh-meter .meter-top small { display: none; }
   .mh-meter .meter-top strong { font-size: 21px; }
+  /* "100%" of what? The caption carrying the denominator was switched
+     off at this width and the figure left standing alone, which on a
+     register whose whole question is how much of the inspection is done
+     is the half that matters. It costs no height: it sits on the
+     figure's own baseline, in the band's empty right half. */
+  .mh-meter .meter-top small { display: block; font-size: 12px; }
   .mh-meter .meter-track { display: none; }
 }
 

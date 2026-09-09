@@ -82,7 +82,13 @@ export default function CustomerPage({ name }) {
   return (
     <div className="page">
       <Masthead variant="job"
-        eyebrow="Customer"
+        /* Category, then identifier — the grammar every other band in
+           this app uses ("NON TRAILER · PO-2026-FTK-0621"). It used to
+           read "Customer" on its own, directly under a top bar already
+           saying Customer and directly above a name beginning with it:
+           the word three times in 100px, and the one number that names
+           this customer in the system nowhere on the page. */
+        eyebrow={cust.id ? <>Customer · {cust.id}</> : 'Customer'}
         title={cust.name}
         sub={<>{cust.orders} order{cust.orders === 1 ? '' : 's'} · {cust.units} unit{cust.units === 1 ? '' : 's'}</>}
         backLabel="Back to customers"

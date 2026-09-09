@@ -80,8 +80,12 @@ export function byCustomer(jobs, ctx) {
   const m = new Map()
   for (const job of jobs) {
     const name = job.customerName || 'Unassigned'
-    if (!m.has(name)) m.set(name, { name, orders: new Set(), ...blank() })
+    if (!m.has(name)) m.set(name, { name, id: null, orders: new Set(), ...blank() })
     const c = m.get(name)
+    /* The customer's own number, off the first job that carries one. It
+       is the only identifier this page can show that is not already in
+       the name above it. */
+    if (!c.id && job.customerId) c.id = job.customerId
     if (job.poNo) c.orders.add(job.poNo)
     fold(c, job, ctx, reportsByJob)
   }
