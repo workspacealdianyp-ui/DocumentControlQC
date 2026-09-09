@@ -37,6 +37,15 @@ const fmt = (f, v, report) => {
   return unit && (f.type === 'number' || f.type === 'text') ? `${val} ${unit}` : String(val)
 }
 
+// Short date — 09 Sep 2026. The weekday belonged to a letter, not a
+// controlled record, and it cost a line of width on every page.
+const fmtShort = (iso) => {
+  if (!iso) return '—'
+  const d = new Date(iso)
+  if (isNaN(d.getTime())) return '—'
+  return d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })
+}
+
 // fields that only print when they actually carry a value
 const EMPTYISH = new Set(['', '-', '–', '—', 'n/a', 'na'])
 const HIDE_IF_BLANK = new Set(['designPressure', 'mawp', 'map', 'poNo', 'wbsNo'])
@@ -232,6 +241,143 @@ function DftTable({ report }) {
   )
 }
 
+/* One page, for a report that has always been one page of facts.
+
+   The MT report printed across four sheets: a two-column label/value
+   block for every field, then the result table, then the photographs,
+   then a Statement of Result that repeated the customer, the product,
+   the serial number and the job — all of them already printed 200mm
+   further up the same document.
+
+   This is the same content on one sheet, and nothing was dropped to get
+   it there. What changed is how it is packed:
+
+   - the identity is one strip of six cells rather than six rows;
+   - related facts share a line — a particle is its type, how it was
+     applied and the batch it came from, which is one sentence about one
+     consumable rather than three rows;
+   - the dates lost their weekday, which no data book indexes on;
+   - the statement lost its own sheet and its repeated identity block,
+     because it now sits under the table it refers to.
+
+   Padding drops from 4.5/7pt to 3/5pt everywhere except the result rows
+   and the signature block, which keep the room they need to be read and
+   signed. Type size is untouched. */
+
+// A label and its value, side by side, as one cell of a strip.
+const Cell = ({ label, children, span }) => (
+  <td colSpan={span}>
+    <span className="ps-c-label">{label}</span>
+    <span className="ps-c-value">{children || '—'}</span>
+  </td>
+)
+
+// The facts that belong to one thing, joined into one line.
+const joined = (...parts) => parts.filter((x) => x && String(x).trim() && String(x) !== '—').join(' · ') || '—'
+
+function CompactPage({ schema, report, job, v, approvalSec, chunk }) {
+  const rows = report.results || []
+  const rej = rows.filter((r) => ['Reject', 'Rej', 'NG'].includes(r.judgement)).length
+  const acc = rows.length - rej
+  const r = buildResume(schema, report, job)
+  const genFields = schema.sections.find((s) => s.id === 'general')?.fields || []
+  const accFld = genFields.find((f) => f.id === 'acceptance')
+  const acceptance = accFld?.compute ? accFld.compute(v) : (v.acceptance || '—')
+  /* Procedure is a readonly field, so it is never typed and never
+     stored — its value lives on the schema as that field's default. */
+  const procedure = v.procedure || genFields.find((f) => f.id === 'procedure')?.default
+  const resultsSec = schema.sections.find((s) => s.type === 'results')
+
+  return (
+    <div className="ps-compact">
+      {/* identity — one strip, six cells */}
+      <table className="ps-strip"><tbody>
+        <tr>
+          <Cell label="Customer">{v.customer || job?.customerName}</Cell>
+          <Cell label="Job No.">{job?.jobNo || v.jobNo}</Cell>
+          <Cell label="Unit / S.N.">{v.unit || job?.unitNo || v.sn || job?.arasSN}</Cell>
+        </tr>
+        <tr>
+          <Cell label="Product">{job?.productDesc || v.jobDesc}</Cell>
+          <Cell label="WBS / PO">{joined(v.wbsNo || job?.wbsNo, v.poNo || job?.poNo)}</Cell>
+          <Cell label="Inspection date">{fmtShort(v.inspDate)}</Cell>
+        </tr>
+      </tbody></table>
+
+      {/* the verdict, and what it was judged against */}
+      <table className="ps-verdict"><tbody><tr>
+        <td className="ps-verdict-box">
+          <div className="ps-c-label">Result</div>
+          <div className={`ps-verdict-word ${r.released ? 'ps-result-acc' : 'ps-result-rej'}`}>
+            {r.released ? 'ACCEPTED' : 'REJECTED'}
+          </div>
+          <div className="ps-verdict-sub">
+            {rows.length} inspected · {acc} accepted{rej ? ` · ${rej} rejected` : ''}
+          </div>
+        </td>
+        <td className="ps-verdict-crit">
+          <table className="ps-strip ps-strip-tight"><tbody>
+            <tr><Cell label="Code">{v.code}</Cell><Cell label="Acceptance">{acceptance}</Cell></tr>
+            <tr><Cell label="Procedure">{procedure}</Cell>
+              <Cell label="NCR ref.">{v.ncrRef || 'None'}</Cell></tr>
+          </tbody></table>
+        </td>
+      </tr></tbody></table>
+
+      {/* method and equipment — every fact, six to a row */}
+      <div className="ps-blk-head ps-blk-head-tight">Method &amp; Equipment</div>
+      <table className="ps-strip"><tbody>
+        <tr>
+          <Cell label="Equipment">{joined(v.mtEquipment, v.equipId && `ID ${v.equipId}`)}</Cell>
+          <Cell label="Current">{v.currentType}</Cell>
+          <Cell label="Technique">{v.method}</Cell>
+        </tr>
+        <tr>
+          <Cell label="Particle" span={2}>
+            {joined(v.particle, v.particleApp, v.particleDesc && `Batch ${v.particleDesc}`)}
+          </Cell>
+          <Cell label="Magnetizing">{v.magTechnique}</Cell>
+        </tr>
+        <tr>
+          <Cell label="White contrast">{v.whiteContrast}</Cell>
+          <Cell label="Cleaner">{v.cleanerBatch}</Cell>
+          <Cell label="Lighting">
+            {joined(v.lightEquip, v.lightIntensity && `${v.lightIntensity} lux`, v.lightmeter && `Meter ${v.lightmeter}`)}
+          </Cell>
+        </tr>
+        <tr>
+          <Cell label="Surface prep.">{v.surfacePreparation}</Cell>
+          <Cell label="Stage / process">{joined(v.stage, v.weldingProcess)}</Cell>
+          <Cell label="Scope">{v.scope}</Cell>
+        </tr>
+      </tbody></table>
+
+      {(v.ndeMapRef || v.ndeMapNote) && (
+        <table className="ps-strip"><tbody><tr>
+          <Cell label="NDE map" span={3}>{joined(v.ndeMapRef, v.ndeMapNote)}</Cell>
+        </tr></tbody></table>
+      )}
+
+      <div className="ps-blk-head ps-blk-head-tight">{resultsSec?.title || 'Result Table'}</div>
+      <ResultsTable sec={resultsSec} report={report} from={0} to={chunk} />
+
+      {/* the statement, where the table it refers to can still be seen */}
+      <div className="ps-statement">
+        <span className="ps-c-label">Statement of result</span>
+        <p>
+          Based on the results recorded above, the inspected object is declared{' '}
+          <strong className={r.released ? 'ps-result-acc' : 'ps-result-rej'}>
+            {r.released ? 'ACCEPTED' : 'REJECTED'}
+          </strong>{' '}
+          in accordance with {acceptance}. {r.headline}. Issued by and on behalf of {COMPANY.legalName}.
+        </p>
+      </div>
+
+      {approvalSec && <Signatures fields={approvalSec.fields} v={v} />}
+    </div>
+  )
+}
+
 function Signatures({ fields, v }) {
   const vis = fields.filter((f) => showField(f, v))
   return (
@@ -280,12 +426,23 @@ function Signatures({ fields, v }) {
 const ROWS_FIRST = 14
 const ROWS_MORE = 26
 
+/* The forms that print as one page.
+
+   MT first, as a trial. The compact page carries the identity, the
+   verdict, the criteria, the method, the map reference, the table and
+   the statement on one sheet, so it has room for fewer table rows than
+   the old spread-out first page did — anything past that continues on a
+   second sheet exactly as before. */
+const ONE_PAGE = new Set(['mt'])
+const isCompact = (schema) => ONE_PAGE.has(schema.key)
+const ROWS_COMPACT = 8
+
 function resultChunks(schema, report, rowFit = 1) {
   const sec = schema.sections.find((s) => s.type === 'results' && !s.noPrint)
   const n = sec ? (report.results || []).length : 0
   // A row is as tall as its longest cell wraps, which differs by form, so
   // these are a starting guess that the measured fit corrects.
-  const first = Math.max(4, Math.round(ROWS_FIRST * rowFit))
+  const first = Math.max(4, Math.round((isCompact(schema) ? ROWS_COMPACT : ROWS_FIRST) * rowFit))
   const more = Math.max(4, Math.round(ROWS_MORE * rowFit))
   if (!sec || n <= first) return [[0, n]]
   const out = [[0, first]]
@@ -305,8 +462,11 @@ function sheetPlan(schema, report, rowFit) {
 
 export function reportSheetCount(schema, report, rowFit) {
   const { hasAttach, chunks } = sheetPlan(schema, report, rowFit)
-  // form + continuation sheets + attachments + statement
-  return 1 + (chunks.length - 1) + (hasAttach ? 1 : 0) + 1
+  // form + continuation sheets + attachments + statement. A compact
+  // report carries its statement on the form sheet, so it has no last
+  // page of its own.
+  const statement = isCompact(schema) || schema.kind === 'record' ? 0 : 1
+  return 1 + (chunks.length - 1) + (hasAttach ? 1 : 0) + statement
 }
 
 export default function PrintReport({ schema, report, job, deliverable, status, onClose }) {
@@ -409,7 +569,18 @@ export function ReportSheets({ schema, report, job, deliverable, status, pageMap
   const bodies = []
 
   // 1 — results, evidence blocks and the approval
-  bodies.push(
+  bodies.push(isCompact(schema) ? (
+    <>
+      {sectionNo != null && (
+        <div className="ps-tab">
+          <span className="ps-tab-no">Section {sectionNo}</span>
+          <span className="ps-tab-title">{schema.title}</span>
+        </div>
+      )}
+      <CompactPage schema={schema} report={report} job={job} v={v}
+        approvalSec={approvalSec} chunk={chunks[0][1]} />
+    </>
+  ) : (
     <>
       {sectionNo != null && (
         <div className="ps-tab">
@@ -440,7 +611,7 @@ export function ReportSheets({ schema, report, job, deliverable, status, pageMap
         </div>
       )}
     </>
-  )
+  ))
 
   // 1b — the rest of a result table that did not fit on the form sheet
   const resultsSec = mainSecs.find((sec) => sec.type === 'results')
@@ -482,7 +653,7 @@ export function ReportSheets({ schema, report, job, deliverable, status, pageMap
      filed ITP or release note neither half is true, and a data book is
      the last place to print a statement nobody made. The record's own
      pages are the statement. */
-  if (schema.kind !== 'record') bodies.push(
+  if (schema.kind !== 'record' && !isCompact(schema)) bodies.push(
     <>
       {contNote}
       {(() => {

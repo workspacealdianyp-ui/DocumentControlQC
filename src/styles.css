@@ -6285,3 +6285,55 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber); outline-
 .pair-cell small { font-size: 10.5px; letter-spacing: 0.03em; text-transform: uppercase; color: var(--text-2); }
 .pair-wrap.invalid input { border-color: var(--overdue); }
 @media (max-width: 560px) { .pair-wrap { grid-template-columns: 1fr; } }
+
+/* ═══════════════════════════════════════════════════════════════
+   THE COMPACT REPORT SHEET — one page, nothing dropped
+
+   The MT report printed on four sheets: a label/value row per field,
+   then the table, then the photographs, then a Statement of Result that
+   repeated the customer, the product, the serial and the job already
+   printed 200mm above it. This is the same content on one sheet.
+
+   Cells drop from 4.5/7pt to 3/5pt. Result rows and the signature block
+   keep their room — a row has to be read across and a signature has to
+   be written in, and neither gets smaller to save a millimetre. Type
+   size is untouched at 8.5pt.
+   ═══════════════════════════════════════════════════════════════ */
+
+.ps-compact table { width: 100%; border-collapse: collapse; margin-bottom: 2.2mm; }
+.ps-compact td, .ps-compact th { padding: 3pt 5pt; }
+/* A row of the result table still has to be read across at arm's length. */
+.ps-compact .ps-grid td { padding: 3.5pt 4pt; }
+.ps-compact .ps-grid th { padding: 3.5pt 4pt; }
+
+/* A label above its value, so a short fact does not take a cell as wide
+   as a long one — six facts fit the width three label/value pairs did. */
+.ps-c-label {
+  display: block; font-size: 6.4pt; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.06em; color: #555; margin-bottom: 0.6mm;
+}
+.ps-c-value { display: block; font-size: 8.5pt; font-weight: 500; color: #000; }
+.ps-strip td { width: 33.33%; }
+.ps-strip-tight td { border: 0 !important; padding: 1.6pt 0 !important; }
+.ps-strip-tight td + td { padding-left: 5pt !important; }
+
+/* The verdict, and the criteria it was reached against, side by side. */
+.ps-verdict { table-layout: fixed; }
+.ps-verdict-box { width: 46mm; text-align: center; vertical-align: middle !important; background: #f7f7f7; }
+.ps-verdict-word {
+  font-family: 'Fira Code', monospace; font-size: 13pt; font-weight: 800;
+  letter-spacing: 0.04em; line-height: 1.1; margin: 0.6mm 0;
+}
+.ps-verdict-sub { font-size: 7pt; color: #333; }
+.ps-verdict-crit { vertical-align: middle !important; }
+
+.ps-blk-head-tight { margin-bottom: 1mm; padding-bottom: 0.7mm; }
+
+/* The statement, under the table it is a statement about. It no longer
+   restates the customer, product, serial and job — they are 60mm up the
+   same sheet, and repeating them was most of what filled the old page. */
+.ps-statement { margin: 2.4mm 0 1.5mm; }
+.ps-statement p { margin: 0.8mm 0 0; font-size: 8.5pt; line-height: 1.45; text-align: justify; }
+
+/* Signing still needs somewhere to sign. */
+.ps-compact .ps-sign-table td { height: 20mm; padding: 3pt 5pt 4pt; }
