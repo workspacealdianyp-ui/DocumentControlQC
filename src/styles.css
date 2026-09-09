@@ -6319,12 +6319,15 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber); outline-
 
 /* The verdict, and the criteria it was reached against, side by side. */
 .ps-verdict { table-layout: fixed; }
-.ps-verdict-box { width: 46mm; text-align: center; vertical-align: middle !important; background: #f7f7f7; }
+.ps-verdict-box { width: 40mm; text-align: center; vertical-align: middle !important; background: #f7f7f7; }
 .ps-verdict-word {
   font-family: 'Fira Code', monospace; font-size: 13pt; font-weight: 800;
   letter-spacing: 0.04em; line-height: 1.1; margin: 0.6mm 0;
 }
 .ps-verdict-sub { font-size: 7pt; color: #333; }
+/* Under the table, the verdict has the counts beside it rather than
+   under it, so the block is one line tall. */
+.ps-verdict .ps-strip-tight td { text-align: center; width: 25%; }
 .ps-verdict-crit { vertical-align: middle !important; }
 
 .ps-blk-head-tight { margin-bottom: 1mm; padding-bottom: 0.7mm; }
@@ -6337,3 +6340,22 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber); outline-
 
 /* Signing still needs somewhere to sign. */
 .ps-compact .ps-sign-table td { height: 20mm; padding: 3pt 5pt 4pt; }
+
+/* A build shipped while this tab was open.
+
+   Above the bottom bar on a phone, out of the thumb's way, and never in
+   front of the toast — a save that failed is more urgent than a version
+   that is one behind. */
+.update-bar {
+  position: fixed; z-index: calc(var(--z-modal) - 1);
+  left: 50%; transform: translateX(-50%);
+  bottom: calc(var(--bottomnav-h) + 64px);
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap; justify-content: center;
+  max-width: min(560px, calc(100vw - 24px));
+  padding: 10px 14px; border-radius: var(--r-lg);
+  border: 1px solid var(--line-2); background: var(--surface);
+  box-shadow: var(--sh-pop); font-size: 13px; color: var(--text);
+  animation: tin 0.22s ease;
+}
+@media (min-width: 1024px) { .update-bar { bottom: 22px; right: 26px; left: auto; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .update-bar { animation: none; } }

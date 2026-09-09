@@ -304,25 +304,16 @@ function CompactPage({ schema, report, job, v, approvalSec, chunk }) {
         </tr>
       </tbody></table>
 
-      {/* the verdict, and what it was judged against */}
-      <table className="ps-verdict"><tbody><tr>
-        <td className="ps-verdict-box">
-          <div className="ps-c-label">Result</div>
-          <div className={`ps-verdict-word ${r.released ? 'ps-result-acc' : 'ps-result-rej'}`}>
-            {r.released ? 'ACCEPTED' : 'REJECTED'}
-          </div>
-          <div className="ps-verdict-sub">
-            {rows.length} inspected · {acc} accepted{rej ? ` · ${rej} rejected` : ''}
-          </div>
-        </td>
-        <td className="ps-verdict-crit">
-          <table className="ps-strip ps-strip-tight"><tbody>
-            <tr><Cell label="Code">{v.code}</Cell><Cell label="Acceptance">{acceptance}</Cell></tr>
-            <tr><Cell label="Procedure">{procedure}</Cell>
-              <Cell label="NCR ref.">{v.ncrRef || 'None'}</Cell></tr>
-          </tbody></table>
-        </td>
-      </tr></tbody></table>
+      {/* What it was judged against, before it was judged. A reader
+          works down the sheet in the order the inspection happened: the
+          rule, the method, the readings, and only then the verdict. */}
+      <table className="ps-strip"><tbody>
+        <tr>
+          <Cell label="Applicable code">{v.code}</Cell>
+          <Cell label="Acceptance criteria">{acceptance}</Cell>
+          <Cell label="Procedure">{procedure}</Cell>
+        </tr>
+      </tbody></table>
 
       {/* method and equipment — every fact, six to a row */}
       <div className="ps-blk-head ps-blk-head-tight">Method &amp; Equipment</div>
@@ -333,16 +324,16 @@ function CompactPage({ schema, report, job, v, approvalSec, chunk }) {
           <Cell label="Technique">{v.method}</Cell>
         </tr>
         <tr>
-          <Cell label="Particle" span={2}>
-            {joined(v.particle, v.particleApp, v.particleDesc && `Batch ${v.particleDesc}`)}
+          <Cell label="Lighting" span={2}>
+            {joined(v.lightEquip, v.lightIntensity && `${v.lightIntensity} lux`, v.lightmeter && `Meter ${v.lightmeter}`)}
           </Cell>
           <Cell label="Magnetizing">{v.magTechnique}</Cell>
         </tr>
         <tr>
           <Cell label="White contrast">{v.whiteContrast}</Cell>
           <Cell label="Cleaner">{v.cleanerBatch}</Cell>
-          <Cell label="Lighting">
-            {joined(v.lightEquip, v.lightIntensity && `${v.lightIntensity} lux`, v.lightmeter && `Meter ${v.lightmeter}`)}
+          <Cell label="Particle">
+            {joined(v.particle, v.particleApp, v.particleDesc && `Batch ${v.particleDesc}`)}
           </Cell>
         </tr>
         <tr>
@@ -360,6 +351,28 @@ function CompactPage({ schema, report, job, v, approvalSec, chunk }) {
 
       <div className="ps-blk-head ps-blk-head-tight">{resultsSec?.title || 'Result Table'}</div>
       <ResultsTable sec={resultsSec} report={report} from={0} to={chunk} />
+
+      {/* The verdict, under the readings it was reached from. It sat at
+          the top, above the method and the table, which asked the reader
+          to accept the answer before seeing any of the working. */}
+      <table className="ps-verdict"><tbody><tr>
+        <td className="ps-verdict-box">
+          <div className="ps-c-label">Result</div>
+          <div className={`ps-verdict-word ${r.released ? 'ps-result-acc' : 'ps-result-rej'}`}>
+            {r.released ? 'ACCEPTED' : 'REJECTED'}
+          </div>
+        </td>
+        <td className="ps-verdict-crit">
+          <table className="ps-strip ps-strip-tight"><tbody>
+            <tr>
+              <Cell label="Inspected">{rows.length}</Cell>
+              <Cell label="Accepted">{acc}</Cell>
+              <Cell label="Rejected">{rej}</Cell>
+              <Cell label="NCR ref.">{v.ncrRef || 'None'}</Cell>
+            </tr>
+          </tbody></table>
+        </td>
+      </tr></tbody></table>
 
       {/* the statement, where the table it refers to can still be seen */}
       <div className="ps-statement">

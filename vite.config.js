@@ -71,6 +71,13 @@ self.addEventListener('activate', (e) => {
   })())
 })
 
+/* The page asking the worker in waiting to take over now, rather than
+   after every tab is closed. Sent by lib/appUpdate.js when somebody
+   presses Reload on the update bar. */
+self.addEventListener('message', (e) => {
+  if (e.data && e.data.type === 'SKIP_WAITING') self.skipWaiting()
+})
+
 self.addEventListener('fetch', (e) => {
   const req = e.request
   if (req.method !== 'GET') return

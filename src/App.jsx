@@ -24,6 +24,7 @@ import Reports from './components/Reports.jsx'
 import Settings from './components/Settings.jsx'
 import NewJobOrder from './components/NewJobOrder.jsx'
 import Profile from './components/Profile.jsx'
+import { onUpdateReady, reloadForUpdate } from './lib/appUpdate.js'
 
 export const AppContext = createContext(null)
 export const useApp = () => useContext(AppContext)
@@ -66,6 +67,27 @@ function parseHash() {
 }
 
 export const navigate = (to) => { window.location.hash = to }
+
+/* A new build is on the server and this tab is still running the old one.
+
+   It does not reload by itself. A reload throws away whatever is typed
+   into the form on screen, and losing an inspector's readings to a
+   version bump is a worse bug than the stale build it fixes. So it says
+   so, and waits to be pressed — and can be dismissed, because "later"
+   is a legitimate answer when you are halfway through a report. */
+function UpdateBar() {
+  const [ready, setReady] = useState(false)
+  const [hidden, setHidden] = useState(false)
+  useEffect(() => onUpdateReady(setReady), [])
+  if (!ready || hidden) return null
+  return (
+    <div className="update-bar" role="status">
+      <span>A newer version of this app is ready.</span>
+      <button className="btn btn-primary btn-sm" onClick={reloadForUpdate}>Reload now</button>
+      <button className="btn btn-ghost btn-sm" onClick={() => setHidden(true)}>Later</button>
+    </div>
+  )
+}
 
 // Decorative fixed layer: white canvas, faint grid, soft color blobs.
 // Sits behind everything so glassmorphism cards reveal it through their blur.
@@ -208,6 +230,7 @@ export default function App() {
           </main>
         </div>
         <BottomNav page={route.page} />
+        <UpdateBar />
         {toast && <div className={`toast toast-${toast.kind}`} role="alert">{toast.msg}</div>}
       </div>
     </AppContext.Provider>
