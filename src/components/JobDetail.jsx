@@ -84,7 +84,6 @@ const Chevron = () => (
 export default function JobDetail({ job }) {
   const { role, tick, session, notify } = useApp()
   const [ndePicker, setNdePicker] = useState(false)
-  const [docFilter, setDocFilter] = useState('All')
   const [openIssues, setOpenIssues] = useState(null)
   const [sumPicker, setSumPicker] = useState(false)
   const [sumSel, setSumSel] = useState([])
@@ -100,17 +99,20 @@ export default function JobDetail({ job }) {
     [job, tick]
   )
 
-  /* Grouped into documents, then filtered — filtering first would split a
-     document from its own earlier issues. */
-  const shownDocs = useMemo(
-    () => byDocument(docs).filter(({ current }) => docFilter === 'All' || current.deliverable === docFilter),
-    [docs, docFilter]
-  )
   // Only a current issue may be bound: a data book carrying a revision
   // that something else replaced is a finding, not a document.
   const bindable = useMemo(
     () => byDocument(docs).map((g) => g.current).filter((r) => r.status === 'approved'),
     [docs]
+  )
+  /* Documents the order no longer asks for. Normally none: every
+     document in the register answers a required deliverable. They exist
+     when an order is revised after a document was filed, and they are
+     the reason this page cannot simply list the required deliverables
+     and stop. */
+  const extraDocs = useMemo(
+    () => (job ? byDocument(docs).filter(({ current }) => !requiredFor(job).includes(current.deliverable)) : []),
+    [docs, job]
   )
 
   const openDoc = (r) =>
@@ -225,20 +227,56 @@ export default function JobDetail({ job }) {
         </div>
       </div>
 
-      {/* Required reports — app-style rows */}
-      <h3 className="section-title">Required Reports</h3>
+      {/* One list, not two.
+
+         This page used to state every document twice: once as a
+         Required Reports row carrying its number and date, and again a
+         thousand pixels down a phone as a Documents card carrying the
+         same number and date. Across the 48 units in the register that
+         was 224 rows printed twice. The deliverable and the document
+         that answers it are one thing to the person reading them, and
+         the register that lists them should be one thing too.
+
+         So the document folds into the row that asks for it: the same
+         row, with the issues it replaced folded underneath, and Generate
+         MDR at the head of the list rather than buried at the bottom of
+         the page. The filter chips went with the second list — six
+         wrapping chips to filter nine rows was a control that cost more
+         than it saved. */}
+      <div className="page-head jd-list-head">
+        <h3 className="section-title">Required Reports</h3>
+        <button className="btn btn-primary btn-sm" disabled={!bindable.length}
+          title={bindable.length ? 'Compile the Manufacturing Data Report from the approved current issues' : 'Needs at least one approved document'}
+          onClick={() => { setSumSel(bindable.map((d) => d.id)); setSumPicker(true) }}>
+          <IconPrint size={13} /> Generate MDR
+        </button>
+      </div>
       <div className="rep-list">
         {DELIVERABLES.filter((d) => wanted.includes(d.key)).map((d) => {
           const cell = p.statuses[d.key]
-          const reps = reportsFor(job.jobNo, d.key)
-          const last = reps.length ? reps[reps.length - 1] : null
+          /* Newest issue first, by issue number rather than by the order
+             the store happens to hold them in. The row and the old
+             Documents list sorted differently, so on a revised document
+             they could name different issues as the current one. */
+          const reps = reportsFor(job.jobNo, d.key).slice().sort(
+            (a, b) => issueNo(b.reportId) - issueNo(a.reportId)
+              || (b.updatedAt || '').localeCompare(a.updatedAt || ''))
+          const last = reps[0] || null
+          const earlier = reps.slice(1)
+          const open = openIssues === d.key
           const tappable = !!d.form && (role.canEdit || !!last)
           /* cell.ref is gone with the branch that set it: an imported
              sheet can no longer make a cell done, so there is no ref
              without a report. What is left is a cell an admin marked
              done by hand — a deliberate statement, but not a document,
              and the row has to say which of the two it is. */
-          const foot = (last ? [last.reportId, fmtDate(last.updatedAt), last.inspector].filter(Boolean).join(' · ') : null)
+          /* With a document, the row takes the shape the register's own
+             document cards take: name, then the number on its own line,
+             then when and who. All three on one line is what the
+             deliverable row used to do, and at 390px it cut the
+             inspector's name off — the merge gave this row a third fact
+             to carry and the single line could not hold it. */
+          const foot = (last ? [fmtDate(last.updatedAt), last.inspector].filter(Boolean).join(' · ') : null)
             || (cell.status === 'done' ? 'Marked done by an admin — no document held here' : null)
             || (d.form
               ? (FORM_SCHEMAS[d.form]?.kind === 'record'
@@ -249,7 +287,8 @@ export default function JobDetail({ job }) {
                 : (role.canEdit ? 'Not started — open to fill the form' : 'No report yet'))
               : 'Document deliverable, tracked manually')
           return (
-            <div key={d.key} className={`rep-card is-deliv tone-${cell.status}${tappable ? '' : ' is-flat'}`}
+            <div className="doc-stack" key={d.key}>
+            <div className={`rep-card tone-${cell.status}${last ? '' : ' is-deliv'}${tappable ? '' : ' is-flat'}`}
               role={tappable ? 'button' : undefined} tabIndex={tappable ? 0 : undefined}
               onClick={tappable ? () => openDeliv(d, cell, last) : undefined}
               onKeyDown={tappable ? (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openDeliv(d, cell, last) } } : undefined}>
@@ -264,105 +303,81 @@ export default function JobDetail({ job }) {
                 {last && reportResult(last) === 'Reject' && <span className="rep-ncr" title="Non-conformance recorded">NCR</span>}
                 <StatusChip status={cell.status} />
               </span>
-              <small className="rep-foot">{foot}</small>
+              {last && <small className="rep-sub doc-num"><ReportId id={last.reportId} /></small>}
+              <small className="rep-foot">
+                {last && issueNo(last.reportId) > 0 && (
+                  <>
+                    <span className="doc-issue">Issue {String(issueNo(last.reportId)).padStart(2, '0')}</span>
+                    <span className="rep-dot" aria-hidden="true">·</span>
+                  </>
+                )}
+                {foot}
+              </small>
               {tappable && <span className="rep-go" aria-hidden="true"><Chevron /></span>}
+            </div>
+
+            {/* What this issue replaced. Kept, because a QC record is the
+                history as well as the current sheet, and folded, because
+                only one of them is the live document. */}
+            {earlier.length > 0 && (
+              <>
+                <button className={`doc-more${open ? ' is-open' : ''}`} aria-expanded={open}
+                  onClick={() => setOpenIssues(open ? null : d.key)}>
+                  <IconChevronD size={13} />
+                  {open ? 'Hide' : 'Show'} {earlier.length} earlier issue{earlier.length === 1 ? '' : 's'}
+                </button>
+                {open && (
+                  <div className="doc-past">
+                    {earlier.map((o) => (
+                      <button key={o.id} className="doc-past-row" onClick={() => openDoc(o)}>
+                        <span className="doc-past-txt">
+                          <strong><ReportId id={o.reportId} /></strong>
+                          <small>{fmtDateTime(o.updatedAt)}{o.inspector ? ` · ${o.inspector}` : ''}</small>
+                        </span>
+                        <em>Superseded</em>
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </>
+            )}
             </div>
           )
         })}
       </div>
 
-      {/* Documents — categorized by type, with filter + summary generator */}
-      <div className="page-head" style={{ marginTop: 24, marginBottom: 10 }}>
-        {/* The list shows documents, so the count is documents. The
-            issues behind each one are stated on the card itself. */}
-        <h3 className="section-title" style={{ margin: 0 }}>Documents ({shownDocs.length})</h3>
-        <button className="btn btn-primary btn-sm" disabled={!bindable.length}
-          title={bindable.length ? 'Compile the Manufacturing Data Report from the approved current issues' : 'Needs at least one approved document'}
-          onClick={() => { setSumSel(bindable.map((d) => d.id)); setSumPicker(true) }}>
-          <IconPrint size={13} /> Generate MDR
-        </button>
-      </div>
+      {/* A document whose deliverable is no longer asked for.
 
-      {docs.length > 0 && (
-        <div className="filters-row" style={{ marginBottom: 10 }}>
-          {['All', ...new Set(docs.map((d) => d.deliverable))].map((t) => (
-            <button key={t} className={`mselect-btn${docFilter === t ? ' has-value' : ''}`} onClick={() => setDocFilter(t)}>
-              {t}
-            </button>
-          ))}
-        </div>
-      )}
-
-      {docs.length === 0 ? (
-        <div className="card empty-state">
-          <p><strong>No documents yet for this job.</strong></p>
-          <p>Submitted inspection forms appear here, latest issue first.</p>
-        </div>
-      ) : (
-        <div className="rep-list">
-          {shownDocs.map(({ current: r, superseded }) => {
-            const open = openIssues === r.id
-            const n = issueNo(r.reportId)
-            return (
-              <div className="doc-stack" key={r.id}>
-                <div className={`rep-card tone-${r.status}`} role="button" tabIndex={0}
-                  onClick={() => openDoc(r)}
-                  onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openDoc(r) } }}>
-                  <span className="rep-code" aria-hidden="true">{FORM_SCHEMAS[r.formKey]?.code || '—'}</span>
-                  {/* The document's name leads, the way the deliverable
-                      rows above are led by theirs — every number in this
-                      list shares the job's prefix, so the number is not
-                      what tells one row from another here. It moves to
-                      the line under the name, where it is still the
-                      thing you copy into an email. */}
-                  <strong className="rep-id">{FORM_SCHEMAS[r.formKey]?.title || r.deliverable}</strong>
-                  <span className="rep-state">
-                    {reportResult(r) === 'Reject' && <span className="rep-ncr" title="Non-conformance recorded">NCR</span>}
-                    <StateBadge status={r.status} />
-                  </span>
-                  <small className="rep-sub doc-num"><ReportId id={r.reportId} /></small>
-                  <small className="rep-foot">
-                    {n > 0 && (
-                      <>
-                        <span className="doc-issue">Issue {String(n).padStart(2, '0')}</span>
-                        <span className="rep-dot" aria-hidden="true">·</span>
-                      </>
-                    )}
-                    {fmtDateTime(r.updatedAt)}{r.inspector ? ` · ${r.inspector}` : ''}
-                  </small>
-                  <span className="rep-go" aria-hidden="true"><Chevron /></span>
-                </div>
-
-                {/* What this issue replaced. Kept, because a QC record is
-                    the history as well as the current sheet, and quiet,
-                    because only one of them is the live document. */}
-                {superseded.length > 0 && (
-                  <>
-                    <button className={`doc-more${open ? ' is-open' : ''}`}
-                      aria-expanded={open}
-                      onClick={() => setOpenIssues(open ? null : r.id)}>
-                      <IconChevronD size={13} />
-                      {open ? 'Hide' : 'Show'} {superseded.length} earlier issue{superseded.length === 1 ? '' : 's'}
-                    </button>
-                    {open && (
-                      <div className="doc-past">
-                        {superseded.map((o) => (
-                          <button key={o.id} className="doc-past-row" onClick={() => openDoc(o)}>
-                            <span className="doc-past-txt">
-                              <strong><ReportId id={o.reportId} /></strong>
-                              <small>{fmtDateTime(o.updatedAt)}{o.inspector ? ` · ${o.inspector}` : ''}</small>
-                            </span>
-                            <em>Superseded</em>
-                          </button>
-                        ))}
-                      </div>
-                    )}
-                  </>
-                )}
+          job.required is editable after the fact, so an order can be
+          revised to drop a deliverable that already has a document filed
+          against it. Merging the two lists must not be how that document
+          disappears — it is evidence, and it keeps its own heading
+          rather than being folded in with the ones still required. */}
+      {extraDocs.length > 0 && (
+        <>
+          <h3 className="section-title jd-extra-title">
+            No longer required
+            <small>Filed against this unit before the order was revised. Kept on the record.</small>
+          </h3>
+          <div className="rep-list">
+            {extraDocs.map(({ current: r }) => (
+              <div className={`rep-card is-deliv tone-${r.status}`} key={r.id} role="button" tabIndex={0}
+                onClick={() => openDoc(r)}
+                onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openDoc(r) } }}>
+                <span className="rep-code" aria-hidden="true">{FORM_SCHEMAS[r.formKey]?.code || '—'}</span>
+                <strong className="rep-id">{FORM_SCHEMAS[r.formKey]?.title || r.deliverable}</strong>
+                <span className="rep-state">
+                  {reportResult(r) === 'Reject' && <span className="rep-ncr" title="Non-conformance recorded">NCR</span>}
+                  <StateBadge status={r.status} />
+                </span>
+                <small className="rep-foot">
+                  {r.reportId} · {fmtDateTime(r.updatedAt)}{r.inspector ? ` · ${r.inspector}` : ''}
+                </small>
+                <span className="rep-go" aria-hidden="true"><Chevron /></span>
               </div>
-            )
-          })}
-        </div>
+            ))}
+          </div>
+        </>
       )}
 
       {/* MDR document picker — approved only */}

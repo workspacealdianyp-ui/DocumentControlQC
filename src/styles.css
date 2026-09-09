@@ -5272,6 +5272,28 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber); outline-
    and says so. */
 .doc-stack { display: flex; flex-direction: column; }
 
+/* The list's own head: what the list is, and the one thing you do with
+   all of it. Generate MDR sat at the bottom of the page under a second
+   copy of the same documents; it belongs where the documents are. */
+.jd-list-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.jd-list-head .section-title { margin: 0; }
+/* The button keeps a thumb's worth of height on a phone: it is the one
+   action on this page that produces something to hand a customer. */
+@media (max-width: 720px) {
+  .jd-list-head { gap: 8px; }
+  .jd-list-head .btn-sm { min-height: var(--tap); }
+}
+
+/* Documents the order stopped asking for. A quieter heading than the
+   required list, with the reason on it — a reader who has never seen
+   this section needs to know why these are separate before they wonder
+   whether something is wrong. */
+.jd-extra-title { display: flex; flex-direction: column; gap: 3px; margin-top: 22px; }
+.jd-extra-title small {
+  font-family: var(--prose); font-size: 12px; font-weight: 400;
+  line-height: 1.45; color: var(--text-2); text-transform: none; letter-spacing: 0;
+}
+
 .doc-issue {
   font-family: var(--mono); font-weight: 500; color: var(--text-2);
   font-variant-numeric: tabular-nums;
