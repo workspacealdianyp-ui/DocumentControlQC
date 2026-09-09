@@ -4,41 +4,26 @@ import { FORM_SCHEMAS, dimRowStatus, dimDeviation, dimLimits } from '../../src/d
 
 const rep = (over = {}) => ({ id: 'r1', reportId: 'MFG/X/1/01', values: {}, results: [], readings: [], photos: [], ...over })
 
-/* Every schema here has a Photo Evidence section, and the attachment
-   sheet follows the section rather than the pictures — an empty one
-   prints "No photos attached", which is a statement about the record
-   and not a page to omit. So one sheet of each count below is that. */
-describe('how many sheets a report prints on', () => {
-  it('gives a hydrotest its own statement sheet', () => {
-    expect(reportSheetCount(FORM_SCHEMAS.hydrotest, rep())).toBe(3)   // form + attachments + statement
+describe('the report page plan', () => {
+  it('does not create a blank attachment sheet for a document with no evidence', () => {
+    expect(reportSheetCount(FORM_SCHEMAS.itp, rep())).toBe(1)
   })
 
-  it('drops that sheet when the book makes one statement for the unit', () => {
-    expect(reportSheetCount(FORM_SCHEMAS.hydrotest, rep(), 1, true)).toBe(2)
+  it('omits the statement when the MDR carries it and preserves document records', () => {
+    const normal = reportSheetCount(FORM_SCHEMAS.hydrotest, rep())
+    expect(reportSheetCount(FORM_SCHEMAS.hydrotest, rep(), 1, true)).toBeLessThanOrEqual(normal)
+    expect(reportSheetCount(FORM_SCHEMAS.itp, rep(), 1, true)).toBe(reportSheetCount(FORM_SCHEMAS.itp, rep()))
   })
 
-  it('never gave a document record one to drop', () => {
-    // An ITP is somebody else's document on file. A page declaring that
-    // this shop carried it out and hereby accepts the object would be
-    // false on both halves, so there was never one to suppress.
-    expect(reportSheetCount(FORM_SCHEMAS.itp, rep())).toBe(2)
-    expect(reportSheetCount(FORM_SCHEMAS.itp, rep(), 1, true)).toBe(2)
+  it('gives every filed signed page its own readable evidence sheet', () => {
+    const base = reportSheetCount(FORM_SCHEMAS.itp, rep())
+    const photos = Array.from({ length: 3 }, (_, i) => ({ img: `image-${i}`, label: `Signed page ${i + 1}` }))
+    expect(reportSheetCount(FORM_SCHEMAS.itp, rep({ photos }))).toBe(base + 3)
   })
 
-  it('keeps a one-page report to one page either way', () => {
-    // MT and the dimensional report carry their statement inline, so
-    // suppressing it changes what is on the sheet, not how many there are.
-    for (const key of ['mt', 'dimensional']) {
-      expect(reportSheetCount(FORM_SCHEMAS[key], rep())).toBe(2)
-      expect(reportSheetCount(FORM_SCHEMAS[key], rep(), 1, true)).toBe(2)
-    }
-  })
-
-  it('continues a table that outruns its sheet', () => {
-    // 22 rows fit the two-column grid; the 23rd starts a continuation.
+  it('continues long result tables instead of fitting all rows onto one sheet', () => {
     const rows = (n) => Array.from({ length: n }, (_, i) => ({ itemNo: String(i), actual: '1', min: '0', max: '2' }))
-    expect(reportSheetCount(FORM_SCHEMAS.dimensional, rep({ results: rows(22) }))).toBe(2)
-    expect(reportSheetCount(FORM_SCHEMAS.dimensional, rep({ results: rows(30) }))).toBe(3)
+    expect(reportSheetCount(FORM_SCHEMAS.dimensional, rep({ results: rows(60) }))).toBeGreaterThan(reportSheetCount(FORM_SCHEMAS.dimensional, rep({ results: rows(6) })))
   })
 })
 

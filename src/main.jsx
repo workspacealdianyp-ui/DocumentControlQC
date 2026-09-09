@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
 import './styles.css'
+import './print.css'
 import { registerServiceWorker } from './lib/appUpdate.js'
 
 /* The service worker is what makes this installable and what lets it
