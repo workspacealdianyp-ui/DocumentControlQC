@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react'
+import { PRINT_GEOMETRY } from './printLayout.js'
 
 /* One sheet, one page.
 
@@ -16,8 +17,8 @@ import { useEffect, useRef } from 'react'
    reported instead, which is what keeps the contents page true either
    way. */
 
-const PAGE_CONTENT_MM = 271 // A4 height less the 12mm/14mm print margins
-const MIN_ZOOM = 0.7
+const PAGE_CONTENT_MM = PRINT_GEOMETRY.height - PRINT_GEOMETRY.top - PRINT_GEOMETRY.bottom
+const MIN_ZOOM = PRINT_GEOMETRY.minZoom
 
 /* Measure at the width it will print at, not the width it happens to be
    shown at. The preview sheet is `210mm` but `max-width: 100%`, so in a
@@ -148,7 +149,7 @@ export function useFitToPage(ref, deps = [], onFit) {
 
    The zoom goes on a wrapper, never on .print-sheet, because fitSheets()
    above already owns that property for the page-fit reduction. */
-const SHEET_MM = 210
+const SHEET_MM = PRINT_GEOMETRY.width
 
 export function useSheetZoom(ref) {
   useEffect(() => {
