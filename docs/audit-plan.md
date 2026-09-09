@@ -201,6 +201,75 @@ before.
 
 ---
 
+## The whole-app audit — routes, features, permissions, records
+
+Every route the hash parser can produce, driven under all three roles at
+1440 and 390, including deliberate nonsense: `<script>` in a path,
+`../../etc/passwd`, `"><img onerror>`, `'; DROP TABLE--`, zero-width
+characters, empty segments. Five holes, all fixed.
+
+**1. One URL took the whole app down.** — **fixed**
+
+`#/job/<any>/form/<unknown-key>` threw. `FormView` looks up the schema
+and guards it with `schema?.` in two places; a third read `schema.code`
+inside a `useState` initializer, which runs during the first render — so
+the guard that already existed further down the same component was
+unreachable. A form key comes off the URL, so a stale bookmark or a
+renamed template was enough.
+
+**2. Nothing caught it, and one throw blanked every screen.** — **fixed**
+
+There was no error boundary. React unmounted the tree, the rail and the
+bottom bar stayed on screen with every item doing nothing, and only a
+manual reload recovered — which nothing on the page said. Measured:
+3404 characters on the register, 0 after the bad URL, 0 on each of four
+routes after that, 1646 after a reload.
+
+`ErrorBoundary` sits inside `<main>`, whose key already changes with the
+route, so walking to any other page remounts it and clears the failure
+without a reload at all. It states that saved work is untouched, offers
+a reload and a way to the dashboard, and logs to the console — the only
+recorder an app with no backend has.
+`tests/unit/errorBoundary.test.jsx`.
+
+**3. The storage gauge was wrong by 2×.** — **fixed**
+
+`storage.js` measured against 5 MB. Filling localStorage in Chromium
+until it refused took 9.5 MB, so 2.3 MB read as 45% when it was 24%. The
+remedy offered beside the gauge is "export and clear records", so
+reading high is the direction that costs evidence. 10 MB now, with the
+write failing loudly (`StorageFullError`) as the thing that actually
+protects a record. `tests/unit/storage.test.js`.
+
+**4. Two overlays a keyboard could not dismiss.** — **fixed**
+
+See the entry above on the lint count.
+
+**5. Four elements drawing nothing on every page.** — **fixed**
+
+`AppBackground` rendered four `.aurora` divs for glassmorphism cards to
+blur. There is no glassmorphism in this app and the CSS was
+`display: none`.
+
+### What the audit found sound
+
+Not assumed — measured, and worth keeping that way:
+
+- **Permissions.** A viewer reaching an inspection form by direct URL
+  gets no editable field, no Submit, no Approve, and no record actions.
+  An admin opening their own submitted report is offered no Approve: the
+  second-person rule holds even for the role that overrides everything.
+- **The records.** 226 of them against seven invariants, zero
+  violations: no duplicate report number, no approval without an
+  approver, no self-approval, no approved-before-created, no
+  non-conforming result without its NCR note.
+- **No injection surface.** No `dangerouslySetInnerHTML`, no `eval`, no
+  outbound request anywhere in `src/`.
+- **Offline works**, and a full backup round trip comes back
+  byte-identical.
+
+---
+
 ## Not done, and why
 
 **Backup hardening** (checksums, per-record schema validation, a
@@ -215,8 +284,27 @@ fails the build if either grows, which is the guard the audit wanted.
 Splitting the rest is worth doing and is not worth doing in the same
 change as the record-safety work.
 
-**The 46 keyboard-access findings.** Real, counted, and a design change
-across a dozen screens.
+**The "46 keyboard-access findings" were mostly not that.** — **audited,
+and the real ones fixed**
+
+The number came from a lint count and it did not survive being checked.
+Driving nine screens and asking what a keyboard can actually reach found
+nothing mouse-only: what the rule was flagging is overwhelmingly modal
+backdrops (`onClick={onClose}`, whose keyboard equivalent is Escape) and
+the `stopPropagation` handler on the box inside them, which is event
+plumbing rather than an interaction at all.
+
+Behind them were two real defects, and they are fixed: the Generate MDR
+picker and the NDE method picker answered neither Escape nor a screen
+reader, because they were built by hand rather than through
+ConfirmDialog. Both wear a shared shell now (`src/lib/useDismiss.js`) —
+Escape, `aria-modal`, focus into the dialog on open and back to the
+opener on close. `tests/unit/errorBoundary.test.jsx` and the browser
+checks hold it.
+
+The lint warnings stay on, because the rule cannot tell a backdrop from
+a control and the next static `div` with a click handler should still be
+questioned.
 
 **Phases 2–5** — inspector work queues, the QA approval inbox, MDR
 completeness, the CSS split. These are product, not correctness, and
@@ -226,9 +314,7 @@ each is a piece of work in its own right.
 
 ## What to do next, in order
 
-1. Keyboard access for every `div` acting as a button (46 findings, all
-   listed by `npm run lint`).
-2. The override history drawer, and the control that sets one.
-3. Backup integrity: checksum, manifest, pre-import snapshot, import log.
-4. Role-specific home queues (Phase 2 of the audit).
-5. Split `src/styles.css` by responsibility, behind screenshot tests.
+1. The override history drawer, and the control that sets one.
+2. Backup integrity: checksum, manifest, pre-import snapshot, import log.
+3. Role-specific home queues (Phase 2 of the audit).
+4. Split `src/styles.css` by responsibility, behind screenshot tests.

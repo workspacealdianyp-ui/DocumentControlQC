@@ -905,7 +905,15 @@ export default function FormView({ job, formKey, query }) {
     for (const sec of schema?.sections || []) {
       for (const f of sec.fields || []) if (f.default !== undefined) values[f.id] = f.default
     }
-    if (job) {
+    /* Both, not just the job.
+
+       There is a guard for an unknown form template below, and it was
+       unreachable: this initializer runs during the first render, so
+       reading schema.code off an undefined template threw before React
+       ever got to it — and with no error boundary above, that took the
+       whole app down until a reload. A form key comes off the URL, so a
+       stale bookmark or a renamed template is all it takes. */
+    if (job && schema) {
       Object.assign(values, jobIdentity(job), {
         reportId: nextReportId(schema.code, job.jobNo),
         inspDate: new Date().toISOString().slice(0, 10),

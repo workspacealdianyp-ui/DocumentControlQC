@@ -289,7 +289,24 @@ table { border-collapse: collapse; }
    here was decoration drawn to make the page look designed, which is
    exactly the tell this redesign is removing. */
 .app-bg { position: fixed; inset: 0; z-index: -1; pointer-events: none; background: var(--paper); }
-.aurora { display: none; }
+
+/* The screen that could not be drawn. Sits where the page was, so the
+   rail and the bottom bar stay usable beside it. */
+.crash-page .empty-state { max-width: 560px; margin-inline: auto; }
+.crash-acts { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 6px; }
+.crash-detail { margin-top: 16px; text-align: left; }
+.crash-detail summary {
+  cursor: pointer; font-size: 12.5px; color: var(--text-2);
+  padding: 6px 0; min-height: var(--tap); display: flex; align-items: center;
+}
+.crash-detail summary:focus-visible { outline: 2px solid var(--text); outline-offset: 2px; border-radius: 4px; }
+.crash-detail code {
+  display: block; margin-top: 6px; padding: 10px 12px;
+  border: 1px solid var(--line); border-radius: var(--r);
+  background: var(--surface-2); color: var(--text-2);
+  font-family: var(--mono); font-size: 11.5px; line-height: 1.5;
+  overflow-x: auto; white-space: pre-wrap; overflow-wrap: anywhere;
+}
 
 /* ─────────────────────────── top bar ───────────────────────────
    Where you are, then what you can do about it. It sits in the flow at

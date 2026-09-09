@@ -9,6 +9,7 @@ import { hasLock, isOpen } from './lib/lock.js'
 import Sidebar from './components/Sidebar.jsx'
 import BottomNav from './components/BottomNav.jsx'
 import Topbar from './components/Topbar.jsx'
+import ErrorBoundary from './components/ErrorBoundary.jsx'
 import Help from './components/Help.jsx'
 import { applyTheme, watchSystemTheme } from './lib/theme.js'
 import { isPaletteChord } from './lib/keys.js'
@@ -89,17 +90,14 @@ function UpdateBar() {
   )
 }
 
-// Decorative fixed layer: white canvas, faint grid, soft color blobs.
-// Sits behind everything so glassmorphism cards reveal it through their blur.
+/* The page's ground, and nothing else.
+
+   It used to carry four "aurora" blobs for glassmorphism cards to blur.
+   There is no glassmorphism in this app and the blobs were `display:
+   none` — four elements on every page of a shop-floor tool, drawing
+   nothing, and a comment describing a design that was never built. */
 function AppBackground() {
-  return (
-    <div className="app-bg" aria-hidden="true">
-      <div className="aurora aurora-1" />
-      <div className="aurora aurora-2" />
-      <div className="aurora aurora-3" />
-      <div className="aurora aurora-4" />
-    </div>
-  )
+  return <div className="app-bg" aria-hidden="true" />
 }
 
 export default function App() {
@@ -214,6 +212,17 @@ export default function App() {
             searchOpen={searchOpen} onOpenSearch={() => setSearchOpen(true)}
             onCloseSearch={() => setSearchOpen(false)} />
           <main className="content" key={route.page + (route.jobNo || '') + (route.formKey || '') + (route.orderId || '')}>
+            {/* Inside main, so main's key does the recovering.
+
+                A render that throws used to unmount the whole app: the
+                rail and the bottom bar stayed on screen and every one of
+                them did nothing, with no way back but a reload nobody
+                was told to do. Here the chrome keeps working, the
+                failure is stated where the screen was, and because this
+                sits under a key that changes with the route, walking to
+                any other page remounts it and clears the error without
+                a reload at all. */}
+            <ErrorBoundary>
             {route.page === 'home' && <Home />}
             {route.page === 'customers' && <CustomersPage />}
             {route.page === 'jobs' && <JobsPage kat={route.query.kat} state={route.query.state} resetView={route.query.from === 'home'} />}
@@ -227,6 +236,7 @@ export default function App() {
             {route.page === 'settings' && <Settings section={route.query.s} />}
             {route.page === 'help' && <Help />}
             {route.page === 'profile' && <Profile />}
+            </ErrorBoundary>
           </main>
         </div>
         <BottomNav page={route.page} />

@@ -14,6 +14,7 @@ import CompletionDial from './CompletionDial.jsx'
 import { reportResult } from '../lib/verdict.js'
 import { IconPrint, IconChevronD } from './Icons.jsx'
 import Masthead from './Masthead.jsx'
+import { useDismiss } from '../lib/useDismiss.js'
 
 const KAT_LABEL = { SUPEQ: 'Support Equipment', TRAILER: 'Trailer', 'NON TRAILER': 'Non Trailer' }
 // The chip carries a code, the way a report's carries LHT or DIM.
@@ -52,6 +53,25 @@ function byDocument(reports) {
       return { current: sorted[0], superseded: sorted.slice(1) }
     })
     .sort((a, b) => (b.current.updatedAt || '').localeCompare(a.current.updatedAt || ''))
+}
+
+/* The shell the two hand-built pickers share.
+
+   Backdrop dismissal is a mouse convenience; Escape is the keyboard's
+   version of the same gesture, and these two were the only overlays in
+   the app that did not answer it. useDismiss brings the rest with it:
+   focus moves into the dialog on open, cannot Tab out of it, and returns
+   to whatever opened it on close. */
+function Dismissable({ label, onClose, children }) {
+  const { box, dialogProps } = useDismiss(onClose)
+  return (
+    <div className="modal-backdrop" onMouseDown={(e) => { if (e.target === e.currentTarget) onClose() }}>
+      <div className="modal" ref={box} {...dialogProps} aria-label={label}
+        onMouseDown={(e) => e.stopPropagation()}>
+        {children}
+      </div>
+    </div>
+  )
 }
 
 const Chevron = () => (
@@ -347,8 +367,7 @@ export default function JobDetail({ job }) {
 
       {/* MDR document picker — approved only */}
       {sumPicker && (
-        <div className="modal-backdrop" onClick={() => setSumPicker(false)}>
-          <div className="modal" onClick={(e) => e.stopPropagation()} role="dialog" aria-label="Generate Manufacturing Data Report">
+        <Dismissable label="Generate Manufacturing Data Report" onClose={() => setSumPicker(false)}>
             <div className="sheet-handle" />
             <h3>Generate MDR</h3>
             <p className="page-sub">
@@ -412,8 +431,7 @@ export default function JobDetail({ job }) {
                 Generate ({sumSel.length})
               </button>
             </div>
-          </div>
-        </div>
+        </Dismissable>
       )}
 
       {summary && createPortal(
@@ -424,8 +442,7 @@ export default function JobDetail({ job }) {
 
       {/* NDE method picker — bottom sheet */}
       {ndePicker && (
-        <div className="modal-backdrop" onClick={() => setNdePicker(false)}>
-          <div className="modal" onClick={(e) => e.stopPropagation()} role="dialog" aria-label="Choose NDE method">
+        <Dismissable label="Choose NDE method" onClose={() => setNdePicker(false)}>
             <div className="sheet-handle" />
             <h3>NDE Report: choose method</h3>
             <p className="page-sub">The NDE deliverable can be fulfilled by MT, PT, or UT examination.</p>
@@ -442,8 +459,7 @@ export default function JobDetail({ job }) {
               ))}
             </div>
             <button className="btn btn-ghost btn-block" onClick={() => setNdePicker(false)}>Cancel</button>
-          </div>
-        </div>
+        </Dismissable>
       )}
     </div>
   )
