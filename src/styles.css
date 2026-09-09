@@ -3598,6 +3598,11 @@ tr:has(.chip-done) .jobs-prog-bar span { background: var(--done); }
 
 @media (max-width: 720px) {
   .rb-group { flex: 1 1 100%; }
+  /* Mobile's own size step for the toolbar. 40px is a cursor target;
+     a thumb needs 44, and the field grows with the buttons so the row
+     still reads as one object rather than two heights side by side. */
+  .rb-search { height: 44px; }
+  .rb-btn { width: 44px; height: 44px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .rb-search, .rb-search-btn, .rb-btn, .rb-opt { transition: none; }
@@ -6211,32 +6216,13 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber); outline-
 .vt-track.is-back i.on { background: var(--overdue); }
 .vt-standing b.is-back { color: var(--overdue); }
 
-/* The state filter. Small enough to sit beside the search field rather
-   than take a row of its own, since five states is the whole vocabulary
-   and hiding them behind a menu costs a tap to learn nothing. */
-.vt-states { display: flex; flex-wrap: wrap; gap: 4px; }
-.vt-state {
-  display: inline-flex; align-items: center; gap: 6px;
-  padding: 6px 10px; border-radius: 7px;
-  border: 1px solid transparent; background: none; color: var(--text-2);
-  font: inherit; font-size: 12px; font-weight: 500; cursor: pointer;
-}
-.vt-state:hover { background: var(--surface-3); }
-.vt-state b {
-  font-family: var(--mono); font-size: 11px; font-weight: 600;
-  font-variant-numeric: tabular-nums; color: var(--text-2);
-}
-.vt-state.on { background: var(--ink); color: #fff; }
-.vt-state.on b { color: rgba(255, 255, 255, 0.72); }
-.vt-state.is-ncr b { color: var(--overdue); }
-.vt-state.on.is-ncr b { color: #fff; }
-.vt-state:focus-visible { outline: none; border-color: var(--text); }
-
-/* The register's search field takes the row on its own once the state
-   filter is beside it; below that the two stack. */
-@media (max-width: 900px) {
-  .reg-bar .rb-search { flex: 1 1 100%; }
-}
+/* The state chips are gone. They sat on a row of their own beside the
+   field — a second copy of the figures directly above them, drawn as
+   controls, wrapping to two lines on a phone and each one 28px tall
+   against a thumb — and the vault now wears the same Filter and Sort
+   tools as the other two registers. Their counts moved onto the options
+   inside the panel, which is where the register's own filters keep
+   theirs. */
 @media (max-width: 720px) {
   .vt-row { grid-template-columns: 40px minmax(0, 1fr) 40px; }
   .vt-standing { grid-column: 1 / -1; order: 3; }

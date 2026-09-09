@@ -7,8 +7,8 @@ import { reportResult } from '../lib/verdict.js'
 import Masthead from './Masthead.jsx'
 import { artFor } from '../lib/productArt.js'
 import { Figure } from './Readings.jsx'
-import { SearchField } from './RegisterBar.jsx'
-import { IconChevronR } from './Icons.jsx'
+import { SearchField, ToolButton, PopCheck, PopRadio, PopFooter } from './RegisterBar.jsx'
+import { IconChevronR, IconFilter, IconSort } from './Icons.jsx'
 
 /* Your documents, and where each one has got to.
 
@@ -30,13 +30,36 @@ const LANES = [
   { id: 'approved', label: 'Approved by me' },
 ]
 
+/* The four states a document of yours can be in. They are checkboxes
+   rather than tabs: "show me what is waiting and what came back" is one
+   question, and it used to take two visits.
+
+   Non-conformance is not one of them. It is a result, not a step, and
+   a document can be approved and still carry one — which the old chip
+   row could not say, because picking NCR there dropped the state filter
+   entirely. It is its own switch below, and it narrows whatever states
+   are picked rather than replacing them. */
 const STATES = [
-  { id: 'all', label: 'All' },
   { id: 'draft', label: 'Draft' },
   { id: 'returned', label: 'Sent back' },
   { id: 'submitted', label: 'Waiting' },
   { id: 'approved', label: 'Approved' },
-  { id: 'ncr', label: 'NCR' },
+]
+
+/* Ordering. The default is the one this page was built on — what is
+   still on you, first — and it stays the default because it is the
+   answer to the question the page exists to ask. The rest are for
+   finding one document you already know about. */
+const ONYOU = { returned: -1, draft: 0, submitted: 1, approved: 2 }
+const ORDERS = [
+  { id: 'standing', label: 'What is on you first',
+    of: (a, b) => (ONYOU[a.status] ?? 3) - (ONYOU[b.status] ?? 3)
+      || (b.updatedAt || '').localeCompare(a.updatedAt || '') },
+  { id: 'new', label: 'Newest first', of: (a, b) => (b.updatedAt || '').localeCompare(a.updatedAt || '') },
+  { id: 'old', label: 'Oldest first', of: (a, b) => (a.updatedAt || '').localeCompare(b.updatedAt || '') },
+  { id: 'id', label: 'Report number', of: (a, b) => (a.reportId || '').localeCompare(b.reportId || '') },
+  { id: 'job', label: 'Job number',
+    of: (a, b) => String(a.jobNo).localeCompare(String(b.jobNo)) || (a.reportId || '').localeCompare(b.reportId || '') },
 ]
 
 /* Three steps, always all three, with the one it has reached filled in.
@@ -83,7 +106,9 @@ export default function Vault() {
   // has anything in it. A QA Lead who writes nothing was landing on an
   // empty page with 151 documents one tab away.
   const [pickedLane, setLane] = useState(null)
-  const [state, setState] = useState('all')
+  const [states, setStates] = useState(() => new Set())
+  const [ncrOnly, setNcrOnly] = useState(false)
+  const [order, setOrder] = useState('standing')
   const [q, setQ] = useState('')
   const [limit, setLimit] = useState(PAGE)
 
@@ -110,21 +135,22 @@ export default function Vault() {
 
   const rows = useMemo(() => {
     const ql = q.trim().toLowerCase()
-    const rank = { returned: -1, draft: 0, submitted: 1, approved: 2 }
+    const sortBy = ORDERS.find((o) => o.id === order)?.of || ORDERS[0].of
     return mine
-      .filter((r) => (state === 'all' ? true : state === 'ncr' ? reportResult(r) === 'Reject' : r.status === state))
+      // No state picked means every state, which is what an empty filter
+      // has always meant here; picking some narrows to those.
+      .filter((r) => (states.size === 0 || states.has(r.status)))
+      .filter((r) => (!ncrOnly || reportResult(r) === 'Reject'))
       .filter((r) => {
         if (!ql) return true
         const job = jobIndex.get(r.jobNo)
         return `${r.reportId} ${r.jobNo} ${r.deliverable} ${FORM_SCHEMAS[r.formKey]?.title || ''} ${job?.customerName || ''} ${job?.unitNo || ''}`
           .toLowerCase().includes(ql)
       })
-      // What is still on you, first.
-      .sort((a, b) => (rank[a.status] ?? 3) - (rank[b.status] ?? 3)
-        || (b.updatedAt || '').localeCompare(a.updatedAt || ''))
-  }, [mine, state, q, jobIndex])
+      .sort(sortBy)
+  }, [mine, states, ncrOnly, order, q, jobIndex])
 
-  useEffect(() => { setLimit(PAGE) }, [lane, state, q])
+  useEffect(() => { setLimit(PAGE) }, [lane, states, ncrOnly, order, q])
 
   const shown = rows.slice(0, limit)
 
@@ -158,7 +184,7 @@ export default function Vault() {
           {LANES.map((l) => (
             <button key={l.id} className={`mon-tab${lane === l.id ? ' on' : ''}`}
               aria-current={lane === l.id ? 'page' : undefined}
-              onClick={() => { setLane(l.id); setState('all') }}>
+              onClick={() => { setLane(l.id); setStates(new Set()); setNcrOnly(false) }}>
               {l.label}<span className="mon-tab-n">{lanes[l.id].length}</span>
             </button>
           ))}
@@ -166,18 +192,52 @@ export default function Vault() {
       )}
 
       <div className="card reg-card" style={{ marginTop: showLanes ? 12 : 16 }}>
+        {/* The same toolbar the other two registers wear: the field, then
+            the tools beside it. This page carried six chips on their own
+            row instead — a second copy of the figures directly above,
+            drawn as controls, wrapping to two lines on a phone and each
+            one 28px tall against a thumb. The counts they carried live
+            on the options inside the panel, so nothing was lost. */}
         <div className="reg-bar">
-          <SearchField value={q} onChange={setQ} label="Search your documents"
-            placeholder="Report number, job, unit, customer…" />
-          <div className="vt-states" role="tablist" aria-label="Document state">
-            {STATES.map((s) => (
-              <button key={s.id} role="tab" aria-selected={state === s.id}
-                className={`vt-state${state === s.id ? ' on' : ''}${s.id === 'ncr' && counts.ncr ? ' is-ncr' : ''}`}
-                onClick={() => setState(s.id)}>
-                {s.label}<b>{counts[s.id]}</b>
-              </button>
-            ))}
+          <div className="rb-group">
+            <SearchField value={q} onChange={setQ} label="Search your documents"
+              placeholder="Report number, job, unit, customer…" />
+            <ToolButton icon={IconFilter} label="Filter" count={states.size + (ncrOnly ? 1 : 0)}>
+              {() => (
+                <>
+                  {STATES.map((st) => (
+                    <PopCheck key={st.id} label={st.label} on={states.has(st.id)} hint={counts[st.id]}
+                      onChange={(on) => setStates((s0) => {
+                        const n = new Set(s0)
+                        if (on) n.add(st.id); else n.delete(st.id)
+                        return n
+                      })} />
+                  ))}
+                  <div className="rb-pop-legend">Result</div>
+                  <PopCheck label="Non-conformance only" on={ncrOnly} hint={counts.ncr}
+                    onChange={setNcrOnly} />
+                  <PopFooter>
+                    <button className="btn btn-ghost btn-sm" disabled={!states.size && !ncrOnly}
+                      onClick={() => { setStates(new Set()); setNcrOnly(false) }}>Clear</button>
+                  </PopFooter>
+                </>
+              )}
+            </ToolButton>
+            <ToolButton icon={IconSort} label="Sort" count={order === 'standing' ? 0 : 1}>
+              {({ close }) => (
+                <>
+                  {ORDERS.map((o) => (
+                    <PopRadio key={o.id} label={o.label} on={order === o.id}
+                      onChange={() => { setOrder(o.id); close() }} />
+                  ))}
+                </>
+              )}
+            </ToolButton>
           </div>
+          <span className="mon-count">
+            {rows.length} document{rows.length === 1 ? '' : 's'}
+            {rows.length > shown.length && <> · showing {shown.length}</>}
+          </span>
         </div>
 
         {rows.length === 0 ? (
@@ -201,7 +261,9 @@ export default function Vault() {
                 <p><strong>Nothing here.</strong></p>
                 <p>{q ? `No document of yours matches "${q}".` : 'No document of yours is in this state.'}</p>
                 <button className="btn btn-secondary btn-sm"
-                  onClick={() => { setQ(''); setState('all') }}>Show all {lanes[lane].length}</button>
+                  onClick={() => { setQ(''); setStates(new Set()); setNcrOnly(false) }}>
+                  Show all {lanes[lane].length}
+                </button>
               </>
             )}
           </div>
