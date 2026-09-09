@@ -246,6 +246,23 @@ export function adoptReport(id, jobNo, byName) {
    register would only offer to open a job that is not there. */
 export const getReports = () => getAllReports().filter((r) => !r.orphaned)
 
+// A dashboard zero is a claim about the record. Unlike a preference
+// read, a failed report read must not silently become an empty list.
+export function getReportsChecked() {
+  const readRecords = () => {
+    const raw = localStorage.getItem(KEYS.reports)
+    const records = raw === null ? [] : JSON.parse(raw)
+    if (!Array.isArray(records) || records.some((r) => !r || typeof r !== 'object' || !r.id)) {
+      throw new Error('The report data could not be read.')
+    }
+    return records
+  }
+  // Validate held evidence before a migration or fixture top-up can write.
+  readRecords()
+  ensureSeed()
+  return readRecords().filter((r) => !r.orphaned)
+}
+
 export function saveReport(report) {
   const all = getReports()
   const i = all.findIndex((r) => r.id === report.id)
