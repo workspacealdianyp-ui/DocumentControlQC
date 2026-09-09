@@ -6186,3 +6186,76 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber); outline-
 /* A divider in the tab row, between the way back up and the filters. */
 .mon-tab-div { width: 1px; align-self: stretch; margin: 6px 4px; background: var(--line-2); }
 .mon-tab.is-up { color: var(--text-2); }
+
+
+/* ── the confirm dialog ──────────────────────────────────────────────
+   One control for every decision that cannot be taken back, so the
+   reason field, the typed word and the ordering of the buttons are the
+   same wherever the question is asked. */
+.confirm-body p { margin: 0 0 9px; }
+.confirm-body p:last-child { margin-bottom: 0; }
+
+.confirm-field { display: flex; flex-direction: column; gap: 5px; margin-top: 16px; }
+.confirm-field > span {
+  font-size: 11px; font-weight: 600; letter-spacing: 0.04em;
+  text-transform: uppercase; color: var(--text-2);
+}
+.confirm-field textarea,
+.confirm-field input {
+  width: 100%; font: inherit; font-size: 13px; color: var(--text);
+  padding: 9px 11px; border: 1px solid var(--line-2); border-radius: var(--r);
+  background: var(--surface); resize: vertical;
+}
+.confirm-field textarea:focus-visible,
+.confirm-field input:focus-visible { outline: none; border-color: var(--text); }
+.confirm-field small { font-size: 11.5px; color: var(--text-2); }
+.confirm-field small.is-bad { color: var(--overdue); }
+.confirm-field [aria-invalid="true"] { border-color: var(--overdue); }
+
+/* The confirm button is never dimmed and never disabled: pressing it
+   with the reason empty is how you find out that the reason is
+   required. A control that looks unavailable teaches nothing. */
+
+/* ── orphaned records, in Settings ───────────────────────────────── */
+.set-orphans { list-style: none; margin: 10px 0 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+.set-orphans li {
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+  padding: 8px 10px; border: 1px solid var(--line); border-radius: var(--r);
+  background: var(--surface-2);
+}
+.set-orphans code {
+  font-family: var(--mono); font-size: 11.5px; font-weight: 600; color: var(--text);
+}
+.set-orphans li > span { font-size: 11.5px; color: var(--text-2); flex: 1 1 auto; min-width: 0; }
+.set-orphans .btn { flex: none; }
+.set-adopt { max-height: 40vh; overflow: auto; }
+.set-adopt li { padding: 0; border: 0; background: none; }
+.set-adopt .btn { width: 100%; justify-content: flex-start; gap: 8px; }
+.set-adopt .btn.is-on { background: var(--ink); color: #fff; }
+.set-adopt .btn.is-on code, .set-adopt .btn.is-on span { color: inherit; }
+
+/* A save that did not happen, said where the person is looking rather
+   than in a toast that fades while they are still reading it. */
+.jo-save-error {
+  margin: 18px 0 0; padding: 14px 16px;
+  border: 1px solid var(--overdue-line); border-left-width: 3px; border-radius: var(--r);
+  background: var(--overdue-bg);
+}
+.jo-save-error strong { display: block; font-size: 13.5px; color: var(--overdue); }
+.jo-save-error p { margin: 6px 0 0; font-size: 12.5px; line-height: 1.55; color: var(--text); }
+.jo-save-error .btn { margin-top: 12px; }
+
+/* ── awaiting QA, and voided ─────────────────────────────────────────
+   Two states that did not exist while "done" meant submitted-or-
+   approved. Awaiting is progress, not completion, so it takes the
+   in-progress colour rather than the green; voided is a record that
+   still exists and no longer counts, so it is struck through in the
+   neutral tier rather than coloured like a failure. */
+.chip-awaiting, .dchip-awaiting, .status-awaiting {
+  color: var(--inprog); background: var(--inprog-bg); border-color: var(--inprog-line);
+}
+.chip-voided, .dchip-voided, .status-voided {
+  color: var(--na); background: var(--na-bg); text-decoration: line-through;
+}
+.cell.awaiting { color: var(--inprog); background: var(--inprog-bg); }
+.cell.voided { color: var(--na); background: var(--na-bg); text-decoration: line-through; }

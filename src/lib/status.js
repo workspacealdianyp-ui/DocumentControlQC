@@ -1,8 +1,21 @@
 import { DELIVERABLES } from './constants.js'
 import { getReports, getOverrides } from './store.js'
 import { currentIssues, reportResult } from './verdict.js'
+import { downloadCsv, stampToday } from './csv.js'
 
-const TODAY = new Date()
+/* Evaluated when the question is asked, not when the file loaded.
+
+   This was `const TODAY = new Date()` at module scope. An installed PWA
+   on a bench tablet is opened on Monday and still open on Thursday: the
+   comparison below kept measuring against Monday, so a unit that went
+   past its date on Tuesday read as on time until somebody reloaded the
+   whole app. Passing it in also makes the boundary testable, which is
+   the only way to be sure about a rule that turns on midnight. */
+const startOfToday = (now = new Date()) => {
+  const d = new Date(now)
+  d.setHours(0, 0, 0, 0)
+  return d
+}
 
 /* When the unit is due out, and when it actually went.
 
@@ -43,7 +56,7 @@ export function releasedAt(job, ctx) {
 // then Overdue rule: not done + applicable + PDI already released in the past.
 // The imported sheet only decides applicability; it cannot make a cell done,
 // because done has to mean there is a document to bind.
-export function cellStatus(job, delivKey, ctx) {
+export function cellStatus(job, delivKey, ctx, now = new Date()) {
   const { overrides, reportIndex } = ctx
   // An order says outright which reports it wants; anything outside that
   // list is not applicable to this job, whatever else is recorded.
@@ -51,9 +64,15 @@ export function cellStatus(job, delivKey, ctx) {
   const ov = overrides[job.jobNo]?.[delivKey]
   if (ov) return { status: ov, source: 'override' }
 
-  const reps = reportIndex[`${job.jobNo}|${delivKey}`] || []
-  const finished = reps.find((r) => r.status === 'submitted' || r.status === 'approved')
-  if (finished) return { status: 'done', source: 'report', report: finished }
+  /* Approved is done. Submitted is awaiting, which is a document that
+     exists and has not been signed — real progress, not finished work.
+     A voided report is neither: it stays on the record and stops
+     counting, so the deliverable reads by whatever else is there. */
+  const reps = (reportIndex[`${job.jobNo}|${delivKey}`] || []).filter((r) => r.status !== 'voided')
+  const approved = reps.find((r) => r.status === 'approved')
+  if (approved) return { status: 'done', source: 'report', report: approved }
+  const submitted = reps.find((r) => r.status === 'submitted')
+  if (submitted) return { status: 'awaiting', source: 'report', report: submitted }
   if (reps.length > 0) return { status: 'inprogress', source: 'report', report: reps[0] }
 
   /* An imported status sheet can say a deliverable was finished, but it
@@ -70,8 +89,10 @@ export function cellStatus(job, delivKey, ctx) {
   const base = job.deliverables[delivKey]?.status || 'notstarted'
   if (base === 'na') return { status: 'na', source: 'excel' }
 
+  /* Past its date and still not recorded. Compared at the start of the
+     day, so a unit due today is not overdue until tomorrow. */
   const due = dueDate(job)
-  if (due && new Date(due) < TODAY) {
+  if (due && new Date(`${due}T00:00:00`) < startOfToday(now)) {
     return { status: 'overdue', source: 'derived' }
   }
   return { status: 'notstarted', source: 'excel' }
@@ -87,15 +108,23 @@ export function buildContext() {
   return { overrides: getOverrides(), reportIndex }
 }
 
-export function jobStatuses(job, ctx) {
+export function jobStatuses(job, ctx, now = new Date()) {
   const out = {}
-  for (const d of DELIVERABLES) out[d.key] = cellStatus(job, d.key, ctx)
+  for (const d of DELIVERABLES) out[d.key] = cellStatus(job, d.key, ctx, now)
   return out
 }
 
-export function jobProgress(job, ctx) {
-  const sts = jobStatuses(job, ctx)
+/* Two counts, because there are two questions.
+
+   `done` is what a QA lead has approved — the releasable work, and the
+   only thing a completion percentage or an MDR should be built on.
+   `awaiting` is recorded and unsigned. `recorded` is the two together:
+   what the shop has physically inspected, which is the number an
+   inspector is measured by and a customer is not. */
+export function jobProgress(job, ctx, now = new Date()) {
+  const sts = jobStatuses(job, ctx, now)
   let done = 0
+  let awaiting = 0
   let applicable = 0
   let overdue = false
   let inprog = false
@@ -104,10 +133,11 @@ export function jobProgress(job, ctx) {
     if (s === 'na') continue
     applicable++
     if (s === 'done') done++
+    if (s === 'awaiting') awaiting++
     if (s === 'overdue') overdue = true
-    if (s === 'inprogress') inprog = true
+    if (s === 'inprogress' || s === 'awaiting') inprog = true
   }
-  return { done, applicable, overdue, inprogress: inprog, statuses: sts }
+  return { done, awaiting, recorded: done + awaiting, applicable, overdue, inprogress: inprog, statuses: sts }
 }
 
 export function computeKpis(jobs, ctx) {
@@ -161,25 +191,16 @@ export function filterJobs(jobs, f, ctx) {
 }
 
 export function exportMatrixCsv(jobs, ctx) {
-  const head = ['Job No', 'WBS No', 'Serial No', 'Category', 'Type', 'Product', 'Customer', 'Date PB',
-    'Target delivery', 'PDI released',
-    ...DELIVERABLES.map((d) => d.label)]
-  const lines = [head.join(',')]
-  for (const job of jobs) {
-    const sts = jobStatuses(job, ctx)
-    const row = [job.jobNo, job.wbsNo, job.arasSN, job.kategori, job.type,
-      `"${(job.productDesc || '').replace(/"/g, "'")}"`,
-      `"${(job.customerName || '').replace(/"/g, "'")}"`,
-      job.datePB || '', dueDate(job) || '', releasedAt(job, ctx) || '',
-      ...DELIVERABLES.map((d) => sts[d.key].status)]
-    lines.push(row.join(','))
-  }
-  const blob = new Blob(['﻿' + lines.join('\r\n')], { type: 'text/csv;charset=utf-8' })
-  const a = document.createElement('a')
-  a.href = URL.createObjectURL(blob)
-  a.download = `qc-status-matrix-${new Date().toISOString().slice(0, 10)}.csv`
-  a.click()
-  URL.revokeObjectURL(a.href)
+  downloadCsv(`qc-status-matrix-${stampToday()}.csv`, [
+    ['Job No', 'WBS No', 'Serial No', 'Category', 'Type', 'Product', 'Customer', 'Date PB',
+      'Target delivery', 'PDI released', ...DELIVERABLES.map((d) => d.label)],
+    ...jobs.map((job) => {
+      const sts = jobStatuses(job, ctx)
+      return [job.jobNo, job.wbsNo, job.arasSN, job.kategori, job.type, job.productDesc, job.customerName,
+        job.datePB, dueDate(job), releasedAt(job, ctx),
+        ...DELIVERABLES.map((d) => sts[d.key].status)]
+    }),
+  ])
 }
 
 export const fmtDate = (iso) => {

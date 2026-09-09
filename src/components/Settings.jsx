@@ -2,7 +2,7 @@ import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { useApp, navigate } from '../App.jsx'
 import { ROLES, DELIVERABLES } from '../lib/constants.js'
-import { getAssets, setAssets } from '../lib/store.js'
+import { getAssets, setAssets, orphanedReports, adoptReport, getAllReports } from '../lib/store.js'
 import { shrink, PORTRAIT_PX } from '../lib/image.js'
 import { downloadBackup, readBackupFile, planImport, applyImport } from '../lib/backup.js'
 import { getRegister, calState, INSTRUMENT_KINDS } from '../lib/instruments.js'
@@ -10,6 +10,7 @@ import { getSettings, setSettings, resetSettings, UNITS, DEFAULT_SETTINGS } from
 import { storageUsage, fmtBytes } from '../lib/storage.js'
 import { hasLock, setLock, clearLock, verify } from '../lib/lock.js'
 import SignaturePad from './SignaturePad.jsx'
+import ConfirmDialog from './ConfirmDialog.jsx'
 import {
   IconPlus, IconTrash, IconUser, IconBell, IconRuler, IconGauge,
   IconShield, IconDatabase, IconMail, IconLock, IconPen, IconCheck, IconDoc,
@@ -163,8 +164,55 @@ const Legend = ({ children }) => <p className="set-legend">{children}</p>
 
 /* ── Screen ──────────────────────────────────────────────────────── */
 
+/* Putting an orphan back.
+
+   The job has to be one that exists, so this is a list of them rather
+   than a box to type a number into: the number the report carries is
+   precisely the one that is not there any more. */
+function AdoptDialog({ report, jobs, onCancel, onDone }) {
+  const [q, setQ] = useState('')
+  const [pick, setPick] = useState('')
+  const ql = q.trim().toLowerCase()
+  const found = jobs
+    .filter((j) => !ql || `${j.jobNo} ${j.wbsNo || ''} ${j.unitNo || ''} ${j.customerName || ''} ${j.productDesc || ''}`
+      .toLowerCase().includes(ql))
+    .slice(0, 8)
+
+  return (
+    <ConfirmDialog
+      title={`Attach ${report.reportId} to a job`}
+      confirmLabel={pick ? `Attach it to job ${pick}` : 'Choose a job first'}
+      cancelLabel="Leave it where it is"
+      reason={false}
+      onCancel={onCancel}
+      onConfirm={() => pick && onDone(pick)}>
+      <p>
+        It was recorded against job {report.jobNo}, which is not in this browser. The report keeps
+        its number, readings and signatures; only the job it belongs to changes, and that change is
+        kept on the record.
+      </p>
+      <label className="confirm-field">
+        <span>Find the job</span>
+        <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Job number, WBS, unit or customer" />
+      </label>
+      <ul className="set-orphans set-adopt" role="listbox" aria-label="Jobs">
+        {found.map((j) => (
+          <li key={j.jobNo}>
+            <button type="button" role="option" aria-selected={pick === String(j.jobNo)}
+              className={`btn btn-ghost btn-sm${pick === String(j.jobNo) ? ' is-on' : ''}`}
+              onClick={() => setPick(String(j.jobNo))}>
+              <code>{j.jobNo}</code> <span>{j.unitNo || j.arasSN} · {j.customerName}</span>
+            </button>
+          </li>
+        ))}
+        {!found.length && <li><span>No job matches that.</span></li>}
+      </ul>
+    </ConfirmDialog>
+  )
+}
+
 export default function Settings({ section }) {
-  const { role, session, notify } = useApp()
+  const { role, session, notify, jobs, refresh } = useApp()
   const [cfg, setCfg] = useState(getSettings)
   const [assets, setLocalAssets] = useState(getAssets)
   const [draft, setDraft] = useState({})
@@ -175,6 +223,9 @@ export default function Settings({ section }) {
   const [pin, setPin] = useState(null)      // { mode: 'set' | 'change' | 'remove' }
   const [pinErr, setPinErr] = useState('')
   const used = storageUsage()
+  const [ask, setAsk] = useState(null)
+  const orphans = orphanedReports()
+  const held = getAllReports().length
 
   /* Search answers "where do I change X", which is the question people
      actually arrive with. It matches the panel name and everything on
@@ -750,20 +801,47 @@ export default function Settings({ section }) {
                     setCfg(resetSettings()); notify('Settings reset to defaults')
                   }}>Reset</button>
                 </div>
+                {/* Kept records that have nothing to point at.
+
+                    A report is only orphaned because the job list changed
+                    under it — an order withdrawn, a unit renumbered, a
+                    build that replaced the bundled list. The app used to
+                    delete these on the next load. They are held here
+                    instead, and this is where they are put back. */}
+                {orphans.length > 0 && (
+                  <div className="set-row">
+                    <span className="set-row-ico"><IconDatabase size={15} /></span>
+                    <span className="set-row-text">
+                      <strong>{orphans.length} report{orphans.length === 1 ? '' : 's'} with no job</strong>
+                      <small>
+                        Kept out of the registers because the job {orphans.length === 1 ? 'it points' : 'they point'} at
+                        is not in this browser. Nothing was deleted — attach {orphans.length === 1 ? 'it' : 'them'} to a
+                        job, or leave {orphans.length === 1 ? 'it' : 'them'} here until the order is published again.
+                      </small>
+                      <ul className="set-orphans">
+                        {orphans.slice(0, 12).map((r) => (
+                          <li key={r.id}>
+                            <code>{r.reportId}</code>
+                            <span>job {r.jobNo} · {r.inspector || 'unknown'} · {r.status}</span>
+                            <button className="btn btn-ghost btn-sm" onClick={() => setAsk({ kind: 'adopt', report: r })}>
+                              Attach to a job
+                            </button>
+                          </li>
+                        ))}
+                      </ul>
+                      {orphans.length > 12 && <small>…and {orphans.length - 12} more, all in the backup file.</small>}
+                    </span>
+                  </div>
+                )}
+
                 <div className="set-row is-danger">
                   <span className="set-row-ico"><IconAlert size={15} /></span>
                   <span className="set-row-text">
                     <strong>Clear all local data</strong>
                     <small>Removes every report, override and setting in this browser</small>
                   </span>
-                  <button className="btn btn-secondary btn-sm set-danger-btn" onClick={() => {
-                    if (!window.confirm('Delete every report, override and setting stored in this browser? This cannot be undone.')) return
-                    for (const k of Object.keys(localStorage)) {
-                      if (k.startsWith('qc.')) localStorage.removeItem(k)
-                    }
-                    notify('Local data cleared. Reloading…')
-                    setTimeout(() => window.location.reload(), 700)
-                  }}>Clear</button>
+                  <button className="btn btn-secondary btn-sm set-danger-btn"
+                    onClick={() => setAsk('clear')}>Clear</button>
                 </div>
               </div>
             </Panel>
@@ -771,6 +849,44 @@ export default function Settings({ section }) {
         </div>
         )}
       </div>
+
+      {ask?.kind === 'adopt' && (
+        <AdoptDialog report={ask.report} jobs={jobs}
+          onCancel={() => setAsk(null)}
+          onDone={(jobNo) => {
+            try {
+              adoptReport(ask.report.id, jobNo, session?.name)
+              notify(`${ask.report.reportId} attached to job ${jobNo}`)
+              refresh()
+            } catch (err) { notify(err.message, 'err') }
+            setAsk(null)
+          }} />
+      )}
+
+      {ask === 'clear' && (
+        <ConfirmDialog
+          title="Clear everything in this browser?"
+          confirmLabel="Clear it all"
+          cancelLabel="Keep my records"
+          danger
+          confirmWord="CLEAR"
+          reason={false}
+          onCancel={() => setAsk(null)}
+          onConfirm={() => {
+            for (const k of Object.keys(localStorage)) {
+              if (k.startsWith('qc.')) localStorage.removeItem(k)
+            }
+            notify('Local data cleared. Reloading…')
+            setTimeout(() => window.location.reload(), 700)
+          }}>
+          <p>
+            Every report, job order, override, signature and setting stored here goes, including
+            the {held} report{held === 1 ? '' : 's'} this browser is the only copy of. There is no
+            back end to fetch them from again.
+          </p>
+          <p>Back up first if you have not — the button is at the top of this panel.</p>
+        </ConfirmDialog>
+      )}
 
       {signing && createPortal(
         <SignaturePad name={cfg.profile.name || session?.name || 'Inspector'}

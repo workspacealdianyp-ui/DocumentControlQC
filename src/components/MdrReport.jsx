@@ -57,7 +57,6 @@ export default function MdrReport({ job, reports, session, onClose }) {
   const { spans, total: totalPages } = pageSpans(
     fit && fit.length === sheetTotal ? fit : oneEach(sheetTotal)
   )
-  const CONTENTS_PAGE = spans[1]?.[0] ?? 2
   const REGISTER_PAGE = spans[2]?.[0] ?? 3
 
   let cursor = FRONT

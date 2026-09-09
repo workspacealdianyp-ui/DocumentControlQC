@@ -12,7 +12,7 @@ import MdrReport from './MdrReport.jsx'
 import { ReportId } from './Reports.jsx'
 import CompletionDial from './CompletionDial.jsx'
 import { reportResult } from '../lib/verdict.js'
-import { IconDoc, IconPrint, IconChevronD } from './Icons.jsx'
+import { IconPrint, IconChevronD } from './Icons.jsx'
 import Masthead from './Masthead.jsx'
 
 const KAT_LABEL = { SUPEQ: 'Support Equipment', TRAILER: 'Trailer', 'NON TRAILER': 'Non Trailer' }

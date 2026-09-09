@@ -121,7 +121,7 @@ export function applyImport(payload) {
       rollback.push([k, localStorage.getItem(k)])
       localStorage.setItem(k, JSON.stringify(v))
     }
-  } catch (e) {
+  } catch {
     for (const [k, prev] of rollback) {
       if (prev == null) localStorage.removeItem(k); else localStorage.setItem(k, prev)
     }

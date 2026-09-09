@@ -14,8 +14,21 @@ export const DELIVERABLES = [
 export const NDE_FORMS = ['mt', 'pt', 'ut']
 
 // Status tokens per PRD design system
+/* Done means approved.
+
+   It used to mean submitted-or-approved, which put an unsigned document
+   waiting on a reviewer in the same green as one a QA lead had signed.
+   Everything downstream inherited that: job completion, the dashboard
+   percentage, the monitoring matrix, MDR readiness. A number that counts
+   unreviewed work as finished is the number a customer is shown.
+
+   So there are two states where there was one, and they answer two
+   different questions: the inspection has been recorded, and the
+   document has been approved. Only the second is done. */
 export const STATUS = {
   done: { label: 'Done', cls: 'done' },
+  awaiting: { label: 'Awaiting QA', cls: 'awaiting' },
+  voided: { label: 'Voided', cls: 'voided' },
   inprogress: { label: 'In Progress', cls: 'inprogress' },
   notstarted: { label: 'Not Started', cls: 'notstarted' },
   overdue: { label: 'Overdue', cls: 'overdue' },

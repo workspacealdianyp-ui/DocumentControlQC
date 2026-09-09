@@ -3,7 +3,7 @@ import { COMPANY } from '../lib/company.js'
 import { useApp, navigate } from '../App.jsx'
 import { ROLES } from '../lib/constants.js'
 import { storageUsage, fmtBytes } from '../lib/storage.js'
-import { IconList, IconFile, IconGrid, IconDatabase, IconLock, IconPrint } from './Icons.jsx'
+import { IconFile, IconGrid, IconDatabase, IconLock, IconPrint } from './Icons.jsx'
 
 /* Help that answers what this build actually does, rather than a page of
    links to a support desk that does not exist. Three things a new

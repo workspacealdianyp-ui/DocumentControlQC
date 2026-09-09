@@ -69,7 +69,7 @@ export const clearSession = () => localStorage.removeItem(KEYS.session)
 // because nothing calls ensureSeed during module initialisation.
 const ISSUE_KEY = 'qc.issueCounters'
 
-/* Installing the fixture on a browser that has been here before.
+/* Installing the fixture, and surviving a job list that changed under it.
 
    This used to skip entirely if any reports were stored — the idea being
    not to touch somebody's work. That was right until the job list itself
@@ -79,36 +79,151 @@ const ISSUE_KEY = 'qc.issueCounters'
    Reports list full of documents that answer "Job not found." when you
    open them.
 
-   So the version bump now does the migration properly. A report whose
-   job is gone cannot be opened and cannot be bound into anything: it is
-   dropped. Whatever is left is somebody's real work on a job that still
-   exists, and it is kept — the fixture is merged in beside it, never
-   over it. */
+   The first fix dropped those reports. That was the wrong half of the
+   problem to solve: an inspection report is the evidence that an
+   inspection happened, and an update to the app is not a reason to
+   destroy one. A job number can come back — an order is re-published, a
+   backup is restored, a unit is renumbered — and a record deleted on
+   Tuesday cannot.
+
+   So nothing is deleted. A report whose job is gone is marked orphaned
+   and kept out of the registers, where it would only offer to open a
+   job that is not there. Settings lists them, an admin can reattach one
+   to a job, and export carries them like any other record. Before any
+   of this touches the store it takes a snapshot of what was there. */
 const SEEDED_KEY = 'qc.seeded.v3'
+const VERSION_KEY = 'qc.storeVersion'
+const MIGRATION_KEY = 'qc.migrations'
+const SNAPSHOT_KEY = 'qc.snapshot'
+const STORE_VERSION = 4
+
+/* Marks, never removes. Returns the same list with a flag on the
+   records that have nothing to point at, and a count of them.
+
+   Exported because it is the piece worth testing on its own: the bug it
+   replaces was one `.filter()`. */
+export function markOrphans(reports, liveJobNos, at = new Date().toISOString()) {
+  const live = liveJobNos instanceof Set ? liveJobNos : new Set([...liveJobNos].map(String))
+  let orphaned = 0
+  let adopted = 0
+  const out = reports.filter(Boolean).map((r) => {
+    const has = live.has(String(r.jobNo))
+    if (!has && !r.orphaned) { orphaned++; return { ...r, orphaned: true, orphanedAt: at } }
+    // A job that came back takes its reports with it.
+    if (has && r.orphaned) {
+      adopted++
+      const { orphaned: _was, orphanedAt: _when, ...rest } = r
+      return rest
+    }
+    return r
+  })
+  return { reports: out, orphaned, adopted }
+}
+
+// What the store looked like before a migration ran. Best-effort: if
+// there is no room for a copy the migration still goes ahead, because
+// refusing to start the app is worse than starting it without a spare.
+function snapshot(label) {
+  try {
+    const body = JSON.stringify({
+      at: new Date().toISOString(), label,
+      data: { [KEYS.reports]: localStorage.getItem(KEYS.reports) },
+    })
+    localStorage.setItem(SNAPSHOT_KEY, body)
+    return true
+  } catch { return false }
+}
+
+function logMigration(entry) {
+  try {
+    const log = read(MIGRATION_KEY, [])
+    localStorage.setItem(MIGRATION_KEY, JSON.stringify([...log, entry].slice(-20)))
+  } catch { /* the log is not worth failing a migration for */ }
+}
+
+/* Both of these describe the store, so they bring it up to date first.
+   Reading them before anything has read a report would otherwise answer
+   "no migration has run" when one is simply still pending. */
+export const migrationLog = () => { ensureSeed(); return read(MIGRATION_KEY, []) }
+export const lastSnapshot = () => { ensureSeed(); return read(SNAPSHOT_KEY, null) }
+
 function ensureSeed() {
   try {
-    if (localStorage.getItem(SEEDED_KEY)) return
-    localStorage.setItem(SEEDED_KEY, '1')
+    const version = Number(read(VERSION_KEY, 0)) || 0
+    const seeded = !!localStorage.getItem(SEEDED_KEY)
+    if (seeded && version >= STORE_VERSION) return
 
     const held = read(KEYS.reports, [])
-    const live = new Set(allJobs().map((j) => String(j.jobNo)))
-    const kept = held.filter((r) => r && live.has(String(r.jobNo)))
-    const have = new Set(kept.map((r) => r.id))
-    write(KEYS.reports, [...kept, ...SEED_REPORTS.filter((r) => !have.has(r.id))])
+    if (held.length) snapshot(`v${version} → v${STORE_VERSION}`)
 
-    // The numbers those reports already spent, so the next issue for a
-    // seeded job carries on rather than colliding with one of them.
-    // Whichever mark is higher wins; a number that has been on a
-    // document is spent either way.
-    const counters = { ...read(ISSUE_KEY, {}) }
-    for (const [k, n] of Object.entries(SEED_COUNTERS)) {
-      counters[k] = Math.max(counters[k] || 0, n)
+    // The fixture goes in beside held work, never over it, and only once.
+    let all = held
+    if (!seeded) {
+      localStorage.setItem(SEEDED_KEY, '1')
+      const have = new Set(held.map((r) => r.id))
+      all = [...held, ...SEED_REPORTS.filter((r) => !have.has(r.id))]
+
+      /* The numbers those reports already spent, so the next issue for a
+         seeded job carries on rather than colliding with one of them.
+         Whichever mark is higher wins; a number that has been on a
+         document is spent either way. */
+      const counters = { ...read(ISSUE_KEY, {}) }
+      for (const [k, n] of Object.entries(SEED_COUNTERS)) {
+        counters[k] = Math.max(counters[k] || 0, n)
+      }
+      write(ISSUE_KEY, counters)
     }
-    write(ISSUE_KEY, counters)
+
+    const live = new Set(allJobs().map((j) => String(j.jobNo)))
+    const { reports, orphaned, adopted } = markOrphans(all, live)
+    write(KEYS.reports, reports)
+    localStorage.setItem(VERSION_KEY, String(STORE_VERSION))
+    logMigration({ at: new Date().toISOString(), from: version, to: STORE_VERSION,
+                   held: held.length, kept: reports.length, orphaned, adopted })
   } catch { /* private mode: run without the fixture */ }
 }
 
-export const getReports = () => { ensureSeed(); return read(KEYS.reports, []) }
+/* Everything the store holds, orphans included. Backup uses the raw key
+   and so keeps them too; this is for the screens that exist to show
+   them. */
+export const getAllReports = () => { ensureSeed(); return read(KEYS.reports, []) }
+
+export const orphanedReports = () => getAllReports().filter((r) => r.orphaned)
+
+/* Reattaching an orphan to a job that exists.
+
+   The report keeps its number, its readings, its photographs and its
+   signatures — the only thing that changes is which job it belongs to,
+   and that change is written into the record so the move is visible
+   later. */
+export class UnknownJobError extends Error {
+  constructor(jobNo) {
+    super(`There is no job ${jobNo} to attach this report to.`)
+    this.name = 'UnknownJobError'
+  }
+}
+
+export function adoptReport(id, jobNo, byName) {
+  const live = new Set(allJobs().map((j) => String(j.jobNo)))
+  if (!live.has(String(jobNo))) throw new UnknownJobError(jobNo)
+  const all = getAllReports()
+  const r = all.find((x) => x.id === id)
+  if (!r) return null
+  const at = new Date().toISOString()
+  r.movedFrom = [...(r.movedFrom || []), { from: r.jobNo, at, by: byName || 'unknown' }]
+  r.jobNo = String(jobNo)
+  if (r.values) r.values = { ...r.values, jobNo: String(jobNo) }
+  delete r.orphaned
+  delete r.orphanedAt
+  r.updatedAt = at
+  write(KEYS.reports, all)
+  return r
+}
+
+/* The reports the app works with: everything that still belongs to a
+   job. An orphan is not gone, it is out of the way — listing it in a
+   register would only offer to open a job that is not there. */
+export const getReports = () => getAllReports().filter((r) => !r.orphaned)
 
 export function saveReport(report) {
   const all = getReports()
@@ -156,9 +271,125 @@ export function reviseReport(base, code) {
   return rev
 }
 
-export function deleteReport(id) {
-  write(KEYS.reports, getReports().filter((r) => r.id !== id))
+/* What may be done to a report, and what may not.
+
+   Deletion used to be one action available to anyone who could manage,
+   on any report, at any point in its life. An approved inspection report
+   is the evidence that an inspection happened — it is bound into a data
+   book, it is what a customer is shown, and in this app it is the only
+   copy. Offering a bin next to it is offering to destroy the record.
+
+   So the action depends on where the report stands:
+
+   draft      delete      nothing has been claimed by it yet
+   returned   delete      the same draft, sent back
+   submitted  withdraw    it goes back to draft; the claim is retracted
+   approved   void        it stays, marked, and stops counting
+   voided     nothing     already withdrawn from the record
+
+   Void is the one that matters. A signed document that turns out to be
+   wrong is not removed from a controlled set; it is marked void, the
+   reason is recorded, and a new issue supersedes it. That is what
+   reviseReport already does for the replacement half — this is the
+   other half.
+
+   A reason is required on both of the ones a person will be asked about
+   later. */
+export const REPORT_ACTIONS = {
+  draft: 'delete',
+  returned: 'delete',
+  new: 'delete',
+  submitted: 'withdraw',
+  approved: 'void',
+  voided: null,
 }
+
+export const actionFor = (report) => (report ? REPORT_ACTIONS[report.status] ?? null : null)
+
+export class ProtectedRecordError extends Error {
+  constructor(report, wanted) {
+    const can = actionFor(report)
+    super(can
+      ? `${report.reportId} is ${report.status}, so it cannot be ${wanted}. It can be ${can === 'void' ? 'voided' : can + 'n'}.`
+      : `${report.reportId} is ${report.status}. Nothing further can be done to it.`)
+    this.name = 'ProtectedRecordError'
+  }
+}
+
+export class ReasonRequiredError extends Error {
+  constructor(what) {
+    super(`Say why this report is being ${what}. The reason is kept on the record.`)
+    this.name = 'ReasonRequiredError'
+  }
+}
+
+// An entry on the report's own history. Nothing here is ever rewritten.
+const audit = (r, event, by, note, extra = {}) => {
+  const at = new Date().toISOString()
+  r.audit = [...(r.audit || []), { event, by: by || 'unknown', at, note: note || '', from: r.status, ...extra }]
+  return at
+}
+
+/* Only a draft goes. Anything that has been submitted has been claimed
+   by somebody, and anything approved has been relied on. */
+export function deleteReport(id, byName, note) {
+  const all = getAllReports()
+  const r = all.find((x) => x.id === id)
+  if (!r) return null
+  if (actionFor(r) !== 'delete') throw new ProtectedRecordError(r, 'deleted')
+  write(KEYS.reports, all.filter((x) => x.id !== id))
+  // The number stays spent: see nextIssueNo. A deleted draft does not
+  // hand its report number to the next one.
+  logMigration({ at: new Date().toISOString(), event: 'delete', reportId: r.reportId,
+                 by: byName || 'unknown', note: String(note || '').trim() })
+  return r
+}
+
+/* Taking a submitted report back off the reviewer's desk. It becomes a
+   draft again, with the fact that it was submitted and pulled kept. */
+export function withdrawReport(id, byName, note) {
+  const all = getAllReports()
+  const r = all.find((x) => x.id === id)
+  if (!r) return null
+  if (actionFor(r) !== 'withdraw') throw new ProtectedRecordError(r, 'withdrawn')
+  const reason = String(note || '').trim()
+  if (!reason) throw new ReasonRequiredError('withdrawn')
+  const at = audit(r, 'withdrawn', byName, reason)
+  r.status = 'draft'
+  r.updatedAt = at
+  write(KEYS.reports, all)
+  return r
+}
+
+/* Voiding an approved report.
+
+   It is not deleted and it is not edited. It keeps its number, its
+   readings and its signatures, and gains a mark that takes it out of
+   every count of finished work. The replacement is a new issue, which
+   reviseReport makes; `supersededBy` is filled in by whoever raises it.
+
+   Only somebody who can override may do this, and never on their own
+   work — the same second-person rule that governs approval, for the
+   same reason. */
+export function voidReport(id, byName, note) {
+  const all = getAllReports()
+  const r = all.find((x) => x.id === id)
+  if (!r) return null
+  if (actionFor(r) !== 'void') throw new ProtectedRecordError(r, 'voided')
+  if (!canApprove(r, byName)) throw new SelfApprovalError(byName, 'void it')
+  const reason = String(note || '').trim()
+  if (!reason) throw new ReasonRequiredError('voided')
+  const at = audit(r, 'voided', byName, reason)
+  r.status = 'voided'
+  r.voidedBy = byName
+  r.voidedAt = at
+  r.voidReason = reason
+  r.updatedAt = at
+  write(KEYS.reports, all)
+  return r
+}
+
+export const reportAudit = (report) => [...(report?.audit || [])]
 
 /* Lifecycle: draft -> submitted -> approved, and submitted -> returned
    -> submitted for the half that was missing.
@@ -334,14 +565,68 @@ function claimIssue(reportId) {
   try { write(ISSUE_KEY, counters) } catch { /* the report itself matters more; highestLive still covers the common case */ }
 }
 
-// ---- Admin status overrides (inline matrix edit) ----
+/* Admin status overrides — an event log, not a colour.
+
+   An override was stored as a bare status string under a job and a
+   deliverable key. It turned a cell green and said nothing about who
+   decided that, when, why, what it had been before, or what evidence
+   stood behind it. On a controlled record that is the one statement
+   most in need of a name against it: a person overrode the system,
+   deliberately, and somebody will ask about it.
+
+   So the current value is still a string — every screen that reads a
+   cell keeps working — and it is now derived from a list of events that
+   is only ever appended to. Clearing an override is an event too;
+   nothing erases what was there.
+
+   `evidenceRef` is a free field for the thing that justified it: a
+   report number, a transmittal, an email reference. */
+const HISTORY_KEY = 'qc.overrideEvents'
+
+export const overrideEvents = () => read(HISTORY_KEY, [])
+
+export const overrideHistory = (jobNo, deliverable) =>
+  overrideEvents().filter((e) => String(e.jobNo) === String(jobNo)
+    && (!deliverable || e.deliverable === deliverable))
+
 export const getOverrides = () => read(KEYS.overrides, {})
-export function setOverride(jobNo, deliverable, status) {
+
+export class OverrideReasonRequiredError extends Error {
+  constructor() {
+    super('Say why this status is being set by hand. An override without a reason is the first thing an audit asks about.')
+    this.name = 'OverrideReasonRequiredError'
+  }
+}
+
+/* status === null clears the override. `by` and `reason` are required
+   either way, because taking one off is as deliberate as putting it on. */
+export function setOverride(jobNo, deliverable, status, { by, reason, evidenceRef } = {}) {
+  const note = String(reason || '').trim()
+  if (!note) throw new OverrideReasonRequiredError()
+
   const o = getOverrides()
+  const from = o[jobNo]?.[deliverable] ?? null
   if (!o[jobNo]) o[jobNo] = {}
-  if (status === null) delete o[jobNo][deliverable]
-  else o[jobNo][deliverable] = status
+  if (status === null) {
+    delete o[jobNo][deliverable]
+    if (!Object.keys(o[jobNo]).length) delete o[jobNo]
+  } else {
+    o[jobNo][deliverable] = status
+  }
+
+  const event = {
+    id: `ov-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
+    jobNo: String(jobNo), deliverable,
+    fromStatus: from, toStatus: status,
+    reason: note, evidenceRef: evidenceRef || null,
+    actor: by || 'unknown', createdAt: new Date().toISOString(),
+  }
+  // The events first: if the second write fails the log is ahead of the
+  // state, which is recoverable. The other order loses the reason for a
+  // change that already happened.
+  write(HISTORY_KEY, [...overrideEvents(), event])
   write(KEYS.overrides, o)
+  return event
 }
 
 // ---- Asset / instrument register (Settings) ----

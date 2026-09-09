@@ -2,6 +2,7 @@ import { DELIVERABLES } from './constants.js'
 // The attribute is required by Node's ESM loader, which the generator
 // scripts run under; Vite does not need it but accepts it.
 import joblist from '../data/joblist.json' with { type: 'json' }
+import { StorageFullError } from './store.js'
 
 /* Job orders.
 
@@ -24,19 +25,50 @@ const read = () => {
     return raw ? JSON.parse(raw) : []
   } catch { return [] }
 }
+/* A write that cannot happen must say so — the same rule as the report
+   store, and for the same reason.
+
+   This used to swallow every storage error and return the value as
+   though it had been written. The screen above it then refreshed, said
+   "PO published — 4 jobs ready to inspect", and navigated away. An
+   admin who filled in a ten-unit order on a full tablet was told the
+   work was filed and it was nowhere. */
 const write = (v) => {
-  try { localStorage.setItem(KEY, JSON.stringify(v)) } catch { /* private mode */ }
+  try {
+    localStorage.setItem(KEY, JSON.stringify(v))
+  } catch (e) {
+    throw new StorageFullError(e)
+  }
   return v
 }
 
 export const getOrders = () => read()
+
+/* Published, then read back.
+
+   A successful setItem is not proof: a browser in private mode can
+   accept the write and return nothing on the next read, and a quota
+   error can arrive on the second key rather than the first. So the order
+   is looked for again after it is written, and the caller is told the
+   truth either way. */
+export class OrderNotSavedError extends Error {
+  constructor(poNo) {
+    super(`PO ${poNo} was not saved. Nothing has been published — your entries are still on screen. Back up and free some space in Settings → Storage, then try again.`)
+    this.name = 'OrderNotSavedError'
+  }
+}
 
 export function saveOrder(order) {
   const all = read()
   const i = all.findIndex((o) => o.id === order.id)
   if (i >= 0) all[i] = order
   else all.unshift(order)
-  return write(all)
+  write(all)
+  const back = read().find((o) => o.id === order.id)
+  if (!back || back.poNo !== order.poNo || (back.units || []).length !== (order.units || []).length) {
+    throw new OrderNotSavedError(order.poNo)
+  }
+  return back
 }
 
 export function deleteOrder(id) {

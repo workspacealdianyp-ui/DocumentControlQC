@@ -1,12 +1,16 @@
 import { useMemo, useState, useEffect } from 'react'
 import { useApp, navigate } from '../App.jsx'
 import { FORM_SCHEMAS } from '../data/formSchemas.js'
-import { getReports, deleteReport, approveReport, canApprove } from '../lib/store.js'
+import {
+  getReports, deleteReport, withdrawReport, voidReport, approveReport, canApprove, actionFor,
+} from '../lib/store.js'
+import ConfirmDialog from './ConfirmDialog.jsx'
 import { ncrReports, fmtDateTime } from '../lib/status.js'
 import { reportResult } from '../lib/verdict.js'
 import { StateBadge } from './StatusChip.jsx'
-import { IconTrash, IconDownload, IconCloudUp, IconCloudOff, IconFilter, IconGroup, IconApprove } from './Icons.jsx'
+import { IconTrash, IconDownload, IconCloudUp, IconCloudOff, IconFilter, IconGroup, IconApprove, IconXCircle } from './Icons.jsx'
 import { SearchField, ToolButton, PopCheck, PopRadio, PopFooter } from './RegisterBar.jsx'
+import { downloadCsv, stampToday } from '../lib/csv.js'
 
 /* One register, not two.
 
@@ -73,7 +77,9 @@ export const ReportId = ({ id }) => (
    this list is a document, so drawing one says nothing — and it is
    tinted by the report's state, which the badge beside it also names in
    words. Colour and text, so neither has to carry it alone. */
-function ReportCard({ r, tone, code, title, sub, foot, onOpen, onDelete, canDelete, onApprove }) {
+const ACT_WORD = { delete: 'Delete', withdraw: 'Withdraw', void: 'Void' }
+
+function ReportCard({ r, tone, code, title, sub, foot, onOpen, onDelete, canDelete, onApprove, action }) {
   return (
     <div className={`rep-card tone-${tone}`} role="button" tabIndex={0}
       onClick={onOpen}
@@ -89,8 +95,11 @@ function ReportCard({ r, tone, code, title, sub, foot, onOpen, onDelete, canDele
         </button>
       )}
       {canDelete && (
-        <button className="rep-del" aria-label={`Delete ${r.reportId}`} onClick={onDelete}>
-          <IconTrash size={14} />
+        // The label says which of the three this is, so a screen reader
+        // is not told "delete" about a report that will be kept.
+        <button className="rep-del" aria-label={`${ACT_WORD[action] || 'Delete'} ${r.reportId}`}
+          title={`${ACT_WORD[action] || 'Delete'} ${r.reportId}`} onClick={onDelete}>
+          {action === 'void' ? <IconXCircle size={14} /> : <IconTrash size={14} />}
         </button>
       )}
     </div>
@@ -108,6 +117,8 @@ export default function Reports({ query }) {
   const [forms, setForms] = useState(() => new Set())
   const [group, setGroup] = useState('form')
   const [limit, setLimit] = useState(PAGE)
+  // The report a destructive action is being asked about, or null.
+  const [ask, setAsk] = useState(null)
 
   const all = useMemo(() => getReports(), [tick])
   const ncrs = useMemo(() => ncrReports(), [tick])
@@ -160,28 +171,34 @@ export default function Reports({ query }) {
     return [...m.entries()]
   }, [shown, group])
 
-  const onDelete = (e, r) => {
-    e.stopPropagation()
-    if (confirm(`Delete report ${r.reportId}?`)) {
-      deleteReport(r.id); refresh(); notify('Report deleted')
+  /* One button, three meanings, decided by where the report stands.
+
+     A draft is deleted, a submitted report is withdrawn to draft, an
+     approved one is voided and kept. The dialog says which of those is
+     about to happen and takes the reason, because "deleted" with no
+     explanation is the thing an auditor asks about first. */
+  const act = ask && actionFor(ask)
+  const doAct = (note) => {
+    try {
+      if (act === 'delete') { deleteReport(ask.id, session?.name, note); notify(`${ask.reportId} deleted`) }
+      else if (act === 'withdraw') { withdrawReport(ask.id, session?.name, note); notify(`${ask.reportId} withdrawn — it is a draft again`) }
+      else if (act === 'void') { voidReport(ask.id, session?.name, note); notify(`${ask.reportId} voided — it stays on the record`) }
+      refresh()
+    } catch (err) {
+      notify(err.message, 'err')
     }
+    setAsk(null)
   }
 
-  const exportCsv = () => {
-    const head = ['Report ID', 'Form', 'Job No', 'Deliverable', 'Inspector', 'Status', 'Result', 'Updated', 'Synced']
-    const lines = [head.join(',')]
-    for (const r of matched) {
-      lines.push([r.reportId, FORM_SCHEMAS[r.formKey]?.title, r.jobNo, r.deliverable, r.inspector, r.status,
-        reportResult(r), r.updatedAt?.slice(0, 16), r.synced ? r.syncedAt?.slice(0, 16) : 'offline']
-        .map((x) => `"${x || ''}"`).join(','))
-    }
-    const blob = new Blob(['﻿' + lines.join('\r\n')], { type: 'text/csv;charset=utf-8' })
-    const a = document.createElement('a')
-    a.href = URL.createObjectURL(blob)
-    a.download = `qc-reports-${new Date().toISOString().slice(0, 10)}.csv`
-    a.click()
-    URL.revokeObjectURL(a.href)
-  }
+  // Quoting and formula-defusing live in lib/csv.js; this only decides
+  // which columns go out.
+  const exportCsv = () => downloadCsv(`qc-reports-${stampToday()}.csv`, [
+    ['Report ID', 'Form', 'Job No', 'Deliverable', 'Inspector', 'Status', 'Result', 'Updated', 'Synced'],
+    ...matched.map((r) => [
+      r.reportId, FORM_SCHEMAS[r.formKey]?.title, r.jobNo, r.deliverable, r.inspector, r.status,
+      reportResult(r), r.updatedAt?.slice(0, 16), r.synced ? r.syncedAt?.slice(0, 16) : 'offline',
+    ]),
+  ])
 
   const openReport = (r) =>
     navigate(`/job/${r.jobNo}/form/${r.formKey}?d=${encodeURIComponent(r.deliverable)}&rid=${encodeURIComponent(r.id)}`)
@@ -280,8 +297,9 @@ export default function Reports({ query }) {
                     {fmtDateTime(r.updatedAt)}
                   </>}
                   onOpen={() => openReport(r)}
-                  onDelete={(e) => onDelete(e, r)}
-                  canDelete={role.canManage}
+                  onDelete={(e) => { e.stopPropagation(); setAsk(r) }}
+                  canDelete={role.canManage && !!actionFor(r)}
+                  action={actionFor(r)}
                   onApprove={role.canOverride && r.status === 'submitted' && canApprove(r, session.name)
                     ? () => {
                         try { approveReport(r.id, session.name); refresh(); notify(`${r.reportId} approved`) }
@@ -292,6 +310,45 @@ export default function Reports({ query }) {
             </div>
           </div>
         ))
+      )}
+
+      {ask && (
+        <ConfirmDialog
+          title={`${ACT_WORD[act]} ${ask.reportId}?`}
+          confirmLabel={act === 'delete' ? 'Delete the draft' : act === 'withdraw' ? 'Withdraw it' : 'Void it'}
+          cancelLabel="Keep it as it is"
+          danger
+          reason
+          reasonLabel={act === 'delete' ? 'Why is it being deleted?' : act === 'withdraw' ? 'Why is it coming back?' : 'Why is it being voided?'}
+          onCancel={() => setAsk(null)}
+          onConfirm={doAct}>
+          {act === 'delete' && (
+            <p>
+              It is a draft, so nothing has been claimed by it and it goes for good. Its report
+              number stays spent — the next report on this job takes the following one.
+            </p>
+          )}
+          {act === 'withdraw' && (
+            <p>
+              It goes back to being your draft and leaves the reviewer's queue. Nothing is lost:
+              the readings, photographs and signatures stay as they are, and the record keeps
+              the fact that it was submitted and pulled back.
+            </p>
+          )}
+          {act === 'void' && (
+            <>
+              <p>
+                An approved report is not deleted. It stays in the record with its number, its
+                readings and its signatures, marked void, and stops counting towards this job's
+                completed work.
+              </p>
+              <p>
+                If the inspection has to be recorded again, open the report and raise the next
+                issue — that one supersedes this.
+              </p>
+            </>
+          )}
+        </ConfirmDialog>
       )}
 
       {matched.length > shown.length && (

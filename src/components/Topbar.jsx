@@ -6,7 +6,6 @@ import { getReports } from '../lib/store.js'
 import { getSettings } from '../lib/settings.js'
 import { resolveTheme, setThemePref, watchSystemTheme } from '../lib/theme.js'
 import { buildContext, jobProgress, fmtDate } from '../lib/status.js'
-import { IS_MAC } from '../lib/keys.js'
 import {
   IconSearch, IconBell, IconAlert, IconApprove, IconPen, IconReturn,
   IconList, IconFile, IconGrid, IconPlus, IconGear, IconClose, IconTheme, IconLock,

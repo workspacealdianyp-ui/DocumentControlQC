@@ -25,17 +25,6 @@ const unitKind = (desc = '') => {
 const KIND_LABEL = { vessel: 'Pressure Vessel', tank: 'Storage Tank', spool: 'Pipe Spool', skid: 'Skid Package' }
 
 // customer visual helpers — gradient pairs (bar = gradient, avatar = frosted start tint)
-// One needle colour, the reading differs. The construction orange from
-// the design reference, warming toward the tip so a full ring reads as
-// a complete sweep rather than a flat band.
-const CUST_GRADIENTS = [
-  ['#f86300', '#ff8f3d'],
-  ['#e05800', '#f8842c'],
-  ['#f86300', '#ff8f3d'],
-  ['#e05800', '#f8842c'],
-  ['#f86300', '#ff8f3d'],
-]
-const custInitials = (name = '') => name.replace(/\b(pt|cv|tbk|persero)\b\.?/gi, '').trim().split(/\s+/).filter(Boolean).slice(0, 2).map((w) => w[0]).join('').toUpperCase() || '–'
 
 /* The customer roll-up used to sit here as mockCust(): a seeded random
    generator producing an on-time percentage, an NCR count, a
@@ -45,19 +34,6 @@ const custInitials = (name = '') => name.replace(/\b(pt|cv|tbk|persero)\b\.?/gi,
 
    It is now lib/rollup.js, which counts orders, units, reports and
    non-conformances from the record and offers nothing it cannot count. */
-// gradient completion ring
-function Ring({ pct, c1, c2, gid, size = 48 }) {
-  const sw = 5, r = (size - sw) / 2, circ = 2 * Math.PI * r
-  return (
-    <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} className="ring2">
-      <defs><linearGradient id={gid} x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor={c1} /><stop offset="1" stopColor={c2} /></linearGradient></defs>
-      <circle cx={size / 2} cy={size / 2} r={r} fill="none" stroke="rgba(150,170,200,0.22)" strokeWidth={sw} />
-      <circle cx={size / 2} cy={size / 2} r={r} fill="none" stroke={`url(#${gid})`} strokeWidth={sw} strokeLinecap="round" strokeDasharray={circ} strokeDashoffset={circ * (1 - pct / 100)} transform={`rotate(-90 ${size / 2} ${size / 2})`} />
-      <text x="50%" y="50%" textAnchor="middle" dominantBaseline="central" className="ring2-t">{pct}<tspan className="ring2-pct">%</tspan></text>
-    </svg>
-  )
-}
-
 // Optional shortcuts to whatever external tools the team uses.
 // Point these at your own dashboard / document library, or leave them empty to hide the row.
 const QUICK_LINKS = [
@@ -134,7 +110,9 @@ export default function Home() {
         if (s === 'done') { dist.done++; jobDone++ }
         else {
           jobPend.push(DSHORT[k] || k)
-          if (s === 'inprogress') { dist.inprogress++; jobIp++ }
+          // Awaiting QA is a document that exists and is unsigned, so
+          // it counts as work in progress and never as done.
+          if (s === 'inprogress' || s === 'awaiting') { dist.inprogress++; jobIp++ }
           else if (s === 'overdue') { dist.overdue++; jobOver++ }
           else dist.notstarted++
         }

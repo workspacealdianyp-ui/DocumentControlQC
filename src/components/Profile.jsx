@@ -196,7 +196,9 @@ export default function Profile() {
 
   // The rail carries this on a desktop, and there is no rail on a phone.
   const [themePref, setPref] = useState(getThemePref)
-  const [mode, setMode] = useState(() => resolveTheme())
+  // The value is never read here — the rail shows the resolved mode —
+  // but the setter is what keeps the choice in step with the system.
+  const [, setMode] = useState(() => resolveTheme())
   useEffect(() => watchSystemTheme(setMode), [])
   const chooseTheme = (pref) => { setPref(pref); setMode(setThemePref(pref)) }
 

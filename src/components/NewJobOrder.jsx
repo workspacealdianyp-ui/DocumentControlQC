@@ -113,6 +113,9 @@ export default function NewJobOrder({ orderId }) {
     : [blankUnit()]))
   const [required, setRequired] = useState(() => new Set(held?.required || FILLABLE.map((d) => d.key)))
   const [touched, setTouched] = useState(false)
+  // The storage failure, kept on screen rather than only in a toast that
+  // fades while the person is still reading it.
+  const [saveError, setSaveError] = useState(null)
   const [ask, setAsk] = useState(null)   // 'withdraw'
 
   /* Above the early returns below, with the rest of the hooks. React
@@ -235,26 +238,38 @@ export default function NewJobOrder({ orderId }) {
   const publish = () => {
     setTouched(true)
     if (problems.length) { notify('Fix the highlighted details first', 'err'); return }
-    saveOrder({
+    /* Everything below this point runs only if the order is actually on
+       disk. A storage failure keeps every entry on screen and says so —
+       the form is not cleared, nothing navigates, and the message names
+       the way out. The report form already works this way; the order
+       form used to congratulate you and walk away. */
+    try {
+      saveOrder({
       /* Revising keeps the order's identity — its id is what every unit
          it produced is stamped with, so a new one would fork the
          order and leave the documents pointing at the old half. */
-      id: held?.id || `po-${Date.now()}`,
-      poNo: po.poNo.trim(),
-      customerName: po.customerName.trim(),
-      customerId: po.customerId.trim(),
-      kategori: po.kategori,
-      datePB: po.datePB || null,
-      dateTarget: po.dateTarget || null,
-      required: DELIVERABLES.filter((d) => required.has(d.key)).map((d) => d.key),
-      units: units.map((u) => ({
-        jobNo: u.jobNo.trim(), wbsNo: u.wbsNo.trim(), unitNo: u.unitNo.trim(),
-        productDesc: u.productDesc.trim(), type: u.type.trim(),
-      })),
-      createdBy: held?.createdBy || session?.name || 'QA Lead',
-      createdAt: held?.createdAt || new Date().toISOString(),
-      ...(editing ? { revisedBy: session?.name || 'QA Lead', revisedAt: new Date().toISOString() } : {}),
-    })
+        id: held?.id || `po-${Date.now()}`,
+        poNo: po.poNo.trim(),
+        customerName: po.customerName.trim(),
+        customerId: po.customerId.trim(),
+        kategori: po.kategori,
+        datePB: po.datePB || null,
+        dateTarget: po.dateTarget || null,
+        required: DELIVERABLES.filter((d) => required.has(d.key)).map((d) => d.key),
+        units: units.map((u) => ({
+          jobNo: u.jobNo.trim(), wbsNo: u.wbsNo.trim(), unitNo: u.unitNo.trim(),
+          productDesc: u.productDesc.trim(), type: u.type.trim(),
+        })),
+        createdBy: held?.createdBy || session?.name || 'QA Lead',
+        createdAt: held?.createdAt || new Date().toISOString(),
+        ...(editing ? { revisedBy: session?.name || 'QA Lead', revisedAt: new Date().toISOString() } : {}),
+      })
+    } catch (err) {
+      setSaveError(err.message)
+      notify(err.message, 'err')
+      return
+    }
+    setSaveError(null)
     refresh()
     notify(editing
       ? `PO ${po.poNo.trim()} revised — ${units.length} job${units.length === 1 ? '' : 's'} on the order`
@@ -453,6 +468,17 @@ export default function NewJobOrder({ orderId }) {
           </div>
         </div>
       </section>
+
+      {saveError && (
+        <div className="jo-save-error" role="alert">
+          <strong>Nothing was published.</strong>
+          <p>{saveError}</p>
+          <p>Everything you have entered is still on this screen. Nothing here is lost by staying.</p>
+          <button className="btn btn-secondary btn-sm" onClick={() => navigate('/settings?s=storage')}>
+            Open Storage
+          </button>
+        </div>
+      )}
 
       {/* ── publish ── */}
       <div className="jo-publish">

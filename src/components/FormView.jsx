@@ -1,4 +1,4 @@
-import { useMemo, useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { createPortal } from 'react-dom'
 import { useApp, navigate } from '../App.jsx'
 import { FORM_SCHEMAS, IDENT_GROUPS, dimRowStatus, dimDeviation, dimBreach } from '../data/formSchemas.js'
@@ -300,9 +300,29 @@ function MissingDialog({ items, onGo, onClose }) {
 const optsOf = (f, v) =>
   typeof f.options === 'function' ? (f.options(v, v[f.id] || '') || []) : (f.options || [])
 
+/* Whether a field can be edited at all.
+
+   One expression, in one place, because there were two and neither
+   worked. The engine had `locked || (f.adminOnly && false)`, which is
+   `locked` — the second half is a constant and always false, so an
+   admin-only field was never once locked by it. The call site had a
+   conditional whose two branches were the same value, so the role it
+   named had no effect there either. Between them, every field marked
+   adminOnly in a schema was editable by anyone who could open the form.
+
+   The three reasons a field is not editable, in the order they apply:
+   the whole report is read-only (approved, or the reader has no edit
+   right), the section is locked, or the field is reserved to an
+   override role and this is not one. */
+export function fieldLocked({ field, sectionLocked, role }) {
+  if (sectionLocked) return true
+  if (field.adminOnly && !role?.canOverride) return true
+  return false
+}
+
 function EngineField({ f, values, reqValues, report, set, locked, invalid, onRequestSign, signLocked, session, jobs, onJobChange }) {
   const v = values
-  const disabled = locked || (f.adminOnly && false)
+  const disabled = locked
   // Required-ness is answered against the computed values too: "NCR notes
   // when the status is Reject" has to see a status nothing typed.
   const required = isReq(f, reqValues || v)
@@ -1138,7 +1158,8 @@ export default function FormView({ job, formKey, query }) {
               const signLocked = f.type === 'sign' && f.id !== 'signInspector' && !v.signInspector
               const invalid = errors[f.id]
               return (
-                <EngineField key={f.id} f={f} values={v} reqValues={vAll} report={report} set={setValue} locked={f.adminOnly && !role.canOverride && f.id !== 'jobNo' ? secLocked : secLocked}
+                <EngineField key={f.id} f={f} values={v} reqValues={vAll} report={report} set={setValue}
+                  locked={fieldLocked({ field: f, sectionLocked: secLocked, role })}
                   invalid={invalid} onRequestSign={setSignField} signLocked={signLocked} session={session} jobs={jobs} onJobChange={onJobChange} />
               )
             })}

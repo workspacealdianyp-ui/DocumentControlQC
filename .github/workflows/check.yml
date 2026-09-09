@@ -1,0 +1,44 @@
+name: check
+
+# The gate the audit asked for: lint, unit tests, a build, and a bundle
+# budget, on every push and pull request. The browser journeys run here
+# too — they are what proves the permission boundary, and a unit test
+# cannot see it.
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Unit tests
+        run: npm run test
+
+      - name: Build
+        run: npm run build
+
+      # A number to notice, not a number to admire. The app ships one
+      # eager bundle today; the point of the budget is that the next
+      # thing added to it has to be a decision rather than an accident.
+      - name: Bundle budget
+        run: node scripts/bundle-budget.mjs
+
+      - name: Install a browser
+        run: npx playwright install --with-deps chromium
+
+      - name: Browser journeys
+        run: npm run e2e
+        env:
+          CHROME_PATH: ''
