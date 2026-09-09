@@ -41,6 +41,8 @@ function parseHash() {
      how a job order is raised from four different places. */
   if (parts[0] === 'monitoring' || parts[0] === 'jobs' || parts[0] === 'monitor') {
     if (parts[1] === 'new') return { page: 'joborder', query }
+    // Revising an order is the same screen holding an existing one.
+    if (parts[1] === 'edit' && parts[2]) return { page: 'joborder', orderId: decodeURIComponent(parts[2]), query }
     // The section opens on the customer register. The flat list is still
     // there for anyone who wants to scan or filter the whole fleet at
     // once — ?view=all, and the deep links that already exist.
@@ -189,11 +191,11 @@ export default function App() {
           <Topbar route={route} job={job}
             searchOpen={searchOpen} onOpenSearch={() => setSearchOpen(true)}
             onCloseSearch={() => setSearchOpen(false)} />
-          <main className="content" key={route.page + (route.jobNo || '') + (route.formKey || '')}>
+          <main className="content" key={route.page + (route.jobNo || '') + (route.formKey || '') + (route.orderId || '')}>
             {route.page === 'home' && <Home />}
             {route.page === 'customers' && <CustomersPage />}
             {route.page === 'jobs' && <JobsPage kat={route.query.kat} state={route.query.state} />}
-            {route.page === 'joborder' && <NewJobOrder />}
+            {route.page === 'joborder' && <NewJobOrder orderId={route.orderId} />}
             {route.page === 'job' && <JobDetail job={job} />}
             {route.page === 'customer' && <CustomerPage name={route.name} />}
             {route.page === 'po' && <PoPage poNo={route.poNo} />}

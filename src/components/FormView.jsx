@@ -2,9 +2,9 @@ import { useMemo, useState, useEffect, useRef } from 'react'
 import { createPortal } from 'react-dom'
 import { useApp, navigate } from '../App.jsx'
 import { FORM_SCHEMAS, IDENT_GROUPS, dimRowStatus, dimDeviation, dimBreach } from '../data/formSchemas.js'
-import { getReport, saveReport, nextReportId, approveReport, canApprove, reviseReport } from '../lib/store.js'
+import { getReport, saveReport, nextReportId, approveReport, canApprove, reviseReport, returnReport, withoutOpenReturn } from '../lib/store.js'
 import { MR } from '../lib/compute.js'
-import { fmtDate } from '../lib/status.js'
+import { fmtDate, fmtDateTime } from '../lib/status.js'
 import { buildResume } from '../lib/resume.js'
 import { jobIdentity } from '../lib/jobOrders.js'
 import { getSettings } from '../lib/settings.js'
@@ -15,7 +15,7 @@ import SignaturePad from './SignaturePad.jsx'
 import JobPicker from './JobPicker.jsx'
 import Masthead from './Masthead.jsx'
 import { artFor } from '../lib/productArt.js'
-import { IconPlus, IconTrash, IconPrint, IconPen, IconCheck, IconClock, IconAlert, IconSearch, IconChevronD, IconChevronR } from './Icons.jsx'
+import { IconPlus, IconTrash, IconPrint, IconPen, IconCheck, IconClock, IconAlert, IconSearch, IconChevronD, IconChevronR, IconReturn, STATE_META } from './Icons.jsx'
 
 // resolve a field label that may be a function of values
 const lbl = (f, v) => (typeof f.label === 'function' ? f.label(v) : f.label)
@@ -111,6 +111,48 @@ function Confirm({ title, body, confirm, onConfirm, danger, onDanger, onClose })
   )
 }
 
+
+/* Sending a report back, with the reason that makes it actionable.
+
+   Not a Confirm: the note is the substance of the action rather than a
+   check that you meant it, so it is a field, it holds the focus, and
+   the button stays out of reach until something has been written. */
+function SendBack({ reportId, inspector, onSend, onClose }) {
+  const [note, setNote] = useState('')
+  const box = useRef(null)
+  useEffect(() => {
+    box.current?.focus()
+    const esc = (e) => { if (e.key === 'Escape') onClose() }
+    document.addEventListener('keydown', esc)
+    return () => document.removeEventListener('keydown', esc)
+  }, [onClose])
+  const reason = note.trim()
+  return (
+    <div className="modal-backdrop" onClick={onClose}>
+      <div className="modal confirm-modal" onClick={(e) => e.stopPropagation()}
+        role="dialog" aria-modal="true" aria-label={`Send ${reportId} back`}>
+        <div className="sheet-handle" />
+        <h3>Send {reportId} back?</h3>
+        <p className="confirm-body">
+          It goes back to {inspector || 'the inspector who recorded it'} as work in hand, and the
+          deliverable stops counting as done until it is submitted again. The verdict on the
+          readings is untouched — this is the document coming back, not the inspection failing.
+        </p>
+        <label className="sendback-label" htmlFor="sendback-note">What has to change</label>
+        <textarea id="sendback-note" ref={box} className="sendback-note" rows={4}
+          value={note} onChange={(e) => setNote(e.target.value)}
+          placeholder="e.g. Checkpoint 3 has no gauge reading, and the calibration certificate for PG-02 expired in June." />
+        <p className="sendback-hint">This note is the only thing they will read. It is kept on the report.</p>
+        <div className="confirm-acts">
+          <button className="btn btn-primary" disabled={!reason} onClick={() => onSend(reason)}>
+            Send back
+          </button>
+          <button className="btn btn-ghost" onClick={onClose}>Cancel</button>
+        </div>
+      </div>
+    </div>
+  )
+}
 
 /* The browser refused to store the report.
 
@@ -837,6 +879,7 @@ export default function FormView({ job, formKey, query }) {
               notify(`${report.values.reportId} approved`)
             } catch (e) { notify(e.message, 'err') }
           }}
+          onReturn={() => setAsk('sendback')}
           /* Correcting a report that is only submitted is ordinary work
              and edits it in place. Amending one that has been approved
              does not: that document has been read and relied on, so the
@@ -844,6 +887,23 @@ export default function FormView({ job, formKey, query }) {
              it was approved. */
           onEdit={() => { if (reportStatus === 'approved') setAsk('revise'); else setForceEdit(true) }}
         />
+      {ask === 'sendback' && createPortal(
+        <SendBack reportId={report.values.reportId} inspector={report.inspector}
+          onClose={() => setAsk(null)}
+          onSend={(note) => {
+            setAsk(null)
+            try {
+              returnReport(report.id, session.name, note)
+              /* The form is what an author of a returned report needs,
+                 so the view follows the state rather than staying on a
+                 detail page for a document that is no longer waiting. */
+              setReport((r) => ({ ...r, status: 'returned', returnedBy: session.name, returnedAt: new Date().toISOString(), returnNote: note }))
+              refresh()
+              notify(`${report.values.reportId} sent back to ${report.inspector || 'its inspector'}`)
+              navigate(`/job/${cur.jobNo}`)
+            } catch (e) { notify(e.message, 'err') }
+          }} />, document.body)}
+
       {ask === 'revise' && createPortal(
         <Confirm title="Amend an approved report?"
           body={<>{report.reportId} was approved and stays on file exactly as it was approved.
@@ -921,6 +981,13 @@ export default function FormView({ job, formKey, query }) {
         })
       } else if (sec.type === 'dft') {
         ;(report.coats || []).forEach((c, i) => { if (!c.area) errs[`dft.${i}.area`] = true; if (!c.std) errs[`dft.${i}.std`] = true })
+      } else if (sec.type === 'photos') {
+        /* Photographs are evidence rather than a field, so they were
+           never required by anything. On a document record they are the
+           evidence: a reference number with no page behind it closes a
+           deliverable on somebody's word, which is what this record
+           exists to stop. Only sections that ask. */
+        if (sec.req && !(report.photos || []).length) errs[sec.id] = 'Attach at least one page of the signed document.'
       } else if (sec.fields) {
         for (const f of sec.fields) {
           if (!showField(f, v)) continue
@@ -944,6 +1011,7 @@ export default function FormView({ job, formKey, query }) {
       return rows.some((row) => sec.columns.some((c) => c.req === 'M' && !row[c.id]))
     }
     if (sec.type === 'dft') return (report.coats || []).some((c) => !c.area || !c.std)
+    if (sec.type === 'photos') return !!sec.req && !(report.photos || []).length
     if (sec.fields) {
       return sec.fields.some((f) => {
         if (!showField(f, v)) return false
@@ -967,7 +1035,13 @@ export default function FormView({ job, formKey, query }) {
      cleared, nothing navigates — and the inspector is told, with a way
      to get the work out of the browser. */
   const persist = (status) => {
-    const rep = { ...report, id: report.id || `${Date.now()}-${Math.random().toString(36).slice(2, 7)}`, reportId: v.reportId, formKey, jobNo: cur.jobNo, deliverable, inspector: v.inspector || session.name, status, createdAt: report.createdAt || new Date().toISOString(), synced: false }
+    let rep = { ...report, id: report.id || `${Date.now()}-${Math.random().toString(36).slice(2, 7)}`, reportId: v.reportId, formKey, jobNo: cur.jobNo, deliverable, inspector: v.inspector || session.name, status, createdAt: report.createdAt || new Date().toISOString(), synced: false }
+    /* A report that was sent back and is going in again is no longer
+       sitting with its author, so the open return is cleared. That it
+       was sent back stays on the record in `returns`. */
+    if (status === 'submitted' && report.status === 'returned') {
+      rep = { ...withoutOpenReturn(rep), resubmittedAt: new Date().toISOString() }
+    }
     try {
       saveReport(rep)
     } catch (err) {
@@ -1077,7 +1151,12 @@ export default function FormView({ job, formKey, query }) {
     if (sec.type === 'recording') return <RecordingSection report={report} update={update} setValue={setValue} locked={readOnly} />
     if (sec.type === 'results') return <>{errors[sec.id] && <div className="grid-err">{errors[sec.id]}</div>}<ResultsSection sec={sec} report={report} update={update} locked={readOnly} showErrors={Object.keys(errors).length > 0} /></>
     if (sec.type === 'dft') return <DftSection report={report} update={update} locked={readOnly} showErrors={Object.keys(errors).length > 0} />
-    if (sec.type === 'photos') return <PhotoStrip photos={report.photos || []} disabled={readOnly} onChange={(p) => update({ photos: p })} />
+    if (sec.type === 'photos') return (
+      <>
+        {errors[sec.id] && <div className="grid-err">{errors[sec.id]}</div>}
+        <PhotoStrip photos={report.photos || []} disabled={readOnly} onChange={(p) => update({ photos: p })} />
+      </>
+    )
     return null
   }
 
@@ -1093,10 +1172,34 @@ export default function FormView({ job, formKey, query }) {
         <button className="btn btn-secondary btn-sm" onClick={() => setShowPdf(true)}>
           <IconPrint size={13} /> PDF
         </button>
-        <span className={`report-state state-${reportStatus}`}>{reportStatus === 'new' ? 'New' : reportStatus === 'draft' ? 'Draft' : reportStatus === 'approved' ? 'Approved' : 'Submitted'}</span>
+        {/* The word comes from the one table that names these states.
+            Spelled out here, the chain fell through to "Submitted" for
+            anything it did not list — so a returned report wore the
+            right colour under the wrong word. */}
+        <span className={`report-state state-${reportStatus}`}>{STATE_META[reportStatus]?.label || 'Submitted'}</span>
       </Masthead>
 
       {readOnly && <div className="readonly-note">Read-only{submitted ? '. This report has been submitted' : '. Your role cannot edit reports'}.</div>}
+
+      {/* Why it came back. The first thing on the page, because an
+          inspector opening a returned report has exactly one question,
+          and hunting for the answer in a toast that has already gone is
+          not an answer. */}
+      {reportStatus === 'returned' && (
+        <div className="return-note" role="status">
+          <span className="return-note-ico" aria-hidden="true"><IconReturn size={16} /></span>
+          <div className="return-note-txt">
+            <strong>
+              Sent back{report.returnedBy ? ` by ${report.returnedBy}` : ''}
+              {report.returnedAt ? ` · ${fmtDateTime(report.returnedAt)}` : ''}
+            </strong>
+            <p>{report.returnNote}</p>
+            {(report.returns || []).length > 1 && (
+              <small>{report.returns.length} times in total — the earlier notes are on the record.</small>
+            )}
+          </div>
+        </div>
+      )}
 
       <div className="form-body">
         <div className="form-main">
@@ -1138,7 +1241,9 @@ export default function FormView({ job, formKey, query }) {
           <div className="form-actions">
             {step < schema.sections.length - 1
               ? <button className="btn btn-primary" onClick={() => goStep(step + 1)}>Next</button>
-              : !readOnly ? <button className="btn btn-accent" onClick={onSubmit}>Submit Report</button>
+              : !readOnly ? <button className="btn btn-accent" onClick={onSubmit}>
+                  {reportStatus === 'returned' ? 'Submit again' : 'Submit Report'}
+                </button>
                 : <button className="btn btn-primary" onClick={leave}>Done</button>}
             {!readOnly && (
               <button className="btn btn-secondary" onClick={() => setAsk('draft')}>Save Draft</button>

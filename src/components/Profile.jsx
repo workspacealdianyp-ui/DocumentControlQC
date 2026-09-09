@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { COMPANY } from '../lib/company.js'
 import { useApp, navigate } from '../App.jsx'
 import { FORM_SCHEMAS } from '../data/formSchemas.js'
@@ -12,6 +12,87 @@ import {
   IconCloudUp, IconCloudOff, IconGear, IconLogout, IconAlertCircle,
   IconCheck, IconClose, IconDatabase, IconFile, IconList, IconBack,
 } from './Icons.jsx'
+
+const prefersStill = () =>
+  typeof window !== 'undefined' && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
+
+/* A figure that runs up to its reading once, the way the job dial does:
+   these are measurements, and an instrument settles on a value rather
+   than arriving at it. It runs on mount only — a re-render mid-session
+   must not restart it, so the reading is the dependency. */
+function useCountUp(target, span = 850) {
+  const [n, setN] = useState(() => (prefersStill() ? target : 0))
+  useEffect(() => {
+    if (prefersStill()) { setN(target); return }
+    let raf = 0
+    const t0 = performance.now()
+    const tick = (now) => {
+      const t = Math.min(1, (now - t0) / span)
+      // Decelerating, so the last digits land slowly enough to read.
+      setN(Math.round(target * (1 - Math.pow(1 - t, 3))))
+      if (t < 1) raf = requestAnimationFrame(tick)
+    }
+    raf = requestAnimationFrame(tick)
+    return () => cancelAnimationFrame(raf)
+  }, [target, span])
+  return n
+}
+
+/* The light on the plate, tied to the pointer.
+
+   A steel plate under a shop lamp shows you where the lamp is when you
+   move your head, and that is the whole trick here: one highlight
+   tracking the cursor and a degree and a half of tilt, so the surface
+   reads as a physical face rather than a picture of one.
+
+   The four custom properties written here are all consumed by
+   transforms, so nothing in the header repaints while the pointer
+   moves — the same discipline the drifting sheens already follow. A phone has no pointer
+   to follow and somebody who has asked for less motion has asked for
+   this too, so in both cases the listeners are never attached. */
+function usePlateLight() {
+  const ref = useRef(null)
+  useEffect(() => {
+    const el = ref.current
+    if (!el || prefersStill()) return
+    if (!window.matchMedia?.('(hover: hover) and (pointer: fine)').matches) return
+
+    let raf = 0, sx = 0, sy = 0, rx = 0, ry = 0
+    const paint = () => {
+      raf = 0
+      el.style.setProperty('--sx', `${sx}px`)
+      el.style.setProperty('--sy', `${sy}px`)
+      el.style.setProperty('--rx', `${rx}deg`)
+      el.style.setProperty('--ry', `${ry}deg`)
+    }
+    const move = (e) => {
+      const b = el.getBoundingClientRect()
+      sx = e.clientX - b.left
+      sy = e.clientY - b.top
+      ry = (sx / b.width - 0.5) * 2.8
+      rx = (0.5 - sy / b.height) * 1.5
+      if (!raf) raf = requestAnimationFrame(paint)
+    }
+    const enter = () => el.classList.add('is-lit')
+    const leave = () => {
+      el.classList.remove('is-lit')
+      if (raf) { cancelAnimationFrame(raf); raf = 0 }
+      el.style.setProperty('--rx', '0deg')
+      el.style.setProperty('--ry', '0deg')
+    }
+
+    el.addEventListener('pointerenter', enter)
+    el.addEventListener('pointermove', move)
+    el.addEventListener('pointerleave', leave)
+    return () => {
+      if (raf) cancelAnimationFrame(raf)
+      el.removeEventListener('pointerenter', enter)
+      el.removeEventListener('pointermove', move)
+      el.removeEventListener('pointerleave', leave)
+    }
+  }, [])
+  return ref
+}
 
 /* Module scope, not the render body: a component declared inside a render
    is a new component type every time, so React throws away the old subtree
@@ -107,6 +188,12 @@ export default function Profile() {
   const initials = session.name.split(' ').map((w) => w[0]).slice(0, 2).join('')
   const photo = useMemo(() => getSettings().profile.photo, [tick])
 
+  // The header: light that follows the pointer, and two of its three
+  // facts settling on their reading rather than being printed there.
+  const banner = usePlateLight()
+  const filedUp = useCountUp(standing.filed)
+  const heldUp = useCountUp(used.bytes, 950)
+
   // The rail carries this on a desktop, and there is no rail on a phone.
   const [themePref, setPref] = useState(getThemePref)
   const [mode, setMode] = useState(() => resolveTheme())
@@ -129,13 +216,26 @@ export default function Profile() {
           The surface is drawn and animated in CSS: brushed steel with
           two sheens drifting across it at different rates and a slow
           fall of light down the face. It moves because a plate under a
-          shop light does. Nothing written on it moves. */}
-      <section className="pf-banner">
+          shop light does.
+
+          What the header now does on top of that is arrive, and answer
+          the pointer. It arrives in the order the plate would be made:
+          the face lights, the monogram is stamped into it, the name is
+          printed, and the three facts are cut along the rule at the
+          bottom. Move a cursor over it and the highlight follows, with a
+          degree and a half of tilt behind it, because that is what steel
+          under a lamp does when you move your head. The two measured
+          facts run up to their reading like the job dial.
+
+          None of it repeats, none of it loops on the words, and all of
+          it stops for prefers-reduced-motion. */}
+      <section className="pf-banner" ref={banner}>
         <div className="pf-metal" aria-hidden="true">
           <span className="pf-sheen-a" />
           <span className="pf-sheen-b" />
           <span className="pf-fall" />
           <span className="pf-grain" />
+          <span className="pf-spot" />
         </div>
 
         <button className="pf-back" onClick={() => navigate('/')}
@@ -143,19 +243,45 @@ export default function Profile() {
           <IconBack size={16} />
         </button>
 
+        {/* The band above the monogram was empty steel. What belongs
+            there is the one thing about this device somebody opening
+            their own page needs at a glance and would otherwise scroll
+            for: whether anything they recorded is still only here. The
+            dot breathes while something is owed and sits still once
+            nothing is. */}
+        <p className={`pf-mark${offline.length ? ' is-pending' : ''}`}>
+          <i aria-hidden="true" />
+          {offline.length
+            ? `${offline.length} report${offline.length === 1 ? '' : 's'} pending upload`
+            : 'All records uploaded'}
+        </p>
+
         <div className="pf-banner-in">
           <span className={`pf-plate${photo ? ' has-photo' : ''}`}>
             {photo ? <img src={photo} alt="" /> : initials}
+            <i className="pf-plate-gleam" aria-hidden="true" />
           </span>
           <div className="pf-who">
-            <h2>{session.name}</h2>
-            <p className="pf-who-role">{role.label}</p>
-            <p className="pf-who-co">{COMPANY.name} · {COMPANY.department}</p>
+            <h2 style={{ '--i': 1 }}>{session.name}</h2>
+            <p className="pf-who-role" style={{ '--i': 2 }}>{role.label}</p>
+            <p className="pf-who-co" style={{ '--i': 3 }}>{COMPANY.name} · {COMPANY.department}</p>
           </div>
+          {/* The running figure is hidden from assistive technology and
+              the settled one is carried by a second, visually hidden
+              description: a screen reader must not be handed a number
+              that is still moving. */}
           <dl className="pf-engraved">
-            <div><dt>Signed in as</dt><dd>{session.role}</dd></div>
-            <div><dt>Reports filed</dt><dd>{standing.filed}</dd></div>
-            <div><dt>Records held</dt><dd>{fmtBytes(used.bytes)}</dd></div>
+            <div style={{ '--i': 1 }}><dt>Signed in as</dt><dd>{session.role}</dd></div>
+            <div style={{ '--i': 2 }}>
+              <dt>Reports filed</dt>
+              <dd aria-hidden="true">{filedUp}</dd>
+              <dd className="pf-sr">{standing.filed}</dd>
+            </div>
+            <div style={{ '--i': 3 }}>
+              <dt>Records held</dt>
+              <dd aria-hidden="true">{fmtBytes(heldUp)}</dd>
+              <dd className="pf-sr">{fmtBytes(used.bytes)}</dd>
+            </div>
           </dl>
         </div>
       </section>
@@ -180,8 +306,13 @@ export default function Profile() {
       <div className="pf-grants">
         <Grant on={role.canEdit} title="Fill and submit reports"
           body="Open an inspection form, record readings, sign it and send it for approval." />
-        <Grant on={role.canOverride} title="Approve and reopen"
-          body="Approve a submitted report, or reopen one that has already been signed." />
+        {/* This said "Approve and reopen", and reopening did not exist —
+            nor should it: a signed report is not un-signed here, it is
+            superseded by the next issue, which is the rule the whole
+            evidence trail rests on. So the claim now names the three
+            things the role actually does. */}
+        <Grant on={role.canOverride} title="Approve, send back and amend"
+          body="Approve a submitted report, send it back to its inspector with the reason it cannot be signed, or raise the next issue of one already signed — the signed issue stays on file as it was." />
         <Grant on={role.canManage} title="Raise job orders and settings"
           body="Publish a purchase order, manage the instrument register and clear stored data." />
       </div>

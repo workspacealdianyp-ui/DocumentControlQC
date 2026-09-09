@@ -215,7 +215,14 @@ export default function JobDetail({ job }) {
              and the row has to say which of the two it is. */
           const foot = (last ? [last.reportId, fmtDate(last.updatedAt), last.inspector].filter(Boolean).join(' · ') : null)
             || (cell.status === 'done' ? 'Marked done by an admin — no document held here' : null)
-            || (d.form ? (role.canEdit ? 'Not started — open to fill the form' : 'No report yet') : 'Document deliverable, tracked manually')
+            || (d.form
+              ? (FORM_SCHEMAS[d.form]?.kind === 'record'
+                /* ITP, PTR and IRN are documents issued elsewhere. What
+                   is opened here records one, so the row says that
+                   rather than offering to fill in a test. */
+                ? (role.canEdit ? 'Not filed — open to record the document' : 'No document on file')
+                : (role.canEdit ? 'Not started — open to fill the form' : 'No report yet'))
+              : 'Document deliverable, tracked manually')
           return (
             <div key={d.key} className={`rep-card is-deliv tone-${cell.status}${tappable ? '' : ' is-flat'}`}
               role={tappable ? 'button' : undefined} tabIndex={tappable ? 0 : undefined}

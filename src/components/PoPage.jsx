@@ -2,10 +2,12 @@ import { useMemo } from 'react'
 import { useApp, navigate } from '../App.jsx'
 import { buildContext, fmtDate, dueDate } from '../lib/status.js'
 import { outstandingBy, unitMix, unitsFor } from '../lib/rollup.js'
+import { orderByPo } from '../lib/jobOrders.js'
 import { artFor } from '../lib/productArt.js'
 import { Figure, Meter, Outstanding, Ribbon } from './Readings.jsx'
 import Masthead from './Masthead.jsx'
 import UnitList from './UnitList.jsx'
+import { IconPen } from './Icons.jsx'
 
 /* One purchase order, unit by unit.
 
@@ -14,7 +16,10 @@ import UnitList from './UnitList.jsx'
    with the unfinished ones first — somebody opening an order is looking
    for what is holding it, not admiring what is done. */
 export default function PoPage({ poNo }) {
-  const { jobs, tick } = useApp()
+  const { jobs, role, tick } = useApp()
+  /* Only an order raised in the app can be revised — the bundled job
+     list is history, with no order behind it to edit. */
+  const order = useMemo(() => orderByPo(poNo), [poNo, tick])
   const ctx = useMemo(() => buildContext(), [tick])
   const rows = useMemo(() => unitsFor(poNo, jobs, ctx), [poNo, jobs, ctx])
   const waiting = useMemo(
@@ -55,6 +60,19 @@ export default function PoPage({ poNo }) {
         onBack={() => navigate(`/customer/${encodeURIComponent(head.customerName)}`)}
         art={artFor(...products)}
         reading={<Meter done={roll.done} total={roll.applicable} className="mh-meter" />} />
+
+      {role.canManage && order && (
+        <div className="po-admin">
+          <span>
+            Raised by {order.createdBy || 'an admin'}
+            {order.revisedAt ? <> · revised {fmtDate(order.revisedAt)}</> : null}
+          </span>
+          <button className="btn btn-secondary btn-sm"
+            onClick={() => navigate(`/monitoring/edit/${encodeURIComponent(order.id)}`)}>
+            <IconPen size={14} /> Revise order
+          </button>
+        </div>
+      )}
 
       <div className="fig-row">
         <Figure value={rows.length} label="Units" />

@@ -49,6 +49,16 @@ const approvals = (roles) => ({
   })),
 })
 
+/* The shared header calls page 1's date "Inspection / Testing Date",
+   which is what it is on a test report. Nothing was tested on that date
+   on a document record — it is the day the document was filed here —
+   and a printed sheet that says otherwise directly above the document's
+   own issue date invites exactly the wrong reading in a data book. */
+const recordHeader = {
+  ...headerSection,
+  fields: headerSection.fields.map((f) => (f.id === 'inspDate' ? { ...f, label: 'Date filed' } : f)),
+}
+
 export const FORM_SCHEMAS = {
   // ───────────────────────── HYDROTEST ─────────────────────────
   hydrotest: {
@@ -137,6 +147,33 @@ export const FORM_SCHEMAS = {
   },
 
   // ───────────────────────────── MT ─────────────────────────────
+  // ─────────────────── DOCUMENT RECORDS ───────────────────
+  itp: recordForm({
+    key: 'itp', code: 'ITP', title: 'Inspection & Test Plan Record',
+    deliverable: 'ITP', formNo: 'F.380.WS-3.001',
+    refLabel: 'ITP number',
+    issuerLabel: 'Approved by',
+    issuerHint: 'Who agreed the plan — QC Engineering, the client, or both.',
+    evidence: 'Scan or photograph every page of the signed plan. This is what the deliverable is closed on.',
+  }),
+  ptr: recordForm({
+    key: 'ptr', code: 'PTR', title: 'Performance Test Record',
+    deliverable: 'PTR', formNo: 'F.380.WS-3.070',
+    refLabel: 'Test report number',
+    issuerLabel: 'Tested by',
+    issuerHint: 'The party that ran the test — this shop, the client, or a test house.',
+    evidence: 'Scan or photograph the signed test report, including any chart or curve it refers to.',
+    verdict: true,
+  }),
+  irn: recordForm({
+    key: 'irn', code: 'IRN', title: 'Inspection Release Note Record',
+    deliverable: 'IRN', formNo: 'F.380.WS-3.090',
+    refLabel: 'Release note number',
+    issuerLabel: 'Released by',
+    issuerHint: 'Who signed the release — the client, their inspector, or a third party.',
+    evidence: 'Scan or photograph the signed release note.',
+  }),
+
   mt: ndeForm({
     key: 'mt', code: 'MT', title: 'Magnetic Particle Test (MT) Report', formNo: 'F.380.WS-3.052',
     acc: (v) => v.code === 'ASME Sec. V & VIII' ? 'ASME VIII Div.1 App. 6' : 'AWS D1.1 Clause 8',
@@ -388,6 +425,56 @@ function approvalsHydro() {
       { id: 'signQc', label: 'QC Supervisor / Engineering', type: 'sign', req: 'M' },
       { id: 'signClient', label: 'Client / Customer', type: 'sign', req: 'O' },
       { id: 'signThird', label: 'Third Party (LRQA)', type: 'sign', req: 'O', showIf: (v) => v.thirdParty === 'Yes' },
+    ],
+  }
+}
+
+/* Document records: ITP, PTR and IRN.
+
+   These three deliverables are not inspections this app performs. An
+   Inspection & Test Plan is agreed before the work, a Performance Test
+   Report can come from a test house, an Inspection Release Note is
+   signed off against the finished unit — the document exists, on paper,
+   somewhere else.
+
+   They used to carry `form: null`, which meant the register said
+   "tracked manually" and the row could not be opened. The only way to
+   close one was an admin override, and the status engine is explicit
+   that an override is a deliberate statement rather than a document to
+   bind. So two of every nine deliverables could only ever be closed on
+   somebody's word.
+
+   What closes one now is a record of the document: its number, the date
+   it was issued, who issued it, and the signed pages themselves. That
+   is a report like any other — same lifecycle, same second-person
+   approval, same issue numbering, and it binds into the data book —
+   which is why it is a schema here rather than a new store.
+
+   `kind: 'record'` is what tells the rest of the app this is a document
+   on file rather than a test we ran: no statement-of-result sheet is
+   printed for it, and no verdict is claimed unless the document itself
+   carries one. */
+function recordForm({ key, code, title, deliverable, formNo, refLabel, issuerLabel, issuerHint, evidence, verdict = false }) {
+  return {
+    key, code, title, deliverable, formNo, kind: 'record', verdict,
+    sections: [
+      recordHeader,
+      { id: 'document', title: 'The document', subtitle: 'What is being filed against this unit — taken off the document itself', fields: [
+        { id: 'docRef', label: refLabel, type: 'text', req: 'M', placeholder: 'As printed on the document' },
+        { id: 'issuedOn', label: 'Date issued', type: 'date', req: 'M', half: true },
+        { id: 'rev', label: 'Revision', type: 'text', half: true, placeholder: 'Rev. 0 if none' },
+        { id: 'issuedBy', label: issuerLabel, type: 'text', req: 'M', hint: issuerHint },
+        { id: 'notes', label: 'Notes', type: 'textarea', placeholder: 'Anything a reader of the data book would need — scope covered, exclusions, related NCR.' },
+      ]},
+      ...(verdict ? [{ id: 'result', title: 'Result', subtitle: 'What the document itself concludes — not a judgement made here', fields: [
+        { id: 'finalStatus', label: 'Result recorded on the document', type: 'segmented', options: ['Accept', 'Reject'], req: 'M' },
+        { id: 'ncr', label: 'Non-Conformance Notes (NCR)', type: 'textarea', reqIf: { field: 'finalStatus', eq: 'Reject' } },
+      ]}] : []),
+      /* Required, and that is the point of the whole change: without a
+         page held here, the deliverable is closed on a reference number
+         nobody can check. */
+      { id: 'photos', title: 'The signed document', subtitle: evidence, type: 'photos', req: true },
+      approvals(['Filed by', 'QC Supervisor / Engineering']),
     ],
   }
 }
