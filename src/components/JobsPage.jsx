@@ -93,9 +93,10 @@ const askedStates = (state) => {
   return picked.length ? picked : null
 }
 
-export default function JobsPage({ kat, state }) {
+export default function JobsPage({ kat, state, resetView = false }) {
   const { jobs, tick, role } = useApp()
-  const initial = useMemo(readView, [])
+  // A dashboard count names a complete set, not the search left here yesterday.
+  const initial = useMemo(() => resetView ? {} : readView(), [resetView])
   const asked = askedStates(state)
   const [q, setQ] = useState(initial.q || '')
   const [size, setSize] = useState(PAGE_SIZES.includes(initial.size) ? initial.size : 15)
