@@ -84,6 +84,11 @@ const Chevron = () => (
 export default function JobDetail({ job }) {
   const { role, tick, session, notify } = useApp()
   const [ndePicker, setNdePicker] = useState(false)
+  /* Which list is on screen. Required is what the order asks for and
+     what the percentage counts; Documents is everything filed against
+     the unit, which is the same set plus anything the order stopped
+     asking for after it was filed. */
+  const [tab, setTab] = useState('required')
   const [openIssues, setOpenIssues] = useState(null)
   const [sumPicker, setSumPicker] = useState(false)
   const [sumSel, setSumSel] = useState([])
@@ -105,15 +110,8 @@ export default function JobDetail({ job }) {
     () => byDocument(docs).map((g) => g.current).filter((r) => r.status === 'approved'),
     [docs]
   )
-  /* Documents the order no longer asks for. Normally none: every
-     document in the register answers a required deliverable. They exist
-     when an order is revised after a document was filed, and they are
-     the reason this page cannot simply list the required deliverables
-     and stop. */
-  const extraDocs = useMemo(
-    () => (job ? byDocument(docs).filter(({ current }) => !requiredFor(job).includes(current.deliverable)) : []),
-    [docs, job]
-  )
+  // Every document on the unit, newest issue leading its own earlier ones.
+  const docGroups = useMemo(() => byDocument(docs), [docs])
 
   const openDoc = (r) =>
     navigate(`/job/${job.jobNo}/form/${r.formKey}?d=${encodeURIComponent(r.deliverable)}&rid=${encodeURIComponent(r.id)}`)
@@ -244,13 +242,38 @@ export default function JobDetail({ job }) {
          wrapping chips to filter nine rows was a control that cost more
          than it saved. */}
       <div className="page-head jd-list-head">
-        <h3 className="section-title">Required Reports</h3>
-        <button className="btn btn-primary btn-sm" disabled={!bindable.length}
-          title={bindable.length ? 'Compile the Manufacturing Data Report from the approved current issues' : 'Needs at least one approved document'}
+        {/* The tabs are the heading. A "Required Reports" title above a
+            "Required" tab says it twice, and on a phone that is a whole
+            row of chrome to say nothing. */}
+        <nav className="mon-tabs jd-tabs" aria-label="What to list">
+          <button className={`mon-tab${tab === 'required' ? ' on' : ''}`}
+            aria-current={tab === 'required' ? 'page' : undefined}
+            onClick={() => { setTab('required'); setOpenIssues(null) }}>
+            Required<span className="mon-tab-n">{wanted.length}</span>
+          </button>
+          <button className={`mon-tab${tab === 'documents' ? ' on' : ''}`}
+            aria-current={tab === 'documents' ? 'page' : undefined}
+            onClick={() => { setTab('documents'); setOpenIssues(null) }}>
+            Documents<span className="mon-tab-n">{docGroups.length}</span>
+          </button>
+        </nav>
+        {/* Not a tab: it binds the approved documents whichever list is
+            on screen, so it stays beside the switch rather than inside
+            it. */}
+        <button className="btn btn-primary btn-sm jd-mdr" disabled={!bindable.length}
+          title={bindable.length ? 'Compile the Manufacturing Data Report from the approved current issues' : undefined}
           onClick={() => { setSumSel(bindable.map((d) => d.id)); setSumPicker(true) }}>
           <IconPrint size={13} /> Generate MDR
         </button>
       </div>
+      {/* Why it cannot be pressed, where a thumb can read it. The reason
+          lived in a title attribute, which is a tooltip, which is a
+          hover — and there is no hover on the screen most of these units
+          are inspected from. */}
+      {!bindable.length && (
+        <p className="jd-mdr-note">No approved document to bind yet. One is enough to start the data report.</p>
+      )}
+      {tab === 'required' && (
       <div className="rep-list">
         {DELIVERABLES.filter((d) => wanted.includes(d.key)).map((d) => {
           const cell = p.statuses[d.key]
@@ -345,39 +368,80 @@ export default function JobDetail({ job }) {
           )
         })}
       </div>
+      )}
 
-      {/* A document whose deliverable is no longer asked for.
-
-          job.required is editable after the fact, so an order can be
-          revised to drop a deliverable that already has a document filed
-          against it. Merging the two lists must not be how that document
-          disappears — it is evidence, and it keeps its own heading
-          rather than being folded in with the ones still required. */}
-      {extraDocs.length > 0 && (
-        <>
-          <h3 className="section-title jd-extra-title">
-            No longer required
-            <small>Filed against this unit before the order was revised. Kept on the record.</small>
-          </h3>
-          <div className="rep-list">
-            {extraDocs.map(({ current: r }) => (
-              <div className={`rep-card is-deliv tone-${r.status}`} key={r.id} role="button" tabIndex={0}
-                onClick={() => openDoc(r)}
-                onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openDoc(r) } }}>
-                <span className="rep-code" aria-hidden="true">{FORM_SCHEMAS[r.formKey]?.code || '—'}</span>
-                <strong className="rep-id">{FORM_SCHEMAS[r.formKey]?.title || r.deliverable}</strong>
-                <span className="rep-state">
-                  {reportResult(r) === 'Reject' && <span className="rep-ncr" title="Non-conformance recorded">NCR</span>}
-                  <StateBadge status={r.status} />
-                </span>
-                <small className="rep-foot">
-                  {r.reportId} · {fmtDateTime(r.updatedAt)}{r.inspector ? ` · ${r.inspector}` : ''}
-                </small>
-                <span className="rep-go" aria-hidden="true"><Chevron /></span>
-              </div>
-            ))}
+      {tab === 'documents' && (
+        docGroups.length === 0 ? (
+          <div className="card empty-state">
+            <p><strong>Nothing filed against this unit yet.</strong></p>
+            <p>Every inspection report submitted here appears in this list, latest issue first.</p>
           </div>
-        </>
+        ) : (
+          <div className="rep-list">
+            {docGroups.map(({ current: r, superseded }) => {
+              const open = openIssues === r.id
+              const n = issueNo(r.reportId)
+              /* job.required is editable after the fact, so an order can
+                 be revised to drop a deliverable that already has a
+                 document filed against it. That document is evidence and
+                 still belongs on the unit — it simply no longer answers
+                 anything the order asks for, and the row has to say so
+                 rather than sit among the ones that do. */
+              const spare = !wanted.includes(r.deliverable)
+              return (
+                <div className="doc-stack" key={r.id}>
+                  <div className={`rep-card tone-${r.status}`} role="button" tabIndex={0}
+                    onClick={() => openDoc(r)}
+                    onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openDoc(r) } }}>
+                    <span className="rep-code" aria-hidden="true">{FORM_SCHEMAS[r.formKey]?.code || '—'}</span>
+                    <strong className="rep-id">
+                      {FORM_SCHEMAS[r.formKey]?.title || r.deliverable}
+                      {spare && <em className="rep-spare" title="Filed before the order was revised">not in this order</em>}
+                    </strong>
+                    <span className="rep-state">
+                      {reportResult(r) === 'Reject' && <span className="rep-ncr" title="Non-conformance recorded">NCR</span>}
+                      <StateBadge status={r.status} />
+                    </span>
+                    <small className="rep-sub doc-num"><ReportId id={r.reportId} /></small>
+                    <small className="rep-foot">
+                      {n > 0 && (
+                        <>
+                          <span className="doc-issue">Issue {String(n).padStart(2, '0')}</span>
+                          <span className="rep-dot" aria-hidden="true">·</span>
+                        </>
+                      )}
+                      {fmtDateTime(r.updatedAt)}{r.inspector ? ` · ${r.inspector}` : ''}
+                    </small>
+                    <span className="rep-go" aria-hidden="true"><Chevron /></span>
+                  </div>
+
+                  {superseded.length > 0 && (
+                    <>
+                      <button className={`doc-more${open ? ' is-open' : ''}`} aria-expanded={open}
+                        onClick={() => setOpenIssues(open ? null : r.id)}>
+                        <IconChevronD size={13} />
+                        {open ? 'Hide' : 'Show'} {superseded.length} earlier issue{superseded.length === 1 ? '' : 's'}
+                      </button>
+                      {open && (
+                        <div className="doc-past">
+                          {superseded.map((o) => (
+                            <button key={o.id} className="doc-past-row" onClick={() => openDoc(o)}>
+                              <span className="doc-past-txt">
+                                <strong><ReportId id={o.reportId} /></strong>
+                                <small>{fmtDateTime(o.updatedAt)}{o.inspector ? ` · ${o.inspector}` : ''}</small>
+                              </span>
+                              <em>Superseded</em>
+                            </button>
+                          ))}
+                        </div>
+                      )}
+                    </>
+                  )}
+                </div>
+              )
+            })}
+          </div>
+        )
       )}
 
       {/* MDR document picker — approved only */}

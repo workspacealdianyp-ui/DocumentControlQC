@@ -2300,6 +2300,12 @@ input:focus-visible, select:focus-visible, textarea:focus-visible {
   border-bottom: 1px solid var(--line);
 }
 .mon-tabs::-webkit-scrollbar { display: none; }
+/* A tab is 29px tall, which a cursor hits and a thumb does not. Mobile
+   gets its own size step rather than the desktop row growing to suit a
+   screen it is not on. */
+@media (max-width: 720px) {
+  .mon-tab { min-height: var(--tap); padding-top: 0; padding-bottom: 0; }
+}
 .mon-tab {
   flex: 0 0 auto;
   display: inline-flex; align-items: center; gap: 7px;
@@ -5272,26 +5278,55 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber); outline-
    and says so. */
 .doc-stack { display: flex; flex-direction: column; }
 
-/* The list's own head: what the list is, and the one thing you do with
-   all of it. Generate MDR sat at the bottom of the page under a second
-   copy of the same documents; it belongs where the documents are. */
-.jd-list-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
-.jd-list-head .section-title { margin: 0; }
-/* The button keeps a thumb's worth of height on a phone: it is the one
-   action on this page that produces something to hand a customer. */
+/* The list's own head: which list, and the one thing you do with all of
+   it. Generate MDR sat at the bottom of the page under a second copy of
+   the same documents; it belongs where the documents are.
+
+   The rule runs under the whole row rather than under the tabs alone, so
+   the head reads as one band with the switch at one end and the action
+   at the other. */
+.jd-list-head {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 8px 12px; flex-wrap: wrap;
+  border-bottom: 1px solid var(--line);
+  margin: 0 0 12px;
+}
+.jd-list-head .jd-tabs { border: 0; margin: 0; padding-bottom: 6px; flex: 0 1 auto; min-width: 0; }
+.jd-list-head .jd-mdr { margin-bottom: 6px; }
+
+/* Narrow, the two tabs and the button do not share a line: 215px of
+   tabs against a 150px button in 362px of card. Rather than shrink
+   either, the button takes the row under them and spans it — the one
+   action on this page that produces something to hand a customer, at a
+   size a thumb can hit. */
 @media (max-width: 720px) {
-  .jd-list-head { gap: 8px; }
-  .jd-list-head .btn-sm { min-height: var(--tap); }
+  .jd-list-head .jd-mdr { flex: 1 1 100%; justify-content: center; min-height: var(--tap); }
+}
+/* Unavailable, not shouting. A full-width slab of solid grey is the
+   weight of a primary action on a screen where the action cannot be
+   taken; it recedes to the page's own surface and keeps only its
+   outline, so the control is still there to be found. */
+.jd-mdr:disabled,
+.jd-mdr:disabled:hover {
+  background: var(--surface); color: var(--text-3);
+  border-color: var(--line); box-shadow: none; opacity: 1;
+}
+.jd-mdr-note {
+  margin: -4px 0 12px; font-family: var(--prose);
+  font-size: 12px; line-height: 1.45; color: var(--text-2);
 }
 
-/* Documents the order stopped asking for. A quieter heading than the
-   required list, with the reason on it — a reader who has never seen
-   this section needs to know why these are separate before they wonder
-   whether something is wrong. */
-.jd-extra-title { display: flex; flex-direction: column; gap: 3px; margin-top: 22px; }
-.jd-extra-title small {
-  font-family: var(--prose); font-size: 12px; font-weight: 400;
-  line-height: 1.45; color: var(--text-2); text-transform: none; letter-spacing: 0;
+/* A document the order stopped asking for. job.required is editable
+   after the fact, so this is a document filed before the order was
+   revised: still evidence, still on the unit, and no longer answering
+   anything asked of it. */
+.rep-spare {
+  display: inline-block; margin-left: 7px; padding: 1px 7px;
+  border: 1px solid var(--line-2); border-radius: 999px;
+  background: var(--surface-2); color: var(--text-2);
+  font-family: var(--sans); font-size: 10.5px; font-weight: 500;
+  font-style: normal; letter-spacing: 0.01em; white-space: nowrap;
+  vertical-align: 1px;
 }
 
 .doc-issue {
