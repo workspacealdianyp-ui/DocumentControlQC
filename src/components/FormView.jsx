@@ -34,6 +34,64 @@ function Segmented({ value, options, onChange, disabled, invalid }) {
   )
 }
 
+/* More than one answer, in the same shape as one answer.
+
+   Surface preparation is genuinely several things at once — a weld can
+   be as-welded and solvent-wiped — and it used to be a single-choice
+   chip row, so recording both was impossible. It is the same segmented
+   group as every other control on the form; the only difference is that
+   pressing a second option adds it instead of replacing the first.
+
+   Stored as one string, comma separated, because that is what the
+   printed report and the data book read. The control is the only place
+   that knows it is a list. */
+export const splitMulti = (value) =>
+  String(value || '').split(',').map((s) => s.trim()).filter(Boolean)
+
+export function toggleMulti(value, option) {
+  const on = splitMulti(value)
+  const i = on.indexOf(option)
+  if (i >= 0) on.splice(i, 1)
+  else on.push(option)
+  return on.join(', ')
+}
+
+function Multi({ value, options, onChange, disabled, invalid }) {
+  const on = splitMulti(value)
+  return (
+    <div className={`seg is-multi${invalid ? ' invalid' : ''}`} role="group">
+      {options.map((o) => (
+        <button key={o} type="button" disabled={disabled}
+          role="checkbox" aria-checked={on.includes(o)}
+          className={`seg-btn${on.includes(o) ? ' active' : ''}`}
+          onClick={() => onChange(toggleMulti(value, o))}>{o}</button>
+      ))}
+    </div>
+  )
+}
+
+/* Two boxes, one field.
+
+   Particle, white contrast and cleaner are each a thing and the batch it
+   came out of — "Magnaflux 7HF" and "008A103". They were one text box,
+   so the two facts were typed into it however the inspector felt that
+   day, and a data book cannot read that back. They are two boxes now,
+   kept apart in the record, and the joined string is written to the old
+   field id so everything that already prints it keeps working. */
+function Pair({ parts, values, onSet, disabled, invalid }) {
+  return (
+    <div className={`pair-wrap${invalid ? ' invalid' : ''}`}>
+      {parts.map((p) => (
+        <span className="pair-cell" key={p.id}>
+          <input value={values[p.id] || ''} disabled={disabled} placeholder={p.placeholder}
+            aria-label={p.label} onChange={(e) => onSet(p.id, e.target.value)} />
+          <small>{p.label}</small>
+        </span>
+      ))}
+    </div>
+  )
+}
+
 function Choice({ value, options, onChange, disabled, invalid }) {
   return (
     <div className={`choice-wrap${invalid ? ' invalid' : ''}`}>
@@ -329,7 +387,8 @@ function EngineField({ f, values, reqValues, report, set, locked, invalid, onReq
   const label = lbl(f, v)
   const half = f.half
   const unit = f.unitFrom ? (v[f.unitFrom] || '') : f.unit // unit can follow another field (e.g. pressureUnit)
-  const full = !half && (f.type === 'textarea' || f.type === 'sign' || f.type === 'choice' || f.type === 'photos-inline')
+  const full = !half && (f.type === 'textarea' || f.type === 'sign' || f.type === 'choice'
+    || f.type === 'multi' || f.type === 'pair' || f.type === 'photos-inline')
 
   let control
   switch (f.type) {
@@ -339,6 +398,21 @@ function EngineField({ f, values, reqValues, report, set, locked, invalid, onReq
       break
     case 'choice':
       control = <Choice value={v[f.id] || ''} options={optsOf(f, v)} disabled={disabled} invalid={invalid} onChange={(x) => set(f.id, x)} />
+      break
+    case 'multi':
+      control = <Multi value={v[f.id] || ''} options={optsOf(f, v)} disabled={disabled} invalid={invalid} onChange={(x) => set(f.id, x)} />
+      break
+    case 'pair':
+      /* Each half is stored under its own id; the joined value goes to
+         the field's own id, which is what the report prints. */
+      control = (
+        <Pair parts={f.parts} values={v} disabled={disabled} invalid={invalid}
+          onSet={(pid, val) => {
+            const next = { ...v, [pid]: val }
+            set(pid, val)
+            set(f.id, f.parts.map((p) => (next[p.id] || '').trim()).filter(Boolean).join(' - '))
+          }} />
+      )
       break
     case 'select': {
       /* Options may be a function so a field can draw on the instrument

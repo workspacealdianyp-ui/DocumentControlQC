@@ -6259,3 +6259,29 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber); outline-
 }
 .cell.awaiting { color: var(--inprog); background: var(--inprog-bg); }
 .cell.voided { color: var(--na); background: var(--na-bg); text-decoration: line-through; }
+
+/* ── one shape for every pick, and the chosen one in the shop's orange ──
+   The form had three ways of asking the same kind of question — a
+   segmented group, a row of loose chips, and free text — sitting inches
+   apart in the same section. They are one control now, and the answer is
+   marked in the brand orange rather than the steel blue, because on a
+   dark tablet in a workshop the blue fill read as "disabled" more often
+   than as "chosen". */
+.seg-btn.active { background: var(--amber); color: var(--ink); font-weight: 650; }
+:root[data-theme="dark"] .seg-btn.active { color: #14140f; }
+/* The group's own border says the question has been answered. */
+.seg:has(.seg-btn.active) { border-color: var(--amber); }
+.choice-chip.active { background: var(--amber); border-color: var(--amber); color: var(--ink); }
+
+/* More than one answer: same group, wraps rather than squeezing six
+   options into one line. */
+.seg.is-multi { flex-wrap: wrap; }
+.seg.is-multi .seg-btn { flex: 1 1 120px; }
+
+/* A thing and the batch it came from, side by side under one label. */
+.pair-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; width: 100%; }
+.pair-cell { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.pair-cell input { width: 100%; }
+.pair-cell small { font-size: 10.5px; letter-spacing: 0.03em; text-transform: uppercase; color: var(--text-2); }
+.pair-wrap.invalid input { border-color: var(--overdue); }
+@media (max-width: 560px) { .pair-wrap { grid-template-columns: 1fr; } }

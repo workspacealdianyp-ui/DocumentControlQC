@@ -184,26 +184,59 @@ export const FORM_SCHEMAS = {
         { id: 'lightmeter', label: 'Lightmeter', type: 'select', half: true, options: (v, keep) => optionsFor('lightmeter', { on: v.inspDate, keep }) },
         { id: 'lightIntensity', label: 'Light Intensity', type: 'number', unit: 'lux', half: true, req: 'M', hint: 'Min. 1000 lux' },
       ]},
+      /* One control shape for every pick on this section.
+
+         There were three: a segmented group, a row of loose chips, and
+         free text — so Type of Particle and Surface Preparation looked
+         like a different kind of question from MT Equipment directly
+         above them, and a chip row with nothing chosen looked the same
+         as one where the inspector had not reached it yet. They are all
+         segmented groups now. Surface Preparation and Scope of Exam take
+         more than one answer, which a chip row could never record.
+
+         The three consumables are a thing and the batch it came from.
+         They were one box each, so "Magnaflux 7HF 008A103" went in
+         however the person felt that day and no data book could read it
+         back. Two boxes now, joined into the same field id the report
+         already prints. Particle Brand is gone with them: it was the
+         first half of Particle Desc. under another name. */
       { id: 'equipment', title: 'Equipment & Technique', fields: [
         { id: 'mtEquipment', label: 'MT Equipment', type: 'segmented', options: (v) => methodsFor('mtEquipment', v.inspDate), req: 'M' },
         { id: 'equipId', label: 'Equipment ID / Serial No.', type: 'text', half: true },
         { id: 'currentType', label: 'Type of Current', type: 'segmented', options: ['AC', 'HWDC-HWAC', 'Other'], half: true },
-        { id: 'particle', label: 'Type of Particle', type: 'choice', options: ['Wet (WPC2/7HF)', 'Dry', 'Visible, Wet'] },
+        { id: 'particle', label: 'Type of Particle', type: 'segmented', options: ['Wet (WPC2/7HF)', 'Dry', 'Visible, Wet'] },
         { id: 'particleApp', label: 'Particle Application', type: 'segmented', options: ['Spray', 'Other'], half: true },
-        { id: 'brand', label: 'Particle Brand', type: 'text', half: true },
-        { id: 'particleDesc', label: 'Particle Desc. & Batch', type: 'text', half: true },
-        { id: 'whiteContrast', label: 'White Contrast & Batch', type: 'text', half: true },
-        { id: 'cleanerBatch', label: 'Cleaner & Batch', type: 'text', half: true },
         { id: 'method', label: 'Method', type: 'segmented', options: ['Continuous', 'Residual', 'Other'], half: true },
-        { id: 'surfacePreparation', label: 'Surface Preparation', type: 'choice', options: ['As Welded', 'Machining', 'As Grounded', 'Solvent Wipe'] },
+        { id: 'particleDesc', label: 'Particle Desc. & Batch', type: 'pair', parts: [
+          { id: 'particleType', label: 'Type / brand', placeholder: 'Magnaflux 7HF' },
+          { id: 'particleBatch', label: 'Batch', placeholder: '008A103' },
+        ]},
+        { id: 'whiteContrast', label: 'White Contrast & Batch', type: 'pair', parts: [
+          { id: 'whiteContrastType', label: 'Type / brand', placeholder: 'WCP-2' },
+          { id: 'whiteContrastBatch', label: 'Batch', placeholder: '008A009' },
+        ]},
+        { id: 'cleanerBatch', label: 'Cleaner & Batch', type: 'pair', parts: [
+          { id: 'cleanerType', label: 'Type / brand', placeholder: 'SKC-S' },
+          { id: 'cleanerBatchNo', label: 'Batch', placeholder: '008A100' },
+        ]},
+        { id: 'magTechnique', label: 'Magnetizing Technique', type: 'text',
+          default: 'Minimum twice in each area, right angle each other' },
+        { id: 'surfacePreparation', label: 'Surface Preparation', type: 'multi',
+          options: ['As Welded', 'Machining', 'As Grounded', 'Solvent Wipe'],
+          hint: 'More than one may apply.' },
         { id: 'stage', label: 'Stage of Exam', type: 'segmented', options: ['After Welding', 'After Hydrostatic', 'Other'] },
         { id: 'weldingProcess', label: 'Welding Process', type: 'segmented', options: ['GTAW', 'SMAW', 'FCAW', 'Other'] },
-        { id: 'scope', label: 'Scope of Exam.', type: 'choice', options: ['Base Metal', 'Edge Prep.', 'Weld Part', 'Back Chipping', 'Repair Weld', 'Other'] },
+        { id: 'scope', label: 'Scope of Exam.', type: 'multi',
+          options: ['Base Metal', 'Edge Prep.', 'Weld Part', 'Back Chipping', 'Repair Weld', 'Other'],
+          hint: 'More than one may apply.' },
       ]},
     ],
     columns: [
+      /* Material is not here. It is Material Spec in General, one per
+         report, and repeating it on every row of the result table asked
+         the inspector for the same fact as many times as there were
+         welds. */
       { id: 'partId', label: 'Part / Welding ID', type: 'text', req: 'M' },
-      { id: 'material', label: 'Material', type: 'text', half: true },
       { id: 'weldNo', label: 'Weld No.', type: 'text', half: true },
       { id: 'thickness', label: 'Thickness', type: 'number', unit: 'mm', half: true },
       { id: 'judgement', label: 'Judgement', type: 'segmented', options: ['Acc', 'Reject'] },
@@ -494,7 +527,19 @@ function ndeForm({ key, code, title, formNo, acc, procedure, midSections, column
         { id: 'ncrRef', label: 'NCR Ref No.', type: 'text', half: true, placeholder: 'N/A if none' },
       ]},
       ...midSections,
-      { id: 'results', title: 'Result Table', subtitle: 'Evidence required on reject', type: 'results',
+      /* The map the result table points at.
+
+         A row saying "weld W-14, reject" is only findable on the unit if
+         somebody can see where W-14 is. That drawing existed on paper
+         and never reached the report, so the table named locations
+         against nothing. It goes in front of the table, because it is
+         what the table is read against. */
+      { id: 'ndemap', title: 'NDE Map', subtitle: 'The marked-up drawing the result table refers to — photograph or export it', fields: [
+        { id: 'ndeMapRef', label: 'Drawing / map reference', type: 'text', half: true, placeholder: 'e.g. DWG-IST-4131-R1 sheet 2' },
+        { id: 'ndeMapNote', label: 'How the parts are numbered', type: 'text', half: true, placeholder: 'e.g. W-01 clockwise from manway' },
+        { id: 'ndeMap', label: 'NDE map', type: 'photos-inline' },
+      ]},
+      { id: 'results', title: 'Result Table', subtitle: 'Part IDs refer to the NDE map above · evidence required on reject', type: 'results',
         judgeKey: 'judgement', accValue: 'Acc', rejValue, columns },
       ...extraSections,
       { id: 'photos', title: 'Photo Evidence', subtitle: 'Sketch of discontinuity required on reject', type: 'photos' },
