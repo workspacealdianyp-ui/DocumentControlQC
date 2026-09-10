@@ -17,15 +17,14 @@ const DIST = 'dist/assets'
 
 /* gzip, because that is what the browser downloads.
 
-   `optional` is for a chunk that legitimately may not be built. The 3d
-   viewer is one: Unit3D.jsx is in the tree but nothing imports it, so
-   Rollup never emits a chunk for it. Everything else must be there —
-   a budget whose file is missing used to print a question mark and pass,
-   which means renaming the entry chunk would have switched the ceiling
-   off without anyone failing a build over it. */
+   A budget whose file is missing used to print a question mark and
+   pass, which means renaming the entry chunk would have switched the
+   ceiling off without anyone failing a build over it. Every budget here
+   names a file the build must produce; `optional: true` is the opt-out
+   for a chunk that may legitimately not be built, and nothing needs it
+   today. */
 const BUDGETS = [
   { match: /^index-.*\.js$/,  label: 'entry javascript', maxKb: 200 },
-  { match: /^Unit3D-.*\.js$/, label: '3d viewer (lazy)', maxKb: 160, optional: true },
   { match: /^index-.*\.css$/, label: 'stylesheet',       maxKb: 45 },
 ]
 

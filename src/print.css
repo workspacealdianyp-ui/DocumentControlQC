@@ -106,6 +106,31 @@
 .print-sheet .ps-letter-id td:first-child { width: 30mm; color: var(--print-muted); }
 .ps-verdict { margin: 0; padding: 4mm; border: 1pt solid var(--print-ink); background: var(--print-fill); font-size: 10pt; font-weight: 700; line-height: 1.4; text-align: left; }
 .ps-verdict.hold { text-decoration: underline; }
+/* Printed in black like every other statement on the sheet — a data book
+   is a document of record and colour is not part of its vocabulary. The
+   preview reads as provisional by being ruled rather than solid. */
+.ps-verdict.draft { border-style: dashed; background: #fff; }
+.ps-cover-missing { margin-top: 2.5mm; padding: 2.5mm 4mm; border: .5pt dashed var(--print-line); font-size: 8.5pt; line-height: 1.45; }
+.ps-cover-missing span { display: block; font-size: 7pt; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--print-muted); }
+.ps-cover-missing strong { font-weight: 400; color: var(--print-ink); }
+
+/* Every sheet says so, not only the cover.
+
+   A preview leaves this screen as paper or a PDF, and a middle page
+   photographed on a phone and forwarded carries none of the cover's
+   warning. The watermark is set light enough to read straight through
+   and is taken out of the layout entirely, so it cannot push a row onto
+   another sheet or change what the fitter measures. */
+.print-scaler.is-preview .print-sheet::before {
+  content: 'PREVIEW';
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  transform: rotate(-32deg);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 58pt; font-weight: 700; letter-spacing: .18em;
+  color: rgba(24, 33, 40, 0.07);
+  pointer-events: none; z-index: 2;
+}
 .ps-hold-list { font-size: 9pt; line-height: 1.5; }
 .ps-cover { display: flex; flex-direction: column; min-height: 262mm; }
 .ps-cover-top { padding-bottom: 7mm; border-bottom: 1.5pt solid var(--print-ink); }

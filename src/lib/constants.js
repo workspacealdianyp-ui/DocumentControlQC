@@ -35,19 +35,60 @@ export const STATUS = {
   na: { label: 'N/A', cls: 'na' },
 }
 
+/* The QC chain of command, and the reason it is written down here.
+
+   A report is released by somebody above whoever recorded it. The app
+   used to hold one approver and a rule that nobody may approve their own
+   work — correct on its own, and between them a record the QA Lead
+   recorded could never be released by anybody. `rank` is what settles
+   it: an approver has to sit above the author.
+
+   Technician Quality Control records. Quality Engineer and Spv Quality
+   Control sit above and release that work; they are one tier, so neither
+   releases the other's — that goes up. Dept Head Quality is above them
+   both, and being the top of the chain is the one who may release their
+   own: there is nobody left to ask, and a record that can never be
+   approved is worse than one signed by the person answerable for it.
+
+   The keys are unchanged on purpose. A session saved in somebody's
+   browser carries a role key, and renaming `inspector` or `admin` would
+   sign out every device holding one. What changed is what they are
+   called and where they stand. */
 export const ROLES = {
-  inspector: { label: 'Inspector', canEdit: true, canOverride: false, canManage: false },
-  admin: { label: 'Admin / QA Lead', canEdit: true, canOverride: true, canManage: true },
-  viewer: { label: 'Management / Viewer', canEdit: false, canOverride: false, canManage: false },
+  viewer:     { label: 'Management / Viewer',        rank: 0, canEdit: false, canOverride: false, canManage: false },
+  inspector:  { label: 'Technician Quality Control', rank: 1, canEdit: true,  canOverride: false, canManage: false },
+  engineer:   { label: 'Quality Engineer',           rank: 2, canEdit: true,  canOverride: true,  canManage: false },
+  supervisor: { label: 'Spv Quality Control',        rank: 2, canEdit: true,  canOverride: true,  canManage: true },
+  admin:      { label: 'Dept Head Quality',          rank: 3, canEdit: true,  canOverride: true,  canManage: true },
 }
 
+// The top of the chain, read off the roles rather than written twice.
+export const TOP_RANK = Math.max(...Object.values(ROLES).map((r) => r.rank))
+
 // Demo accounts for the front-end-only login (no back-end, no passwords).
+// The three original names stay: they are the recorded author or approver
+// on every seeded document, and renaming them would orphan the lot.
 export const USERS = [
   { name: 'QA Lead', role: 'admin' },
+  { name: 'QC Supervisor', role: 'supervisor' },
+  { name: 'Quality Engineer', role: 'engineer' },
   { name: 'Inspector One', role: 'inspector' },
   { name: 'Inspector Two', role: 'inspector' },
   { name: 'Management Viewer', role: 'viewer' },
 ]
+
+/* Where a person stands, by the name a report records.
+
+   A document carries the name of whoever recorded it, not their role, so
+   the rank is looked up. A name that is not on the roster — imported
+   records, somebody who has left — is read as a technician: the lowest
+   rank, so their work still needs somebody above to release it, which is
+   the safe way to be wrong. */
+const sameName = (a, b) => (a || '').trim().toLowerCase() === (b || '').trim().toLowerCase()
+export const rankOfName = (name) => {
+  const user = USERS.find((u) => sameName(u.name, name))
+  return user ? ROLES[user.role].rank : ROLES.inspector.rank
+}
 
 export const FORM_CODES = {
   hydrotest: 'LHT',
