@@ -8,94 +8,145 @@
 .home-page :is(a, button):focus-visible { outline: 2px solid var(--amber-ink); outline-offset: 3px; }
 .home-page .btn { min-height: 44px; padding: 10px 14px; font-size: 14px; }
 /* ── the masthead ─────────────────────────────────────────────────
-   A band, like every other page in this app has, carrying the greeting,
-   the day, the two things you came here to press — and behind them the
-   yard the documents are about.
+   One light plane, not a stack of boxes.
 
-   The photograph bleeds from the right and is read through a scrim of
-   the card's own surface, so the type sits on flat colour and never on
-   tarmac. The scrim is written as two explicit colours rather than
-   fading to `transparent`, which some engines interpolate through
-   transparent black and leave a grey smear across the middle. */
+   The band before this one drew a bordered card, then a bordered grid of
+   four bordered cells inside it — four frames deep on a screen whose job
+   is to be read at a glance. This is the shape it should have been: the
+   band itself is the only surface, the counts are set on it as type, and
+   a tile is drawn only where a figure is a share of something and has a
+   meter to prove it. The yard fills the right and is cut by the band's
+   own edge rather than standing on top of it. */
 .home-banner {
   position: relative; isolation: isolate; overflow: hidden;
-  border: 1px solid var(--line); border-radius: var(--r-lg);
-  background: var(--surface);
+  border-radius: 20px;
+  background:
+    radial-gradient(120% 140% at 88% 12%, var(--banner-wash) 0%, transparent 62%),
+    var(--surface);
 }
 .home-banner-art {
-  position: absolute; z-index: -1; inset: 0 0 0 auto; width: 58%;
-  background: url('../assets/plant-yard.webp') right center / cover no-repeat;
+  position: absolute; z-index: 0; right: -3%; top: -10%;
+  height: 122%; width: auto; max-width: 58%;
+  object-fit: contain; object-position: right center;
+  pointer-events: none; user-select: none;
 }
-.home-banner-art::after {
-  content: ''; position: absolute; inset: 0;
-  background: linear-gradient(90deg, var(--banner-scrim) 0%, var(--banner-scrim) 12%, var(--banner-scrim-0) 62%);
+.home-banner-body {
+  position: relative; z-index: 1;
+  display: grid; gap: 18px;
+  padding: 22px 24px 24px; max-width: 58%;
 }
-/* Everything readable stacks on the left, over the scrim, and the
-   photograph gets the right of the band to itself. Side by side, the
-   buttons landed past the point the scrim had faded out and a white
-   button sat on a pale patch of tarmac — legible only by luck. */
-.home-banner-body { display: flex; flex-direction: column; align-items: flex-start; gap: 14px; padding: 20px 22px; max-width: 60%; }
+.home-banner-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
 
 .home-welcome { display: grid; gap: 4px; }
 .home-welcome strong { font-size: 21px; letter-spacing: -.03em; line-height: 1.2; }
 .home-welcome > span { font-family: var(--mono); font-size: 11px; letter-spacing: .04em; text-transform: uppercase; color: var(--text-3); line-height: 1.45; }
 .home-action-buttons { display: flex; gap: 8px; flex-wrap: wrap; flex: none; }
-.home-readings { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); background: var(--surface); border: 1px solid var(--line-2); border-radius: var(--r-lg); overflow: hidden; }
-/* Four figures, read at a glance. They were four boxes of 20px padding
-   with a 14px label above a 34px number above a 13px note — three sizes
-   close enough that the eye had to choose, in 171px of height each. The
-   label drops to the register's own mono caption, which is a rank the
-   rest of the app already uses for "what this number is", and the box
-   loses the padding it was not using. */
-.home-reading { display: flex; flex-direction: column; gap: 5px; color: var(--text); padding: 14px 15px; position: relative; border-bottom: 1px solid var(--line); }
-.home-reading:nth-child(odd) { border-right: 1px solid var(--line); }
-.home-reading:nth-last-child(-n+2) { border-bottom: 0; }
-.home-reading:is(a):hover { background: var(--surface-2); }
-.home-reading-label { display: flex; align-items: center; gap: 6px; color: var(--text-3); font-family: var(--mono); font-size: 10px; font-weight: 500; letter-spacing: .07em; text-transform: uppercase; line-height: 1.35; }
-.home-reading-label svg { flex: none; width: 13px; height: 13px; }
-.home-reading > strong { font-size: 31px; line-height: 1.05; letter-spacing: -.045em; font-weight: 650; font-variant-numeric: tabular-nums; }
-.home-reading > strong small { font-size: 19px; margin-left: 1px; font-weight: 500; }
-.home-reading-note { color: var(--text-2); font-size: 11.5px; line-height: 1.35; }
-.home-reading-link { color: var(--amber-ink); font-size: 12px; text-decoration: underline !important; text-underline-offset: 3px; width: fit-content; }
-.home-override-note { color: var(--text-2); font-size: 12px; line-height: 1.4; }
-.home-reading.has-attention::before { content: ''; position: absolute; inset: 0 auto 0 0; width: 3px; background: var(--overdue); }
-.home-reading.has-attention > strong, .home-late-ink { color: var(--overdue); }
-.home-review-ink { color: var(--review); }
-.home-progress { display: block; width: 100%; height: 3px; background: var(--line); overflow: hidden; }
-.home-progress > span { height: 100%; display: block; background: var(--amber); }
-.home-reading .home-progress { max-width: 150px; margin-top: 1px; }
-.home-panel { border: 1px solid var(--line); border-radius: var(--r-lg); background: var(--surface); overflow: clip; align-self: start; }
+
+/* The figures keep a landmark of their own, so a screen reader still
+   reaches "QC overview" and finds the four numbers under it. */
+.home-banner-stats { display: grid; gap: 18px; }
+
+/* The two plain counts. Label over figure over note, no rule, no box. */
+.home-figures { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 28px; }
+.home-figure { display: grid; gap: 2px; align-content: start; color: var(--text); }
+.home-figure > span { font-family: var(--mono); font-size: 10px; font-weight: 500; letter-spacing: .07em; text-transform: uppercase; color: var(--text-3); }
+.home-figure > strong { font-size: 31px; line-height: 1.1; letter-spacing: -.045em; font-weight: 650; font-variant-numeric: tabular-nums; }
+.home-figure > small { font-size: 11.5px; color: var(--text-2); line-height: 1.35; }
+.home-figure:hover > strong { color: var(--amber-ink); }
+.home-figure.has-attention > strong { color: var(--overdue); }
+
+/* The two that are a share of something. A tile and a meter are what a
+   ratio earns; a bare count is not a ratio and does not get one. */
+.home-tiles { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.home-tile {
+  display: grid; gap: 7px; align-content: start;
+  padding: 12px 14px 13px; border-radius: 14px;
+  color: var(--text); transition: transform .14s ease;
+}
+.home-tile:active { transform: scale(.994); }
+.home-tile-label { display: flex; align-items: center; gap: 6px; font-size: 11.5px; font-weight: 500; line-height: 1.3; }
+.home-tile-label svg { flex: none; }
+.home-tile-read { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
+.home-tile-read strong { font-size: 25px; line-height: 1.05; letter-spacing: -.04em; font-weight: 650; font-variant-numeric: tabular-nums; }
+.home-tile-read strong small { font-size: 15px; font-weight: 500; margin-left: 1px; }
+.home-tile-read em { font-style: normal; font-family: var(--mono); font-size: 11px; color: var(--text-2); font-variant-numeric: tabular-nums; }
+.home-tile.is-done { background: var(--done-bg); }
+.home-tile.is-done .home-tile-label { color: var(--done); }
+.home-tile.is-done .home-progress > span { background: var(--done); }
+.home-tile.is-open { background: var(--info-bg); }
+.home-tile.is-open .home-tile-label { color: var(--info); }
+.home-tile.is-open .home-progress > span { background: var(--info); }
+.home-tile .home-progress { height: 4px; border-radius: 999px; background: var(--tile-track); }
+.home-tile .home-progress > span { border-radius: inherit; }
+.home-override-note { font-size: 11px; color: var(--text-3); margin: -8px 0 0; }
+
+.home-panel { border: 1px solid var(--line); border-radius: var(--r-lg); background: var(--surface); overflow: clip; align-self: start; display: flex; flex-direction: column; }
+/* Stretched to match the panel beside it, the spare height fell between
+   the last row and the footer and left the footer floating mid-card. It
+   goes to the bottom edge, where the end of a list belongs. */
+.home-panel > .home-panel-footer { margin-top: auto; }
 .home-panel-head { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 15px 16px 13px; }
 .home-panel-head > div { min-width: 0; }
 .home-page .home-panel-head h2 { font-family: var(--sans); font-size: 18px; font-weight: 650; line-height: 1.3; letter-spacing: -.025em; }
 .home-panel-head p { font-size: 12px; color: var(--text-2); margin-top: 3px; line-height: 1.4; }
 .home-count { flex: none; font-variant-numeric: tabular-nums; color: var(--text-2); font-size: 13px; }
 .home-attention { border-color: var(--line-2); }
-.home-attention .home-panel-head { border-top: 3px solid var(--amber); padding-top: 17px; }
 .home-filters { display: flex; flex-wrap: wrap; gap: 6px; padding: 0 20px 16px; border-bottom: 1px solid var(--line); }
 .home-filters button { display: inline-flex; align-items: center; gap: 8px; min-height: 40px; font-size: 14px; padding: 7px 10px; background: transparent; color: var(--text-2); border: 1px solid transparent; border-radius: var(--r-sm); }
 .home-filters button:hover { background: var(--surface-2); }
 .home-filters button[aria-pressed="true"] { background: var(--surface-3); color: var(--text); border-color: var(--line-2); font-weight: 600; }
 .home-filters button span { font-size: 12px; font-variant-numeric: tabular-nums; }
-.home-attention-columns { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr) 86px; gap: 18px; padding: 10px 20px; color: var(--text-2); background: var(--surface-2); border-bottom: 1px solid var(--line); font-size: 12px; }
-.home-attention-columns span:last-child { text-align: right; }
+/* Built on the customer row's bones — same three columns, same rhythm,
+   same meter at the end — and then told apart from it, because the two
+   lists answer different questions. A customer row reports progress. An
+   attention row says something is wrong, so it carries a mark at its
+   leading edge in the colour of what is wrong, and that mark is there
+   all the time rather than only under the cursor: a row you have to
+   hover to learn about is a row you will not learn about.
+
+   The colour is never the only signal — the reason is written in words
+   beside it either way. */
 .home-attention-list { margin: 0; padding: 0; list-style: none; }
 .home-attention-list li + li { border-top: 1px solid var(--line); }
-.home-attention-row { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr) 86px; gap: 18px; padding: 15px 20px; color: var(--text); position: relative; transition: background 140ms; }
-.home-attention-row::before { content: ''; position: absolute; inset: 0 auto 0 0; width: 3px; background: transparent; transition: background 140ms; }
+.home-attention-row {
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) 96px;
+  gap: 18px; align-items: center; padding: 13px 20px 13px 17px;
+  color: var(--text); position: relative; transition: background 140ms;
+}
+.home-attention-row::before {
+  content: ''; position: absolute; inset: 9px auto 9px 0; width: 3px;
+  border-radius: 0 3px 3px 0; background: var(--line-2); transition: background 140ms;
+}
+.home-attention-row.is-ncr::before { background: var(--overdue); }
+.home-attention-row.is-late::before { background: var(--amber); }
 .home-attention-row:hover { background: var(--surface-2); }
-.home-attention-row:hover::before { background: var(--amber); }
-.home-job-id, .home-job-reason, .home-job-completion { display: flex; flex-direction: column; gap: 4px; justify-content: center; }
-.home-job-id strong { font-size: 16px; font-weight: 650; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
-.home-job-id > span { font-size: 14px; line-height: 1.4; overflow-wrap: anywhere; }
-.home-job-id small, .home-job-reason small { font-size: 12px; line-height: 1.45; color: var(--text-2); overflow-wrap: anywhere; }
-.home-reason { display: inline-flex; align-items: center; gap: 5px; font-size: 14px; line-height: 1.4; color: var(--overdue); font-weight: 500; }
+.home-job-id, .home-job-reason { display: grid; gap: 4px; align-content: center; }
+.home-job-id strong { font-size: 15px; font-weight: 600; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+.home-job-id small { font-size: 12px; line-height: 1.4; color: var(--text-2); overflow-wrap: anywhere; }
+.home-job-reason { justify-items: start; }
+
+/* The reason, as a chip rather than a line of coloured text. A tinted
+   pill is the shape this app already uses for a state, and it survives
+   being read at arm's length on a tablet in a workshop, which coloured
+   body text at 14px does not. */
+.home-reason {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 2px 8px 2px 6px; border-radius: 999px;
+  font-size: 11.5px; font-weight: 500; line-height: 1.5; white-space: nowrap;
+}
 .home-reason svg { flex: none; }
-.home-due { font-size: 13px; color: var(--text-2); line-height: 1.45; }
-.home-job-completion { align-items: flex-end; justify-content: space-between; gap: 10px; }
-.home-job-completion > strong { font-size: 20px; font-weight: 600; font-variant-numeric: tabular-nums; line-height: 1.3; }
-.home-job-completion strong small { font-size: 14px; font-weight: 400; color: var(--text-2); }
-.home-open-job { display: flex; align-items: center; gap: 2px; color: var(--text-2); font-size: 12px; white-space: nowrap; }
+.home-reason.is-ncr { background: var(--overdue-bg); color: var(--overdue); }
+.home-reason.is-late { background: var(--inprog-bg); color: var(--inprog); }
+/* Which documents, in the codes the register prints on them. */
+.home-job-pending { font-family: var(--mono); font-size: 10.5px; letter-spacing: .04em; color: var(--text-3); overflow-wrap: anywhere; }
+.home-due { font-size: 11.5px; color: var(--text-2); line-height: 1.4; }
+
+/* The same meter the customer rows end on, so the two lists scan down
+   the page as one column of figures. */
+.home-job-completion { display: grid; text-align: right; gap: 4px; align-content: center; font-variant-numeric: tabular-nums; }
+.home-job-completion > strong { font-size: 18px; font-weight: 600; line-height: 1.25; }
+.home-job-completion strong small { font-size: 13px; font-weight: 400; color: var(--text-2); }
+.home-job-completion .home-progress { margin-top: 3px; }
 .home-panel-footer { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; padding: 12px 20px; border-top: 1px solid var(--line); }
 .home-panel-footer > span { color: var(--text-2); font-size: 12px; }
 .home-text-link { display: inline-flex; align-items: center; gap: 7px; padding: 3px 0; border: 0; background: none; font-size: 14px; font-weight: 500; color: var(--text); line-height: 1.5; }
@@ -167,39 +218,61 @@
 .home-links { display: flex; justify-content: flex-end; gap: 18px; flex-wrap: wrap; }
 .home-links a { font-size: 13px; color: var(--text-2); padding: 8px 0; }
 @media (min-width: 1080px) {
-  .home-dashboard { grid-template-columns: minmax(0, 2fr) minmax(320px, 1fr); grid-template-areas: "banner banner" "readings readings" "attention work" "customers reports" "updates updates" "links links"; }
+  .home-dashboard { grid-template-columns: minmax(0, 2fr) minmax(320px, 1fr); grid-template-areas: "banner banner" "attention work" "customers reports" "updates updates" "links links"; }
   .home-banner { grid-area: banner; }
-  .home-banner-body { padding: 24px 28px; gap: 16px; max-width: 56%; }
-  .home-welcome strong { font-size: 24px; }
-  .home-readings { grid-area: readings; grid-template-columns: repeat(4, minmax(0, 1fr)); }
-  .home-reading { border: 0; }
-  .home-reading:not(:last-child) { border-right: 1px solid var(--line); }
+  .home-banner-body { padding: 26px 30px 28px; gap: 22px; max-width: 57%; }
+  .home-welcome strong { font-size: 25px; }
+  .home-figure > strong { font-size: 34px; }
+  .home-tile { padding: 14px 16px 15px; }
+  .home-tile-read strong { font-size: 27px; }
   .home-attention { grid-area: attention; }
   .home-work { grid-area: work; }
   .home-customers { grid-area: customers; }
   .home-reports { grid-area: reports; }
   .home-updates { grid-area: updates; }
   .home-links { grid-area: links; }
-  .home-report-row { grid-template-columns: 32px minmax(0, 1fr); }
-  .home-row-action { grid-column: 2; margin-top: -3px; }
+  /* The review action sits at the end of its row, not under it. Dropped
+     to a second line it stood every row of this panel a line taller, and
+     next to a panel of the same rows that does not do it. */
+  .home-report-row { grid-template-columns: 30px minmax(0, 1fr) auto; align-items: center; }
+  .home-row-action { grid-column: 3; grid-row: 1; margin-top: 0; }
+  /* Side by side, both panels reach the same line. `align-self: start` on
+     every panel is right down a single column and wrong across a row:
+     it let two lists of the same rows end at different heights. */
+  .home-attention, .home-work { align-self: stretch; }
 }
 @media (max-width: 720px) {
   /* 362px is not enough width to put a photograph behind a sentence and
      still have the sentence win, so the picture takes a band of its own
      across the top and the type sits under it on flat surface. */
-  .home-banner-art { inset: 0 0 auto 0; width: auto; height: 118px; }
-  .home-banner-art::after { background: linear-gradient(180deg, var(--banner-scrim-0) 42%, var(--banner-scrim) 97%); }
-  .home-banner-body { align-items: stretch; gap: 12px; padding: 104px 16px 16px; max-width: none; }
+  /* 362px will not hold a yard beside a sentence. The picture keeps the
+     top of the band and the reading sits under it, on the band's own
+     surface rather than on tarmac. */
+  /* The height is set, not left to follow a percentage width, because the
+     type below has to clear it exactly: at 84% of 362px the picture came
+     out 215px tall against 118px of padding and the greeting was printed
+     across the tarmac. */
+  .home-banner-art { right: -10px; top: -6px; height: 172px; width: auto; max-width: none; }
+  .home-banner-body { gap: 14px; padding: 176px 16px 16px; max-width: none; }
+  /* Two lines of room for both labels, so the figures and the meters
+     under them line up across the pair. */
+  .home-tile-label { min-height: 2.5em; align-items: flex-start; }
+  .home-banner-head { flex-direction: column; gap: 12px; }
   .home-action-buttons { width: 100%; }
   .home-action-buttons > * { flex: 1; justify-content: center; }
   .home-welcome strong { font-size: 19px; }
-  .home-reading { padding: 13px 13px 14px; }
+  .home-figures { gap: 10px 18px; }
+  .home-figure > strong { font-size: 26px; }
+  .home-figure > span { font-size: 9px; letter-spacing: .04em; }
+  .home-tile-read strong { font-size: 22px; }
+  .home-tile-label { font-size: 11px; }
+  .home-action-buttons { width: 100%; }
+  .home-action-buttons > * { flex: 1; justify-content: center; }
+  .home-welcome strong { font-size: 19px; }
   /* "DELIVERABLES COMPLETE" is 21 characters and the tile gives the
      caption 136px. At 9.5px with .07em tracking it lands one character
      over and wraps, so that tile stood a line taller than the one beside
      it. The tracking gives the character back. */
-  .home-reading-label { font-size: 9px; gap: 5px; letter-spacing: .04em; }
-  .home-reading > strong { font-size: 27px; }
   .home-panel-head { padding: 14px 14px 12px; gap: 10px; }
   .home-panel-head p { font-size: 11.5px; }
   .home-filters { padding: 0 12px 10px; gap: 2px; }
@@ -230,15 +303,13 @@
   .home-attention-row { grid-template-columns: minmax(0, 1fr) 74px; }
 }
 @media (max-width: 300px) {
-  .home-readings { grid-template-columns: minmax(0, 1fr); }
-  .home-reading { border-right: 0 !important; border-bottom: 1px solid var(--line) !important; }
   .home-action-buttons { flex-direction: column; }
   .home-update-row { grid-template-columns: minmax(0, 1fr); }
   .home-update-row > span { grid-column: 1; grid-row: auto; text-align: left; }
   .home-update-code { display: none; }
 }
 @media (pointer: coarse) {
-  .home-page :is(button, .home-text-link, .home-reading-link), .home-shortcuts summary, .home-register dt a { min-height: 44px; }
+  .home-page :is(button, .home-text-link), .home-shortcuts summary, .home-register dt a { min-height: 44px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .home-page, .home-page *, .home-page *::before { animation: none !important; transition: none !important; }

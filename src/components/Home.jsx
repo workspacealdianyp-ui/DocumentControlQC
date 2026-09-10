@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
 import { useApp } from '../App.jsx'
 import { FORM_SCHEMAS } from '../data/formSchemas.js'
+import plantModel from '../assets/plant-model.webp'
 import { getReportsChecked, getReport } from '../lib/store.js'
 import { allJobs } from '../lib/jobOrders.js'
 import { buildContext, fmtDate, fmtDateTime } from '../lib/status.js'
@@ -8,7 +9,7 @@ import { byCustomer } from '../lib/rollup.js'
 import { homeOverview, reportPath, REPORT_LABELS } from '../lib/homeOverview.js'
 import { REPORT_CHOICES, reportCode } from '../lib/reportChoices.js'
 import { useCalendarDate } from '../lib/useCalendarDate.js'
-import { IconAlert, IconApprove, IconChevronR, IconClock, IconGrid, IconPlus, IconList, IconDoc, IconPen } from './Icons.jsx'
+import { IconAlert, IconApprove, IconChevronR, IconGrid, IconPlus, IconList, IconDoc, IconPen } from './Icons.jsx'
 import ReportLauncher from './ReportLauncher.jsx'
 import './Home.css'
 
@@ -147,46 +148,67 @@ export default function Home() {
           floating on the page's own grey. It gets a band too, and the
           band carries the yard the documents are all about. */}
       <header className="home-banner">
-        <div className="home-banner-art" aria-hidden="true" />
+        {/* The yard fills the right of the band and is cut by its edge,
+            rather than standing on top of it. */}
+        <img className="home-banner-art" src={plantModel} alt="" aria-hidden="true" />
         <div className="home-banner-body">
-        <div className="home-welcome"><strong>{greeting}, {first}.</strong><span>{now.toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}</span></div>
-        <div className="home-action-buttons">
-          {role.canOverride ? <>
-            <button type="button" className="btn btn-secondary" onClick={() => newReport()}><IconPlus size={16} /> New report</button>
-            <a className="btn btn-primary" href="#/reports?f=submitted"><IconApprove size={16} /> Review reports</a>
-          </> : role.canEdit ? <>
-            <a className="btn btn-secondary" href="#/monitoring"><IconGrid size={16} /> Open monitoring</a>
-            <button type="button" className="btn btn-primary" onClick={() => newReport()}><IconPlus size={16} /> New report</button>
-          </> : <>
-            <a className="btn btn-secondary" href="#/reports?f=all">View reports</a>
-            <a className="btn btn-primary" href="#/monitoring"><IconGrid size={16} /> Open monitoring</a>
-          </>}
-        </div>
+          <div className="home-banner-head">
+            <div className="home-welcome"><strong>{greeting}, {first}.</strong><span>{now.toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}</span></div>
+            <div className="home-action-buttons">
+              {role.canOverride ? <>
+                <button type="button" className="btn btn-secondary" onClick={() => newReport()}><IconPlus size={16} /> New report</button>
+                <a className="btn btn-primary" href="#/reports?f=submitted"><IconApprove size={16} /> Review reports</a>
+              </> : role.canEdit ? <>
+                <a className="btn btn-secondary" href="#/monitoring"><IconGrid size={16} /> Open monitoring</a>
+                <button type="button" className="btn btn-primary" onClick={() => newReport()}><IconPlus size={16} /> New report</button>
+              </> : <>
+                <a className="btn btn-secondary" href="#/reports?f=all">View reports</a>
+                <a className="btn btn-primary" href="#/monitoring"><IconGrid size={16} /> Open monitoring</a>
+              </>}
+            </div>
+          </div>
+
+          {/* Two counts, set as type on the band itself. A number that is
+              only a number does not need a box drawn round it. */}
+          <section className="home-banner-stats" aria-label="QC overview">
+          <div className="home-figures">
+            <a className="home-figure" href="#/reports?f=submitted">
+              <span>Awaiting QA</span>
+              <strong className={counts.submitted ? 'home-review-ink' : ''}>{counts.submitted}</strong>
+              <small>Submitted reports</small>
+            </a>
+            <a className={`home-figure${totals.overdue ? ' has-attention' : ''}`} href={href(monitor('overdue'))}>
+              <span>Overdue jobs</span>
+              <strong>{totals.overdue}</strong>
+              <small>{plural(totals.gaps, 'overdue deliverable')}</small>
+            </a>
+          </div>
+
+          {/* And two that are a share of something, which is what earns a
+              tile and a meter: the figure, what it is out of, and how far
+              along it is. */}
+          <div className="home-tiles">
+            <a className="home-tile is-done" href={href(monitor())}>
+              <span className="home-tile-label"><IconApprove size={15} /> Deliverables complete</span>
+              <span className="home-tile-read">
+                <strong>{data.pct === null ? '—' : <>{data.pct}<small>%</small></>}</strong>
+                <em>{data.pct === null ? 'No required deliverables' : `${totals.done}/${totals.applicable}`}</em>
+              </span>
+              <span className="home-progress" aria-hidden="true"><span style={{ width: `${data.pct || 0}%` }} /></span>
+            </a>
+            <a className="home-tile is-open" href={href(monitor('inprogress,overdue,notstarted'))}>
+              <span className="home-tile-label"><IconList size={15} /> Open jobs</span>
+              <span className="home-tile-read">
+                <strong>{totals.open}</strong>
+                <em>of {totals.jobs}</em>
+              </span>
+              <span className="home-progress" aria-hidden="true"><span style={{ width: `${totals.jobs ? Math.round(100 * totals.open / totals.jobs) : 0}%` }} /></span>
+            </a>
+          </div>
+          </section>
+          {totals.overrides > 0 && <p className="home-override-note">Includes {plural(totals.overrides, 'admin override')}</p>}
         </div>
       </header>
-
-      <section className="home-readings" aria-label="QC overview">
-        <a className="home-reading" href={href(monitor('inprogress,overdue,notstarted'))}>
-          <span className="home-reading-label"><IconList size={16} /> Open jobs</span>
-          <strong>{totals.open}</strong><span className="home-reading-note">{plural(totals.jobs, 'job')} in register</span>
-        </a>
-        <div className="home-reading home-reading-completion">
-          <span className="home-reading-label"><IconApprove size={16} /> Deliverables complete</span>
-          <strong>{data.pct === null ? '—' : <>{data.pct}<small>%</small></>}</strong>
-          <span className="home-reading-note">{data.pct === null ? 'No required deliverables' : `${totals.done} of ${totals.applicable} required`}</span>
-          <div className="home-progress" aria-hidden="true"><span style={{ width: `${data.pct || 0}%` }} /></div>
-          {totals.overrides > 0 && <small className="home-override-note">Includes {plural(totals.overrides, 'admin override')}</small>}
-          <a className="home-reading-link" href={href(monitor())}>Open monitoring</a>
-        </div>
-        <a className="home-reading" href="#/reports?f=submitted">
-          <span className="home-reading-label"><IconClock size={16} /> Awaiting QA</span>
-          <strong className={counts.submitted ? 'home-review-ink' : ''}>{counts.submitted}</strong><span className="home-reading-note">Submitted reports</span>
-        </a>
-        <a className={`home-reading${totals.overdue ? ' has-attention' : ''}`} href={href(monitor('overdue'))}>
-          <span className="home-reading-label"><IconAlert size={16} /> Overdue jobs</span>
-          <strong>{totals.overdue}</strong><span className="home-reading-note">{plural(totals.gaps, 'overdue deliverable')}</span>
-        </a>
-      </section>
 
       <section className="home-panel home-attention" aria-labelledby="home-attention-title">
         <Heading id="home-attention-title" title="Needs attention" note="Documentation gaps and non-conforming reports">
@@ -199,18 +221,26 @@ export default function Home() {
         {!jobs.length ? <div className="home-empty"><IconGrid size={28} /><strong>No jobs in the register.</strong><p>A job must be available before an inspection report can be started.</p>
           {role.canManage && <a className="btn btn-secondary" href="#/monitoring/new">New job order</a>}
         </div> : !filtered.length ? <div className="home-empty"><IconApprove size={28} /><strong>{filter === 'all' ? 'No jobs need attention here.' : 'No jobs in this view.'}</strong><p>{filter === 'all' ? 'No overdue deliverable gaps or NCR reports for the available jobs.' : 'Choose another filter to see the remaining work.'}</p><a className="home-text-link" href="#/monitoring">Open monitoring <IconChevronR size={14} /></a></div> : <>
-          <div className="home-attention-columns" aria-hidden="true"><span>Job / product</span><span>Attention / target</span><span>Complete</span></div>
           <ol className={`home-attention-list${expanded ? ' is-expanded' : ''}`}>
             {shown.map(({ job, progress, late, pending, ncr, target }) => (
-              <li key={job.jobNo}><a className="home-attention-row" href={href(`/job/${job.jobNo}`)} onClick={(e) => openJob(e, job.jobNo)} aria-label={`Open job ${job.jobNo}`}>
-                <span className="home-job-id"><strong>{job.jobNo}</strong><span>{job.productDesc || 'Product not set'}</span><small>{job.customerName || 'Customer not set'}</small></span>
-                <span className="home-job-reason">
-                  {ncr > 0 && <span className="home-reason is-ncr"><IconAlert size={13} />{plural(ncr, 'NCR report')}</span>}
-                  {late.length > 0 && <span className="home-reason is-late">{plural(late.length, 'overdue deliverable')}</span>}
-                  <span className="home-due">{target ? `Target ${fmtDate(`${target}T00:00:00`)}` : 'Target date not set'}</span>
-                  {pending.length > 0 && <small>{late.length ? 'Overdue: ' : 'Outstanding: '}{(late.length ? late : pending).slice(0, 3).map((d) => d.short).join(' · ')}{(late.length ? late : pending).length > 3 ? ` +${(late.length ? late : pending).length - 3} more` : ''}</small>}
+              <li key={job.jobNo}><a className={`home-attention-row${ncr > 0 ? ' is-ncr' : late.length > 0 ? ' is-late' : ''}`}
+                href={href(`/job/${job.jobNo}`)} onClick={(e) => openJob(e, job.jobNo)} aria-label={`Open job ${job.jobNo}`}>
+                {/* Why this row is here, said in colour at the edge and in
+                    words in the middle — never in colour alone. */}
+                <span className="home-job-id">
+                  <strong>{job.jobNo}</strong>
+                  <small>{job.productDesc || 'Product not set'} · {job.customerName || 'Customer not set'}</small>
                 </span>
-                <span className="home-job-completion"><strong>{progress.done}<small>/{progress.applicable}</small></strong><span className="home-open-job">Open job <IconChevronR size={14} /></span></span>
+                <span className="home-job-reason">
+                  {ncr > 0 && <span className="home-reason is-ncr"><IconAlert size={12} />{plural(ncr, 'NCR report')}</span>}
+                  {late.length > 0 && <span className="home-reason is-late">{plural(late.length, 'overdue deliverable')}</span>}
+                  {pending.length > 0 && <span className="home-job-pending">{(late.length ? late : pending).slice(0, 3).map((d) => d.short).join(' · ')}{(late.length ? late : pending).length > 3 ? ` +${(late.length ? late : pending).length - 3}` : ''}</span>}
+                  <span className="home-due">{target ? `Target ${fmtDate(`${target}T00:00:00`)}` : 'Target date not set'}</span>
+                </span>
+                <span className="home-job-completion">
+                  <strong>{progress.done}<small>/{progress.applicable}</small></strong>
+                  <span className="home-progress" aria-hidden="true"><span style={{ width: `${progress.applicable ? Math.round(100 * progress.done / progress.applicable) : 0}%` }} /></span>
+                </span>
               </a></li>
             ))}
           </ol>
