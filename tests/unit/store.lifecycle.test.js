@@ -113,10 +113,21 @@ describe('voiding', () => {
   })
 
   it('cannot be done by the person who wrote it', async () => {
-    put(report('approved', { inspector: 'QA Lead' }))
+    // A Quality Engineer sits above the technicians, not above himself.
+    put(report('approved', { inspector: 'Quality Engineer' }))
     const { voidReport, SelfApprovalError } = await load()
-    expect(() => voidReport('r1', 'QA Lead', 'wrong revision')).toThrow(SelfApprovalError)
+    expect(() => voidReport('r1', 'Quality Engineer', 'wrong revision')).toThrow(SelfApprovalError)
     expect(stored()[0].status).toBe('approved')
+  })
+
+  it('can be done by the head of department on their own record', async () => {
+    // The top of the chain has nobody above to ask, and a record that
+    // can never be voided is worse than one voided by the person
+    // answerable for it.
+    put(report('approved', { inspector: 'QA Lead' }))
+    const { voidReport } = await load()
+    expect(() => voidReport('r1', 'QA Lead', 'wrong revision')).not.toThrow()
+    expect(stored()[0].status).toBe('voided')
   })
 
   it('cannot be done twice', async () => {
@@ -131,5 +142,75 @@ describe('voiding', () => {
     const { voidReport, reportAudit } = await load()
     const r = voidReport('r1', 'QA Lead', 'wrong revision')
     expect(reportAudit(r)[0]).toMatchObject({ event: 'voided', from: 'approved', by: 'QA Lead' })
+  })
+})
+
+/* Technician Quality Control records. Quality Engineer and Spv Quality
+   Control sit above and release that work. Dept Head Quality sits above
+   them both. A report is released from above — that is the whole rule,
+   and these are the corners of it. */
+describe('the chain of command', () => {
+  it('lets a Quality Engineer release a technician', async () => {
+    const { canApprove } = await load()
+    expect(canApprove(report('submitted', { inspector: 'Inspector One' }), 'Quality Engineer')).toBe(true)
+  })
+
+  it('lets a supervisor release a technician', async () => {
+    const { canApprove } = await load()
+    expect(canApprove(report('submitted', { inspector: 'Inspector Two' }), 'QC Supervisor')).toBe(true)
+  })
+
+  it('does not let one technician release another', async () => {
+    const { canApprove } = await load()
+    expect(canApprove(report('submitted', { inspector: 'Inspector One' }), 'Inspector Two')).toBe(false)
+  })
+
+  it('does not let the same tier release each other', async () => {
+    // The engineer and the supervisor are one tier, so neither releases
+    // the other's work — that goes up to the head of department.
+    const { canApprove } = await load()
+    expect(canApprove(report('submitted', { inspector: 'Quality Engineer' }), 'QC Supervisor')).toBe(false)
+    expect(canApprove(report('submitted', { inspector: 'QC Supervisor' }), 'Quality Engineer')).toBe(false)
+  })
+
+  it('sends the engineer’s and supervisor’s own work to the head', async () => {
+    const { canApprove } = await load()
+    expect(canApprove(report('submitted', { inspector: 'Quality Engineer' }), 'QA Lead')).toBe(true)
+    expect(canApprove(report('submitted', { inspector: 'QC Supervisor' }), 'QA Lead')).toBe(true)
+  })
+
+  it('never lets anyone below the top release their own work', async () => {
+    const { canApprove } = await load()
+    for (const who of ['Inspector One', 'Quality Engineer', 'QC Supervisor']) {
+      expect(canApprove(report('submitted', { inspector: who }), who)).toBe(false)
+    }
+  })
+
+  it('lets the head of department release their own, having nobody above', async () => {
+    const { canApprove } = await load()
+    expect(canApprove(report('submitted', { inspector: 'QA Lead' }), 'QA Lead')).toBe(true)
+  })
+
+  it('keeps a viewer out of it entirely', async () => {
+    const { canApprove } = await load()
+    expect(canApprove(report('submitted', { inspector: 'Inspector One' }), 'Management Viewer')).toBe(false)
+  })
+
+  it('reads a name it does not know as a technician', async () => {
+    // Imported records, or somebody who has left. The lowest rank is the
+    // safe way to be wrong: their work still needs releasing from above.
+    const { canApprove } = await load()
+    const stranger = report('submitted', { inspector: 'Someone Who Left' })
+    expect(canApprove(stranger, 'Quality Engineer')).toBe(true)
+    expect(canApprove(stranger, 'Inspector One')).toBe(false)
+    expect(canApprove(stranger, 'Someone Who Left')).toBe(false)
+  })
+
+  it('says why, not just no', async () => {
+    put(report('submitted', { inspector: 'Quality Engineer' }))
+    const { approveReport } = await load()
+    expect(() => approveReport('r1', 'Quality Engineer')).toThrow(/recorded this report/)
+    put(report('submitted', { inspector: 'QC Supervisor' }))
+    expect(() => approveReport('r1', 'Quality Engineer')).toThrow(/does not sit above QC Supervisor/)
   })
 })

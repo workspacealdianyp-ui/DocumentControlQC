@@ -64,7 +64,7 @@ const docPage = (title, ref, issuer) => ({
 
 // Which plates suit which report, and what the caption should say.
 const PHOTOS_FOR = {
-  hydrotest: (v, rows) => [
+  hydrotest: (v) => [
     photo('gauge', `Test pressure held at ${v.testPressure || '6.0'} ${v.pressureUnit || 'Bar'}`),
     photo('unit', `${v.jobDesc} ${v.unit} under test`),
   ],
@@ -128,7 +128,6 @@ const BY_ID = {
 }
 
 /* ── the three orders ───────────────────────────────────────────── */
-const FORM_KEYS = new Set(DELIVERABLES.filter((d) => d.form).map((d) => d.key))
 const ORDERS = [
   { po: 'PO-2026-ISO-0447', product: 'ISO TANK SPARGES', kategori: 'NON TRAILER', view: 'Side elevation',
     customer: 'Customer 07', customerId: 'CUST-007', units: 16, prefix: 'IST', first: 1000300001,

@@ -13,10 +13,10 @@
 import { spawn } from 'node:child_process'
 import { chromium } from 'playwright'
 import { setTimeout as wait } from 'node:timers/promises'
+import { chromiumLaunch } from '../../scripts/chromium.mjs'
 
 const PORT = Number(process.env.E2E_PORT || 4180)
 const BASE = `http://localhost:${PORT}`
-const CHROME = process.env.CHROME_PATH || '/opt/pw-browsers/chromium-1194/chrome-linux/chrome'
 
 let fail = 0
 let count = 0
@@ -66,7 +66,7 @@ async function signIn(page, who) {
 
 async function main() {
   const server = await serve()
-  const browser = await chromium.launch({ executablePath: CHROME })
+  const browser = await chromium.launch(chromiumLaunch())
   const errors = []
 
   try {

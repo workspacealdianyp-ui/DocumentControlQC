@@ -8,6 +8,7 @@
    the strokes anti-aliased the way the mark is drawn. */
 import { readFileSync, writeFileSync } from 'node:fs'
 import { chromium } from 'playwright'
+import { chromiumLaunch } from './chromium.mjs'
 
 const OUT = [
   { src: 'public/icon.svg', size: 192, file: 'public/icon-192.png' },
@@ -18,9 +19,7 @@ const OUT = [
   { src: 'public/icon-maskable.svg', size: 512, file: 'public/icon-maskable-512.png' },
 ]
 
-// PW_CHROMIUM lets a sandbox point at a browser Playwright did not
-// install itself; everywhere else the default is right.
-const br = await chromium.launch(process.env.PW_CHROMIUM ? { executablePath: process.env.PW_CHROMIUM } : {})
+const br = await chromium.launch(chromiumLaunch())
 for (const { src, size, file } of OUT) {
   const svg = readFileSync(src, 'utf8')
   const pg = await br.newPage({ viewport: { width: size, height: size }, deviceScaleFactor: 1 })

@@ -15,10 +15,16 @@ import { readFileSync } from 'node:fs'
 
 const DIST = 'dist/assets'
 
-// gzip, because that is what the browser downloads.
+/* gzip, because that is what the browser downloads.
+
+   A budget whose file is missing used to print a question mark and
+   pass, which means renaming the entry chunk would have switched the
+   ceiling off without anyone failing a build over it. Every budget here
+   names a file the build must produce; `optional: true` is the opt-out
+   for a chunk that may legitimately not be built, and nothing needs it
+   today. */
 const BUDGETS = [
   { match: /^index-.*\.js$/,  label: 'entry javascript', maxKb: 200 },
-  { match: /^Unit3D-.*\.js$/, label: '3d viewer (lazy)', maxKb: 160 },
   { match: /^index-.*\.css$/, label: 'stylesheet',       maxKb: 45 },
 ]
 
@@ -26,7 +32,12 @@ let bad = 0
 const files = readdirSync(DIST)
 for (const b of BUDGETS) {
   const name = files.find((f) => b.match.test(f))
-  if (!name) { console.log(`  ?  ${b.label}: no file matched ${b.match}`); continue }
+  if (!name) {
+    if (b.optional) { console.log(`  —  ${b.label}: not built`); continue }
+    bad++
+    console.log(`  GONE ${b.label.padEnd(18)} nothing matched ${b.match} — a budget cannot guard a file that is not there`)
+    continue
+  }
   const bytes = gzipSync(readFileSync(join(DIST, name))).length
   const kb = bytes / 1024
   const ok = kb <= b.maxKb

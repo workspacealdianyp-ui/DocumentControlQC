@@ -109,7 +109,7 @@ describe('stampToday', () => {
 /* A deliberately strict reader, so the tests check the file rather than
    the function that wrote it. */
 function parseCsv(text) {
-  const s = text.replace(/^﻿/, '')
+  const s = text.replace(/^\uFEFF/, '')
   const rows = [[]]
   let field = ''
   let quoted = false

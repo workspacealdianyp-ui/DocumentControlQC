@@ -1,4 +1,5 @@
 import { COMPANY } from './company.js'
+import { TOP_RANK, rankOfName } from './constants.js'
 import { allJobs } from './jobOrders.js'
 import { seedReports, SEED_COUNTERS, SEED_STAMP } from '../data/seedReports.js'
 // Front-end persistence layer (localStorage). PRD v1 scope = no back-end.
@@ -414,7 +415,7 @@ export function voidReport(id, byName, note) {
   const r = all.find((x) => x.id === id)
   if (!r) return null
   if (actionFor(r) !== 'void') throw new ProtectedRecordError(r, 'voided')
-  if (!canApprove(r, byName)) throw new SelfApprovalError(byName, 'void it')
+  if (!canApprove(r, byName)) throw new SelfApprovalError(byName, 'void it', r)
   const reason = String(note || '').trim()
   if (!reason) throw new ReasonRequiredError('voided')
   const at = audit(r, 'voided', byName, reason)
@@ -441,26 +442,38 @@ export const reportAudit = (report) => [...(report?.audit || [])]
    can sign in as anyone, so it stops the ordinary mistake of approving
    your own report rather than a determined person. Saying which of the
    two this is matters more than the check itself. */
-const secondPerson = (name, act) =>
-  `${name} recorded this report, so cannot also ${act}. That call belongs to a second person.`
+const sameName = (a, b) => (a || '').trim().toLowerCase() === (b || '').trim().toLowerCase()
+
+const whyNot = (report, byName, act) =>
+  sameName(report?.inspector, byName)
+    ? `${byName} recorded this report, so cannot also ${act}. That call belongs to somebody further up.`
+    : `${byName} does not sit above ${report?.inspector || 'whoever recorded this'}, so cannot ${act}. A report is released from above.`
 
 export class SelfApprovalError extends Error {
-  constructor(name, act = 'approve it') {
-    super(secondPerson(name, act))
+  constructor(name, act = 'approve it', report = null) {
+    super(whyNot(report, name, act))
     this.name = 'SelfApprovalError'
   }
 }
 
-// The same rule decides both ends of a review: whoever may approve a
-// report may send it back, and neither on their own work.
-export const canApprove = (report, byName) =>
-  !!report && !!byName && (report.inspector || '').trim().toLowerCase() !== byName.trim().toLowerCase()
+/* The same rule decides both ends of a review: whoever may release a
+   report may send it back, and neither on work recorded at or below
+   their own level. See ROLES in constants.js for the chain itself — this
+   is only where it is applied. */
+export const canApprove = (report, byName) => {
+  if (!report || !byName) return false
+  const rank = rankOfName(byName)
+  // The head of department has nobody above to ask.
+  if (rank >= TOP_RANK) return true
+  if (sameName(report.inspector, byName)) return false
+  return rank > rankOfName(report.inspector)
+}
 
 export function approveReport(id, byName) {
   const all = getReports()
   const r = all.find((x) => x.id === id)
   if (!r) return null
-  if (!canApprove(r, byName)) throw new SelfApprovalError(byName)
+  if (!canApprove(r, byName)) throw new SelfApprovalError(byName, 'approve it', r)
   r.status = 'approved'
   r.approvedBy = byName
   r.approvedAt = new Date().toISOString()
@@ -504,7 +517,7 @@ export function returnReport(id, byName, note) {
   if (r.status !== 'submitted') {
     throw new Error(`Only a report waiting for approval can be sent back. ${r.reportId} is ${r.status}.`)
   }
-  if (!canApprove(r, byName)) throw new SelfApprovalError(byName, 'send it back')
+  if (!canApprove(r, byName)) throw new SelfApprovalError(byName, 'send it back', r)
   const reason = String(note || '').trim()
   if (!reason) throw new ReturnReasonRequiredError()
 

@@ -1,6 +1,7 @@
 import { COMPANY } from '../lib/company.js'
 import { useEffect, useRef, useState } from 'react'
 import { FORM_SCHEMAS } from '../data/formSchemas.js'
+import { requiredFor } from '../lib/jobOrders.js'
 import { fmtDate, buildContext, releasedAt } from '../lib/status.js'
 import { reportResult } from '../lib/verdict.js'
 import { ReportSheets, reportSheetCount } from './PrintReport.jsx'
@@ -114,13 +115,28 @@ export default function MdrReport({ job, reports, session, onClose, statements =
   const rejected = items.filter((it) => reportResult(it.r) === 'Reject')
   const pass = rejected.length === 0
 
+  /* A data book is the whole set or it is a draft of one. Whichever
+     documents were ticked, the question the customer's copy answers is
+     whether every deliverable the order asks for is in here and
+     approved — so it is asked against job.required, not against the
+     selection. A report on a form this build cannot reproduce is not
+     bound, so it does not cover its deliverable either.
+
+     Short of that the book still prints, because seeing the shape of it
+     mid-job is useful. It just may not pass for the finished article:
+     it is watermarked, it says what is missing, and it never says
+     RELEASED FOR SHIPMENT. */
+  const bound = new Set(items.map((it) => it.r.deliverable))
+  const missing = requiredFor(job).filter((key) => !bound.has(key))
+  const preview = missing.length > 0
+
   const dates = printable.map(reportDate).filter(Boolean).sort()
   const span = dates.length
     ? (dates.length > 1 ? `${fmtDate(dates[0])} — ${fmtDate(dates[dates.length - 1])}` : fmtDate(dates[0]))
     : '—'
 
   const kop = <PrintHeader title="Manufacturing Data Report" number={mdrNo}
-    subtitle="Final documentation package" metadata={[
+    subtitle={preview ? 'Preview — incomplete document set' : 'Final documentation package'} metadata={[
       ['Form', 'FM-QC-MDR'], ['Revision', '0'], ['Job', job.jobNo], ['Issue date', fmtDate(today.toISOString())]
     ]} />
   const foot = (sheetIndex) => {
@@ -162,10 +178,11 @@ export default function MdrReport({ job, reports, session, onClose, statements =
 
   return (
     <div className="print-overlay" ref={wrap}>
-      <PrintToolbar title="Manufacturing Data Report" pages={totalPages} onClose={onClose} />
+      <PrintToolbar title={preview ? 'Manufacturing Data Report — preview' : 'Manufacturing Data Report'}
+        pages={totalPages} onClose={onClose} />
 
       {/* The pages keep their 210mm; this wrapper is what shrinks. */}
-      <div className="print-scaler">
+      <div className={`print-scaler${preview ? ' is-preview' : ''}`}>
 
       {/* ══════════ COVER ══════════ */}
       <div className="print-sheet">
@@ -179,7 +196,7 @@ export default function MdrReport({ job, reports, session, onClose, statements =
           <div className="ps-cover-mid">
             <div className="ps-cover-kicker">Document Type</div>
             <h1 className="ps-cover-title">Manufacturing<br />Data Report</h1>
-            <div className="ps-cover-sub">Inspection &amp; Test Records — Final Documentation Package</div>
+            <div className="ps-cover-sub">Inspection &amp; Test Records — {preview ? 'Preview, Incomplete Document Set' : 'Final Documentation Package'}</div>
           </div>
 
           <table className="ps-cover-id"><tbody>
@@ -207,11 +224,25 @@ export default function MdrReport({ job, reports, session, onClose, statements =
             <tr><td className="ps-label">Contents</td><td className="ps-value" colSpan={3}>{printable.length} document{printable.length === 1 ? '' : 's'} · {totalPages} pages</td></tr>
           </tbody></table>
 
-          <div className={`ps-verdict ${pass ? '' : 'hold'} ps-cover-verdict`}>
-            {pass
-              ? 'RELEASED FOR SHIPMENT — the unit conforms to the applicable requirements.'
-              : 'ON HOLD — pending closure of outstanding non-conformances.'}
+          {/* Three states, and the order matters. An incomplete book
+              cannot release a unit however clean its results are, so
+              preview is read first — a cover that said RELEASED with two
+              deliverables still open would be the single most damaging
+              sentence this app could print. */}
+          <div className={`ps-verdict ${preview ? 'draft' : pass ? '' : 'hold'} ps-cover-verdict`}>
+            {preview
+              ? `PREVIEW — NOT FOR ISSUE. ${missing.length} required document${missing.length === 1 ? '' : 's'} not yet approved.`
+              : pass
+                ? 'RELEASED FOR SHIPMENT — the unit conforms to the applicable requirements.'
+                : 'ON HOLD — pending closure of outstanding non-conformances.'}
           </div>
+          {/* Naming them turns the stamp into a worklist. */}
+          {preview && (
+            <div className="ps-cover-missing">
+              <span>Outstanding</span>
+              <strong>{missing.join(' · ')}</strong>
+            </div>
+          )}
 
           <div className="ps-cover-signs">{signRow}</div>
 
