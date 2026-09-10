@@ -21,7 +21,11 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          # The same 22 the check workflow pins. This job only builds, so
+          # 20 happened to work — but two workflows disagreeing about the
+          # runtime is how a deploy starts failing for a reason that has
+          # nothing to do with the commit that triggered it.
+          node-version: 22
           # Almost the whole deploy was one step: npm ci ran 3-6 minutes
           # against a cold runner while checkout, build, upload and the
           # deploy itself took about fifteen seconds between them. This

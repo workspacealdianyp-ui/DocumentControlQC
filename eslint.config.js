@@ -13,7 +13,7 @@ import react from 'eslint-plugin-react'
    there is no formatter in this project and inventing one now would bury
    the findings that matter in a diff of quote marks. */
 export default [
-  { ignores: ['dist/**', 'node_modules/**', 'scripts/gen-*.mjs'] },
+  { ignores: ['dist/**', 'node_modules/**'] },
   js.configs.recommended,
   {
     files: ['**/*.{js,jsx,mjs}'],
@@ -89,6 +89,17 @@ export default [
   },
   {
     files: ['**/*.test.{js,jsx}', 'tests/**/*.{js,jsx,mjs}'],
+    languageOptions: { globals: { ...globals.node } },
+    rules: { 'no-console': 'off' },
+  },
+  /* The build and asset scripts are command-line tools whose whole job
+     is to say what they did. They used to be outside the gate entirely
+     — scripts/gen-*.mjs was in the ignore list — which is how a browser
+     path that exists on no machine but this one sat in one of them
+     unread. They are linted now; printing is the one rule they are
+     excused from. */
+  {
+    files: ['scripts/**/*.mjs'],
     languageOptions: { globals: { ...globals.node } },
     rules: { 'no-console': 'off' },
   },

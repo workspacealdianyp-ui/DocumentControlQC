@@ -12,12 +12,13 @@
    master stays in the repo as the source to re-cut from. */
 import { readFileSync, writeFileSync } from 'node:fs'
 import { chromium } from 'playwright'
+import { chromiumLaunch } from './chromium.mjs'
 
 const OUT = [
   { src: 'src/assets/Optiload Remove Background.png', width: 800, file: 'src/assets/product-optiload.webp' },
 ]
 
-const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium-1194/chrome-linux/chrome' })
+const browser = await chromium.launch(chromiumLaunch())
 const page = await browser.newPage()
 for (const { src, width, file } of OUT) {
   const uri = `data:image/png;base64,${readFileSync(src).toString('base64')}`
