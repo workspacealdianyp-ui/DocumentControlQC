@@ -176,3 +176,57 @@ describe('releasedAt', () => {
     expect(releasedAt(job, ctx)).toBe('2026-05-02')
   })
 })
+
+describe('workingDaysLeft', () => {
+  // 2026-03-02 is a Monday; 03-07 a Saturday, 03-08 a Sunday.
+  const monday = new Date('2026-03-02T09:00:00')
+
+  it('counts nothing when the target is today', async () => {
+    const { workingDaysLeft } = await load()
+    expect(workingDaysLeft('2026-03-02', monday)).toBe(0)
+  })
+
+  it('counts the target day itself', async () => {
+    const { workingDaysLeft } = await load()
+    expect(workingDaysLeft('2026-03-03', monday)).toBe(1)
+    expect(workingDaysLeft('2026-03-06', monday)).toBe(4)
+  })
+
+  it('does not count Saturday or Sunday', async () => {
+    const { workingDaysLeft } = await load()
+    // A Saturday or Sunday target is worth no more working time than the
+    // Friday before it: the weekend adds calendar days and no working
+    // ones, so all three read four.
+    expect(workingDaysLeft('2026-03-07', monday)).toBe(4)
+    expect(workingDaysLeft('2026-03-08', monday)).toBe(4)
+    // The Monday after is the fifth.
+    expect(workingDaysLeft('2026-03-09', monday)).toBe(5)
+  })
+
+  it('reads a Friday target from a Friday as zero, and the Monday as one', async () => {
+    const { workingDaysLeft } = await load()
+    const friday = new Date('2026-03-06T16:00:00')
+    expect(workingDaysLeft('2026-03-06', friday)).toBe(0)
+    expect(workingDaysLeft('2026-03-09', friday)).toBe(1)
+  })
+
+  it('goes negative once the target is past, counting the same way', async () => {
+    const { workingDaysLeft } = await load()
+    expect(workingDaysLeft('2026-02-27', monday)).toBe(-1)
+    // Two weekends back: 02-23 is the Monday before.
+    expect(workingDaysLeft('2026-02-23', monday)).toBe(-5)
+  })
+
+  it('does not depend on the hour it is asked at', async () => {
+    const { workingDaysLeft } = await load()
+    expect(workingDaysLeft('2026-03-06', new Date('2026-03-02T00:01:00'))).toBe(4)
+    expect(workingDaysLeft('2026-03-06', new Date('2026-03-02T23:59:00'))).toBe(4)
+  })
+
+  it('returns null for a missing or malformed target', async () => {
+    const { workingDaysLeft } = await load()
+    expect(workingDaysLeft(null, monday)).toBe(null)
+    expect(workingDaysLeft('', monday)).toBe(null)
+    expect(workingDaysLeft('2026-3-2', monday)).toBe(null)
+  })
+})

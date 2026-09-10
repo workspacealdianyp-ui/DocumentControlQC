@@ -42,6 +42,36 @@ export function validTarget(job) {
   return date.getFullYear() === year && date.getMonth() + 1 === month && date.getDate() === day ? value : null
 }
 
+/* Working days between today and the target date, Saturday and Sunday
+   not counted. Shops here work a five-day week, so a target eight
+   calendar days out is six days of work, and a person reading a
+   register wants the number they can plan against.
+
+   The count runs from the day after today up to and including the
+   target: the day a unit is due is still a day someone can work on it.
+   A target already past comes back negative, counted the same way, so
+   the caller can say how late it is rather than only that it is late.
+   Public holidays are not in this app's data and are not guessed at. */
+export function workingDaysLeft(target, from = new Date()) {
+  if (!target || !/^\d{4}-\d{2}-\d{2}$/.test(target)) return null
+  const [y, m, d] = target.split('-').map(Number)
+  const end = new Date(y, m - 1, d)
+  if (Number.isNaN(end.getTime())) return null
+  const today = new Date(from.getFullYear(), from.getMonth(), from.getDate())
+  const late = end < today
+  const first = late ? end : today
+  const last = late ? today : end
+  // Both ends are local midnight, so a daylight-saving change inside the
+  // span moves the difference by an hour rather than a day; round.
+  const span = Math.round((last - first) / 86400000)
+  let days = 0
+  for (let i = 1; i <= span; i++) {
+    const wd = new Date(first.getFullYear(), first.getMonth(), first.getDate() + i).getDay()
+    if (wd !== 0 && wd !== 6) days++
+  }
+  return late ? -days : days
+}
+
 /* The final inspection this shop releases a unit on. PDI is the one the
    order names when it wants it; on a job whose set ends at Pre-Shipment
    that is the same gate under the other name, so it stands in rather
