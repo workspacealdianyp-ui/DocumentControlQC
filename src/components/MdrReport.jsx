@@ -46,9 +46,8 @@ export default function MdrReport({ job, reports, session, onClose, statements =
     }
   }, [onClose])
   const [fit, setFit] = useState(null)
-  // How many result rows each report can put on a sheet. A ten-column
-  // dimensional row wraps to twice the height of a six-column one, so this
-  // is learned per report rather than assumed.
+  // Result rows and paired dimensional points have different heights;
+  // the shared page planner adjusts each report to its measured content.
   const [rowFit, setRowFit] = useState({})
 
   const today = new Date()
@@ -63,8 +62,8 @@ export default function MdrReport({ job, reports, session, onClose, statements =
   const printable = reports.filter((r) => FORM_SCHEMAS[r.formKey])
   const omitted = reports.filter((r) => !FORM_SCHEMAS[r.formKey])
 
-  /* Paginate the book before drawing it. The front matter is three
-     sheets — cover, contents, register — and each report contributes its
+  /* Paginate the book before drawing it. The front matter includes the
+     cover, contents, register, approvals and optional statement; each report contributes its
      own; the measured counts replace this assumption as soon as the
      first layout pass reports back. */
   const FRONT = oneStatement ? 5 : 4
@@ -119,8 +118,8 @@ export default function MdrReport({ job, reports, session, onClose, statements =
     ? (dates.length > 1 ? `${fmtDate(dates[0])} — ${fmtDate(dates[dates.length - 1])}` : fmtDate(dates[0]))
     : '—'
 
-  const kop = <PrintHeader title="Manufacturing Data Report" number={mdrNo}
-    subtitle="Final documentation package" metadata={[
+  const kop = (sheetIndex) => <PrintHeader title="Manufacturing Data Report" number={mdrNo}
+    from={spans[sheetIndex]?.[0] ?? sheetIndex + 1} to={spans[sheetIndex]?.[1] ?? sheetIndex + 1} total={totalPages} subtitle="Final documentation package" metadata={[
       ['Form', 'FM-QC-MDR'], ['Revision', '0'], ['Job', job.jobNo], ['Issue date', fmtDate(today.toISOString())]
     ]} />
   const foot = (sheetIndex) => {
@@ -224,7 +223,7 @@ export default function MdrReport({ job, reports, session, onClose, statements =
       {/* ══════════ TABLE OF CONTENTS ══════════ */}
       <div className="print-sheet ps-sheet-break">
         <table className="ps-doc">
-          {kop}{foot(1)}
+          {kop(1)}{foot(1)}
           <tbody><tr><td className="ps-runcell ps-body">
             <table><tbody><tr><td className="ps-section-bar">Table of Contents</td></tr></tbody></table>
             <table className="ps-grid ps-toc">
@@ -282,7 +281,7 @@ export default function MdrReport({ job, reports, session, onClose, statements =
       {/* ══════════ SECTION 1 — document control & register ══════════ */}
       <div className="print-sheet ps-sheet-break">
         <table className="ps-doc">
-          {kop}{foot(2)}
+          {kop(2)}{foot(2)}
           <tbody><tr><td className="ps-runcell ps-body">
             <div className="ps-tab">
               <span className="ps-tab-no">Section 1</span>
@@ -372,7 +371,7 @@ export default function MdrReport({ job, reports, session, onClose, statements =
 
       <div className="print-sheet ps-sheet-break">
         <table className="ps-doc">
-          {kop}{foot(3)}
+          {kop(3)}{foot(3)}
           <tbody><tr><td className="ps-runcell ps-body">
             <div className="ps-tab"><span className="ps-tab-no">Section 1</span><span className="ps-tab-title">Disposition &amp; Approvals</span></div>
             <div className="ps-mt-4">
@@ -414,7 +413,7 @@ export default function MdrReport({ job, reports, session, onClose, statements =
       {oneStatement && (
         <div className="print-sheet ps-sheet-break">
           <table className="ps-doc">
-            {kop}{foot(4)}
+            {kop(4)}{foot(4)}
             <tbody><tr><td className="ps-runcell ps-body">
               <div className="ps-tab">
                 <span className="ps-tab-no">Section 2</span>

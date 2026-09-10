@@ -2,6 +2,7 @@ import React from 'react'
 import { describe, expect, it } from 'vitest'
 import { renderToStaticMarkup } from 'react-dom/server'
 import { FORM_SCHEMAS } from '../../src/data/formSchemas.js'
+import { seedReports } from '../../src/data/seedReports.js'
 import { ReportSheets, reportSheetCount } from '../../src/components/PrintReport.jsx'
 import MdrReport from '../../src/components/MdrReport.jsx'
 import { reportPlan, printValue } from '../../src/lib/printLayout.js'
@@ -35,6 +36,50 @@ it('points MDR contents to the actual report starts in the bound document', () =
     expect(Number(cells[5].textContent)).toBe(first + 1)
   }
   expect(sheets.at(-1).querySelector('.ps-footer').textContent).toContain(`of ${sheets.length}`)
+  sheets.slice(1).forEach((sheet, i) => expect(sheet.querySelector('.ps-form-control tr:last-child td').textContent).toBe(`${i + 2} of ${sheets.length}`))
+})
+
+describe('compact controlled forms', () => {
+  it('uses three form-control lines and the same page numbers as the footer', () => {
+    const report = record('visual', { formRevision: 0 })
+    const output = doc('visual', report, { pageMap: [[12, 12]], pageTotal: 20 })
+    const controls = [...output.querySelectorAll('.ps-form-control tr')].slice(0, 3)
+    expect(controls.map((row) => row.querySelector('th').textContent)).toEqual(['Form no.', 'Revision', 'Page'])
+    expect(controls.map((row) => row.querySelector('td').textContent)).toEqual([FORM_SCHEMAS.visual.formNo, '0', '12 of 20'])
+    expect(output.querySelector('.ps-footer').textContent).toContain('Page 12 of 20')
+  })
+
+  it('keeps the attached document revision separate from the form revision', () => {
+    const output = doc('itp', record('itp', { values: { rev: 'C' } }))
+    expect(output.querySelector('.ps-form-control tr:nth-child(2) td').textContent).toBe('—')
+    expect([...output.querySelectorAll('.ps-facts .ps-c-value')].map((cell) => cell.textContent)).toContain('C')
+  })
+
+  it.each(['hydrotest', 'blasting', 'mt', 'pt', 'ut', 'visual', 'dimensional'])('%s puts recorded results on the first page before supporting settings', (key) => {
+    const report = seedReports().find((r) => r.formKey === key && r.status === 'approved')
+    const plan = reportPlan(FORM_SCHEMAS[key], report, job)
+    const first = plan[0]
+    const at = first.findIndex((block) => ['results', 'recording', 'dft'].includes(block.kind))
+    expect(at).toBeGreaterThanOrEqual(0)
+    expect(first[at].from).toBe(0)
+    expect(first[at].to).toBeGreaterThanOrEqual(3)
+    const all = plan.flat()
+    const support = all.findIndex((block) => ['equipment', 'instrument', 'calibration', 'equip', 'coating'].includes(block.id))
+    if (support >= 0) expect(all.indexOf(first[at])).toBeLessThan(support)
+  })
+
+  it('keeps an odd number of dimensional points in order across paired continuation tables', () => {
+    const results = Array.from({ length: 41 }, (_, i) => ({ itemNo: `D-${i + 1}`, description: `Checking point ${i + 1}`, nominal: 10, min: 9, max: 11, actual: i === 40 ? 12 : 10, note: i === 40 ? 'OUTSIDE-UPPER-LIMIT' : '' }))
+    const output = doc('dimensional', record('dimensional', { results }))
+    const ids = [...output.querySelectorAll('.ps-dim-grid tbody td.ps-left > strong')].map((node) => node.textContent)
+    expect(ids).toEqual(results.map((row) => row.itemNo))
+    expect(output.querySelectorAll('.ps-dim-empty')).toHaveLength(1)
+    expect(output.querySelectorAll('.ps-dim-grid')).not.toHaveLength(1)
+    const last = [...output.querySelectorAll('.ps-dim-grid tbody tr')].at(-1)
+    expect(last.textContent).toContain('OUTSIDE-UPPER-LIMIT')
+    expect(last.textContent).toContain('Δ 2.00')
+    expect(last.textContent).toContain('Reject')
+  })
 })
 
 describe('evidence survives the layout', () => {
