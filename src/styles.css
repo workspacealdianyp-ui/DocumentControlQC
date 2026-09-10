@@ -28,8 +28,10 @@
      two explicit colours because a gradient that ends at `transparent`
      is interpolated through transparent black by some engines, which
      puts a grey smear across the middle of the fade. */
-  --banner-scrim: rgba(255, 255, 255, 1);
-  --banner-scrim-0: rgba(255, 255, 255, 0);
+  /* The faint wash the dashboard band carries behind its picture, and
+     the track a tinted tile's meter runs in. */
+  --banner-wash: #eef1f4;
+  --tile-track: rgba(20, 20, 24, 0.10);
 
   /* ── Ground ──────────────────────────────────────────────────── */
   --paper: #f6f6f4;        /* canvas behind the cards */
@@ -48,6 +50,9 @@
   --inprog: #9a6a08;   --inprog-bg: #fdf3e0;
   --notstart: #6e6e76; --notstart-bg: #f1f1ee;
   --overdue: #c8102e;  --overdue-bg: #fdecef;
+  /* The blue the register already prints on a submitted report, promoted
+     to a token so the dashboard's open-jobs tile can wear the same one. */
+  --info: #2f6fd0;     --info-bg: #eaf1fd;
   --na: #a0a0a8;       --na-bg: #f4f4f1;
   --danger: #c8102e;
   --review: #1c4f8a;   --review-bg: #eaf1fb;   --review-line: #c3d7f0;
@@ -134,8 +139,8 @@
   /* On #17171b the light hairline vanishes; the jacket keeps its hue by
      going up in value rather than down. */
   --file-line: #5e3a1d;
-  --banner-scrim: rgba(23, 23, 27, 1);
-  --banner-scrim-0: rgba(23, 23, 27, 0);
+  --banner-wash: #1e1e24;
+  --tile-track: rgba(255, 255, 255, 0.14);
 
   --paper: #0f0f12;
   --surface: #17171b;
@@ -152,6 +157,7 @@
   --inprog: #e0a83c;   --inprog-bg: #2b2312;
   --notstart: #9a9aa4; --notstart-bg: #222228;
   --overdue: #ff6b7d;  --overdue-bg: #2e151a;
+  --info: #7fb0ff;     --info-bg: #16202e;
   --na: #74747f;       --na-bg: #1e1e23;
   --danger: #ff6b7d;
   --review: #7fb0ff;   --review-bg: #142132;   --review-line: #274669;
