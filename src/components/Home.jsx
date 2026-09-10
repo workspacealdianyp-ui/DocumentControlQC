@@ -139,7 +139,16 @@ export default function Home() {
 
   return <div className="page home-page">
     <div className="home-dashboard">
-      <div className="home-actions">
+      {/* The masthead this screen never had.
+
+          Every other page in the app opens on a band — the job, the
+          customer, the order. The dashboard, which is the one people
+          actually land on, opened on a line of text and two buttons
+          floating on the page's own grey. It gets a band too, and the
+          band carries the yard the documents are all about. */}
+      <header className="home-banner">
+        <div className="home-banner-art" aria-hidden="true" />
+        <div className="home-banner-body">
         <div className="home-welcome"><strong>{greeting}, {first}.</strong><span>{now.toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}</span></div>
         <div className="home-action-buttons">
           {role.canOverride ? <>
@@ -153,7 +162,8 @@ export default function Home() {
             <a className="btn btn-primary" href="#/monitoring"><IconGrid size={16} /> Open monitoring</a>
           </>}
         </div>
-      </div>
+        </div>
+      </header>
 
       <section className="home-readings" aria-label="QC overview">
         <a className="home-reading" href={href(monitor('inprogress,overdue,notstarted'))}>
