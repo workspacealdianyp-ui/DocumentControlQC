@@ -13,10 +13,24 @@
 import { spawn } from 'node:child_process'
 import { chromium } from 'playwright'
 import { setTimeout as wait } from 'node:timers/promises'
+import { existsSync } from 'node:fs'
 
 const PORT = Number(process.env.E2E_PORT || 4180)
 const BASE = `http://localhost:${PORT}`
+
+/* Which Chromium to drive. The dev container keeps one at a fixed path
+   whose build does not match the Playwright in package.json, so there a
+   path has to be handed over. CI runs `playwright install` and gets the
+   matching build, which Playwright finds by itself.
+
+   The path is therefore an override, not a requirement — and only when
+   it is actually there. Passing one that is not is how this step failed
+   on every run since it was added: the workflow sets CHROME_PATH empty,
+   the fallback named a directory no runner has, and launch died before
+   a single journey ran. A missing browser now means "you find it",
+   which is the right answer everywhere except this container. */
 const CHROME = process.env.CHROME_PATH || '/opt/pw-browsers/chromium-1194/chrome-linux/chrome'
+const LAUNCH = existsSync(CHROME) ? { executablePath: CHROME } : {}
 
 let fail = 0
 let count = 0
@@ -66,7 +80,7 @@ async function signIn(page, who) {
 
 async function main() {
   const server = await serve()
-  const browser = await chromium.launch({ executablePath: CHROME })
+  const browser = await chromium.launch(LAUNCH)
   const errors = []
 
   try {
