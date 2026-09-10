@@ -23,6 +23,7 @@
   --amber-ink: #b84600;    /* orange dark enough to set 11px type on white (5.4:1) */
   --amber-soft: #fff2e9;
   --amber-tint: #fbe9dd;   /* the rail's active pill */
+  --file-line: #f0cbaa;    /* the hairline a required jacket is drawn with */
 
   /* ── Ground ──────────────────────────────────────────────────── */
   --paper: #f6f6f4;        /* canvas behind the cards */
@@ -124,6 +125,9 @@
   --amber-ink: #ff9349;
   --amber-soft: #2a1a0e;
   --amber-tint: #33200f;
+  /* On #17171b the light hairline vanishes; the jacket keeps its hue by
+     going up in value rather than down. */
+  --file-line: #5e3a1d;
 
   --paper: #0f0f12;
   --surface: #17171b;
@@ -824,6 +828,15 @@ td.th-action { display: flex; gap: 6px; justify-content: flex-end; align-items: 
 .meta-item { display: flex; flex-direction: column; gap: 2px; min-width: 0; border-left: 2px solid var(--line); padding-left: 10px; }
 .meta-label { font-family: var(--mono); font-size: 9.5px; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.07em; font-weight: 500; }
 .meta-value { font-size: 13.5px; font-weight: 500; overflow-wrap: break-word; }
+/* A second reading of the same fact, set quieter than the fact. Target
+   delivery uses it to say how much working time is left; the date is
+   what the order states, the count is what it means today. */
+.meta-note {
+  font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.01em;
+  color: var(--text-3); margin-top: 1px;
+}
+.meta-note.is-soon { color: var(--amber-ink); }
+.meta-note.is-late { color: var(--overdue); }
 
 /* deliverable rows */
 .deliv-list { display: flex; flex-direction: column; }
@@ -2725,10 +2738,17 @@ tr:has(.chip-done) .jobs-prog-bar span { background: var(--done); }
 .jd-hero.is-complete .ring-bar { stroke: var(--done); }
 .jd-hero.is-complete .ring-label strong { color: var(--done); }
 
-.jd-meta-card { padding: 16px 18px; }
+/* The unit's particulars, and the room to read them. At 16px of padding
+   against a 13px row gap the six items sat as one grey block; the card
+   is what the page opens on, so it gets the page's own breathing
+   space. */
+.jd-meta-card { padding: 20px 22px; }
+.jd-meta-card .meta-grid { gap: 18px 22px; }
+.jd-meta-card .meta-item { padding-left: 12px; }
 /* Five or six items divide evenly into three columns; the default four
-   left a lone "PDI release" stranded on a row of its own. */
+   left the last one stranded on a row of its own. */
 @media (min-width: 640px) { .jd-meta-card .meta-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 480px) { .jd-meta-card { padding: 17px 16px; } .jd-meta-card .meta-grid { gap: 15px 14px; } }
 
 /* Rows without a form have no chevron; without a placeholder their chips
    landed 16px further right than everyone else's. */
@@ -4001,7 +4021,12 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber); outline-
   }
   .rep-state { align-self: center; min-width: 96px; }
   .rep-state .report-state { width: 100%; justify-content: center; }
-  .rep-foot { padding-right: 34px; }
+  /* Room for the bin, and only where there is a bin. The reserve was on
+     every card, so a job's document rows — which have no bin — ended
+     their last line 34px short of the rows next to them in the other
+     tab, and the two lists read as different widths when they are the
+     same width. */
+  .rep-card:has(.rep-del) .rep-foot { padding-right: 34px; }
   .rep-del { position: absolute; right: 9px; bottom: 8px; margin-right: 0; }
 }
 
@@ -5287,20 +5312,29 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber); outline-
    at the other. */
 .jd-list-head {
   display: flex; align-items: center; justify-content: space-between;
-  gap: 8px 12px; flex-wrap: wrap;
+  gap: 12px; flex-wrap: nowrap;
   border-bottom: 1px solid var(--line);
-  margin: 0 0 12px;
+  /* The band was 12px from the list and hard against the card above it.
+     A switch and an action want air on both sides to read as their own
+     row rather than as the top of the list. */
+  margin: 22px 0 16px;
+  padding-bottom: 4px;
 }
-.jd-list-head .jd-tabs { border: 0; margin: 0; padding-bottom: 6px; flex: 0 1 auto; min-width: 0; }
-.jd-list-head .jd-mdr { margin-bottom: 6px; }
+.jd-list-head .jd-tabs {
+  border: 0; margin: 0; padding-bottom: 6px;
+  /* Takes the room the button does not, and scrolls rather than
+     squeezing the button off the row if a third tab ever lands here. */
+  flex: 1 1 auto; min-width: 0;
+}
+.jd-list-head .jd-mdr { flex: 0 0 auto; margin-bottom: 6px; }
 
-/* Narrow, the two tabs and the button do not share a line: 215px of
-   tabs against a 150px button in 362px of card. Rather than shrink
-   either, the button takes the row under them and spans it — the one
-   action on this page that produces something to hand a customer, at a
-   size a thumb can hit. */
+/* Narrow, the button keeps the right of the row and drops the verb —
+   see the note on the control. It also grows to a thumb's height,
+   because at this width it is being pressed rather than clicked. */
 @media (max-width: 720px) {
-  .jd-list-head .jd-mdr { flex: 1 1 100%; justify-content: center; min-height: var(--tap); }
+  .jd-list-head .jd-mdr { min-height: var(--tap); }
+  .jd-mdr-verb { display: none; }
+  .jd-list-head .jd-tabs .mon-tab { padding-left: 9px; padding-right: 9px; }
 }
 /* Unavailable, not shouting. A full-width slab of solid grey is the
    weight of a primary action on a screen where the action cannot be
@@ -5320,6 +5354,71 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber); outline-
    after the fact, so this is a document filed before the order was
    revised: still evidence, still on the unit, and no longer answering
    anything asked of it. */
+/* Both tabs, one geometry. The two lists speak different status
+   vocabularies — a deliverable is Not Started, a document is Approved —
+   and a column sized to its content is a different width in each, so
+   switching tabs slid every badge and every line of text sideways. The
+   state column is pinned instead: same columns in both lists, nothing
+   moves but the rows. It is a floor, not a cap, so a longer word still
+   gets the room it needs. */
+@media (min-width: 431px) {
+  .doc-stack .rep-card { grid-template-columns: auto minmax(0, 1fr) minmax(118px, auto) auto; }
+}
+/* Narrow, the card drops to three columns and the last line runs under
+   both of them, so only the badge itself is left to line up. Pinned a
+   little wider than the register's own 96px, because the widest word on
+   this page is a deliverable's "Not Started", not a document's
+   "Approved". */
+@media (max-width: 430px) {
+  .doc-stack .rep-state { min-width: 112px; }
+}
+
+/* ── the required list, as file jackets ──────────────────────────
+   Two lists sit under the same switch and they are not the same kind of
+   thing. A Documents row is a document: it was filed, it has a number,
+   somebody signed it. A Required row is the slot in the order where one
+   goes — a jacket in the drawer, which may still be empty. Drawing both
+   as the register's grey card left the reader to work out which list
+   they were on from the heading alone.
+
+   So the jacket gets its own hand: a hairline in the accent instead of
+   the neutral rule, the form code stamped with the corner of a sheet
+   clipped off it, and — for as long as nothing has been filed against
+   it — a dashed edge, because an open jacket is not a full one. The
+   geometry does not change: same grid, same columns, same height, so
+   the two lists still line up down the page. */
+.req-file { border-color: var(--file-line); }
+/* A true hairline where the screen can draw one. At 1x, 1px already is
+   the thinnest line the display has, so it keeps it. */
+@media (min-resolution: 1.5dppx) {
+  .req-file { border-width: 0.5px; }
+}
+.req-file:hover { border-color: var(--amber-tint); box-shadow: 0 2px 10px rgba(248, 99, 0, 0.09); }
+.req-file:focus-visible { border-color: var(--amber); }
+.req-file.is-flat:hover { border-color: var(--file-line); box-shadow: none; }
+
+/* Nothing on file yet. */
+.req-file.is-deliv { border-style: dashed; }
+
+/* The stamp. The card keeps the page's 13px radius; the thing inside it
+   is a sheet of paper, so it is drawn square with its top corner turned
+   — the one shape everybody reads as a document without being told. */
+.req-file .rep-code {
+  border: 0; border-radius: 4px;
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%);
+}
+@media (max-width: 430px) {
+  .req-file .rep-code { clip-path: polygon(0 0, calc(100% - 9px) 0, 100% 9px, 100% 100%, 0 100%); }
+}
+/* An empty jacket has no document in it, so its stamp is not a sheet
+   either — it is the ruled square where one will be entered. */
+.req-file.is-deliv .rep-code {
+  clip-path: none;
+  border: 1px dashed var(--file-line);
+  background: var(--surface);
+}
+:root[data-theme="dark"] .req-file:hover { box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4); }
+
 .rep-spare {
   display: inline-block; margin-left: 7px; padding: 1px 7px;
   border: 1px solid var(--line-2); border-radius: 999px;

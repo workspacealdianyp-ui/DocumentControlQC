@@ -4,7 +4,7 @@ import { useApp, navigate } from '../App.jsx'
 import { artFor } from '../lib/productArt.js'
 import { DELIVERABLES, NDE_FORMS } from '../lib/constants.js'
 import { FORM_SCHEMAS } from '../data/formSchemas.js'
-import { buildContext, jobProgress, fmtDate, fmtDateTime, dueDate, releasedAt } from '../lib/status.js'
+import { buildContext, jobProgress, fmtDate, fmtDateTime, dueDate, validTarget, workingDaysLeft } from '../lib/status.js'
 import { reportsFor } from '../lib/store.js'
 import { requiredFor } from '../lib/jobOrders.js'
 import StatusChip, { StateBadge } from './StatusChip.jsx'
@@ -19,12 +19,31 @@ import { useDismiss } from '../lib/useDismiss.js'
 const KAT_LABEL = { SUPEQ: 'Support Equipment', TRAILER: 'Trailer', 'NON TRAILER': 'Non Trailer' }
 // The chip carries a code, the way a report's carries LHT or DIM.
 
-const Meta = ({ label, value }) => (
+const Meta = ({ label, value, note, tone }) => (
   <div className="meta-item">
     <span className="meta-label">{label}</span>
     <span className="meta-value">{value || '—'}</span>
+    {note && <span className={`meta-note${tone ? ` is-${tone}` : ''}`}>{note}</span>}
   </div>
 )
+
+/* How much working time is left against the target, in the words a
+   planner would use. Weekends are not working days, so a Friday target
+   read on a Wednesday is two days, not two nights.
+
+   Once every applicable report is in, the count keeps its place and
+   loses its voice: the register's rule everywhere else is that a
+   finished unit is not called overdue, and a red "9 working days late"
+   beside a signed-off job would be arguing with the badge above it. */
+function deliveryCountdown(job, done) {
+  const days = workingDaysLeft(validTarget(job))
+  if (days === null) return null
+  if (days === 0) return { note: 'Due today', tone: done ? null : 'soon' }
+  const n = Math.abs(days)
+  const unit = `working day${n === 1 ? '' : 's'}`
+  if (days < 0) return done ? { note: 'Target passed', tone: null } : { note: `${n} ${unit} late`, tone: 'late' }
+  return { note: `${n} ${unit} left`, tone: !done && days <= 3 ? 'soon' : null }
+}
 
 
 /* The document register, as a register.
@@ -128,9 +147,6 @@ export default function JobDetail({ job }) {
   }
 
   const p = jobProgress(job, ctx)
-  // Not a field on the job: the date its pre-delivery inspection was
-  // approved, read back off the reports.
-  const released = releasedAt(job, ctx)
   // What this job was actually raised for. Showing the other five as
   // greyed N/A rows was noise an inspector had to read past.
   const wanted = requiredFor(job)
@@ -151,6 +167,7 @@ export default function JobDetail({ job }) {
 
   const pct = p.applicable ? Math.round((p.done / p.applicable) * 100) : 0
   const done = !!p.applicable && p.done === p.applicable
+  const countdown = deliveryCountdown(job, done)
 
   return (
     <div className="page">
@@ -218,10 +235,9 @@ export default function JobDetail({ job }) {
           <Meta label="Unit No." value={job.unitNo || job.arasSN} />
           <Meta label="Customer ID" value={job.customerId} />
           <Meta label="Date PB" value={fmtDate(job.datePB)} />
-          <Meta label="Target delivery" value={fmtDate(dueDate(job))} />
-          {/* Read off the record, not off the order: the date the
-              pre-delivery inspection was approved. */}
-          <Meta label="PDI released" value={released ? fmtDate(released) : 'Not yet'} />
+          {/* A date on its own asks the reader to count. */}
+          <Meta label="Target delivery" value={fmtDate(dueDate(job))}
+            note={countdown?.note} tone={countdown?.tone} />
         </div>
       </div>
 
@@ -260,10 +276,17 @@ export default function JobDetail({ job }) {
         {/* Not a tab: it binds the approved documents whichever list is
             on screen, so it stays beside the switch rather than inside
             it. */}
+        {/* Narrow, the verb goes and the button keeps its place. A
+            phone band is 362px against 224px of tabs, and the choice is
+            between a shorter label on the right or a full-width slab
+            below — the slab reads as the page's main action, which
+            compiling a data book on a shop floor is not. The full name
+            stays on the control for anyone reading it aloud. */}
         <button className="btn btn-primary btn-sm jd-mdr" disabled={!bindable.length}
+          aria-label="Generate MDR"
           title={bindable.length ? 'Compile the Manufacturing Data Report from the approved current issues' : undefined}
           onClick={() => { setSumSel(bindable.map((d) => d.id)); setSumPicker(true) }}>
-          <IconPrint size={13} /> Generate MDR
+          <IconPrint size={13} /><span><span className="jd-mdr-verb">Generate </span>MDR</span>
         </button>
       </div>
       {/* Why it cannot be pressed, where a thumb can read it. The reason
@@ -311,7 +334,15 @@ export default function JobDetail({ job }) {
               : 'Document deliverable, tracked manually')
           return (
             <div className="doc-stack" key={d.key}>
-            <div className={`rep-card tone-${cell.status}${last ? '' : ' is-deliv'}${tappable ? '' : ' is-flat'}`}
+            {/* A required row is not a document — it is the slot in the
+                order where one goes. So it is drawn as the jacket
+                rather than the sheet: a hairline in the accent, the
+                form code stamped with a sheet's corner clipped off it,
+                and a dashed edge for as long as the jacket is empty.
+                The documents list next door keeps the register's plain
+                card, because there every row is a document that
+                exists. */}
+            <div className={`rep-card req-file tone-${cell.status}${last ? '' : ' is-deliv'}${tappable ? '' : ' is-flat'}`}
               role={tappable ? 'button' : undefined} tabIndex={tappable ? 0 : undefined}
               onClick={tappable ? () => openDeliv(d, cell, last) : undefined}
               onKeyDown={tappable ? (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openDeliv(d, cell, last) } } : undefined}>
