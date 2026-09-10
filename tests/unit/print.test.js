@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import { reportSheetCount } from '../../src/components/PrintReport.jsx'
+import { reportPlan } from '../../src/lib/printLayout.js'
 import { FORM_SCHEMAS, dimRowStatus, dimDeviation, dimLimits } from '../../src/data/formSchemas.js'
 
 const rep = (over = {}) => ({ id: 'r1', reportId: 'MFG/X/1/01', values: {}, results: [], readings: [], photos: [], ...over })
@@ -9,10 +10,10 @@ describe('the report page plan', () => {
     expect(reportSheetCount(FORM_SCHEMAS.itp, rep())).toBe(1)
   })
 
-  it('omits the statement when the MDR carries it and preserves document records', () => {
-    const normal = reportSheetCount(FORM_SCHEMAS.hydrotest, rep())
-    expect(reportSheetCount(FORM_SCHEMAS.hydrotest, rep(), 1, true)).toBeLessThanOrEqual(normal)
-    expect(reportSheetCount(FORM_SCHEMAS.itp, rep(), 1, true)).toBe(reportSheetCount(FORM_SCHEMAS.itp, rep()))
+  it('prints a concise overall decision without a narrative statement', () => {
+    const blocks = reportPlan(FORM_SCHEMAS.hydrotest, rep({ values: { testResult: 'Satisfactory' } })).flat()
+    expect(blocks.find((b) => b.kind === 'verdict')?.text).toBe('Satisfactory')
+    expect(blocks.some((b) => b.kind === 'statement')).toBe(false)
   })
 
   it('gives every filed signed page its own readable evidence sheet', () => {

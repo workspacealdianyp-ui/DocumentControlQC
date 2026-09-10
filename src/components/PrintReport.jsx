@@ -1,25 +1,22 @@
-import { useEffect, useRef, useState } from 'react'
+import { Fragment, useEffect, useRef, useState } from 'react'
 import { MR } from '../lib/compute.js'
 import { dimRowStatus, dimDeviation, dimLimits } from '../data/formSchemas.js'
 import { buildResume } from '../lib/resume.js'
 import { useFitToPage, pageSpans, sameFit, oneEach, tighten, useSheetZoom } from '../lib/pagefit.js'
-import { reportPlan, printValues, printValue, printDate, printStatus, resultColumnWidths } from '../lib/printLayout.js'
+import { reportPlan, printValues, printValue, printDate, printStatus, resultColumnWidths, resultColumnLabel, recordingLayout } from '../lib/printLayout.js'
 import { PrintHeader, PrintFooter, PrintToolbar } from './PrintDocument.jsx'
 
 function FieldRows({ rows }) {
-  return <table className="ps-facts"><tbody>{rows.map((row, i) => <tr key={i}>{row.map((field, j) => <td key={j} colSpan={row.length === 1 ? 2 : 1}>
-    <span className="ps-c-label">{field.label}</span><span className="ps-c-value">{field.value}</span>
-  </td>)}</tr>)}</tbody></table>
+  return <table className="ps-facts"><colgroup>{[30, 65, 30, 65].map((width, i) => <col key={i} style={{ width: `${width}mm` }} />)}</colgroup><tbody>{rows.map((row, i) => <tr key={i}>{row.map((field, j) => <Fragment key={j}>
+    <th scope="row" className="ps-fact-label">{field.label}</th><td colSpan={row.length === 1 ? 3 : 1} className="ps-c-value">{field.value}</td>
+  </Fragment>)}</tr>)}</tbody></table>
 }
 
 function RecordingTable({ report, v, from, to }) {
   const all = report.readings || []
-  const columns = [['pg1', `PG 1 (${v.pressureUnit})`]]
-  if (v.gauges !== '1 Gauge') columns.push(['pg2', `PG 2 (${v.pressureUnit})`])
-  if (v.useRecorder !== 'Not used') columns.push(['rec', `Recorder (${v.pressureUnit})`])
-  if (v.useTemp !== 'Not used') columns.push(['water', 'Water (°C)'], ['ambient', 'Ambient (°C)'])
-  return <table className="ps-grid ps-grid-rec"><thead><tr><th style={{ width: '8mm' }}>CP</th><th style={{ width: '15mm' }}>Time</th><th style={{ width: '14mm' }}>Interval (min)</th>{columns.map(([id, label]) => <th key={id}>{label}</th>)}<th className="ps-left">Remark</th></tr></thead>
-    <tbody>{all.slice(from, to).map((row, i) => <tr key={from + i}><td>{from + i + 1}</td><td>{printValue(row.time)}</td><td>{from + i === 0 ? 0 : MR.minutesBetween(all[from + i - 1].time, row.time)}</td>{columns.map(([id]) => <td key={id}>{printValue(row[id])}</td>)}<td className="ps-left">{printValue(row.remark)}</td></tr>)}
+  const { columns, widths } = recordingLayout(v)
+  return <table className="ps-grid ps-grid-rec"><colgroup>{widths.map((width, i) => <col key={i} style={{ width: `${width}mm` }} />)}</colgroup><thead><tr><th>CP</th><th>Time</th><th>Interval (min)</th>{columns.map(({ id, label }) => <th key={id}>{label}</th>)}<th className="ps-left">Remark</th></tr></thead>
+    <tbody>{all.slice(from, to).map((row, i) => <tr key={from + i}><td>{from + i + 1}</td><td>{printValue(row.time)}</td><td>{from + i === 0 ? 0 : MR.minutesBetween(all[from + i - 1].time, row.time)}</td>{columns.map(({ id }) => <td key={id}>{printValue(row[id])}</td>)}<td className="ps-left">{printValue(row.remark)}</td></tr>)}
       {!all.length && <tr><td colSpan={columns.length + 4} className="ps-na">No checkpoints recorded</td></tr>}</tbody>
   </table>
 }
@@ -27,18 +24,30 @@ function RecordingTable({ report, v, from, to }) {
 function ResultsTable({ section, report, v, from, to }) {
   const all = report.results || []
   const rows = all.slice(from, to)
-  if (section.autoJudge === 'dim') return <table className="ps-grid ps-dim-grid">
-    <colgroup>{[43, 34, 23, 23, 21, 46].map((width, i) => <col key={i} style={{ width: `${width}mm` }} />)}</colgroup>
-    <thead><tr><th className="ps-left">Dimension / point</th><th>Specification (mm)</th><th>Actual (mm)</th><th>Deviation (mm)</th><th>Result</th><th className="ps-left">Note</th></tr></thead>
-    <tbody>{rows.map((row, i) => {
+  if (section.autoJudge === 'dim') {
+    const pairs = Array.from({ length: Math.ceil(rows.length / 2) }, (_, i) => rows.slice(i * 2, i * 2 + 2))
+    const cells = (row, index) => {
+      if (!row) return <td colSpan={4} className="ps-dim-empty" aria-hidden="true" />
       const limits = dimLimits(row), result = dimRowStatus(row)
-      return <tr key={from + i}><td className="ps-left"><strong>{printValue(row.itemNo || from + i + 1)}</strong><small>{printValue(row.description)}</small></td><td>{printValue(row.nominal)}<small>Min {printValue(limits.lo)} / Max {printValue(limits.hi)}</small></td><td className="ps-measured">{printValue(row.actual)}</td><td>{printValue(dimDeviation(row))}</td><td className={result === 'Reject' ? 'ps-result-rej' : ''}>{result || 'Not judged'}</td><td className="ps-left">{printValue(row.note)}</td></tr>
-    })}{!all.length && <tr><td colSpan={6} className="ps-na">No measurements recorded</td></tr>}</tbody>
-  </table>
+      return <>
+        <td className="ps-left"><strong>{printValue(row.itemNo || index + 1)}</strong><span className="ps-dim-description">{printValue(row.description)}</span>{row.note != null && row.note !== '' && <small className="ps-dim-note">Note: {printValue(row.note)}</small>}</td>
+        <td>{printValue(row.nominal)}<small>Min {printValue(limits.lo)}<br />Max {printValue(limits.hi)}</small></td>
+        <td className="ps-measured">{printValue(row.actual)}<small>Δ {printValue(dimDeviation(row))}</small></td>
+        <td className={result === 'Reject' ? 'ps-result-rej' : ''}>{result || 'Not judged'}</td>
+      </>
+    }
+    const headings = <><th className="ps-left">Point / description</th><th>Nominal / limits</th><th>Actual / Δ</th><th>Result</th></>
+    return <><div className="ps-dim-legend">All dimensions in mm · Δ = actual − nominal · Read left to right, then down</div><table className="ps-grid ps-dim-grid">
+      <colgroup>{[31, 26, 17, 19, 4, 31, 26, 17, 19].map((width, i) => <col key={i} style={{ width: `${width}mm` }} />)}</colgroup>
+      <thead><tr>{headings}<th className="ps-dim-gutter" aria-hidden="true" />{headings}</tr></thead>
+      <tbody>{pairs.map((pair, i) => <tr key={from + i * 2}>{cells(pair[0], from + i * 2)}<td className="ps-dim-gutter" aria-hidden="true" />{cells(pair[1], from + i * 2 + 1)}</tr>)}
+        {!all.length && <tr><td colSpan={9} className="ps-na">No measurements recorded</td></tr>}</tbody>
+    </table></>
+  }
   const columns = section.columns.filter((f) => !f.showIf || f.showIf(v))
   const widths = resultColumnWidths(columns)
   return <table className="ps-grid"><colgroup>{widths.map((width, i) => <col key={i} style={{ width: `${width}mm` }} />)}</colgroup>
-    <thead><tr><th>No</th>{columns.map((c) => <th key={c.id}>{c.label}{c.unit ? ` (${c.unit})` : ''}</th>)}</tr></thead>
+    <thead><tr><th>No</th>{columns.map((c) => <th key={c.id}>{resultColumnLabel(c)}{c.unit ? ` (${c.unit})` : ''}</th>)}</tr></thead>
     <tbody>{rows.map((row, i) => <tr key={from + i}><td>{from + i + 1}</td>{columns.map((c) => <td key={c.id} className={`${/partId|point|description|remark|note|discontinuity/.test(c.id) ? 'ps-left' : ''} ${['Reject', 'Rej', 'NG'].includes(row[c.id]) ? 'ps-result-rej' : ''}`}>{printValue(row[c.id])}</td>)}</tr>)}
       {!all.length && <tr><td colSpan={columns.length + 1} className="ps-na">No inspection rows recorded</td></tr>}</tbody>
   </table>
@@ -67,13 +76,13 @@ export function Signatures({ fields, v }) {
 }
 
 function Evidence({ block }) {
-  return <div className={`ps-evidence${block.full ? ' ps-evidence-full' : ''}`}><table className="ps-photo-grid"><tbody><tr>{block.photos.map((photo, i) => <td key={i}>
+  return <div className={`ps-evidence${block.full ? ' ps-evidence-full' : ''}${block.map ? ' ps-evidence-map' : ''}`}><table className="ps-photo-grid"><tbody><tr>{block.photos.map((photo, i) => <td key={i}>
     <div className="ps-photo-frame">{photo?.img ? <img className="ps-photo" src={photo.img} alt={photo.label || 'Recorded evidence'} /> : <p className="ps-na">Image unavailable</p>}</div>
-    <div className="ps-photo-cap"><strong>{block.full ? 'Page' : 'Evidence'} {(block.from || 0) + i + 1}{block.total ? ` of ${block.total}` : ''}</strong>{photo?.label && <span>{photo.label}</span>}</div>
+    <div className="ps-photo-cap"><strong>{block.map ? 'Figure' : block.full ? 'Page' : 'Evidence'} {(block.from || 0) + i + 1}{block.total ? ` of ${block.total}` : ''}</strong>{photo?.label && <span>{photo.label}</span>}</div>
   </td>)}</tr></tbody></table></div>
 }
 
-export const reportSheetCount = (schema, report, rowFit = 1, noStatement = false, job) => reportPlan(schema, report, job, { density: rowFit, noStatement }).length
+export const reportSheetCount = (schema, report, rowFit = 1, job) => reportPlan(schema, report, job, { density: rowFit }).length
 
 export default function PrintReport({ schema, report, job, deliverable, status, onClose }) {
   const wrap = useRef(null)
@@ -87,16 +96,16 @@ export default function PrintReport({ schema, report, job, deliverable, status, 
   }, [onClose])
   useFitToPage(wrap, [report.id, report.updatedAt, rowFit], (f) => { setFit((previous) => sameFit(previous, f) ? previous : f); setRowFit((previous) => tighten(previous, f)) })
   useSheetZoom(wrap)
-  const sheets = reportSheetCount(schema, report, rowFit, false, job)
+  const sheets = reportSheetCount(schema, report, rowFit, job)
   const { spans, total } = pageSpans(fit?.length === sheets ? fit : oneEach(sheets))
   return <div className="print-overlay" ref={wrap}><PrintToolbar title={schema.title} pages={total} onClose={onClose} /><div className="print-scaler">
     <ReportSheets schema={schema} report={report} job={job} deliverable={deliverable} status={status} pageMap={spans} pageTotal={total} rowFit={rowFit} />
   </div></div>
 }
 
-export function ReportSheets({ schema, report, job, deliverable, status = report.status, pageMap, pageTotal, sectionNo, breakFirst, rowFit = 1, noStatement }) {
+export function ReportSheets({ schema, report, job, deliverable, status = report.status, pageMap, pageTotal, sectionNo, breakFirst, rowFit = 1 }) {
   const v = printValues(schema, report, job)
-  const pages = reportPlan(schema, report, job, { density: rowFit, noStatement })
+  const pages = reportPlan(schema, report, job, { density: rowFit })
   const number = report.reportId || v.reportId
   const watermark = status === 'approved' || status === 'submitted' ? null : printStatus(status)
   const title = schema.key === 'visual' && deliverable === 'PDI' ? 'Pre-Delivery Inspection Report' : schema.title
@@ -104,19 +113,19 @@ export function ReportSheets({ schema, report, job, deliverable, status = report
     const [from, to] = pageMap?.[i] || [i + 1, i + 1]
     return <div key={i} className={`print-sheet${i || breakFirst ? ' ps-sheet-break' : ''}`}>
       {watermark && <div className="ps-watermark" aria-hidden="true">{watermark}</div>}
-      <table className="ps-doc"><PrintHeader title={title} number={number} compact={blocks[0]?.kind === 'evidence'} subtitle={schema.kind === 'record' ? 'Filed document record' : 'Inspection & test record'} metadata={[
-        ['Form', schema.formNo], ['Job', v.jobNo], [schema.kind === 'record' ? 'Date filed' : 'Inspection date', printDate(v.inspDate)], ['Status', printStatus(status)]
+      <table className="ps-doc"><PrintHeader title={title} number={number} compact={blocks[0]?.kind === 'evidence'} form={schema.formNo} revision={report.formRevision ?? schema.revision} from={from} to={to} total={pageTotal || pages.length} subtitle={schema.kind === 'record' ? 'Filed document record' : 'Inspection & test record'} metadata={[
+        ['Form', schema.formNo], ['Job', v.jobNo], [schema.kind === 'record' ? 'Date filed' : 'Inspection date', printDate(v.inspDate)], ['Inspector', v.inspector]
       ]} /><PrintFooter number={number} form={schema.formNo} jobNo={v.jobNo} from={from} to={to} total={pageTotal || pages.length} />
         <tbody><tr><td className="ps-runcell ps-body">
-          {i === 0 && sectionNo != null && <div className="ps-tab"><span className="ps-tab-no">Section {sectionNo}</span><span className="ps-tab-title">{title}</span></div>}
+          {i === 0 && sectionNo != null && <div className="ps-cont-note">MDR · Section {sectionNo}</div>}
           {i > 0 && <div className="ps-cont-note">{blocks[0]?.kind === 'evidence' || blocks[0]?.kind === 'chart' ? 'Supporting evidence' : 'Report continuation'} · {number}</div>}
-          {blocks.map((block, k) => <section className={`ps-blk ps-${block.kind}`} key={k}><h2 className="ps-blk-head">{block.title}{block.from > 0 && ['results', 'recording', 'dft'].includes(block.kind) ? ` · continued from row ${block.from + 1}` : ''}</h2>
+          {blocks.map((block, k) => <section className={`ps-blk ps-${block.kind}`} key={k}>{block.title && <h2 className="ps-blk-head">{block.title}{block.from > 0 && ['results', 'recording', 'dft'].includes(block.kind) ? ` · continued from row ${block.from + 1}` : ''}</h2>}
             {block.kind === 'fields' ? <FieldRows rows={block.rows} />
               : block.kind === 'results' ? <ResultsTable section={block.section} report={report} v={v} from={block.from} to={block.to} />
                 : block.kind === 'recording' ? <RecordingTable report={report} v={v} from={block.from} to={block.to} />
                   : block.kind === 'dft' ? <DftTable report={report} from={block.from} to={block.to} />
                     : block.kind === 'signatures' ? <Signatures fields={block.section.fields} v={v} />
-                      : block.kind === 'statement' ? <p className="ps-statement-copy">{block.text}</p>
+                      : block.kind === 'verdict' ? <div className="ps-overall-result"><span>Overall result</span><strong>{block.text}</strong></div>
                         : block.kind === 'evidence' ? <Evidence block={block} />
                           : block.kind === 'chart' ? <><ChartSummary schema={schema} report={report} job={job} /><PressureChart report={report} /><Observations report={report} /></>
                             : <p className="ps-na">{block.text}</p>}

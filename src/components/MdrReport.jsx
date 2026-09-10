@@ -1,5 +1,5 @@
 import { COMPANY } from '../lib/company.js'
-import { useEffect, useRef, useState } from 'react'
+import { Fragment, useEffect, useRef, useState } from 'react'
 import { FORM_SCHEMAS } from '../data/formSchemas.js'
 import { requiredFor } from '../lib/jobOrders.js'
 import { fmtDate, buildContext, releasedAt } from '../lib/status.js'
@@ -7,6 +7,7 @@ import { reportResult } from '../lib/verdict.js'
 import { ReportSheets, reportSheetCount } from './PrintReport.jsx'
 import { useFitToPage, pageSpans, sameFit, oneEach, tighten, useSheetZoom } from '../lib/pagefit.js'
 import { PrintHeader, PrintFooter, PrintToolbar } from './PrintDocument.jsx'
+import MdrDivider from './MdrDivider.jsx'
 
 /* The Manufacturing Data Report.
 
@@ -19,23 +20,7 @@ import { PrintHeader, PrintFooter, PrintToolbar } from './PrintDocument.jsx'
 
 const reportDate = (r) => r.values?.inspDate || r.updatedAt || r.createdAt
 
-/* Where the declaration is made.
-
-   Every report used to print its own Statement of Result — a page
-   saying, in a formal voice, that this shop carried out that inspection
-   and hereby accepts the object. Bound into a data book that is nine of
-   them, one after another, about the same unit, on the same day, over
-   the same signature. A reader gets the declaration nine times and the
-   evidence once.
-
-   So the book can make it once instead, at the front, listing what was
-   carried out and declaring the unit on the strength of all of it. Both
-   are legitimate: a customer who takes delivery of the reports
-   separately needs each to stand alone, and one who takes the book
-   needs it to say something the loose pages cannot. The choice is made
-   when the book is compiled, because that is when it is known. */
-export default function MdrReport({ job, reports, session, onClose, statements = 'book' }) {
-  const oneStatement = statements === 'book'
+export default function MdrReport({ job, reports, session, onClose }) {
   const wrap = useRef(null)
   useEffect(() => {
     document.body.classList.add('printing')
@@ -47,9 +32,8 @@ export default function MdrReport({ job, reports, session, onClose, statements =
     }
   }, [onClose])
   const [fit, setFit] = useState(null)
-  // How many result rows each report can put on a sheet. A ten-column
-  // dimensional row wraps to twice the height of a six-column one, so this
-  // is learned per report rather than assumed.
+  // Result rows and paired dimensional points have different heights;
+  // the shared page planner adjusts each report to its measured content.
   const [rowFit, setRowFit] = useState({})
 
   const today = new Date()
@@ -64,34 +48,23 @@ export default function MdrReport({ job, reports, session, onClose, statements =
   const printable = reports.filter((r) => FORM_SCHEMAS[r.formKey])
   const omitted = reports.filter((r) => !FORM_SCHEMAS[r.formKey])
 
-  /* Paginate the book before drawing it. The front matter is three
-     sheets — cover, contents, register — and each report contributes its
-     own; the measured counts replace this assumption as soon as the
-     first layout pass reports back. */
-  const FRONT = oneStatement ? 5 : 4
-  const sheetsPer = printable.map((r) => reportSheetCount(FORM_SCHEMAS[r.formKey], r, rowFit[r.id], oneStatement, job))
-  const sheetTotal = FRONT + sheetsPer.reduce((a, b) => a + b, 0)
-  const { spans, total: totalPages } = pageSpans(
-    fit && fit.length === sheetTotal ? fit : oneEach(sheetTotal)
-  )
-  const REGISTER_PAGE = spans[2]?.[0] ?? 3
-  const DISPOSITION_PAGE = spans[3]?.[0] ?? 4
-  const STATEMENT_PAGE = spans[4]?.[0] ?? 5
-  // Section 1 is the register; the statement, when the book makes one,
-  // is Section 2 and the documents start after it.
-  const FIRST_DOC_SECTION = oneStatement ? 3 : 2
-
+  // Every section owns a divider as well as its content sheets. Keep
+  // both indices in the same plan so adding a divider cannot offset the
+  // report register or the page numbers printed inside the bound reports.
+  const FRONT = 7
+  const TOC = 2, REGISTER = 4, DISPOSITION = 6
+  const sheetsPer = printable.map((r) => reportSheetCount(FORM_SCHEMAS[r.formKey], r, rowFit[r.id], job))
+  const sheetTotal = FRONT + printable.length + sheetsPer.reduce((a, b) => a + b, 0)
+  const { spans, total: totalPages } = pageSpans(fit && fit.length === sheetTotal ? fit : oneEach(sheetTotal))
   let cursor = FRONT
   const items = printable.map((r, i) => {
-    const sheets = sheetsPer[i]
-    const at = cursor
-    cursor += sheets
-    return {
-      r, schema: FORM_SCHEMAS[r.formKey], sheets, at,
-      map: spans.slice(at, at + sheets),
-      page: spans[at]?.[0] ?? 0,
-      sectionNo: i + FIRST_DOC_SECTION,
-    }
+    const sheets = sheetsPer[i], dividerAt = cursor, at = cursor + 1
+    cursor += sheets + 1
+    const schema = FORM_SCHEMAS[r.formKey]
+    const title = schema.key === 'visual' && r.deliverable === 'PDI' ? 'Pre-Delivery Inspection Report' : schema.title
+    return { r, schema, title, sheets, at, dividerAt,
+      map: spans.slice(at, at + sheets), page: spans[at]?.[0] ?? 0,
+      dividerPage: spans[dividerAt]?.[0] ?? 0, sectionNo: i + 3 }
   })
 
   /* The contents page is only worth printing if its numbers are true, so
@@ -99,7 +72,7 @@ export default function MdrReport({ job, reports, session, onClose, statements =
      a report whose sheets would not fit is given fewer rows per sheet and
      measured again, rather than left to flow and be estimated. */
   useSheetZoom(wrap)
-  useFitToPage(wrap, [job.jobNo, reports.length, sheetTotal, statements, Object.values(rowFit).join(',')], (f) => {
+  useFitToPage(wrap, [job.jobNo, reports.length, sheetTotal, Object.values(rowFit).join(',')], (f) => {
     setFit((p) => (sameFit(p, f) ? p : f))
     if (f.length !== sheetTotal) return
     setRowFit((prev) => {
@@ -135,7 +108,8 @@ export default function MdrReport({ job, reports, session, onClose, statements =
     ? (dates.length > 1 ? `${fmtDate(dates[0])} — ${fmtDate(dates[dates.length - 1])}` : fmtDate(dates[0]))
     : '—'
 
-  const kop = <PrintHeader title="Manufacturing Data Report" number={mdrNo}
+  const kop = (sheetIndex) => <PrintHeader title="Manufacturing Data Report" number={mdrNo}
+    from={spans[sheetIndex]?.[0] ?? sheetIndex + 1} to={spans[sheetIndex]?.[1] ?? sheetIndex + 1} total={totalPages}
     subtitle={preview ? 'Preview — incomplete document set' : 'Final documentation package'} metadata={[
       ['Form', 'FM-QC-MDR'], ['Revision', '0'], ['Job', job.jobNo], ['Issue date', fmtDate(today.toISOString())]
     ]} />
@@ -143,6 +117,9 @@ export default function MdrReport({ job, reports, session, onClose, statements =
     const [from, to] = spans[sheetIndex] || [sheetIndex + 1, sheetIndex + 1]
     return <PrintFooter number={mdrNo} form="FM-QC-MDR Rev.0" jobNo={job.jobNo} from={from} to={to} total={totalPages} />
   }
+
+  const divider = (index, title) => <MdrDivider title={title} number={mdrNo} jobNo={job.jobNo}
+    from={spans[index]?.[0] ?? index + 1} to={spans[index]?.[1] ?? index + 1} total={totalPages} />
 
   const signRow = (
     <table className="ps-sign-table">
@@ -252,10 +229,11 @@ export default function MdrReport({ job, reports, session, onClose, statements =
         </div>
       </div>
 
+      {divider(TOC - 1, 'Table of Contents')}
       {/* ══════════ TABLE OF CONTENTS ══════════ */}
       <div className="print-sheet ps-sheet-break">
         <table className="ps-doc">
-          {kop}{foot(1)}
+          {kop(TOC)}{foot(TOC)}
           <tbody><tr><td className="ps-runcell ps-body">
             <table><tbody><tr><td className="ps-section-bar">Table of Contents</td></tr></tbody></table>
             <table className="ps-grid ps-toc">
@@ -276,44 +254,41 @@ export default function MdrReport({ job, reports, session, onClose, statements =
                   <td className="ps-left">{mdrNo}</td>
                   <td>{fmtDate(today.toISOString())}</td>
                   <td>—</td>
-                  <td>{REGISTER_PAGE}–{DISPOSITION_PAGE}</td>
+                  <td>{spans[REGISTER - 1]?.[0]}</td>
                 </tr>
-                {oneStatement && (
-                  <tr>
-                    <td>2</td>
-                    <td className="ps-left">Statement of Inspection</td>
-                    <td className="ps-left">{mdrNo}</td>
-                    <td>{fmtDate(today.toISOString())}</td>
-                    <td className={pass ? 'ps-result-acc' : 'ps-result-rej'}>{pass ? 'ACCEPT' : 'HOLD'}</td>
-                    <td>{STATEMENT_PAGE}</td>
-                  </tr>
-                )}
+                <tr>
+                  <td>2</td><td className="ps-left">Disposition &amp; Approvals</td>
+                  <td className="ps-left">{mdrNo}</td><td>{fmtDate(today.toISOString())}</td>
+                  <td className={pass ? 'ps-result-acc' : 'ps-result-rej'}>{pass ? 'ACCEPT' : 'HOLD'}</td>
+                  <td>{spans[DISPOSITION - 1]?.[0]}</td>
+                </tr>
                 {items.map((it) => {
                   const res = reportResult(it.r)
                   return (
                     <tr key={it.r.id}>
                       <td>{it.sectionNo}</td>
-                      <td className="ps-left">{it.schema?.title || it.r.formKey}</td>
+                      <td className="ps-left">{it.title}</td>
                       <td className="ps-left">{it.r.reportId}</td>
                       <td>{fmtDate(reportDate(it.r))}</td>
                       <td className={res === 'Accept' ? 'ps-result-acc' : 'ps-result-rej'}>{res.toUpperCase()}</td>
-                      <td>{it.page}</td>
+                      <td>{it.dividerPage}</td>
                     </tr>
                   )
                 })}
               </tbody>
             </table>
             <div className="ps-toc-note">
-              Each section begins on a new page. Page numbers refer to the pagination of this data report.
+              Page references point to each section divider. The named document begins on the following page.
             </div>
           </td></tr></tbody>
         </table>
       </div>
 
+      {divider(REGISTER - 1, 'Document Control & Inspection Register')}
       {/* ══════════ SECTION 1 — document control & register ══════════ */}
       <div className="print-sheet ps-sheet-break">
         <table className="ps-doc">
-          {kop}{foot(2)}
+          {kop(REGISTER)}{foot(REGISTER)}
           <tbody><tr><td className="ps-runcell ps-body">
             <div className="ps-tab">
               <span className="ps-tab-no">Section 1</span>
@@ -364,7 +339,7 @@ export default function MdrReport({ job, reports, session, onClose, statements =
                       <tr key={it.r.id}>
                         <td>{i + 1}</td>
                         <td className="ps-left">{it.r.reportId}</td>
-                        <td className="ps-left">{it.schema?.title || it.r.formKey}</td>
+                        <td className="ps-left">{it.title}</td>
                         <td>{fmtDate(reportDate(it.r))}</td>
                         <td>{it.r.inspector}</td>
                         <td className={res === 'Accept' ? 'ps-result-acc' : 'ps-result-rej'}>{res.toUpperCase()}</td>
@@ -401,13 +376,14 @@ export default function MdrReport({ job, reports, session, onClose, statements =
         </table>
       </div>
 
+      {divider(DISPOSITION - 1, 'Disposition & Approvals')}
       <div className="print-sheet ps-sheet-break">
         <table className="ps-doc">
-          {kop}{foot(3)}
+          {kop(DISPOSITION)}{foot(DISPOSITION)}
           <tbody><tr><td className="ps-runcell ps-body">
-            <div className="ps-tab"><span className="ps-tab-no">Section 1</span><span className="ps-tab-title">Disposition &amp; Approvals</span></div>
+            <div className="ps-tab"><span className="ps-tab-no">Section 2</span><span className="ps-tab-title">Disposition &amp; Approvals</span></div>
             <div className="ps-mt-4">
-              <table><tbody><tr><td className="ps-section-bar">1.3 · Disposition</td></tr></tbody></table>
+              <table><tbody><tr><td className="ps-section-bar">2.1 · Disposition</td></tr></tbody></table>
               <table>
                 <tbody>
                   <tr>
@@ -420,7 +396,7 @@ export default function MdrReport({ job, reports, session, onClose, statements =
                   {!pass && (
                     <tr>
                       <td className="ps-hold-list">
-                        Non-conforming results are recorded in: {rejected.map((it) => `${it.schema?.title} (${it.r.reportId}, Section ${it.sectionNo})`).join('; ')}.
+                        Non-conforming results are recorded in: {rejected.map((it) => `${it.title} (${it.r.reportId}, Section ${it.sectionNo})`).join('; ')}.
                         Reference is made to the associated Non-Conformance Reports for disposition and corrective action.
                       </td>
                     </tr>
@@ -430,112 +406,20 @@ export default function MdrReport({ job, reports, session, onClose, statements =
             </div>
 
             <div className="ps-mt-4">
-              <table><tbody><tr><td className="ps-section-bar">1.4 · Certification &amp; Approvals</td></tr></tbody></table>
+              <table><tbody><tr><td className="ps-section-bar">2.2 · Certification &amp; Approvals</td></tr></tbody></table>
               {signRow}
             </div>
           </td></tr></tbody>
         </table>
       </div>
 
-      {/* ══════════ SECTION 2 — the one statement ══════════
-
-          Made once, for the unit, on the strength of everything bound
-          behind it — rather than nine times, once per report, about the
-          same object over the same signature on the same day. */}
-      {oneStatement && (
-        <div className="print-sheet ps-sheet-break">
-          <table className="ps-doc">
-            {kop}{foot(4)}
-            <tbody><tr><td className="ps-runcell ps-body">
-              <div className="ps-tab">
-                <span className="ps-tab-no">Section 2</span>
-                <span className="ps-tab-title">Statement of Inspection</span>
-              </div>
-
-              <div className="ps-letter">
-                <div className="ps-letter-title">Statement of Inspection</div>
-                <div className="ps-letter-meta">{mdrNo} · Revision 0</div>
-
-                <p>
-                  {COMPANY.legalName} ({COMPANY.department}) states that the inspections and tests
-                  listed below were carried out on the product identified as follows, and that the
-                  signed records of each are reproduced in full in this data report.
-                </p>
-
-                <table className="ps-letter-id"><tbody>
-                  <tr><td>Job No.</td><td>: {job.jobNo}{job.wbsNo ? `  (WBS ${job.wbsNo})` : ''}</td></tr>
-                  <tr><td>Product</td><td>: {job.productDesc}</td></tr>
-                  <tr><td>Serial No.</td><td>: {job.arasSN || job.unitNo || '—'}</td></tr>
-                  <tr><td>Customer</td><td>: {job.customerName}{job.poNo ? `  (PO ${job.poNo})` : ''}</td></tr>
-                  <tr><td>Period</td><td>: {span}</td></tr>
-                </tbody></table>
-
-                {/* What was actually done — the list the statement is
-                    made on, so the declaration below is checkable
-                    against it without turning a page. */}
-                <table className="ps-grid ps-mt-3">
-                  <thead><tr>
-                    <th style={{ width: '10mm' }}>No</th>
-                    <th className="ps-left">Inspection carried out</th>
-                    <th style={{ width: '44mm' }}>Record No.</th>
-                    <th style={{ width: '24mm' }}>Date</th>
-                    <th style={{ width: '20mm' }}>Result</th>
-                  </tr></thead>
-                  <tbody>
-                    {items.map((it, i) => {
-                      const res = reportResult(it.r)
-                      return (
-                        <tr key={it.r.id}>
-                          <td>{i + 1}</td>
-                          <td className="ps-left">{it.schema?.title || it.r.formKey}</td>
-                          <td className="ps-left ps-refno">{it.r.reportId}</td>
-                          <td>{fmtDate(reportDate(it.r))}</td>
-                          <td className={res === 'Accept' ? 'ps-result-acc' : 'ps-result-rej'}>{res.toUpperCase()}</td>
-                        </tr>
-                      )
-                    })}
-                  </tbody>
-                </table>
-
-                <p className="ps-mt-3">
-                  On the results recorded above, the unit identified in this statement is declared{' '}
-                  <strong className={pass ? 'ps-result-acc' : 'ps-result-rej'}>
-                    {pass ? 'ACCEPTED' : 'ON HOLD'}
-                  </strong>
-                  {pass
-                    ? ' and released for shipment in accordance with the applicable requirements.'
-                    : ' pending closure of the non-conformances recorded against it.'}
-                </p>
-
-                {!pass && (
-                  <p>
-                    Non-conforming results are recorded in{' '}
-                    {rejected.map((it) => `${it.schema?.title} (${it.r.reportId}, Section ${it.sectionNo})`).join('; ')}.
-                    Reference is made to the associated Non-Conformance Reports for disposition and
-                    corrective action.
-                  </p>
-                )}
-
-                <p className="ps-letter-close">
-                  This statement is issued by and on behalf of {COMPANY.legalName}, and is made
-                  truthfully to be used as required. It covers every document bound in this data
-                  report; the individual records carry no separate statement of result.
-                </p>
-
-                {signRow}
-              </div>
-            </td></tr></tbody>
-          </table>
-        </div>
-      )}
-
       {/* ══════════ the reports, in full ══════════ */}
-      {items.map((it) => (
-        <ReportSheets key={it.r.id} schema={it.schema} report={it.r} job={job}
+      {items.map((it) => <Fragment key={it.r.id}>
+        {divider(it.dividerAt, it.title)}
+        <ReportSheets schema={it.schema} report={it.r} job={job}
           deliverable={it.r.deliverable} status={it.r.status} rowFit={rowFit[it.r.id]}
-          pageMap={it.map} pageTotal={totalPages} sectionNo={it.sectionNo} breakFirst
-          noStatement={oneStatement} />
-      ))}
+          pageMap={it.map} pageTotal={totalPages} sectionNo={it.sectionNo} breakFirst />
+      </Fragment>)}
       </div>
     </div>
   )

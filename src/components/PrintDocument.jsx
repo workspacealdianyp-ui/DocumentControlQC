@@ -1,15 +1,23 @@
+import { Fragment } from 'react'
 import { COMPANY } from '../lib/company.js'
 import { IconPrint } from './Icons.jsx'
 
-export function PrintHeader({ title, number, metadata, subtitle = 'Inspection & test record', compact = false }) {
+export function PrintHeader({ title, number, metadata, form, revision, from, to = from, total, subtitle = 'Inspection & test record', compact = false }) {
+  const controls = [['Form no.', form || metadata.find(([label]) => label === 'Form')?.[1]], ['Revision', revision ?? metadata.find(([label]) => label === 'Revision')?.[1]], ['Page', from === to ? `${from} of ${total}` : `${from}–${to} of ${total}`]]
+  const details = metadata.filter(([label]) => !['Form', 'Revision', 'Status'].includes(label))
   return <thead><tr><td className="ps-runcell">
     <div className={`ps-letterhead${compact ? ' is-attachment' : ''}`}>
       <table className="ps-brand"><tbody><tr>
         <td className="ps-brand-mark"><span className="ps-logo">{COMPANY.short}</span></td>
-        <td><div className="ps-co-name">{COMPANY.legalName}</div><div className="ps-co-sub">{COMPANY.department || 'QA / QC Department'} · {subtitle}</div></td>
+        <td className="ps-brand-company"><div className="ps-co-name">{COMPANY.legalName}</div><div className="ps-co-sub">{COMPANY.department || 'QA / QC Department'}</div></td>
+        <td className="ps-form-control"><table><tbody>{controls.map(([label, value]) => <tr key={label}><th scope="row">{label}</th><td>{value ?? '—'}</td></tr>)}</tbody></table></td>
       </tr></tbody></table>
-      <div className="ps-title-line"><h1>{title}</h1><div className="ps-number"><span>Document no.</span><strong>{number || '—'}</strong></div></div>
-      <table className="ps-control"><tbody><tr>{metadata.map(([label, value]) => <td key={label}><span>{label}</span><strong>{value || '—'}</strong></td>)}</tr></tbody></table>
+      <div className="ps-title-line"><h1>{title}</h1></div>
+      <table className="ps-control" aria-label={subtitle}><colgroup><col style={{ width: '26mm' }} /><col style={{ width: '69mm' }} /><col style={{ width: '26mm' }} /><col style={{ width: '69mm' }} /></colgroup><tbody>
+        {Array.from({ length: Math.ceil((details.length + 1) / 2) }, (_, i) => [['Report no.', number], ...details].slice(i * 2, i * 2 + 2)).map((row, i) => <tr key={i}>{row.map(([label, value]) => <Fragment key={label}>
+          <th scope="row">{label}</th><td className={label === 'Report no.' ? 'ps-number' : ''} colSpan={row.length === 1 ? 3 : 1}><strong>{value ?? '—'}</strong></td>
+        </Fragment>)}</tr>)}
+      </tbody></table>
     </div>
   </td></tr></thead>
 }

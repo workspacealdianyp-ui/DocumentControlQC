@@ -2,6 +2,7 @@ import React from 'react'
 import { describe, expect, it } from 'vitest'
 import { renderToStaticMarkup } from 'react-dom/server'
 import { FORM_SCHEMAS } from '../../src/data/formSchemas.js'
+import { seedReports } from '../../src/data/seedReports.js'
 import { ReportSheets, reportSheetCount } from '../../src/components/PrintReport.jsx'
 import MdrReport from '../../src/components/MdrReport.jsx'
 import { reportPlan, printValue } from '../../src/lib/printLayout.js'
@@ -13,7 +14,7 @@ const doc = (key, report, props = {}) => new DOMParser().parseFromString(renderT
 it.each(Object.keys(FORM_SCHEMAS))('%s uses the same document identity and exact planned sheet count', (key) => {
   const report = record(key)
   const output = doc(key, report)
-  const count = reportSheetCount(FORM_SCHEMAS[key], report, 1, false, job)
+  const count = reportSheetCount(FORM_SCHEMAS[key], report, 1, job)
   expect(output.querySelectorAll('.print-sheet')).toHaveLength(count)
   expect(output.querySelectorAll('.ps-letterhead')).toHaveLength(count)
   expect(output.querySelectorAll('.ps-footer')).toHaveLength(count)
@@ -22,7 +23,7 @@ it.each(Object.keys(FORM_SCHEMAS))('%s uses the same document identity and exact
 })
 
 it('points MDR contents to the actual report starts in the bound document', () => {
-  const reports = [record('visual'), record('itp', { photos: [{ img: 'data:image/png;base64,AA==', label: 'Signed page' }] })]
+  const reports = [record('visual', { deliverable: 'PDI' }), record('itp', { photos: [{ img: 'data:image/png;base64,AA==', label: 'Signed page' }] })]
   const html = renderToStaticMarkup(<MdrReport job={job} reports={reports} session={{ name: 'QA compiler' }} onClose={() => {}} />)
   const output = new DOMParser().parseFromString(html, 'text/html')
   const sheets = [...output.querySelectorAll('.print-sheet')]
@@ -32,9 +33,104 @@ it('points MDR contents to the actual report starts in the bound document', () =
     const cells = entry.querySelectorAll('td')
     const number = cells[2].textContent
     const first = sheets.findIndex((sheet) => sheet.querySelector('.ps-number strong')?.textContent === number)
-    expect(Number(cells[5].textContent)).toBe(first + 1)
+    expect(Number(cells[5].textContent)).toBe(first)
+    expect(sheets[first - 1].classList.contains('ps-divider-sheet')).toBe(true)
+    expect(sheets[first - 1].querySelector('h1').textContent).toBe(sheets[first].querySelector('h1').textContent)
+    expect(cells[1].textContent).toBe(sheets[first].querySelector('h1').textContent)
   }
   expect(sheets.at(-1).querySelector('.ps-footer').textContent).toContain(`of ${sheets.length}`)
+  sheets.slice(1).forEach((sheet, i) => {
+    expect(sheet.querySelector('.ps-footer').textContent).toContain(`Page ${i + 2} of ${sheets.length}`)
+    const control = sheet.querySelector('.ps-form-control tr:last-child td')
+    if (control) expect(control.textContent).toBe(`${i + 2} of ${sheets.length}`)
+  })
+  expect(output.querySelectorAll('.ps-divider-sheet')).toHaveLength(reports.length + 3)
+  expect(output.body.textContent).not.toContain('Statement of Inspection')
+})
+
+
+it.each([false, true])('retains MDR completeness warnings across dividers (incomplete: %s)', (incomplete) => {
+  const reports = [record('visual', { deliverable: 'PDI' })]
+  const requiredJob = { ...job, required: incomplete ? ['PDI', 'ITP'] : ['PDI'] }
+  const html = renderToStaticMarkup(<MdrReport job={requiredJob} reports={reports} session={{ name: 'QA compiler' }} onClose={() => {}} />)
+  const output = new DOMParser().parseFromString(html, 'text/html')
+  const preview = output.querySelector('.print-scaler.is-preview')
+  expect(Boolean(preview)).toBe(incomplete)
+  if (incomplete) {
+    expect(preview.querySelectorAll('.print-sheet')).toHaveLength(output.querySelectorAll('.print-sheet').length)
+    expect(preview.querySelectorAll('.ps-divider-sheet')).toHaveLength(4)
+    expect(output.querySelector('.ps-cover-verdict').textContent).toContain('PREVIEW — NOT FOR ISSUE')
+    expect(output.querySelector('.ps-cover-missing').textContent).toContain('ITP')
+    expect(output.querySelector('.ps-cover-verdict').textContent).not.toContain('RELEASED FOR SHIPMENT')
+  } else {
+    expect(output.querySelector('.ps-cover-verdict').textContent).toContain('RELEASED FOR SHIPMENT')
+    expect(output.querySelector('.ps-cover-missing')).toBeNull()
+  }
+})
+
+describe('compact controlled forms', () => {
+  it('uses three form-control lines and the same page numbers as the footer', () => {
+    const report = record('visual', { formRevision: 0 })
+    const output = doc('visual', report, { pageMap: [[12, 12]], pageTotal: 20 })
+    const controls = [...output.querySelectorAll('.ps-form-control tr')].slice(0, 3)
+    expect(controls.map((row) => row.querySelector('th').textContent)).toEqual(['Form no.', 'Revision', 'Page'])
+    expect(controls.map((row) => row.querySelector('td').textContent)).toEqual([FORM_SCHEMAS.visual.formNo, '0', '12 of 20'])
+    expect(output.querySelector('.ps-footer').textContent).toContain('Page 12 of 20')
+  })
+
+  it('keeps the attached document revision separate from the form revision', () => {
+    const output = doc('itp', record('itp', { values: { rev: 'C' } }))
+    expect(output.querySelector('.ps-form-control tr:nth-child(2) td').textContent).toBe('—')
+    expect([...output.querySelectorAll('.ps-facts .ps-c-value')].map((cell) => cell.textContent)).toContain('C')
+  })
+
+  it.each(['hydrotest', 'blasting', 'mt', 'pt', 'ut', 'visual', 'dimensional'])('%s keeps details before results and finishes with a concise decision', (key) => {
+    const report = seedReports().find((r) => r.formKey === key && r.status === 'approved')
+    const blocks = reportPlan(FORM_SCHEMAS[key], report, job).flat()
+    const at = blocks.findIndex((block) => ['results', 'recording', 'dft'].includes(block.kind))
+    expect(at).toBeGreaterThanOrEqual(0)
+    const support = blocks.findLastIndex((block) => ['equipment', 'instrument', 'calibration', 'equip', 'coating', 'lighting'].includes(block.id))
+    if (support >= 0) expect(support).toBeLessThan(at)
+    const lastResult = blocks.findLastIndex((block) => ['results', 'recording', 'dft'].includes(block.kind))
+    const verdict = blocks.findIndex((block) => block.kind === 'verdict')
+    expect(verdict).toBeGreaterThan(lastResult)
+    expect(blocks.findIndex((block) => block.kind === 'signatures')).toBeGreaterThan(verdict)
+    expect(blocks.some((block) => block.kind === 'statement')).toBe(false)
+    const pages = reportPlan(FORM_SCHEMAS[key], report, job)
+    const decisionPage = pages.findIndex((page) => page.some((b) => b.kind === 'verdict'))
+    const signaturePage = pages.findIndex((page) => page.some((b) => b.kind === 'signatures'))
+    expect(signaturePage).toBe(decisionPage)
+  })
+
+  it('tables report number, inspector and job without a lifecycle status column', () => {
+    const report = record('mt')
+    const output = doc('mt', report)
+    const table = output.querySelector('.ps-control')
+    expect([...table.querySelectorAll('th')].map((cell) => cell.textContent)).toEqual(['Report no.', 'Job', 'Inspection date', 'Inspector'])
+    expect(table.textContent).toContain(report.reportId)
+    expect(table.textContent).toContain(job.jobNo)
+    expect(table.textContent).toContain(report.inspector)
+    expect(table.textContent).not.toContain('Status')
+    expect(output.body.textContent).not.toContain('Statement of result')
+  })
+
+  it('does not invent acceptance for an empty result grid', () => {
+    const output = doc('dimensional', record('dimensional'))
+    expect(output.querySelector('.ps-overall-result').textContent).toContain('Not recorded')
+  })
+
+  it('keeps an odd number of dimensional points in order across paired continuation tables', () => {
+    const results = Array.from({ length: 41 }, (_, i) => ({ itemNo: `D-${i + 1}`, description: `Checking point ${i + 1}`, nominal: 10, min: 9, max: 11, actual: i === 40 ? 12 : 10, note: i === 40 ? 'OUTSIDE-UPPER-LIMIT' : '' }))
+    const output = doc('dimensional', record('dimensional', { results }))
+    const ids = [...output.querySelectorAll('.ps-dim-grid tbody td.ps-left > strong')].map((node) => node.textContent)
+    expect(ids).toEqual(results.map((row) => row.itemNo))
+    expect(output.querySelectorAll('.ps-dim-empty')).toHaveLength(1)
+    expect(output.querySelectorAll('.ps-dim-grid')).not.toHaveLength(1)
+    const last = [...output.querySelectorAll('.ps-dim-grid tbody tr')].at(-1)
+    expect(last.textContent).toContain('OUTSIDE-UPPER-LIMIT')
+    expect(last.textContent).toContain('Δ 2.00')
+    expect(last.textContent).toContain('Reject')
+  })
 })
 
 describe('evidence survives the layout', () => {
@@ -42,7 +138,12 @@ describe('evidence survives the layout', () => {
     const report = record('mt', { values: { materialSpec: 'ASTM A36', ndeMap: [1,2,3].map((n) => ({ img: `data:image/png;base64,MAP${n}`, label: `DRAWING-${n}` })) } })
     const output = doc('mt', report)
     expect(output.body.textContent).toContain('ASTM A36')
-    expect([...output.querySelectorAll('.ps-evidence-full img')].map((img) => img.getAttribute('src'))).toEqual(['data:image/png;base64,MAP1','data:image/png;base64,MAP2','data:image/png;base64,MAP3'])
+    expect([...output.querySelectorAll('.ps-evidence-map img')].map((img) => img.getAttribute('src'))).toEqual(['data:image/png;base64,MAP1','data:image/png;base64,MAP2','data:image/png;base64,MAP3'])
+    const blocks = reportPlan(FORM_SCHEMAS.mt, report, job).flat()
+    const equipment = blocks.findLastIndex((b) => b.id === 'equipment')
+    const maps = blocks.map((b, i) => b.map ? i : -1).filter((i) => i >= 0)
+    expect(maps.every((i) => i > equipment)).toBe(true)
+    expect(Math.max(...maps)).toBeLessThan(blocks.findIndex((b) => b.kind === 'results'))
   })
 
   it('keeps all rows of a long report once each, with repeated table headings', () => {
@@ -82,7 +183,8 @@ describe('evidence survives the layout', () => {
   it.each(['submitted','returned','voided'])('prints the actual %s lifecycle without calling it final', (status) => {
     const output = doc('visual', record('visual', { status }))
     const expected = { submitted: 'Awaiting QA', returned: 'Sent back', voided: 'Voided' }[status]
-    expect(output.querySelector('.ps-control').textContent).toContain(expected)
+    expect(output.querySelector('.ps-control').textContent).not.toContain(expected)
+    if (status !== 'submitted') expect(output.querySelector('.ps-watermark').textContent).toBe(expected)
     expect(output.querySelector('.ps-control').textContent).not.toContain('FINAL')
   })
 
