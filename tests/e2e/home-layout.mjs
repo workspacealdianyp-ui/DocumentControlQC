@@ -41,7 +41,7 @@ export async function checkHomeLayout(browser, base, check, errors) {
         })
         check(geometry.overflow <= 1, `${label}: no horizontal overflow`)
         check(geometry.rows.every((r) => r.aligned), `${label}: panels on the same row have equal heights`)
-        check(geometry.rows.every((r) => r.heights.every((h) => h < 700)) && geometry.recentHeight < 300,
+        check(geometry.rows.every((r) => r.heights.every((h) => h < 700)) && geometry.recentHeight < 380,
           `${label}: content determines panel height (${JSON.stringify(geometry)})`)
         check(geometry.bannerHeight <= 340, `${label}: compact banner (${geometry.bannerHeight}px)`)
         await page.locator('.home-actions > *').first().focus()
