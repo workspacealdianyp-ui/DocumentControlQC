@@ -1,5 +1,7 @@
 # DocumentControlQC — Home screen design
 
+> **11 September 2026 update:** The current banner and account-specific layout are specified in [Home by account](docs/HOME_BY_ACCOUNT.md). That document supersedes the older layout and verification notes below.
+
 **Direction:** QC Workbench  
 **Status:** Implemented for review; browser and visual acceptance checks remain pending.
 

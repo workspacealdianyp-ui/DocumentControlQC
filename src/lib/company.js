@@ -7,4 +7,5 @@ export const COMPANY = {
   short: 'MFG',                     // logo chip + report number prefix
   department: 'QA/QC Department',
   tagline: 'QC Inspection Monitor',
+  sharepointUrl: '',                // HTTPS team resource; unavailable until configured
 }

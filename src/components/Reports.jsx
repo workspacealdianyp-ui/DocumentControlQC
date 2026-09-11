@@ -11,6 +11,7 @@ import { StateBadge } from './StatusChip.jsx'
 import { IconTrash, IconDownload, IconCloudUp, IconCloudOff, IconFilter, IconGroup, IconApprove, IconXCircle } from './Icons.jsx'
 import { SearchField, ToolButton, PopCheck, PopRadio, PopFooter } from './RegisterBar.jsx'
 import { downloadCsv, stampToday } from '../lib/csv.js'
+import { scopeReports, sortWork, sortReview } from '../lib/reportScope.js'
 
 /* One register, not two.
 
@@ -120,8 +121,16 @@ export default function Reports({ query }) {
   // The report a destructive action is being asked about, or null.
   const [ask, setAsk] = useState(null)
 
-  const all = useMemo(() => getReports(), [tick])
-  const ncrs = useMemo(() => ncrReports(), [tick])
+  const records = useMemo(() => getReports(), [tick])
+  const all = useMemo(() => scopeReports(records, query?.scope, session, role, query?.author), [records, query?.scope, query?.author, session, role])
+  const ncrs = useMemo(() => scopeReports(ncrReports(records), query?.scope, session, role, query?.author), [records, query?.scope, query?.author, session, role])
+  const scopeLabel = query?.scope === 'review' ? 'Reports you can review'
+    : query?.scope === 'work' ? 'Your returned reports and drafts'
+      : query?.scope === 'mine' ? 'Your reports'
+        : query?.author ? `Reports by ${query.author}` : query?.scope === 'unfinished' ? 'Unfinished reports' : ''
+  const defaultOrderLabel = query?.scope === 'review' ? 'Oldest submission first'
+    : query?.scope === 'work' ? 'Returned first, then latest drafts' : 'Newest first'
+  useEffect(() => { setQ(''); setForms(new Set()); setGroup(query?.scope ? 'none' : 'form'); setLimit(PAGE); setOrder('new') }, [query?.scope, query?.author])
 
   const ql = q.trim().toLowerCase()
   const matchQ = (r) => !ql || `${r.reportId} ${r.jobNo} ${r.inspector} ${FORM_SCHEMAS[r.formKey]?.title}`.toLowerCase().includes(ql)
@@ -152,7 +161,8 @@ export default function Reports({ query }) {
   const matched = scoped
     .filter((r) => !forms.size || forms.has(r.formKey))
     .slice()
-    .sort(ORDERS.find((o) => o.id === order)?.of)
+    .sort(order === 'new' && query?.scope === 'review' ? sortReview
+      : order === 'new' && query?.scope === 'work' ? sortWork : ORDERS.find((o) => o.id === order)?.of)
   const shown = matched.slice(0, limit)
 
   // Anything that changes what is being listed starts the count again,
@@ -205,6 +215,7 @@ export default function Reports({ query }) {
 
   return (
     <div className="page">
+      {scopeLabel && <section className="page-bar" aria-label="Report scope"><strong>{scopeLabel}</strong><a className="btn btn-secondary btn-sm" href="#/reports?f=all">All reports</a></section>}
       <div className="page-bar">
         <div className="mon-tabs" role="tablist" aria-label="Report status">
           {TABS.map((t) => (
@@ -249,7 +260,7 @@ export default function Reports({ query }) {
                 ))}
                 <div className="rb-pop-legend">Order</div>
                 {ORDERS.map((o) => (
-                  <PopRadio key={o.id} label={o.label} on={order === o.id} onChange={() => setOrder(o.id)} />
+                  <PopRadio key={o.id} label={o.id === 'new' ? defaultOrderLabel : o.label} on={order === o.id} onChange={() => setOrder(o.id)} />
                 ))}
               </>
             )}
