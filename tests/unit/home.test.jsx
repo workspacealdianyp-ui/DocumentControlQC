@@ -11,13 +11,15 @@ vi.mock('../../src/lib/sticky.js', () => ({ useStuck: () => [{ current: null }, 
 import Home from '../../src/components/Home.jsx'
 import JobsPage from '../../src/components/JobsPage.jsx'
 import ReportLauncher from '../../src/components/ReportLauncher.jsx'
+import Reports from '../../src/components/Reports.jsx'
 
 const unit = (jobNo, required) => ({ jobNo, required, deliverables: {}, productDesc: 'Water truck', customerName: 'Customer A', dateTarget: '2099-12-01' })
 const record = (id, status, extra = {}) => ({ id, reportId: `DIM/A/${id}`, jobNo: 'A', formKey: 'dimensional', deliverable: 'Dimension Report', inspector: 'Inspector One', values: {}, status, updatedAt: '2026-09-08T10:00:00Z', ...extra })
 const seed = (records) => localStorage.setItem('qc.reports', JSON.stringify(records))
 function setup(role = 'inspector', records = []) {
   model.jobs = [unit('A', ['PDI', 'Dimension Report']), unit('B', ['Pre-Shipment'])]
-  model.context = { jobs: model.jobs, role: ROLES[role], session: { name: role === 'admin' ? 'QA Lead' : 'Inspector One', role }, tick: 0, notify: vi.fn(), refresh: vi.fn() }
+  const names = { admin: 'QA Lead', engineer: 'Quality Engineer', supervisor: 'QC Supervisor', viewer: 'Management Viewer', inspector: 'Inspector One' }
+  model.context = { jobs: model.jobs, role: ROLES[role], session: { name: names[role], role }, tick: 0, notify: vi.fn(), refresh: vi.fn() }
   localStorage.setItem('qc.seeded.v3', '1')
   localStorage.setItem('qc.storeVersion', '4')
   localStorage.setItem('qc.seedStamp', 'home-test')
@@ -39,7 +41,8 @@ describe('Home working surface', () => {
     render(<Home />)
     expect(screen.queryByRole('button', { name: 'New report' })).toBeNull()
     expect(screen.queryByText('Report shortcuts')).toBeNull()
-    expect(screen.getByRole('heading', { name: 'Overview' })).toBeTruthy()
+    expect(screen.getByRole('heading', { name: 'Job overview' })).toBeTruthy()
+    expect(screen.getByRole('heading', { name: 'Approved reports' })).toBeTruthy()
     expect(screen.getAllByRole('link', { name: 'View reports', exact: true }).length).toBeGreaterThan(0)
   })
 
@@ -56,7 +59,7 @@ describe('Home working surface', () => {
     render(<Home />)
     expect(screen.getByText(/Submitted by you/)).toBeTruthy()
     expect(screen.queryByRole('button', { name: 'Approve', exact: true })).toBeNull()
-    expect(screen.getByRole('link', { name: 'Review reports', exact: true }).getAttribute('href')).toBe('#/reports?f=submitted')
+    expect(screen.getByRole('link', { name: 'Review reports', exact: true }).getAttribute('href')).toBe('#/reports?f=submitted&scope=review')
   })
 
   it('shows a read failure instead of fabricated zero readings', () => {
@@ -69,6 +72,7 @@ describe('Home working surface', () => {
   })
 
   it('treats no applicable scope as a missing denominator', () => {
+    setup('viewer')
     model.jobs = [unit('A', [])]; model.context.jobs = model.jobs
     render(<Home />)
     expect(screen.getByText('No required deliverables')).toBeTruthy()
@@ -79,8 +83,8 @@ describe('Home working surface', () => {
     seed([record('01', 'returned'), record('02', 'voided')])
     render(<Home />)
     const recent = screen.getByRole('region', { name: 'Recent updates' })
-    expect(within(recent).getByText('Sent back')).toBeTruthy()
-    expect(within(recent).getByText('Voided')).toBeTruthy()
+    expect(within(recent).getByText(/Sent back/)).toBeTruthy()
+    expect(within(recent).getByText(/Voided/)).toBeTruthy()
     expect(within(recent).queryByText('Draft')).toBeNull()
   })
 
@@ -103,6 +107,56 @@ describe('Home working surface', () => {
     render(<JobsPage resetView state="inprogress,overdue,notstarted" />)
     expect(screen.getByRole('searchbox').value).toBe('')
     expect(screen.queryByText(/No job matches/)).toBeNull()
+  })
+
+  it.each(['engineer', 'supervisor'])('scopes the %s review queue to its actual approval authority', (role) => {
+    setup(role, [record('tech', 'submitted'), record('peer', 'submitted', { inspector: role === 'engineer' ? 'QC Supervisor' : 'Quality Engineer' }), record('head', 'submitted', { inspector: 'QA Lead' })])
+    render(<Home />)
+    const queue = screen.getByRole('region', { name: role === 'engineer' ? 'Your review queue' : 'QC review queue' })
+    expect(within(queue).getAllByRole('link', { name: /Open report/ }).map((a) => a.getAttribute('aria-label'))).toEqual(['Open report DIM/A/tech'])
+    expect(screen.getByRole('link', { name: /For your review/ }).textContent).toContain('1')
+  })
+
+  it('caps the personal queue at five and links to the same scoped register', () => {
+    seed(Array.from({ length: 8 }, (_, i) => record(String(i), 'draft')))
+    render(<Home />)
+    const queue = screen.getByRole('region', { name: 'Your work' })
+    expect(within(queue).getAllByRole('link', { name: /Open report/ })).toHaveLength(5)
+    expect(within(queue).getByRole('link', { name: 'View all your work' }).getAttribute('href')).toBe('#/reports?f=all&scope=work')
+  })
+
+  it('tracks only the inspector’s submitted and approved reports', () => {
+    seed([record('mine', 'submitted'), record('approved', 'approved'), record('other', 'submitted', { inspector: 'Inspector Two' })])
+    render(<Home />)
+    const tracking = screen.getByRole('region', { name: 'Your submitted reports' })
+    expect(within(tracking).getAllByRole('link', { name: /Open report/ }).map((a) => a.getAttribute('aria-label'))).toEqual(['Open report DIM/A/mine'])
+    fireEvent.click(within(tracking).getByRole('button', { name: 'Approved' }))
+    expect(within(tracking).getByRole('link', { name: 'Open report DIM/A/approved' })).toBeTruthy()
+  })
+
+  it('gives Head document readiness and Supervisor inspector workload', () => {
+    setup('admin'); const view = render(<Home />)
+    expect(screen.getByRole('heading', { name: 'Document readiness' })).toBeTruthy()
+    expect(screen.getByRole('heading', { name: 'Inspector documents' })).toBeTruthy()
+    setup('supervisor'); view.rerender(<Home />)
+    expect(screen.queryByRole('heading', { name: 'Document readiness' })).toBeNull()
+    expect(screen.getByRole('heading', { name: 'Inspector documents' })).toBeTruthy()
+  })
+
+  it('keeps personal report counts and CSV scope aligned at the destination', () => {
+    seed([record('mine', 'returned'), record('other', 'returned', { inspector: 'Inspector Two' }), record('done', 'approved')])
+    render(<Reports query={{ f: 'all', scope: 'work' }} />)
+    expect(screen.getByRole('region', { name: 'Report scope' }).textContent).toContain('Your returned reports and drafts')
+    expect(screen.getByRole('tab', { name: /^All/ }).textContent).toBe('All1')
+    expect(screen.getByRole('button', { name: /DIM\/A\/mine/ })).toBeTruthy()
+    expect(screen.queryByRole('button', { name: /DIM\/A\/other/ })).toBeNull()
+  })
+
+  it('preserves review eligibility and submission order in the full register', () => {
+    setup('engineer', [record('late', 'submitted', { submittedAt: '2026-09-09T00:00:00Z' }), record('old', 'submitted', { submittedAt: '2026-09-01T00:00:00Z' }), record('peer', 'submitted', { inspector: 'QC Supervisor' })])
+    render(<Reports query={{ f: 'submitted', scope: 'review' }} />)
+    expect(screen.getAllByRole('button', { name: /DIM\/A\/(old|late)/ }).map((r) => r.textContent.match(/DIM\/A\/(old|late)/)[0])).toEqual(['DIM/A/old', 'DIM/A/late'])
+    expect(screen.queryByRole('button', { name: /DIM\/A\/peer/ })).toBeNull()
   })
 })
 

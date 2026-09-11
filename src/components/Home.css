@@ -1,316 +1,147 @@
-/* The home screen is a working register. Scope its layout so printed
-   inspection forms and the other registers retain their own geometry. */
-.home-page { --home-gap: 12px; padding-bottom: env(safe-area-inset-bottom); }
-.home-dashboard { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--home-gap); }
-.home-dashboard > *, .home-dashboard a, .home-dashboard span { min-width: 0; }
-.home-page :is(a, button) { -webkit-tap-highlight-color: transparent; }
+/* Predictable rows help inspectors compare records without hunting across cards. */
+.home-page { --home-gap: 12px; }
+.home-dashboard { display: grid; gap: var(--home-gap); }
+.home-dashboard *, .home-row > * { min-width: 0; }
 .home-page a { text-decoration: none; }
 .home-page :is(a, button):focus-visible { outline: 2px solid var(--amber-ink); outline-offset: 3px; }
-.home-page .btn { min-height: 44px; padding: 10px 14px; font-size: 14px; }
-/* ── the masthead ─────────────────────────────────────────────────
-   One light plane, not a stack of boxes.
-
-   The band before this one drew a bordered card, then a bordered grid of
-   four bordered cells inside it — four frames deep on a screen whose job
-   is to be read at a glance. This is the shape it should have been: the
-   band itself is the only surface, the counts are set on it as type, and
-   a tile is drawn only where a figure is a share of something and has a
-   meter to prove it. The yard fills the right and is cut by the band's
-   own edge rather than standing on top of it. */
-.home-banner {
-  position: relative; isolation: isolate; overflow: hidden;
-  border-radius: 20px;
-  background:
-    radial-gradient(120% 140% at 88% 12%, var(--banner-wash) 0%, transparent 62%),
-    var(--surface);
-}
-.home-banner-art {
-  position: absolute; z-index: 0; right: -3%; top: -10%;
-  height: 122%; width: auto; max-width: 58%;
-  object-fit: contain; object-position: right center;
-  pointer-events: none; user-select: none;
-}
-.home-banner-body {
-  position: relative; z-index: 1;
-  display: grid; gap: 18px;
-  padding: 22px 24px 24px; max-width: 58%;
-}
-.home-banner-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
-
-.home-welcome { display: grid; gap: 4px; }
-.home-welcome strong { font-size: 21px; letter-spacing: -.03em; line-height: 1.2; }
-.home-welcome > span { font-family: var(--mono); font-size: 11px; letter-spacing: .04em; text-transform: uppercase; color: var(--text-3); line-height: 1.45; }
-.home-action-buttons { display: flex; gap: 8px; flex-wrap: wrap; flex: none; }
-
-/* The figures keep a landmark of their own, so a screen reader still
-   reaches "QC overview" and finds the four numbers under it. */
-.home-banner-stats { display: grid; gap: 18px; }
-
-/* The two plain counts. Label over figure over note, no rule, no box. */
-.home-figures { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 28px; }
-.home-figure { display: grid; gap: 2px; align-content: start; color: var(--text); }
-.home-figure > span { font-family: var(--mono); font-size: 10px; font-weight: 500; letter-spacing: .07em; text-transform: uppercase; color: var(--text-3); }
-.home-figure > strong { font-size: 31px; line-height: 1.1; letter-spacing: -.045em; font-weight: 650; font-variant-numeric: tabular-nums; }
-.home-figure > small { font-size: 11.5px; color: var(--text-2); line-height: 1.35; }
-.home-figure:hover > strong { color: var(--amber-ink); }
-.home-figure.has-attention > strong { color: var(--overdue); }
-
-/* The two that are a share of something. A tile and a meter are what a
-   ratio earns; a bare count is not a ratio and does not get one. */
-.home-tiles { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
-.home-tile {
-  display: grid; gap: 7px; align-content: start;
-  padding: 12px 14px 13px; border-radius: 14px;
-  color: var(--text); transition: transform .14s ease;
-}
-.home-tile:active { transform: scale(.994); }
-.home-tile-label { display: flex; align-items: center; gap: 6px; font-size: 11.5px; font-weight: 500; line-height: 1.3; }
-.home-tile-label svg { flex: none; }
-.home-tile-read { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
-.home-tile-read strong { font-size: 25px; line-height: 1.05; letter-spacing: -.04em; font-weight: 650; font-variant-numeric: tabular-nums; }
-.home-tile-read strong small { font-size: 15px; font-weight: 500; margin-left: 1px; }
-.home-tile-read em { font-style: normal; font-family: var(--mono); font-size: 11px; color: var(--text-2); font-variant-numeric: tabular-nums; }
-.home-tile.is-done { background: var(--done-bg); }
-.home-tile.is-done .home-tile-label { color: var(--done); }
-.home-tile.is-done .home-progress > span { background: var(--done); }
-.home-tile.is-open { background: var(--info-bg); }
-.home-tile.is-open .home-tile-label { color: var(--info); }
-.home-tile.is-open .home-progress > span { background: var(--info); }
-.home-tile .home-progress { height: 4px; border-radius: 999px; background: var(--tile-track); }
-.home-tile .home-progress > span { border-radius: inherit; }
-.home-override-note { font-size: 11px; color: var(--text-3); margin: -8px 0 0; }
-
-.home-panel { border: 1px solid var(--line); border-radius: var(--r-lg); background: var(--surface); overflow: clip; align-self: start; display: flex; flex-direction: column; }
-/* Stretched to match the panel beside it, the spare height fell between
-   the last row and the footer and left the footer floating mid-card. It
-   goes to the bottom edge, where the end of a list belongs. */
-.home-panel > .home-panel-footer { margin-top: auto; }
-.home-panel-head { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 15px 16px 13px; }
-.home-panel-head > div { min-width: 0; }
-.home-page .home-panel-head h2 { font-family: var(--sans); font-size: 18px; font-weight: 650; line-height: 1.3; letter-spacing: -.025em; }
-.home-panel-head p { font-size: 12px; color: var(--text-2); margin-top: 3px; line-height: 1.4; }
-.home-count { flex: none; font-variant-numeric: tabular-nums; color: var(--text-2); font-size: 13px; }
-.home-attention { border-color: var(--line-2); }
-.home-filters { display: flex; flex-wrap: wrap; gap: 6px; padding: 0 20px 16px; border-bottom: 1px solid var(--line); }
-.home-filters button { display: inline-flex; align-items: center; gap: 8px; min-height: 40px; font-size: 14px; padding: 7px 10px; background: transparent; color: var(--text-2); border: 1px solid transparent; border-radius: var(--r-sm); }
-.home-filters button:hover { background: var(--surface-2); }
-.home-filters button[aria-pressed="true"] { background: var(--surface-3); color: var(--text); border-color: var(--line-2); font-weight: 600; }
-.home-filters button span { font-size: 12px; font-variant-numeric: tabular-nums; }
-/* Built on the customer row's bones — same three columns, same rhythm,
-   same meter at the end — and then told apart from it, because the two
-   lists answer different questions. A customer row reports progress. An
-   attention row says something is wrong, so it carries a mark at its
-   leading edge in the colour of what is wrong, and that mark is there
-   all the time rather than only under the cursor: a row you have to
-   hover to learn about is a row you will not learn about.
-
-   The colour is never the only signal — the reason is written in words
-   beside it either way. */
-.home-attention-list { margin: 0; padding: 0; list-style: none; }
-.home-attention-list li + li { border-top: 1px solid var(--line); }
-.home-attention-row {
-  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) 96px;
-  gap: 18px; align-items: center; padding: 13px 20px 13px 17px;
-  color: var(--text); position: relative; transition: background 140ms;
-}
-.home-attention-row::before {
-  content: ''; position: absolute; inset: 9px auto 9px 0; width: 3px;
-  border-radius: 0 3px 3px 0; background: var(--line-2); transition: background 140ms;
-}
-.home-attention-row.is-ncr::before { background: var(--overdue); }
-.home-attention-row.is-late::before { background: var(--amber); }
-.home-attention-row:hover { background: var(--surface-2); }
-.home-job-id, .home-job-reason { display: grid; gap: 4px; align-content: center; }
-.home-job-id strong { font-size: 15px; font-weight: 600; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
-.home-job-id small { font-size: 12px; line-height: 1.4; color: var(--text-2); overflow-wrap: anywhere; }
-.home-job-reason { justify-items: start; }
-
-/* The reason, as a chip rather than a line of coloured text. A tinted
-   pill is the shape this app already uses for a state, and it survives
-   being read at arm's length on a tablet in a workshop, which coloured
-   body text at 14px does not. */
-.home-reason {
-  display: inline-flex; align-items: center; gap: 4px;
-  padding: 2px 8px 2px 6px; border-radius: 999px;
-  font-size: 11.5px; font-weight: 500; line-height: 1.5; white-space: nowrap;
-}
-.home-reason svg { flex: none; }
-.home-reason.is-ncr { background: var(--overdue-bg); color: var(--overdue); }
-.home-reason.is-late { background: var(--inprog-bg); color: var(--inprog); }
-/* Which documents, in the codes the register prints on them. */
-.home-job-pending { font-family: var(--mono); font-size: 10.5px; letter-spacing: .04em; color: var(--text-3); overflow-wrap: anywhere; }
-.home-due { font-size: 11.5px; color: var(--text-2); line-height: 1.4; }
-
-/* The same meter the customer rows end on, so the two lists scan down
-   the page as one column of figures. */
-.home-job-completion { display: grid; text-align: right; gap: 4px; align-content: center; font-variant-numeric: tabular-nums; }
-.home-job-completion > strong { font-size: 18px; font-weight: 600; line-height: 1.25; }
-.home-job-completion strong small { font-size: 13px; font-weight: 400; color: var(--text-2); }
-.home-job-completion .home-progress { margin-top: 3px; }
-.home-panel-footer { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; padding: 12px 20px; border-top: 1px solid var(--line); }
-.home-panel-footer > span { color: var(--text-2); font-size: 12px; }
-.home-text-link { display: inline-flex; align-items: center; gap: 7px; padding: 3px 0; border: 0; background: none; font-size: 14px; font-weight: 500; color: var(--text); line-height: 1.5; }
-.home-text-link:hover { color: var(--amber-ink); }
-.home-text-link svg { flex: none; }
-.home-pagination { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 0 20px 16px; font-size: 13px; }
-.home-work-switch { display: flex; gap: 4px; padding: 0 20px 12px; }
-.home-work-switch button { flex: 1; padding: 9px 6px; background: transparent; color: var(--text-2); border: 0; border-bottom: 2px solid var(--line); font-size: 13px; }
-.home-work-switch button[aria-pressed="true"] { border-color: var(--amber); color: var(--text); font-weight: 600; }
-.home-work-switch button span { font-variant-numeric: tabular-nums; margin-left: 5px; }
-.home-report-row { display: grid; grid-template-columns: 35px minmax(0, 1fr) auto; align-items: start; gap: 10px; padding: 14px 20px; color: var(--text); border-top: 1px solid var(--line); }
-.home-report-row:hover { background: var(--surface-2); }
-.home-form-code { display: grid; place-items: center; height: 35px; border: 1px solid var(--line-2); border-radius: var(--r-sm); font-size: 12px; font-weight: 600; }
-.home-form-code.is-returned { color: var(--overdue); background: var(--overdue-bg); border-color: var(--overdue-line); }
-.home-form-code.is-submitted { color: var(--review); background: var(--review-bg); border-color: var(--review-line); }
-.home-report-copy { display: grid; gap: 4px; }
-.home-report-copy strong { font-size: 14px; font-weight: 600; overflow-wrap: anywhere; line-height: 1.4; }
-.home-report-copy > span { color: var(--text-2); font-size: 13px; line-height: 1.45; }
-.home-report-copy small { color: var(--text-2); font-size: 12px; line-height: 1.4; }
-.home-report-copy .home-return-note { color: var(--overdue); overflow-wrap: anywhere; }
-.home-row-action { display: flex; align-items: center; gap: 1px; color: var(--text-2); font-size: 12px; margin-top: 2px; }
-.home-shortcuts { padding: 0 20px 14px; border-top: 1px solid var(--line); }
-.home-shortcuts summary { cursor: pointer; font-size: 14px; padding: 14px 0 0; min-height: 44px; }
-.home-shortcuts summary span { color: var(--text-2); font-size: 12px; margin-left: 8px; }
-.home-shortcuts summary:focus-visible { outline: 2px solid var(--amber-ink); outline-offset: 3px; }
-.home-shortcut-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin: 14px 0; }
-.home-shortcut-grid button { display: flex; align-items: center; gap: 8px; padding: 10px; text-align: left; color: var(--text); border: 1px solid var(--line-2); background: var(--surface); border-radius: var(--r-sm); }
-.home-shortcut-grid button:hover { border-color: var(--amber-ink); background: var(--amber-soft); }
-.home-shortcut-grid b { font-size: 12px; }
-.home-shortcut-grid span { font-size: 12px; line-height: 1.4; }
-.home-overview { padding: 0 20px 22px; display: grid; gap: 14px; }
-.home-overview > svg { color: var(--amber-ink); }
-.home-page .home-overview h3 { font-size: 20px; line-height: 1.35; letter-spacing: -.03em; }
-.home-overview p { color: var(--text-2); font-size: 14px; line-height: 1.6; }
-.home-empty { padding: 30px 24px; display: flex; flex-direction: column; align-items: flex-start; gap: 12px; }
-.home-empty > svg { color: var(--text-2); }
-.home-empty > strong { font-size: 17px; line-height: 1.4; }
-.home-empty p { font-size: 14px; color: var(--text-2); line-height: 1.6; max-width: 440px; }
-.home-work-empty { padding-top: 22px; padding-bottom: 28px; }
-.home-customer-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) 112px; gap: 18px; align-items: center; padding: 16px 20px; border-top: 1px solid var(--line); color: var(--text); }
-.home-customer-row:hover { background: var(--surface-2); }
-.home-customer-id { display: grid; gap: 5px; }
-.home-customer-id strong { font-size: 15px; font-weight: 600; overflow-wrap: anywhere; }
-.home-customer-id small { color: var(--text-2); font-size: 12px; line-height: 1.4; }
-.home-customer-figs { display: flex; flex-wrap: wrap; gap: 5px 10px; font-size: 12px; color: var(--text-2); line-height: 1.4; }
-.home-customer-figs b { font-weight: 600; }
-.home-customer-progress { display: grid; text-align: right; gap: 4px; font-variant-numeric: tabular-nums; }
-.home-customer-progress strong { font-size: 18px; font-weight: 600; }
-.home-customer-progress small { font-size: 12px; color: var(--text-2); }
-.home-customer-progress .home-progress { margin-top: 4px; }
-.home-register { margin: 0; }
-.home-register > div { display: flex; justify-content: space-between; gap: 16px; padding: 0 20px; border-top: 1px solid var(--line); position: relative; align-items: center; }
-.home-register > div:hover { background: var(--surface-2); }
-.home-register dt a { display: inline-flex; align-items: center; gap: 8px; color: var(--text-2); font-size: 14px; padding: 11px 0; }
-.home-register dt a::after { content: ''; position: absolute; inset: 0; }
-.home-register dd { margin: 0; font-size: 16px; font-weight: 600; font-variant-numeric: tabular-nums; }
-.home-register-note, .home-panel-note { color: var(--text-2); font-size: 12px; line-height: 1.5; padding: 12px 20px; border-top: 1px solid var(--line); }
-.home-update-row { display: grid; grid-template-columns: 26px minmax(0, 1fr) 110px 115px 14px; gap: 14px; align-items: center; padding: 14px 20px; color: var(--text); border-top: 1px solid var(--line); }
-.home-update-row:hover { background: var(--surface-2); }
-.home-update-code { color: var(--text-2); }
-.home-update-id { display: grid; gap: 5px; }
-.home-update-id strong { font-size: 14px; overflow-wrap: anywhere; font-weight: 600; line-height: 1.4; }
-.home-update-id small { font-size: 12px; color: var(--text-2); overflow-wrap: anywhere; line-height: 1.45; }
-.home-update-state { font-size: 13px; color: var(--text-2); }
-.home-update-state.is-approved { color: var(--done); }
-.home-update-state.is-submitted { color: var(--review); }
-.home-update-state.is-returned { color: var(--overdue); }
-.home-update-time { font-size: 12px; color: var(--text-2); font-variant-numeric: tabular-nums; text-align: right; }
-.home-links { display: flex; justify-content: flex-end; gap: 18px; flex-wrap: wrap; }
-.home-links a { font-size: 13px; color: var(--text-2); padding: 8px 0; }
+.home-page .btn { min-height: 40px; padding: 8px 12px; font-size: 13px; }
+.home-toolbar { position: relative; isolation: isolate; display: flex; flex-direction: column; align-items: flex-start; justify-content: center; gap: 18px; padding: 26px 28px; min-height: 260px; background: #171b20; border: 1px solid #d9aa35; border-radius: 12px; overflow: hidden; }
+.home-toolbar > img { position: absolute; z-index: -1; right: 0; top: 0; width: 55%; height: 100%; object-fit: contain; object-position: right center; mask-image: linear-gradient(to right, transparent, #000 14%); pointer-events: none; }
+.home-welcome { width: 46%; }
+.home-kicker { display: block; font-size: 11px; font-weight: 600; color: #ffd05a; letter-spacing: .06em; margin-bottom: 10px; }
+.home-page .home-welcome h1 { font: 650 30px/1.15 var(--sans); letter-spacing: -.035em; margin: 0; color: #fff; overflow-wrap: anywhere; }
+.home-welcome p { font-size: 12px; color: #d1d5db; line-height: 1.5; margin: 9px 0 0; }
+.home-banner-note { display: block; margin-top: 6px; font-size: 12px; color: #d1d5db; line-height: 1.5; }
+.home-actions { display: flex; gap: 8px; flex-wrap: wrap; width: 46%; }
+.home-toolbar .btn-primary { background: #ffc400; border-color: #ffc400; color: #171b20; }
+.home-toolbar .btn-primary:hover { background: #ffda59; border-color: #ffda59; }
+.home-toolbar .btn-secondary { color: #fff; background: #272e36; border-color: #65717e; }
+.home-toolbar .btn-secondary:hover { background: #394450; border-color: #a4b0be; }
+.home-toolbar :is(a, button):focus-visible { outline-color: #fff; }
+.home-overview-row { display: grid; grid-template-columns: minmax(0, 2.5fr) minmax(250px, 1fr); gap: 12px; align-items: stretch; }
+.home-resources { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; padding: 10px; border: 1px solid var(--line); border-radius: var(--r); background: var(--surface); }
+.home-resources > * { display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 3px; text-align: center; padding: 8px 4px; border-radius: 5px; font-size: 12px; font-weight: 600; background: #ffc400; color: #171b20; overflow-wrap: anywhere; min-height: 44px; }
+.home-resources a:hover { background: #ffda59; }
+.home-resources > [aria-disabled] { background: var(--surface-3); color: var(--text-2); }
+.home-resources small { font-size: 10px; font-weight: 400; }
+.home-readings { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; }
+.home-readings > a { display: grid; grid-template-columns: minmax(0, 1fr); align-content: center; gap: 4px; padding: 12px 14px; color: var(--text); }
+.home-readings > a + a { border-left: 1px solid var(--line); }
+.home-readings > a:hover { background: var(--surface-2); }
+.home-readings span { font-size: 12px; font-weight: 600; line-height: 1.4; }
+.home-readings strong { grid-column: 1; grid-row: 1; align-self: center; font-size: 27px; font-weight: 650; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.home-readings small { grid-column: 1; color: var(--text-2); font-size: 11px; line-height: 1.4; }
+.home-context-note { margin: -4px 0 0; font-size: 12px; color: var(--text-2); }
+.home-row { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--home-gap); align-items: stretch; }
+.home-panel { display: flex; flex-direction: column; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; }
+.home-panel-head { display: flex; justify-content: space-between; gap: 12px; align-items: start; padding: 12px 14px 10px; }
+.home-page .home-panel-head h2 { margin: 0; font: 650 16px/1.3 var(--sans); letter-spacing: -.015em; }
+.home-panel-head p { margin: 3px 0 0; font-size: 12px; color: var(--text-2); line-height: 1.4; }
+.home-count { font-size: 16px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.home-panel-tools { padding: 0 14px 8px; }
+.home-tabs { display: flex; gap: 4px; flex-wrap: wrap; }
+.home-tabs button { background: transparent; color: var(--text-2); padding: 6px 8px; border: 0; border-bottom: 2px solid transparent; min-height: 34px; font-size: 12px; }
+.home-tabs button[aria-pressed="true"] { color: var(--text); font-weight: 600; border-bottom-color: var(--amber); background: var(--surface-2); }
+.home-records { list-style: none; margin: 0; padding: 0; }
+.home-records > li { border-top: 1px solid var(--line); }
+.home-report-row { display: grid; grid-template-columns: 32px minmax(0, 1fr) auto; gap: 10px; align-items: start; padding: 10px 14px; color: var(--text); }
+.home-report-row:hover, .home-job-row:hover, .home-summary-row:hover, .home-updates a:hover { background: var(--surface-2); }
+.home-form-code { display: grid; place-items: center; min-height: 30px; border: 1px solid var(--line-2); border-radius: var(--r-sm); font-size: 11px; font-weight: 600; }
+.home-form-code.is-returned { background: var(--overdue-bg); color: var(--overdue); }
+.home-form-code.is-submitted { background: var(--review-bg); color: var(--review); }
+.home-report-copy, .home-job-copy { display: grid; gap: 3px; overflow-wrap: anywhere; }
+.home-report-copy strong, .home-job-copy strong { font-size: 13px; font-weight: 600; line-height: 1.4; font-variant-numeric: tabular-nums; }
+.home-report-copy > span, .home-job-copy > span { font-size: 12px; color: var(--text-2); line-height: 1.4; }
+.home-report-copy small, .home-job-copy small { font-size: 11px; color: var(--text-2); line-height: 1.4; }
+.home-report-copy .home-return-note { color: var(--overdue); display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; }
+.home-row-action { display: flex; align-items: center; gap: 2px; font-size: 11px; color: var(--text-2); line-height: 1.5; }
+.home-panel-footer { margin-top: auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; padding: 9px 14px; border-top: 1px solid var(--line); font-size: 12px; }
+.home-panel-footer > span { color: var(--text-2); }
+.home-panel-footer a, .home-text-button { color: var(--text); font-weight: 600; }
+.home-panel-footer a:hover, .home-workload a:hover { text-decoration: underline; }
+.home-text-button { border: 0; background: none; padding: 0; font: inherit; text-align: left; }
+.home-empty { margin: 0; padding: 14px; color: var(--text-2); font-size: 13px; line-height: 1.5; }
+.home-empty p { margin: 0 0 6px; }
+.home-empty a { color: var(--amber-ink); }
+.home-panel-note { margin: 0; padding: 8px 14px; font-size: 11px; color: var(--text-2); line-height: 1.4; }
+.home-job-row { display: grid; grid-template-columns: minmax(0, 1fr) 62px; gap: 10px; padding: 10px 14px; color: var(--text); align-items: center; }
+.home-progress-read { display: grid; text-align: right; gap: 2px; font-variant-numeric: tabular-nums; }
+.home-progress-read strong { font-size: 16px; font-weight: 600; }
+.home-progress-read small { font-size: 10px; color: var(--text-2); }
+.home-progress { display: block; height: 3px; background: var(--line-2); margin-top: 4px; overflow: hidden; }
+.home-progress > span { display: block; height: 100%; background: var(--done); }
+.home-page .home-alert-text { color: var(--overdue); }
+.home-summary-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 11px 14px; color: var(--text); }
+.home-summary-row > span { display: grid; gap: 3px; }
+.home-summary-row strong { font-size: 13px; font-weight: 600; overflow-wrap: anywhere; }
+.home-summary-row small { font-size: 11px; color: var(--text-2); line-height: 1.4; }
+.home-summary-number { text-align: right; font-size: 16px; font-weight: 600; font-variant-numeric: tabular-nums; flex-shrink: 0; }
+.home-workload { width: 100%; border-collapse: collapse; table-layout: fixed; font-size: 12px; }
+.home-workload th, .home-workload td { padding: 10px 8px; border-top: 1px solid var(--line); text-align: right; font-variant-numeric: tabular-nums; }
+.home-workload th:first-child { width: 49%; text-align: left; padding-left: 14px; overflow-wrap: anywhere; }
+.home-workload th:last-child, .home-workload td:last-child { padding-right: 14px; }
+.home-workload thead th { font-size: 11px; font-weight: 500; color: var(--text-2); }
+.home-workload tbody th { font-weight: 500; }
+.home-workload a { color: var(--text); }
+.home-register { margin: 0; padding: 0; }
+.home-register > div { display: flex; justify-content: space-between; gap: 12px; padding: 9px 14px; border-top: 1px solid var(--line); font-size: 12px; }
+.home-register a { color: var(--text); }
+.home-register dd { margin: 0; font-weight: 600; font-variant-numeric: tabular-nums; }
+.home-shortcuts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1px; background: var(--line); border-top: 1px solid var(--line); }
+.home-shortcuts button { display: flex; align-items: center; gap: 8px; background: var(--surface); border: 0; padding: 10px 14px; text-align: left; color: var(--text); min-height: 44px; }
+.home-shortcuts button:hover { background: var(--surface-2); }
+.home-shortcuts b { font-size: 11px; min-width: 27px; }
+.home-shortcuts span { font-size: 12px; line-height: 1.4; }
+.home-updates { display: grid; grid-template-columns: 1fr; border-top: 1px solid var(--line); }
+.home-updates a { display: grid; gap: 3px; padding: 10px 14px; color: var(--text); overflow-wrap: anywhere; }
+.home-updates strong { font-size: 12px; font-weight: 600; }
+.home-updates span, .home-updates small { font-size: 11px; color: var(--text-2); }
 @media (min-width: 1080px) {
-  .home-dashboard { grid-template-columns: minmax(0, 2fr) minmax(320px, 1fr); grid-template-areas: "banner banner" "attention work" "customers reports" "updates updates" "links links"; }
-  .home-banner { grid-area: banner; }
-  .home-banner-body { padding: 26px 30px 28px; gap: 22px; max-width: 57%; }
-  .home-welcome strong { font-size: 25px; }
-  .home-figure > strong { font-size: 34px; }
-  .home-tile { padding: 14px 16px 15px; }
-  .home-tile-read strong { font-size: 27px; }
-  .home-attention { grid-area: attention; }
-  .home-work { grid-area: work; }
-  .home-customers { grid-area: customers; }
-  .home-reports { grid-area: reports; }
-  .home-updates { grid-area: updates; }
-  .home-links { grid-area: links; }
-  /* The review action sits at the end of its row, not under it. Dropped
-     to a second line it stood every row of this panel a line taller, and
-     next to a panel of the same rows that does not do it. */
-  .home-report-row { grid-template-columns: 30px minmax(0, 1fr) auto; align-items: center; }
-  .home-row-action { grid-column: 3; grid-row: 1; margin-top: 0; }
-  /* Side by side, both panels reach the same line. `align-self: start` on
-     every panel is right down a single column and wrong across a row:
-     it let two lists of the same rows end at different heights. */
-  .home-attention, .home-work { align-self: stretch; }
+  .home-main-row, .home-support-row { grid-template-columns: minmax(0, 1.85fr) minmax(0, 1fr); }
+  .home-updates { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .home-updates a + a { border-left: 1px solid var(--line); }
 }
-@media (max-width: 720px) {
-  /* 362px is not enough width to put a photograph behind a sentence and
-     still have the sentence win, so the picture takes a band of its own
-     across the top and the type sits under it on flat surface. */
-  /* 362px will not hold a yard beside a sentence. The picture keeps the
-     top of the band and the reading sits under it, on the band's own
-     surface rather than on tarmac. */
-  /* The height is set, not left to follow a percentage width, because the
-     type below has to clear it exactly: at 84% of 362px the picture came
-     out 215px tall against 118px of padding and the greeting was printed
-     across the tarmac. */
-  .home-banner-art { right: -10px; top: -6px; height: 172px; width: auto; max-width: none; }
-  .home-banner-body { gap: 14px; padding: 176px 16px 16px; max-width: none; }
-  /* Two lines of room for both labels, so the figures and the meters
-     under them line up across the pair. */
-  .home-tile-label { min-height: 2.5em; align-items: flex-start; }
-  .home-banner-head { flex-direction: column; gap: 12px; }
-  .home-action-buttons { width: 100%; }
-  .home-action-buttons > * { flex: 1; justify-content: center; }
-  .home-welcome strong { font-size: 19px; }
-  .home-figures { gap: 10px 18px; }
-  .home-figure > strong { font-size: 26px; }
-  .home-figure > span { font-size: 9px; letter-spacing: .04em; }
-  .home-tile-read strong { font-size: 22px; }
-  .home-tile-label { font-size: 11px; }
-  .home-action-buttons { width: 100%; }
-  .home-action-buttons > * { flex: 1; justify-content: center; }
-  .home-welcome strong { font-size: 19px; }
-  /* "DELIVERABLES COMPLETE" is 21 characters and the tile gives the
-     caption 136px. At 9.5px with .07em tracking it lands one character
-     over and wraps, so that tile stood a line taller than the one beside
-     it. The tracking gives the character back. */
-  .home-panel-head { padding: 14px 14px 12px; gap: 10px; }
-  .home-panel-head p { font-size: 11.5px; }
-  .home-filters { padding: 0 12px 10px; gap: 2px; }
-  .home-filters button { font-size: 13px; gap: 5px; padding: 7px 8px; }
-  .home-attention-columns { display: none; }
-  .home-attention-row { grid-template-columns: minmax(0, 1fr) 88px; gap: 8px; padding: 12px 14px; }
-  .home-job-id { grid-column: 1; }
-  .home-job-reason { grid-column: 1; grid-row: 2; }
-  .home-job-completion { grid-column: 2; grid-row: 1 / 3; }
-  .home-attention-list:not(.is-expanded) li:nth-child(n+4) { display: none; }
-  .home-report-row { padding: 11px 14px; }
-  .home-panel-footer { padding: 10px 14px; }
-  .home-customer-row { grid-template-columns: minmax(0, 1fr) 104px; gap: 9px; padding: 12px 14px; }
-  .home-customer-figs { grid-column: 1; grid-row: 2; }
-  .home-customer-progress { grid-column: 2; grid-row: 1 / 3; }
-  .home-update-row { grid-template-columns: 22px minmax(0, 1fr) auto; gap: 6px 10px; padding: 11px 14px; }
-  .home-update-id { grid-column: 2 / 4; }
-  .home-update-state { grid-column: 2; grid-row: 2; }
-  .home-update-time { grid-column: 3; grid-row: 2; }
-  .home-update-row > svg { display: none; }
+@media (min-width: 1280px) {
+  .home-support-row.has-three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (min-width: 1080px) and (max-width: 1279px) {
+  .home-support-row.has-three > :last-child { grid-column: 1 / -1; }
+}
+@media (max-width: 1079px) {
+  .home-overview-row { grid-template-columns: minmax(0, 1fr); }
+  .home-readings { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .home-readings > a:nth-child(3) { border-left: 0; }
+  .home-readings > a:nth-child(n+3) { border-top: 1px solid var(--line); }
+}
+@media (max-width: 759px) {
+  .home-toolbar { padding: 20px 16px 16px; gap: 14px; min-height: 0; }
+  .home-toolbar > img { display: block; width: 50%; height: 135px; top: 5px; right: -6px; object-fit: contain; mask-image: linear-gradient(to right, transparent, #000 20%); }
+  .home-welcome { width: 100%; }
+  .home-welcome h1 { max-width: 59%; }
+  .home-kicker { max-width: 58%; font-size: 10px; line-height: 1.4; }
+  .home-welcome p { margin-top: 18px; }
+  .home-banner-note { display: none; }
+  .home-actions { width: 100%; }
+  .home-actions > * { flex: 1; justify-content: center; }
+  .home-page .home-welcome h1 { font-size: 23px; }
+  .home-page .btn, .home-tabs button, .home-panel-footer a, .home-text-button { min-height: 44px; }
+  .home-panel-footer a, .home-text-button { display: inline-flex; align-items: center; }
+  .home-readings > a { padding: 10px 12px; gap: 3px 6px; }
+  .home-readings span { font-size: 11px; }
+  .home-readings strong { font-size: 22px; }
+  .home-readings small { font-size: 11px; }
+  .home-updates a + a { border-top: 1px solid var(--line); }
 }
 @media (max-width: 360px) {
-  .home-filters { flex-direction: column; }
-  .home-filters button { justify-content: space-between; }
-  .home-panel-head { flex-wrap: wrap; }
+  .home-readings > a { grid-template-columns: 1fr; }
+  .home-readings strong { grid-column: 1; grid-row: 2; }
   .home-row-action { grid-column: 2; }
-  .home-report-row { grid-template-columns: 32px minmax(0, 1fr); }
-  .home-attention-row { grid-template-columns: minmax(0, 1fr) 74px; }
-}
-@media (max-width: 300px) {
-  .home-action-buttons { flex-direction: column; }
-  .home-update-row { grid-template-columns: minmax(0, 1fr); }
-  .home-update-row > span { grid-column: 1; grid-row: auto; text-align: left; }
-  .home-update-code { display: none; }
+  .home-report-row { grid-template-columns: 30px minmax(0, 1fr); }
 }
 @media (pointer: coarse) {
-  .home-page :is(button, .home-text-link), .home-shortcuts summary, .home-register dt a { min-height: 44px; }
+  .home-page :is(button, .home-panel-footer a, .home-register a, .home-workload a) { min-height: 44px; }
+  .home-register a, .home-workload a { display: inline-flex; align-items: center; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .home-page, .home-page *, .home-page *::before { animation: none !important; transition: none !important; }
+  .home-page *, .home-page *::before { animation: none !important; transition: none !important; }
 }

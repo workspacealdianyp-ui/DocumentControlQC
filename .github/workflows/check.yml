@@ -43,3 +43,11 @@ jobs:
 
       - name: Browser journeys
         run: npm run e2e
+
+      - name: Home layout screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: home-layout
+          path: tmp/home-layout/
+          if-no-files-found: ignore

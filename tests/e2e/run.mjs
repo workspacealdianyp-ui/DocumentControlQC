@@ -14,6 +14,7 @@ import { spawn } from 'node:child_process'
 import { chromium } from 'playwright'
 import { setTimeout as wait } from 'node:timers/promises'
 import { chromiumLaunch } from '../../scripts/chromium.mjs'
+import { checkHomeLayout } from './home-layout.mjs'
 
 const PORT = Number(process.env.E2E_PORT || 4180)
 const BASE = `http://localhost:${PORT}`
@@ -70,6 +71,7 @@ async function main() {
   const errors = []
 
   try {
+    await checkHomeLayout(browser, BASE, check, errors)
     /* ── every route paints, under every role, at both widths ── */
     for (const [w, h, size] of [[1440, 900, 'desktop'], [390, 844, 'phone']]) {
       for (const who of ['admin', 'inspector', 'viewer']) {
