@@ -356,7 +356,7 @@ export const FORM_SCHEMAS = {
         ]},
       { id: 'photos', title: 'Photo Evidence', subtitle: 'Min. 1 photo per inspection point', type: 'photos' },
       { id: 'result', title: 'Summary', fields: [
-        { id: 'finalStatus', label: 'Final Inspection Status', type: 'computed', compute: (v, rep) => resultsHasRej(rep, 'NG') ? 'Reject' : 'Accept' },
+        { id: 'finalStatus', label: 'Final Inspection Status', type: 'computed', compute: (v, rep) => resultRowsStatus(rep?.results, false) },
         { id: 'ncr', label: 'Non-Conformance Notes (NCR)', type: 'textarea', reqIf: { field: 'finalStatus', eq: 'Reject' } },
       ]},
       approvals(['Inspector', 'QC Supervisor / Engineering']),
@@ -404,7 +404,7 @@ export const FORM_SCHEMAS = {
         ]},
       { id: 'photos', title: 'Photo Evidence', type: 'photos' },
       { id: 'result', title: 'Summary', fields: [
-        { id: 'finalStatus', label: 'Final Dimensional Status', type: 'computed', compute: (v, rep) => dimHasRej(rep) ? 'Reject' : 'Accept' },
+        { id: 'finalStatus', label: 'Final Dimensional Status', type: 'computed', compute: (v, rep) => resultRowsStatus(rep?.results, true) },
         { id: 'ncr', label: 'Non-Conformance Notes (NCR)', type: 'textarea', reqIf: { field: 'finalStatus', eq: 'Reject' } },
       ]},
       approvals(['Inspector', 'QC Supervisor / Engineering']),
@@ -416,11 +416,11 @@ export const FORM_SCHEMAS = {
 function recHasFail(rep) {
   return (rep?.readings || []).some((r) => /fail|leak|drop/i.test(r.remark || ''))
 }
-function resultsHasRej(rep, rejValue) {
-  return (rep?.results || []).some((r) => r.judgement === rejValue)
-}
-function dimHasRej(rep) {
-  return (rep?.results || []).some((r) => dimRowStatus(r) === 'Reject')
+export function resultRowsStatus(rows = [], dimensional = false) {
+  const decisions = rows.map((row) => dimensional ? dimRowStatus(row) : row.judgement)
+  if (decisions.some((value) => ['Reject', 'Rej', 'NG'].includes(value))) return 'Reject'
+  if (!decisions.length || !decisions.every((value) => ['Accept', 'Acc', 'OK'].includes(value))) return 'Not evaluated'
+  return 'Accept'
 }
 /* The measured limits of a dimension row.
 

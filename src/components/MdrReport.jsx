@@ -86,7 +86,7 @@ export default function MdrReport({ job, reports, session, onClose }) {
     })
   })
   const rejected = items.filter((it) => reportResult(it.r) === 'Reject')
-  const pass = rejected.length === 0
+  const unevaluated = items.filter((it) => reportResult(it.r) === 'Not evaluated')
 
   /* A data book is the whole set or it is a draft of one. Whichever
      documents were ticked, the question the customer's copy answers is
@@ -101,7 +101,9 @@ export default function MdrReport({ job, reports, session, onClose }) {
      RELEASED FOR SHIPMENT. */
   const bound = new Set(items.map((it) => it.r.deliverable))
   const missing = requiredFor(job).filter((key) => !bound.has(key))
-  const preview = missing.length > 0
+  const unapproved = items.filter((it) => it.r.status !== 'approved')
+  const preview = missing.length > 0 || unapproved.length > 0
+  const pass = !preview && items.length > 0 && rejected.length === 0 && unevaluated.length === 0
 
   const dates = printable.map(reportDate).filter(Boolean).sort()
   const span = dates.length
@@ -208,10 +210,10 @@ export default function MdrReport({ job, reports, session, onClose }) {
               sentence this app could print. */}
           <div className={`ps-verdict ${preview ? 'draft' : pass ? '' : 'hold'} ps-cover-verdict`}>
             {preview
-              ? `PREVIEW — NOT FOR ISSUE. ${missing.length} required document${missing.length === 1 ? '' : 's'} not yet approved.`
+              ? `PREVIEW — NOT FOR ISSUE. ${missing.length} required documents missing; ${unapproved.length} included documents awaiting approval.`
               : pass
                 ? 'RELEASED FOR SHIPMENT — the unit conforms to the applicable requirements.'
-                : 'ON HOLD — pending closure of outstanding non-conformances.'}
+                : 'ON HOLD — complete evaluation and close outstanding non-conformances.'}
           </div>
           {/* Naming them turns the stamp into a worklist. */}
           {preview && (
@@ -390,10 +392,10 @@ export default function MdrReport({ job, reports, session, onClose }) {
                     <td className={`ps-verdict ${pass ? '' : 'hold'}`}>
                       {pass
                         ? 'RELEASED FOR SHIPMENT — the unit conforms to the applicable requirements.'
-                        : 'ON HOLD — pending closure of outstanding non-conformances.'}
+                        : 'ON HOLD — complete evaluation and close outstanding non-conformances.'}
                     </td>
                   </tr>
-                  {!pass && (
+                  {rejected.length > 0 && (
                     <tr>
                       <td className="ps-hold-list">
                         Non-conforming results are recorded in: {rejected.map((it) => `${it.title} (${it.r.reportId}, Section ${it.sectionNo})`).join('; ')}.

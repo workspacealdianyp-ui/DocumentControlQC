@@ -871,7 +871,8 @@ function BeritaAcara({ schema, report, job, inspector }) {
       <p className="ba-text">{r.paragraph}</p>
       <div className={`ba-verdict ${r.released ? '' : 'hold'}`}>
         {r.released ? 'RESULT: ACCEPTED — the unit conforms to the applicable requirements.'
-          : 'RESULT: REJECTED — corrective action required before acceptance.'}
+          : r.verdict === 'Reject' ? 'RESULT: REJECTED — corrective action required before acceptance.'
+            : 'RESULT: NOT EVALUATED — complete the inspection results.'}
       </div>
     </div>
   )
@@ -1193,7 +1194,7 @@ export default function FormView({ job, formKey, query }) {
       return
     }
     if (!persist('submitted')) return
-    notify('Report submitted — deliverable marked Done'); setTimeout(() => navigate(`/job/${cur.jobNo}`), 600)
+    notify('Report submitted — awaiting QA review'); setTimeout(() => navigate(`/job/${cur.jobNo}`), 600)
   }
 
   // navigate between sections, flagging any incomplete section left behind

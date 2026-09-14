@@ -8,7 +8,7 @@ import ConfirmDialog from './ConfirmDialog.jsx'
 import { ncrReports, fmtDateTime } from '../lib/status.js'
 import { reportResult } from '../lib/verdict.js'
 import { StateBadge } from './StatusChip.jsx'
-import { IconTrash, IconDownload, IconCloudUp, IconCloudOff, IconFilter, IconGroup, IconApprove, IconXCircle } from './Icons.jsx'
+import { IconTrash, IconDownload, IconCloudOff, IconFilter, IconGroup, IconApprove, IconXCircle } from './Icons.jsx'
 import { SearchField, ToolButton, PopCheck, PopRadio, PopFooter } from './RegisterBar.jsx'
 import { downloadCsv, stampToday } from '../lib/csv.js'
 import { scopeReports, sortWork, sortReview } from '../lib/reportScope.js'
@@ -203,10 +203,10 @@ export default function Reports({ query }) {
   // Quoting and formula-defusing live in lib/csv.js; this only decides
   // which columns go out.
   const exportCsv = () => downloadCsv(`qc-reports-${stampToday()}.csv`, [
-    ['Report ID', 'Form', 'Job No', 'Deliverable', 'Inspector', 'Status', 'Result', 'Updated', 'Synced'],
+    ['Report ID', 'Form', 'Job No', 'Deliverable', 'Inspector', 'Status', 'Result', 'Updated', 'Storage'],
     ...matched.map((r) => [
       r.reportId, FORM_SCHEMAS[r.formKey]?.title, r.jobNo, r.deliverable, r.inspector, r.status,
-      reportResult(r), r.updatedAt?.slice(0, 16), r.synced ? r.syncedAt?.slice(0, 16) : 'offline',
+      reportResult(r), r.updatedAt?.slice(0, 16), 'Saved on this device',
     ]),
   ])
 
@@ -301,8 +301,8 @@ export default function Reports({ query }) {
                   title={<ReportId id={r.reportId} />}
                   sub={<>Job {r.jobNo}{r.inspector ? ` · ${r.inspector}` : ''}</>}
                   foot={<>
-                    <span className={r.synced ? 'sync-tag up' : 'sync-tag'}>
-                      {r.synced ? <><IconCloudUp size={10} /> Uploaded</> : <><IconCloudOff size={10} /> Offline</>}
+                    <span className="sync-tag">
+                      <IconCloudOff size={10} /> On this device
                     </span>
                     <span className="rep-dot" aria-hidden="true">·</span>
                     {fmtDateTime(r.updatedAt)}

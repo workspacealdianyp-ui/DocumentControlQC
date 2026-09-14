@@ -11,9 +11,12 @@
    passcode and the seed flag stay behind, because they describe this
    browser rather than the work. */
 
-export const BACKUP_VERSION = 2
+export const BACKUP_VERSION = 3
 
 const RECORD_KEYS = [
+  'qc.overrideEvents',   // reasons and actors behind manual status changes
+  'qc.issueCounters',    // spent numbers must never become available again
+  'qc.migrations',       // migration and deletion history
   'qc.reports',          // the inspection reports themselves
   'qc.jobOrders',        // orders raised in the app
   'qc.statusOverrides',  // deliberate admin statements about a cell
@@ -27,7 +30,8 @@ export function exportAll() {
   for (const k of RECORD_KEYS) {
     const raw = localStorage.getItem(k)
     if (raw == null) continue
-    try { data[k] = JSON.parse(raw) } catch { /* unreadable: leave it out rather than ship garbage */ }
+    data[k] = readRecord(k)
+    validate(k, data[k])
   }
   const reports = data['qc.reports'] || []
   return {
@@ -54,80 +58,92 @@ export function downloadBackup() {
   return payload.counts
 }
 
-/* What an import would do, worked out before anything is written.
-
-   Nothing is ever deleted by an import. Records are matched by id and
-   the newer updatedAt wins, so bringing yesterday's file into today's
-   browser cannot undo today's work — the common way a well-meant restore
-   destroys an archive. */
-export function planImport(payload) {
-  if (!payload || payload.format !== 'qc-inspection-monitor-backup') {
-    throw new Error('That is not a backup from this app.')
+const ARRAY_KEYS = new Set(['qc.reports', 'qc.jobOrders', 'qc.overrideEvents', 'qc.migrations'])
+const equal = (a, b) => JSON.stringify(canonical(a)) === JSON.stringify(canonical(b))
+const canonical = (v) => Array.isArray(v) ? v.map(canonical) : v && typeof v === 'object'
+  ? Object.fromEntries(Object.keys(v).sort().map((k) => [k, canonical(v[k])])) : v
+function readRecord(key) {
+  const raw = localStorage.getItem(key)
+  if (raw === null) return ARRAY_KEYS.has(key) ? [] : {}
+  try { return JSON.parse(raw) } catch { throw new Error(`${key} could not be read. Restore stopped; preserve the existing data before repairing it.`) }
+}
+function validate(key, value) {
+  if (!value || typeof value !== 'object' || Array.isArray(value) !== ARRAY_KEYS.has(key)) throw new Error(`Invalid records in ${key}. Nothing was changed.`)
+  if (['qc.reports', 'qc.jobOrders', 'qc.overrideEvents'].includes(key)) {
+    const ids = new Set()
+    for (const row of value) {
+      if (!row || typeof row.id !== 'string' || !row.id || ids.has(row.id)) throw new Error(`Missing or duplicate record identity in ${key}. Nothing was changed.`)
+      ids.add(row.id)
+    }
   }
-  if (!payload.data || typeof payload.data !== 'object') {
-    throw new Error('That backup file has no records in it.')
+  if (key === 'qc.statusOverrides' && Object.values(value).some((entry) => !entry || typeof entry !== 'object' || Array.isArray(entry))) throw new Error('Invalid manual statuses. Nothing was changed.')
+  if (key === 'qc.issueCounters' && Object.values(value).some((n) => !Number.isInteger(n) || n < 0)) throw new Error('Invalid issue counters. Nothing was changed.')
+}
+function prepare(payload) {
+  if (!payload || payload.format !== 'qc-inspection-monitor-backup') throw new Error('That is not a backup from this app.')
+  if (!payload.data || typeof payload.data !== 'object' || Array.isArray(payload.data)) throw new Error('That backup file has no records in it.')
+  if (!Number.isInteger(payload.version) || payload.version < 1 || payload.version > BACKUP_VERSION) throw new Error('Unsupported backup version. Update the app before restoring a newer file.')
+  const out = {}, entities = {}
+  for (const key of RECORD_KEYS) {
+    if (!(key in payload.data)) continue
+    const mine = readRecord(key), theirs = payload.data[key]
+    validate(key, mine); validate(key, theirs)
+    const counts = { added: 0, updated: 0, kept: 0, alreadyHere: Array.isArray(mine) ? mine.length : Object.keys(mine).length, inFile: Array.isArray(theirs) ? theirs.length : Object.keys(theirs).length }
+    if (['qc.reports', 'qc.jobOrders', 'qc.overrideEvents'].includes(key)) {
+      const merged = new Map(mine.map((r) => [r.id, r]))
+      for (const row of theirs) {
+        const have = merged.get(row.id)
+        if (!have) { merged.set(row.id, row); counts.added++; continue }
+        if (equal(have, row)) { counts.kept++; continue }
+        const oldTime = Date.parse(have.updatedAt), newTime = Date.parse(row.updatedAt)
+        if (key === 'qc.overrideEvents' || !Number.isFinite(oldTime) || !Number.isFinite(newTime) || oldTime === newTime) throw new Error(`Conflict in ${key}: ${row.id}. Both versions differ without a reliable newer version. Nothing was changed.`)
+        if (newTime > oldTime) { merged.set(row.id, row); counts.updated++ } else counts.kept++
+      }
+      out[key] = [...merged.values()]
+    } else if (key === 'qc.migrations') {
+      out[key] = [...mine]
+      for (const event of theirs) if (!out[key].some((held) => equal(held, event))) { out[key].push(event); counts.added++ }
+    } else {
+      // Maps merge by entry; conflicting settings or master records require
+      // an explicit decision instead of silently replacing the whole register.
+      const mergeMap = (held, incoming, path) => {
+        const merged = { ...held }
+        for (const [id, value] of Object.entries(incoming)) {
+          if (!Object.hasOwn(held, id)) { Object.defineProperty(merged, id, { value, enumerable: true, writable: true, configurable: true }); counts.added++; continue }
+          if (equal(held[id], value)) { counts.kept++; continue }
+          if (key === 'qc.issueCounters') { merged[id] = Math.max(held[id], value); counts.updated++; continue }
+          if (key === 'qc.statusOverrides' && path === key) { merged[id] = mergeMap(held[id], value, `${path}.${id}`); continue }
+          throw new Error(`Conflict in ${path}: ${id}. Keep both backups and resolve this difference before restoring. Nothing was changed.`)
+        }
+        return merged
+      }
+      out[key] = mergeMap(mine, theirs, key)
+    }
+    entities[key] = counts
   }
-  if (Number(payload.version) > BACKUP_VERSION) {
-    throw new Error(`That file was written by a newer version of the app (v${payload.version}). Update before restoring it.`)
-  }
-  const mine = (() => { try { return JSON.parse(localStorage.getItem('qc.reports') || '[]') } catch { return [] } })()
-  const theirs = Array.isArray(payload.data['qc.reports']) ? payload.data['qc.reports'] : []
-  const byId = new Map(mine.map((r) => [r.id, r]))
-  let added = 0, updated = 0, kept = 0
-  for (const r of theirs) {
-    if (!r || !r.id) continue
-    const have = byId.get(r.id)
-    if (!have) { added++; continue }
-    if ((r.updatedAt || '') > (have.updatedAt || '')) updated++
-    else kept++
-  }
-  return { added, updated, kept, alreadyHere: mine.length, inFile: theirs.length }
+  const reports = entities['qc.reports'] || { added: 0, updated: 0, kept: 0, alreadyHere: 0, inFile: 0 }
+  return { out, plan: { ...reports, entities } }
 }
 
+export function planImport(payload) { return prepare(payload).plan }
+
 export function applyImport(payload) {
-  planImport(payload)   // throws on anything that is not a backup
-  const d = payload.data
-
-  // reports merge by id, newest wins
-  const mine = (() => { try { return JSON.parse(localStorage.getItem('qc.reports') || '[]') } catch { return [] } })()
-  const merged = new Map(mine.map((r) => [r.id, r]))
-  for (const r of (Array.isArray(d['qc.reports']) ? d['qc.reports'] : [])) {
-    if (!r || !r.id) continue
-    const have = merged.get(r.id)
-    if (!have || (r.updatedAt || '') > (have.updatedAt || '')) merged.set(r.id, r)
-  }
-  const out = { 'qc.reports': [...merged.values()] }
-
-  // orders merge the same way, by id
-  const myOrders = (() => { try { return JSON.parse(localStorage.getItem('qc.jobOrders') || '[]') } catch { return [] } })()
-  const om = new Map(myOrders.map((o) => [o.id, o]))
-  for (const o of (Array.isArray(d['qc.jobOrders']) ? d['qc.jobOrders'] : [])) {
-    if (o && o.id && !om.has(o.id)) om.set(o.id, o)
-  }
-  out['qc.jobOrders'] = [...om.values()]
-
-  // the rest are single objects: the file's copy is taken whole, since
-  // there is no per-entry identity to merge on
-  for (const k of ['qc.statusOverrides', 'qc.assets', 'qc.savedSign', 'qc.settings']) {
-    if (d[k] !== undefined) out[k] = d[k]
-  }
-
-  // Write everything or nothing. A half-applied restore is worse than a
-  // refused one, so the previous values go back if the browser runs out
-  // of room part way through.
+  const { out, plan } = prepare(payload)
   const rollback = []
   try {
-    for (const [k, v] of Object.entries(out)) {
-      rollback.push([k, localStorage.getItem(k)])
-      localStorage.setItem(k, JSON.stringify(v))
+    for (const [key, value] of Object.entries(out)) {
+      rollback.push([key, localStorage.getItem(key)])
+      localStorage.setItem(key, JSON.stringify(value))
     }
   } catch {
-    for (const [k, prev] of rollback) {
-      if (prev == null) localStorage.removeItem(k); else localStorage.setItem(k, prev)
+    let restored = true
+    for (const [key, previous] of rollback.reverse()) {
+      try { if (previous === null) localStorage.removeItem(key); else localStorage.setItem(key, previous) }
+      catch { restored = false }
     }
-    throw new Error('There was not enough room to restore this file. Nothing was changed.')
+    throw new Error(restored ? 'Restore failed. Previous data was restored.' : 'Restore failed and some previous data could not be restored. Keep your backup and do not clear this browser.')
   }
-  return planImport(payload)
+  return plan
 }
 
 export function readBackupFile(file) {

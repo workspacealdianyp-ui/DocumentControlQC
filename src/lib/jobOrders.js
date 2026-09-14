@@ -59,6 +59,7 @@ export class OrderNotSavedError extends Error {
 }
 
 export function saveOrder(order) {
+  order = { ...order, updatedAt: new Date().toISOString() }
   const all = read()
   const i = all.findIndex((o) => o.id === order.id)
   if (i >= 0) all[i] = order

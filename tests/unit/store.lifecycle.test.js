@@ -214,3 +214,37 @@ describe('the chain of command', () => {
     expect(() => approveReport('r1', 'Quality Engineer')).toThrow(/does not sit above QC Supervisor/)
   })
 })
+
+describe('integrity across lifecycle writes', () => {
+  it.each(['save', 'approve', 'return', 'sync'])('preserves orphan evidence during %s', async (action) => {
+    const active = report('submitted', { results: [{ actual: '10', min: '9', max: '11' }] })
+    const orphan = report('draft', { id: 'orphan', jobNo: 'missing', orphaned: true })
+    localStorage.setItem('qc.reports', JSON.stringify([active, orphan]))
+    const store = await load()
+    if (action === 'save') store.saveReport({ ...active, status: 'draft' })
+    if (action === 'approve') store.approveReport('r1', 'QA Lead')
+    if (action === 'return') store.returnReport('r1', 'QA Lead', 'Add evidence')
+    if (action === 'sync') store.syncReports(['r1'])
+    expect(stored().find((r) => r.id === 'orphan')).toMatchObject({ id: 'orphan', orphaned: true })
+  })
+  it.each(['draft', 'returned', 'approved', 'voided'])('refuses approval from %s', async (status) => {
+    put(report(status))
+    const { approveReport } = await load()
+    expect(() => approveReport('r1', 'QA Lead')).toThrow(/Only a submitted/)
+    expect(stored()[0].status).toBe(status)
+  })
+  it('refuses incomplete evaluation and records successful approval history', async () => {
+    put(report('submitted'))
+    const { approveReport } = await load()
+    expect(() => approveReport('r1', 'QA Lead')).toThrow(/Complete the inspection/)
+    put(report('submitted', { results: [{ actual: '10', min: '9', max: '11' }] }))
+    expect(approveReport('r1', 'QA Lead').audit.at(-1)).toMatchObject({ event: 'approved', from: 'submitted', to: 'approved', by: 'QA Lead' })
+  })
+})
+
+it('refuses to overwrite unreadable report evidence', async () => {
+  localStorage.setItem('qc.reports', '{broken')
+  const { saveReport } = await load()
+  expect(() => saveReport(report('draft'))).toThrow(/could not be read/)
+  expect(localStorage.getItem('qc.reports')).toBe('{broken')
+})

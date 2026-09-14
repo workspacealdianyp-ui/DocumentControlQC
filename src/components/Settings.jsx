@@ -918,7 +918,12 @@ export default function Settings({ section }) {
               <li><strong>{restore.plan.updated}</strong> would be replaced by a newer version from the file</li>
               <li><strong>{restore.plan.kept}</strong> already here and the same or newer, so left alone</li>
             </ul>
-            <p className="confirm-body">Nothing is deleted by a restore.</p>
+            <ul className="set-restore-plan">
+              {Object.entries(restore.plan.entities).filter(([key]) => key !== 'qc.reports').map(([key, count]) => (
+                <li key={key}>{{ 'qc.jobOrders': 'Job orders', 'qc.overrideEvents': 'Status history', 'qc.issueCounters': 'Report numbering', 'qc.migrations': 'Record history', 'qc.statusOverrides': 'Manual statuses', 'qc.assets': 'Instruments', 'qc.savedSign': 'Signatures', 'qc.settings': 'Settings' }[key]}: {count.added} added, {count.updated} updated, {count.kept} kept</li>
+              ))}
+            </ul>
+            <p className="confirm-body">No records are deleted. Conflicting entries stop the restore.</p>
             <div className="confirm-acts">
               <button className="btn btn-primary" autoFocus onClick={() => {
                 try {
@@ -927,7 +932,7 @@ export default function Settings({ section }) {
                   notify(`Restored — ${done.added} added, ${done.updated} updated`)
                   setTimeout(() => window.location.reload(), 700)
                 } catch (e) { notify(e.message || 'The restore failed', 'err'); setRestore(null) }
-              }}>Restore {restore.plan.added + restore.plan.updated} record{restore.plan.added + restore.plan.updated === 1 ? '' : 's'}</button>
+              }}>Restore backup</button>
               <button className="btn btn-ghost" onClick={() => setRestore(null)}>Cancel</button>
             </div>
           </div>

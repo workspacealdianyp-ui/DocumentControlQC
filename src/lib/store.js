@@ -1,3 +1,4 @@
+import { reportResult } from './verdict.js'
 import { COMPANY } from './company.js'
 import { TOP_RANK, rankOfName } from './constants.js'
 import { allJobs } from './jobOrders.js'
@@ -208,7 +209,19 @@ function ensureSeed() {
 /* Everything the store holds, orphans included. Backup uses the raw key
    and so keeps them too; this is for the screens that exist to show
    them. */
-export const getAllReports = () => { ensureSeed(); return read(KEYS.reports, []) }
+function readReportRecords() {
+  const raw = localStorage.getItem(KEYS.reports)
+  let records
+  try { records = raw === null ? [] : JSON.parse(raw) } catch { throw new Error('The report data could not be read. Nothing was changed.') }
+  if (!Array.isArray(records) || records.some((r) => !r || typeof r !== 'object' || !r.id)) throw new Error('The report data could not be read. Nothing was changed.')
+  return records
+}
+export const getAllReports = () => {
+  // Validate before fixture migration, which is itself a write operation.
+  readReportRecords()
+  ensureSeed()
+  return readReportRecords()
+}
 
 export const orphanedReports = () => getAllReports().filter((r) => r.orphaned)
 
@@ -250,22 +263,11 @@ export const getReports = () => getAllReports().filter((r) => !r.orphaned)
 // A home-page zero is a claim about the record. Unlike a preference
 // read, a failed report read must not silently become an empty list.
 export function getReportsChecked() {
-  const readRecords = () => {
-    const raw = localStorage.getItem(KEYS.reports)
-    const records = raw === null ? [] : JSON.parse(raw)
-    if (!Array.isArray(records) || records.some((r) => !r || typeof r !== 'object' || !r.id)) {
-      throw new Error('The report data could not be read.')
-    }
-    return records
-  }
-  // Validate held evidence before a migration or fixture top-up can write.
-  readRecords()
-  ensureSeed()
-  return readRecords().filter((r) => !r.orphaned)
+  return getAllReports().filter((r) => !r.orphaned)
 }
 
 export function saveReport(report) {
-  const all = getReports()
+  const all = getAllReports()
   const i = all.findIndex((r) => r.id === report.id)
   report.updatedAt = new Date().toISOString()
   if (i >= 0) all[i] = report
@@ -470,10 +472,13 @@ export const canApprove = (report, byName) => {
 }
 
 export function approveReport(id, byName) {
-  const all = getReports()
+  const all = getAllReports()
   const r = all.find((x) => x.id === id)
   if (!r) return null
+  if (r.status !== 'submitted') throw new Error(`Only a submitted report can be approved. ${r.reportId} is ${r.status}.`)
   if (!canApprove(r, byName)) throw new SelfApprovalError(byName, 'approve it', r)
+  if (reportResult(r) === 'Not evaluated') throw new Error('Complete the inspection results before approval.')
+  audit(r, 'approved', byName, '', { to: 'approved' })
   r.status = 'approved'
   r.approvedBy = byName
   r.approvedAt = new Date().toISOString()
@@ -508,7 +513,7 @@ export class ReturnReasonRequiredError extends Error {
 }
 
 export function returnReport(id, byName, note) {
-  const all = getReports()
+  const all = getAllReports()
   const r = all.find((x) => x.id === id)
   if (!r) return null
   /* An approved report is never pulled back: it has been read and
@@ -547,7 +552,7 @@ export function withoutOpenReturn(report) {
 
 // Simulated sync (front-end only): reports start offline; "sync" marks uploaded.
 export function syncReports(ids) {
-  const all = getReports()
+  const all = getAllReports()
   const now = new Date().toISOString()
   for (const r of all) {
     if (ids.includes(r.id)) { r.synced = true; r.syncedAt = now }

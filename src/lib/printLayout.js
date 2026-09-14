@@ -1,5 +1,4 @@
 import { reportResult } from './verdict.js'
-import { dimRowStatus } from '../data/formSchemas.js'
 
 // Physical dimensions shared by the preview fitter and the report planner.
 export const PRINT_GEOMETRY = { width: 210, height: 297, top: 12, bottom: 14, side: 10, body: 208, minZoom: 0.9 }
@@ -141,11 +140,8 @@ export function reportPlan(schema, report, job, { density = 1 } = {}) {
   const summary = schema.sections.find((s) => s.id === 'result' && !s.noPrint)
   const approvals = schema.sections.find((s) => s.id === 'approvals')
   if (schema.kind !== 'record' || summary) {
-    const recorded = v.testResult || v.finalStatus
-    const results = report.results || []
-    const decisions = results.map((r) => schema.key === 'dimensional' ? dimRowStatus(r) : r.judgement)
-    const result = recorded || (decisions.some((value) => ['Reject', 'Rej', 'NG'].includes(value)) ? 'Reject'
-      : decisions.length && decisions.every(Boolean) ? reportResult({ ...report, formKey: schema.key }) : 'Not recorded')
+    const verdict = reportResult({ ...report, formKey: schema.key, values: v })
+    const result = schema.key === 'hydrotest' && ['Satisfactory', 'Unsatisfactory'].includes(v.testResult) ? v.testResult : verdict
     const fields = (summary?.fields || []).filter((f) => !['finalStatus', 'testResult'].includes(f.id) && (!f.showIf || f.showIf(v)))
       .flatMap((f) => fieldPieces(printField(f, v, report)))
     const closingHeight = 14 + fields.reduce((sum, field) => sum + fieldsHeight([field]) + 2, 0) + (approvals ? 43 : 0)
