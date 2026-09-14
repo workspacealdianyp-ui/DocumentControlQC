@@ -1,7 +1,7 @@
 import { Fragment, useEffect, useMemo, useState } from 'react'
 import { useApp, navigate } from '../App.jsx'
 import { buildContext, jobProgress, fmtDate, exportMatrixCsv, dueDate } from '../lib/status.js'
-import { IconChevronR, IconDownload, IconFilter, IconGroup, IconPlus, STATUS_ICONS } from './Icons.jsx'
+import { IconChevronR, IconDownload, IconFilter, IconGroup, IconSort, IconPlus, STATUS_ICONS } from './Icons.jsx'
 import { SearchField, ToolButton, PopCheck, PopRadio, PopFooter } from './RegisterBar.jsx'
 import { useStuck } from '../lib/sticky.js'
 
@@ -18,6 +18,20 @@ const KATS = [
 ]
 
 const PAGE_SIZES = [10, 15, 25, 50]
+
+/* Sorting on a phone. The desktop register sorts from its column
+   heads, which a phone does not have: the rows are cards there, and a
+   loose label-and-select floating under the toolbar was the odd control
+   out. It is a tool button now, the same shape and the same panel as
+   Filter and Group, and it stands between them. */
+const SORTS = [
+  { id: 'jobNo|asc', label: 'Job number' },
+  { id: 'pdi|asc', label: 'Target delivery' },
+  { id: 'progress|asc', label: 'Least complete' },
+  { id: 'progress|desc', label: 'Most complete' },
+  { id: 'customer|asc', label: 'Customer' },
+]
+const SORT_DEFAULT = 'jobNo|asc'
 const VIEW_KEY = 'qc.jobs.view.v1'
 
 const readView = () => {
@@ -243,6 +257,15 @@ export default function JobsPage({ kat, state, resetView = false }) {
                 </>
               )}
             </ToolButton>
+            <ToolButton icon={IconSort} label="Sort rows" className="jobs-sort-tool"
+              count={`${sort.key}|${sort.dir}` === SORT_DEFAULT ? 0 : 1}>
+              {({ close }) => SORTS.map((o) => (
+                <PopRadio key={o.id} label={o.label} on={`${sort.key}|${sort.dir}` === o.id}
+                  onChange={() => {
+                    const [key, dir] = o.id.split('|'); setSort({ key, dir }); close()
+                  }} />
+              ))}
+            </ToolButton>
             <ToolButton icon={IconGroup} label="Group rows" count={group === 'none' ? 0 : 1}>
               {({ close }) => GROUPS.map((g) => (
                 <PopRadio key={g.id} label={g.label} on={group === g.id}
@@ -261,18 +284,6 @@ export default function JobsPage({ kat, state, resetView = false }) {
               </select>
             )}
           </div>
-          <label className="jobs-mobile-sort">
-            <span>Sort</span>
-            <select value={`${sort.key}|${sort.dir}`} onChange={(e) => {
-              const [key, dir] = e.target.value.split('|'); setSort({ key, dir })
-            }}>
-              <option value="jobNo|asc">Job number</option>
-              <option value="pdi|asc">Target delivery</option>
-              <option value="progress|asc">Least complete</option>
-              <option value="progress|desc">Most complete</option>
-              <option value="customer|asc">Customer</option>
-            </select>
-          </label>
         </div>
 
         {/* Sits at the table's own top edge, so the toolbar starts
