@@ -113,6 +113,8 @@ export function buildResume(schema, report, job) {
     return { verdict, released, stats, paragraph: p }
   }
 
+  if (verdict === 'Not evaluated') return { verdict, released: false, stats, paragraph: 'The inspection result has not been fully evaluated. Complete the required results before making an acceptance decision.' }
+
   let paragraph = `On ${dateStr}, ${unit} owned by ${customer} was inspected and tested by ${COMPANY.legalName} (${COMPANY.department}). `
   if (facts.length) paragraph += cap(facts.join(', ')) + '. '
   paragraph += released

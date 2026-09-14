@@ -50,7 +50,7 @@ it('points MDR contents to the actual report starts in the bound document', () =
 
 
 it.each([false, true])('retains MDR completeness warnings across dividers (incomplete: %s)', (incomplete) => {
-  const reports = [record('visual', { deliverable: 'PDI' })]
+  const reports = [record('visual', { deliverable: 'PDI', results: [{ judgement: 'OK' }] })]
   const requiredJob = { ...job, required: incomplete ? ['PDI', 'ITP'] : ['PDI'] }
   const html = renderToStaticMarkup(<MdrReport job={requiredJob} reports={reports} session={{ name: 'QA compiler' }} onClose={() => {}} />)
   const output = new DOMParser().parseFromString(html, 'text/html')
@@ -116,7 +116,7 @@ describe('compact controlled forms', () => {
 
   it('does not invent acceptance for an empty result grid', () => {
     const output = doc('dimensional', record('dimensional'))
-    expect(output.querySelector('.ps-overall-result').textContent).toContain('Not recorded')
+    expect(output.querySelector('.ps-overall-result').textContent).toContain('Not evaluated')
   })
 
   it('keeps an odd number of dimensional points in order across paired continuation tables', () => {
@@ -195,4 +195,11 @@ describe('evidence survives the layout', () => {
     expect(output.querySelector('.ps-sign-img')).toBeNull()
     expect(output.body.textContent).toContain('Inspector without a captured mark')
   })
+})
+
+it.each(['approved', 'submitted'])('never releases an unevaluated MDR (%s)', (status) => {
+  const reports = [record('visual', { deliverable: 'PDI', status })]
+  const html = renderToStaticMarkup(<MdrReport job={{ ...job, required: ['PDI'] }} reports={reports} session={{ name: 'QA compiler' }} onClose={() => {}} />)
+  expect(html).not.toContain('RELEASED FOR SHIPMENT')
+  expect(html).toContain('NOT EVALUATED')
 })

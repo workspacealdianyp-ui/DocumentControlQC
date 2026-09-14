@@ -1,4 +1,4 @@
-import { dimRowStatus } from '../data/formSchemas.js'
+import { FORM_SCHEMAS, resultRowsStatus } from '../data/formSchemas.js'
 
 /* The verdict a single report carries.
 
@@ -7,18 +7,18 @@ import { dimRowStatus } from '../data/formSchemas.js'
    for it first. It is read off what was recorded — the stated result, the
    computed status, then the rows themselves — so a report never has to be
    asked twice. */
-export const reportResult = (r) => {
+export const reportResult = (r = {}) => {
+  const schema = FORM_SCHEMAS[r.formKey]
+  if (schema?.kind === 'record' && !schema.verdict) return 'N/A'
   const v = r.values || {}
-  if (v.testResult) return v.testResult === 'Unsatisfactory' ? 'Reject' : 'Accept'
-  if (v.finalStatus) return v.finalStatus === 'Reject' ? 'Reject' : 'Accept'
-  const results = r.results || []
-  if (results.length) {
-    if (r.formKey === 'dimensional') return results.some((row) => dimRowStatus(row) === 'Reject') ? 'Reject' : 'Accept'
-    const rejVals = ['Reject', 'Rej', 'NG']
-    return results.some((row) => rejVals.includes(row.judgement)) ? 'Reject' : 'Accept'
+  if (v.testResult === 'Unsatisfactory' || v.finalStatus === 'Reject') return 'Reject'
+  // Row-based methods must not inherit a stale computed Accept from values.
+  if (['dimensional', 'visual', 'mt', 'pt', 'ut'].includes(r.formKey) || (r.results || []).length) {
+    return resultRowsStatus(r.results, r.formKey === 'dimensional')
   }
-  if ((r.readings || []).some((row) => /fail|leak|drop/i.test(row.remark || ''))) return 'Reject'
-  return 'Accept'
+  if (v.testResult === 'Satisfactory' || v.finalStatus === 'Accept') return 'Accept'
+  // Narrative remarks are evidence, never a reliable acceptance decision.
+  return 'Not evaluated'
 }
 
 /* Which reports are the live ones.
