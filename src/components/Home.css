@@ -159,3 +159,6 @@
 .home-panel-head h2 { display: flex; align-items: center; gap: 8px; }
 .home-text-button { display: inline-flex; align-items: center; gap: 6px; min-height: 40px; }
 .home-page :is(.btn, .home-tabs button, .home-panel-head h2) svg { stroke-width: 2; }
+@media (min-width: 760px) and (max-width: 1079px) {
+  .home-toolbar > img { top: -28%; }
+}
