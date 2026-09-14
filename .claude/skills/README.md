@@ -45,3 +45,20 @@ manifest nor the launcher is vendored, so nothing here starts a process on its
 own — run the checker directly when you want it. Install the upstream plugin
 (`/plugin marketplace add miqdadbadjuber/anti-slop`) if you would rather have
 the tool wired in.
+
+`jakubkrehel/skills` (the `interfaces` plugin: `better-{ui,typography,colors,
+accessibility,layout,writing,interface}`, `interface-review`, `explain-interface`,
+`break`, `variant`) used to be vendored here and no longer is. Project skills
+shadow account-level ones, so the copies here were winning over the same eleven
+skills installed on the account and would have drifted from upstream as soon as
+Jakub shipped a release. Install them once, for every project at the same time,
+rather than per repo:
+
+```text
+/plugin marketplace add jakubkrehel/skills
+/plugin install interfaces@interfaces
+```
+
+Uploading each skill at claude.ai/settings/capabilities covers Claude chat too,
+which the plugin does not. Vendor them back only if this repo needs a version
+pinned against upstream.
