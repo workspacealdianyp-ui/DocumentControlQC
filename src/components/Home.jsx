@@ -11,7 +11,7 @@ import { homeOverview, reportPath, REPORT_LABELS } from '../lib/homeOverview.js'
 import { scopeReports, sortReview } from '../lib/reportScope.js'
 import { REPORT_CHOICES, reportCode } from '../lib/reportChoices.js'
 import { useCalendarDate } from '../lib/useCalendarDate.js'
-import { IconPlus, IconChevronR } from './Icons.jsx'
+import { IconPlus, IconChevronR, IconGrid, IconAlert, IconCloudUp, IconCloudOff } from './Icons.jsx'
 import ReportLauncher from './ReportLauncher.jsx'
 import './Home.css'
 
@@ -132,7 +132,17 @@ export function HomeView({ data, customers, records, role, session, now, onOpen,
       <div className="home-actions">{role.canOverride ? <><button className="btn btn-secondary" onClick={onNew}>New report</button><a className="btn btn-primary" href={register('submitted', 'review')}>Review reports</a></> : technician ? <button className="btn btn-primary" onClick={onNew}><IconPlus size={16} />New report</button> : <a className="btn btn-primary" href={monitor()}>Open monitoring</a>}</div>
     </header>
     <div className="home-overview-row"><section className="home-readings" aria-label="QC overview">{summary.map(([label, value, note, link]) => <a key={label} href={link}><span>{label}</span><strong>{value}</strong><small>{note}</small></a>)}</section>
-      <nav className="home-resources" aria-label="QC resources"><a href={monitor()}>Monitoring</a><a href={register('ncr')}>NCR</a>{sharepoint ? <a href={sharepoint} target="_blank" rel="noopener noreferrer">SharePoint ↗</a> : <span aria-disabled="true">SharePoint<small>Not linked</small></span>}</nav>
+      {/* Each tile carries its own glyph, tipped and run off the bottom
+          corner. It is a watermark, not a second control: aria-hidden,
+          pointer-events none, and the label says the same thing in
+          words for anyone the picture does not reach. */}
+      <nav className="home-resources" aria-label="QC resources">
+        <a href={monitor()}>Monitoring<IconGrid className="home-res-mark" size={64} /></a>
+        <a href={register('ncr')}>NCR<IconAlert className="home-res-mark" size={64} /></a>
+        {sharepoint
+          ? <a href={sharepoint} target="_blank" rel="noopener noreferrer">SharePoint ↗<IconCloudUp className="home-res-mark" size={64} /></a>
+          : <span aria-disabled="true">SharePoint<small>Not linked</small><IconCloudOff className="home-res-mark" size={64} /></span>}
+      </nav>
     </div>
     {data.pct === null && !viewer && !head && <p className="home-context-note">No required deliverables</p>}
     {data.totals.overrides > 0 && <p className="home-context-note">Job completion includes {plural(data.totals.overrides, 'admin override')}. Confirm the evidence before release.</p>}

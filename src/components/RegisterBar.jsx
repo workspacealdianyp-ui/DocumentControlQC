@@ -39,7 +39,7 @@ export function SearchField({ value, onChange, placeholder, label }) {
    button. It has to be: the card it sits in uses overflow:clip to keep
    the sticky header working, and a panel inside that box gets sliced
    off the moment the table is shorter than the panel. */
-export function ToolButton({ icon: Icon, label, count = 0, children }) {
+export function ToolButton({ icon: Icon, label, count = 0, className = '', children }) {
   const [open, setOpen] = useState(false)
   const [pos, setPos] = useState(null)
   const ref = useRef(null)
@@ -83,7 +83,7 @@ export function ToolButton({ icon: Icon, label, count = 0, children }) {
   }, [open, place])
 
   return (
-    <div className="rb-tool" ref={ref}>
+    <div className={`rb-tool${className ? ` ${className}` : ''}`} ref={ref}>
       <button type="button" className={`rb-btn${count ? ' is-on' : ''}${open ? ' is-open' : ''}`}
         aria-haspopup="dialog" aria-expanded={open} aria-label={label} title={label}
         onClick={() => setOpen((v) => !v)}>

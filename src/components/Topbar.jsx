@@ -9,6 +9,7 @@ import { buildContext, jobProgress, fmtDate } from '../lib/status.js'
 import {
   IconSearch, IconBell, IconAlert, IconApprove, IconPen, IconReturn,
   IconList, IconFile, IconGrid, IconPlus, IconGear, IconClose, IconTheme, IconLock,
+  IconUser, IconLogout,
 } from './Icons.jsx'
 
 /* The bar across the top of the work area: where you are on the left,
@@ -38,13 +39,27 @@ const PAGE_TITLES = {
 }
 
 export default function Topbar({ route, job, searchOpen, onOpenSearch, onCloseSearch }) {
-  const { jobs, session, role, tick } = useApp()
-  const [notifOpen, setNotifOpen] = useState(false)
+  const { jobs, session, role, tick, logout } = useApp()
+  /* One sheet hangs off this bar at a time, so it is one piece of state
+     rather than two booleans kept apart by hand. */
+  const [sheet, setSheet] = useState(null)
+  const notifOpen = sheet === 'notif'
+  const acctOpen = sheet === 'acct'
+  const toggle = (which) => setSheet((s) => (s === which ? null : which))
   const [mode, setMode] = useState(() => resolveTheme())
   useEffect(() => watchSystemTheme(setMode), [])
   const [q, setQ] = useState('')
 
-  useEffect(() => { setNotifOpen(false) }, [route.page, route.jobNo, route.formKey])
+  useEffect(() => { setSheet(null) }, [route.page, route.jobNo, route.formKey])
+
+  // Escape closes whichever sheet is open, which is what a reader who
+  // opened one by mistake reaches for first.
+  useEffect(() => {
+    if (!sheet) return
+    const esc = (e) => { if (e.key === 'Escape') setSheet(null) }
+    document.addEventListener('keydown', esc)
+    return () => document.removeEventListener('keydown', esc)
+  }, [sheet])
 
   let [title, sub] = PAGE_TITLES[route.page] || ['', '']
   // Same on a job: its masthead carries the number, so the bar carries
@@ -208,13 +223,18 @@ export default function Topbar({ route, job, searchOpen, onOpenSearch, onCloseSe
             title={mode === 'dark' ? 'Dark mode' : 'Light mode'}>
             <IconTheme mode={mode} size={17} />
           </button>
-          <button className="tb-btn" onClick={() => setNotifOpen((v) => !v)}
+          <button className="tb-btn" onClick={() => toggle('notif')}
             aria-label="Notifications" aria-expanded={notifOpen}>
             <IconBell size={17} />
             {notifs.length > 0 && <span className="tb-badge">{notifs.length}</span>}
           </button>
-          <button className={`tb-avatar${photo ? ' has-photo' : ''}`} onClick={() => navigate('/profile')}
-            aria-label="Profile" title={session.name}>
+          {/* The monogram used to be a link straight to the profile page,
+              which is a long way to go to sign out. It opens the account
+              instead: who you are signed in as, and the three things you
+              do from here. */}
+          <button className={`tb-avatar${photo ? ' has-photo' : ''}${acctOpen ? ' is-open' : ''}`}
+            onClick={() => toggle('acct')}
+            aria-haspopup="dialog" aria-expanded={acctOpen} aria-label="Account" title={session.name}>
             {photo ? <img src={photo} alt="" /> : initials}
           </button>
         </div>
@@ -275,16 +295,46 @@ export default function Topbar({ route, job, searchOpen, onOpenSearch, onCloseSe
         document.body
       )}
 
+      {/* One scrim for whichever sheet is open, rather than one per
+          sheet: they are mutually exclusive, and Escape closes them. */}
+      {sheet && <div className="usermenu-backdrop" onClick={() => setSheet(null)} />}
+
+      {acctOpen && (
+          <div className="usermenu acct-menu" role="dialog" aria-label="Account">
+            <div className="acct-who">
+              <span className={`acct-face${photo ? ' has-photo' : ''}`} aria-hidden="true">
+                {photo ? <img src={photo} alt="" /> : initials}
+              </span>
+              <span className="acct-id">
+                <strong>{session.name}</strong>
+                <small>{role.label}</small>
+              </span>
+            </div>
+            <div className="acct-acts">
+              <button className="acct-row"
+                onClick={() => { setSheet(null); navigate('/profile') }}>
+                <IconUser size={15} />Profile
+              </button>
+              <button className="acct-row"
+                onClick={() => { setSheet(null); navigate('/settings') }}>
+                <IconGear size={15} />Settings
+              </button>
+              <button className="acct-row is-out"
+                onClick={() => { setSheet(null); logout() }}>
+                <IconLogout size={15} />Sign out
+              </button>
+            </div>
+          </div>
+      )}
+
       {notifOpen && (
-        <>
-          <div className="usermenu-backdrop" onClick={() => setNotifOpen(false)} />
           <div className="usermenu notif-sheet" role="dialog" aria-label="Notifications">
             <div className="um-name" style={{ marginBottom: 10 }}>Notifications</div>
             {notifs.length === 0 ? (
               <p className="page-sub" style={{ margin: 0 }}>All clear. Nothing needs attention.</p>
             ) : (
               notifs.map((n, i) => (
-                <button key={i} className="notif-row" onClick={() => { navigate(n.to); setNotifOpen(false) }}>
+                <button key={i} className="notif-row" onClick={() => { navigate(n.to); setSheet(null) }}>
                   <span className={`notif-ico ${n.cls}`}><n.icon size={15} /></span>
                   <span className="act-main">
                     <strong>{n.text}</strong>
@@ -294,7 +344,6 @@ export default function Topbar({ route, job, searchOpen, onOpenSearch, onCloseSe
               ))
             )}
           </div>
-        </>
       )}
     </>
   )

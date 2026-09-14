@@ -29,7 +29,8 @@
   --amber-lift: #ffda59;   /* hover: yellow brightens, it does not darken */
   --amber-deep: #8a6600;   /* ochre dark enough to set type on white (5.3:1) */
   --amber-ink: #7a5a00;    /* darker again, for 11px type and focus rings */
-  --amber-line: #a87f00;   /* the edge a yellow fill needs on white (3.7:1) */
+  --amber-line: #a87f00;   /* the accent, dark enough to show against a light
+                              ground: edges, and the marks that carry data */
   --on-amber: #171b20;     /* what gets printed on the fill (10.8:1) */
   --amber-soft: #fff8e0;
   --amber-tint: #ffeec2;   /* the rail's active pill */
@@ -42,6 +43,22 @@
      the track a tinted tile's meter runs in. */
   --banner-wash: #eef1f4;
   --tile-track: rgba(20, 20, 24, 0.10);
+
+  /* The home hero. It was one painted slab in both themes because the
+     photograph on it carried a solid dark ground of its own: any other
+     colour behind it and the picture read as a rectangle pasted on the
+     page. The photograph is cut out now (scripts/cut-hero-art.py), so
+     the plane follows the theme like everything else. By day it is the
+     shop floor: a cool steel sheet, a step cooler and darker than the
+     paper so it still reads as a panel and not as more page. */
+  --hero-1: #f4f5f8;
+  --hero-2: #e4e8ef;
+  --hero-3: #d6dce6;
+  --hero-ink: #14171c;
+  --hero-ink-2: #525a66;
+  --hero-btn-bg: #ffffff;
+  --hero-btn-line: #c2cad6;
+  --hero-btn-bg-hover: #eef1f5;
 
   /* ── Ground ──────────────────────────────────────────────────── */
   --paper: #f6f6f4;        /* canvas behind the cards */
@@ -157,6 +174,17 @@
   --file-line: #6b5424;
   --banner-wash: #1e1e24;
   --tile-track: rgba(255, 255, 255, 0.14);
+
+  /* The night shift: the same sheet, lit from the same corner, dark
+     enough that the machines on it keep their edges. */
+  --hero-1: #1f262f;
+  --hero-2: #161b22;
+  --hero-3: #10141a;
+  --hero-ink: #f5f7fa;
+  --hero-ink-2: #c2cad6;
+  --hero-btn-bg: #272e36;
+  --hero-btn-line: #65717e;
+  --hero-btn-bg-hover: #394450;
 
   --paper: #0f0f12;
   --surface: #17171b;
@@ -418,6 +446,48 @@ table { border-collapse: collapse; }
   box-shadow: var(--sh-pop); padding: 14px; width: 280px; animation: pop 0.15s ease;
 }
 .usermenu .um-name { font-family: var(--mono); font-weight: 600; font-size: 15px; }
+
+/* ── the account sheet ──────────────────────────────────────────
+   Who you are signed in as, then the three things you do from here.
+   It is deliberately short: the profile page is one click away and
+   everything else about the account lives there, not in a menu that
+   has to be scrolled. */
+.acct-menu { width: 252px; padding: 0; overflow: hidden; }
+.acct-who {
+  display: flex; align-items: center; gap: 10px;
+  padding: 13px 14px; border-bottom: 1px solid var(--line);
+  background: var(--surface-2);
+}
+.acct-face {
+  width: 38px; height: 38px; border-radius: var(--r-pill); flex-shrink: 0;
+  background: var(--ink); color: var(--amber);
+  font-family: var(--mono); font-size: 13px; font-weight: 600;
+  display: grid; place-items: center;
+}
+.acct-face.has-photo { overflow: hidden; }
+.acct-face img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.acct-id { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
+.acct-id strong { font-size: 13.5px; font-weight: 600; line-height: 1.25; overflow-wrap: anywhere; }
+.acct-id small { font-size: 11px; color: var(--text-2); line-height: 1.3; }
+.acct-acts { padding: 6px; display: grid; gap: 1px; }
+.acct-row {
+  display: flex; align-items: center; gap: 10px; width: 100%;
+  background: none; border: 0; border-radius: var(--r-sm);
+  padding: 0 10px; min-height: 40px;
+  font-family: var(--sans); font-size: 13px; font-weight: 500;
+  color: var(--text); text-align: left;
+  transition: background-color .12s ease, color .12s ease;
+}
+.acct-row svg { color: var(--text-2); flex-shrink: 0; transition: color .12s ease; }
+.acct-row:hover { background: var(--surface-2); }
+.acct-row:hover svg { color: var(--text); }
+/* Signing out is the one row that undoes something, so it carries the
+   alarm colour rather than sitting in the same grey as the other two. */
+.acct-row.is-out { color: var(--overdue); }
+.acct-row.is-out svg { color: var(--overdue); }
+.acct-row.is-out:hover { background: var(--overdue-bg); }
+.acct-row:focus-visible { outline: 2px solid var(--steel); outline-offset: -2px; }
+.tb-avatar.is-open { box-shadow: 0 0 0 3px var(--steel-soft); }
 
 /* ─────────────────── bottom nav (mobile/tablet) ─────────────────── */
 /* ── the bottom rail ──────────────────────────────────────────
@@ -801,7 +871,7 @@ table { border-collapse: collapse; }
 .ring-wrap { position: relative; width: 88px; height: 88px; flex-shrink: 0; }
 .ring-wrap svg { transform: rotate(-90deg); }
 .ring-track { stroke: var(--surface-3); }
-.ring-bar { stroke: var(--amber); stroke-linecap: butt; transition: stroke-dashoffset 0.6s ease; }
+.ring-bar { stroke: var(--amber-line); stroke-linecap: butt; transition: stroke-dashoffset 0.6s ease; }
 .ring-label { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; font-family: var(--mono); }
 .ring-label strong { font-size: 19px; font-weight: 600; }
 .ring-label small { font-size: 9px; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.06em; }
@@ -2675,7 +2745,10 @@ tr:has(.chip-done) .jobs-prog-bar span { background: var(--done); }
 .jobs-table .jobs-urgency { display: block; margin-top: 2px; font-family: var(--sans); font-size: 10px; font-weight: 600; }
 .jobs-urgency.is-overdue { color: var(--overdue); }
 .jobs-urgency.is-today, .jobs-urgency.is-soon { color: var(--inprog); }
-.jobs-mobile-register, .jobs-mobile-sort { display: none; }
+.jobs-mobile-register { display: none; }
+/* The desktop register sorts from its column heads, so the tool button
+   would be a second way to do the same thing. It belongs to the phone. */
+.jobs-sort-tool { display: none; }
 
 @media (max-width: 639px) {
   .jobs-page-bar { align-items: stretch; }
@@ -2684,11 +2757,11 @@ tr:has(.chip-done) .jobs-prog-bar span { background: var(--done); }
   .jobs-page-bar .mon-head-actions .btn { flex: 1 1 auto; }
   .jobs-desktop-register { display: none; }
   .jobs-mobile-register { display: block; }
-  .jobs-mobile-sort {
-    display: flex; align-items: center; justify-content: space-between; gap: 10px;
-    width: 100%; font-size: 11px; color: var(--text-2);
-  }
-  .jobs-mobile-sort select { width: auto; min-height: 34px; padding-block: 5px; font-size: 12px; }
+  .jobs-sort-tool { display: block; }
+  /* A phone has room for the count or the page size, not both, and the
+     count is the fact. The pager below still moves between pages; how
+     many rows are on one of them is a desk decision. */
+  .mon-showing select { display: none; }
   .jobs-mobile-row {
     display: flex; flex-direction: column; gap: 7px;
     padding: 13px 12px; border-bottom: 1px solid var(--line);
@@ -3151,7 +3224,7 @@ tr:has(.chip-done) .jobs-prog-bar span { background: var(--done); }
    settings motion, not the app-wide amber one */
 
 /* Progress reads as work in hand until it is finished, then as passed. */
-.jobs-prog-bar span { background: var(--amber); }
+.jobs-prog-bar span { background: var(--amber-line); }
 tr:has(.chip-done) .jobs-prog-bar span { background: var(--done); }
 
 
@@ -3190,10 +3263,15 @@ tr:has(.chip-done) .jobs-prog-bar span { background: var(--done); }
 
 /* Progress reads in the accent everywhere it appears, not just in the
    job list: the spotlight bar and the job-detail ring were still
-   graphite from before the palette moved. */
-.sc-prog-bar span { background: var(--amber); }
-.progress-bar { background: var(--amber); }
-.jd-hero .ring-bar { stroke: var(--amber); }
+   graphite from before the palette moved.
+
+   Not --amber itself. These run in a --surface-3 track, and the yellow
+   against that track measures 1.4:1 — a bar you cannot see is not a
+   reading. --amber-line is the same hue at 3.1:1, and at night it is
+   the bright gold, because there the ground is the dark one. */
+.sc-prog-bar span { background: var(--amber-line); }
+.progress-bar { background: var(--amber-line); }
+.jd-hero .ring-bar { stroke: var(--amber-line); }
 .jd-hero .ring-label strong { color: var(--text); }
 .jd-hero.is-complete .ring-bar { stroke: var(--done); }
 
