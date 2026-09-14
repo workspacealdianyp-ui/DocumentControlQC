@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react'
 import { useApp } from '../App.jsx'
 import { FORM_SCHEMAS } from '../data/formSchemas.js'
-import miningArt from '../assets/home-mining.webp'
+import miningArt from '../assets/home-mining-cutout.webp'
 import { COMPANY } from '../lib/company.js'
 import { getReportsChecked, getReport } from '../lib/store.js'
 import { allJobs } from '../lib/jobOrders.js'
@@ -11,7 +11,7 @@ import { homeOverview, reportPath, REPORT_LABELS } from '../lib/homeOverview.js'
 import { scopeReports, sortReview } from '../lib/reportScope.js'
 import { REPORT_CHOICES, reportCode } from '../lib/reportChoices.js'
 import { useCalendarDate } from '../lib/useCalendarDate.js'
-import { IconPlus, IconChevronR } from './Icons.jsx'
+import { IconPlus, IconApprove, IconGrid, IconAlert, IconCloudUp, IconChevronR } from './Icons.jsx'
 import ReportLauncher from './ReportLauncher.jsx'
 import './Home.css'
 
@@ -22,9 +22,9 @@ const at = (value) => value && !Number.isNaN(new Date(value).getTime()) ? fmtDat
 const plural = (n, noun) => `${n} ${noun}${n === 1 ? '' : 's'}`
 const recentFirst = (a, b) => (b.updatedAt || '').localeCompare(a.updatedAt || '')
 
-function Panel({ id, title, note, count, tools, footer, children }) {
-  return <section className="home-panel" aria-labelledby={id}>
-    <header className="home-panel-head"><div><h2 id={id}>{title}</h2>{note && <p>{note}</p>}</div>{count !== undefined && <span className="home-count">{count}</span>}</header>
+function Panel({ id, title, note, count, tools, footer, tone, children }) {
+  return <section className={`home-panel${tone ? ` home-panel-${tone}` : ''}`} aria-labelledby={id}>
+    <header className="home-panel-head"><div><h2 id={id}>{tone === 'review' ? <IconApprove size={18} /> : tone === 'attention' ? <IconAlert size={18} /> : null}{title}</h2>{note && <p>{note}</p>}</div>{count !== undefined && <span className="home-count">{count}</span>}</header>
     {tools && <div className="home-panel-tools">{tools}</div>}
     <div className="home-panel-content">{children}</div>
     {footer && <footer className="home-panel-footer">{footer}</footer>}
@@ -50,8 +50,8 @@ function JobPanel({ data, role, onJob, overview = false }) {
   const [filter, setFilter] = useState('all')
   const source = overview ? data.units : data.attention
   const rows = source.filter((r) => filter === 'all' || (filter === 'overdue' ? r.late.length : r.ncr))
-  return <Panel id="home-jobs-title" title={overview ? 'Job overview' : 'Needs attention'} note={overview ? 'Required documents and recorded progress' : 'Overdue documents and NCR reports'} count={rows.length}
-    tools={<div className="home-tabs" role="group" aria-label="Filter attention jobs">{[['all', overview ? 'All jobs' : 'All attention'], ['overdue', 'Overdue'], ['ncr', 'NCR']].map(([id, label]) => <button key={id} type="button" aria-pressed={filter === id} onClick={() => setFilter(id)}>{label}</button>)}</div>}
+  return <Panel id="home-jobs-title" title={overview ? 'Job overview' : 'Needs attention'} note={overview ? 'Required documents and recorded progress' : 'Overdue documents and NCR reports'} count={rows.length} tone={overview ? 'overview' : 'attention'}
+    tools={<div className="home-tabs" role="group" aria-label="Filter attention jobs">{[['all', overview ? 'All jobs' : 'All attention'], ['overdue', 'Overdue'], ['ncr', 'NCR']].map(([id, label]) => <button key={id} type="button" aria-pressed={filter === id} onClick={() => setFilter(id)}>{id === 'all' ? <IconGrid size={14} /> : <IconAlert size={14} />}{label}</button>)}</div>}
     footer={<><span>Showing {Math.min(5, rows.length)} of {rows.length}</span><a href={filter === 'ncr' ? register('ncr') : monitor(filter === 'overdue' ? 'overdue' : '')}>{filter === 'ncr' ? 'Open NCR reports' : 'Open monitoring'}</a></>}>
     {rows.length ? <ul className="home-records">{rows.slice(0, 5).map(({ job, progress, late, ncr, target }) => <li key={job.jobNo}>
       <a className="home-job-row" href={href(`/job/${job.jobNo}`)} onClick={(e) => onJob(e, job.jobNo)} aria-label={`Open job ${job.jobNo}`}>
@@ -128,30 +128,30 @@ export function HomeDashboard({ data, customers, records, role, session, now, on
   try { const url = new URL(COMPANY.sharepointUrl); if (url.protocol === 'https:') sharepoint = url.href } catch { /* An unconfigured resource must not become a dead link. */ }
   return <div className="page home-page"><div className="home-dashboard">
     <header className="home-toolbar"><img src={miningArt} alt="" aria-hidden="true" />
-      <div className="home-welcome"><span className="home-kicker">Fabrication &amp; Plant Cikupa</span><h1>{greeting},<br />{session.name}.</h1><p>{role.label} · {now.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</p><span className="home-banner-note">{viewer ? 'Follow each job through its inspection records.' : reviewing ? 'Review the evidence. Keep every release traceable.' : 'Record the inspection. Keep the work moving.'}</span></div>
-      <div className="home-actions">{role.canOverride ? <><button className="btn btn-secondary" onClick={onNew}>New report</button><a className="btn btn-primary" href={register('submitted', 'review')}>Review reports</a></> : technician ? <button className="btn btn-primary" onClick={onNew}><IconPlus size={16} />New report</button> : <a className="btn btn-primary" href={monitor()}>Open monitoring</a>}</div>
+      <div className="home-welcome"><span className="home-kicker">Fabrication &amp; Plant Cikupa</span><h1>{greeting}, {session.name}.</h1><p>{role.label} · {now.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</p><span className="home-banner-note">{viewer ? 'Follow each job through its inspection records.' : reviewing ? 'Review the evidence. Keep every release traceable.' : 'Record the inspection. Keep the work moving.'}</span></div>
+      <div className="home-actions">{role.canOverride ? <><button className="btn btn-secondary" onClick={onNew}><IconPlus size={16} />New report</button><a className="btn btn-primary" href={register('submitted', 'review')}><IconApprove size={16} />Review reports</a></> : technician ? <button className="btn btn-primary" onClick={onNew}><IconPlus size={16} />New report</button> : <a className="btn btn-primary" href={monitor()}><IconGrid size={16} />Open monitoring</a>}</div>
     </header>
     <div className="home-overview-row"><section className="home-readings" aria-label="QC overview">{summary.map(([label, value, note, link]) => <a key={label} href={link}><span>{label}</span><strong>{value}</strong><small>{note}</small></a>)}</section>
-      <nav className="home-resources" aria-label="QC resources"><a href={monitor()}>Dashboard</a><a href={register('ncr')}>NCR</a>{sharepoint ? <a href={sharepoint} target="_blank" rel="noopener noreferrer">SharePoint ↗</a> : <span aria-disabled="true">SharePoint<small>Not linked</small></span>}</nav>
+      <nav className="home-resources" aria-label="QC resources"><a href={monitor()}><IconGrid size={15} />Dashboard</a><a href={register('ncr')}><IconAlert size={15} />NCR</a>{sharepoint ? <a href={sharepoint} target="_blank" rel="noopener noreferrer"><IconCloudUp size={15} />SharePoint ↗</a> : <span aria-disabled="true"><IconCloudUp size={15} />SharePoint<small>Not linked</small></span>}</nav>
     </div>
     {data.pct === null && !viewer && !head && <p className="home-context-note">No required deliverables</p>}
     {data.totals.overrides > 0 && <p className="home-context-note">Job completion includes {plural(data.totals.overrides, 'admin override')}. Confirm the evidence before release.</p>}
     <div className="home-row home-main-row">
-      {viewer ? <JobPanel data={data} role={role} onJob={onJob} overview /> : <Panel id="home-work-title" title={reviewing ? reviewTitle : 'Your work'} count={queue.length} note={reviewing ? 'Oldest submission first; within your approval authority' : 'Sent back first, then your latest drafts'}
-        tools={role.canOverride && <div className="home-tabs" role="group" aria-label="Choose work list"><button aria-pressed={!ownWork} onClick={() => setOwnWork(false)}>For review {review.length}</button><button aria-pressed={ownWork} onClick={() => setOwnWork(true)}>Your work {data.mine.length}</button></div>}
+      {viewer ? <JobPanel data={data} role={role} onJob={onJob} overview /> : <Panel id="home-work-title" title={reviewing ? reviewTitle : 'Your work'} count={queue.length} tone={reviewing ? 'review' : 'work'} note={reviewing ? 'Oldest submission first; within your approval authority' : 'Sent back first, then your latest drafts'}
+        tools={role.canOverride && <div className="home-tabs" role="group" aria-label="Choose work list"><button aria-pressed={!ownWork} onClick={() => setOwnWork(false)}><IconApprove size={14} />For review {review.length}</button><button aria-pressed={ownWork} onClick={() => setOwnWork(true)}><IconGrid size={14} />Your work {data.mine.length}</button></div>}
         footer={<><span>Showing {Math.min(5, queue.length)} of {queue.length}</span><a href={register(reviewing ? 'submitted' : 'all', reviewing ? 'review' : 'work')}>{reviewing ? 'View all for review' : 'View all your work'}</a></>}>
         <ReportRows records={queue} review={reviewing} onOpen={onOpen} session={session} empty={reviewing ? 'No reports awaiting your review. Your own drafts are available under Your work.' : 'No returned reports or drafts. Start a report when your next inspection is ready.'} />
       </Panel>}
       {technician || viewer ? <Panel id="home-tracking-title" title={viewer ? 'Approved reports' : 'Your submitted reports'} note={viewer ? 'Latest approved records' : 'Track review outcomes without opening each job'}
-        tools={!viewer && <div className="home-tabs" role="group" aria-label="Track your reports"><button aria-pressed={tracking === 'submitted'} onClick={() => setTracking('submitted')}>Awaiting QA</button><button aria-pressed={tracking === 'approved'} onClick={() => setTracking('approved')}>Approved</button></div>}
+        tools={!viewer && <div className="home-tabs" role="group" aria-label="Track your reports"><button aria-pressed={tracking === 'submitted'} onClick={() => setTracking('submitted')}><IconCloudUp size={14} />Awaiting QA</button><button aria-pressed={tracking === 'approved'} onClick={() => setTracking('approved')}><IconApprove size={14} />Approved</button></div>}
         footer={<a href={register(viewer ? 'approved' : tracking, viewer ? '' : 'mine')}>View {viewer ? 'approved' : 'your'} reports</a>}>
         <ReportRows records={(viewer ? records : mine).filter((r) => r.status === (viewer ? 'approved' : tracking)).sort(recentFirst)} onOpen={onOpen} session={session} empty={viewer ? 'Approved reports will appear here once reviewed.' : `You have no ${tracking === 'submitted' ? 'reports awaiting QA' : 'approved reports'}.`} />
       </Panel> : <JobPanel data={data} role={role} onJob={onJob} />}
     </div>
     <div className={`home-row home-support-row${head ? ' has-three' : ''}`}>
       {technician ? <JobPanel data={data} role={role} onJob={onJob} /> : <CustomerPanel customers={customers} />}
-      {technician ? <Panel id="home-shortcuts-title" title="Start an inspection" note="Choose a report type, then its job" footer={<button className="home-text-button" onClick={onNew}>All report types</button>}>
-        <div className="home-shortcuts">{REPORT_CHOICES.map((choice) => <button key={choice.id} onClick={() => onNew(choice.id)}><b>{reportCode(choice)}</b><span>{choice.label}</span></button>)}</div>
+      {technician ? <Panel id="home-shortcuts-title" title="Start an inspection" note="Choose a report type, then its job" footer={<button className="home-text-button" onClick={onNew}><IconGrid size={14} />All report types</button>}>
+        <div className="home-shortcuts">{REPORT_CHOICES.map((choice) => <button key={choice.id} onClick={() => onNew(choice.id)}><IconPlus size={16} /><b>{reportCode(choice)}</b><span>{choice.label}</span></button>)}</div>
       </Panel> : role.canManage ? <WorkloadPanel records={records} /> : viewer ? <ReadinessPanel data={data} onJob={onJob} /> : <Panel id="home-register-title" title="Report register" note="All reports on this device" footer={<a href={register()}>Open report register</a>}>
         <dl className="home-register">{[['draft', 'Draft'], ['returned', 'Sent back'], ['submitted', 'Awaiting QA'], ['approved', 'Approved'], ['ncr', 'NCR reports']].map(([key, label]) => <div key={key}><dt><a href={register(key)}>{label}</a></dt><dd>{data.counts[key]}</dd></div>)}</dl><p className="home-panel-note">NCR verdicts may overlap lifecycle counts.</p>
       </Panel>}
@@ -182,6 +182,6 @@ export default function Home() {
     if (!allJobs().some((j) => String(j.jobNo) === String(jobNo))) { e.preventDefault(); notify('This job is no longer available in the register.', 'err') }
   }
   const onNew = (id) => { if (role.canEdit) setLauncher(typeof id === 'string' ? id : 'all') }
-  if (snapshot.error) return <div className="page home-page"><section className="home-panel home-empty" role="alert"><h2>Could not read reports on this device.</h2><p>Your records have not been changed. Retry or check the report storage.</p><button className="btn btn-primary" onClick={refresh}>Retry</button>{role.canManage && <a href="#/settings?s=storage">Open storage settings</a>}</section></div>
+  if (snapshot.error) return <div className="page home-page"><section className="home-panel home-empty" role="alert"><h2>Could not read reports on this device.</h2><p>Your records have not been changed. Retry or check the report storage.</p><button className="btn btn-primary" onClick={refresh}><IconChevronR size={16} />Retry</button>{role.canManage && <a href="#/settings?s=storage">Open storage settings</a>}</section></div>
   return <><HomeDashboard key={`${session.role}:${session.name}`} {...snapshot} role={role} session={session} now={now} onOpen={onOpen} onJob={onJob} onNew={onNew} />{launcher && <ReportLauncher initial={launcher} onClose={() => setLauncher(null)} />}</>
 }

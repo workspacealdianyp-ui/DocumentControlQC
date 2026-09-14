@@ -19,9 +19,9 @@ try {
   const { jobs } = JSON.parse(await readFile('src/data/joblist.json', 'utf8'))
   const records = seedReports()
   memory.set('qc.seeded.v3', '1'); memory.set('qc.storeVersion', '4'); memory.set('qc.seedStamp', SEED_STAMP); memory.set('qc.reports', JSON.stringify(records))
-  const ctx = buildContext(records), now = new Date('2026-09-11T08:00:00')
+  const ctx = buildContext(records), now = new Date('2026-09-11T14:00:00')
   const css = `${await readFile('src/styles.css', 'utf8')}\n${await readFile('src/components/Home.css', 'utf8')}`
-  const art = `data:image/webp;base64,${(await readFile('src/assets/home-mining.webp')).toString('base64')}`
+  const art = `data:image/webp;base64,${(await readFile('src/assets/home-mining-cutout.webp')).toString('base64')}`
   await writeFile(resolve(out, 'styles.css'), css)
   for (const role of Object.keys(ROLES)) {
     const session = USERS.find((u) => u.role === role)
