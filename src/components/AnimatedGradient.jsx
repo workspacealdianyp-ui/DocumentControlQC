@@ -43,7 +43,7 @@ const BASE = {
   shapeSize: 38,
 }
 
-export default function AnimatedGradient({ mode, params, className, style }) {
+export default function AnimatedGradient({ mode, params, noise, className, style }) {
   const hostRef = useRef(null)
   const canvasRef = useRef(null)
   const paramsRef = useRef({ ...BASE, ...params })
@@ -180,6 +180,15 @@ export default function AnimatedGradient({ mode, params, className, style }) {
   return (
     <div ref={hostRef} className={`ag${className ? ` ${className}` : ''}`} style={style} aria-hidden="true">
       <canvas ref={canvasRef} />
+      {/* A tiled grain over the top. A gradient this wide bands on an
+          8-bit panel; a little noise is what stops the steps showing,
+          and it is cheaper than dithering in the shader. */}
+      {noise?.opacity > 0 && (
+        <span className="ag-noise" style={{
+          backgroundSize: (noise.scale ?? 1) * 200,
+          opacity: noise.opacity / 2,
+        }} />
+      )}
     </div>
   )
 }
