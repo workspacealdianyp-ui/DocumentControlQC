@@ -60,6 +60,14 @@
   --hero-btn-line: #c2cad6;
   --hero-btn-bg-hover: #eef1f5;
 
+  /* The three stops the drawn gradient reads (AnimatedGradient.jsx).
+     It runs under type on the profile band, so all three sit in the
+     same narrow band of lightness: the surface moves, the contrast of
+     what is written on it does not. */
+  --grad-1: #eef1f6;
+  --grad-2: #ffce3d;
+  --grad-3: #cbd2de;
+
   /* ── Ground ──────────────────────────────────────────────────── */
   --paper: #f6f6f4;        /* canvas behind the cards */
   --surface: #ffffff;      /* cards, rail */
@@ -185,6 +193,11 @@
   --hero-btn-bg: #272e36;
   --hero-btn-line: #65717e;
   --hero-btn-bg-hover: #394450;
+
+  /* Same three roles, all dark, for the same reason. */
+  --grad-1: #12161c;
+  --grad-2: #4a3a0d;
+  --grad-3: #222a35;
 
   --paper: #0f0f12;
   --surface: #17171b;
@@ -439,9 +452,9 @@ table { border-collapse: collapse; }
 .role-viewer { color: var(--text-2); background: var(--surface-2); }
 
 /* user/notif sheets */
-.usermenu-backdrop { position: fixed; inset: 0; z-index: 80; background: rgba(15, 27, 45, 0.3); }
+.usermenu-backdrop { position: fixed; inset: 0; z-index: var(--z-pop); background: rgba(15, 27, 45, 0.3); }
 .usermenu {
-  position: fixed; z-index: 81; right: 12px; top: calc(var(--topbar-h) + 6px);
+  position: fixed; z-index: calc(var(--z-pop) + 1); right: 12px; top: calc(var(--topbar-h) + 6px);
   background: var(--surface); border: 1px solid var(--line-2); border-radius: var(--r-lg);
   box-shadow: var(--sh-pop); padding: 14px; width: 280px; animation: pop 0.15s ease;
 }
@@ -455,7 +468,12 @@ table { border-collapse: collapse; }
    Radii are concentric — a 10px portrait inside 6px of inset inside a
    16px card — so the corners nest instead of arguing. */
 .acct-card {
-  width: 272px; padding: 0; overflow: hidden; position: relative;
+  /* No position of its own: .usermenu above already fixes it under the
+     monogram, and fixed is a containing block for the drawer too. It
+     carried position:relative until the sheet moved out to the body,
+     where the override stopped looking right and started reading as
+     what it was — a card laid out at the end of the document. */
+  width: 272px; padding: 0; overflow: hidden;
   border-radius: 16px; border-color: var(--line);
   box-shadow:
     0 1px 1px rgba(16, 16, 20, 0.04),
@@ -480,21 +498,36 @@ table { border-collapse: collapse; }
     0 0 0 1px var(--line-2);
 }
 
-/* The plate the rest of the app is drawn on stands in for a photograph
-   nobody has set: an account without one gets a portrait rather than an
-   empty grey square. */
+/* ── the drawn gradient ────────────────────────────────────────
+   AnimatedGradient.jsx paints into this box. The CSS background under
+   it is not decoration: it is what shows on a machine with no WebGL2,
+   or if the shader fails to compile, so the surface is never blank. */
+.ag { position: absolute; inset: 0; pointer-events: none; }
+.ag canvas { display: block; width: 100%; height: 100%; }
+/* The grain tile ships with the component, inline, because a 30x30 PNG
+   costs less as a data URI than as a request. */
+.ag-noise {
+  position: absolute; inset: 0; pointer-events: none;
+  background-repeat: repeat;
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwBAMAAAClLOS0AAAAElBMVEUAAAAAAAAAAAAAAAAAAAAAAADgKxmiAAAABnRSTlMCCgkGBAVJOAVJAAAASklEQVQ4y2NgGAWjYBSMglEwCgY/YGRgZBQUYmJiZGQEkYwMjIyMgoKCjIyMIJKBgRFIMjIyAklGRkYGRkFBYEcwMDIyMjAOUQAA1I4HwVwZAkYAAAAASUVORK5CYII=");
+}
+
+/* A moving gradient stands in for a photograph nobody has set, so an
+   account without one gets a portrait rather than an empty grey
+   square. */
 .acct-art {
   position: relative; margin: 6px; border-radius: 10px; overflow: hidden;
   aspect-ratio: 4 / 3;
   display: grid; place-items: center;
-  background: var(--surface-2) var(--masthead-plate) center / cover no-repeat;
+  background: linear-gradient(152deg, var(--grad-1) 0%, var(--grad-2) 52%, var(--grad-3) 100%);
   animation: acct-art-in 0.42s cubic-bezier(0.16, 1, 0.3, 1) backwards;
 }
+.acct-art > span { position: relative; z-index: 1; }
 @keyframes acct-art-in {
   from { opacity: 0; transform: scale(1.05); }
   to   { opacity: 1; transform: none; }
 }
-.acct-art span {
+.acct-art > span {
   font-family: var(--mono); font-size: 40px; font-weight: 600;
   letter-spacing: 0.02em; color: var(--ink);
   /* The plate is a drawing, not a flat ground, so the monogram sits on
@@ -503,7 +536,7 @@ table { border-collapse: collapse; }
   display: grid; place-items: center;
   background: var(--surface); box-shadow: 0 2px 10px rgba(16, 16, 20, 0.12), inset 0 0 0 1px var(--line);
 }
-:root[data-theme="dark"] .acct-art span { color: var(--amber); background: var(--ink); }
+:root[data-theme="dark"] .acct-art > span { color: var(--amber); background: var(--ink); }
 .acct-art.has-photo { background: var(--surface-2); }
 .acct-art img { width: 100%; height: 100%; object-fit: cover; display: block; }
 /* A photograph needs its own edge or it bleeds into the card. */
@@ -4358,126 +4391,31 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber-line); out
 
 .pf { max-width: 1180px; }
 
-/* ── the plate ────────────────────────────────────────────────
-   Brushed steel, drawn in gradients rather than photographed. Three
-   layers move and none of them repaint: each is an oversized element
-   translated on the compositor, so the surface flows at 60fps on a
-   phone that is also holding a 40-row table open behind it. */
+/* ── the band ─────────────────────────────────────────────────
+   Plain: one drawn gradient across the whole face and nothing else on
+   it. It replaced a brushed-steel plate built from a painted gradient,
+   two drifting sheens, a falling light, a brush grain and a spotlight
+   that followed the pointer — five layers of finish under the four
+   lines of type that are the point of the band. */
 .pf-banner {
   position: relative; isolation: isolate; overflow: hidden;
   border: 1px solid var(--line-2); border-radius: var(--r-lg);
   margin-bottom: 22px;
-  background: var(--surface);
-  /* The tilt the pointer writes. Two properties, one transform, no
-     layout and no repaint — the face turns on the compositor. */
-  transform: perspective(1100px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
-  transition: transform .55s cubic-bezier(0.22, 0.61, 0.36, 1);
-  will-change: transform;
+  background: linear-gradient(152deg, var(--grad-1) 0%, var(--grad-2) 52%, var(--grad-3) 100%);
 }
-/* Under the pointer the face keeps up; when the pointer leaves, the
-   variables go back to zero and the longer transition above lets it
-   settle rather than snap flat. */
-.pf-banner.is-lit { transition: transform .16s ease-out; }
-
-.pf-metal {
-  position: absolute; inset: 0; z-index: 0; pointer-events: none;
-  animation: pf-lightup 1.1s ease both;
+/* The seat for the type: the face lifts at the top left and settles
+   toward the bottom, which is where the words are. It is the one thing
+   kept from the finish, because it is not decoration — it is what holds
+   the contrast steady while the gradient moves underneath. */
+.pf-banner::after {
+  content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background:
+    linear-gradient(103deg, rgba(255,255,255,0.42) 0%, rgba(255,255,255,0.14) 42%, transparent 72%),
+    linear-gradient(0deg, rgba(28,28,34,0.18) 0%, transparent 58%);
 }
+.pf-grad { z-index: 0; animation: pf-lightup 1.1s ease both; }
 /* The face lights before anything is written on it. */
 @keyframes pf-lightup { from { opacity: 0; } to { opacity: 1; } }
-.pf-metal::before {
-  content: ''; position: absolute; inset: 0;
-  background: linear-gradient(156deg,
-    #b4b7bf 0%, #fdfdfe 8%, #cbced5 17%, #9b9ea8 26%,
-    #f0f1f4 36%, #b6b9c1 47%, #f8f9fb 58%, #a4a7b1 69%,
-    #e6e8ec 80%, #bcbfc7 89%, #f6f7f9 100%);
-}
-/* the seat for the type: the face darkens toward the bottom left, which
-   is where the words are */
-.pf-metal::after {
-  content: ''; position: absolute; inset: 0; z-index: 3;
-  background:
-    linear-gradient(103deg, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0.16) 42%, transparent 72%),
-    linear-gradient(0deg, rgba(28,28,34,0.16) 0%, transparent 58%);
-}
-.pf-metal > span { position: absolute; will-change: transform; }
-
-/* two sheens, different widths and rates, so the surface never repeats
-   on a cycle the eye can catch */
-.pf-sheen-a, .pf-sheen-b {
-  top: -60%; height: 220%; width: 46%;
-  transform: rotate(14deg) translate3d(-160%, 0, 0);
-  animation: pf-drift-a 19s cubic-bezier(0.45, 0, 0.55, 1) infinite;
-}
-.pf-sheen-a {
-  left: 0;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.9) 46%, rgba(255,255,255,0.42) 62%, transparent);
-}
-.pf-sheen-b {
-  left: 0; width: 20%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.72), transparent);
-  animation: pf-drift-b 27s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-}
-@keyframes pf-drift-a {
-  0%   { transform: rotate(14deg) translate3d(-170%, 0, 0); }
-  100% { transform: rotate(14deg) translate3d(430%, 0, 0); }
-}
-@keyframes pf-drift-b {
-  0%   { transform: rotate(14deg) translate3d(620%, 0, 0); }
-  100% { transform: rotate(14deg) translate3d(-220%, 0, 0); }
-}
-
-/* the fall: thin runs of light sliding down the face, the way water
-   runs off a plate that has just been washed down */
-.pf-fall {
-  left: -10%; right: -10%; top: -120%; height: 240%;
-  z-index: 2; opacity: 0.62;
-  background: repeating-linear-gradient(90deg,
-    transparent 0 17px,
-    rgba(255,255,255,0.55) 17px 19px,
-    transparent 19px 44px,
-    rgba(255,255,255,0.3) 44px 45px,
-    transparent 45px 96px);
-  -webkit-mask-image: linear-gradient(180deg, transparent, #000 24%, #000 76%, transparent);
-  mask-image: linear-gradient(180deg, transparent, #000 24%, #000 76%, transparent);
-  animation: pf-fall 11s linear infinite;
-}
-@keyframes pf-fall {
-  0%   { transform: translate3d(0, -26%, 0); }
-  100% { transform: translate3d(0, 26%, 0); }
-}
-
-/* the brush marks themselves: still, because a brushed finish is */
-.pf-grain {
-  inset: 0; z-index: 1; opacity: 0.5;
-  background: repeating-linear-gradient(92deg,
-    rgba(255,255,255,0.4) 0 1px,
-    transparent 1px 2px,
-    rgba(40,40,48,0.05) 2px 3px,
-    transparent 3px 5px);
-}
-
-/* The lamp, where the pointer is. A fixed circle moved by transform
-   rather than a gradient whose stops are recomputed every frame: the
-   second one repaints the whole face on every pointer event. It is only
-   ever switched on by a real pointer, so a phone never pays for it. */
-.pf-spot {
-  left: 0; top: 0; z-index: 2;
-  width: 400px; height: 400px; margin: -200px 0 0 -200px;
-  border-radius: 50%;
-  background: radial-gradient(closest-side,
-    rgba(255,255,255,0.9), rgba(255,255,255,0.3) 44%, transparent 74%);
-  opacity: 0; transform: translate3d(var(--sx, 0px), var(--sy, 0px), 0);
-  transition: opacity .32s ease;
-}
-.pf-banner.is-lit .pf-spot { opacity: 1; }
-
-/* A surface that moves is a surface that has to stop moving on request. */
-@media (prefers-reduced-motion: reduce) {
-  .pf-sheen-a, .pf-sheen-b, .pf-fall { animation: none; }
-  .pf-sheen-a { transform: rotate(14deg) translate3d(120%, 0, 0); }
-  .pf-sheen-b { transform: rotate(14deg) translate3d(330%, 0, 0); }
-}
 
 .pf-back {
   position: absolute; z-index: 2; top: 13px; left: 13px;
@@ -4623,28 +4561,13 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber-line); out
   overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
 }
 
-/* The plate at night: graphite, same finish, same movement. */
-:root[data-theme="dark"] .pf-metal::before {
-  background: linear-gradient(156deg,
-    #16161c 0%, #45454f 8%, #1d1d24 17%, #0f0f14 26%,
-    #3d3d47 36%, #191920 47%, #4a4a55 58%, #131319 69%,
-    #363640 80%, #1a1a21 89%, #43434d 100%);
-}
-:root[data-theme="dark"] .pf-metal::after {
+/* The band at night: the same seat, dug into a dark ground rather than
+   a light one. The gradient's own three colours already moved with the
+   theme; this is what sits over them. */
+:root[data-theme="dark"] .pf-banner::after {
   background:
-    linear-gradient(103deg, rgba(255,255,255,0.14) 0%, rgba(255,255,255,0.04) 42%, transparent 72%),
-    linear-gradient(0deg, rgba(0,0,0,0.5) 0%, transparent 60%);
-}
-:root[data-theme="dark"] .pf-sheen-a {
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3) 46%, rgba(255,255,255,0.12) 62%, transparent);
-}
-:root[data-theme="dark"] .pf-sheen-b {
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.24), transparent);
-}
-:root[data-theme="dark"] .pf-fall { opacity: 0.34; }
-:root[data-theme="dark"] .pf-spot {
-  background: radial-gradient(closest-side,
-    rgba(255,255,255,0.34), rgba(255,255,255,0.11) 44%, transparent 74%);
+    linear-gradient(103deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.03) 42%, transparent 72%),
+    linear-gradient(0deg, rgba(0,0,0,0.52) 0%, transparent 60%);
 }
 :root[data-theme="dark"] .pf-engraved::before { background: rgba(255,255,255,0.5); }
 :root[data-theme="dark"] .pf-mark { color: #b4b4c0; text-shadow: 0 1px 0 rgba(0,0,0,0.5); }
@@ -4654,11 +4577,6 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber-line); out
 @keyframes pf-pulse-dark {
   0%, 100% { box-shadow: 0 0 0 0 rgba(255,255,255,0.34); }
   55%      { box-shadow: 0 0 0 6px rgba(255,255,255,0); }
-}
-:root[data-theme="dark"] .pf-grain {
-  background: repeating-linear-gradient(92deg,
-    rgba(255,255,255,0.1) 0 1px, transparent 1px 2px,
-    rgba(0,0,0,0.22) 2px 3px, transparent 3px 5px);
 }
 :root[data-theme="dark"] .pf-back {
   background: rgba(20, 20, 26, 0.6); color: #ededf0; border-color: rgba(255,255,255,0.2);

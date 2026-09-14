@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { COMPANY } from '../lib/company.js'
 import { useApp, navigate } from '../App.jsx'
 import { FORM_SCHEMAS } from '../data/formSchemas.js'
@@ -6,6 +6,7 @@ import { getReports, syncReports } from '../lib/store.js'
 import { ncrReports, fmtDate, fmtDateTime } from '../lib/status.js'
 import { storageUsage, fmtBytes } from '../lib/storage.js'
 import { getThemePref, resolveTheme, setThemePref, watchSystemTheme } from '../lib/theme.js'
+import AnimatedGradient from './AnimatedGradient.jsx'
 import { getSettings } from '../lib/settings.js'
 import InstallApp from './InstallApp.jsx'
 import {
@@ -38,61 +39,6 @@ function useCountUp(target, span = 850) {
   return n
 }
 
-/* The light on the plate, tied to the pointer.
-
-   A steel plate under a shop lamp shows you where the lamp is when you
-   move your head, and that is the whole trick here: one highlight
-   tracking the cursor and a degree and a half of tilt, so the surface
-   reads as a physical face rather than a picture of one.
-
-   The four custom properties written here are all consumed by
-   transforms, so nothing in the header repaints while the pointer
-   moves — the same discipline the drifting sheens already follow. A phone has no pointer
-   to follow and somebody who has asked for less motion has asked for
-   this too, so in both cases the listeners are never attached. */
-function usePlateLight() {
-  const ref = useRef(null)
-  useEffect(() => {
-    const el = ref.current
-    if (!el || prefersStill()) return
-    if (!window.matchMedia?.('(hover: hover) and (pointer: fine)').matches) return
-
-    let raf = 0, sx = 0, sy = 0, rx = 0, ry = 0
-    const paint = () => {
-      raf = 0
-      el.style.setProperty('--sx', `${sx}px`)
-      el.style.setProperty('--sy', `${sy}px`)
-      el.style.setProperty('--rx', `${rx}deg`)
-      el.style.setProperty('--ry', `${ry}deg`)
-    }
-    const move = (e) => {
-      const b = el.getBoundingClientRect()
-      sx = e.clientX - b.left
-      sy = e.clientY - b.top
-      ry = (sx / b.width - 0.5) * 2.8
-      rx = (0.5 - sy / b.height) * 1.5
-      if (!raf) raf = requestAnimationFrame(paint)
-    }
-    const enter = () => el.classList.add('is-lit')
-    const leave = () => {
-      el.classList.remove('is-lit')
-      if (raf) { cancelAnimationFrame(raf); raf = 0 }
-      el.style.setProperty('--rx', '0deg')
-      el.style.setProperty('--ry', '0deg')
-    }
-
-    el.addEventListener('pointerenter', enter)
-    el.addEventListener('pointermove', move)
-    el.addEventListener('pointerleave', leave)
-    return () => {
-      if (raf) cancelAnimationFrame(raf)
-      el.removeEventListener('pointerenter', enter)
-      el.removeEventListener('pointermove', move)
-      el.removeEventListener('pointerleave', leave)
-    }
-  }, [])
-  return ref
-}
 
 /* Module scope, not the render body: a component declared inside a render
    is a new component type every time, so React throws away the old subtree
@@ -190,15 +136,15 @@ export default function Profile() {
 
   // The header: light that follows the pointer, and two of its three
   // facts settling on their reading rather than being printed there.
-  const banner = usePlateLight()
   const filedUp = useCountUp(standing.filed)
   const heldUp = useCountUp(used.bytes, 950)
 
   // The rail carries this on a desktop, and there is no rail on a phone.
   const [themePref, setPref] = useState(getThemePref)
-  // The value is never read here — the rail shows the resolved mode —
-  // but the setter is what keeps the choice in step with the system.
-  const [, setMode] = useState(() => resolveTheme())
+  /* The rail shows the resolved mode; what reads it here is the band's
+     gradient, which has to pick its three colours up again whenever the
+     theme moves under it. */
+  const [mode, setMode] = useState(() => resolveTheme())
   useEffect(() => watchSystemTheme(setMode), [])
   const chooseTheme = (pref) => { setPref(pref); setMode(setThemePref(pref)) }
 
@@ -231,14 +177,13 @@ export default function Profile() {
 
           None of it repeats, none of it loops on the words, and all of
           it stops for prefers-reduced-motion. */}
-      <section className="pf-banner" ref={banner}>
-        <div className="pf-metal" aria-hidden="true">
-          <span className="pf-sheen-a" />
-          <span className="pf-sheen-b" />
-          <span className="pf-fall" />
-          <span className="pf-grain" />
-          <span className="pf-spot" />
-        </div>
+      <section className="pf-banner">
+        {/* The whole face. The CSS gradient underneath it in the
+            stylesheet is what a machine without WebGL2 gets, and the
+            grain on top is what stops a band this wide stepping on an
+            8-bit panel. */}
+        <AnimatedGradient className="pf-grad" mode={mode} noise={{ opacity: 0.5 }}
+          params={{ rotation: -28, proportion: 38, scale: 0.42, speed: 9, swirl: 48, swirlIterations: 9, shapeSize: 46 }} />
 
         <button className="pf-back" onClick={() => navigate('/')}
           aria-label="Back to home" title="Back to home">
