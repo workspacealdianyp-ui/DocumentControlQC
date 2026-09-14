@@ -91,7 +91,7 @@ const THEMES = {
       pale: ['#ffffff', '#f2f2ee'],
       mid: ['#f2f2ed', '#e0e0d9'],
       deep: ['#e6e6df', '#d0d0c7'],
-      accent: ['#ff8636', '#dd5500'],
+      accent: ['#ffd45a', '#e0a400'],
     },
     shadow: '#14141a', shadowOp: 0.18,
     wash: 0.5, washTint: '#ffffff',
@@ -106,7 +106,7 @@ const THEMES = {
       pale: ['#2e2e38', '#1f1f26'],
       mid: ['#26262e', '#19191f'],
       deep: ['#383842', '#26262f'],
-      accent: ['#ff8c3c', '#c44b00'],
+      accent: ['#ffda59', '#d9a200'],
     },
     shadow: '#000000', shadowOp: 0.5,
     wash: 0.16, washTint: '#b9c6e0',
@@ -161,7 +161,7 @@ function build(name) {
        any width; the planes over it are drawn in unrotated space, which
        is what keeps every shadow falling the same way.
 
-       One square carries the safety orange. It is the only colour in the
+       One square carries the safety yellow. It is the only colour in the
        band, so it reads as a mark rather than as decoration.
 
        Pairs with banner-${pair}.svg; see .masthead in styles.css. -->

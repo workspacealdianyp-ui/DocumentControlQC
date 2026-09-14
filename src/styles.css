@@ -2,7 +2,7 @@
    QC INSPECTION MONITOR — product-dashboard design system
    Modelled on the supplied reference: a white rail, a warm off-white
    canvas, white cards on a hairline, generous 10–12px radii, one
-   neutral grotesk throughout, and a single orange that marks the thing
+   neutral grotesk throughout, and a single yellow that marks the thing
    you are on and the thing to press.
    Phone <640 · Tablet 640–1023 (bottom nav) · Desktop ≥1024 (rail)
    ════════════════════════════════════════════════════════════════════ */
@@ -14,24 +14,59 @@
   --steel-deep: #000000;
   --steel-soft: #f1f1ee;   /* focus halo */
 
-  /* THE ACCENT. One orange, used for the active rail item, the primary
-     mark on a chart, and the one button per screen that matters. It is
-     deliberately not the alarm colour: red means a reading is out of
-     tolerance, and an accent sharing that hue makes every button shout. */
-  --amber: #f86300;
-  --amber-deep: #d45200;
-  --amber-ink: #b84600;    /* orange dark enough to set 11px type on white (5.4:1) */
-  --amber-soft: #fff2e9;
-  --amber-tint: #fbe9dd;   /* the rail's active pill */
-  --file-line: #f0cbaa;    /* the hairline a required jacket is drawn with */
-  /* The dashboard banner reads its photograph through these. Written as
+  /* THE ACCENT. One yellow — the safety yellow the home banner already
+     wears — used for the active rail item, the primary mark on a chart,
+     and the one button per screen that matters. It is deliberately not
+     the alarm colour: red means a reading is out of tolerance, and an
+     accent sharing that hue makes every button shout.
+
+     Yellow is a light accent, so it carries two companions the orange
+     never needed: --on-amber, because white type on yellow is
+     unreadable and every label printed on the fill uses the dark ink
+     instead; and --amber-line, because a yellow fill on a white card is
+     1.6:1 against its ground and would otherwise have no edge. */
+  --amber: #ffc400;
+  --amber-lift: #ffda59;   /* hover: yellow brightens, it does not darken */
+  --amber-deep: #8a6600;   /* ochre dark enough to set type on white (5.3:1) */
+  --amber-ink: #7a5a00;    /* darker again, for 11px type and focus rings */
+  --amber-line: #a87f00;   /* the accent, dark enough to show against a light
+                              ground: edges, and the marks that carry data */
+  --on-amber: #171b20;     /* what gets printed on the fill (10.8:1) */
+  --amber-soft: #fff8e0;
+  --amber-tint: #ffeec2;   /* the rail's active pill */
+  --file-line: #e8cf8a;    /* the hairline a required jacket is drawn with */
+  /* The home banner reads its photograph through these. Written as
      two explicit colours because a gradient that ends at `transparent`
      is interpolated through transparent black by some engines, which
      puts a grey smear across the middle of the fade. */
-  /* The faint wash the dashboard band carries behind its picture, and
+  /* The faint wash the home band carries behind its picture, and
      the track a tinted tile's meter runs in. */
   --banner-wash: #eef1f4;
   --tile-track: rgba(20, 20, 24, 0.10);
+
+  /* The home hero. It was one painted slab in both themes because the
+     photograph on it carried a solid dark ground of its own: any other
+     colour behind it and the picture read as a rectangle pasted on the
+     page. The photograph is cut out now (scripts/cut-hero-art.py), so
+     the plane follows the theme like everything else. By day it is the
+     shop floor: a cool steel sheet, a step cooler and darker than the
+     paper so it still reads as a panel and not as more page. */
+  --hero-1: #f4f5f8;
+  --hero-2: #e4e8ef;
+  --hero-3: #d6dce6;
+  --hero-ink: #14171c;
+  --hero-ink-2: #525a66;
+  --hero-btn-bg: #ffffff;
+  --hero-btn-line: #c2cad6;
+  --hero-btn-bg-hover: #eef1f5;
+
+  /* The three stops the drawn gradient reads (AnimatedGradient.jsx).
+     It runs under type on the profile band, so all three sit in the
+     same narrow band of lightness: the surface moves, the contrast of
+     what is written on it does not. */
+  --grad-1: #eef1f6;
+  --grad-2: #ffce3d;
+  --grad-3: #cbd2de;
 
   /* ── Ground ──────────────────────────────────────────────────── */
   --paper: #f6f6f4;        /* canvas behind the cards */
@@ -51,7 +86,7 @@
   --notstart: #6e6e76; --notstart-bg: #f1f1ee;
   --overdue: #c8102e;  --overdue-bg: #fdecef;
   /* The blue the register already prints on a submitted report, promoted
-     to a token so the dashboard's open-jobs tile can wear the same one. */
+     to a token so the home page's open-jobs tile can wear the same one. */
   --info: #2f6fd0;     --info-bg: #eaf1fd;
   --na: #a0a0a8;       --na-bg: #f4f4f1;
   --danger: #c8102e;
@@ -115,7 +150,7 @@
    DARK
    The same design at night, not a different one: the roles hold and
    only their values move. The ground goes dark, the hairline stays a
-   hairline, and the orange keeps its two jobs — the brand and the data.
+   hairline, and the yellow keeps its two jobs — the brand and the data.
 
    Two things are deliberately unchanged. The dark chip that carries the
    primary action stays dark, one step lighter than the card it sits on,
@@ -131,16 +166,38 @@
   --steel-deep: #3d3d48;   /* hover goes lighter in the dark */
   --steel-soft: rgba(255, 255, 255, 0.12);
 
-  --amber: #ff7a1f;        /* lifted a little: #f86300 goes muddy on black */
-  --amber-deep: #ff9349;
-  --amber-ink: #ff9349;
-  --amber-soft: #2a1a0e;
-  --amber-tint: #33200f;
+  /* The yellow needs no lifting at night — it is already the lightest
+     thing on the screen — so the fill and the ink on it are the same
+     two values as by day, and only the grounds and the type move. */
+  --amber: #ffc400;
+  --amber-lift: #ffda59;
+  --amber-deep: #ffd05a;
+  --amber-ink: #ffd05a;
+  --amber-line: #d9aa35;
+  --on-amber: #171b20;
+  --amber-soft: #2b2410;
+  --amber-tint: #342b12;
   /* On #17171b the light hairline vanishes; the jacket keeps its hue by
      going up in value rather than down. */
-  --file-line: #5e3a1d;
+  --file-line: #6b5424;
   --banner-wash: #1e1e24;
   --tile-track: rgba(255, 255, 255, 0.14);
+
+  /* The night shift: the same sheet, lit from the same corner, dark
+     enough that the machines on it keep their edges. */
+  --hero-1: #1f262f;
+  --hero-2: #161b22;
+  --hero-3: #10141a;
+  --hero-ink: #f5f7fa;
+  --hero-ink-2: #c2cad6;
+  --hero-btn-bg: #272e36;
+  --hero-btn-line: #65717e;
+  --hero-btn-bg-hover: #394450;
+
+  /* Same three roles, all dark, for the same reason. */
+  --grad-1: #12161c;
+  --grad-2: #4a3a0d;
+  --grad-3: #222a35;
 
   --paper: #0f0f12;
   --surface: #17171b;
@@ -183,12 +240,6 @@
   --sh-pop: 0 14px 36px rgba(0, 0, 0, 0.6), 0 0 0 1px var(--line-2);
 }
 
-/* The one place the accent must not lift: on an orange ground the label
-   is still white, and #ff7a1f with white text is thinner than the
-   daylight orange, so it keeps the deeper tone behind it. */
-:root[data-theme="dark"] .btn-accent,
-:root[data-theme="dark"] .btn-accent:disabled { background: #e85f00; border-color: #e85f00; }
-
 /* The search well is lit from above by a painted gradient rather than a
    token, so it needs its own night version: the same recess, dug into a
    dark ground instead of a light one. */
@@ -208,7 +259,7 @@
 :root[data-theme="dark"] .report-state { background: rgba(255, 255, 255, 0.06); }
 /* Dark, .report-state above sets a 6% white wash at (0,3,0), which outranks
    the plate rule in the masthead block; carrying the ground here as well
-   settles it. Without this a New badge is grey type on the orange pour at
+   settles it. Without this a New badge is grey type on the yellow pour at
    1.86:1 — it looked like a plate and was not one. */
 :root[data-theme="dark"] .masthead .masthead-side > * {
   background-color: var(--surface);
@@ -260,8 +311,13 @@ body {
   font-size: 15px; color: var(--text);
   background: var(--paper);
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
-h1, h2, h3, h4 { margin: 0; font-family: var(--mono); font-weight: 600; letter-spacing: -0.01em; }
+/* A heading breaks where the meaning does, not where the box runs out:
+   balance evens the lines of a title, pretty keeps a paragraph from
+   ending on one orphaned word. Both degrade to normal wrapping. */
+h1, h2, h3, h4 { margin: 0; font-family: var(--mono); font-weight: 600; letter-spacing: -0.01em; text-wrap: balance; }
+p, .home-empty { text-wrap: pretty; }
 h2 { font-size: 19px; }
 h3 { font-size: 15px; }
 p { margin: 0; }
@@ -362,7 +418,7 @@ table { border-collapse: collapse; }
 @media (min-width: 1024px) { .tb-search, .tb-theme { display: none; } }
 .tb-badge {
   position: absolute; top: -5px; right: -5px; min-width: 16px; height: 16px; padding: 0 4px;
-  border-radius: var(--r-pill); background: var(--amber); color: #fff;
+  border-radius: var(--r-pill); background: var(--amber); color: var(--on-amber);
   font-size: 9.5px; font-weight: 700; font-variant-numeric: tabular-nums;
   display: grid; place-items: center; border: 1.5px solid var(--surface);
 }
@@ -377,7 +433,7 @@ table { border-collapse: collapse; }
 .icon-btn {
   width: 34px; height: 34px; border-radius: var(--r); border: 1px solid var(--line);
   background: var(--surface); color: var(--text-2); display: grid; place-items: center;
-  flex-shrink: 0; position: relative; transition: all 0.12s;
+  flex-shrink: 0; position: relative; transition: background-color 0.12s, border-color 0.12s, color 0.12s, box-shadow 0.12s, transform 0.12s;
 }
 .icon-btn:hover { background: var(--surface-2); color: var(--text); border-color: var(--line-2); }
 .avatar-btn {
@@ -396,13 +452,198 @@ table { border-collapse: collapse; }
 .role-viewer { color: var(--text-2); background: var(--surface-2); }
 
 /* user/notif sheets */
-.usermenu-backdrop { position: fixed; inset: 0; z-index: 80; background: rgba(15, 27, 45, 0.3); }
+.usermenu-backdrop { position: fixed; inset: 0; z-index: var(--z-pop); background: rgba(15, 27, 45, 0.3); }
 .usermenu {
-  position: fixed; z-index: 81; right: 12px; top: calc(var(--topbar-h) + 6px);
+  position: fixed; z-index: calc(var(--z-pop) + 1); right: 12px; top: calc(var(--topbar-h) + 6px);
   background: var(--surface); border: 1px solid var(--line-2); border-radius: var(--r-lg);
   box-shadow: var(--sh-pop); padding: 14px; width: 280px; animation: pop 0.15s ease;
 }
 .usermenu .um-name { font-family: var(--mono); font-weight: 600; font-size: 15px; }
+
+/* ── the account card ──────────────────────────────────────────
+   A card rather than a list: a portrait, who you are signed in as, two
+   figures counted from this browser, and one button that brings up
+   what you can do from here.
+
+   Radii are concentric — a 10px portrait inside 6px of inset inside a
+   16px card — so the corners nest instead of arguing. */
+.acct-card {
+  /* No position of its own: .usermenu above already fixes it under the
+     monogram, and fixed is a containing block for the drawer too. It
+     carried position:relative until the sheet moved out to the body,
+     where the override stopped looking right and started reading as
+     what it was — a card laid out at the end of the document. */
+  width: 272px; padding: 0; overflow: hidden;
+  border-radius: 16px; border-color: var(--line);
+  box-shadow:
+    0 1px 1px rgba(16, 16, 20, 0.04),
+    0 8px 16px rgba(16, 16, 20, 0.08),
+    0 22px 44px rgba(16, 16, 20, 0.13),
+    0 0 0 1px var(--line);
+  transform-origin: top right;
+  animation: acct-in 0.26s cubic-bezier(0.16, 1, 0.3, 1);
+}
+/* Down from the monogram it hangs off, not up from nothing: it starts
+   a little high and a little small and settles, which is the direction
+   the eye already travelled to get here. */
+@keyframes acct-in {
+  from { opacity: 0; transform: translateY(-10px) scale(0.96); }
+  to   { opacity: 1; transform: none; }
+}
+:root[data-theme="dark"] .acct-card {
+  box-shadow:
+    0 1px 1px rgba(0, 0, 0, 0.5),
+    0 10px 20px rgba(0, 0, 0, 0.45),
+    0 26px 52px rgba(0, 0, 0, 0.5),
+    0 0 0 1px var(--line-2);
+}
+
+/* ── the drawn gradient ────────────────────────────────────────
+   AnimatedGradient.jsx paints into this box. The CSS background under
+   it is not decoration: it is what shows on a machine with no WebGL2,
+   or if the shader fails to compile, so the surface is never blank. */
+.ag { position: absolute; inset: 0; pointer-events: none; }
+.ag canvas { display: block; width: 100%; height: 100%; }
+/* The grain tile ships with the component, inline, because a 30x30 PNG
+   costs less as a data URI than as a request. */
+.ag-noise {
+  position: absolute; inset: 0; pointer-events: none;
+  background-repeat: repeat;
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwBAMAAAClLOS0AAAAElBMVEUAAAAAAAAAAAAAAAAAAAAAAADgKxmiAAAABnRSTlMCCgkGBAVJOAVJAAAASklEQVQ4y2NgGAWjYBSMglEwCgY/YGRgZBQUYmJiZGQEkYwMjIyMgoKCjIyMIJKBgRFIMjIyAklGRkYGRkFBYEcwMDIyMjAOUQAA1I4HwVwZAkYAAAAASUVORK5CYII=");
+}
+
+/* A moving gradient stands in for a photograph nobody has set, so an
+   account without one gets a portrait rather than an empty grey
+   square. */
+.acct-art {
+  position: relative; margin: 6px; border-radius: 10px; overflow: hidden;
+  aspect-ratio: 4 / 3;
+  display: grid; place-items: center;
+  background: linear-gradient(152deg, var(--grad-1) 0%, var(--grad-2) 52%, var(--grad-3) 100%);
+  animation: acct-art-in 0.42s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+}
+.acct-art > span { position: relative; z-index: 1; }
+@keyframes acct-art-in {
+  from { opacity: 0; transform: scale(1.05); }
+  to   { opacity: 1; transform: none; }
+}
+.acct-art > span {
+  font-family: var(--mono); font-size: 40px; font-weight: 600;
+  letter-spacing: 0.02em; color: var(--ink);
+  /* The plate is a drawing, not a flat ground, so the monogram sits on
+     its own disc rather than on whichever square it lands over. */
+  width: 84px; height: 84px; border-radius: var(--r-pill);
+  display: grid; place-items: center;
+  background: var(--surface); box-shadow: 0 2px 10px rgba(16, 16, 20, 0.12), inset 0 0 0 1px var(--line);
+}
+:root[data-theme="dark"] .acct-art > span { color: var(--amber); background: var(--ink); }
+.acct-art.has-photo { background: var(--surface-2); }
+.acct-art img { width: 100%; height: 100%; object-fit: cover; display: block; }
+/* A photograph needs its own edge or it bleeds into the card. */
+.acct-art::after {
+  content: ''; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+  box-shadow: inset 0 0 0 1px rgba(16, 16, 20, 0.10);
+}
+:root[data-theme="dark"] .acct-art::after { box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.10); }
+
+.acct-body { padding: 9px 14px 0; display: grid; gap: 2px; }
+.acct-body strong, .acct-body small, .acct-facts, .acct-more {
+  animation: acct-rise 0.3s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+  animation-delay: calc(70ms + var(--i) * 45ms);
+}
+@keyframes acct-rise {
+  from { opacity: 0; transform: translateY(7px); }
+  to   { opacity: 1; transform: none; }
+}
+.acct-body strong {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 14.5px; font-weight: 650; line-height: 1.25; overflow-wrap: anywhere;
+}
+/* Not a verification badge: it says this browser holds a live session,
+   which is the one thing the card can honestly claim. */
+.acct-live {
+  flex-shrink: 0; width: 15px; height: 15px; border-radius: var(--r-pill);
+  background: var(--done); color: #fff; display: grid; place-items: center;
+}
+.acct-body small { font-size: 11.5px; color: var(--text-2); line-height: 1.35; }
+
+.acct-foot {
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  padding: 11px 12px 12px 14px;
+}
+.acct-facts { display: flex; gap: 16px; margin: 0; }
+.acct-facts div { display: grid; gap: 1px; }
+.acct-facts dd {
+  margin: 0; font-family: var(--mono); font-size: 15px; font-weight: 600;
+  line-height: 1.1; font-variant-numeric: tabular-nums; color: var(--text);
+}
+.acct-facts dt {
+  font-size: 9.5px; font-weight: 600; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--text-3);
+}
+.acct-more {
+  width: 40px; height: 40px; flex-shrink: 0; border-radius: 10px;
+  border: 1px solid var(--line-2); background: var(--surface); color: var(--text-2);
+  display: grid; place-items: center;
+  transition: background-color .14s ease, border-color .14s ease, color .14s ease, transform .14s ease;
+}
+.acct-more:hover { background: var(--surface-2); color: var(--text); border-color: var(--steel); }
+.acct-more:active { transform: scale(0.94); }
+.acct-more.is-open { background: var(--ink); border-color: var(--ink); color: var(--surface); }
+.acct-more:focus-visible { outline: 2px solid var(--steel); outline-offset: 2px; }
+
+/* The drawer rides up over the foot rather than growing the card:
+   sliding a transform costs no layout, and the card keeps the height it
+   opened at. It leaves the DOM when closed, so nothing tabs into it. */
+.acct-drawer {
+  position: absolute; left: 0; right: 0; bottom: 0; z-index: 1;
+  padding: 6px; display: grid; gap: 2px;
+  background: var(--surface); border-top: 1px solid var(--line);
+  box-shadow: 0 -8px 20px rgba(16, 16, 20, 0.08);
+  animation: acct-drawer-in 0.24s cubic-bezier(0.16, 1, 0.3, 1);
+}
+@keyframes acct-drawer-in {
+  from { opacity: 0; transform: translateY(100%); }
+  to   { opacity: 1; transform: none; }
+}
+.acct-act {
+  display: grid; grid-template-columns: 28px 1fr auto;
+  align-items: center; gap: 10px; width: 100%;
+  background: none; border: 0; border-radius: 8px;
+  padding: 0 8px; min-height: 44px;
+  font-family: var(--sans); font-size: 13px; font-weight: 500;
+  color: var(--text); text-align: left;
+  transition: background-color .14s ease, color .14s ease, transform .14s ease;
+  animation: acct-rise 0.28s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+}
+.acct-act:nth-child(1) { animation-delay: 60ms; }
+.acct-act:nth-child(2) { animation-delay: 100ms; }
+.acct-act:nth-child(3) { animation-delay: 140ms; }
+.acct-ico {
+  width: 28px; height: 28px; border-radius: 7px;
+  display: grid; place-items: center;
+  background: var(--surface-2); color: var(--text-2);
+  box-shadow: inset 0 0 0 1px var(--line);
+  transition: background-color .14s ease, color .14s ease, box-shadow .14s ease;
+}
+.acct-go { color: var(--text-3); transition: transform .14s ease, color .14s ease; }
+.acct-act:hover { background: var(--surface-2); }
+.acct-act:hover .acct-ico { background: var(--amber-soft); color: var(--amber-deep); box-shadow: inset 0 0 0 1px var(--amber-tint); }
+.acct-act:hover .acct-go { color: var(--text-2); transform: translateX(2px); }
+.acct-act:active { transform: scale(0.97); }
+.acct-act:focus-visible { outline: 2px solid var(--steel); outline-offset: -2px; }
+/* Signing out is the one row that undoes something, so it is set off by
+   a rule and carries the alarm colour rather than the same grey. */
+.acct-act.is-out { color: var(--overdue); margin-top: 4px; position: relative; }
+.acct-act.is-out::before {
+  content: ''; position: absolute; left: 8px; right: 8px; top: -3px;
+  border-top: 1px solid var(--line);
+}
+.acct-act.is-out .acct-ico { color: var(--overdue); }
+.acct-act.is-out:hover { background: var(--overdue-bg); }
+.acct-act.is-out:hover .acct-ico { background: var(--overdue-bg); color: var(--overdue); box-shadow: inset 0 0 0 1px var(--overdue-line); }
+
+.tb-avatar.is-open { box-shadow: 0 0 0 3px var(--steel-soft); }
 
 /* ─────────────────── bottom nav (mobile/tablet) ─────────────────── */
 /* ── the bottom rail ──────────────────────────────────────────
@@ -513,7 +754,7 @@ table { border-collapse: collapse; }
 .rail-brand:hover { background: var(--surface-2); }
 .rail-logo {
   width: 28px; height: 28px; border-radius: 8px; flex-shrink: 0;
-  background: var(--amber); color: #fff; display: grid; place-items: center;
+  background: var(--amber); color: var(--on-amber); display: grid; place-items: center;
 }
 .rail-brand-text { display: flex; flex-direction: column; min-width: 0; line-height: 1.25; }
 .rail-brand-text strong { font-size: 13px; font-weight: 600; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -647,9 +888,11 @@ table { border-collapse: collapse; }
   background: var(--surface); box-shadow: 0 1px 2px rgba(0,0,0,.25);
   transition: transform .16s ease;
 }
-.rail-switch.on { background: var(--amber); }
+/* border: 0 above, so the yellow track takes its edge from an inset
+   ring — without one it has no boundary against the white rail. */
+.rail-switch.on { background: var(--amber); box-shadow: inset 0 0 0 1px var(--amber-line); }
 .rail-switch.on span { transform: translateX(14px); }
-.rail-switch:focus-visible { outline: 2px solid var(--amber); outline-offset: 2px; }
+.rail-switch:focus-visible { outline: 2px solid var(--amber-line); outline-offset: 2px; }
 /* "Auto" is a third state, so it is a control rather than a hidden default. */
 .rail-theme-sys {
   flex-shrink: 0; border: 1px solid var(--line); background: none; border-radius: var(--r-sm);
@@ -657,7 +900,7 @@ table { border-collapse: collapse; }
   text-transform: uppercase; color: var(--text-3);
 }
 .rail-theme-sys:hover { color: var(--text-2); border-color: var(--line-2); }
-.rail-theme-sys.on { color: var(--amber-deep); border-color: var(--amber); background: var(--amber-soft); }
+.rail-theme-sys.on { color: var(--amber-deep); border-color: var(--amber-line); background: var(--amber-soft); }
 
 
 /* ── folded: icons only */
@@ -681,14 +924,19 @@ table { border-collapse: collapse; }
   display: inline-flex; align-items: center; justify-content: center; gap: 8px;
   border-radius: var(--r); border: 1px solid transparent; font-family: var(--sans);
   font-size: 14px; font-weight: 600; padding: 0 16px; min-height: var(--tap);
-  transition: all 0.12s; white-space: nowrap;
+  transition: background-color 0.12s, border-color 0.12s, color 0.12s, box-shadow 0.12s, transform 0.12s; white-space: nowrap;
 }
 .btn-primary { background: var(--steel); color: #fff; border-color: var(--steel); }
 .btn-primary:hover { background: var(--steel-deep); border-color: var(--steel-deep); }
-.btn-accent { background: var(--amber); color: var(--ink); border-color: var(--amber-deep); font-weight: 700; }
-.btn-accent:hover { background: var(--amber-deep); color: #fff; }
+.btn-accent { background: var(--amber); color: var(--on-amber); border-color: var(--amber-line); font-weight: 700; }
+.btn-accent:hover { background: var(--amber-lift); color: var(--on-amber); }
 .btn-secondary { background: var(--surface); color: var(--text); border-color: var(--line-2); }
 .btn-secondary:hover { border-color: var(--steel); color: var(--steel); }
+/* Pressed, a button gives under the finger and comes back. Transform
+   only, so it composites without touching layout — and nothing moves at
+   all for a reader who has asked for less motion. */
+.btn:active:not(:disabled) { transform: scale(0.96); }
+@media (prefers-reduced-motion: reduce) { .btn:active:not(:disabled) { transform: none; } }
 .btn-ghost { background: none; color: var(--text-2); border-color: transparent; }
 .btn-ghost:hover { background: var(--surface-2); color: var(--text); }
 .btn-sm { min-height: 36px; padding: 0 12px; font-size: 13px; }
@@ -728,7 +976,7 @@ table { border-collapse: collapse; }
 .filters-row { display: flex; align-items: center; gap: 8px; margin-bottom: 16px; overflow-x: auto; padding-bottom: 4px; scrollbar-width: none; }
 .filters-row::-webkit-scrollbar { display: none; }
 .mselect { position: relative; flex-shrink: 0; }
-.mselect-btn { background: var(--surface); border: 1px solid var(--line-2); border-radius: var(--r); padding: 8px 14px; font-size: 13px; font-weight: 500; color: var(--text-2); display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; min-height: 38px; transition: all 0.12s; }
+.mselect-btn { background: var(--surface); border: 1px solid var(--line-2); border-radius: var(--r); padding: 8px 14px; font-size: 13px; font-weight: 500; color: var(--text-2); display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; min-height: 38px; transition: background-color 0.12s, border-color 0.12s, color 0.12s, box-shadow 0.12s, transform 0.12s; }
 .mselect-btn:hover { border-color: var(--steel); color: var(--steel); }
 .mselect-btn.has-value { border-color: var(--steel); color: var(--steel-deep); background: var(--steel-soft); }
 .mselect-count { font-family: var(--mono); background: var(--steel); color: #fff; border-radius: 3px; font-size: 10.5px; padding: 1px 6px; font-weight: 600; }
@@ -760,7 +1008,7 @@ table { border-collapse: collapse; }
 .job-cards { display: grid; gap: 12px; grid-template-columns: 1fr; }
 @media (min-width: 640px) { .job-cards { grid-template-columns: repeat(2, 1fr); } }
 @media (min-width: 1460px) { .job-cards { grid-template-columns: repeat(3, 1fr); } }
-.job-card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg); padding: 15px; text-align: left; width: 100%; display: flex; flex-direction: column; gap: 9px; box-shadow: var(--sh); transition: all 0.12s; position: relative; }
+.job-card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg); padding: 15px; text-align: left; width: 100%; display: flex; flex-direction: column; gap: 9px; box-shadow: var(--sh); transition: background-color 0.12s, border-color 0.12s, color 0.12s, box-shadow 0.12s, transform 0.12s; position: relative; }
 .job-card::before { content: ''; position: absolute; left: 0; top: 12px; bottom: 12px; width: 3px; border-radius: 0 2px 2px 0; background: var(--line-2); }
 .job-card:hover { border-color: var(--steel); transform: translateY(-1px); box-shadow: var(--sh-2); }
 .job-card:hover::before { background: var(--steel); }
@@ -779,7 +1027,7 @@ table { border-collapse: collapse; }
 .ring-wrap { position: relative; width: 88px; height: 88px; flex-shrink: 0; }
 .ring-wrap svg { transform: rotate(-90deg); }
 .ring-track { stroke: var(--surface-3); }
-.ring-bar { stroke: var(--amber); stroke-linecap: butt; transition: stroke-dashoffset 0.6s ease; }
+.ring-bar { stroke: var(--amber-line); stroke-linecap: butt; transition: stroke-dashoffset 0.6s ease; }
 .ring-label { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; font-family: var(--mono); }
 .ring-label strong { font-size: 19px; font-weight: 600; }
 .ring-label small { font-size: 9px; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.06em; }
@@ -804,7 +1052,7 @@ table { border-collapse: collapse; }
 .job-cell strong { font-family: var(--mono); font-size: 12.5px; white-space: nowrap; }
 .job-cell .job-desc { color: var(--text-2); font-size: 11px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 290px; }
 .job-cell small { color: var(--text-3); font-size: 10px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 290px; }
-.cell.editable:hover { outline: 2px solid var(--amber); outline-offset: -3px; }
+.cell.editable:hover { outline: 2px solid var(--amber-line); outline-offset: -3px; }
 .matrix-more { display: flex; align-items: center; gap: 12px; padding: 13px 16px; color: var(--text-2); font-size: 13px; border-top: 1px solid var(--line); flex-wrap: wrap; }
 .cell-pop { position: fixed; z-index: var(--z-pop); background: var(--surface); border: 1px solid var(--line-2); border-radius: var(--r); box-shadow: var(--sh-pop); padding: 6px; width: 188px; animation: pop 0.12s ease; }
 .cell-pop-title { font-family: var(--mono); font-size: 10px; font-weight: 600; color: var(--text-3); padding: 5px 8px; text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap; }
@@ -872,7 +1120,7 @@ td.th-action { display: flex; gap: 6px; justify-content: flex-end; align-items: 
 .sheet-handle { width: 42px; height: 4px; border-radius: 99px; background: var(--line-2); margin: -4px auto 14px; }
 @media (min-width: 640px) { .sheet-handle { display: none; } }
 .nde-options { display: grid; gap: 9px; margin: 14px 0; }
-.nde-option { display: flex; align-items: center; gap: 13px; background: var(--surface-2); border: 1px solid var(--line); border-radius: var(--r); padding: 13px 15px; text-align: left; min-height: 62px; transition: all 0.12s; }
+.nde-option { display: flex; align-items: center; gap: 13px; background: var(--surface-2); border: 1px solid var(--line); border-radius: var(--r); padding: 13px 15px; text-align: left; min-height: 62px; transition: background-color 0.12s, border-color 0.12s, color 0.12s, box-shadow 0.12s, transform 0.12s; }
 .nde-option:hover { border-color: var(--steel); background: var(--steel-soft); }
 .nde-option .deliv-ico { background: var(--ink); color: var(--amber); border-color: var(--ink); }
 .nde-option-text { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
@@ -891,7 +1139,7 @@ td.th-action { display: flex; gap: 6px; justify-content: flex-end; align-items: 
    The drawing is a field of squares on a tilted lattice with a few
    planes lifted off it — flat colour, one light, and real geometry
    rather than a photograph of a texture, so it stays exact at any
-   width and on any display. It carries one orange square and no other
+   width and on any display. It carries one yellow square and no other
    colour: enough for the band to belong to this product, quiet enough
    that the accent still means something everywhere else.
 
@@ -989,7 +1237,7 @@ td.th-action { display: flex; gap: 6px; justify-content: flex-end; align-items: 
   letter-spacing: 0.02em; line-height: 1;
 }
 /* The type stops where the scrim is still opaque. A title long enough
-   to reach the pour would be set in dark grey on orange, so the column
+   to reach the pour would be set in dark grey on yellow, so the column
    is capped and truncated rather than left to run. */
 /* A mark that carries something of its own — a ring, a figure — keeps
    the plate's position but not its box. */
@@ -1006,9 +1254,10 @@ td.th-action { display: flex; gap: 6px; justify-content: flex-end; align-items: 
    identity above it. */
 .masthead-read { display: flex; align-items: baseline; gap: 8px 16px; flex-wrap: wrap; min-width: 0; margin-top: 12px; }
 /* The stone runs the full width of every band now, so these two lines are
-   read against a picture rather than a flat card. Amber on the pale pour
-   measured 2.63:1 and --text-2 on it 3.57:1; one ink and one steel, dark
-   over the light drawing and light over the night one, clear both ways. */
+   read against a picture rather than a flat card. The accent on the pale
+   pour measured 2.63:1 back when it was orange and is thinner still now
+   it is yellow; --text-2 on it measured 3.57:1. So: one ink and one
+   steel, dark over the light drawing and light over the night one. */
 .masthead-eyebrow {
   font-family: var(--mono); font-size: 10.5px; font-weight: 600;
   text-transform: uppercase; letter-spacing: 0.08em; color: #24242e;
@@ -1040,7 +1289,7 @@ td.th-action { display: flex; gap: 6px; justify-content: flex-end; align-items: 
   margin-left: auto;
 }
 /* A badge over the pour has no ground of its own — its tint is
-   translucent, which is right on a white card and unreadable on orange.
+   translucent, which is right on a white card and unreadable on yellow.
    Over the stone it gets an opaque plate, and keeps its own colour for
    the text and the rule.
 
@@ -1094,7 +1343,7 @@ td.th-action { display: flex; gap: 6px; justify-content: flex-end; align-items: 
      34%, above the first line of type rather than through it, and the
      name measures 3.4:1 on the same square.
 
-     The alternative was a deeper orange on this band alone, which fixes
+     The alternative was a deeper yellow on this band alone, which fixes
      one number by giving the app a second accent colour. The drawing
      gives up a third of its reach instead; it keeps the top strip,
      which is where it was doing the work. */
@@ -1112,7 +1361,7 @@ td.th-action { display: flex; gap: 6px; justify-content: flex-end; align-items: 
 
 .form-hero-right { display: flex; align-items: center; gap: 9px; flex-wrap: wrap; }
 .report-state { font-family: var(--mono); font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; padding: 5px 11px; border-radius: 6px; white-space: nowrap; border: 1px solid currentColor; background: rgba(255,255,255,0.5); }
-.state-new { color: var(--amber-deep); background: rgba(245,158,11,0.14); }
+.state-new { color: var(--amber-deep); background: var(--amber-soft); }
 .state-draft { color: var(--inprog); background: var(--inprog-bg); }
 .state-submitted { color: #7fb0ff; background: rgba(127,176,255,0.14); }
 /* Sent back reads as the one state that is asking for something, so it
@@ -1179,7 +1428,7 @@ td.th-action { display: flex; gap: 6px; justify-content: flex-end; align-items: 
 .stepper-list::before { content: ''; position: absolute; left: 20px; top: 14px; bottom: 14px; width: 1px; background: var(--line-2); }
 .stepper-item { display: flex; align-items: center; gap: 11px; width: 100%; background: none; border: 0; padding: 6px; border-radius: var(--r); text-align: left; position: relative; z-index: 1; transition: background 0.12s; }
 .stepper-item:hover { background: var(--surface-2); }
-.stepper-dot { width: 28px; height: 28px; border-radius: var(--r); flex-shrink: 0; display: grid; place-items: center; font-family: var(--mono); font-size: 12px; font-weight: 600; background: var(--surface); border: 1px solid var(--line-2); color: var(--text-3); transition: all 0.15s; }
+.stepper-dot { width: 28px; height: 28px; border-radius: var(--r); flex-shrink: 0; display: grid; place-items: center; font-family: var(--mono); font-size: 12px; font-weight: 600; background: var(--surface); border: 1px solid var(--line-2); color: var(--text-3); transition: background-color 0.15s, border-color 0.15s, color 0.15s, box-shadow 0.15s, transform 0.15s; }
 .stepper-text { display: flex; flex-direction: column; min-width: 0; line-height: 1.25; }
 .stepper-text strong { font-size: 12.5px; font-weight: 600; color: var(--text-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .stepper-text small { font-size: 10px; color: var(--text-3); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -1214,7 +1463,7 @@ td.th-action { display: flex; gap: 6px; justify-content: flex-end; align-items: 
 /* segmented — instrument switch */
 .seg { display: flex; background: var(--surface-2); border: 1px solid var(--line-2); border-radius: 999px; padding: 4px; gap: 4px; width: 100%; }
 .seg.invalid { border-color: var(--overdue); }
-.seg-btn { flex: 1; background: none; border: 0; border-radius: 999px; padding: 10px 12px; font-size: 13.5px; font-weight: 500; color: var(--text-2); min-height: 40px; text-align: center; white-space: nowrap; transition: all 0.14s; }
+.seg-btn { flex: 1; background: none; border: 0; border-radius: 999px; padding: 10px 12px; font-size: 13.5px; font-weight: 500; color: var(--text-2); min-height: 40px; text-align: center; white-space: nowrap; transition: background-color 0.14s, border-color 0.14s, color 0.14s, box-shadow 0.14s, transform 0.14s; }
 .seg-btn:hover:not(.active):not(:disabled) { color: var(--text); background: var(--surface); }
 .seg-btn.active { background: var(--steel); color: #fff; font-weight: 600; box-shadow: 0 3px 10px rgba(30,64,175,0.28); }
 .seg-btn:disabled { opacity: 0.5; cursor: not-allowed; }
@@ -1223,7 +1472,7 @@ td.th-action { display: flex; gap: 6px; justify-content: flex-end; align-items: 
 .choice-wrap { display: flex; flex-wrap: wrap; gap: 8px; }
 .choice-wrap.invalid { outline: 1.5px solid var(--overdue); outline-offset: 4px; border-radius: 999px; }
 .choice-chip { border: 1.5px solid var(--line-2); background: var(--surface); color: var(--text-2); border-radius: 999px;
-  padding: 9px 16px; font-size: 13.5px; font-weight: 500; transition: all 0.14s; white-space: nowrap; min-height: 40px; }
+  padding: 9px 16px; font-size: 13.5px; font-weight: 500; transition: background-color 0.14s, border-color 0.14s, color 0.14s, box-shadow 0.14s, transform 0.14s; white-space: nowrap; min-height: 40px; }
 .choice-chip:hover { border-color: var(--steel); color: var(--steel-deep); background: var(--steel-soft); }
 .choice-chip.active { background: var(--steel); border-color: var(--steel); color: #fff; box-shadow: 0 4px 12px rgba(30,64,175,0.28); }
 
@@ -1348,17 +1597,17 @@ td.th-action { display: flex; gap: 6px; justify-content: flex-end; align-items: 
 
 /* ─────────────────────────── login ─────────────────────────── */
 /* The sign-in screen is the same light room as the rest of the app: an
-   off-white ground, one white card, the brand mark in orange. It used to
+   off-white ground, one white card, the brand mark in yellow. It used to
    be a dark gridded plate, which belonged to a design the app no longer
    wears. */
 .login-wrap { min-height: 100vh; display: grid; place-items: center; padding: 22px; background: var(--paper); position: relative; overflow: hidden; }
 .login-card { position: relative; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg); box-shadow: var(--sh-2); padding: 30px 28px; width: min(420px, 94vw); }
 .login-brand { text-align: center; margin-bottom: 22px; }
-.login-logo { width: 52px; height: 52px; border-radius: 14px; background: var(--amber); display: grid; place-items: center; color: #fff; margin: 0 auto 14px; }
+.login-logo { width: 52px; height: 52px; border-radius: 14px; background: var(--amber); display: grid; place-items: center; color: var(--on-amber); margin: 0 auto 14px; }
 .login-brand h1, .brand-wordmark, .brand-word { font-family: var(--display); font-size: 20px; font-weight: 650; letter-spacing: -0.015em; }
 .login-brand p { color: var(--text-2); font-size: 13px; margin: 7px 0 0; }
 .login-users { display: grid; gap: 8px; margin-bottom: 18px; }
-.login-user { display: flex; align-items: center; gap: 12px; width: 100%; background: var(--surface); border: 1px solid var(--line-2); border-radius: var(--r); padding: 11px 13px; text-align: left; min-height: 60px; transition: all 0.12s; }
+.login-user { display: flex; align-items: center; gap: 12px; width: 100%; background: var(--surface); border: 1px solid var(--line-2); border-radius: var(--r); padding: 11px 13px; text-align: left; min-height: 60px; transition: background-color 0.12s, border-color 0.12s, color 0.12s, box-shadow 0.12s, transform 0.12s; }
 .login-user:hover { border-color: var(--steel); }
 .login-user.active { border-color: var(--steel); background: var(--steel-soft); border-left: 3px solid var(--amber); }
 .avatar { width: 38px; height: 38px; border-radius: var(--r); background: var(--surface-3); color: var(--text-2); display: grid; place-items: center; flex-shrink: 0; font-family: var(--mono); font-weight: 600; font-size: 13px; }
@@ -1607,12 +1856,12 @@ td.th-action { display: flex; gap: 6px; justify-content: flex-end; align-items: 
 
 /* mini stats — glass cells */
 .mini-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px; }
-.mini-stats button { background: var(--surface-2); border: 1px solid var(--glass-line); border-radius: 12px; padding: 13px; display: flex; flex-direction: column; gap: 2px; align-items: flex-start; transition: all 0.14s; }
+.mini-stats button { background: var(--surface-2); border: 1px solid var(--glass-line); border-radius: 12px; padding: 13px; display: flex; flex-direction: column; gap: 2px; align-items: flex-start; transition: background-color 0.14s, border-color 0.14s, color 0.14s, box-shadow 0.14s, transform 0.14s; }
 .mini-stats button:hover { background: var(--surface); transform: translateY(-2px); box-shadow: var(--sh); }
 .mini-stats strong { font-family: var(--mono); font-size: 22px; font-weight: 700; }
 .mini-stats span { font-family: var(--mono); font-size: 10px; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.04em; }
 .ms-amber { color: var(--inprog); } .ms-blue { color: var(--steel); } .ms-mint { color: var(--done); }
-.alert-strip { display: flex; align-items: center; gap: 11px; width: 100%; background: var(--surface-2); border: 1px solid var(--glass-line); border-radius: 12px; padding: 12px 14px; text-align: left; transition: all 0.14s; }
+.alert-strip { display: flex; align-items: center; gap: 11px; width: 100%; background: var(--surface-2); border: 1px solid var(--glass-line); border-radius: 12px; padding: 12px 14px; text-align: left; transition: background-color 0.14s, border-color 0.14s, color 0.14s, box-shadow 0.14s, transform 0.14s; }
 .alert-strip:hover { background: var(--surface); box-shadow: var(--sh); }
 
 /* qa tiles — glass */
@@ -1620,13 +1869,13 @@ td.th-action { display: flex; gap: 6px; justify-content: flex-end; align-items: 
 @media (min-width: 640px) { .qa-grid { grid-template-columns: repeat(4, 1fr); } }
 @media (min-width: 1200px) { .qa-grid { grid-template-columns: repeat(7, 1fr); } }
 .qa-tile { border: 1px solid var(--glass-line); border-radius: 14px; padding: 14px; min-height: 92px; display: flex; flex-direction: column; align-items: flex-start; justify-content: flex-end; gap: 3px; text-align: left; position: relative; color: var(--text);
-  background: var(--glass); backdrop-filter: var(--blur); -webkit-backdrop-filter: var(--blur); box-shadow: var(--sh-glass); transition: all 0.14s; }
+  background: var(--glass); backdrop-filter: var(--blur); -webkit-backdrop-filter: var(--blur); box-shadow: var(--sh-glass); transition: background-color 0.14s, border-color 0.14s, color 0.14s, box-shadow 0.14s, transform 0.14s; }
 .qa-tile:hover { background: var(--steel); color: #fff; transform: translateY(-2px); box-shadow: 0 10px 26px rgba(30,64,175,0.3); }
 .qa-tile strong { font-family: var(--mono); font-size: 15px; font-weight: 600; white-space: nowrap; }
 .qa-name { font-size: 11px; line-height: 1.3; color: var(--text-3); }
 .qa-tile:hover .qa-name { color: #cfe0ff; }
 .qa-plus { position: absolute; top: 11px; right: 11px; width: 24px; height: 24px; border-radius: 8px; display: grid; place-items: center; background: rgba(255,255,255,0.6); color: var(--steel); border: 1px solid var(--glass-line); }
-.qa-tile:hover .qa-plus { background: var(--amber); color: var(--ink); border-color: var(--amber-deep); }
+.qa-tile:hover .qa-plus { background: var(--amber); color: var(--on-amber); border-color: var(--amber-line); }
 
 /* home alerts */
 .home-duo { display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 22px; }
@@ -1643,7 +1892,7 @@ td.th-action { display: flex; gap: 6px; justify-content: flex-end; align-items: 
 /* ── draft / needs-attention rows (glass) ── */
 .draft-list { display: flex; flex-direction: column; gap: 8px; }
 .draft-row { display: flex; align-items: center; gap: 11px; width: 100%; text-align: left;
-  background: var(--surface-2); border: 1px solid var(--glass-line); border-radius: 12px; padding: 11px 13px; transition: all 0.14s; }
+  background: var(--surface-2); border: 1px solid var(--glass-line); border-radius: 12px; padding: 11px 13px; transition: background-color 0.14s, border-color 0.14s, color 0.14s, box-shadow 0.14s, transform 0.14s; }
 .draft-row:hover { background: var(--surface); transform: translateX(2px); box-shadow: var(--sh); }
 .draft-row .deliv-ico { width: 38px; height: 38px; border-radius: 11px; flex-shrink: 0; display: grid; place-items: center;
   font-family: var(--mono); font-size: 10px; font-weight: 700; background: var(--ink); color: #fff; }
@@ -1657,7 +1906,7 @@ td.th-action { display: flex; gap: 6px; justify-content: flex-end; align-items: 
 /* ── top customers (glass rows + bars) ── */
 .cust-list { display: flex; flex-direction: column; gap: 12px; }
 .cust-row { display: grid; grid-template-columns: 1fr auto; gap: 5px 8px; align-items: center;
-  background: var(--surface-2); border: 1px solid var(--glass-line); border-radius: 12px; padding: 11px 13px; transition: all 0.14s; }
+  background: var(--surface-2); border: 1px solid var(--glass-line); border-radius: 12px; padding: 11px 13px; transition: background-color 0.14s, border-color 0.14s, color 0.14s, box-shadow 0.14s, transform 0.14s; }
 .cust-row:hover { background: var(--surface); box-shadow: var(--sh); }
 .cust-name { font-size: 13px; font-weight: 600; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .cust-meta { font-family: var(--mono); font-size: 11px; color: var(--text-2); white-space: nowrap; }
@@ -1701,7 +1950,7 @@ td.th-action { display: flex; gap: 6px; justify-content: flex-end; align-items: 
   transition: border-color .14s ease, background-color .14s ease;
 }
 .mdr-stmt-opt:hover { border-color: var(--line-2); }
-.mdr-stmt-opt.is-on { border-color: var(--amber); background: var(--amber-soft); }
+.mdr-stmt-opt.is-on { border-color: var(--amber-line); background: var(--amber-soft); }
 .mdr-stmt-opt input { width: 16px; height: 16px; min-height: 0; margin-top: 2px; accent-color: var(--amber); flex-shrink: 0; }
 .mdr-stmt-opt .act-main { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
 .mdr-stmt-opt strong { font-size: 13px; font-weight: 550; }
@@ -2652,7 +2901,10 @@ tr:has(.chip-done) .jobs-prog-bar span { background: var(--done); }
 .jobs-table .jobs-urgency { display: block; margin-top: 2px; font-family: var(--sans); font-size: 10px; font-weight: 600; }
 .jobs-urgency.is-overdue { color: var(--overdue); }
 .jobs-urgency.is-today, .jobs-urgency.is-soon { color: var(--inprog); }
-.jobs-mobile-register, .jobs-mobile-sort { display: none; }
+.jobs-mobile-register { display: none; }
+/* The desktop register sorts from its column heads, so the tool button
+   would be a second way to do the same thing. It belongs to the phone. */
+.jobs-sort-tool { display: none; }
 
 @media (max-width: 639px) {
   .jobs-page-bar { align-items: stretch; }
@@ -2661,11 +2913,11 @@ tr:has(.chip-done) .jobs-prog-bar span { background: var(--done); }
   .jobs-page-bar .mon-head-actions .btn { flex: 1 1 auto; }
   .jobs-desktop-register { display: none; }
   .jobs-mobile-register { display: block; }
-  .jobs-mobile-sort {
-    display: flex; align-items: center; justify-content: space-between; gap: 10px;
-    width: 100%; font-size: 11px; color: var(--text-2);
-  }
-  .jobs-mobile-sort select { width: auto; min-height: 34px; padding-block: 5px; font-size: 12px; }
+  .jobs-sort-tool { display: block; }
+  /* A phone has room for the count or the page size, not both, and the
+     count is the fact. The pager below still moves between pages; how
+     many rows are on one of them is a desk decision. */
+  .mon-showing select { display: none; }
   .jobs-mobile-row {
     display: flex; flex-direction: column; gap: 7px;
     padding: 13px 12px; border-bottom: 1px solid var(--line);
@@ -3086,16 +3338,21 @@ tr:has(.chip-done) .jobs-prog-bar span { background: var(--done); }
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   ACCENT: construction orange
-   Taken from the heavy-machinery reference, where orange marks one
+   ACCENT: safety yellow
+   Taken from the heavy-machinery reference, where the yellow marks one
    thing at a time: the action you are meant to take, or the item you
-   are on. Everything else stays charcoal and white, so the orange
+   are on. Everything else stays charcoal and white, so the yellow
    keeps meaning something.
+
+   Yellow is a light accent where the orange it replaced was a dark one,
+   so the rule reverses: nothing is printed on the fill in white. Labels
+   on it take --on-amber, type beside it takes --amber-deep, and a fill
+   standing on a white card takes an --amber-line edge.
    ═══════════════════════════════════════════════════════════════ */
 
-/* In the reference the orange is never a button: it marks the brand, the
+/* In the reference the accent is never a button: it marks the brand, the
    item you are on, and the data itself, while the primary action is
-   near-black. Orange keeps one job — "this is where you are, this is
+   near-black. The yellow keeps one job — "this is where you are, this is
    what the numbers are doing" — and is not spent on chrome. */
 .btn-primary,
 .btn-primary:disabled {
@@ -3106,24 +3363,24 @@ tr:has(.chip-done) .jobs-prog-bar span { background: var(--done); }
 
 /* The one exception: committing a report is the act the whole app exists
    for, so it keeps the accent. */
-.btn-accent, .btn-accent:disabled { background: var(--amber); border-color: var(--amber); color: #fff; font-weight: 600; }
-.btn-accent:hover:not(:disabled) { background: var(--amber-deep); border-color: var(--amber-deep); color: #fff; }
+.btn-accent, .btn-accent:disabled { background: var(--amber); border-color: var(--amber-line); color: var(--on-amber); font-weight: 600; }
+.btn-accent:hover:not(:disabled) { background: var(--amber-lift); border-color: var(--amber-line); color: var(--on-amber); }
 
 .dbtn.is-primary { background: var(--ink); border-color: var(--ink); color: #fff; }
 .dbtn.is-primary:hover { background: var(--steel-deep); border-color: var(--steel-deep); }
 
 /* Active states across the registers and settings. */
-.mon-tab.on .mon-tab-n { background: var(--amber); color: #fff; }
-.mon-pager button.on { background: var(--amber); border-color: var(--amber); color: #fff; }
+.mon-tab.on .mon-tab-n { background: var(--amber); color: var(--on-amber); }
+.mon-pager button.on { background: var(--amber); border-color: var(--amber-line); color: var(--on-amber); }
 /* .set-link.on carried an amber inset bar here; the travelling marker
    replaced it, and this page has no accent. */
-.set-seg button.on { background: var(--amber); color: #fff; }
-.detail-hero .detail-viewsw button.on { background: var(--amber); color: #fff; }
+.set-seg button.on { background: var(--amber); color: var(--on-amber); }
+.detail-hero .detail-viewsw button.on { background: var(--amber); color: var(--on-amber); }
 /* the box takes the neutral focus ring defined with the rest of the
    settings motion, not the app-wide amber one */
 
 /* Progress reads as work in hand until it is finished, then as passed. */
-.jobs-prog-bar span { background: var(--amber); }
+.jobs-prog-bar span { background: var(--amber-line); }
 tr:has(.chip-done) .jobs-prog-bar span { background: var(--done); }
 
 
@@ -3162,10 +3419,15 @@ tr:has(.chip-done) .jobs-prog-bar span { background: var(--done); }
 
 /* Progress reads in the accent everywhere it appears, not just in the
    job list: the spotlight bar and the job-detail ring were still
-   graphite from before the palette moved. */
-.sc-prog-bar span { background: var(--amber); }
-.progress-bar { background: var(--amber); }
-.jd-hero .ring-bar { stroke: var(--amber); }
+   graphite from before the palette moved.
+
+   Not --amber itself. These run in a --surface-3 track, and the yellow
+   against that track measures 1.4:1 — a bar you cannot see is not a
+   reading. --amber-line is the same hue at 3.1:1, and at night it is
+   the bright gold, because there the ground is the dark one. */
+.sc-prog-bar span { background: var(--amber-line); }
+.progress-bar { background: var(--amber-line); }
+.jd-hero .ring-bar { stroke: var(--amber-line); }
 .jd-hero .ring-label strong { color: var(--text); }
 .jd-hero.is-complete .ring-bar { stroke: var(--done); }
 
@@ -3344,7 +3606,7 @@ tr:has(.chip-done) .jobs-prog-bar span { background: var(--done); }
 .rb-search input::-webkit-search-decoration,
 .rb-search input::-webkit-search-cancel-button { -webkit-appearance: none; appearance: none; }
 .rb-search:focus-within {
-  border-color: var(--amber);
+  border-color: var(--amber-line);
   box-shadow:
     inset 0 1px 2px rgba(20, 20, 24, 0.1),
     inset 0 -1px 0 rgba(255, 255, 255, 0.9),
@@ -3363,8 +3625,8 @@ tr:has(.chip-done) .jobs-prog-bar span { background: var(--done); }
 .rb-search-btn:hover { background: var(--ink-2); }
 .rb-search-btn:active { transform: translateY(-50%) scale(0.95); }
 .rb-search.has-value .rb-search-btn {
-  border-color: var(--amber-deep);
-  background: linear-gradient(180deg, #ff7a24 0%, var(--amber) 100%);
+  border-color: var(--amber-line);
+  background: linear-gradient(180deg, var(--amber-lift) 0%, var(--amber) 100%);
 }
 
 /* ── Tool buttons: the same 40px square, outside the field. ── */
@@ -3381,14 +3643,14 @@ tr:has(.chip-done) .jobs-prog-bar span { background: var(--done); }
 }
 .rb-btn:hover { color: var(--text); border-color: var(--line-2); background: var(--surface-2); }
 .rb-btn.is-open { border-color: var(--line-2); color: var(--text); background: var(--surface-2); }
-.rb-btn.is-on { border-color: var(--amber); color: var(--amber-deep); background: var(--amber-soft); }
+.rb-btn.is-on { border-color: var(--amber-line); color: var(--amber-deep); background: var(--amber-soft); }
 /* The count is what stops a filter being invisible once the panel closes. */
 .rb-count {
   position: absolute; top: -5px; right: -5px;
   min-width: 17px; height: 17px; padding: 0 4px;
   display: grid; place-items: center;
   border-radius: 999px; border: 2px solid var(--surface);
-  background: var(--amber); color: #fff;
+  background: var(--amber); color: var(--on-amber);
   font-family: var(--mono); font-size: 10px; font-weight: 600; line-height: 1;
 }
 
@@ -3428,16 +3690,16 @@ tr:has(.chip-done) .jobs-prog-bar span { background: var(--done); }
   background: var(--surface); color: transparent;
   transition: background-color .12s ease, border-color .12s ease, color .12s ease;
 }
-.rb-opt.on .rb-opt-box { background: var(--amber); border-color: var(--amber); color: #fff; }
+.rb-opt.on .rb-opt-box { background: var(--amber); border-color: var(--amber-line); color: var(--on-amber); }
 .rb-opt-dot {
   flex: 0 0 auto; width: 15px; height: 15px; border-radius: 50%;
   border: 1px solid var(--line-2); background: var(--surface);
   display: grid; place-items: center;
   transition: border-color .12s ease, box-shadow .12s ease;
 }
-.rb-opt.on .rb-opt-dot { border-color: var(--amber); box-shadow: inset 0 0 0 4px var(--amber); }
+.rb-opt.on .rb-opt-dot { border-color: var(--amber-line); box-shadow: inset 0 0 0 4px var(--amber); }
 .rb-opt input:focus-visible + .rb-opt-box,
-.rb-opt input:focus-visible + .rb-opt-dot { box-shadow: 0 0 0 3px var(--amber-soft); border-color: var(--amber); }
+.rb-opt input:focus-visible + .rb-opt-dot { box-shadow: 0 0 0 3px var(--amber-soft); border-color: var(--amber-line); }
 .rb-opt-label { flex: 1 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .rb-opt-hint {
   flex: 0 0 auto;
@@ -3493,8 +3755,8 @@ tr:has(.chip-done) .jobs-prog-bar span { background: var(--done); }
   box-shadow: none;
 }
 .rb-search-btn:hover { background: var(--ink-2); }
-.rb-search.has-value .rb-search-btn { background: var(--amber); border-color: var(--amber); }
-.rb-search.has-value .rb-search-btn:hover { background: var(--amber-deep); border-color: var(--amber-deep); }
+.rb-search.has-value .rb-search-btn { background: var(--amber); border-color: var(--amber-line); }
+.rb-search.has-value .rb-search-btn:hover { background: var(--amber-lift); border-color: var(--amber-line); }
 
 /* Same for the well: keep the recess, drop the outer glow. */
 .rb-search {
@@ -3544,7 +3806,7 @@ tr:has(.chip-done) .jobs-prog-bar span { background: var(--done); }
    the <button> was giving it, and the focus ring a button had for free. */
 div.deliv-row { width: 100%; text-align: left; cursor: default; }
 div.deliv-row.tappable { cursor: pointer; }
-div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber); outline-offset: -2px; }
+div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber-line); outline-offset: -2px; }
 
 /* The overlap: the actions column could not be pushed, so it landed on
    top of the report number. It holds its own width and the text column
@@ -3571,7 +3833,7 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber); outline-
 .nav-row.active > .nav-item.active { background: none; }
 .nav-row.active .nav-caret { color: var(--amber-deep); }
 .nav-row.active .nav-caret:hover { background: rgba(0, 0, 0, 0.05); }
-.nav-caret:focus-visible { outline: 2px solid var(--amber); outline-offset: 1px; }
+.nav-caret:focus-visible { outline: 2px solid var(--amber-line); outline-offset: 1px; }
 .shell.side-min .nav-row > .nav-item { border-radius: var(--r); }
 
 .prof-theme { display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap; }
@@ -3623,7 +3885,7 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber); outline-
 .help-roles tr.is-you td { background: var(--amber-soft); }
 .help-you {
   margin-left: 8px; padding: 1px 6px; border-radius: var(--r-pill);
-  background: var(--amber); color: #fff; font-size: 9.5px; font-weight: 700;
+  background: var(--amber); color: var(--on-amber); font-size: 9.5px; font-weight: 700;
   text-transform: uppercase; letter-spacing: 0.06em;
 }
 
@@ -3715,7 +3977,7 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber); outline-
   transition: border-color .12s ease, background-color .12s ease;
 }
 .jo-pick:hover { border-color: var(--line-2); background: var(--surface-2); }
-.jo-pick.on { border-color: var(--amber); background: var(--amber-soft); }
+.jo-pick.on { border-color: var(--amber-line); background: var(--amber-soft); }
 .jo-pick input { position: absolute; width: 1px; height: 1px; min-height: 0; opacity: 0; margin: 0; }
 .jo-pick-box {
   flex: 0 0 auto; width: 17px; height: 17px;
@@ -3724,15 +3986,15 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber); outline-
   background: var(--surface); color: transparent;
   transition: background-color .12s ease, border-color .12s ease, color .12s ease;
 }
-.jo-pick.on .jo-pick-box { background: var(--amber); border-color: var(--amber); color: #fff; }
-.jo-pick input:focus-visible + .jo-pick-box { box-shadow: 0 0 0 3px var(--amber-soft); border-color: var(--amber); }
+.jo-pick.on .jo-pick-box { background: var(--amber); border-color: var(--amber-line); color: var(--on-amber); }
+.jo-pick input:focus-visible + .jo-pick-box { box-shadow: 0 0 0 3px var(--amber-soft); border-color: var(--amber-line); }
 .jo-pick-text { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
 
 /* A deliverable with documents behind it: still ticked, no longer a
    choice. It reads as settled rather than disabled — the sub-line says
    what is holding it, so the greyed box is never the only explanation. */
 .jo-pick.is-held { cursor: default; border-style: solid; }
-.jo-pick.is-held:hover { border-color: var(--amber); background: var(--amber-soft); }
+.jo-pick.is-held:hover { border-color: var(--amber-line); background: var(--amber-soft); }
 .jo-pick.is-held .jo-pick-box { opacity: 0.55; }
 .jo-pick.is-held .jo-pick-text small { color: var(--text-2); font-weight: 500; }
 
@@ -3873,7 +4135,7 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber); outline-
 
 
 /* ── job picker ─────────────────────────────────────────────────
-   The dashboard tiles and page 1 of every form ask the same question,
+   The home tiles and page 1 of every form ask the same question,
    so they show the same thing: the register's own search field over a
    table carrying only what identifies a unit. */
 .modal.jobpick { max-width: 720px; width: min(720px, calc(100vw - 28px)); }
@@ -3945,7 +4207,7 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber); outline-
 }
 .rep-card:hover { border-color: var(--line-2); box-shadow: 0 2px 10px rgba(20, 20, 24, 0.07); }
 .rep-card:active { transform: scale(0.995); }
-.rep-card:focus-visible { outline: none; border-color: var(--amber); box-shadow: 0 0 0 3px var(--amber-soft); }
+.rep-card:focus-visible { outline: none; border-color: var(--amber-line); box-shadow: 0 0 0 3px var(--amber-soft); }
 
 /* The mark carries the form code, tinted by the report's state. Two
    facts, one object — and the badge beside it still names the state in
@@ -4097,7 +4359,7 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber); outline-
 
 
 /* ── the two-step new-report flow ────────────────────────────────
-   Which report, then which job. The first step reuses the dashboard's
+   Which report, then which job. The first step reuses the home page's
    own tiles, so the choice looks the same wherever it is made. */
 .modal.formpick { max-width: 620px; width: min(620px, calc(100vw - 28px)); }
 .formpick-grid { margin: 14px 0 12px; grid-template-columns: repeat(2, 1fr); }
@@ -4121,7 +4383,7 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber); outline-
 /* ═══════════════════════════════════════════════════════════════
    PROFILE
 
-   No accent anywhere on this page. The orange that marks an action
+   No accent anywhere on this page. The yellow that marks an action
    everywhere else would be decoration here, because nothing on this
    screen is an action you take often. What is left is the metal the
    rest of the app is named after, and the figures.
@@ -4129,126 +4391,31 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber); outline-
 
 .pf { max-width: 1180px; }
 
-/* ── the plate ────────────────────────────────────────────────
-   Brushed steel, drawn in gradients rather than photographed. Three
-   layers move and none of them repaint: each is an oversized element
-   translated on the compositor, so the surface flows at 60fps on a
-   phone that is also holding a 40-row table open behind it. */
+/* ── the band ─────────────────────────────────────────────────
+   Plain: one drawn gradient across the whole face and nothing else on
+   it. It replaced a brushed-steel plate built from a painted gradient,
+   two drifting sheens, a falling light, a brush grain and a spotlight
+   that followed the pointer — five layers of finish under the four
+   lines of type that are the point of the band. */
 .pf-banner {
   position: relative; isolation: isolate; overflow: hidden;
   border: 1px solid var(--line-2); border-radius: var(--r-lg);
   margin-bottom: 22px;
-  background: var(--surface);
-  /* The tilt the pointer writes. Two properties, one transform, no
-     layout and no repaint — the face turns on the compositor. */
-  transform: perspective(1100px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
-  transition: transform .55s cubic-bezier(0.22, 0.61, 0.36, 1);
-  will-change: transform;
+  background: linear-gradient(152deg, var(--grad-1) 0%, var(--grad-2) 52%, var(--grad-3) 100%);
 }
-/* Under the pointer the face keeps up; when the pointer leaves, the
-   variables go back to zero and the longer transition above lets it
-   settle rather than snap flat. */
-.pf-banner.is-lit { transition: transform .16s ease-out; }
-
-.pf-metal {
-  position: absolute; inset: 0; z-index: 0; pointer-events: none;
-  animation: pf-lightup 1.1s ease both;
+/* The seat for the type: the face lifts at the top left and settles
+   toward the bottom, which is where the words are. It is the one thing
+   kept from the finish, because it is not decoration — it is what holds
+   the contrast steady while the gradient moves underneath. */
+.pf-banner::after {
+  content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background:
+    linear-gradient(103deg, rgba(255,255,255,0.42) 0%, rgba(255,255,255,0.14) 42%, transparent 72%),
+    linear-gradient(0deg, rgba(28,28,34,0.18) 0%, transparent 58%);
 }
+.pf-grad { z-index: 0; animation: pf-lightup 1.1s ease both; }
 /* The face lights before anything is written on it. */
 @keyframes pf-lightup { from { opacity: 0; } to { opacity: 1; } }
-.pf-metal::before {
-  content: ''; position: absolute; inset: 0;
-  background: linear-gradient(156deg,
-    #b4b7bf 0%, #fdfdfe 8%, #cbced5 17%, #9b9ea8 26%,
-    #f0f1f4 36%, #b6b9c1 47%, #f8f9fb 58%, #a4a7b1 69%,
-    #e6e8ec 80%, #bcbfc7 89%, #f6f7f9 100%);
-}
-/* the seat for the type: the face darkens toward the bottom left, which
-   is where the words are */
-.pf-metal::after {
-  content: ''; position: absolute; inset: 0; z-index: 3;
-  background:
-    linear-gradient(103deg, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0.16) 42%, transparent 72%),
-    linear-gradient(0deg, rgba(28,28,34,0.16) 0%, transparent 58%);
-}
-.pf-metal > span { position: absolute; will-change: transform; }
-
-/* two sheens, different widths and rates, so the surface never repeats
-   on a cycle the eye can catch */
-.pf-sheen-a, .pf-sheen-b {
-  top: -60%; height: 220%; width: 46%;
-  transform: rotate(14deg) translate3d(-160%, 0, 0);
-  animation: pf-drift-a 19s cubic-bezier(0.45, 0, 0.55, 1) infinite;
-}
-.pf-sheen-a {
-  left: 0;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.9) 46%, rgba(255,255,255,0.42) 62%, transparent);
-}
-.pf-sheen-b {
-  left: 0; width: 20%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.72), transparent);
-  animation: pf-drift-b 27s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-}
-@keyframes pf-drift-a {
-  0%   { transform: rotate(14deg) translate3d(-170%, 0, 0); }
-  100% { transform: rotate(14deg) translate3d(430%, 0, 0); }
-}
-@keyframes pf-drift-b {
-  0%   { transform: rotate(14deg) translate3d(620%, 0, 0); }
-  100% { transform: rotate(14deg) translate3d(-220%, 0, 0); }
-}
-
-/* the fall: thin runs of light sliding down the face, the way water
-   runs off a plate that has just been washed down */
-.pf-fall {
-  left: -10%; right: -10%; top: -120%; height: 240%;
-  z-index: 2; opacity: 0.62;
-  background: repeating-linear-gradient(90deg,
-    transparent 0 17px,
-    rgba(255,255,255,0.55) 17px 19px,
-    transparent 19px 44px,
-    rgba(255,255,255,0.3) 44px 45px,
-    transparent 45px 96px);
-  -webkit-mask-image: linear-gradient(180deg, transparent, #000 24%, #000 76%, transparent);
-  mask-image: linear-gradient(180deg, transparent, #000 24%, #000 76%, transparent);
-  animation: pf-fall 11s linear infinite;
-}
-@keyframes pf-fall {
-  0%   { transform: translate3d(0, -26%, 0); }
-  100% { transform: translate3d(0, 26%, 0); }
-}
-
-/* the brush marks themselves: still, because a brushed finish is */
-.pf-grain {
-  inset: 0; z-index: 1; opacity: 0.5;
-  background: repeating-linear-gradient(92deg,
-    rgba(255,255,255,0.4) 0 1px,
-    transparent 1px 2px,
-    rgba(40,40,48,0.05) 2px 3px,
-    transparent 3px 5px);
-}
-
-/* The lamp, where the pointer is. A fixed circle moved by transform
-   rather than a gradient whose stops are recomputed every frame: the
-   second one repaints the whole face on every pointer event. It is only
-   ever switched on by a real pointer, so a phone never pays for it. */
-.pf-spot {
-  left: 0; top: 0; z-index: 2;
-  width: 400px; height: 400px; margin: -200px 0 0 -200px;
-  border-radius: 50%;
-  background: radial-gradient(closest-side,
-    rgba(255,255,255,0.9), rgba(255,255,255,0.3) 44%, transparent 74%);
-  opacity: 0; transform: translate3d(var(--sx, 0px), var(--sy, 0px), 0);
-  transition: opacity .32s ease;
-}
-.pf-banner.is-lit .pf-spot { opacity: 1; }
-
-/* A surface that moves is a surface that has to stop moving on request. */
-@media (prefers-reduced-motion: reduce) {
-  .pf-sheen-a, .pf-sheen-b, .pf-fall { animation: none; }
-  .pf-sheen-a { transform: rotate(14deg) translate3d(120%, 0, 0); }
-  .pf-sheen-b { transform: rotate(14deg) translate3d(330%, 0, 0); }
-}
 
 .pf-back {
   position: absolute; z-index: 2; top: 13px; left: 13px;
@@ -4394,28 +4561,13 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber); outline-
   overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
 }
 
-/* The plate at night: graphite, same finish, same movement. */
-:root[data-theme="dark"] .pf-metal::before {
-  background: linear-gradient(156deg,
-    #16161c 0%, #45454f 8%, #1d1d24 17%, #0f0f14 26%,
-    #3d3d47 36%, #191920 47%, #4a4a55 58%, #131319 69%,
-    #363640 80%, #1a1a21 89%, #43434d 100%);
-}
-:root[data-theme="dark"] .pf-metal::after {
+/* The band at night: the same seat, dug into a dark ground rather than
+   a light one. The gradient's own three colours already moved with the
+   theme; this is what sits over them. */
+:root[data-theme="dark"] .pf-banner::after {
   background:
-    linear-gradient(103deg, rgba(255,255,255,0.14) 0%, rgba(255,255,255,0.04) 42%, transparent 72%),
-    linear-gradient(0deg, rgba(0,0,0,0.5) 0%, transparent 60%);
-}
-:root[data-theme="dark"] .pf-sheen-a {
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3) 46%, rgba(255,255,255,0.12) 62%, transparent);
-}
-:root[data-theme="dark"] .pf-sheen-b {
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.24), transparent);
-}
-:root[data-theme="dark"] .pf-fall { opacity: 0.34; }
-:root[data-theme="dark"] .pf-spot {
-  background: radial-gradient(closest-side,
-    rgba(255,255,255,0.34), rgba(255,255,255,0.11) 44%, transparent 74%);
+    linear-gradient(103deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.03) 42%, transparent 72%),
+    linear-gradient(0deg, rgba(0,0,0,0.52) 0%, transparent 60%);
 }
 :root[data-theme="dark"] .pf-engraved::before { background: rgba(255,255,255,0.5); }
 :root[data-theme="dark"] .pf-mark { color: #b4b4c0; text-shadow: 0 1px 0 rgba(0,0,0,0.5); }
@@ -4425,11 +4577,6 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber); outline-
 @keyframes pf-pulse-dark {
   0%, 100% { box-shadow: 0 0 0 0 rgba(255,255,255,0.34); }
   55%      { box-shadow: 0 0 0 6px rgba(255,255,255,0); }
-}
-:root[data-theme="dark"] .pf-grain {
-  background: repeating-linear-gradient(92deg,
-    rgba(255,255,255,0.1) 0 1px, transparent 1px 2px,
-    rgba(0,0,0,0.22) 2px 3px, transparent 3px 5px);
 }
 :root[data-theme="dark"] .pf-back {
   background: rgba(20, 20, 26, 0.6); color: #ededf0; border-color: rgba(255,255,255,0.2);
@@ -4547,7 +4694,7 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber); outline-
 .pf-signout { color: var(--danger); }
 
 /* No accent on this page: the theme switch borrows the neutral chip the
-   buttons use rather than the orange it wears in Settings. */
+   buttons use rather than the yellow it wears in Settings. */
 .pf .set-seg button.on { background: var(--ink); color: var(--surface); }
 :root[data-theme="dark"] .pf .set-seg button.on { background: var(--text); color: #16161a; }
 
@@ -4683,7 +4830,7 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber); outline-
 .set-switch.on:active .set-knob { transform: translateX(17px) scaleX(1.12); }
 
 /* The segmented control on this page follows the same neutral rule as
-   its switches rather than the orange it wears elsewhere. */
+   its switches rather than the yellow it wears elsewhere. */
 .set .set-seg button.on { background: var(--ink); color: var(--surface); }
 :root[data-theme="dark"] .set .set-seg button.on { background: var(--text); color: #16161a; }
 
@@ -5020,14 +5167,14 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber); outline-
   letter-spacing: 0.14em; text-transform: uppercase;
   font-variation-settings: 'opsz' 14;
 }
-/* The name, in the shop's orange and set the way the shop sets it:
+/* The name, in the shop's yellow and set the way the shop sets it:
    uppercase, heavy, and the largest thing on the page.
 
-   Not the orange from the reference. That yellow measures about 1.7:1
-   on white — below every threshold there is, and this is an app read on
-   a tablet in a workshop under whatever light the roof lets in. This is
-   --amber-deep, 4.2:1 on the band, which clears AA for text at this size
-   with room to spare and is still unmistakably the same colour. */
+   Not --amber itself. The fill measures about 1.6:1 on white — below
+   every threshold there is, and this is an app read on a tablet in a
+   workshop under whatever light the roof lets in. This is --amber-deep,
+   5.2:1 on the band, which clears AA for text at this size with room to
+   spare and is still unmistakably the same colour. */
 .masthead.is-job .masthead-txt h2 {
   font-family: var(--display);
   font-size: 30px; font-weight: 750;
@@ -5112,7 +5259,7 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber); outline-
 /* Against a photograph the drawn plate is a second texture competing
    for the same surface, and the reference this follows is a plain white
    card. It stays, at a whisper, so the band is not flat card stock —
-   and at a whisper its orange square stops reading as a stain behind
+   and at a whisper its yellow square stops reading as a stain behind
    the machine. */
 .masthead.has-art .masthead-plate { opacity: 0.3; }
 :root[data-theme="dark"] .masthead-art { filter: drop-shadow(0 12px 18px rgba(0, 0, 0, 0.55)); }
@@ -5404,8 +5551,8 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber); outline-
 @media (min-resolution: 1.5dppx) {
   .req-file { border-width: 0.5px; }
 }
-.req-file:hover { border-color: var(--amber-tint); box-shadow: 0 2px 10px rgba(248, 99, 0, 0.09); }
-.req-file:focus-visible { border-color: var(--amber); }
+.req-file:hover { border-color: var(--amber-tint); box-shadow: 0 2px 10px rgba(255, 196, 0, 0.16); }
+.req-file:focus-visible { border-color: var(--amber-line); }
 .req-file.is-flat:hover { border-color: var(--file-line); box-shadow: none; }
 
 /* Nothing on file yet. */
@@ -5918,7 +6065,7 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber); outline-
 
 /* The register has no accent, and that has to include the controls
    sitting inside it: the tab's count, the search field's focus ring and
-   its clear button all pick up the brand orange by default. Ink here
+   its clear button all pick up the brand yellow by default. Ink here
    instead, so the one coloured thing on the page stays the overdue red. */
 .jobs-page-bar .mon-tab.on .mon-tab-n { background: var(--ink); color: #fff; }
 .reg-bar .rb-search:focus-within { border-color: var(--steel); }
@@ -6322,18 +6469,18 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber); outline-
 .cell.awaiting { color: var(--inprog); background: var(--inprog-bg); }
 .cell.voided { color: var(--na); background: var(--na-bg); text-decoration: line-through; }
 
-/* ── one shape for every pick, and the chosen one in the shop's orange ──
+/* ── one shape for every pick, and the chosen one in the shop's yellow ──
    The form had three ways of asking the same kind of question — a
    segmented group, a row of loose chips, and free text — sitting inches
    apart in the same section. They are one control now, and the answer is
-   marked in the brand orange rather than the steel blue, because on a
+   marked in the brand yellow rather than the steel blue, because on a
    dark tablet in a workshop the blue fill read as "disabled" more often
    than as "chosen". */
-.seg-btn.active { background: var(--amber); color: var(--ink); font-weight: 650; }
-:root[data-theme="dark"] .seg-btn.active { color: #14140f; }
+.seg-btn.active { background: var(--amber); color: var(--on-amber); font-weight: 650; }
+:root[data-theme="dark"] .seg-btn.active { color: var(--on-amber); }
 /* The group's own border says the question has been answered. */
-.seg:has(.seg-btn.active) { border-color: var(--amber); }
-.choice-chip.active { background: var(--amber); border-color: var(--amber); color: var(--ink); }
+.seg:has(.seg-btn.active) { border-color: var(--amber-line); }
+.choice-chip.active { background: var(--amber); border-color: var(--amber-line); color: var(--on-amber); }
 
 /* More than one answer: same group, wraps rather than squeezing six
    options into one line. */

@@ -247,7 +247,7 @@ export function adoptReport(id, jobNo, byName) {
    register would only offer to open a job that is not there. */
 export const getReports = () => getAllReports().filter((r) => !r.orphaned)
 
-// A dashboard zero is a claim about the record. Unlike a preference
+// A home-page zero is a claim about the record. Unlike a preference
 // read, a failed report read must not silently become an empty list.
 export function getReportsChecked() {
   const readRecords = () => {

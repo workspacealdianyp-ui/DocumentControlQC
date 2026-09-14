@@ -163,13 +163,13 @@ export default function Vault() {
     <div className="page">
       {/* The same band as everywhere else, machine and all. It is a
           top-level section, so the way back is the way out: the
-          dashboard, not a level above it. */}
+          home page, not a level above it. */}
       <Masthead variant="job"
         eyebrow="Vault"
         title={session?.name || 'Your documents'}
         sub={<>{lanes.mine.length} written{lanes.approved.length > 0 ? ` · ${lanes.approved.length} approved` : ''}</>}
         art={artFor()}
-        onBack={() => navigate('/')} backLabel="Back to the dashboard" />
+        onBack={() => navigate('/')} backLabel="Back to Home" />
 
       <div className="fig-row">
         <Figure value={counts.all} label={lane === 'mine' ? 'Documents written' : 'Documents approved'} />

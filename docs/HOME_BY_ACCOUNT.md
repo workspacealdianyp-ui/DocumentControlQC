@@ -1,5 +1,7 @@
 # Current Home refinement — 14 September 2026
 
+Latest user revision integrates main `c6d40a7`: keep its Monitoring/NCR/SharePoint watermark tiles unchanged, inherit PR #17 safety-yellow tokens, and replace the review/attention top accent lines with neutral icon headers and count badges. Home record lists show three items; overflow links open the relevant full register. The desktop banner minimum height is reduced from 260 to 216 px, with a small top clearance for the mining artwork. Light/dark surfaces, natural greeting wrapping and existing account permissions remain intact.
+
 The current implementation is code-first; Figma is not a dependency. The historical blueprint below records the first redesign. This section supersedes its graphite-only banner and artwork notes.
 
 - Banner surfaces and copy follow the selected light/dark theme. Existing safety-orange tokens preserve the repository identity.
@@ -20,7 +22,7 @@ The Home screen puts the signed-in person's next inspection task first. A compac
 
 ## Layout
 
-- Banner, four account-specific readings, and Dashboard / NCR / SharePoint access.
+- Banner, four account-specific readings, and Monitoring / NCR / SharePoint access.
 - One primary row of work and attention panels, followed by supporting information.
 - Twelve-pixel gaps, compact record rows, a maximum of five reports/jobs per panel, and four customer/workload summaries.
 - Panels in the same row stretch to equal height; footers align at their lower edge. There are no fixed-height empty panel placeholders.
@@ -37,7 +39,7 @@ The Home screen puts the signed-in person's next inspection task first. A compac
 
 Review eligibility uses the existing approval chain. Home does not approve records. Its links and the report register use the same scope helper so counts, authors, and queue ordering agree at the destination. Workload describes open records, not assigned inspections; completed documentation does not imply release approval. NCR findings may overlap lifecycle counts.
 
-Dashboard opens monitoring and NCR opens the current NCR register. SharePoint displays **Not linked** until `COMPANY.sharepointUrl` contains a valid HTTPS URL. No destination has been invented.
+Monitoring opens the monitoring register and NCR opens the current NCR register. SharePoint displays **Not linked** until `COMPANY.sharepointUrl` contains a valid HTTPS URL. No destination has been invented.
 
 ## Design reference and artwork
 

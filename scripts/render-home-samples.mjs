@@ -10,7 +10,7 @@ const memory = new Map()
 globalThis.localStorage = { getItem: (k) => memory.get(k) ?? null, setItem: (k, v) => memory.set(k, String(v)), removeItem: (k) => memory.delete(k) }
 const server = await createServer({ server: { middlewareMode: true }, appType: 'custom' })
 try {
-  const { HomeDashboard } = await server.ssrLoadModule('/src/components/Home.jsx')
+  const { HomeView } = await server.ssrLoadModule('/src/components/Home.jsx')
   const { ROLES, USERS } = await server.ssrLoadModule('/src/lib/constants.js')
   const { seedReports, SEED_STAMP } = await server.ssrLoadModule('/src/data/seedReports.js')
   const { homeOverview } = await server.ssrLoadModule('/src/lib/homeOverview.js')
@@ -26,7 +26,7 @@ try {
   for (const role of Object.keys(ROLES)) {
     const session = USERS.find((u) => u.role === role)
     const props = { records, role: ROLES[role], session, now, data: homeOverview(jobs, records, ctx, session.name, now), customers: byCustomer(jobs, ctx), onOpen() {}, onJob() {}, onNew() {} }
-    const body = renderToStaticMarkup(React.createElement(HomeDashboard, props)).replace(/src="[^"]*home-mining[^" ]*"/, `src="${art}"`)
+    const body = renderToStaticMarkup(React.createElement(HomeView, props)).replace(/src="[^"]*home-mining[^" ]*"/, `src="${art}"`)
     await writeFile(resolve(out, `${role}.html`), `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="stylesheet" href="styles.css"><title>${role} Home design review</title></head><body><p class="qa-note">DEMONSTRATION DATA · OFFLINE LAYOUT REVIEW</p>${body}</body></html>`)
   }
   console.log(`Home samples written to ${out}`)

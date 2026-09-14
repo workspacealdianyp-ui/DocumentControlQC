@@ -7,7 +7,7 @@
        any width; the planes over it are drawn in unrotated space, which
        is what keeps every shadow falling the same way.
 
-       One square carries the safety orange. It is the only colour in the
+       One square carries the safety yellow. It is the only colour in the
        band, so it reads as a mark rather than as decoration.
 
        Pairs with banner-dark.svg; see .masthead in styles.css. -->
@@ -40,7 +40,7 @@
       <stop offset="0" stop-color="#e6e6df"/><stop offset="1" stop-color="#d0d0c7"/>
     </linearGradient>
     <linearGradient id="l-pl-accent" x1="0" y1="0" x2="1" y2="1" gradientTransform="rotate(20 0.5 0.5)">
-      <stop offset="0" stop-color="#ff8636"/><stop offset="1" stop-color="#dd5500"/>
+      <stop offset="0" stop-color="#ffd45a"/><stop offset="1" stop-color="#e0a400"/>
     </linearGradient>
     <!-- the light itself: brightest off the upper left and falling away
          to the far corner, so the field reads as one lit surface rather

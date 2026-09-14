@@ -9,7 +9,9 @@ import { buildContext, jobProgress, fmtDate } from '../lib/status.js'
 import {
   IconSearch, IconBell, IconAlert, IconApprove, IconPen, IconReturn,
   IconList, IconFile, IconGrid, IconPlus, IconGear, IconClose, IconTheme, IconLock,
+  IconUser, IconLogout, IconChevronR, IconMenu, IconCheck,
 } from './Icons.jsx'
+import AnimatedGradient from './AnimatedGradient.jsx'
 
 /* The bar across the top of the work area: where you are on the left,
    what you can do about it on the right. It replaces the notification
@@ -20,7 +22,7 @@ import {
 const KAT_LABEL = { SUPEQ: 'Support Equipment', TRAILER: 'Trailer', 'NON TRAILER': 'Non Trailer' }
 
 const PAGE_TITLES = {
-  home: ['Dashboard', ''],
+  home: ['Home', ''],
   customers: ['Monitoring', 'Customers'],
   jobs: ['Monitoring', 'All jobs'],
   // Customer and PO carry their own name in the masthead below, so the
@@ -37,14 +39,113 @@ const PAGE_TITLES = {
   profile: ['Profile', 'Account & sync'],
 }
 
+/* The account card: a portrait, who you are signed in as, two figures
+   counted from this browser, and one button that brings up what you can
+   do from here.
+
+   It owns the drawer rather than the bar above it, so closing the card
+   is what resets it — no effect watching a sibling's state. It renders
+   only while the card is open, which is why the two figures are counted
+   straight rather than memoised. */
+function AccountCard({ session, role, photo, initials, mode, onGo, onOut }) {
+  const [drawer, setDrawer] = useState(false)
+  const mine = getReports().filter((r) => r.inspector === session.name)
+  const filed = mine.filter((r) => r.status === 'approved' || r.status === 'submitted').length
+  const drafts = mine.filter((r) => r.status === 'draft').length
+
+  return (
+    <div className="usermenu acct-card" role="dialog" aria-label="Account">
+      {/* The plate the rest of the app is drawn on stands in for a
+          photograph nobody has set, so an account without one gets a
+          portrait rather than an empty grey square. */}
+      <div className={`acct-art${photo ? ' has-photo' : ''}`}>
+        {!photo && <AnimatedGradient className="acct-grad" mode={mode}
+          params={{ rotation: -50, proportion: 40, scale: 0.22, speed: 12, swirl: 52, shapeSize: 34 }} />}
+        {photo ? <img src={photo} alt="" /> : <span aria-hidden="true">{initials}</span>}
+      </div>
+
+      <div className="acct-body">
+        <strong style={{ '--i': 0 }}>
+          {session.name}
+          <i className="acct-live" title="Signed in on this device" aria-label="Signed in on this device">
+            <IconCheck size={10} />
+          </i>
+        </strong>
+        <small style={{ '--i': 1 }}>{role.label}</small>
+      </div>
+
+      <div className="acct-foot">
+        <dl className="acct-facts" style={{ '--i': 2 }}>
+          <div><dd>{filed}</dd><dt>Filed</dt></div>
+          <div><dd>{drafts}</dd><dt>Drafts</dt></div>
+        </dl>
+        <button className={`acct-more${drawer ? ' is-open' : ''}`} style={{ '--i': 3 }}
+          onClick={() => setDrawer((v) => !v)}
+          aria-expanded={drawer} aria-controls="acct-drawer"
+          aria-label={drawer ? 'Close account actions' : 'Account actions'}>
+          <IconMenu size={16} />
+        </button>
+      </div>
+
+      {/* The drawer rides up over the foot rather than growing the card:
+          sliding a transform costs no layout, and the card keeps the
+          height it opened at. */}
+      {drawer && (
+        <div className="acct-drawer" id="acct-drawer">
+          <button className="acct-act" onClick={() => onGo('/profile')}>
+            <span className="acct-ico"><IconUser size={15} /></span>Profile
+            <IconChevronR size={14} className="acct-go" />
+          </button>
+          <button className="acct-act" onClick={() => onGo('/settings')}>
+            <span className="acct-ico"><IconGear size={15} /></span>Settings
+            <IconChevronR size={14} className="acct-go" />
+          </button>
+          <button className="acct-act is-out" onClick={onOut}>
+            <span className="acct-ico"><IconLogout size={15} /></span>Sign out
+          </button>
+        </div>
+      )}
+    </div>
+  )
+}
+
 export default function Topbar({ route, job, searchOpen, onOpenSearch, onCloseSearch }) {
-  const { jobs, session, role, tick } = useApp()
-  const [notifOpen, setNotifOpen] = useState(false)
+  const { jobs, session, role, tick, logout } = useApp()
+  /* One sheet hangs off this bar at a time, so it is one piece of state
+     rather than two booleans kept apart by hand. */
+  const [sheet, setSheet] = useState(null)
+  const notifOpen = sheet === 'notif'
+  const acctOpen = sheet === 'acct'
+  const toggle = (which) => setSheet((s) => (s === which ? null : which))
   const [mode, setMode] = useState(() => resolveTheme())
   useEffect(() => watchSystemTheme(setMode), [])
   const [q, setQ] = useState('')
 
-  useEffect(() => { setNotifOpen(false) }, [route.page, route.jobNo, route.formKey])
+  useEffect(() => { setSheet(null) }, [route.page, route.jobNo, route.formKey])
+
+  /* A sheet is anchored to the bar, not to the page: scroll the page
+     behind it and it is pointing at nothing, so it goes. Capture, so a
+     scrolling panel inside the page counts too, and passive, because
+     this never blocks the scroll it is listening for. */
+  useEffect(() => {
+    if (!sheet) return
+    const close = () => setSheet(null)
+    window.addEventListener('scroll', close, { passive: true, capture: true })
+    window.addEventListener('resize', close)
+    return () => {
+      window.removeEventListener('scroll', close, { capture: true })
+      window.removeEventListener('resize', close)
+    }
+  }, [sheet])
+
+  // Escape closes whichever sheet is open, which is what a reader who
+  // opened one by mistake reaches for first.
+  useEffect(() => {
+    if (!sheet) return
+    const esc = (e) => { if (e.key === 'Escape') setSheet(null) }
+    document.addEventListener('keydown', esc)
+    return () => document.removeEventListener('keydown', esc)
+  }, [sheet])
 
   let [title, sub] = PAGE_TITLES[route.page] || ['', '']
   // Same on a job: its masthead carries the number, so the bar carries
@@ -208,13 +309,18 @@ export default function Topbar({ route, job, searchOpen, onOpenSearch, onCloseSe
             title={mode === 'dark' ? 'Dark mode' : 'Light mode'}>
             <IconTheme mode={mode} size={17} />
           </button>
-          <button className="tb-btn" onClick={() => setNotifOpen((v) => !v)}
+          <button className="tb-btn" onClick={() => toggle('notif')}
             aria-label="Notifications" aria-expanded={notifOpen}>
             <IconBell size={17} />
             {notifs.length > 0 && <span className="tb-badge">{notifs.length}</span>}
           </button>
-          <button className={`tb-avatar${photo ? ' has-photo' : ''}`} onClick={() => navigate('/profile')}
-            aria-label="Profile" title={session.name}>
+          {/* The monogram used to be a link straight to the profile page,
+              which is a long way to go to sign out. It opens the account
+              instead: who you are signed in as, and the three things you
+              do from here. */}
+          <button className={`tb-avatar${photo ? ' has-photo' : ''}${acctOpen ? ' is-open' : ''}`}
+            onClick={() => toggle('acct')}
+            aria-haspopup="dialog" aria-expanded={acctOpen} aria-label="Account" title={session.name}>
             {photo ? <img src={photo} alt="" /> : initials}
           </button>
         </div>
@@ -275,26 +381,41 @@ export default function Topbar({ route, job, searchOpen, onOpenSearch, onCloseSe
         document.body
       )}
 
-      {notifOpen && (
+      {/* Out to the body rather than left inside the bar. The top bar is
+          sticky with a z-index, which makes it a stacking context, and a
+          fixed sheet inside one cannot rise above anything outside it —
+          the bottom nav sits at the same level and would cut across it.
+
+          One scrim for whichever sheet is open, rather than one per
+          sheet: they are mutually exclusive, and Escape closes them. */}
+      {sheet && createPortal(
         <>
-          <div className="usermenu-backdrop" onClick={() => setNotifOpen(false)} />
-          <div className="usermenu notif-sheet" role="dialog" aria-label="Notifications">
-            <div className="um-name" style={{ marginBottom: 10 }}>Notifications</div>
-            {notifs.length === 0 ? (
-              <p className="page-sub" style={{ margin: 0 }}>All clear. Nothing needs attention.</p>
-            ) : (
-              notifs.map((n, i) => (
-                <button key={i} className="notif-row" onClick={() => { navigate(n.to); setNotifOpen(false) }}>
-                  <span className={`notif-ico ${n.cls}`}><n.icon size={15} /></span>
-                  <span className="act-main">
-                    <strong>{n.text}</strong>
-                    <small>{n.sub}</small>
-                  </span>
-                </button>
-              ))
-            )}
-          </div>
-        </>
+          <div className="usermenu-backdrop" onClick={() => setSheet(null)} />
+          {acctOpen && (
+            <AccountCard session={session} role={role} photo={photo} initials={initials} mode={mode}
+              onGo={(to) => { setSheet(null); navigate(to) }}
+              onOut={() => { setSheet(null); logout() }} />
+          )}
+          {notifOpen && (
+            <div className="usermenu notif-sheet" role="dialog" aria-label="Notifications">
+              <div className="um-name" style={{ marginBottom: 10 }}>Notifications</div>
+              {notifs.length === 0 ? (
+                <p className="page-sub" style={{ margin: 0 }}>All clear. Nothing needs attention.</p>
+              ) : (
+                notifs.map((n, i) => (
+                  <button key={i} className="notif-row" onClick={() => { navigate(n.to); setSheet(null) }}>
+                    <span className={`notif-ico ${n.cls}`}><n.icon size={15} /></span>
+                    <span className="act-main">
+                      <strong>{n.text}</strong>
+                      <small>{n.sub}</small>
+                    </span>
+                  </button>
+                ))
+              )}
+            </div>
+          )}
+        </>,
+        document.body
       )}
     </>
   )

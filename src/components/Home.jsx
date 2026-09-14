@@ -11,7 +11,7 @@ import { homeOverview, reportPath, REPORT_LABELS } from '../lib/homeOverview.js'
 import { scopeReports, sortReview } from '../lib/reportScope.js'
 import { REPORT_CHOICES, reportCode } from '../lib/reportChoices.js'
 import { useCalendarDate } from '../lib/useCalendarDate.js'
-import { IconPlus, IconApprove, IconGrid, IconAlert, IconCloudUp, IconChevronR } from './Icons.jsx'
+import { IconPlus, IconApprove, IconGrid, IconAlert, IconCloudUp, IconCloudOff, IconChevronR } from './Icons.jsx'
 import ReportLauncher from './ReportLauncher.jsx'
 import './Home.css'
 
@@ -33,7 +33,7 @@ function Panel({ id, title, note, count, tools, footer, tone, children }) {
 
 function ReportRows({ records, review, onOpen, session, empty }) {
   if (!records.length) return <p className="home-empty">{empty}</p>
-  return <ul className="home-records">{records.slice(0, 5).map((r) => <li key={r.id}>
+  return <ul className="home-records">{records.slice(0, 3).map((r) => <li key={r.id}>
     <a className="home-report-row" href={href(reportPath(r))} onClick={(e) => onOpen(e, r)} aria-label={`Open report ${r.reportId}`}>
       <span className={`home-form-code is-${r.status}`}>{FORM_SCHEMAS[r.formKey]?.code || 'DOC'}</span>
       <span className="home-report-copy"><strong>{r.reportId}</strong>
@@ -52,8 +52,8 @@ function JobPanel({ data, role, onJob, overview = false }) {
   const rows = source.filter((r) => filter === 'all' || (filter === 'overdue' ? r.late.length : r.ncr))
   return <Panel id="home-jobs-title" title={overview ? 'Job overview' : 'Needs attention'} note={overview ? 'Required documents and recorded progress' : 'Overdue documents and NCR reports'} count={rows.length} tone={overview ? 'overview' : 'attention'}
     tools={<div className="home-tabs" role="group" aria-label="Filter attention jobs">{[['all', overview ? 'All jobs' : 'All attention'], ['overdue', 'Overdue'], ['ncr', 'NCR']].map(([id, label]) => <button key={id} type="button" aria-pressed={filter === id} onClick={() => setFilter(id)}>{id === 'all' ? <IconGrid size={14} /> : <IconAlert size={14} />}{label}</button>)}</div>}
-    footer={<><span>Showing {Math.min(5, rows.length)} of {rows.length}</span><a href={filter === 'ncr' ? register('ncr') : monitor(filter === 'overdue' ? 'overdue' : '')}>{filter === 'ncr' ? 'Open NCR reports' : 'Open monitoring'}</a></>}>
-    {rows.length ? <ul className="home-records">{rows.slice(0, 5).map(({ job, progress, late, ncr, target }) => <li key={job.jobNo}>
+    footer={<><span>Showing {Math.min(3, rows.length)} of {rows.length}</span><a href={filter === 'ncr' ? register('ncr') : monitor(filter === 'overdue' ? 'overdue' : '')}>{rows.length > 3 ? 'See more' : filter === 'ncr' ? 'Open NCR reports' : 'Open monitoring'}<IconChevronR size={14} /></a></>}>
+    {rows.length ? <ul className="home-records">{rows.slice(0, 3).map(({ job, progress, late, ncr, target }) => <li key={job.jobNo}>
       <a className="home-job-row" href={href(`/job/${job.jobNo}`)} onClick={(e) => onJob(e, job.jobNo)} aria-label={`Open job ${job.jobNo}`}>
         <span className="home-job-copy"><strong>{job.jobNo}</strong><span>{job.productDesc || 'Product not set'} · {job.customerName || 'Customer not set'}</span>
           <small className={ncr || late.length ? 'home-alert-text' : ''}>{ncr ? `${plural(ncr, 'NCR report')} · ` : ''}{late.length ? `${plural(late.length, 'overdue document')} · ` : ''}{target ? `Target ${fmtDate(`${target}T00:00:00`)}` : 'Target date not set'}</small>
@@ -65,8 +65,8 @@ function JobPanel({ data, role, onJob, overview = false }) {
 }
 
 function CustomerPanel({ customers }) {
-  return <Panel id="home-customers-title" title="Customer progress" note="Most unfinished units first" footer={<a href={monitor()}>Browse customers and jobs</a>}>
-    {customers.length ? <ul className="home-records">{customers.slice(0, 4).map((c) => <li key={c.name}><a className="home-summary-row" href={href(`/customer/${encodeURIComponent(c.name)}`)}>
+  return <Panel id="home-customers-title" title="Customer progress" note="Most unfinished units first" footer={<a href={monitor()}>{customers.length > 3 ? 'See more' : 'Browse customers and jobs'}<IconChevronR size={14} /></a>}>
+    {customers.length ? <ul className="home-records">{customers.slice(0, 3).map((c) => <li key={c.name}><a className="home-summary-row" href={href(`/customer/${encodeURIComponent(c.name)}`)}>
       <span><strong>{c.name}</strong><small>{plural(c.open, 'open unit')}{c.overdue ? ` · ${c.overdue} overdue` : ''}</small></span><span className="home-summary-number">{c.applicable ? `${c.pct}%` : '—'}<small>{c.done}/{c.applicable}</small></span>
     </a></li>)}</ul> : <p className="home-empty">Customer progress appears when a job is registered.</p>}
   </Panel>
@@ -80,21 +80,21 @@ function WorkloadPanel({ records }) {
     row[r.status]++; row.total++; counts.set(name, row)
   }
   const rows = [...counts.values()].sort((a, b) => b.returned - a.returned || b.total - a.total || a.name.localeCompare(b.name))
-  return <Panel id="home-workload-title" title="Inspector documents" note="Open records, not assigned inspections" footer={<a href={register('all', 'unfinished')}>All unfinished reports</a>}>
-    {rows.length ? <table className="home-workload"><thead><tr><th>Inspector</th><th>Draft</th><th>Back</th><th>QA</th></tr></thead><tbody>{rows.slice(0, 4).map((r) => <tr key={r.name}><th>{r.name === 'Not recorded' ? r.name : <a href={`${register('all', 'unfinished')}&author=${encodeURIComponent(r.name)}`}>{r.name}</a>}</th><td>{r.draft}</td><td className={r.returned ? 'home-alert-text' : ''}>{r.returned}</td><td>{r.submitted}</td></tr>)}</tbody></table> : <p className="home-empty">No draft, returned or submitted reports on file.</p>}
+  return <Panel id="home-workload-title" title="Inspector documents" note="Open records, not assigned inspections" footer={<a href={register('all', 'unfinished')}>{rows.length > 3 ? 'See more' : 'All unfinished reports'}<IconChevronR size={14} /></a>}>
+    {rows.length ? <table className="home-workload"><thead><tr><th>Inspector</th><th>Draft</th><th>Back</th><th>QA</th></tr></thead><tbody>{rows.slice(0, 3).map((r) => <tr key={r.name}><th>{r.name === 'Not recorded' ? r.name : <a href={`${register('all', 'unfinished')}&author=${encodeURIComponent(r.name)}`}>{r.name}</a>}</th><td>{r.draft}</td><td className={r.returned ? 'home-alert-text' : ''}>{r.returned}</td><td>{r.submitted}</td></tr>)}</tbody></table> : <p className="home-empty">No draft, returned or submitted reports on file.</p>}
   </Panel>
 }
 
 function ReadinessPanel({ data, onJob }) {
   const units = data.units.filter((r) => r.progress.applicable).sort((a, b) => (a.progress.applicable - a.progress.done) - (b.progress.applicable - b.progress.done) || String(a.job.jobNo).localeCompare(String(b.job.jobNo)))
-  return <Panel id="home-readiness-title" title="Document readiness" note="Check the required set before compiling MDR" footer={<a href={monitor()}>Check all job documents</a>}>
-    {units.length ? <ul className="home-records">{units.slice(0, 4).map(({ job, progress, ncr }) => <li key={job.jobNo}><a className="home-summary-row" href={href(`/job/${job.jobNo}`)} onClick={(e) => onJob(e, job.jobNo)}>
+  return <Panel id="home-readiness-title" title="Document readiness" note="Check the required set before compiling MDR" footer={<a href={monitor()}>{units.length > 3 ? 'See more' : 'Check all job documents'}<IconChevronR size={14} /></a>}>
+    {units.length ? <ul className="home-records">{units.slice(0, 3).map(({ job, progress, ncr }) => <li key={job.jobNo}><a className="home-summary-row" href={href(`/job/${job.jobNo}`)} onClick={(e) => onJob(e, job.jobNo)}>
       <span><strong>{job.jobNo}</strong><small>{ncr ? `${plural(ncr, 'NCR report')} to check` : progress.done === progress.applicable ? 'Check evidence and release status' : `${progress.applicable - progress.done} documents outstanding`}</small></span><span className="home-summary-number">{progress.done}/{progress.applicable}</span>
     </a></li>)}</ul> : <p className="home-empty">No jobs with required documents. Define the job scope before compiling an MDR.</p>}
   </Panel>
 }
 
-export function HomeDashboard({ data, customers, records, role, session, now, onOpen, onJob, onNew }) {
+export function HomeView({ data, customers, records, role, session, now, onOpen, onJob, onNew }) {
   const [ownWork, setOwnWork] = useState(false)
   const [tracking, setTracking] = useState('submitted')
   const mine = scopeReports(records, 'mine', session, role)
@@ -126,20 +126,26 @@ export function HomeDashboard({ data, customers, records, role, session, now, on
   const greeting = now.getHours() < 12 ? 'Good morning' : now.getHours() < 18 ? 'Good afternoon' : 'Good evening'
   let sharepoint = null
   try { const url = new URL(COMPANY.sharepointUrl); if (url.protocol === 'https:') sharepoint = url.href } catch { /* An unconfigured resource must not become a dead link. */ }
-  return <div className="page home-page"><div className="home-dashboard">
+  return <div className="page home-page"><div className="home-stack">
     <header className="home-toolbar"><img src={miningArt} alt="" aria-hidden="true" />
       <div className="home-welcome"><span className="home-kicker">Fabrication &amp; Plant Cikupa</span><h1>{greeting}, {session.name}.</h1><p>{role.label} · {now.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</p><span className="home-banner-note">{viewer ? 'Follow each job through its inspection records.' : reviewing ? 'Review the evidence. Keep every release traceable.' : 'Record the inspection. Keep the work moving.'}</span></div>
       <div className="home-actions">{role.canOverride ? <><button className="btn btn-secondary" onClick={onNew}><IconPlus size={16} />New report</button><a className="btn btn-primary" href={register('submitted', 'review')}><IconApprove size={16} />Review reports</a></> : technician ? <button className="btn btn-primary" onClick={onNew}><IconPlus size={16} />New report</button> : <a className="btn btn-primary" href={monitor()}><IconGrid size={16} />Open monitoring</a>}</div>
     </header>
     <div className="home-overview-row"><section className="home-readings" aria-label="QC overview">{summary.map(([label, value, note, link]) => <a key={label} href={link}><span>{label}</span><strong>{value}</strong><small>{note}</small></a>)}</section>
-      <nav className="home-resources" aria-label="QC resources"><a href={monitor()}><IconGrid size={15} />Dashboard</a><a href={register('ncr')}><IconAlert size={15} />NCR</a>{sharepoint ? <a href={sharepoint} target="_blank" rel="noopener noreferrer"><IconCloudUp size={15} />SharePoint ↗</a> : <span aria-disabled="true"><IconCloudUp size={15} />SharePoint<small>Not linked</small></span>}</nav>
+      <nav className="home-resources" aria-label="QC resources">
+        <a href={monitor()}>Monitoring<IconGrid className="home-res-mark" size={64} /></a>
+        <a href={register('ncr')}>NCR<IconAlert className="home-res-mark" size={64} /></a>
+        {sharepoint
+          ? <a href={sharepoint} target="_blank" rel="noopener noreferrer">SharePoint ↗<IconCloudUp className="home-res-mark" size={64} /></a>
+          : <span aria-disabled="true">SharePoint<small>Not linked</small><IconCloudOff className="home-res-mark" size={64} /></span>}
+      </nav>
     </div>
     {data.pct === null && !viewer && !head && <p className="home-context-note">No required deliverables</p>}
     {data.totals.overrides > 0 && <p className="home-context-note">Job completion includes {plural(data.totals.overrides, 'admin override')}. Confirm the evidence before release.</p>}
     <div className="home-row home-main-row">
       {viewer ? <JobPanel data={data} role={role} onJob={onJob} overview /> : <Panel id="home-work-title" title={reviewing ? reviewTitle : 'Your work'} count={queue.length} tone={reviewing ? 'review' : 'work'} note={reviewing ? 'Oldest submission first; within your approval authority' : 'Sent back first, then your latest drafts'}
         tools={role.canOverride && <div className="home-tabs" role="group" aria-label="Choose work list"><button aria-pressed={!ownWork} onClick={() => setOwnWork(false)}><IconApprove size={14} />For review {review.length}</button><button aria-pressed={ownWork} onClick={() => setOwnWork(true)}><IconGrid size={14} />Your work {data.mine.length}</button></div>}
-        footer={<><span>Showing {Math.min(5, queue.length)} of {queue.length}</span><a href={register(reviewing ? 'submitted' : 'all', reviewing ? 'review' : 'work')}>{reviewing ? 'View all for review' : 'View all your work'}</a></>}>
+        footer={<><span>Showing {Math.min(3, queue.length)} of {queue.length}</span><a href={register(reviewing ? 'submitted' : 'all', reviewing ? 'review' : 'work')}>{queue.length > 3 ? 'See more' : reviewing ? 'View all for review' : 'View all your work'}<IconChevronR size={14} /></a></>}>
         <ReportRows records={queue} review={reviewing} onOpen={onOpen} session={session} empty={reviewing ? 'No reports awaiting your review. Your own drafts are available under Your work.' : 'No returned reports or drafts. Start a report when your next inspection is ready.'} />
       </Panel>}
       {technician || viewer ? <Panel id="home-tracking-title" title={viewer ? 'Approved reports' : 'Your submitted reports'} note={viewer ? 'Latest approved records' : 'Track review outcomes without opening each job'}
@@ -183,5 +189,5 @@ export default function Home() {
   }
   const onNew = (id) => { if (role.canEdit) setLauncher(typeof id === 'string' ? id : 'all') }
   if (snapshot.error) return <div className="page home-page"><section className="home-panel home-empty" role="alert"><h2>Could not read reports on this device.</h2><p>Your records have not been changed. Retry or check the report storage.</p><button className="btn btn-primary" onClick={refresh}><IconChevronR size={16} />Retry</button>{role.canManage && <a href="#/settings?s=storage">Open storage settings</a>}</section></div>
-  return <><HomeDashboard key={`${session.role}:${session.name}`} {...snapshot} role={role} session={session} now={now} onOpen={onOpen} onJob={onJob} onNew={onNew} />{launcher && <ReportLauncher initial={launcher} onClose={() => setLauncher(null)} />}</>
+  return <><HomeView key={`${session.role}:${session.name}`} {...snapshot} role={role} session={session} now={now} onOpen={onOpen} onJob={onJob} onNew={onNew} />{launcher && <ReportLauncher initial={launcher} onClose={() => setLauncher(null)} />}</>
 }
