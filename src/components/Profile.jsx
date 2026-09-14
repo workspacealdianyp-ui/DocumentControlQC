@@ -183,7 +183,7 @@ export default function Profile() {
             grain on top is what stops a band this wide stepping on an
             8-bit panel. */}
         <AnimatedGradient className="pf-grad" mode={mode} noise={{ opacity: 0.5 }}
-          params={{ rotation: -28, proportion: 38, scale: 0.42, speed: 9, swirl: 48, swirlIterations: 9, shapeSize: 46 }} />
+          params={{ rotation: -30, proportion: 40, scale: 0.62, speed: 6, distortion: 5, swirl: 64, swirlIterations: 12, shapeSize: 34, screen: 14 }} />
 
         <button className="pf-back" onClick={() => navigate('/')}
           aria-label="Back to home" title="Back to home">

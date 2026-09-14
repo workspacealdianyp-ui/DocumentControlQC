@@ -4401,19 +4401,32 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber-line); out
   position: relative; isolation: isolate; overflow: hidden;
   border: 1px solid var(--line-2); border-radius: var(--r-lg);
   margin-bottom: 22px;
-  background: linear-gradient(152deg, var(--grad-1) 0%, var(--grad-2) 52%, var(--grad-3) 100%);
+  background: var(--surface);
 }
-/* The seat for the type: the face lifts at the top left and settles
-   toward the bottom, which is where the words are. It is the one thing
-   kept from the finish, because it is not decoration — it is what holds
-   the contrast steady while the gradient moves underneath. */
+/* The seat for the type. The texture is a stipple now, and a stipple
+   has black in it: four lines of ink laid straight over that would be
+   unreadable wherever a dark run happened to pass under them. So the
+   face is clean where the words are and textured where they are not —
+   the wash is opaque along the bottom and the left, and gone by the
+   top right, which is the half the pattern gets to keep. */
 .pf-banner::after {
   content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none;
   background:
-    linear-gradient(103deg, rgba(255,255,255,0.42) 0%, rgba(255,255,255,0.14) 42%, transparent 72%),
-    linear-gradient(0deg, rgba(28,28,34,0.18) 0%, transparent 58%);
+    linear-gradient(0deg,
+      rgba(255,255,255,0.96) 0%, rgba(255,255,255,0.9) 26%,
+      rgba(255,255,255,0.6) 52%, rgba(255,255,255,0.12) 82%, transparent 100%),
+    linear-gradient(100deg,
+      rgba(255,255,255,0.82) 0%, rgba(255,255,255,0.42) 34%, transparent 66%);
 }
-.pf-grad { z-index: 0; animation: pf-lightup 1.1s ease both; }
+.pf-grad {
+  z-index: 0; animation: pf-lightup 1.1s ease both;
+  /* Our own ink on our own paper. The accent stays out of it: it means
+     something everywhere else in the app, and a band this size wearing
+     it would spend that meaning on decoration. */
+  --grad-1: #f2f3f6;
+  --grad-2: #26272d;
+  --grad-3: #dcdfe6;
+}
 /* The face lights before anything is written on it. */
 @keyframes pf-lightup { from { opacity: 0; } to { opacity: 1; } }
 
@@ -4433,12 +4446,17 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber-line); out
 /* The stamp in the top band: mono, uppercase and low contrast, because
    it is marked into the face rather than printed on it. */
 .pf-mark {
-  position: absolute; z-index: 2; top: 18px; right: 18px;
+  position: absolute; z-index: 2; top: 15px; right: 15px;
   display: inline-flex; align-items: center; gap: 8px;
   max-width: calc(100% - 80px); margin: 0;
   font-family: var(--mono); font-size: 10px; font-weight: 600;
-  letter-spacing: 0.09em; text-transform: uppercase; color: #40404b;
-  text-shadow: 0 1px 0 rgba(255,255,255,0.55);
+  letter-spacing: 0.09em; text-transform: uppercase; color: #33333d;
+  /* The one corner the wash leaves textured is this one, and a stipple
+     has black in it: the stamp takes a ground of its own, the same
+     answer the masthead badges take over the stone. */
+  padding: 6px 11px; border-radius: var(--r-pill);
+  background: rgba(255, 255, 255, 0.86);
+  box-shadow: inset 0 0 0 1px rgba(22, 22, 26, 0.09);
   animation: pf-rise .6s .34s cubic-bezier(0.2, 0.7, 0.2, 1) both;
 }
 .pf-mark i {
@@ -4509,7 +4527,16 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber-line); out
   to   { opacity: 1; transform: none; }
 }
 .pf-back { animation: pf-rise .5s .3s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
-.pf-who h2 { margin: 0; font-size: 25px; font-weight: 650; letter-spacing: -0.02em; line-height: 1.15; color: #16161a; }
+/* By night the name is a light thing on a dark ground and lights
+   itself. By day it cannot: white on white is nothing. So it is cut
+   into the surface instead — a harder black, a shade larger, and a
+   single hairline of paper under it, which is the same engraving the
+   two facts below already wear. */
+.pf-who h2 {
+  margin: 0; font-size: 27px; font-weight: 700;
+  letter-spacing: -0.024em; line-height: 1.12; color: #0c0c11;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.75);
+}
 .pf-who-role { margin: 3px 0 0; font-size: 13px; font-weight: 500; color: #35353e; }
 .pf-who-co { margin: 1px 0 0; font-size: 12px; color: #4a4a55; }
 
@@ -4561,16 +4588,27 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber-line); out
   overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
 }
 
-/* The band at night: the same seat, dug into a dark ground rather than
-   a light one. The gradient's own three colours already moved with the
-   theme; this is what sits over them. */
+/* The band at night: the same composition inverted. Ink and paper
+   trade places and the wash is the dark one. */
+:root[data-theme="dark"] .pf-grad {
+  --grad-1: #14171d;
+  --grad-2: #e4e7ec;
+  --grad-3: #1d222a;
+}
 :root[data-theme="dark"] .pf-banner::after {
   background:
-    linear-gradient(103deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.03) 42%, transparent 72%),
-    linear-gradient(0deg, rgba(0,0,0,0.52) 0%, transparent 60%);
+    linear-gradient(0deg,
+      rgba(14,16,20,0.95) 0%, rgba(14,16,20,0.88) 26%,
+      rgba(14,16,20,0.58) 52%, rgba(14,16,20,0.1) 82%, transparent 100%),
+    linear-gradient(100deg,
+      rgba(14,16,20,0.8) 0%, rgba(14,16,20,0.4) 34%, transparent 66%);
 }
 :root[data-theme="dark"] .pf-engraved::before { background: rgba(255,255,255,0.5); }
-:root[data-theme="dark"] .pf-mark { color: #b4b4c0; text-shadow: 0 1px 0 rgba(0,0,0,0.5); }
+:root[data-theme="dark"] .pf-mark {
+  color: #d6d6e0; text-shadow: none;
+  background: rgba(16, 18, 22, 0.82);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.12);
+}
 :root[data-theme="dark"] .pf-mark i { box-shadow: inset 0 0 0 1px rgba(255,255,255,0.4); }
 :root[data-theme="dark"] .pf-mark.is-pending i { background: #ededf0; box-shadow: none; }
 :root[data-theme="dark"] .pf-mark.is-pending i { animation-name: pf-pulse-dark; }
@@ -4583,8 +4621,8 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber-line); out
 }
 :root[data-theme="dark"] .pf-back:hover { background: rgba(20, 20, 26, 0.85); border-color: rgba(255,255,255,0.34); }
 :root[data-theme="dark"] .pf-plate { background: #f0f0f3; color: #16161a; box-shadow: 0 2px 0 rgba(255,255,255,0.1), 0 10px 24px rgba(0,0,0,0.5); }
-:root[data-theme="dark"] .pf-who,
-:root[data-theme="dark"] .pf-who h2 { color: #f2f2f5; }
+:root[data-theme="dark"] .pf-who { color: #f2f2f5; }
+:root[data-theme="dark"] .pf-who h2 { color: #f7f8fb; text-shadow: none; }
 :root[data-theme="dark"] .pf-who-role { color: #d3d3da; }
 :root[data-theme="dark"] .pf-who-co { color: #a8a8b4; }
 :root[data-theme="dark"] .pf-engraved { border-top-color: rgba(255,255,255,0.14); box-shadow: 0 -1px 0 rgba(0,0,0,0.4); }

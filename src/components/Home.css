@@ -27,11 +27,15 @@
 .home-resources > * {
   position: relative; isolation: isolate; overflow: hidden;
   display: flex; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 2px;
-  text-align: left; padding: 9px 10px; border-radius: 6px;
-  font-size: 12px; font-weight: 600; line-height: 1.3;
+  text-align: left; padding: 9px 8px; border-radius: 6px;
+  font-size: 11.5px; font-weight: 600; line-height: 1.3;
   background: var(--amber); color: var(--on-amber);
   box-shadow: inset 0 0 0 1px var(--amber-line);
-  overflow-wrap: anywhere; min-height: 66px;
+  /* break-word, not anywhere: the row narrowed when the readings strip
+     beside it did, and `anywhere` answered that by splitting Monitoring
+     into "Monitori / ng". These are three one-word labels; they wrap
+     between words or not at all. */
+  overflow-wrap: break-word; hyphens: none; min-height: 66px;
 }
 /* Negative z-index inside the tile's own stacking context: the glyph
    paints over the yellow and under the label, so the label never has to

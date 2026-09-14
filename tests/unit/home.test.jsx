@@ -112,7 +112,7 @@ describe('Home working surface', () => {
   it.each(['engineer', 'supervisor'])('scopes the %s review queue to its actual approval authority', (role) => {
     setup(role, [record('tech', 'submitted'), record('peer', 'submitted', { inspector: role === 'engineer' ? 'QC Supervisor' : 'Quality Engineer' }), record('head', 'submitted', { inspector: 'QA Lead' })])
     render(<Home />)
-    const queue = screen.getByRole('region', { name: role === 'engineer' ? 'Your review queue' : 'QC review queue' })
+    const queue = screen.getByRole('region', { name: role === 'engineer' ? 'Your queue' : 'QC queue' })
     expect(within(queue).getAllByRole('link', { name: /Open report/ }).map((a) => a.getAttribute('aria-label'))).toEqual(['Open report DIM/A/tech'])
     expect(screen.getByRole('link', { name: /For your review/ }).textContent).toContain('1')
   })
@@ -129,7 +129,7 @@ describe('Home working surface', () => {
   it('caps the review queue at three without changing review eligibility or the full count', () => {
     setup('engineer', Array.from({ length: 7 }, (_, i) => record(String(i), 'submitted')))
     render(<Home />)
-    const queue = screen.getByRole('region', { name: 'Your review queue' })
+    const queue = screen.getByRole('region', { name: 'Your queue' })
     expect(within(queue).getAllByRole('link', { name: /Open report/ })).toHaveLength(3)
     expect(within(queue).getByText('Showing 3 of 7')).toBeTruthy()
     expect(within(queue).getByRole('link', { name: 'See more' }).getAttribute('href')).toBe('#/reports?f=submitted&scope=review')
