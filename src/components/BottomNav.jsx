@@ -58,7 +58,7 @@ export default function BottomNav({ page }) {
       </div>
 
       <button className={`bn-home${home ? ' active' : ''}`} onClick={() => navigate('/')}
-        aria-current={home ? 'page' : undefined} aria-label="Dashboard">
+        aria-current={home ? 'page' : undefined} aria-label="Home">
         <IconHome size={21} />
       </button>
     </nav>

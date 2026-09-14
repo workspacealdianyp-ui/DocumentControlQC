@@ -20,7 +20,7 @@ import {
 const KAT_LABEL = { SUPEQ: 'Support Equipment', TRAILER: 'Trailer', 'NON TRAILER': 'Non Trailer' }
 
 const PAGE_TITLES = {
-  home: ['Dashboard', ''],
+  home: ['Home', ''],
   customers: ['Monitoring', 'Customers'],
   jobs: ['Monitoring', 'All jobs'],
   // Customer and PO carry their own name in the masthead below, so the

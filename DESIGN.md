@@ -16,7 +16,7 @@
 
 ## 1. The experience to build
 
-The home screen should feel like a carefully arranged inspection desk: clear job identities, a short list of work needing attention, documents ready to continue, and an accurate view of customer progress. Its character comes from graphite typography, disciplined alignment, warm-white surfaces, and a deliberate safety-orange accent.
+The home screen should feel like a carefully arranged inspection desk: clear job identities, a short list of work needing attention, documents ready to continue, and an accurate view of customer progress. Its character comes from graphite typography, disciplined alignment, warm-white surfaces, and a deliberate safety-yellow accent.
 
 The memorable design decision is to give the **attention register** the dominant area currently occupied by the rotating unit showcase. A connected row of four readings sits above it; a narrower action column sits beside it. The screen has a clear silhouette and a clear purpose.
 
@@ -61,7 +61,7 @@ This assessment comes from source inspection. The current application was not ru
 | Personal continuation shows drafts only | `Home.jsx`, `myDrafts` | Include the signed-in inspector’s returned reports before drafts |
 | The home picker lists seven forms | `Home.jsx`, `FORM_ORDER` | Make the existing ITP, PTR, and IRN record forms discoverable too |
 | The Visual form defaults to `Pre-Shipment`, while PDI also uses that form | `formSchemas.js`, `constants.js` | Carry an explicit deliverable choice so a PDI report is filed under PDI |
-| QC Dashboard, NCR List, and QC Site point to `#` | `Home.jsx`, `QUICK_LINKS` | Hide unconfigured external links; retain configured destinations as quiet utility links |
+| QC Monitoring, NCR List, and QC Site point to `#` | `Home.jsx`, `QUICK_LINKS` | Hide unconfigured external links; retain configured destinations as quiet utility links |
 | NCR totals are derived from current report issues with a Reject verdict | `ncrReports()`, `currentIssues()` | Call them “NCR reports”; do not imply one report equals one finding or a formal CAPA case |
 | Recent activity is the latest state of each recently updated report | `recentActivity()` | Label it “Recent updates”; do not present it as an audit event history |
 
@@ -77,13 +77,13 @@ Retain the existing 232 px sidebar and 60 px top bar. With the current 26 px hor
 
 | Vertical position | Main area | Supporting area | Sizing intent |
 |---|---|---|---|
-| Existing top bar | Dashboard, existing search and profile controls | Existing utilities | Preserve shell |
+| Existing top bar | Home, existing search and profile controls | Existing utilities | Preserve shell |
 | Compact action row | Greeting and local date | One role-specific primary action; one secondary action | About 52–64 px, allowed to wrap |
 | Full-width readings strip | Open jobs · Deliverables complete · Awaiting QA · Overdue jobs | — | Four equal segments; about 104–120 px |
 | Primary work row | **Needs attention**: filter counts and up to five job rows | **Your work / QA review / Overview** depending on role | Content-led height; roughly 380–440 px with five normal rows |
 | Second work row | **Customer progress**: up to four customers | **Report register**: compact lifecycle totals | Roughly 240–300 px; no forced empty height |
 | Full width | **Recent updates**: up to six records | — | Compact rows; follows operational work |
-| Footer, only when configured | QC Dashboard · NCR List · QC Site | — | Quiet utility links |
+| Footer, only when configured | QC Monitoring · NCR List · QC Site | — | Quiet utility links |
 
 At 1440 × 900, normal content should show the action row, all four readings, the attention list, and the main role-specific action panel without scrolling. At shorter heights, the first attention rows remain visible; do not shrink text to force the entire dashboard into view.
 
@@ -147,7 +147,7 @@ The class names below are proposed, home-scoped names. This is a layout guide, n
 
 ### A. Action row
 
-Keep the greeting personal but small. The top bar already names the page; avoid another oversized “Dashboard” title or welcome banner.
+Keep the greeting personal but small. The top bar already names the page; avoid another oversized “Home” title or welcome banner.
 
 | Role | Filled primary action | Secondary action | Supporting panel |
 |---|---|---|---|
@@ -309,14 +309,18 @@ Reuse semantic variables from `src/styles.css`; the values here document their r
 | Secondary surface | `--surface-2` | `#f7f7f5` / `#1e1e23` | Hover and inset areas |
 | Main text | `--text` | `#16161a` / `#ededf0` | Identity, values, controls |
 | Secondary text | `--text-2` | `#6e6e76` / `#a5a5af` | Supporting labels |
-| Accent | `--amber`, `--amber-ink` | Orange / contrast-adjusted orange | Current selection, primary accent detail |
+| Accent | `--amber`, `--on-amber` | `#ffc400` in both themes / `#171b20` on it | Fill: current selection, primary accent detail |
+| Accent type | `--amber-deep`, `--amber-ink` | `#8a6600` / `#ffd05a` | Accent-coloured text beside the fill, never on it |
+| Accent edge | `--amber-line` | `#a87f00` / `#d9aa35` | The edge a yellow fill needs on a white card |
 | Borders | `--line`, `--line-2` | Existing theme values | Panel structure and row separators |
 | Complete | `--done`, `--done-bg` | Green family | Explicit completed documentation |
 | In progress | `--inprog`, `--inprog-bg` | Amber-brown family | Work still being prepared |
 | Awaiting review | `--review`, `--review-bg` | Blue family | Submitted, unsigned work |
 | Attention | `--overdue`, `--overdue-bg` | Red family | Explicit overdue or Reject reasons |
 
-Keep the existing graphite primary button treatment, with safety orange identifying the active selection and a small structural accent. Do not use orange for every icon, progress bar, and button at once. Use the foreground token intended for readable orange text instead of placing small bright-orange text on white.
+Keep the existing graphite primary button treatment, with safety yellow identifying the active selection and a small structural accent. Do not use the yellow for every icon, progress bar, and button at once.
+
+The yellow is a *light* accent, which reverses two habits carried over from the orange it replaced. Nothing is ever printed on the fill in white — labels on it take `--on-amber`. And nothing is set in `--amber` as text on a light ground — it measures about 1.6:1 there; accent-coloured type takes `--amber-deep`, or `--amber-ink` below 12px. A yellow fill standing on a white card carries an `--amber-line` edge, because the fill alone has no boundary against white.
 
 Use one shared outer surface for the readings strip, separated internally by hairlines. The attention register is the largest panel. Supporting sections use the same border language with less visual weight. Avoid a nested-card frame around every piece of metadata.
 
