@@ -41,6 +41,12 @@ const BASE = {
   offset: 0,
   shape: 'checks',
   shapeSize: 38,
+  /* 0 leaves the gradient smooth. Above that the field is screened
+     through a lattice of dots whose size follows it, so light areas go
+     clean and dark ones close up — a halftone, bent by the same swirl
+     that bends everything else, which is what turns a flowing gradient
+     into a stipple. */
+  screen: 0,
 }
 
 export default function AnimatedGradient({ mode, params, noise, className, style }) {
@@ -81,7 +87,7 @@ export default function AnimatedGradient({ mode, params, noise, className, style
     for (const name of [
       'u_time', 'u_resolution', 'u_pixelRatio', 'u_scale', 'u_rotation',
       'u_color1', 'u_color2', 'u_color3', 'u_proportion', 'u_softness',
-      'u_shape', 'u_shapeScale', 'u_distortion', 'u_swirl', 'u_swirlIterations',
+      'u_shape', 'u_shapeScale', 'u_distortion', 'u_swirl', 'u_swirlIterations', 'u_screen',
     ]) u[name] = gl.getUniformLocation(program.program, name)
 
     const resize = () => {
@@ -125,6 +131,7 @@ export default function AnimatedGradient({ mode, params, noise, className, style
       gl.uniform1f(u.u_distortion, p.distortion / 50)
       gl.uniform1f(u.u_swirl, p.swirl / 100)
       gl.uniform1f(u.u_swirlIterations, p.swirl === 0 ? 0 : p.swirlIterations)
+      gl.uniform1f(u.u_screen, p.screen)
       gl.drawArrays(gl.TRIANGLES, 0, 6)
     }
 
@@ -266,6 +273,7 @@ uniform float u_shapeScale;
 uniform float u_distortion;
 uniform float u_swirl;
 uniform float u_swirlIterations;
+uniform float u_screen;
 
 out vec4 fragColor;
 
@@ -359,7 +367,32 @@ void main() {
       mixer = shape;
     }
 
-    vec4 color_mix = blend_colors(u_color1, u_color2, u_color3, mixer, 1. - clamp(u_softness, 0., 1.), .01 + .01 * u_scale);
+    float edges = 1. - clamp(u_softness, 0., 1.);
+    float blur = .01 + .01 * u_scale;
+
+    if (u_screen > 0.) {
+        /* uv is already carrying the distortion and the swirl, so the
+           lattice bends with the field instead of sitting on a straight
+           grid over it. The dot's radius is the field's value: clean
+           paper where it is low, closed up where it is high.
+
+           fwidth gives the width of one screen pixel in lattice units,
+           which is what keeps the dots' edges from crawling when the
+           pattern is small. */
+        vec2 cell = fract(uv * u_screen) - .5;
+        float d = length(cell) * 2.;
+        float r = clamp(mixer, 0., 1.) * 1.25;
+        float w = fwidth(d) + .004;
+        float ink = smoothstep(r + w, r - w, d);
+
+        vec4 paper = blend_colors(u_color1, u_color1, u_color3, mixer, edges, blur);
+        vec3 c = mix(paper.rgb, u_color2.rgb * u_color2.a, ink);
+        float o = mix(paper.a, u_color2.a, ink);
+        fragColor = vec4(c, o);
+        return;
+    }
+
+    vec4 color_mix = blend_colors(u_color1, u_color2, u_color3, mixer, edges, blur);
 
     fragColor = vec4(color_mix.rgb, color_mix.a);
 }

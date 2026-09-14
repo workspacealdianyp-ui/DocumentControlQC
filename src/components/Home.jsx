@@ -104,7 +104,7 @@ export function HomeView({ data, customers, records, role, session, now, onOpen,
   const head = session.role === 'admin'
   const queue = role.canOverride && !ownWork ? review : data.mine
   const reviewing = role.canOverride && !ownWork
-  const reviewTitle = head ? 'Head review queue' : session.role === 'supervisor' ? 'QC review queue' : 'Your review queue'
+  const reviewTitle = head ? 'Head queue' : session.role === 'supervisor' ? 'QC queue' : 'Your queue'
   const personal = (status) => mine.filter((r) => r.status === status).length
   const summary = viewer || head ? [
     ['Deliverables complete', data.pct === null ? '—' : `${data.pct}%`, data.pct === null ? 'No required deliverables' : `${data.totals.done}/${data.totals.applicable} documents`, monitor()],
@@ -147,7 +147,19 @@ export function HomeView({ data, customers, records, role, session, now, onOpen,
     {data.pct === null && !viewer && !head && <p className="home-context-note">No required deliverables</p>}
     {data.totals.overrides > 0 && <p className="home-context-note">Job completion includes {plural(data.totals.overrides, 'admin override')}. Confirm the evidence before release.</p>}
     <div className="home-row home-main-row">
-      {viewer ? <JobPanel data={data} role={role} onJob={onJob} overview /> : <Panel id="home-work-title" title={reviewing ? reviewTitle : 'Your work'} count={queue.length} note={reviewing ? 'Oldest submission first; within your approval authority' : 'Sent back first, then your latest drafts'}
+      {/* The panel keeps one name whichever list is showing. It used to
+          take the name of the active tab, so choosing Your work left the
+          words "Your work" in the header and again in the tab under it,
+          and the panel lost the name it had a click earlier. The tabs
+          say which list; the header says whose queue it is.
+
+          The count beside the title goes with them for the same reason:
+          the active tab already carries it, and the footer carries how
+          much of it is on screen. */}
+      {viewer ? <JobPanel data={data} role={role} onJob={onJob} overview /> : <Panel id="home-work-title"
+        title={role.canOverride ? reviewTitle : 'Your work'}
+        count={role.canOverride ? undefined : queue.length}
+        note={reviewing ? 'Oldest submission first; within your approval authority' : 'Sent back first, then your latest drafts'}
         tools={role.canOverride && <div className="home-tabs" role="group" aria-label="Choose work list"><button aria-pressed={!ownWork} onClick={() => setOwnWork(false)}>For review {review.length}</button><button aria-pressed={ownWork} onClick={() => setOwnWork(true)}>Your work {data.mine.length}</button></div>}
         footer={<><span>Showing {Math.min(5, queue.length)} of {queue.length}</span><a href={register(reviewing ? 'submitted' : 'all', reviewing ? 'review' : 'work')}>{reviewing ? 'View all for review' : 'View all your work'}</a></>}>
         <ReportRows records={queue} review={reviewing} onOpen={onOpen} session={session} empty={reviewing ? 'No reports awaiting your review. Your own drafts are available under Your work.' : 'No returned reports or drafts. Start a report when your next inspection is ready.'} />

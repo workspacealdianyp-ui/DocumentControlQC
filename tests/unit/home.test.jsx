@@ -112,7 +112,7 @@ describe('Home working surface', () => {
   it.each(['engineer', 'supervisor'])('scopes the %s review queue to its actual approval authority', (role) => {
     setup(role, [record('tech', 'submitted'), record('peer', 'submitted', { inspector: role === 'engineer' ? 'QC Supervisor' : 'Quality Engineer' }), record('head', 'submitted', { inspector: 'QA Lead' })])
     render(<Home />)
-    const queue = screen.getByRole('region', { name: role === 'engineer' ? 'Your review queue' : 'QC review queue' })
+    const queue = screen.getByRole('region', { name: role === 'engineer' ? 'Your queue' : 'QC queue' })
     expect(within(queue).getAllByRole('link', { name: /Open report/ }).map((a) => a.getAttribute('aria-label'))).toEqual(['Open report DIM/A/tech'])
     expect(screen.getByRole('link', { name: /For your review/ }).textContent).toContain('1')
   })

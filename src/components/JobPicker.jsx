@@ -12,8 +12,13 @@ export function JobChoices({ current, onPick, unavailable }) {
     return jobs.filter((j) => !term || `${j.jobNo} ${j.wbsNo} ${j.arasSN} ${j.productDesc} ${j.customerName}`.toLowerCase().includes(term))
   }, [jobs, q])
   return <>
-    <SearchField value={q} onChange={(value) => { setQ(value); setLimit(40) }} label="Search jobs"
-      placeholder="Job, WBS, serial, product, customer…" />
+    {/* Wrapped so the field can be pinned to the top of the scrolling
+        body: the list moves under it, the search does not go with it. */}
+    <div className="picker-search">
+      <SearchField value={q} onChange={(value) => { setQ(value); setLimit(40) }} label="Search jobs"
+        placeholder="Job, WBS, serial, product, customer…" />
+      <span className="picker-tally">{matches.length === jobs.length ? `${jobs.length} jobs` : `${matches.length} of ${jobs.length} jobs`}</span>
+    </div>
     {matches.length === 0 ? <p className="picker-empty">{jobs.length ? `No job matches “${q.trim()}”.` : 'No jobs in the register.'}</p> : (
       <ul className="picker-jobs">
         {matches.slice(0, limit).map((j) => {
