@@ -6,7 +6,7 @@ name: check
 # cannot see it.
 on:
   push:
-    branches: [main]
+    branches: [main, codex/home-jakub-refinement]
   pull_request:
 
 jobs:

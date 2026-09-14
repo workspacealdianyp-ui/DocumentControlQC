@@ -117,12 +117,34 @@ describe('Home working surface', () => {
     expect(screen.getByRole('link', { name: /For your review/ }).textContent).toContain('1')
   })
 
-  it('caps the personal queue at five and links to the same scoped register', () => {
+  it('caps the personal queue at three and opens the same scoped register through See more', () => {
     seed(Array.from({ length: 8 }, (_, i) => record(String(i), 'draft')))
     render(<Home />)
     const queue = screen.getByRole('region', { name: 'Your work' })
-    expect(within(queue).getAllByRole('link', { name: /Open report/ })).toHaveLength(5)
-    expect(within(queue).getByRole('link', { name: 'View all your work' }).getAttribute('href')).toBe('#/reports?f=all&scope=work')
+    expect(within(queue).getAllByRole('link', { name: /Open report/ })).toHaveLength(3)
+    expect(within(queue).getByText('Showing 3 of 8')).toBeTruthy()
+    expect(within(queue).getByRole('link', { name: 'See more' }).getAttribute('href')).toBe('#/reports?f=all&scope=work')
+  })
+
+  it('caps the review queue at three without changing review eligibility or the full count', () => {
+    setup('engineer', Array.from({ length: 7 }, (_, i) => record(String(i), 'submitted')))
+    render(<Home />)
+    const queue = screen.getByRole('region', { name: 'Your review queue' })
+    expect(within(queue).getAllByRole('link', { name: /Open report/ })).toHaveLength(3)
+    expect(within(queue).getByText('Showing 3 of 7')).toBeTruthy()
+    expect(within(queue).getByRole('link', { name: 'See more' }).getAttribute('href')).toBe('#/reports?f=submitted&scope=review')
+  })
+
+  it('caps attention at three and keeps the selected filter on See more', () => {
+    setup('engineer')
+    model.jobs = Array.from({ length: 6 }, (_, i) => ({ ...unit(String(i), ['Dimension Report']), dateTarget: '2020-01-01' }))
+    model.context.jobs = model.jobs
+    render(<Home />)
+    const panel = screen.getByRole('region', { name: 'Needs attention' })
+    fireEvent.click(within(panel).getByRole('button', { name: 'Overdue' }))
+    expect(within(panel).getAllByRole('link', { name: /Open job/ })).toHaveLength(3)
+    expect(within(panel).getByText('Showing 3 of 6')).toBeTruthy()
+    expect(within(panel).getByRole('link', { name: 'See more' }).getAttribute('href')).toBe('#/monitoring?view=all&from=home&state=overdue')
   })
 
   it('tracks only the inspector’s submitted and approved reports', () => {
