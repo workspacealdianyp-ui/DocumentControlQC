@@ -37,6 +37,7 @@ export async function checkHomeLayout(browser, base, check, errors) {
             overflow: document.documentElement.scrollWidth - document.documentElement.clientWidth,
             rows, recentHeight: rect(recent).height,
             bannerHeight: rect(document.querySelector('.home-toolbar')).height,
+            listSizes: [...document.querySelectorAll('.home-records')].map((list) => list.children.length),
           }
         })
         check(geometry.overflow <= 1, `${label}: no horizontal overflow`)
@@ -44,6 +45,7 @@ export async function checkHomeLayout(browser, base, check, errors) {
         check(geometry.rows.every((r) => r.heights.every((h) => h < 700)) && geometry.recentHeight < 380,
           `${label}: content determines panel height (${JSON.stringify(geometry)})`)
         check(geometry.bannerHeight <= 340, `${label}: compact banner (${geometry.bannerHeight}px)`)
+        check(geometry.listSizes.every((size) => size <= 3), `${label}: Home record lists show at most three items`)
         await page.locator('.home-actions > *').first().focus()
         check(await page.locator('.home-actions > *').first().evaluate((n) => n === document.activeElement && getComputedStyle(n).outlineStyle !== 'none'), `${label}: visible keyboard focus`)
         await page.screenshot({ path: `tmp/home-layout/${user.role}-${width}-${theme}.png`, fullPage: true })

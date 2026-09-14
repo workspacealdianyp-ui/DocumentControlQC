@@ -1,3 +1,21 @@
+# Current Home refinement — 14 September 2026
+
+Latest user revision integrates main `c6d40a7`: keep its Monitoring/NCR/SharePoint watermark tiles unchanged, inherit PR #17 safety-yellow tokens, and replace the review/attention top accent lines with neutral icon headers and count badges. Home record lists show three items; overflow links open the relevant full register. The desktop banner minimum height is reduced from 260 to 216 px, with a small top clearance for the mining artwork. Light/dark surfaces, natural greeting wrapping and existing account permissions remain intact.
+
+The current implementation is code-first; Figma is not a dependency. The historical blueprint below records the first redesign. This section supersedes its graphite-only banner and artwork notes.
+
+- Banner surfaces and copy follow the selected light/dark theme. Existing safety-orange tokens preserve the repository identity.
+- Transparent mining artwork extends above the border; at phone widths it has a separate reserved area before the greeting.
+- Greetings wrap naturally without an explicit line break. The runtime clock determines the greeting; offline samples use a fixed demonstration date.
+- Home buttons have decorative SVG icons and retain their text labels. Review and attention headers share a neutral surface and brand edge; semantic report colors remain unchanged.
+- Existing account-specific queues, permissions, report scope and equal-height grid rows remain intact.
+- Workspace skills from https://jakub.kr/skills are installed under `.codex/skills`, with upstream provenance and MIT license alongside them. No runtime dependency was added.
+- Artwork is a decorative AI-derived cutout, not inspection evidence.
+
+Verification is recorded in `HOME_JAKUB_REVIEW.md`. No merge is performed by this revision.
+
+---
+
 # Home by account
 
 The Home screen puts the signed-in person's next inspection task first. A compact industrial banner follows the supplied mining-equipment reference: graphite background, yellow edge and primary action, equipment on the right, greeting and actions on the left. The yellow accent is specific to this approved banner; the rest of the application retains its existing semantic colors.
