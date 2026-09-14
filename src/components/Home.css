@@ -100,18 +100,80 @@
 .home-progress { display: block; height: 3px; background: var(--line-2); margin-top: 4px; overflow: hidden; }
 .home-progress > span { display: block; height: 100%; background: var(--done); }
 .home-page .home-alert-text { color: var(--overdue); }
-.home-summary-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 11px 14px; color: var(--text); }
-.home-summary-row > span { display: grid; gap: 3px; }
-.home-summary-row strong { font-size: 13px; font-weight: 600; overflow-wrap: anywhere; }
-.home-summary-row small { font-size: 11px; color: var(--text-2); line-height: 1.4; }
-.home-summary-number { text-align: right; font-size: 16px; font-weight: 600; font-variant-numeric: tabular-nums; flex-shrink: 0; }
-.home-workload { width: 100%; border-collapse: collapse; table-layout: fixed; font-size: 12px; }
+
+/* ── the summary row ───────────────────────────────────────────
+   Customer progress and Document readiness are the same question
+   asked of two things, so they are one row: what it is on the left,
+   where it has got to on the right, and the proportion drawn across
+   the full width underneath. Both of them used to print the reading
+   as a bare number and call the panel "progress". */
+.home-summary-row {
+  display: grid; grid-template-columns: minmax(0, 1fr) auto;
+  align-items: start; gap: 4px 14px;
+  padding: 11px 14px; color: var(--text);
+  transition: background-color .12s ease;
+}
+.home-summary-id { grid-column: 1; grid-row: 1; display: grid; gap: 2px; min-width: 0; }
+.home-summary-read { grid-column: 2; grid-row: 1; display: grid; gap: 1px; justify-items: end; text-align: right; }
+.home-summary-row strong { font-size: 13.5px; font-weight: 600; line-height: 1.35; overflow-wrap: anywhere; }
+.home-summary-row small { font-size: 12px; color: var(--text-2); line-height: 1.4; text-wrap: pretty; }
+.home-summary-read strong { font-size: 17px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.home-summary-read small { white-space: nowrap; font-variant-numeric: tabular-nums; }
+
+/* The thing that has to be acted on says so three times over: in its
+   words, with its mark, and in the alarm colour. Never in colour on
+   its own. */
+.home-flag {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: 12px; font-weight: 600; color: var(--overdue); white-space: nowrap;
+}
+.home-flag svg { flex: none; }
+.home-summary-id > .home-flag { margin-top: 2px; }
+
+/* The track is the token the tinted tiles already run their meters in.
+   The fill is the accent at the value that shows against a light
+   ground, or the status colour when there is a status to tell. */
+.home-meter {
+  grid-column: 1 / -1; grid-row: 2;
+  display: block; block-size: 4px; margin-block-start: 7px;
+  border-radius: 999px; background: var(--tile-track); overflow: hidden;
+}
+.home-meter > span {
+  display: block; block-size: 100%; border-radius: inherit;
+  background: var(--amber-line);
+  transition: inline-size .3s cubic-bezier(0.2, 0, 0, 1);
+}
+.home-meter-done > span { background: var(--done); }
+.home-meter-overdue > span { background: var(--overdue); }
+
+/* ── inspector documents ───────────────────────────────────────
+   A real table, because it is a real table: one row per inspector,
+   three counts per row. */
+.home-workload { width: 100%; border-collapse: collapse; table-layout: fixed; font-size: 13px; }
 .home-workload th, .home-workload td { padding: 10px 8px; border-top: 1px solid var(--line); text-align: right; font-variant-numeric: tabular-nums; }
-.home-workload th:first-child { width: 49%; text-align: left; padding-left: 14px; overflow-wrap: anywhere; }
+.home-workload th:first-child { width: 40%; text-align: left; padding-left: 14px; overflow-wrap: anywhere; }
 .home-workload th:last-child, .home-workload td:last-child { padding-right: 14px; }
-.home-workload thead th { font-size: 11px; font-weight: 500; color: var(--text-2); }
-.home-workload tbody th { font-weight: 500; }
+.home-workload thead th {
+  /* Sentence case, which is what every other table head in the app is
+     set in — and uppercase at this width could not fit "Draft" on one
+     line, so it was breaking the word in half. */
+  font-size: 12px; font-weight: 600; color: var(--text-2); line-height: 1.25;
+  padding-block: 8px; overflow-wrap: break-word; hyphens: none;
+}
+.home-workload tbody th { font-weight: 500; line-height: 1.4; }
 .home-workload a { color: var(--text); }
+.home-back {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-weight: 600; color: var(--overdue); font-variant-numeric: tabular-nums;
+}
+/* A zero is not news. It used to be set at the same weight as a count
+   that needs acting on, so a wall of nothing read as loud as the one
+   number that mattered.
+
+   --text-2, not --text-3: a zero is still content, and --text-3 on a
+   white panel measures 2.6:1. This is 5.05:1, and the weight does the
+   quietening instead of the contrast. */
+.home-nil { color: var(--text-2); font-weight: 400; }
 .home-register { margin: 0; padding: 0; }
 .home-register > div { display: flex; justify-content: space-between; gap: 12px; padding: 9px 14px; border-top: 1px solid var(--line); font-size: 12px; }
 .home-register a { color: var(--text); }
@@ -121,10 +183,28 @@
 .home-shortcuts button:hover { background: var(--surface-2); }
 .home-shortcuts b { font-size: 11px; min-width: 27px; }
 .home-shortcuts span { font-size: 12px; line-height: 1.4; }
+/* ── recent updates ────────────────────────────────────────────
+   The same three parts every other report row on this page has: the
+   form's code, what it is, and where it has got to. */
 .home-updates { display: grid; grid-template-columns: 1fr; border-top: 1px solid var(--line); }
-.home-updates a { display: grid; gap: 3px; padding: 10px 14px; color: var(--text); overflow-wrap: anywhere; }
-.home-updates strong { font-size: 12px; font-weight: 600; }
-.home-updates span, .home-updates small { font-size: 11px; color: var(--text-2); }
+.home-updates a {
+  display: grid; grid-template-columns: 32px minmax(0, 1fr);
+  align-items: start; gap: 4px 10px;
+  padding: 10px 14px; color: var(--text); overflow-wrap: anywhere;
+  transition: background-color .12s ease;
+}
+.home-updates .home-form-code { grid-column: 1; grid-row: 1 / span 2; }
+.home-update-copy { grid-column: 2; display: grid; gap: 1px; min-width: 0; }
+.home-update-copy strong { font-size: 12.5px; font-weight: 600; line-height: 1.35; }
+.home-update-copy small { font-size: 12px; color: var(--text-2); line-height: 1.4; font-variant-numeric: tabular-nums; }
+.home-update-foot {
+  grid-column: 2; display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+  font-size: 12px; color: var(--text-2);
+}
+.home-update-foot time { font-variant-numeric: tabular-nums; white-space: nowrap; }
+/* The same state chip the rest of the app prints, at the size this row
+   has room for. */
+.home-page .report-state.is-compact { padding: 3px 7px; font-size: 9.5px; letter-spacing: 0.06em; }
 @media (min-width: 1080px) {
   .home-main-row, .home-support-row { grid-template-columns: minmax(0, 1.85fr) minmax(0, 1fr); }
   .home-updates { grid-template-columns: repeat(3, minmax(0, 1fr)); }

@@ -11,7 +11,7 @@ import { homeOverview, reportPath, REPORT_LABELS } from '../lib/homeOverview.js'
 import { scopeReports, sortReview } from '../lib/reportScope.js'
 import { REPORT_CHOICES, reportCode } from '../lib/reportChoices.js'
 import { useCalendarDate } from '../lib/useCalendarDate.js'
-import { IconPlus, IconApprove, IconGrid, IconAlert, IconCloudUp, IconCloudOff, IconChevronR } from './Icons.jsx'
+import { IconPlus, IconApprove, IconGrid, IconAlert, IconCloudUp, IconCloudOff, IconChevronR, IconReturn } from './Icons.jsx'
 import ReportLauncher from './ReportLauncher.jsx'
 import './Home.css'
 
@@ -64,11 +64,35 @@ function JobPanel({ data, role, onJob, overview = false }) {
   </Panel>
 }
 
+/* The proportion the row has just printed, drawn. It is hidden from
+   assistive technology on purpose: the fraction beside it says the same
+   thing in words, and a bar that reads out as nothing is noise. The
+   colour is the second carrier, never the only one — the fraction is
+   always there to be read. */
+function Meter({ done, total, tone }) {
+  return <span className={`home-meter home-meter-${tone}`} aria-hidden="true">
+    <span style={{ inlineSize: `${total ? Math.round((done / total) * 100) : 0}%` }} />
+  </span>
+}
+
+// Complete, running late, or simply still open.
+const toneOf = (done, total, late) => (late ? 'overdue' : total && done === total ? 'done' : 'open')
+
 function CustomerPanel({ customers }) {
   return <Panel id="home-customers-title" title="Customer progress" note="Most unfinished units first" footer={<a href={monitor()}>{customers.length > 3 ? 'See more' : 'Browse customers and jobs'}<IconChevronR size={14} /></a>}>
-    {customers.length ? <ul className="home-records">{customers.slice(0, 3).map((c) => <li key={c.name}><a className="home-summary-row" href={href(`/customer/${encodeURIComponent(c.name)}`)}>
-      <span><strong>{c.name}</strong><small>{plural(c.open, 'open unit')}{c.overdue ? ` · ${c.overdue} overdue` : ''}</small></span><span className="home-summary-number">{c.applicable ? `${c.pct}%` : '—'}<small>{c.done}/{c.applicable}</small></span>
-    </a></li>)}</ul> : <p className="home-empty">Customer progress appears when a job is registered.</p>}
+    {customers.length ? <ul className="home-records">{customers.slice(0, 3).map((c) => <li key={c.name}>
+      <a className="home-summary-row" href={href(`/customer/${encodeURIComponent(c.name)}`)}>
+        <span className="home-summary-id">
+          <strong>{c.name}</strong>
+          <small>{plural(c.open, 'open unit')}{c.overdue ? <> · <b className="home-flag"><IconAlert size={11} />{c.overdue} overdue</b></> : null}</small>
+        </span>
+        <span className="home-summary-read">
+          <strong>{c.applicable ? `${c.pct}%` : '—'}</strong>
+          <small>{c.done}/{c.applicable} documents</small>
+        </span>
+        <Meter done={c.done} total={c.applicable} tone={toneOf(c.done, c.applicable, c.overdue)} />
+      </a>
+    </li>)}</ul> : <p className="home-empty">Customer progress appears when a job is registered.</p>}
   </Panel>
 }
 
@@ -81,16 +105,56 @@ function WorkloadPanel({ records }) {
   }
   const rows = [...counts.values()].sort((a, b) => b.returned - a.returned || b.total - a.total || a.name.localeCompare(b.name))
   return <Panel id="home-workload-title" title="Inspector documents" note="Open records, not assigned inspections" footer={<a href={register('all', 'unfinished')}>{rows.length > 3 ? 'See more' : 'All unfinished reports'}<IconChevronR size={14} /></a>}>
-    {rows.length ? <table className="home-workload"><thead><tr><th>Inspector</th><th>Draft</th><th>Back</th><th>QA</th></tr></thead><tbody>{rows.slice(0, 3).map((r) => <tr key={r.name}><th>{r.name === 'Not recorded' ? r.name : <a href={`${register('all', 'unfinished')}&author=${encodeURIComponent(r.name)}`}>{r.name}</a>}</th><td>{r.draft}</td><td className={r.returned ? 'home-alert-text' : ''}>{r.returned}</td><td>{r.submitted}</td></tr>)}</tbody></table> : <p className="home-empty">No draft, returned or submitted reports on file.</p>}
+    {rows.length ? <table className="home-workload">
+      <thead>
+        {/* The heads say the words. "Back" and "QA" needed a tooltip to
+            be read at all, and a tooltip is not reachable from a
+            keyboard or a touch screen — these fit on two lines. */}
+        <tr>
+          <th scope="col">Inspector</th>
+          <th scope="col">Draft</th>
+          <th scope="col">Sent back</th>
+          <th scope="col">At QA</th>
+        </tr>
+      </thead>
+      <tbody>{rows.slice(0, 3).map((r) => <tr key={r.name}>
+        <th scope="row">{r.name === 'Not recorded' ? r.name : <a href={`${register('all', 'unfinished')}&author=${encodeURIComponent(r.name)}`}>{r.name}</a>}</th>
+        <td>{r.draft}</td>
+        {/* A returned report is the one number on this page somebody has
+            to act on. It used to be told by colour alone; it carries the
+            arrow it came back on as well. */}
+        <td>{r.returned
+          ? <b className="home-back"><IconReturn size={11} />{r.returned}</b>
+          : <span className="home-nil">0</span>}</td>
+        <td>{r.submitted || <span className="home-nil">0</span>}</td>
+      </tr>)}</tbody>
+    </table> : <p className="home-empty">No draft, returned or submitted reports on file.</p>}
   </Panel>
 }
 
 function ReadinessPanel({ data, onJob }) {
   const units = data.units.filter((r) => r.progress.applicable).sort((a, b) => (a.progress.applicable - a.progress.done) - (b.progress.applicable - b.progress.done) || String(a.job.jobNo).localeCompare(String(b.job.jobNo)))
   return <Panel id="home-readiness-title" title="Document readiness" note="Check the required set before compiling MDR" footer={<a href={monitor()}>{units.length > 3 ? 'See more' : 'Check all job documents'}<IconChevronR size={14} /></a>}>
-    {units.length ? <ul className="home-records">{units.slice(0, 3).map(({ job, progress, ncr }) => <li key={job.jobNo}><a className="home-summary-row" href={href(`/job/${job.jobNo}`)} onClick={(e) => onJob(e, job.jobNo)}>
-      <span><strong>{job.jobNo}</strong><small>{ncr ? `${plural(ncr, 'NCR report')} to check` : progress.done === progress.applicable ? 'Check evidence and release status' : `${progress.applicable - progress.done} documents outstanding`}</small></span><span className="home-summary-number">{progress.done}/{progress.applicable}</span>
-    </a></li>)}</ul> : <p className="home-empty">No jobs with required documents. Define the job scope before compiling an MDR.</p>}
+    {units.length ? <ul className="home-records">{units.slice(0, 3).map(({ job, progress, ncr }) => {
+      const left = progress.applicable - progress.done
+      return <li key={job.jobNo}>
+        <a className="home-summary-row" href={href(`/job/${job.jobNo}`)} onClick={(e) => onJob(e, job.jobNo)}>
+          <span className="home-summary-id">
+            <strong>{job.jobNo}</strong>
+            {/* The unit, not an instruction. Every row used to carry the
+                same sentence telling the reader to check the evidence,
+                which is what the panel's own note already says. */}
+            <small>{[job.productDesc, job.customerName].filter(Boolean).join(' · ') || 'Product not set'}</small>
+            {ncr > 0 && <b className="home-flag"><IconAlert size={11} />{plural(ncr, 'NCR report')} to check</b>}
+          </span>
+          <span className="home-summary-read">
+            <strong>{progress.done}/{progress.applicable}</strong>
+            <small>{left ? `${left} outstanding` : 'Complete'}</small>
+          </span>
+          <Meter done={progress.done} total={progress.applicable} tone={toneOf(progress.done, progress.applicable, progress.overdue || ncr)} />
+        </a>
+      </li>
+    })}</ul> : <p className="home-empty">No jobs with required documents. Define the job scope before compiling an MDR.</p>}
   </Panel>
 }
 
@@ -178,7 +242,22 @@ export function HomeView({ data, customers, records, role, session, now, onOpen,
       {head && <ReadinessPanel data={data} onJob={onJob} />}
     </div>
     <Panel id="home-updates-title" title="Recent updates" note={technician ? 'Latest state of your reports' : 'Latest recorded state of each report'} footer={<a href={register('all', technician ? 'mine' : '')}>View reports</a>}>
-      {recent.length ? <div className="home-updates">{recent.map((r) => <a key={r.id} href={href(reportPath(r))} onClick={(e) => onOpen(e, r)}><strong>{r.reportId}</strong><span>Job {r.jobNo} · {REPORT_LABELS[r.status] || r.status}</span><small>{at(r.updatedAt)}</small></a>)}</div> : <p className="home-empty">No report updates yet.</p>}
+      {/* The same three parts every other report row on this page has —
+          the form's code, what it is, and where it has got to — rather
+          than three lines of undifferentiated text. The state is a chip
+          here as it is everywhere else in the app, so it is told by its
+          words and its shape and not only by its colour. */}
+      {recent.length ? <div className="home-updates">{recent.map((r) => <a key={r.id} href={href(reportPath(r))} onClick={(e) => onOpen(e, r)} aria-label={`Open report ${r.reportId}`}>
+        <span className={`home-form-code is-${r.status}`}>{FORM_SCHEMAS[r.formKey]?.code || 'DOC'}</span>
+        <span className="home-update-copy">
+          <strong>{r.reportId}</strong>
+          <small>Job {r.jobNo}</small>
+        </span>
+        <span className="home-update-foot">
+          <span className={`report-state is-compact state-${r.status}`}>{REPORT_LABELS[r.status] || r.status}</span>
+          <time dateTime={r.updatedAt}>{at(r.updatedAt)}</time>
+        </span>
+      </a>)}</div> : <p className="home-empty">No report updates yet.</p>}
     </Panel>
   </div></div>
 }
