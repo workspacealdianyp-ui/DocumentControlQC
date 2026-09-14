@@ -23,7 +23,19 @@
     linear-gradient(142deg, var(--hero-1) 0%, var(--hero-2) 46%, var(--hero-3) 100%);
   border: 1px solid var(--amber-line); border-radius: 12px; overflow: hidden;
 }
-.home-toolbar > img { position: absolute; z-index: -1; right: 0; top: 0; width: 55%; height: 100%; object-fit: contain; object-position: right center; mask-image: linear-gradient(to right, transparent, #000 14%); pointer-events: none; }
+/* The picture carries its own alpha, so it is placed rather than
+   blended. The fade that used to run across its left edge was there to
+   hide the join between the photograph's baked-in ground and the panel;
+   with the ground gone the fade was only amputating the trailer.
+
+   Inset from the panel's edges so the machines stand on the plane
+   instead of being cut off by it, and held to the right of the type. */
+.home-toolbar > img {
+  position: absolute; z-index: -1; pointer-events: none;
+  right: 14px; top: 10px;
+  width: 50%; height: calc(100% - 20px);
+  object-fit: contain; object-position: right center;
+}
 .home-welcome { width: 46%; }
 .home-kicker { display: block; font-size: 11px; font-weight: 600; color: var(--amber-deep); letter-spacing: .06em; margin-bottom: 10px; }
 .home-page .home-welcome h1 { font: 650 30px/1.15 var(--sans); letter-spacing: -.035em; margin: 0; color: var(--hero-ink); overflow-wrap: anywhere; }
@@ -150,10 +162,13 @@
 }
 @media (max-width: 759px) {
   .home-toolbar { padding: 20px 16px 16px; gap: 14px; min-height: 0; }
-  .home-toolbar > img { display: block; width: 50%; height: 135px; top: 5px; right: -6px; object-fit: contain; mask-image: linear-gradient(to right, transparent, #000 20%); }
+  /* A phone has no room for both. The picture keeps the top-right
+     corner and the type keeps the rest: they stopped overlapping at
+     42% and 54%, which is what the two max-widths below are for. */
+  .home-toolbar > img { display: block; width: 42%; height: 104px; top: 8px; right: 8px; bottom: auto; object-fit: contain; object-position: right top; }
   .home-welcome { width: 100%; }
-  .home-welcome h1 { max-width: 59%; }
-  .home-kicker { max-width: 58%; font-size: 10px; line-height: 1.4; }
+  .home-welcome h1 { max-width: 54%; }
+  .home-kicker { max-width: 54%; font-size: 10px; line-height: 1.4; }
   .home-welcome p { margin-top: 18px; }
   .home-banner-note { display: none; }
   .home-actions { width: 100%; }

@@ -447,46 +447,169 @@ table { border-collapse: collapse; }
 }
 .usermenu .um-name { font-family: var(--mono); font-weight: 600; font-size: 15px; }
 
-/* ── the account sheet ──────────────────────────────────────────
-   Who you are signed in as, then the three things you do from here.
-   It is deliberately short: the profile page is one click away and
-   everything else about the account lives there, not in a menu that
-   has to be scrolled. */
-.acct-menu { width: 252px; padding: 0; overflow: hidden; }
-.acct-who {
-  display: flex; align-items: center; gap: 10px;
-  padding: 13px 14px; border-bottom: 1px solid var(--line);
-  background: var(--surface-2);
+/* ── the account card ──────────────────────────────────────────
+   A card rather than a list: a portrait, who you are signed in as, two
+   figures counted from this browser, and one button that brings up
+   what you can do from here.
+
+   Radii are concentric — a 10px portrait inside 6px of inset inside a
+   16px card — so the corners nest instead of arguing. */
+.acct-card {
+  width: 272px; padding: 0; overflow: hidden; position: relative;
+  border-radius: 16px; border-color: var(--line);
+  box-shadow:
+    0 1px 1px rgba(16, 16, 20, 0.04),
+    0 8px 16px rgba(16, 16, 20, 0.08),
+    0 22px 44px rgba(16, 16, 20, 0.13),
+    0 0 0 1px var(--line);
+  transform-origin: top right;
+  animation: acct-in 0.26s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.acct-face {
-  width: 38px; height: 38px; border-radius: var(--r-pill); flex-shrink: 0;
-  background: var(--ink); color: var(--amber);
-  font-family: var(--mono); font-size: 13px; font-weight: 600;
+/* Down from the monogram it hangs off, not up from nothing: it starts
+   a little high and a little small and settles, which is the direction
+   the eye already travelled to get here. */
+@keyframes acct-in {
+  from { opacity: 0; transform: translateY(-10px) scale(0.96); }
+  to   { opacity: 1; transform: none; }
+}
+:root[data-theme="dark"] .acct-card {
+  box-shadow:
+    0 1px 1px rgba(0, 0, 0, 0.5),
+    0 10px 20px rgba(0, 0, 0, 0.45),
+    0 26px 52px rgba(0, 0, 0, 0.5),
+    0 0 0 1px var(--line-2);
+}
+
+/* The plate the rest of the app is drawn on stands in for a photograph
+   nobody has set: an account without one gets a portrait rather than an
+   empty grey square. */
+.acct-art {
+  position: relative; margin: 6px; border-radius: 10px; overflow: hidden;
+  aspect-ratio: 4 / 3;
   display: grid; place-items: center;
+  background: var(--surface-2) var(--masthead-plate) center / cover no-repeat;
+  animation: acct-art-in 0.42s cubic-bezier(0.16, 1, 0.3, 1) backwards;
 }
-.acct-face.has-photo { overflow: hidden; }
-.acct-face img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.acct-id { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
-.acct-id strong { font-size: 13.5px; font-weight: 600; line-height: 1.25; overflow-wrap: anywhere; }
-.acct-id small { font-size: 11px; color: var(--text-2); line-height: 1.3; }
-.acct-acts { padding: 6px; display: grid; gap: 1px; }
-.acct-row {
-  display: flex; align-items: center; gap: 10px; width: 100%;
-  background: none; border: 0; border-radius: var(--r-sm);
-  padding: 0 10px; min-height: 40px;
+@keyframes acct-art-in {
+  from { opacity: 0; transform: scale(1.05); }
+  to   { opacity: 1; transform: none; }
+}
+.acct-art span {
+  font-family: var(--mono); font-size: 40px; font-weight: 600;
+  letter-spacing: 0.02em; color: var(--ink);
+  /* The plate is a drawing, not a flat ground, so the monogram sits on
+     its own disc rather than on whichever square it lands over. */
+  width: 84px; height: 84px; border-radius: var(--r-pill);
+  display: grid; place-items: center;
+  background: var(--surface); box-shadow: 0 2px 10px rgba(16, 16, 20, 0.12), inset 0 0 0 1px var(--line);
+}
+:root[data-theme="dark"] .acct-art span { color: var(--amber); background: var(--ink); }
+.acct-art.has-photo { background: var(--surface-2); }
+.acct-art img { width: 100%; height: 100%; object-fit: cover; display: block; }
+/* A photograph needs its own edge or it bleeds into the card. */
+.acct-art::after {
+  content: ''; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+  box-shadow: inset 0 0 0 1px rgba(16, 16, 20, 0.10);
+}
+:root[data-theme="dark"] .acct-art::after { box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.10); }
+
+.acct-body { padding: 9px 14px 0; display: grid; gap: 2px; }
+.acct-body strong, .acct-body small, .acct-facts, .acct-more {
+  animation: acct-rise 0.3s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+  animation-delay: calc(70ms + var(--i) * 45ms);
+}
+@keyframes acct-rise {
+  from { opacity: 0; transform: translateY(7px); }
+  to   { opacity: 1; transform: none; }
+}
+.acct-body strong {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 14.5px; font-weight: 650; line-height: 1.25; overflow-wrap: anywhere;
+}
+/* Not a verification badge: it says this browser holds a live session,
+   which is the one thing the card can honestly claim. */
+.acct-live {
+  flex-shrink: 0; width: 15px; height: 15px; border-radius: var(--r-pill);
+  background: var(--done); color: #fff; display: grid; place-items: center;
+}
+.acct-body small { font-size: 11.5px; color: var(--text-2); line-height: 1.35; }
+
+.acct-foot {
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  padding: 11px 12px 12px 14px;
+}
+.acct-facts { display: flex; gap: 16px; margin: 0; }
+.acct-facts div { display: grid; gap: 1px; }
+.acct-facts dd {
+  margin: 0; font-family: var(--mono); font-size: 15px; font-weight: 600;
+  line-height: 1.1; font-variant-numeric: tabular-nums; color: var(--text);
+}
+.acct-facts dt {
+  font-size: 9.5px; font-weight: 600; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--text-3);
+}
+.acct-more {
+  width: 40px; height: 40px; flex-shrink: 0; border-radius: 10px;
+  border: 1px solid var(--line-2); background: var(--surface); color: var(--text-2);
+  display: grid; place-items: center;
+  transition: background-color .14s ease, border-color .14s ease, color .14s ease, transform .14s ease;
+}
+.acct-more:hover { background: var(--surface-2); color: var(--text); border-color: var(--steel); }
+.acct-more:active { transform: scale(0.94); }
+.acct-more.is-open { background: var(--ink); border-color: var(--ink); color: var(--surface); }
+.acct-more:focus-visible { outline: 2px solid var(--steel); outline-offset: 2px; }
+
+/* The drawer rides up over the foot rather than growing the card:
+   sliding a transform costs no layout, and the card keeps the height it
+   opened at. It leaves the DOM when closed, so nothing tabs into it. */
+.acct-drawer {
+  position: absolute; left: 0; right: 0; bottom: 0; z-index: 1;
+  padding: 6px; display: grid; gap: 2px;
+  background: var(--surface); border-top: 1px solid var(--line);
+  box-shadow: 0 -8px 20px rgba(16, 16, 20, 0.08);
+  animation: acct-drawer-in 0.24s cubic-bezier(0.16, 1, 0.3, 1);
+}
+@keyframes acct-drawer-in {
+  from { opacity: 0; transform: translateY(100%); }
+  to   { opacity: 1; transform: none; }
+}
+.acct-act {
+  display: grid; grid-template-columns: 28px 1fr auto;
+  align-items: center; gap: 10px; width: 100%;
+  background: none; border: 0; border-radius: 8px;
+  padding: 0 8px; min-height: 44px;
   font-family: var(--sans); font-size: 13px; font-weight: 500;
   color: var(--text); text-align: left;
-  transition: background-color .12s ease, color .12s ease;
+  transition: background-color .14s ease, color .14s ease, transform .14s ease;
+  animation: acct-rise 0.28s cubic-bezier(0.16, 1, 0.3, 1) backwards;
 }
-.acct-row svg { color: var(--text-2); flex-shrink: 0; transition: color .12s ease; }
-.acct-row:hover { background: var(--surface-2); }
-.acct-row:hover svg { color: var(--text); }
-/* Signing out is the one row that undoes something, so it carries the
-   alarm colour rather than sitting in the same grey as the other two. */
-.acct-row.is-out { color: var(--overdue); }
-.acct-row.is-out svg { color: var(--overdue); }
-.acct-row.is-out:hover { background: var(--overdue-bg); }
-.acct-row:focus-visible { outline: 2px solid var(--steel); outline-offset: -2px; }
+.acct-act:nth-child(1) { animation-delay: 60ms; }
+.acct-act:nth-child(2) { animation-delay: 100ms; }
+.acct-act:nth-child(3) { animation-delay: 140ms; }
+.acct-ico {
+  width: 28px; height: 28px; border-radius: 7px;
+  display: grid; place-items: center;
+  background: var(--surface-2); color: var(--text-2);
+  box-shadow: inset 0 0 0 1px var(--line);
+  transition: background-color .14s ease, color .14s ease, box-shadow .14s ease;
+}
+.acct-go { color: var(--text-3); transition: transform .14s ease, color .14s ease; }
+.acct-act:hover { background: var(--surface-2); }
+.acct-act:hover .acct-ico { background: var(--amber-soft); color: var(--amber-deep); box-shadow: inset 0 0 0 1px var(--amber-tint); }
+.acct-act:hover .acct-go { color: var(--text-2); transform: translateX(2px); }
+.acct-act:active { transform: scale(0.97); }
+.acct-act:focus-visible { outline: 2px solid var(--steel); outline-offset: -2px; }
+/* Signing out is the one row that undoes something, so it is set off by
+   a rule and carries the alarm colour rather than the same grey. */
+.acct-act.is-out { color: var(--overdue); margin-top: 4px; position: relative; }
+.acct-act.is-out::before {
+  content: ''; position: absolute; left: 8px; right: 8px; top: -3px;
+  border-top: 1px solid var(--line);
+}
+.acct-act.is-out .acct-ico { color: var(--overdue); }
+.acct-act.is-out:hover { background: var(--overdue-bg); }
+.acct-act.is-out:hover .acct-ico { background: var(--overdue-bg); color: var(--overdue); box-shadow: inset 0 0 0 1px var(--overdue-line); }
+
 .tb-avatar.is-open { box-shadow: 0 0 0 3px var(--steel-soft); }
 
 /* ─────────────────── bottom nav (mobile/tablet) ─────────────────── */

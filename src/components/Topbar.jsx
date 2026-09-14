@@ -9,7 +9,7 @@ import { buildContext, jobProgress, fmtDate } from '../lib/status.js'
 import {
   IconSearch, IconBell, IconAlert, IconApprove, IconPen, IconReturn,
   IconList, IconFile, IconGrid, IconPlus, IconGear, IconClose, IconTheme, IconLock,
-  IconUser, IconLogout,
+  IconUser, IconLogout, IconChevronR, IconMenu, IconCheck,
 } from './Icons.jsx'
 
 /* The bar across the top of the work area: where you are on the left,
@@ -36,6 +36,74 @@ const PAGE_TITLES = {
   settings: ['Settings', ''],
   help: ['Help & support', 'How this build works'],
   profile: ['Profile', 'Account & sync'],
+}
+
+/* The account card: a portrait, who you are signed in as, two figures
+   counted from this browser, and one button that brings up what you can
+   do from here.
+
+   It owns the drawer rather than the bar above it, so closing the card
+   is what resets it — no effect watching a sibling's state. It renders
+   only while the card is open, which is why the two figures are counted
+   straight rather than memoised. */
+function AccountCard({ session, role, photo, initials, onGo, onOut }) {
+  const [drawer, setDrawer] = useState(false)
+  const mine = getReports().filter((r) => r.inspector === session.name)
+  const filed = mine.filter((r) => r.status === 'approved' || r.status === 'submitted').length
+  const drafts = mine.filter((r) => r.status === 'draft').length
+
+  return (
+    <div className="usermenu acct-card" role="dialog" aria-label="Account">
+      {/* The plate the rest of the app is drawn on stands in for a
+          photograph nobody has set, so an account without one gets a
+          portrait rather than an empty grey square. */}
+      <div className={`acct-art${photo ? ' has-photo' : ''}`}>
+        {photo ? <img src={photo} alt="" /> : <span aria-hidden="true">{initials}</span>}
+      </div>
+
+      <div className="acct-body">
+        <strong style={{ '--i': 0 }}>
+          {session.name}
+          <i className="acct-live" title="Signed in on this device" aria-label="Signed in on this device">
+            <IconCheck size={10} />
+          </i>
+        </strong>
+        <small style={{ '--i': 1 }}>{role.label}</small>
+      </div>
+
+      <div className="acct-foot">
+        <dl className="acct-facts" style={{ '--i': 2 }}>
+          <div><dd>{filed}</dd><dt>Filed</dt></div>
+          <div><dd>{drafts}</dd><dt>Drafts</dt></div>
+        </dl>
+        <button className={`acct-more${drawer ? ' is-open' : ''}`} style={{ '--i': 3 }}
+          onClick={() => setDrawer((v) => !v)}
+          aria-expanded={drawer} aria-controls="acct-drawer"
+          aria-label={drawer ? 'Close account actions' : 'Account actions'}>
+          <IconMenu size={16} />
+        </button>
+      </div>
+
+      {/* The drawer rides up over the foot rather than growing the card:
+          sliding a transform costs no layout, and the card keeps the
+          height it opened at. */}
+      {drawer && (
+        <div className="acct-drawer" id="acct-drawer">
+          <button className="acct-act" onClick={() => onGo('/profile')}>
+            <span className="acct-ico"><IconUser size={15} /></span>Profile
+            <IconChevronR size={14} className="acct-go" />
+          </button>
+          <button className="acct-act" onClick={() => onGo('/settings')}>
+            <span className="acct-ico"><IconGear size={15} /></span>Settings
+            <IconChevronR size={14} className="acct-go" />
+          </button>
+          <button className="acct-act is-out" onClick={onOut}>
+            <span className="acct-ico"><IconLogout size={15} /></span>Sign out
+          </button>
+        </div>
+      )}
+    </div>
+  )
 }
 
 export default function Topbar({ route, job, searchOpen, onOpenSearch, onCloseSearch }) {
@@ -300,31 +368,9 @@ export default function Topbar({ route, job, searchOpen, onOpenSearch, onCloseSe
       {sheet && <div className="usermenu-backdrop" onClick={() => setSheet(null)} />}
 
       {acctOpen && (
-          <div className="usermenu acct-menu" role="dialog" aria-label="Account">
-            <div className="acct-who">
-              <span className={`acct-face${photo ? ' has-photo' : ''}`} aria-hidden="true">
-                {photo ? <img src={photo} alt="" /> : initials}
-              </span>
-              <span className="acct-id">
-                <strong>{session.name}</strong>
-                <small>{role.label}</small>
-              </span>
-            </div>
-            <div className="acct-acts">
-              <button className="acct-row"
-                onClick={() => { setSheet(null); navigate('/profile') }}>
-                <IconUser size={15} />Profile
-              </button>
-              <button className="acct-row"
-                onClick={() => { setSheet(null); navigate('/settings') }}>
-                <IconGear size={15} />Settings
-              </button>
-              <button className="acct-row is-out"
-                onClick={() => { setSheet(null); logout() }}>
-                <IconLogout size={15} />Sign out
-              </button>
-            </div>
-          </div>
+          <AccountCard session={session} role={role} photo={photo} initials={initials}
+            onGo={(to) => { setSheet(null); navigate(to) }}
+            onOut={() => { setSheet(null); logout() }} />
       )}
 
       {notifOpen && (

@@ -12,14 +12,20 @@ threshold would punch holes through them.
 
     python3 scripts/cut-hero-art.py
 
-Requires Pillow and numpy; writes src/assets/home-mining.webp in place.
+Reads home-mining-source.webp, which is the photograph as delivered, and
+writes home-mining.webp, which is what Home.jsx imports. The source is
+kept so the cut can be redone or retuned; it is imported by nothing, so
+it never reaches the bundle.
+
+Requires Pillow and numpy.
 """
 from collections import deque
 
 import numpy as np
 from PIL import Image, ImageFilter
 
-SRC = "src/assets/home-mining.webp"
+SRC = "src/assets/home-mining-source.webp"
+DST = "src/assets/home-mining.webp"
 TOLERANCE = 10      # the ground is flat to within 5; anything looser eats the tyres
 FEATHER = 1.1       # blur radius on the alpha edge, in pixels
 
@@ -60,5 +66,5 @@ alpha = alpha.filter(ImageFilter.MinFilter(3)).filter(ImageFilter.GaussianBlur(F
 
 out = img.copy()
 out.putalpha(alpha)
-out.save(SRC, "WEBP", quality=90, method=6)
-print(f"{SRC}: ground {tuple(int(c) for c in ground)}, {int(seen.sum() / seen.size * 100)}% cut")
+out.save(DST, "WEBP", quality=90, method=6)
+print(f"{DST}: ground {tuple(int(c) for c in ground)}, {int(seen.sum() / seen.size * 100)}% cut")
