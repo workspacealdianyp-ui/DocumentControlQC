@@ -6,6 +6,7 @@ import { getReports, syncReports } from '../lib/store.js'
 import { ncrReports, fmtDate, fmtDateTime } from '../lib/status.js'
 import { storageUsage, fmtBytes } from '../lib/storage.js'
 import { getThemePref, resolveTheme, setThemePref, watchSystemTheme } from '../lib/theme.js'
+import AnimatedGradient from './AnimatedGradient.jsx'
 import { getSettings } from '../lib/settings.js'
 import InstallApp from './InstallApp.jsx'
 import {
@@ -196,9 +197,10 @@ export default function Profile() {
 
   // The rail carries this on a desktop, and there is no rail on a phone.
   const [themePref, setPref] = useState(getThemePref)
-  // The value is never read here — the rail shows the resolved mode —
-  // but the setter is what keeps the choice in step with the system.
-  const [, setMode] = useState(() => resolveTheme())
+  /* The rail shows the resolved mode; what reads it here is the band's
+     gradient, which has to pick its three colours up again whenever the
+     theme moves under it. */
+  const [mode, setMode] = useState(() => resolveTheme())
   useEffect(() => watchSystemTheme(setMode), [])
   const chooseTheme = (pref) => { setPref(pref); setMode(setThemePref(pref)) }
 
@@ -233,6 +235,11 @@ export default function Profile() {
           it stops for prefers-reduced-motion. */}
       <section className="pf-banner" ref={banner}>
         <div className="pf-metal" aria-hidden="true">
+          {/* The ground under the finish. The painted plate stays in the
+              stylesheet beneath it as the surface a machine without
+              WebGL2 gets; the light on it is the same light as before. */}
+          <AnimatedGradient className="pf-grad" mode={mode}
+            params={{ rotation: -24, proportion: 26, scale: 0.54, speed: 7, swirl: 36, swirlIterations: 8, shapeSize: 54 }} />
           <span className="pf-sheen-a" />
           <span className="pf-sheen-b" />
           <span className="pf-fall" />

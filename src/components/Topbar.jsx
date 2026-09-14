@@ -11,6 +11,7 @@ import {
   IconList, IconFile, IconGrid, IconPlus, IconGear, IconClose, IconTheme, IconLock,
   IconUser, IconLogout, IconChevronR, IconMenu, IconCheck,
 } from './Icons.jsx'
+import AnimatedGradient from './AnimatedGradient.jsx'
 
 /* The bar across the top of the work area: where you are on the left,
    what you can do about it on the right. It replaces the notification
@@ -46,7 +47,7 @@ const PAGE_TITLES = {
    is what resets it — no effect watching a sibling's state. It renders
    only while the card is open, which is why the two figures are counted
    straight rather than memoised. */
-function AccountCard({ session, role, photo, initials, onGo, onOut }) {
+function AccountCard({ session, role, photo, initials, mode, onGo, onOut }) {
   const [drawer, setDrawer] = useState(false)
   const mine = getReports().filter((r) => r.inspector === session.name)
   const filed = mine.filter((r) => r.status === 'approved' || r.status === 'submitted').length
@@ -58,6 +59,8 @@ function AccountCard({ session, role, photo, initials, onGo, onOut }) {
           photograph nobody has set, so an account without one gets a
           portrait rather than an empty grey square. */}
       <div className={`acct-art${photo ? ' has-photo' : ''}`}>
+        {!photo && <AnimatedGradient className="acct-grad" mode={mode}
+          params={{ rotation: -50, proportion: 40, scale: 0.22, speed: 12, swirl: 52, shapeSize: 34 }} />}
         {photo ? <img src={photo} alt="" /> : <span aria-hidden="true">{initials}</span>}
       </div>
 
@@ -119,6 +122,21 @@ export default function Topbar({ route, job, searchOpen, onOpenSearch, onCloseSe
   const [q, setQ] = useState('')
 
   useEffect(() => { setSheet(null) }, [route.page, route.jobNo, route.formKey])
+
+  /* A sheet is anchored to the bar, not to the page: scroll the page
+     behind it and it is pointing at nothing, so it goes. Capture, so a
+     scrolling panel inside the page counts too, and passive, because
+     this never blocks the scroll it is listening for. */
+  useEffect(() => {
+    if (!sheet) return
+    const close = () => setSheet(null)
+    window.addEventListener('scroll', close, { passive: true, capture: true })
+    window.addEventListener('resize', close)
+    return () => {
+      window.removeEventListener('scroll', close, { capture: true })
+      window.removeEventListener('resize', close)
+    }
+  }, [sheet])
 
   // Escape closes whichever sheet is open, which is what a reader who
   // opened one by mistake reaches for first.
@@ -363,33 +381,41 @@ export default function Topbar({ route, job, searchOpen, onOpenSearch, onCloseSe
         document.body
       )}
 
-      {/* One scrim for whichever sheet is open, rather than one per
+      {/* Out to the body rather than left inside the bar. The top bar is
+          sticky with a z-index, which makes it a stacking context, and a
+          fixed sheet inside one cannot rise above anything outside it —
+          the bottom nav sits at the same level and would cut across it.
+
+          One scrim for whichever sheet is open, rather than one per
           sheet: they are mutually exclusive, and Escape closes them. */}
-      {sheet && <div className="usermenu-backdrop" onClick={() => setSheet(null)} />}
-
-      {acctOpen && (
-          <AccountCard session={session} role={role} photo={photo} initials={initials}
-            onGo={(to) => { setSheet(null); navigate(to) }}
-            onOut={() => { setSheet(null); logout() }} />
-      )}
-
-      {notifOpen && (
-          <div className="usermenu notif-sheet" role="dialog" aria-label="Notifications">
-            <div className="um-name" style={{ marginBottom: 10 }}>Notifications</div>
-            {notifs.length === 0 ? (
-              <p className="page-sub" style={{ margin: 0 }}>All clear. Nothing needs attention.</p>
-            ) : (
-              notifs.map((n, i) => (
-                <button key={i} className="notif-row" onClick={() => { navigate(n.to); setSheet(null) }}>
-                  <span className={`notif-ico ${n.cls}`}><n.icon size={15} /></span>
-                  <span className="act-main">
-                    <strong>{n.text}</strong>
-                    <small>{n.sub}</small>
-                  </span>
-                </button>
-              ))
-            )}
-          </div>
+      {sheet && createPortal(
+        <>
+          <div className="usermenu-backdrop" onClick={() => setSheet(null)} />
+          {acctOpen && (
+            <AccountCard session={session} role={role} photo={photo} initials={initials} mode={mode}
+              onGo={(to) => { setSheet(null); navigate(to) }}
+              onOut={() => { setSheet(null); logout() }} />
+          )}
+          {notifOpen && (
+            <div className="usermenu notif-sheet" role="dialog" aria-label="Notifications">
+              <div className="um-name" style={{ marginBottom: 10 }}>Notifications</div>
+              {notifs.length === 0 ? (
+                <p className="page-sub" style={{ margin: 0 }}>All clear. Nothing needs attention.</p>
+              ) : (
+                notifs.map((n, i) => (
+                  <button key={i} className="notif-row" onClick={() => { navigate(n.to); setSheet(null) }}>
+                    <span className={`notif-ico ${n.cls}`}><n.icon size={15} /></span>
+                    <span className="act-main">
+                      <strong>{n.text}</strong>
+                      <small>{n.sub}</small>
+                    </span>
+                  </button>
+                ))
+              )}
+            </div>
+          )}
+        </>,
+        document.body
       )}
     </>
   )

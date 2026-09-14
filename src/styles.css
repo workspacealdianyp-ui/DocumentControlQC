@@ -60,6 +60,14 @@
   --hero-btn-line: #c2cad6;
   --hero-btn-bg-hover: #eef1f5;
 
+  /* The three stops the drawn gradient reads (AnimatedGradient.jsx).
+     It runs under type on the profile band, so all three sit in the
+     same narrow band of lightness: the surface moves, the contrast of
+     what is written on it does not. */
+  --grad-1: #eef1f6;
+  --grad-2: #ffce3d;
+  --grad-3: #cbd2de;
+
   /* ── Ground ──────────────────────────────────────────────────── */
   --paper: #f6f6f4;        /* canvas behind the cards */
   --surface: #ffffff;      /* cards, rail */
@@ -185,6 +193,11 @@
   --hero-btn-bg: #272e36;
   --hero-btn-line: #65717e;
   --hero-btn-bg-hover: #394450;
+
+  /* Same three roles, all dark, for the same reason. */
+  --grad-1: #12161c;
+  --grad-2: #4a3a0d;
+  --grad-3: #222a35;
 
   --paper: #0f0f12;
   --surface: #17171b;
@@ -439,9 +452,9 @@ table { border-collapse: collapse; }
 .role-viewer { color: var(--text-2); background: var(--surface-2); }
 
 /* user/notif sheets */
-.usermenu-backdrop { position: fixed; inset: 0; z-index: 80; background: rgba(15, 27, 45, 0.3); }
+.usermenu-backdrop { position: fixed; inset: 0; z-index: var(--z-pop); background: rgba(15, 27, 45, 0.3); }
 .usermenu {
-  position: fixed; z-index: 81; right: 12px; top: calc(var(--topbar-h) + 6px);
+  position: fixed; z-index: calc(var(--z-pop) + 1); right: 12px; top: calc(var(--topbar-h) + 6px);
   background: var(--surface); border: 1px solid var(--line-2); border-radius: var(--r-lg);
   box-shadow: var(--sh-pop); padding: 14px; width: 280px; animation: pop 0.15s ease;
 }
@@ -455,7 +468,12 @@ table { border-collapse: collapse; }
    Radii are concentric — a 10px portrait inside 6px of inset inside a
    16px card — so the corners nest instead of arguing. */
 .acct-card {
-  width: 272px; padding: 0; overflow: hidden; position: relative;
+  /* No position of its own: .usermenu above already fixes it under the
+     monogram, and fixed is a containing block for the drawer too. It
+     carried position:relative until the sheet moved out to the body,
+     where the override stopped looking right and started reading as
+     what it was — a card laid out at the end of the document. */
+  width: 272px; padding: 0; overflow: hidden;
   border-radius: 16px; border-color: var(--line);
   box-shadow:
     0 1px 1px rgba(16, 16, 20, 0.04),
@@ -480,21 +498,29 @@ table { border-collapse: collapse; }
     0 0 0 1px var(--line-2);
 }
 
-/* The plate the rest of the app is drawn on stands in for a photograph
-   nobody has set: an account without one gets a portrait rather than an
-   empty grey square. */
+/* ── the drawn gradient ────────────────────────────────────────
+   AnimatedGradient.jsx paints into this box. The CSS background under
+   it is not decoration: it is what shows on a machine with no WebGL2,
+   or if the shader fails to compile, so the surface is never blank. */
+.ag { position: absolute; inset: 0; pointer-events: none; }
+.ag canvas { display: block; width: 100%; height: 100%; }
+
+/* A moving gradient stands in for a photograph nobody has set, so an
+   account without one gets a portrait rather than an empty grey
+   square. */
 .acct-art {
   position: relative; margin: 6px; border-radius: 10px; overflow: hidden;
   aspect-ratio: 4 / 3;
   display: grid; place-items: center;
-  background: var(--surface-2) var(--masthead-plate) center / cover no-repeat;
+  background: linear-gradient(152deg, var(--grad-1) 0%, var(--grad-2) 52%, var(--grad-3) 100%);
   animation: acct-art-in 0.42s cubic-bezier(0.16, 1, 0.3, 1) backwards;
 }
+.acct-art > span { position: relative; z-index: 1; }
 @keyframes acct-art-in {
   from { opacity: 0; transform: scale(1.05); }
   to   { opacity: 1; transform: none; }
 }
-.acct-art span {
+.acct-art > span {
   font-family: var(--mono); font-size: 40px; font-weight: 600;
   letter-spacing: 0.02em; color: var(--ink);
   /* The plate is a drawing, not a flat ground, so the monogram sits on
@@ -503,7 +529,7 @@ table { border-collapse: collapse; }
   display: grid; place-items: center;
   background: var(--surface); box-shadow: 0 2px 10px rgba(16, 16, 20, 0.12), inset 0 0 0 1px var(--line);
 }
-:root[data-theme="dark"] .acct-art span { color: var(--amber); background: var(--ink); }
+:root[data-theme="dark"] .acct-art > span { color: var(--amber); background: var(--ink); }
 .acct-art.has-photo { background: var(--surface-2); }
 .acct-art img { width: 100%; height: 100%; object-fit: cover; display: block; }
 /* A photograph needs its own edge or it bleeds into the card. */
@@ -4401,6 +4427,15 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber-line); out
     linear-gradient(0deg, rgba(28,28,34,0.16) 0%, transparent 58%);
 }
 .pf-metal > span { position: absolute; will-change: transform; }
+/* The drawn ground sits over the painted plate and under the light:
+   z-index auto puts it above .pf-metal::before and below every span
+   that carries one. The finish is dialled back a third now that the
+   surface beneath it moves on its own. */
+/* Held under full strength so the brushed plate beneath still sets the
+   character of the band: the gradient is its weather, not its subject. */
+.pf-grad { z-index: 0; opacity: 0.78; }
+.pf-banner .pf-sheen-a, .pf-banner .pf-sheen-b { opacity: 0.62; }
+.pf-banner .pf-fall { opacity: 0.4; }
 
 /* two sheens, different widths and rates, so the surface never repeats
    on a cycle the eye can catch */
