@@ -1,27 +1,33 @@
-/* Predictable rows help inspectors compare records without hunting across cards. */
+/* Predictable rows help inspectors compare records without hunting across cards.
+
+   Home was the first screen to wear the safety yellow, in literal hex.
+   The yellow is the app's accent now, so these rules read it from the
+   tokens instead and there is one place to change it. The banner keeps
+   two literals: its plane and its edge are the same dark panel in both
+   themes, so they do not belong to either theme's palette. */
 .home-page { --home-gap: 12px; }
-.home-dashboard { display: grid; gap: var(--home-gap); }
-.home-dashboard *, .home-row > * { min-width: 0; }
+.home-stack { display: grid; gap: var(--home-gap); }
+.home-stack *, .home-row > * { min-width: 0; }
 .home-page a { text-decoration: none; }
 .home-page :is(a, button):focus-visible { outline: 2px solid var(--amber-ink); outline-offset: 3px; }
 .home-page .btn { min-height: 40px; padding: 8px 12px; font-size: 13px; }
 .home-toolbar { position: relative; isolation: isolate; display: flex; flex-direction: column; align-items: flex-start; justify-content: center; gap: 18px; padding: 26px 28px; min-height: 260px; background: #171b20; border: 1px solid #d9aa35; border-radius: 12px; overflow: hidden; }
 .home-toolbar > img { position: absolute; z-index: -1; right: 0; top: 0; width: 55%; height: 100%; object-fit: contain; object-position: right center; mask-image: linear-gradient(to right, transparent, #000 14%); pointer-events: none; }
 .home-welcome { width: 46%; }
-.home-kicker { display: block; font-size: 11px; font-weight: 600; color: #ffd05a; letter-spacing: .06em; margin-bottom: 10px; }
+.home-kicker { display: block; font-size: 11px; font-weight: 600; color: var(--amber-lift); letter-spacing: .06em; margin-bottom: 10px; }
 .home-page .home-welcome h1 { font: 650 30px/1.15 var(--sans); letter-spacing: -.035em; margin: 0; color: #fff; overflow-wrap: anywhere; }
 .home-welcome p { font-size: 12px; color: #d1d5db; line-height: 1.5; margin: 9px 0 0; }
 .home-banner-note { display: block; margin-top: 6px; font-size: 12px; color: #d1d5db; line-height: 1.5; }
 .home-actions { display: flex; gap: 8px; flex-wrap: wrap; width: 46%; }
-.home-toolbar .btn-primary { background: #ffc400; border-color: #ffc400; color: #171b20; }
-.home-toolbar .btn-primary:hover { background: #ffda59; border-color: #ffda59; }
+.home-toolbar .btn-primary { background: var(--amber); border-color: var(--amber); color: var(--on-amber); }
+.home-toolbar .btn-primary:hover { background: var(--amber-lift); border-color: var(--amber-lift); }
 .home-toolbar .btn-secondary { color: #fff; background: #272e36; border-color: #65717e; }
 .home-toolbar .btn-secondary:hover { background: #394450; border-color: #a4b0be; }
 .home-toolbar :is(a, button):focus-visible { outline-color: #fff; }
 .home-overview-row { display: grid; grid-template-columns: minmax(0, 2.5fr) minmax(250px, 1fr); gap: 12px; align-items: stretch; }
 .home-resources { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; padding: 10px; border: 1px solid var(--line); border-radius: var(--r); background: var(--surface); }
-.home-resources > * { display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 3px; text-align: center; padding: 8px 4px; border-radius: 5px; font-size: 12px; font-weight: 600; background: #ffc400; color: #171b20; overflow-wrap: anywhere; min-height: 44px; }
-.home-resources a:hover { background: #ffda59; }
+.home-resources > * { display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 3px; text-align: center; padding: 8px 4px; border-radius: 5px; font-size: 12px; font-weight: 600; background: var(--amber); color: var(--on-amber); box-shadow: inset 0 0 0 1px var(--amber-line); overflow-wrap: anywhere; min-height: 44px; }
+.home-resources a:hover { background: var(--amber-lift); }
 .home-resources > [aria-disabled] { background: var(--surface-3); color: var(--text-2); }
 .home-resources small { font-size: 10px; font-weight: 400; }
 .home-readings { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; }

@@ -135,7 +135,7 @@ export default function JobDetail({ job }) {
       <div className="page">
         <div className="card empty-state">
           <p><strong>Job not found.</strong></p>
-          <button className="btn btn-secondary" onClick={() => navigate('/')}>Back to Dashboard</button>
+          <button className="btn btn-secondary" onClick={() => navigate('/')}>Back to Home</button>
         </div>
       </div>
     )

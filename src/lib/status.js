@@ -256,7 +256,7 @@ export const fmtDateTime = (iso) => {
   return d.toLocaleString('en-GB', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' })
 }
 
-// ---- Document stats for the Home dashboard ----
+// ---- Document stats for the Home page ----
 export function docStats() {
   const reps = getReports()
   return {

@@ -35,9 +35,9 @@ describe('the last thing between a thrown render and a white screen', () => {
     fireEvent.click(screen.getByRole('button', { name: /reload the app/i }))
     expect(reload).toHaveBeenCalledOnce()
 
-    /* The dashboard button sets the hash before reloading: coming back
+    /* The Home button sets the hash before reloading: coming back
        up on the screen that just failed is not a way out of it. */
-    fireEvent.click(screen.getByRole('button', { name: /dashboard/i }))
+    fireEvent.click(screen.getByRole('button', { name: /home/i }))
     expect(window.location.hash).toBe('#/')
     expect(reload).toHaveBeenCalledTimes(2)
     quiet.mockRestore()

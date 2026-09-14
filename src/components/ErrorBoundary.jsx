@@ -49,7 +49,7 @@ export default class ErrorBoundary extends Component {
             {/* Back to a route known to work, then reload onto it, so a
                 reader is not returned to the screen that just failed. */}
             <button className="btn btn-secondary" onClick={() => { window.location.hash = '#/'; window.location.reload() }}>
-              Go to the dashboard
+              Go to Home
             </button>
           </div>
           <details className="crash-detail">

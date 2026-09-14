@@ -14,6 +14,9 @@ dist-ssr/
 # deploy tooling
 .vercel/
 
+# e2e screenshots (tests/e2e writes here)
+tmp/
+
 # logs
 *.log
 npm-debug.log*

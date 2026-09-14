@@ -241,7 +241,7 @@ export default function Profile() {
         </div>
 
         <button className="pf-back" onClick={() => navigate('/')}
-          aria-label="Back to dashboard" title="Back to dashboard">
+          aria-label="Back to home" title="Back to home">
           <IconBack size={16} />
         </button>
 

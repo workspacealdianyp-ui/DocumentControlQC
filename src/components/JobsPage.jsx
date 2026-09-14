@@ -95,7 +95,7 @@ const askedStates = (state) => {
 
 export default function JobsPage({ kat, state, resetView = false }) {
   const { jobs, tick, role } = useApp()
-  // A dashboard count names a complete set, not the search left here yesterday.
+  // A home-page count names a complete set, not the search left here yesterday.
   const initial = useMemo(() => resetView ? {} : readView(), [resetView])
   const asked = askedStates(state)
   const [q, setQ] = useState(initial.q || '')

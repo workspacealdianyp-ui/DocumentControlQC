@@ -30,7 +30,7 @@ const JOB_WAYS = [
    same five status tabs, drawn as a table — so it is one register now,
    and the name went to the section that does the monitoring. */
 const NAV = [
-  { id: 'home', label: 'Dashboard', to: '/', icon: IconHome },
+  { id: 'home', label: 'Home', to: '/', icon: IconHome },
   { id: 'jobs', label: 'Monitoring', to: '/monitoring', icon: IconGrid, sub: JOB_WAYS },
   { id: 'reports', label: 'Reports', to: '/reports', icon: IconFile },
   { id: 'vault', label: 'Vault', to: '/vault', icon: IconLock },

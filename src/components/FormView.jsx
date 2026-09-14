@@ -519,7 +519,7 @@ function IdentitySection({ sec, values, job, locked, onJobChange }) {
 
   return (
     <div className="ident">
-      {/* The same picker the dashboard uses, behind a bar the width of
+      {/* The same picker the home page uses, behind a bar the width of
           the page: one question, one control, asked the same way twice. */}
       <div className="ident-pick">
         <label htmlFor="ident-job">{lbl(jobField, values)}</label>

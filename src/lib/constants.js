@@ -18,7 +18,7 @@ export const NDE_FORMS = ['mt', 'pt', 'ut']
 
    It used to mean submitted-or-approved, which put an unsigned document
    waiting on a reviewer in the same green as one a QA lead had signed.
-   Everything downstream inherited that: job completion, the dashboard
+   Everything downstream inherited that: job completion, the home
    percentage, the monitoring matrix, MDR readiness. A number that counts
    unreviewed work as finished is the number a customer is shown.
 

@@ -94,7 +94,7 @@ function ReadinessPanel({ data, onJob }) {
   </Panel>
 }
 
-export function HomeDashboard({ data, customers, records, role, session, now, onOpen, onJob, onNew }) {
+export function HomeView({ data, customers, records, role, session, now, onOpen, onJob, onNew }) {
   const [ownWork, setOwnWork] = useState(false)
   const [tracking, setTracking] = useState('submitted')
   const mine = scopeReports(records, 'mine', session, role)
@@ -126,13 +126,13 @@ export function HomeDashboard({ data, customers, records, role, session, now, on
   const greeting = now.getHours() < 12 ? 'Good morning' : now.getHours() < 18 ? 'Good afternoon' : 'Good evening'
   let sharepoint = null
   try { const url = new URL(COMPANY.sharepointUrl); if (url.protocol === 'https:') sharepoint = url.href } catch { /* An unconfigured resource must not become a dead link. */ }
-  return <div className="page home-page"><div className="home-dashboard">
+  return <div className="page home-page"><div className="home-stack">
     <header className="home-toolbar"><img src={miningArt} alt="" aria-hidden="true" />
       <div className="home-welcome"><span className="home-kicker">Fabrication &amp; Plant Cikupa</span><h1>{greeting},<br />{session.name}.</h1><p>{role.label} · {now.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</p><span className="home-banner-note">{viewer ? 'Follow each job through its inspection records.' : reviewing ? 'Review the evidence. Keep every release traceable.' : 'Record the inspection. Keep the work moving.'}</span></div>
       <div className="home-actions">{role.canOverride ? <><button className="btn btn-secondary" onClick={onNew}>New report</button><a className="btn btn-primary" href={register('submitted', 'review')}>Review reports</a></> : technician ? <button className="btn btn-primary" onClick={onNew}><IconPlus size={16} />New report</button> : <a className="btn btn-primary" href={monitor()}>Open monitoring</a>}</div>
     </header>
     <div className="home-overview-row"><section className="home-readings" aria-label="QC overview">{summary.map(([label, value, note, link]) => <a key={label} href={link}><span>{label}</span><strong>{value}</strong><small>{note}</small></a>)}</section>
-      <nav className="home-resources" aria-label="QC resources"><a href={monitor()}>Dashboard</a><a href={register('ncr')}>NCR</a>{sharepoint ? <a href={sharepoint} target="_blank" rel="noopener noreferrer">SharePoint ↗</a> : <span aria-disabled="true">SharePoint<small>Not linked</small></span>}</nav>
+      <nav className="home-resources" aria-label="QC resources"><a href={monitor()}>Monitoring</a><a href={register('ncr')}>NCR</a>{sharepoint ? <a href={sharepoint} target="_blank" rel="noopener noreferrer">SharePoint ↗</a> : <span aria-disabled="true">SharePoint<small>Not linked</small></span>}</nav>
     </div>
     {data.pct === null && !viewer && !head && <p className="home-context-note">No required deliverables</p>}
     {data.totals.overrides > 0 && <p className="home-context-note">Job completion includes {plural(data.totals.overrides, 'admin override')}. Confirm the evidence before release.</p>}
@@ -183,5 +183,5 @@ export default function Home() {
   }
   const onNew = (id) => { if (role.canEdit) setLauncher(typeof id === 'string' ? id : 'all') }
   if (snapshot.error) return <div className="page home-page"><section className="home-panel home-empty" role="alert"><h2>Could not read reports on this device.</h2><p>Your records have not been changed. Retry or check the report storage.</p><button className="btn btn-primary" onClick={refresh}>Retry</button>{role.canManage && <a href="#/settings?s=storage">Open storage settings</a>}</section></div>
-  return <><HomeDashboard key={`${session.role}:${session.name}`} {...snapshot} role={role} session={session} now={now} onOpen={onOpen} onJob={onJob} onNew={onNew} />{launcher && <ReportLauncher initial={launcher} onClose={() => setLauncher(null)} />}</>
+  return <><HomeView key={`${session.role}:${session.name}`} {...snapshot} role={role} session={session} now={now} onOpen={onOpen} onJob={onJob} onNew={onNew} />{launcher && <ReportLauncher initial={launcher} onClose={() => setLauncher(null)} />}</>
 }
