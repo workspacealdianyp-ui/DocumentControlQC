@@ -19,11 +19,19 @@ import { useDismiss } from '../lib/useDismiss.js'
 const KAT_LABEL = { SUPEQ: 'Support Equipment', TRAILER: 'Trailer', 'NON TRAILER': 'Non Trailer' }
 // The chip carries a code, the way a report's carries LHT or DIM.
 
-const Meta = ({ label, value, note, tone }) => (
-  <div className="meta-item">
-    <span className="meta-label">{label}</span>
-    <span className="meta-value">{value || '—'}</span>
-    {note && <span className={`meta-note${tone ? ` is-${tone}` : ''}`}>{note}</span>}
+/* A label and its value, as the pair they are: dt and dd rather than
+   two spans, so a screen reader is handed the relation the eye gets from
+   the layout. `flag` is for a verdict on the value — the job's status
+   sits against its target delivery — and `wide` gives that cell the two
+   columns the pair then needs. */
+const Meta = ({ label, value, note, tone, flag, wide }) => (
+  <div className={`meta-item${wide ? ' is-wide' : ''}`}>
+    <dt className="meta-label">{label}</dt>
+    <dd className="meta-value">
+      {value || '—'}
+      {flag}
+    </dd>
+    {note && <dd className={`meta-note${tone ? ` is-${tone}` : ''}`}>{note}</dd>}
   </div>
 )
 
@@ -214,16 +222,32 @@ export default function JobDetail({ job }) {
             column the band's grid keeps for it, and the meter it swaps
             with is not on screen at that width anyway. */}
         <CompletionDial done={p.done} total={p.applicable} size={64} className="jd-dial-sm" />
-
-        {p.overdue && !done && <span className="report-state jd-state state-overdue">Overdue</span>}
       </Masthead>
 
-      {/* Metadata. Category, customer and serial live in the hero now, so
-          this card carries only what the hero does not already say — and
-          the type only when it differs from the product description. */}
+      {/* The order, on one line.
+
+          Category, customer and serial live in the band, so this carries
+          only what the band does not already say — and the type only
+          when it differs from the product description.
+
+          The PO number went with them: the band's eyebrow already
+          stamps it beside the category, and it was the longest value in
+          the card — on a phone it was the one fact that had to break
+          across two lines.
+
+          Six short facts used to be laid out three to a row with 18px of
+          air between them, which left the last one alone on a row of its
+          own and made a 250px card out of 60px of writing. They pack to
+          the width now: one row on a desk, where the target delivery
+          takes two of its tracks; on a phone it closes the card as a
+          full row of its own.
+
+          The status came down off the band and stands here, against the
+          target delivery — which is the fact it is a verdict on. In the
+          band it floated in the middle of the plate, belonging to
+          neither the title nor the picture. */}
       <div className="card jd-meta-card">
-        <div className="meta-grid">
-          {job.poNo && <Meta label="PO No." value={job.poNo} />}
+        <dl className="meta-grid">
           {job.type && job.type.toUpperCase() !== (job.productDesc || '').toUpperCase() &&
             <Meta label="Type" value={job.type} />}
           <Meta label="WBS No." value={job.wbsNo} />
@@ -232,8 +256,9 @@ export default function JobDetail({ job }) {
           <Meta label="Date PB" value={fmtDate(job.datePB)} />
           {/* A date on its own asks the reader to count. */}
           <Meta label="Target delivery" value={fmtDate(dueDate(job))}
-            note={countdown?.note} tone={countdown?.tone} />
-        </div>
+            note={countdown?.note} tone={countdown?.tone} wide
+            flag={p.overdue && !done ? <span className="report-state is-compact state-overdue">Overdue</span> : null} />
+        </dl>
       </div>
 
       {/* One list, not two.

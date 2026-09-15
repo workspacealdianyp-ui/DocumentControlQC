@@ -1090,21 +1090,88 @@ td.th-action { display: flex; gap: 6px; justify-content: flex-end; align-items: 
 .job-hero .ring-track { stroke: rgba(255,255,255,0.12); }
 .job-hero .ring-label strong { color: #fff; }
 .job-hero .ring-label small { color: #8295ad; }
-.meta-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 13px 16px; }
-@media (min-width: 640px) { .meta-grid { grid-template-columns: repeat(3, 1fr); } }
-@media (min-width: 1024px) { .meta-grid { grid-template-columns: repeat(4, 1fr); } }
-.meta-item { display: flex; flex-direction: column; gap: 2px; min-width: 0; border-left: 2px solid var(--line); padding-left: 10px; }
-.meta-label { font-family: var(--mono); font-size: 9.5px; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.07em; font-weight: 500; }
-.meta-value { font-size: 13.5px; font-weight: 500; overflow-wrap: break-word; }
+/* ── the order, at a glance ─────────────────────────────────────────
+   Five or six short facts: a stamped label and, under it, the figure.
+   They pack to the width rather than dividing into a fixed three or
+   four columns — a fixed grid stranded the last fact on a row of its
+   own and made a 250px card out of 60px of writing. It is 73px now: one
+   dense row down to tablet width, two columns on a phone.
+
+   The rules between them are drawn by the cells themselves — a hairline
+   inset on each cell's top and left edge, with the grid pulled 1px up
+   and left so the outermost ones clip away against the card. That is
+   what lets an unknown number of columns divide cleanly: no cell has to
+   know whether it is the one that starts a row. It replaces a 2px bar
+   bolted to the left of every item, which at six items was six marks
+   competing with the writing they were separating. */
+.jd-meta-card { padding: 0; overflow: hidden; }
+.meta-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(132px, 1fr));
+  /* auto-fit, so when a job carries no PO or no separate type the
+     remaining facts widen instead of leaving the row half-built. */
+  margin: -1px 0 0 -1px;
+}
+.meta-item {
+  display: flex; flex-direction: column; gap: 3px;
+  min-width: 0; padding: 12px 14px 13px;
+  box-shadow: inset 1px 0 0 var(--line), inset 0 1px 0 var(--line);
+}
+/* Target delivery is the one fact with a second line under it and a
+   badge beside it, so it takes two tracks rather than being squeezed
+   into 132px. */
+.meta-item.is-wide { grid-column: span 2; }
+
+.meta-label {
+  font-family: var(--mono); font-size: 10px; font-weight: 500;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--text-2);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+/* The figure, tabular: a card of dates and part numbers should line up
+   down its columns the way it does on the order it was copied from. */
+.meta-value {
+  display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+  margin: 0;
+  font-size: 13.5px; font-weight: 550; line-height: 1.3;
+  font-variant-numeric: tabular-nums;
+  overflow-wrap: anywhere;
+}
 /* A second reading of the same fact, set quieter than the fact. Target
    delivery uses it to say how much working time is left; the date is
-   what the order states, the count is what it means today. */
+   what the order states, the count is what it means today.
+
+   --text-2, not --text-3: at 10.5px a count of working days is content,
+   and --text-3 measures 2.6:1 on this card. It is kept quiet by being
+   small and stamped instead of by being pale. */
 .meta-note {
+  margin: 0;
   font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.01em;
-  color: var(--text-3); margin-top: 1px;
+  color: var(--text-2);
 }
 .meta-note.is-soon { color: var(--amber-ink); }
 .meta-note.is-late { color: var(--overdue); }
+
+/* The status, standing against the fact it is a verdict on. It comes
+   down to the figure's own size and gives up the chip's padding —
+   beside 13.5px of type a full-sized badge is the loudest thing in the
+   card, and it is the date that is being read. */
+.report-state.is-compact {
+  padding: 1px 7px 2px;
+  font-family: var(--mono); font-size: 9.5px; font-weight: 600;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  border-radius: 5px;
+}
+
+/* Two columns on a phone, where three put every part number across two
+   lines. The target delivery takes the whole of the last row rather than
+   two of the three tracks — a wide cell that stops short leaves a blank
+   corner, and it is the fact the card is closing on. */
+@media (max-width: 560px) {
+  .meta-grid { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); }
+  .meta-item { padding: 11px 13px 12px; }
+  .meta-item.is-wide { grid-column: 1 / -1; }
+}
 
 /* deliverable rows */
 .deliv-list { display: flex; flex-direction: column; }
@@ -3007,18 +3074,6 @@ tr:has(.chip-done) .jobs-prog-bar span { background: var(--done); }
 .jd-hero.is-complete .ring-bar { stroke: var(--done); }
 .jd-hero.is-complete .ring-label strong { color: var(--done); }
 
-/* The unit's particulars, and the room to read them. At 16px of padding
-   against a 13px row gap the six items sat as one grey block; the card
-   is what the page opens on, so it gets the page's own breathing
-   space. */
-.jd-meta-card { padding: 20px 22px; }
-.jd-meta-card .meta-grid { gap: 18px 22px; }
-.jd-meta-card .meta-item { padding-left: 12px; }
-/* Five or six items divide evenly into three columns; the default four
-   left the last one stranded on a row of its own. */
-@media (min-width: 640px) { .jd-meta-card .meta-grid { grid-template-columns: repeat(3, 1fr); } }
-@media (max-width: 480px) { .jd-meta-card { padding: 17px 16px; } .jd-meta-card .meta-grid { gap: 15px 14px; } }
-
 /* Rows without a form have no chevron; without a placeholder their chips
    landed 16px further right than everyone else's. */
 .deliv-chevron-gap { display: block; width: 16px; height: 16px; }
@@ -3475,6 +3530,7 @@ tr:has(.chip-done) .jobs-prog-bar span { background: var(--done); }
 .state-submitted { color: var(--review);  background: var(--review-bg);   border-color: var(--review-line); }
 .state-approved  { color: var(--done);    background: var(--done-bg);     border-color: var(--done-line); }
 .state-new       { color: var(--notstart); background: var(--notstart-bg); border-color: var(--notstart-line); }
+.state-overdue   { color: var(--overdue); background: var(--overdue-bg);  border-color: var(--overdue-line); }
 
 /* The reference lifts the badge under the pointer. Ours sit in rows you
    can click, so the lift follows the row rather than the badge. */
@@ -3557,13 +3613,12 @@ tr:has(.chip-done) .jobs-prog-bar span { background: var(--done); }
 /* ── Labels. Small text that names a thing rather than explaining it
    keeps the interface face and opens up a little, so it does not turn
    into a grey smear at 11px. */
-.set-group-label, .set-legend, .meta-label, .mon-table th,
+.set-group-label, .set-legend, .mon-table th,
 .mon-table th button, .detail-label {
   letter-spacing: 0.02em;
 }
 .set-group-label, .set-legend { font-size: 11px; }
 .mon-table th button, .mon-table th:not(:has(button)) { font-size: 11.5px; font-weight: 600; }
-.meta-label { font-size: 10px; }
 
 /* Aptos and Carlito both carry proper tabular figures; ask for them
    wherever a column of numbers has to line up. */
@@ -5296,25 +5351,36 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber-line); out
   font-variation-settings: 'opsz' 14;
 }
 /* The name, in the shop's yellow and set the way the shop sets it:
-   uppercase, heavy, and the largest thing on the page.
+   uppercase, heavy, and the largest thing on the page. One yellow in
+   both themes — --amber, #ffc400, the colour on the machine.
 
-   Not --amber itself. The fill measures about 1.6:1 on white — below
-   every threshold there is, and this is an app read on a tablet in a
-   workshop under whatever light the roof lets in.
+   On the dark band the fill carries itself. On the light one it cannot:
+   #ffc400 on white measures 1.6:1, below every threshold there is, and
+   this is an app read on a tablet in a workshop under whatever light the
+   roof lets in. So in light the letters are contoured in ink and the
+   contour is what does the reading — the same device a stencilled sign
+   uses, and the reason it survives sun on the glass. The stroke is
+   painted under the fill, so the letterforms keep their weight instead
+   of being eaten inwards by it.
 
-   --amber-deep was too dark for it: at 5.2:1 it read as brown rather
-   than as the shop's gold. This is --amber-line, 3.7:1 on the band —
-   which is the threshold for text this size, 30px at weight 750, not
-   the 4.5:1 that body copy has to clear. */
+   The alternative was the darker --amber-line at 3.7:1, which is what
+   stood here: legible, but a different yellow from the dark theme's,
+   and being one colour in both is what was asked for. */
 .masthead.is-job .masthead-txt h2 {
   font-family: var(--display);
   font-size: 30px; font-weight: 750;
   letter-spacing: -0.012em; line-height: 1.08;
   text-transform: uppercase;
-  color: var(--amber-line);
+  color: var(--amber);
+  -webkit-text-stroke: var(--jd-title-stroke, 2.5px) var(--ink);
+  paint-order: stroke fill;
   font-variation-settings: 'opsz' 32;
 }
-:root[data-theme="dark"] .masthead.is-job .masthead-txt h2 { color: var(--amber); }
+/* Dark needs none of it: #ffc400 on the dark plate measures 11.2:1, and
+   a contour there would only thicken the type. */
+:root[data-theme="dark"] .masthead.is-job .masthead-txt h2 {
+  -webkit-text-stroke: 0;
+}
 
 .masthead.is-job .masthead-id {
   font-family: var(--sans);
@@ -5510,6 +5576,9 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber-line); out
   .masthead.is-job .masthead-txt h2 {
     grid-area: name; margin-top: 4px;
     font-size: 20px; font-weight: 750; letter-spacing: -0.004em;
+    /* The contour comes down with the type: 2.5px around 20px letters
+       closes their counters. */
+    --jd-title-stroke: 1.75px;
     /* A phone splits a report title across three words where a desktop
        takes two, and the band's whole job is to name the document. */
     -webkit-line-clamp: 3;
