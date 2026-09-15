@@ -119,6 +119,76 @@ describe('compact controlled forms', () => {
     expect(output.querySelector('.ps-overall-result').textContent).toContain('Not evaluated')
   })
 
+  /* The nominal and the tolerance either side of it share one line, and
+     the heading says tolerance, because Min and Max are the tolerance —
+     "limits" is what the actual is judged against, which is the next
+     column along. */
+  it('sets the nominal against its tolerance on one line', () => {
+    const results = [{ itemNo: 'A', description: 'Overall length', nominal: 90, min: 88, max: 92, actual: 91 }]
+    const output = doc('dimensional', record('dimensional', { results }))
+    expect(output.querySelector('.ps-dim-grid thead').textContent).toContain('Nominal / tolerance')
+    expect(output.querySelector('.ps-dim-grid thead').textContent).not.toContain('limits')
+    const spec = output.querySelector('.ps-dim-grid tbody .ps-dim-spec')
+    expect(spec.querySelector('.ps-dim-nom').textContent).toBe('90')
+    expect(spec.querySelector('.ps-dim-tol').textContent).toBe('Min 88Max 92')
+  })
+
+  /* A point map is 80mm of sheet. The grid that follows it used to
+     reserve the whole table plus the decision and the signatures before
+     it would start, so a short grid pushed itself overleaf and left the
+     map's page with a hole in it. */
+  it('starts the grid under the point map instead of leaving the page half empty', () => {
+    const results = Array.from({ length: 6 }, (_, i) => ({ itemNo: String.fromCharCode(65 + i), description: 'Overall length', nominal: 90, min: 88, max: 92, actual: 90 }))
+    const report = record('dimensional', { results, values: { inspDate: '2026-09-09', drawingNo: 'DWG-7781-R2', inspStage: 'After welding',
+      drawingFile: [{ img: 'data:image/png;base64,AA==', label: 'Points A to F' }] } })
+    const pages = reportPlan(FORM_SCHEMAS.dimensional, report, job)
+    const mapPage = pages.findIndex((page) => page.some((b) => b.kind === 'evidence' && b.map))
+    expect(mapPage).toBeGreaterThanOrEqual(0)
+    expect(pages[mapPage].some((b) => b.kind === 'results')).toBe(true)
+  })
+
+  // The drawing number is stamped in the corner of the drawing rather
+  // than set as a fact in a table above it.
+  it('stamps the drawing number on the point map and not above it', () => {
+    const report = record('dimensional', { values: { inspDate: '2026-09-09', drawingNo: 'DWG-7781-R2', inspStage: 'After welding',
+      drawingFile: [{ img: 'data:image/png;base64,AA==', label: 'Points A to F' }] } })
+    const output = doc('dimensional', report)
+    expect(output.querySelector('.ps-photo-tag').textContent).toBe('DWG-7781-R2')
+    const facts = [...output.querySelectorAll('.ps-facts')].map((t) => t.textContent).join(' ')
+    expect(facts).toContain('After welding')
+    expect(facts).not.toContain('DWG-7781-R2')
+  })
+
+  /* Two signatures was never the real number: a report engineering
+     witnessed carries three, one a third party attended carries four.
+     Each extra box is headed by the capacity the person signed in, with
+     the position they hold under their name. */
+  it('prints every approver the inspector recorded', () => {
+    const report = record('dimensional', { values: { inspDate: '2026-09-09',
+      signInspector: { name: 'Inspector Two', at: '2026-09-09T09:00:00.000Z' },
+      approvers: [{ id: '1', name: 'Budi Santoso', position: 'Lead Design Engineer', capacity: 'Engineering' },
+        { id: '2', name: 'A. Whitfield', position: 'Surveyor', capacity: 'Third Party (LRQA)' }],
+      signExtra_1: { name: 'Budi Santoso', at: '2026-09-10T02:00:00.000Z' } } })
+    const output = doc('dimensional', report)
+    const block = output.querySelector('.ps-sign-table')
+    expect(block.textContent).toContain('Engineering')
+    expect(block.textContent).toContain('Third Party (LRQA)')
+    expect(block.textContent).toContain('Budi Santoso')
+    expect(block.textContent).toContain('Lead Design Engineer')
+    // Named but unsigned still prints the name over an empty box.
+    expect(block.textContent).toContain('A. Whitfield')
+    expect([...output.querySelectorAll('.ps-sign-head')].length).toBe(1)
+  })
+
+  // Five boxes on a 190mm sheet is 38mm each, narrower than a signature.
+  it('wraps the signature block rather than shrinking the boxes', () => {
+    const approvers = Array.from({ length: 4 }, (_, i) => ({ id: String(i + 1), name: `Approver ${i + 1}`, position: 'Engineer', capacity: `Party ${i + 1}` }))
+    const report = record('dimensional', { values: { inspDate: '2026-09-09', approvers } })
+    const output = doc('dimensional', report)
+    expect(output.querySelectorAll('.ps-sign-head')).toHaveLength(2)
+    expect([...output.querySelectorAll('.ps-sign-head')][0].children).toHaveLength(4)
+  })
+
   it('keeps an odd number of dimensional points in order across paired continuation tables', () => {
     const results = Array.from({ length: 41 }, (_, i) => ({ itemNo: `D-${i + 1}`, description: `Checking point ${i + 1}`, nominal: 10, min: 9, max: 11, actual: i === 40 ? 12 : 10, note: i === 40 ? 'OUTSIDE-UPPER-LIMIT' : '' }))
     const output = doc('dimensional', record('dimensional', { results }))

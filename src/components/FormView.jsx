@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { createPortal } from 'react-dom'
 import { useApp, navigate } from '../App.jsx'
-import { FORM_SCHEMAS, IDENT_GROUPS, dimRowStatus, dimDeviation, dimBreach } from '../data/formSchemas.js'
+import { FORM_SCHEMAS, IDENT_GROUPS, dimRowStatus, dimDeviation, dimBreach, APPROVER_SIGN, extraApprovers } from '../data/formSchemas.js'
 import { getReport, saveReport, nextReportId, approveReport, canApprove, reviseReport, returnReport, withoutOpenReturn } from '../lib/store.js'
 import { MR } from '../lib/compute.js'
 import { fmtDate, fmtDateTime } from '../lib/status.js'
@@ -736,6 +736,81 @@ function RecordingSection({ report, update, setValue, locked }) {
   )
 }
 
+/* ───────────────────────── approvers the form did not name ────────
+
+   The two fixed roles are in the schema because every report has them.
+   Everyone else who signs — engineering, a third party, the customer's
+   own inspector — is particular to the job, so the inspector states
+   them: who signed, the position they hold, and the capacity they
+   signed in. That last one is what the printed sheet puts over the
+   box, because "Third party (LRQA)" is the thing a reader of the data
+   book needs, not the person's job title.
+
+   A name comes before a signature. The pad is unreachable until there
+   is a name to attach the mark to, which is also the rule the printed
+   signature block is read under: an unnamed mark proves nothing. */
+function ExtraApprovers({ values, locked, set, onRequestSign, signLocked }) {
+  const list = extraApprovers(values)
+  const write = (next) => set('approvers', next)
+  const patch = (i, key, val) => write(list.map((a, j) => (j === i ? { ...a, [key]: val } : a)))
+  const nextId = () => String(1 + Math.max(0, ...list.map((a) => Number(a.id) || 0)))
+  const add = () => write([...list, { id: nextId(), name: '', position: '', capacity: '' }])
+  const drop = (i) => {
+    set(APPROVER_SIGN(list[i].id), null)
+    write(list.filter((_, j) => j !== i))
+  }
+  return (
+    <div className="appr-extra">
+      {list.map((a, i) => {
+        const sign = values[APPROVER_SIGN(a.id)]
+        return (
+          <div className="rowcard appr-card" key={a.id}>
+            <div className="rowcard-head">
+              <span className="rec-cp">{a.capacity || `Approver ${i + 1}`}</span>
+              {!locked && <button type="button" className="row-x" onClick={() => drop(i)} aria-label="Remove approver"><IconTrash size={14} /></button>}
+            </div>
+            <div className="rowcard-body">
+              <div className="field" data-span="3">
+                <label>Name<span className="req">*</span></label>
+                <input value={a.name || ''} disabled={locked} placeholder="As it is signed" onChange={(e) => patch(i, 'name', e.target.value)} />
+              </div>
+              <div className="field" data-span="3">
+                <label>Position</label>
+                <input value={a.position || ''} disabled={locked} placeholder="e.g. QC Engineer" onChange={(e) => patch(i, 'position', e.target.value)} />
+              </div>
+              <div className="field" data-span="6">
+                <label>Signing as</label>
+                <input value={a.capacity || ''} disabled={locked} placeholder="e.g. Engineering · Third Party (LRQA) · Client" onChange={(e) => patch(i, 'capacity', e.target.value)} />
+                <small className="field-desc">The heading this signature is printed under</small>
+              </div>
+              <div className="field field-full" data-span="6">
+                <label>Signature</label>
+                {sign ? (
+                  <div className="sign-block signed">
+                    {sign.img && <img className="sign-img" src={sign.img} alt="signature" />}
+                    <span className="sign-meta"><span className="sign-name-label">{sign.name}</span><small>{new Date(sign.at).toLocaleString()}</small></span>
+                    {!locked && <button type="button" className="btn btn-ghost btn-sm" onClick={() => set(APPROVER_SIGN(a.id), null)}>Clear</button>}
+                  </div>
+                ) : signLocked ? (
+                  <div className="sign-block sign-locked">🔒 Inspector must sign first</div>
+                ) : !a.name ? (
+                  <div className="sign-block sign-locked">Name this approver first</div>
+                ) : (
+                  <button type="button" className="sign-block sign-empty" disabled={locked} onClick={() => onRequestSign(APPROVER_SIGN(a.id))}>
+                    <IconPen size={13} /> Tap to sign
+                  </button>
+                )}
+              </div>
+            </div>
+          </div>
+        )
+      })}
+      {!locked && <button type="button" className="btn btn-secondary btn-sm" onClick={add}><IconPlus size={15} /> Add approver</button>}
+      {!list.length && locked && <p className="appr-nil">No further approvers were recorded.</p>}
+    </div>
+  )
+}
+
 // ───────────────────────── results table (reject-only cols) ─────────────────────────
 function ResultsSection({ sec, report, update, locked, showErrors }) {
   const rows = report.results || []
@@ -771,8 +846,20 @@ function ResultsSection({ sec, report, update, locked, showErrors }) {
                 if (c.rejOnly && !isRej) return null
                 const missing = showErrors && isRej && c.rejOnly && !row[c.id] && (c.id === 'discontinuity' || c.id === 'remark' || c.id === 'defectType')
                 const req = c.req === 'M' || (c.rejOnly && isRej && (c.id === 'discontinuity' || c.id === 'defectType'))
+                /* A column says how much of the row it takes, in sixths.
+                   The grid used to be two equal halves, which put the
+                   nominal on one line and its Min and Max on the next
+                   two — three lines for one dimension. Nominal at four
+                   sixths with Min and Max sharing the last two reads as
+                   what it is: a figure and the tolerance either side. */
+                const span = c.span || (c.half ? 3 : 6)
+                /* A phone is not six columns wide. Min at a sixth of
+                   330px is 51px, which holds "6055" and not its label,
+                   so the narrow widths say their own proportion. */
+                const spanSm = c.spanSm || span
+                const reading = sec.autoJudge === 'dim' && c.id === 'actual' && (dimDeviation(row) !== '' || breach)
                 return (
-                  <div key={c.id} className={`field${c.half ? '' : ' field-full'}${missing ? ' field-err' : ''}`}>
+                  <div key={c.id} data-span={span} data-span-sm={spanSm} className={`field${missing ? ' field-err' : ''}`}>
                     <label>{c.label}{req && <span className="req">*</span>}{c.unit ? <span className="lbl-unit"> ({c.unit})</span> : null}</label>
                     {c.type === 'segmented'
                       ? <Segmented value={row[c.id] || ''} options={c.options} disabled={locked} onChange={(x) => setRow(i, c.id, x)} />
@@ -780,13 +867,17 @@ function ResultsSection({ sec, report, update, locked, showErrors }) {
                         ? <NumberInput value={row[c.id]} disabled={locked} invalid={missing} onChange={(x) => setRow(i, c.id, x)} />
                         : <input value={row[c.id] || ''} disabled={locked} className={missing ? 'invalid' : undefined} placeholder={c.placeholder} onChange={(e) => setRow(i, c.id, e.target.value)} />}
                     {/* what the measurement means, next to the measurement */}
-                    {sec.autoJudge === 'dim' && c.id === 'actual' && (dimDeviation(row) !== '' || breach) && (
+                    {reading && (
                       <small className={breach ? 'fld-err' : 'field-desc'}>
                         {breach
                           ? `${breach.by} mm ${breach.side === 'max' ? 'above max' : 'below min'} ${breach.limit} — rejected`
                           : `Deviation ${dimDeviation(row)} mm · within limits`}
                       </small>
                     )}
+                    {/* What goes in the box, where a label alone does not
+                        say it. Suppressed once the box has something in
+                        it — the hint is for the first time through. */}
+                    {!reading && c.hint && !row[c.id] && <small className="field-desc">{c.hint}</small>}
                   </div>
                 )
               })}
@@ -1247,6 +1338,8 @@ export default function FormView({ job, formKey, query }) {
               )
             })}
           </div>
+          {sec.extra && <ExtraApprovers values={v} locked={fieldLocked({ field: { type: 'sign' }, sectionLocked: secLocked, role })}
+            set={setValue} onRequestSign={setSignField} signLocked={!v.signInspector} />}
           {/* formal Berita Acara appears automatically on the Test Result section */}
           {sec.id === 'result' && <BeritaAcara schema={schema} report={report} job={cur} inspector={v.inspector || session.name} />}
         </>
@@ -1405,7 +1498,8 @@ export default function FormView({ job, formKey, query }) {
         /* An inspector filing six reports in a shift should draw their
            name once. The signature saved in Settings is offered here as
            the starting point; the pad still lets them draw a fresh one. */
-        <SignaturePad name={signField === 'signInspector' ? (v.inspector || session.name) : session.name}
+        <SignaturePad name={signField === 'signInspector' ? (v.inspector || session.name)
+          : extraApprovers(v).find((a) => APPROVER_SIGN(a.id) === signField)?.name || session.name}
           saved={signField === 'signInspector' ? getSettings().profile.signature : ''}
           onClose={() => setSignField(null)} onSave={(sig) => { setValue(signField, sig); setSignField(null) }} />,
         document.body

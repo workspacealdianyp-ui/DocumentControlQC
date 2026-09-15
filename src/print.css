@@ -70,6 +70,13 @@
 .print-sheet .ps-dim-grid .ps-dim-gutter, .print-sheet .ps-dim-grid .ps-dim-empty { border: 0; background: #fff; }
 .ps-dim-description { display: block; margin-top: .6mm; }
 .ps-dim-grid td small { display: block; margin-top: .6mm; color: var(--print-muted); font-size: 7pt; line-height: 1.25; font-weight: 400; }
+/* The nominal and the tolerance either side of it, side by side. Stacked
+   they made the row three lines tall for one dimension; the figure reads
+   first and the two limits qualify it from the right. */
+.print-sheet .ps-dim-spec { text-align: left; }
+.ps-dim-spec { display: flex; align-items: center; justify-content: space-between; gap: 1.5mm; }
+.ps-dim-nom { font-weight: 700; font-variant-numeric: tabular-nums; }
+.ps-dim-tol { color: var(--print-muted); font-size: 7pt; line-height: 1.25; text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
 .ps-measured { font-weight: 700; }
 .ps-result-acc { font-weight: 700; }
 .ps-result-rej { color: var(--print-ink); font-weight: 700; text-decoration: underline; text-underline-offset: 2px; }
@@ -79,6 +86,10 @@
 .ps-sign-space { height: 13mm; display: flex; align-items: center; justify-content: center; }
 .ps-sign-img { display: block; max-height: 12mm; max-width: 100%; object-fit: contain; }
 .ps-sign-name { border-top: .6pt solid var(--print-line); padding-top: 1.5mm; font-weight: 600; font-size: 8.5pt; overflow-wrap: anywhere; }
+/* The position the person holds, under their name. The heading above the
+   box says the capacity they signed in, which is the thing a data book
+   is read for; this says who they are inside the company. */
+.ps-sign-post { margin-top: .6mm; color: var(--print-muted); font-size: 7.5pt; line-height: 1.3; overflow-wrap: anywhere; }
 .ps-sign-date { margin-top: 1mm; color: var(--print-muted); font-size: 7.5pt; }
 .ps-statement-copy, .ps-statement p { font-size: 9pt; line-height: 1.5; white-space: pre-wrap; }
 .ps-na { color: var(--print-muted); font-size: 8.5pt; line-height: 1.5; padding: 1mm 0; }
@@ -87,7 +98,17 @@
 .print-sheet .ps-photo-grid td { border: 0; width: 50%; padding: 0 2mm; }
 .print-sheet .ps-photo-grid td:first-child { padding-left: 0; }
 .print-sheet .ps-photo-grid td:last-child { padding-right: 0; }
-.ps-photo-frame { width: 100%; height: 150mm; display: flex; align-items: center; justify-content: center; padding: 2mm; border: .5pt solid var(--print-line); background: #fff; }
+.ps-photo-frame { position: relative; width: 100%; height: 150mm; display: flex; align-items: center; justify-content: center; padding: 2mm; border: .5pt solid var(--print-line); background: #fff; }
+/* The drawing number, stamped in the corner of the drawing — where a
+   title block puts it, and where anybody who has held a drawing looks. */
+.ps-photo-tag {
+  position: absolute; top: 0; right: 0;
+  padding: 1mm 2mm;
+  border-left: .5pt solid var(--print-line); border-bottom: .5pt solid var(--print-line);
+  background: var(--print-fill);
+  font-family: Arial, Helvetica, sans-serif; font-size: 7.5pt; font-weight: 700;
+  letter-spacing: .02em; color: var(--print-ink);
+}
 .ps-photo { display: block; width: 100%; height: 100%; max-height: 100%; max-width: 100%; object-fit: contain; }
 .ps-evidence-full .ps-photo-frame { height: 180mm; }
 .ps-evidence-map .ps-photo-frame { height: 72mm; }
