@@ -21,16 +21,12 @@ const KAT_LABEL = { SUPEQ: 'Support Equipment', TRAILER: 'Trailer', 'NON TRAILER
 
 /* A label and its value, as the pair they are: dt and dd rather than
    two spans, so a screen reader is handed the relation the eye gets from
-   the layout. `flag` is for a verdict on the value — the job's status
-   sits against its target delivery — and `wide` gives that cell the two
-   columns the pair then needs. */
-const Meta = ({ label, value, note, tone, flag, wide }) => (
-  <div className={`meta-item${wide ? ' is-wide' : ''}`}>
+   the layout. The value may be a chip rather than words — the status is
+   one of these facts, and it is a chip everywhere else in the app. */
+const Meta = ({ label, value, note, tone }) => (
+  <div className="meta-item">
     <dt className="meta-label">{label}</dt>
-    <dd className="meta-value">
-      {value || '—'}
-      {flag}
-    </dd>
+    <dd className="meta-value">{value || '—'}</dd>
     {note && <dd className={`meta-note${tone ? ` is-${tone}` : ''}`}>{note}</dd>}
   </div>
 )
@@ -172,6 +168,15 @@ export default function JobDetail({ job }) {
   const done = !!p.applicable && p.done === p.applicable
   const countdown = deliveryCountdown(job, done)
 
+  /* Where the unit stands, in the same vocabulary a deliverable uses, so
+     the job and the rows under it are read with one set of words. Late
+     outranks in-progress: a unit with four of nine reports in and a date
+     that has gone is overdue, not progressing. */
+  const jobState = done ? 'done'
+    : p.overdue ? 'overdue'
+      : p.recorded ? 'inprogress'
+        : 'notstarted'
+
   return (
     <div className="page">
       {/* The same band every document in this app wears, with the ring
@@ -235,17 +240,20 @@ export default function JobDetail({ job }) {
           the card — on a phone it was the one fact that had to break
           across two lines.
 
-          Six short facts used to be laid out three to a row with 18px of
-          air between them, which left the last one alone on a row of its
-          own and made a 250px card out of 60px of writing. They pack to
-          the width now: one row on a desk, where the target delivery
-          takes two of its tracks; on a phone it closes the card as a
-          full row of its own.
+          The status is the last of them, next to the date it answers to,
+          and it is here always rather than only when the unit is late:
+          "where does this stand" is the first question the page is
+          asked, and a card that only speaks up on bad news cannot be
+          read for it. In the band it floated in the middle of the plate,
+          belonging to neither the title nor the picture.
 
-          The status came down off the band and stands here, against the
-          target delivery — which is the fact it is a verdict on. In the
-          band it floated in the middle of the plate, belonging to
-          neither the title nor the picture. */}
+          Six facts used to be laid out three to a row with 18px of air
+          between them, which left the last one alone on a row of its own
+          and made a 250px block out of 60px of writing. On a desk they
+          are now one row divided into as many equal columns as there are
+          facts, so the row reaches the right edge whether a job carries
+          a separate type or not; below that it wraps into three, then
+          two, which six divides into exactly. */}
       <div className="card jd-meta-card">
         <dl className="meta-grid">
           {job.type && job.type.toUpperCase() !== (job.productDesc || '').toUpperCase() &&
@@ -256,8 +264,8 @@ export default function JobDetail({ job }) {
           <Meta label="Date PB" value={fmtDate(job.datePB)} />
           {/* A date on its own asks the reader to count. */}
           <Meta label="Target delivery" value={fmtDate(dueDate(job))}
-            note={countdown?.note} tone={countdown?.tone} wide
-            flag={p.overdue && !done ? <span className="report-state is-compact state-overdue">Overdue</span> : null} />
+            note={countdown?.note} tone={countdown?.tone} />
+          <Meta label="Status" value={<StatusChip status={jobState} />} />
         </dl>
       </div>
 
