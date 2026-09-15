@@ -9,7 +9,7 @@ import { reportsFor } from '../lib/store.js'
 import { requiredFor } from '../lib/jobOrders.js'
 import StatusChip, { StateBadge } from './StatusChip.jsx'
 import MdrReport from './MdrReport.jsx'
-import { ReportId } from './Reports.jsx'
+import { ReportId, ReportMark } from './Reports.jsx'
 import CompletionDial from './CompletionDial.jsx'
 import { reportResult } from '../lib/verdict.js'
 import { IconPrint, IconChevronD } from './Icons.jsx'
@@ -341,7 +341,7 @@ export default function JobDetail({ job }) {
               role={tappable ? 'button' : undefined} tabIndex={tappable ? 0 : undefined}
               onClick={tappable ? () => openDeliv(d, cell, last) : undefined}
               onKeyDown={tappable ? (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openDeliv(d, cell, last) } } : undefined}>
-              <span className="rep-code" aria-hidden="true">{d.short}</span>
+              <ReportMark code={d.short} />
               <strong className="rep-id">{d.label}</strong>
               {/* Done and rejected are not the same fact. A deliverable
                   whose report found a non-conformance still counts as
@@ -419,7 +419,7 @@ export default function JobDetail({ job }) {
                   <div className={`rep-card tone-${r.status}`} role="button" tabIndex={0}
                     onClick={() => openDoc(r)}
                     onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openDoc(r) } }}>
-                    <span className="rep-code" aria-hidden="true">{FORM_SCHEMAS[r.formKey]?.code || '—'}</span>
+                    <ReportMark code={FORM_SCHEMAS[r.formKey]?.code || '—'} />
                     <strong className="rep-id">
                       {FORM_SCHEMAS[r.formKey]?.title || r.deliverable}
                       {spare && <em className="rep-spare" title="Filed before the order was revised">not in this order</em>}

@@ -113,8 +113,10 @@ async function main() {
 
       await page.goto(`${BASE}/#/reports`, { waitUntil: 'networkidle' })
       await page.waitForTimeout(1100)
-      const bins = await page.locator('.rep-del').count()
-      check(!!bins === canManage, `${who} ${canManage ? 'sees' : 'does not see'} the record actions in the register`)
+      // The bin is gone: a record action now lives behind the card's
+      // command button, which is the hold's keyboard-reachable door.
+      const cmds = await page.locator('.rep-menu').count()
+      check(!!cmds === canManage, `${who} ${canManage ? 'sees' : 'does not see'} the record actions in the register`)
       await page.close()
     }
 
@@ -127,10 +129,22 @@ async function main() {
     await page.waitForTimeout(1400)
 
     const before = await page.evaluate(() => JSON.parse(localStorage.getItem('qc.reports') || '[]').length)
-    const label = await page.locator('.rep-del').first().getAttribute('aria-label')
-    check(/^Void /.test(label || ''), `the action on an approved report is Void, not Delete (${label})`)
 
-    await page.locator('.rep-del').first().click()
+    /* The command is behind the card now, not on it. Opening it is the
+       first of the three steps that stand between a scrolling list and a
+       destroyed record; the confirm dialog and its written reason are
+       the other two. */
+    const openCmds = async () => {
+      await page.locator('.rep-menu').first().click()
+      await page.waitForTimeout(350)
+    }
+
+    await openCmds()
+    check(await page.locator('.rep-cmd.is-danger').isVisible(), 'the card gives up its commands')
+    const word = (await page.locator('.rep-cmd.is-danger').innerText()).trim()
+    check(/^Void$/i.test(word), `the action on an approved report is Void, not Delete (${word})`)
+
+    await page.locator('.rep-cmd.is-danger').click()
     await page.waitForTimeout(500)
     check(await page.locator('[role="dialog"]').isVisible(), 'it asks before it acts')
     check(/not deleted/i.test(await page.locator('.confirm-body').innerText()), 'the dialog says the record is kept')
@@ -151,7 +165,8 @@ async function main() {
     check(after.voided === 1, 'the report is marked void and kept')
 
     // Escape closes without acting.
-    await page.locator('.rep-del').first().click()
+    await openCmds()
+    await page.locator('.rep-cmd.is-danger').click()
     await page.waitForTimeout(400)
     await page.keyboard.press('Escape')
     await page.waitForTimeout(300)
