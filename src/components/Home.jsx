@@ -12,6 +12,7 @@ import { scopeReports, sortReview } from '../lib/reportScope.js'
 import { REPORT_CHOICES, reportCode } from '../lib/reportChoices.js'
 import { useCalendarDate } from '../lib/useCalendarDate.js'
 import { IconPlus, IconApprove, IconGrid, IconAlert, IconCloudUp, IconCloudOff, IconChevronR, IconReturn } from './Icons.jsx'
+import { ReportMark } from './Reports.jsx'
 import ReportLauncher from './ReportLauncher.jsx'
 import './Home.css'
 
@@ -35,7 +36,7 @@ function ReportRows({ records, review, onOpen, session, empty }) {
   if (!records.length) return <p className="home-empty">{empty}</p>
   return <ul className="home-records">{records.slice(0, 3).map((r) => <li key={r.id}>
     <a className="home-report-row" href={href(reportPath(r))} onClick={(e) => onOpen(e, r)} aria-label={`Open report ${r.reportId}`}>
-      <span className={`home-form-code is-${r.status}`}>{FORM_SCHEMAS[r.formKey]?.code || 'DOC'}</span>
+      <ReportMark code={FORM_SCHEMAS[r.formKey]?.code || 'DOC'} tone={r.status} />
       <span className="home-report-copy"><strong>{r.reportId}</strong>
         <span>Job {r.jobNo} · {REPORT_LABELS[r.status] || r.status}</span>
         {r.status === 'returned' && r.returnNote && <span className="home-return-note">{r.returnNote}</span>}
@@ -248,7 +249,7 @@ export function HomeView({ data, customers, records, role, session, now, onOpen,
           here as it is everywhere else in the app, so it is told by its
           words and its shape and not only by its colour. */}
       {recent.length ? <div className="home-updates">{recent.map((r) => <a key={r.id} href={href(reportPath(r))} onClick={(e) => onOpen(e, r)} aria-label={`Open report ${r.reportId}`}>
-        <span className={`home-form-code is-${r.status}`}>{FORM_SCHEMAS[r.formKey]?.code || 'DOC'}</span>
+        <ReportMark code={FORM_SCHEMAS[r.formKey]?.code || 'DOC'} tone={r.status} />
         <span className="home-update-copy">
           <strong>{r.reportId}</strong>
           <small>Job {r.jobNo}</small>

@@ -15,7 +15,7 @@ import SignaturePad from './SignaturePad.jsx'
 import JobPicker from './JobPicker.jsx'
 import Masthead from './Masthead.jsx'
 import { artFor } from '../lib/productArt.js'
-import { IconPlus, IconTrash, IconPrint, IconPen, IconCheck, IconClock, IconAlert, IconSearch, IconChevronD, IconChevronR, IconReturn, STATE_META } from './Icons.jsx'
+import { IconPlus, IconTrash, IconPen, IconCheck, IconClock, IconAlert, IconSearch, IconChevronD, IconChevronR, IconReturn } from './Icons.jsx'
 
 // resolve a field label that may be a function of values
 const lbl = (f, v) => (typeof f.label === 'function' ? f.label(v) : f.label)
@@ -1272,16 +1272,21 @@ export default function FormView({ job, formKey, query }) {
         eyebrow={<>{deliverable}{cur ? <> · Job {cur.jobNo}</> : null}</>}
         sub={<>{v.reportId}{cur?.productDesc ? <> · {cur.productDesc}</> : null}</>}
         art={artFor(cur?.productDesc, cur?.type)}
-        onBack={onBack}>
-        <button className="btn btn-secondary btn-sm" onClick={() => setShowPdf(true)}>
-          <IconPrint size={13} /> PDF
-        </button>
-        {/* The word comes from the one table that names these states.
-            Spelled out here, the chain fell through to "Submitted" for
-            anything it did not list — so a returned report wore the
-            right colour under the wrong word. */}
-        <span className={`report-state state-${reportStatus}`}>{STATE_META[reportStatus]?.label || 'Submitted'}</span>
-      </Masthead>
+        onBack={onBack} />
+
+      {/* The band used to carry a PDF button and a state badge. Neither
+          belonged on a form somebody is filling in: there is nothing to
+          print until the report is filed, and the state of a draft you
+          are editing is that you are editing it. A submitted report
+          opens read-only through ReportDetail above, which has both in
+          a bar of its own — and where the state does matter here, it is
+          already said in words directly below, by the read-only note or
+          by the sent-back note.
+
+          They also could not have stayed where they were. The band
+          reserves its right 44% for the machine, so its far-right slot
+          landed in the middle of the plate, between the title and the
+          picture, reading as neither. */}
 
       {readOnly && <div className="readonly-note">Read-only{submitted ? '. This report has been submitted' : '. Your role cannot edit reports'}.</div>}
 
@@ -1396,7 +1401,6 @@ export default function FormView({ job, formKey, query }) {
       {missing && missing.length > 0 && createPortal(
         <MissingDialog items={missing} onGo={goTo} onClose={() => setMissing(null)} />, document.body)}
 
-      {showPdf && createPortal(<PrintReport schema={schema} report={report} job={cur} deliverable={deliverable} status={reportStatus} onClose={() => setShowPdf(false)} />, document.body)}
       {signField && createPortal(
         /* An inspector filing six reports in a shift should draw their
            name once. The signature saved in Settings is offered here as

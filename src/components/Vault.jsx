@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useApp, navigate } from '../App.jsx'
+import { ReportMark } from './Reports.jsx'
 import { FORM_SCHEMAS } from '../data/formSchemas.js'
 import { getReports } from '../lib/store.js'
 import { fmtDateTime } from '../lib/status.js'
@@ -234,10 +235,6 @@ export default function Vault() {
               )}
             </ToolButton>
           </div>
-          <span className="mon-count">
-            {rows.length} document{rows.length === 1 ? '' : 's'}
-            {rows.length > shown.length && <> · showing {shown.length}</>}
-          </span>
         </div>
 
         {rows.length === 0 ? (
@@ -274,7 +271,7 @@ export default function Vault() {
               const ncr = reportResult(r) === 'Reject'
               return (
                 <button key={r.id} className="reg-row vt-row" onClick={() => open(r)}>
-                  <span className="spine">{FORM_SCHEMAS[r.formKey]?.code || '—'}</span>
+                  <ReportMark code={FORM_SCHEMAS[r.formKey]?.code || '—'} tone={r.status} />
                   <span className="reg-id">
                     <strong className="is-code">{r.reportId}</strong>
                     <small>

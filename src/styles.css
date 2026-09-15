@@ -4221,11 +4221,15 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber-line); out
    state — a square that said nothing about what the row was. The sheet
    says it, and the tab keeps the code and takes the tint, so the state
    is still carried by colour there and by the badge's words beside it. */
+/* No grid-area of its own: the mark is used in five lists now, and only
+   one of them is the card whose grid has a `code` area. The card places
+   it; everywhere else the row's own column does. */
 .rep-code {
-  grid-area: code; position: relative;
+  position: relative;
   width: 38px; height: 46px; flex: none;
   color: var(--line-2);
 }
+.rep-card > .rep-code { grid-area: code; }
 .rep-code svg { display: block; width: 100%; height: 100%; }
 .rep-code .rep-sheet { fill: var(--surface-2); }
 .rep-code .rep-rule { color: var(--line-2); opacity: 0.85; }
@@ -4239,11 +4243,21 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber-line); out
      the sheet rather than a shape sharing its outline. */
   box-shadow: 0 0 0 2px var(--surface);
 }
-.rep-card.tone-draft     .rep-code b { background: var(--inprog); }
-.rep-card.tone-submitted .rep-code b { background: var(--review); }
-.rep-card.tone-approved  .rep-code b { background: var(--done); }
-.rep-card.tone-returned  .rep-code b { background: var(--overdue); }
-.rep-card.tone-ncr       .rep-code b { background: var(--overdue); }
+/* The tab is tinted by the mark's own class rather than by an ancestor
+   card, so a row in Home, the vault or a job page tints it the same way
+   the register does. Two vocabularies land here: a report's lifecycle,
+   and a deliverable's standing. */
+.rep-code.is-draft      b { background: var(--inprog); }
+.rep-code.is-submitted  b { background: var(--review); }
+.rep-code.is-approved   b { background: var(--done); }
+.rep-code.is-returned   b { background: var(--overdue); }
+.rep-code.is-voided     b { background: var(--na); }
+.rep-code.is-ncr        b { background: var(--overdue); }
+.rep-code.is-done       b { background: var(--done); }
+.rep-code.is-inprogress b { background: var(--inprog); }
+.rep-code.is-notstarted b { background: var(--notstart); }
+.rep-code.is-overdue    b { background: var(--overdue); }
+.rep-code.is-na         b { background: var(--na); }
 
 .rep-id {
   grid-area: id; align-self: end;
@@ -5286,15 +5300,18 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber-line); out
 
    Not --amber itself. The fill measures about 1.6:1 on white — below
    every threshold there is, and this is an app read on a tablet in a
-   workshop under whatever light the roof lets in. This is --amber-deep,
-   5.2:1 on the band, which clears AA for text at this size with room to
-   spare and is still unmistakably the same colour. */
+   workshop under whatever light the roof lets in.
+
+   --amber-deep was too dark for it: at 5.2:1 it read as brown rather
+   than as the shop's gold. This is --amber-line, 3.7:1 on the band —
+   which is the threshold for text this size, 30px at weight 750, not
+   the 4.5:1 that body copy has to clear. */
 .masthead.is-job .masthead-txt h2 {
   font-family: var(--display);
   font-size: 30px; font-weight: 750;
   letter-spacing: -0.012em; line-height: 1.08;
   text-transform: uppercase;
-  color: var(--amber-deep);
+  color: var(--amber-line);
   font-variation-settings: 'opsz' 32;
 }
 :root[data-theme="dark"] .masthead.is-job .masthead-txt h2 { color: var(--amber); }

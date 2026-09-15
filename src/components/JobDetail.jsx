@@ -341,7 +341,7 @@ export default function JobDetail({ job }) {
               role={tappable ? 'button' : undefined} tabIndex={tappable ? 0 : undefined}
               onClick={tappable ? () => openDeliv(d, cell, last) : undefined}
               onKeyDown={tappable ? (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openDeliv(d, cell, last) } } : undefined}>
-              <ReportMark code={d.short} />
+              <ReportMark code={d.short} tone={cell.status} />
               <strong className="rep-id">{d.label}</strong>
               {/* Done and rejected are not the same fact. A deliverable
                   whose report found a non-conformance still counts as
@@ -419,7 +419,7 @@ export default function JobDetail({ job }) {
                   <div className={`rep-card tone-${r.status}`} role="button" tabIndex={0}
                     onClick={() => openDoc(r)}
                     onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openDoc(r) } }}>
-                    <ReportMark code={FORM_SCHEMAS[r.formKey]?.code || '—'} />
+                    <ReportMark code={FORM_SCHEMAS[r.formKey]?.code || '—'} tone={r.status} />
                     <strong className="rep-id">
                       {FORM_SCHEMAS[r.formKey]?.title || r.deliverable}
                       {spare && <em className="rep-spare" title="Filed before the order was revised">not in this order</em>}
