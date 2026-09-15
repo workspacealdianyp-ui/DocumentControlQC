@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { createPortal } from 'react-dom'
 import { useApp, navigate } from '../App.jsx'
-import { FORM_SCHEMAS, IDENT_GROUPS, dimRowStatus, dimDeviation, dimBreach, APPROVER_SIGN, extraApprovers } from '../data/formSchemas.js'
+import { FORM_SCHEMAS, IDENT_GROUPS, dimRowStatus, dimDeviation, dimBreach, APPROVER_SIGN, APPROVER_ACTS, extraApprovers } from '../data/formSchemas.js'
 import { getReport, saveReport, nextReportId, approveReport, canApprove, reviseReport, returnReport, withoutOpenReturn } from '../lib/store.js'
 import { MR } from '../lib/compute.js'
 import { fmtDate, fmtDateTime } from '../lib/status.js'
@@ -23,9 +23,9 @@ const showField = (f, v) => (typeof f.showIf === 'function' ? f.showIf(v) : true
 const isReq = (f, v) => f.req === 'M' || (f.reqIf && v[f.reqIf.field] === f.reqIf.eq)
 
 // ───────────────────────── primitive inputs ─────────────────────────
-function Segmented({ value, options, onChange, disabled, invalid }) {
+function Segmented({ value, options, onChange, disabled, invalid, wrap }) {
   return (
-    <div className={`seg${invalid ? ' invalid' : ''}`} role="radiogroup">
+    <div className={`seg${wrap ? ' is-wrap' : ''}${invalid ? ' invalid' : ''}`} role="radiogroup">
       {options.map((o) => (
         <button key={o} type="button" disabled={disabled} role="radio" aria-checked={value === o}
           className={`seg-btn${value === o ? ' active' : ''}`} onClick={() => onChange(o)}>{o}</button>
@@ -479,7 +479,7 @@ function EngineField({ f, values, reqValues, report, set, locked, invalid, onReq
       )
       break
     case 'photos-inline':
-      control = <PhotoStrip photos={v[f.id] || []} disabled={locked} onChange={(p) => set(f.id, p)} />
+      control = <PhotoStrip photos={v[f.id] || []} disabled={locked} max={f.max} onChange={(p) => set(f.id, p)} />
       break
     default:
       control = <input value={v[f.id] || ''} disabled={disabled} placeholder={f.placeholder} onChange={(e) => set(f.id, e.target.value)} />
@@ -574,7 +574,12 @@ function IdentitySection({ sec, values, job, locked, onJobChange }) {
 }
 
 // ───────────────────────── photo strip ─────────────────────────
-function PhotoStrip({ photos, disabled, onChange }) {
+/* `max` is for the fields that take exactly one image — the point map
+   is balloon-ed against a single marked-up view, and a second one leaves
+   the table with no way to say which balloons belong to which drawing.
+   At the limit the button goes rather than being disabled: there is
+   nothing for it to do and the one photo already on screen says why. */
+function PhotoStrip({ photos, disabled, onChange, max }) {
   const [zoom, setZoom] = useState(null)
   const [addErr, setAddErr] = useState(null)
   /* Photos are scaled on the way in. Straight off a phone they are 3-5 MB
@@ -594,7 +599,8 @@ function PhotoStrip({ photos, disabled, onChange }) {
         if (r.status === 'fulfilled') ok.push({ id: 'p' + Date.now() + Math.random(), img: r.value, label: '' })
         else bad.push(files[i]?.name || 'one file')
       })
-      if (ok.length) onChange([...photos, ...ok])
+      const room = max ? Math.max(0, max - photos.length) : ok.length
+      if (ok.length) onChange([...photos, ...ok.slice(0, room)])
       if (bad.length) setAddErr(`${bad.join(', ')} could not be added — try a JPEG or PNG.`)
     })
   }
@@ -609,10 +615,10 @@ function PhotoStrip({ photos, disabled, onChange }) {
         </div>
       ))}
       {addErr && <p className="photo-err" role="alert">{addErr}</p>}
-      {!disabled && (
+      {!disabled && !(max && photos.length >= max) && (
         <label className="photo-add">
-          <IconPlus size={18} /><span>Add photo</span>
-          <input type="file" accept="image/*" multiple capture="environment" hidden onChange={add} />
+          <IconPlus size={18} /><span>{max === 1 ? 'Add drawing' : 'Add photo'}</span>
+          <input type="file" accept="image/*" multiple={max !== 1} capture="environment" hidden onChange={add} />
         </label>
       )}
       {zoom && createPortal(
@@ -754,7 +760,7 @@ function ExtraApprovers({ values, locked, set, onRequestSign, signLocked }) {
   const write = (next) => set('approvers', next)
   const patch = (i, key, val) => write(list.map((a, j) => (j === i ? { ...a, [key]: val } : a)))
   const nextId = () => String(1 + Math.max(0, ...list.map((a) => Number(a.id) || 0)))
-  const add = () => write([...list, { id: nextId(), name: '', position: '', capacity: '' }])
+  const add = () => write([...list, { id: nextId(), name: '', position: '', capacity: APPROVER_ACTS[0] }])
   const drop = (i) => {
     set(APPROVER_SIGN(list[i].id), null)
     write(list.filter((_, j) => j !== i))
@@ -779,9 +785,9 @@ function ExtraApprovers({ values, locked, set, onRequestSign, signLocked }) {
                 <input value={a.position || ''} disabled={locked} placeholder="e.g. QC Engineer" onChange={(e) => patch(i, 'position', e.target.value)} />
               </div>
               <div className="field" data-span="6">
-                <label>Signing as</label>
-                <input value={a.capacity || ''} disabled={locked} placeholder="e.g. Engineering · Third Party (LRQA) · Client" onChange={(e) => patch(i, 'capacity', e.target.value)} />
-                <small className="field-desc">The heading this signature is printed under</small>
+                <label>Signing as<span className="req">*</span></label>
+                <Segmented value={a.capacity || ''} options={APPROVER_ACTS} disabled={locked} wrap onChange={(x) => patch(i, 'capacity', x)} />
+                <small className="field-desc">The act this signature records — the heading it is printed under</small>
               </div>
               <div className="field field-full" data-span="6">
                 <label>Signature</label>
@@ -793,8 +799,8 @@ function ExtraApprovers({ values, locked, set, onRequestSign, signLocked }) {
                   </div>
                 ) : signLocked ? (
                   <div className="sign-block sign-locked">🔒 Inspector must sign first</div>
-                ) : !a.name ? (
-                  <div className="sign-block sign-locked">Name this approver first</div>
+                ) : !a.name || !a.capacity ? (
+                  <div className="sign-block sign-locked">{!a.name ? 'Name this approver first' : 'Say what they are signing as first'}</div>
                 ) : (
                   <button type="button" className="sign-block sign-empty" disabled={locked} onClick={() => onRequestSign(APPROVER_SIGN(a.id))}>
                     <IconPen size={13} /> Tap to sign
@@ -1058,6 +1064,23 @@ export default function FormView({ job, formKey, query }) {
      and where Back goes. */
   const cur = jobs.find((j) => j.jobNo === v.jobNo) || job
 
+  /* A signature added while the report is waiting for approval.
+
+     Approvals do not all happen when the form is written. The second
+     person to read a report is often the one who knows that engineering
+     witnessed it or that the client's surveyor attended, and by then the
+     form is closed and the record is read-only. So this writes the
+     approver list and the marks against it and nothing else, straight to
+     the store, since there is no open form to save through. */
+  const addSignature = (patch) => {
+    const rep = { ...report, values: { ...report.values, ...patch }, synced: false }
+    try { saveReport(rep) } catch (err) {
+      notify(err?.message || 'This browser refused to save the signature.', 'err')
+      return false
+    }
+    setReport(rep); refresh(); return true
+  }
+
   // a submitted/approved report opens as a read-only DETAIL view, not the edit form
   if (submitted && !forceEdit) {
     return (
@@ -1066,6 +1089,7 @@ export default function FormView({ job, formKey, query }) {
           schema={schema} report={report} job={cur} deliverable={deliverable} status={reportStatus} role={role} session={session}
           onBack={() => navigate(`/job/${cur.jobNo}`)}
           onPdf={() => setShowPdf(true)}
+          onSign={addSignature}
           onApprove={() => {
             try {
               approveReport(report.id, session.name)

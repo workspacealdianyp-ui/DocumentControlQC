@@ -83,16 +83,24 @@ describe('the dimensional form asks for what the sheet prints', () => {
     expect(cols[0].req).toBe('M')
   })
 
-  /* The nominal is the drawing dimension and Min/Max are the tolerance
-     either side of it, so the three sit on one line in that proportion:
-     the figure at four sixths, the pair that qualifies it sharing the
-     last two. Stacked, one dimension cost three lines. */
-  it('sets the nominal against its tolerance on one line', () => {
+  /* The balloon identifies the row, the nominal is the drawing dimension
+     and Min/Max are the tolerance either side of it — one line of six
+     sixths. Description went: the map above already says what each
+     balloon measures, and the column made an inspector retype it. */
+  it('puts the balloon, the nominal and its tolerance on one line', () => {
     const by = Object.fromEntries(sec('results').columns.map((c) => [c.id, c]))
-    expect(by.nominal.span).toBe(4)
-    expect(by.min.span).toBe(1)
-    expect(by.max.span).toBe(1)
-    expect(by.nominal.span + by.min.span + by.max.span).toBe(6)
+    expect(by.description).toBeUndefined()
+    expect(by.itemNo.span + by.nominal.span + by.min.span + by.max.span).toBe(6)
+    expect(by.nominal.span).toBeGreaterThan(by.min.span)
+  })
+
+  // Every column adds to a whole row at both widths, so no row of the
+  // card is ever left part-built.
+  it('divides the row exactly, at both widths', () => {
+    const cols = sec('results').columns
+    const sum = (key) => cols.reduce((total, c) => total + (c[key] || c.span), 0)
+    expect(sum('span') % 6).toBe(0)
+    expect(sum('spanSm') % 6).toBe(0)
   })
 
   // A label naming itself is not an instruction: "Dim." over an empty
@@ -101,6 +109,11 @@ describe('the dimensional form asks for what the sheet prints', () => {
   it('says what goes in the columns a label cannot explain', () => {
     const by = Object.fromEntries(sec('results').columns.map((c) => [c.id, c]))
     expect(by.itemNo.hint).toBeTruthy()
-    expect(by.description.hint).toBeTruthy()
+    expect(by.nominal.hint).toBeTruthy()
+  })
+
+  // One drawing: the table is balloon-ed against a single marked-up view.
+  it('takes one point map', () => {
+    expect(sec('drawing').fields.find((f) => f.id === 'drawingFile').max).toBe(1)
   })
 })

@@ -37,6 +37,7 @@
      screen, so it is ink. Measured against each of the four: white on
      --inprog 4.7:1, --review 8.3:1, --done 4.6:1, --overdue 5.9:1. */
   --on-status: #ffffff;
+  --pen: #1b3f8f;          /* signature ink — a shade off the text's black */
   --amber-soft: #fff8e0;
   --amber-tint: #ffeec2;   /* the rail's active pill */
   --file-line: #e8cf8a;    /* the hairline a required jacket is drawn with */
@@ -181,6 +182,7 @@
   --amber-line: #d9aa35;
   --on-amber: #171b20;
   --on-status: #14171c;
+  --pen: #8fb6ff;          /* the pen at night: a pale ink on a dark card */
   --amber-soft: #2b2410;
   --amber-tint: #342b12;
   /* On #17171b the light hairline vanishes; the jacket keeps its hue by
@@ -305,8 +307,7 @@
    little stops a scanned form burning a hole in a dark page. */
 :root[data-theme="dark"] .photo-thumb img,
 :root[data-theme="dark"] .detail-photos img,
-:root[data-theme="dark"] .sign-img,
-:root[data-theme="dark"] .detail-sign-img { filter: brightness(0.92); }
+:root[data-theme="dark"] .sign-img { filter: brightness(0.92); }
 
 
 * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -1080,16 +1081,6 @@ td.th-action { display: flex; gap: 6px; justify-content: flex-end; align-items: 
 .table-scroll { overflow-x: auto; }
 
 /* ───────────────────────── job detail hero ───────────────────────── */
-.job-hero { background: var(--ink); color: #e8eef6; border-radius: var(--r-lg); padding: 0; margin-bottom: 16px; display: flex; gap: 18px; align-items: stretch; flex-wrap: wrap; overflow: hidden; border: 1px solid var(--ink); }
-.job-hero::before { content: ''; align-self: stretch; width: 5px; background-image: repeating-linear-gradient(180deg, var(--amber) 0 2px, transparent 2px 10px); }
-.job-hero-info { flex: 1; min-width: 240px; display: flex; flex-direction: column; gap: 5px; padding: 20px 4px 20px 0; }
-.job-hero h2 { color: #fff; font-size: 20px; }
-.job-hero-info p { margin: 0; color: #9fb0c6; font-size: 12.5px; line-height: 1.4; }
-.job-hero .jc-type { background: rgba(255,255,255,0.1); }
-.job-hero .ring-wrap { align-self: center; margin: 16px 20px 16px 0; }
-.job-hero .ring-track { stroke: rgba(255,255,255,0.12); }
-.job-hero .ring-label strong { color: #fff; }
-.job-hero .ring-label small { color: #8295ad; }
 /* ── the order, at a glance ─────────────────────────────────────────
    The unit's facts: a stamped label and, under it, the figure. One row
    of equal columns, however many facts there are — grid-auto-flow:
@@ -1549,6 +1540,11 @@ td.th-action { display: flex; gap: 6px; justify-content: flex-end; align-items: 
 .seg-btn:hover:not(.active):not(:disabled) { color: var(--text); background: var(--surface); }
 .seg-btn.active { background: var(--steel); color: #fff; font-weight: 600; box-shadow: 0 3px 10px rgba(30,64,175,0.28); }
 .seg-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+/* Five positions do not fit one line on a phone. The switch stays one
+   switch and its positions wrap inside it, rather than the row scrolling
+   or the words breaking. */
+.seg.is-wrap { flex-wrap: wrap; }
+.seg.is-wrap .seg-btn { flex: 1 1 130px; }
 
 /* choice chips */
 .choice-wrap { display: flex; flex-wrap: wrap; gap: 8px; }
@@ -1628,19 +1624,14 @@ td.th-action { display: flex; gap: 6px; justify-content: flex-end; align-items: 
 .rowcard-body > .field-full { grid-column: 1 / -1; }
 .rowcard-body > [data-span='1'] { grid-column: span 1; }
 .rowcard-body > [data-span='2'] { grid-column: span 2; }
-.rowcard-body > [data-span='3'] { grid-column: span 3; }
 .rowcard-body > [data-span='4'] { grid-column: span 4; }
-.rowcard-body > [data-span='5'] { grid-column: span 5; }
 .rowcard-body > [data-span='6'] { grid-column: span 6; }
 /* Narrow: the same proportions would put a four-digit millimetre reading
    in 51px. Each column states the share it takes at this width instead. */
 @media (max-width: 620px) {
-  .rowcard-body > [data-span-sm='1'] { grid-column: span 1; }
   .rowcard-body > [data-span-sm='2'] { grid-column: span 2; }
   .rowcard-body > [data-span-sm='3'] { grid-column: span 3; }
   .rowcard-body > [data-span-sm='4'] { grid-column: span 4; }
-  .rowcard-body > [data-span-sm='5'] { grid-column: span 5; }
-  .rowcard-body > [data-span-sm='6'] { grid-column: span 6; }
 }
 
 /* An approver the form did not name: three lines of who, then the mark.
@@ -2161,20 +2152,48 @@ td.th-action { display: flex; gap: 6px; justify-content: flex-end; align-items: 
 .detail-photos img { display: block; width: 100%; height: 110px; object-fit: cover; }
 .detail-photos figcaption { padding: 6px 8px; font-size: 11px; color: var(--text-2); }
 .detail-signs { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 14px; }
+/* One shape whether it is signed or not: the act, the space the mark
+   goes in, the name, the rule, then the position and the date. Every
+   card is the same height, so a block of four reads as a signature block
+   rather than as four differently sized boxes. */
 .detail-sign { display: flex; flex-direction: column; align-items: center; gap: 3px; padding: 12px; border: 1px solid var(--line); border-radius: var(--r); background: var(--surface-2); text-align: center; }
-.detail-sign-role { font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-3); font-weight: 700; }
-.detail-sign-img { max-height: 52px; max-width: 90%; object-fit: contain; }
-.detail-sign-script { font-family: 'Segoe Script', 'Brush Script MT', cursive; font-size: 22px; color: var(--text); min-height: 40px; display: flex; align-items: center; }
-.detail-sign-name { font-weight: 700; font-size: 12.5px; color: var(--text); border-top: 1px solid var(--line-2); padding-top: 4px; width: 100%; }
-.detail-sign-date { font-size: 11px; color: var(--text-3); }
-/* The position the person holds, under their name; the heading above the
-   card already says the capacity they signed in. */
+.detail-sign-role { font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-2); font-weight: 700; }
+/* The mark hangs off the rule the name sits on — centred on that line
+   and straddling it, at the size somebody signs at. It multiplies with
+   what is under it rather than covering it, and it is a pen blue against
+   the near-black name so the two read as two things. */
+.detail-sign-space { min-height: 76px; width: 100%; }
+.detail-sign-img {
+  position: absolute; left: 50%; bottom: -5px; transform: translateX(-50%);
+  max-height: 94px; max-width: 100%; object-fit: contain;
+  mix-blend-mode: multiply;
+  filter: invert(16%) sepia(74%) saturate(2100%) hue-rotate(205deg) brightness(92%) contrast(96%);
+  pointer-events: none;
+}
+/* Dark: multiply on a dark ground erases the ink, so it screens on and
+   the pen goes pale instead. */
+:root[data-theme="dark"] .detail-sign-img {
+  mix-blend-mode: screen;
+  filter: invert(1) sepia(1) saturate(6) hue-rotate(186deg) brightness(1.02);
+}
+.detail-sign-script {
+  position: absolute; left: 50%; bottom: -2px; transform: translateX(-50%);
+  font-family: 'Segoe Script', 'Brush Script MT', cursive; font-size: 38px;
+  line-height: 1; color: var(--pen); white-space: nowrap; max-width: 100%; overflow: hidden;
+}
+/* Name over the rule — the line closes the space the mark was signed in
+   rather than underscoring it. */
+.detail-sign-name { position: relative; font-weight: 700; font-size: 12.5px; color: var(--text); border-bottom: 1px solid var(--line-2); padding-bottom: 5px; margin-bottom: 1px; width: 100%; }
 .detail-sign-post { font-size: 11px; color: var(--text-2); }
-.detail-sign-pending { font-size: 12px; color: var(--text-3); font-style: italic; min-height: 64px; display: flex; align-items: center; }
-/* An approver who was named but has not signed already fills the card
-   with their name and position, so the word does not also hold the
-   height of an empty signature space. */
-.detail-sign-pending.is-named { min-height: 0; margin-top: 2px; }
+.detail-sign-date { font-size: 11px; color: var(--text-3); font-variant-numeric: tabular-nums; }
+.detail-sign.is-pending .detail-sign-name { color: var(--text-3); }
+.detail-sign.is-pending .detail-sign-date { font-style: italic; }
+
+/* Adding a signature after the fact, from the record rather than the
+   form. Same row-card grid as the form's own approver block. */
+.appr-add-btn { align-self: flex-start; margin-top: 12px; }
+.appr-add { margin-top: 12px; display: flex; flex-direction: column; gap: 12px; }
+.appr-add-acts { display: flex; justify-content: flex-end; gap: 8px; }
 
 /* ════ top customers — KPI cards (transparent glass) ════ */
 .cust-card { display: flex; flex-direction: column; }
@@ -2313,10 +2332,6 @@ input:focus-visible, select:focus-visible, textarea:focus-visible {
 .choice-chip.active,
 .qa-tile:hover { box-shadow: none; }
 .qa-tile:hover { transform: none; background: var(--surface-2); color: var(--text); }
-
-/* The job panel had a striped rule down its left edge. It encodes
-   nothing, so it goes. */
-.job-hero::before { display: none; }
 
 /* ═══════════════════════════════════════════════════════════════
    REPORT DETAIL: sticky bar, view switch, section tabs

@@ -9,7 +9,7 @@
 .print-toolbar-actions { display: flex; gap: 8px; flex-shrink: 0; }
 .print-toolbar .btn { min-height: 44px; }
 .print-toolbar button:focus-visible { outline: 2px solid var(--amber-ink, #b84600); outline-offset: 3px; }
-.print-sheet { --print-ink: #182128; --print-muted: #4d5962; --print-line: #bac1c6; --print-fill: #f0f2f3; box-sizing: border-box; position: relative; background: #fff; color: var(--print-ink); margin: 0 auto; width: 210mm; min-height: 297mm; padding: 12mm 10mm 14mm; box-shadow: 0 5px 24px #0005; font-family: Arial, Helvetica, sans-serif; font-size: 9pt; line-height: 1.4; text-align: left; }
+.print-sheet { --print-ink: #182128; --print-muted: #4d5962; --print-line: #bac1c6; --print-fill: #f0f2f3; --print-acc: #13653a; --print-rej: #a51c1c; box-sizing: border-box; position: relative; background: #fff; color: var(--print-ink); margin: 0 auto; width: 210mm; min-height: 297mm; padding: 12mm 10mm 14mm; box-shadow: 0 5px 24px #0005; font-family: Arial, Helvetica, sans-serif; font-size: 9pt; line-height: 1.4; text-align: left; }
 .print-sheet + .print-sheet { margin-top: 24px; }
 .print-sheet *, .print-sheet *::before, .print-sheet *::after { box-sizing: border-box; }
 .print-sheet h1, .print-sheet h2, .print-sheet h3 { color: var(--print-ink); font-family: Arial, Helvetica, sans-serif; letter-spacing: 0; }
@@ -66,14 +66,22 @@
 .ps-grid tr { break-inside: avoid; }
 .ps-dim-legend { margin: 0 0 1mm; font-size: 7pt; color: var(--print-muted); }
 .print-sheet .ps-dim-grid { border: 0; }
-.print-sheet .ps-dim-grid td, .print-sheet .ps-dim-grid th { padding: 1.1mm 1mm; font-size: 8pt; line-height: 1.25; }
+/* Every cell reads from the middle of its row. Top-aligned, the verdict
+   and the actual sat level with the first line of a two-line spec cell
+   and the row came out looking as though it had slipped. */
+.print-sheet .ps-dim-grid td, .print-sheet .ps-dim-grid th { padding: 1.4mm 1mm; font-size: 8pt; line-height: 1.25; vertical-align: middle; }
+.print-sheet .ps-dim-grid th { vertical-align: middle; }
+/* One column: the note gets a column of its own rather than being set
+   under a 28mm point letter. */
+.print-sheet .ps-dim-one td { padding: 1.8mm 1.4mm; }
+.ps-dim-note-cell { color: var(--print-muted); font-size: 7.5pt; line-height: 1.3; }
 .print-sheet .ps-dim-grid .ps-dim-gutter, .print-sheet .ps-dim-grid .ps-dim-empty { border: 0; background: #fff; }
-.ps-dim-description { display: block; margin-top: .6mm; }
+.ps-dim-note { display: block; margin-top: .6mm; }
 .ps-dim-grid td small { display: block; margin-top: .6mm; color: var(--print-muted); font-size: 7pt; line-height: 1.25; font-weight: 400; }
 /* The nominal and the tolerance either side of it, side by side. Stacked
    they made the row three lines tall for one dimension; the figure reads
    first and the two limits qualify it from the right. */
-.print-sheet .ps-dim-spec { text-align: left; }
+.print-sheet .ps-dim-spec-cell { text-align: left; }
 .ps-dim-spec { display: flex; align-items: center; justify-content: space-between; gap: 1.5mm; }
 .ps-dim-nom { font-weight: 700; font-variant-numeric: tabular-nums; }
 .ps-dim-tol { color: var(--print-muted); font-size: 7pt; line-height: 1.25; text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
@@ -83,14 +91,43 @@
 .print-sheet .ps-sign-table { table-layout: fixed; break-inside: avoid; }
 .print-sheet .ps-sign-table td { text-align: left; padding: 1.5mm 2mm; }
 .print-sheet .ps-sign-head td { height: auto; padding: 2mm 3mm; background: var(--print-fill); font-weight: 600; font-size: 8pt; }
-.ps-sign-space { height: 13mm; display: flex; align-items: center; justify-content: center; }
-.ps-sign-img { display: block; max-height: 12mm; max-width: 100%; object-fit: contain; }
-.ps-sign-name { border-top: .6pt solid var(--print-line); padding-top: 1.5mm; font-weight: 600; font-size: 8.5pt; overflow-wrap: anywhere; }
-/* The position the person holds, under their name. The heading above the
-   box says the capacity they signed in, which is the thing a data book
-   is read for; this says who they are inside the company. */
-.ps-sign-post { margin-top: .6mm; color: var(--print-muted); font-size: 7.5pt; line-height: 1.3; overflow-wrap: anywhere; }
-.ps-sign-date { margin-top: 1mm; color: var(--print-muted); font-size: 7.5pt; }
+/* A signature at the size somebody actually signs at, sitting on the
+   line it is signed above.
+
+   It used to be boxed into 12mm of space with the rule underneath it,
+   which is a third of a real signature and made every mark on the sheet
+   look initialled rather than signed. It hangs off the rule now — the
+   name's own bottom edge is that line, and the mark is centred on it and
+   straddles it, 22mm tall, the way a pen does on a form. The name is
+   centred under it and stays legible through it: the ink multiplies with
+   what is beneath rather than covering it, and it is a pen blue against
+   the printed near-black so the two read as two things.
+
+   It sits above the line and grazes it rather than hanging off it: 26mm
+   of ink with 1.5mm crossing the rule leaves 24.5mm to reach up into,
+   which is what the empty space above is for. */
+.ps-sign-space { height: 22mm; }
+.print-sheet .ps-sign-cell { position: relative; }
+.ps-sign-img {
+  position: absolute; left: 50%; bottom: -1.5mm; transform: translateX(-50%);
+  max-height: 26mm; max-width: 100%;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+  filter: invert(16%) sepia(74%) saturate(2100%) hue-rotate(205deg) brightness(92%) contrast(96%);
+  -webkit-print-color-adjust: exact; print-color-adjust: exact;
+}
+/* Name over the rule, position and date under it — the order a
+   signature block has always been read in. The name used to sit below
+   the line with nothing above it but the mark, which reads as though the
+   line were underscoring the mark rather than closing the space it was
+   signed in. */
+.ps-sign-name { position: relative; text-align: center; padding-bottom: 1.4mm; border-bottom: .6pt solid var(--print-ink); font-weight: 600; font-size: 8.5pt; overflow-wrap: anywhere; }
+.ps-sign-foot { padding-top: 1.4mm; display: flex; flex-direction: column; gap: .5mm; }
+/* The position the person holds. The heading above the box says the act
+   they signed for, which is what a data book is read for; this says who
+   they are inside the company. */
+.ps-sign-post { color: var(--print-muted); font-size: 7.5pt; line-height: 1.3; overflow-wrap: anywhere; }
+.ps-sign-date { color: var(--print-muted); font-size: 7.5pt; }
 .ps-statement-copy, .ps-statement p { font-size: 9pt; line-height: 1.5; white-space: pre-wrap; }
 .ps-na { color: var(--print-muted); font-size: 8.5pt; line-height: 1.5; padding: 1mm 0; }
 .ps-cont-note { font-size: 7pt; color: var(--print-muted); margin: 0 0 1.5mm; }
@@ -112,8 +149,22 @@
 .ps-photo { display: block; width: 100%; height: 100%; max-height: 100%; max-width: 100%; object-fit: contain; }
 .ps-evidence-full .ps-photo-frame { height: 180mm; }
 .ps-evidence-map .ps-photo-frame { height: 72mm; }
-.ps-overall-result { display: flex; align-items: center; justify-content: space-between; gap: 5mm; padding: 2mm 3mm; border: .75pt solid var(--print-ink); background: var(--print-fill); font-size: 9pt; }
-.ps-overall-result strong { font-size: 11pt; }
+/* One line, one rule, one coloured word. It was a bordered, filled box
+   sitting inside a bordered, filled section — the MDR's .ps-verdict was
+   landing on the report's verdict block too — so the decision arrived as
+   a box in a box. The section's border goes, this keeps a single rule
+   top and bottom, and accept is told from reject by the colour of the
+   word, which is the only thing that needed saying. */
+.ps-overall-result {
+  display: flex; align-items: baseline; justify-content: space-between; gap: 5mm;
+  padding: 2.4mm 0;
+  border-top: .75pt solid var(--print-ink); border-bottom: .75pt solid var(--print-ink);
+  font-size: 8.5pt;
+}
+.ps-overall-result > span { color: var(--print-muted); text-transform: uppercase; letter-spacing: .06em; font-weight: 600; }
+.ps-overall-result strong { font-size: 12pt; letter-spacing: -.01em; }
+.ps-overall-result.is-acc strong { color: var(--print-acc); }
+.ps-overall-result.is-rej strong { color: var(--print-rej); }
 .ps-photo-cap { font-size: 8pt; color: var(--print-muted); margin-top: 2mm; line-height: 1.45; overflow-wrap: anywhere; }
 .ps-photo-cap strong, .ps-photo-cap span { display: block; }
 .ps-photo-cap strong { color: var(--print-ink); font-weight: 600; margin-bottom: 1mm; }
@@ -139,7 +190,11 @@
 .print-sheet .ps-letter-id { border: 0; margin: 3mm 0 5mm; }
 .print-sheet .ps-letter-id td { border: 0; border-bottom: .5pt solid var(--print-line); padding: 1.8mm 0; }
 .print-sheet .ps-letter-id td:first-child { width: 30mm; color: var(--print-muted); }
-.ps-verdict { margin: 0; padding: 4mm; border: 1pt solid var(--print-ink); background: var(--print-fill); font-size: 10pt; font-weight: 700; line-height: 1.4; text-align: left; }
+/* The MDR's own verdict panel. :not(.ps-blk) keeps it off the report
+   sheet's verdict section, which carries the same class from its block
+   kind and was being given this panel's border and fill on top of its
+   own — a box inside a box. */
+.ps-verdict:not(.ps-blk) { margin: 0; padding: 4mm; border: 1pt solid var(--print-ink); background: var(--print-fill); font-size: 10pt; font-weight: 700; line-height: 1.4; text-align: left; }
 .ps-verdict.hold { text-decoration: underline; }
 /* Printed in black like every other statement on the sheet — a data book
    is a document of record and colour is not part of its vocabulary. The

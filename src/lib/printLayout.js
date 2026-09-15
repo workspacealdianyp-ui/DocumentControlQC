@@ -38,10 +38,17 @@ const lines = (value, width) => String(value).split('\n').reduce((count, paragra
   return count + total
 }, 0)
 const fieldsHeight = (row) => 2.1 + Math.max(...row.map((f) => Math.max(lines(f.label, 24), lines(f.value, row.length === 1 ? 114 : 44)))) * 3.8
-/* A dimensional row is as tall as its tallest column. The spec column
-   is two lines now — the nominal with Min over Max beside it — where it
-   used to be three, so the floor comes down with it. */
-const dimHeight = (row) => 2.2 + Math.max(2, 1 + lines(printValue(row.description), 17) + (row.note ? lines(`Note: ${row.note}`, 19) : 0)) * 3.7
+/* Six points and up read two to a line; five and under get the width to
+   themselves, with the note in a column of its own. */
+export const DIM_PAIR_FROM = 6
+export const dimPaired = (rows = []) => rows.length >= DIM_PAIR_FROM
+
+/* A dimensional row is as tall as its tallest column. The spec column is
+   two lines — the nominal with Min over Max beside it — and with the
+   description gone the only thing that can push past that is a long
+   note: under the point letter at 28mm when the rows are paired, in a
+   40mm column of its own when they are not. */
+const dimHeight = (row, paired) => 2.2 + Math.max(2, row.note ? lines(printValue(row.note), paired ? 17 : 25) : 1) * 3.7
 
 // Long notes become explicitly labelled continuations; no text is ellipsized.
 function fieldPieces(field) {
@@ -100,14 +107,17 @@ export function reportPlan(schema, report, job, { density = 1 } = {}) {
       const headHeight = section.autoJudge === 'dim' ? 12 : cols.length
         ? 3 + Math.max(...cols.map((c, k) => lines(`${resultColumnLabel(c)}${c.unit ? ` (${c.unit})` : ''}`, Math.max(5, Math.floor(widths[k + 1] / 1.6))))) * 3.5 : section.type === 'recording' ? 14 : 11
       if (!rows.length) add({ id, kind: section.type, title: section.title, section, from: 0, to: 0, height: 14 })
+      const dim = section.autoJudge === 'dim'
+      const paired = dim && dimPaired(rows)
+      const step = paired ? 2 : 1
       const chunks = []
-      for (let i = 0; i < rows.length; i += section.autoJudge === 'dim' ? 2 : 1) {
+      for (let i = 0; i < rows.length; i += step) {
         const row = rows[i]
         const count = cols.length ? Math.max(...cols.map((c, k) => lines(printValue(row[c.id]), Math.max(5, Math.floor(widths[k + 1] / 1.8)))))
           : Math.max(1, lines(row.remark || row.area || '', 24), lines((row.pts || []).join(', '), 22))
-        const to = Math.min(rows.length, i + (section.autoJudge === 'dim' ? 2 : 1))
+        const to = Math.min(rows.length, i + step)
         chunks.push({ id, kind: section.type, title: section.title, section, from: i, to,
-          height: section.autoJudge === 'dim' ? Math.max(...rows.slice(i, to).map(dimHeight)) : 2.6 + count * 4.1, headHeight })
+          height: dim ? Math.max(...rows.slice(i, to).map((r) => dimHeight(r, paired))) : 2.6 + count * 4.1, headHeight })
       }
       /* A results heading needs a useful opening group, not a token row
          at the bottom of an otherwise administrative page. What it does
@@ -121,7 +131,7 @@ export function reportPlan(schema, report, job, { density = 1 } = {}) {
          two paired rows of dimensions, three of anything else. The
          decision and the signatures have their own guard further down
          and will move themselves if they do not fit. */
-      const opening = chunks.slice(0, section.autoJudge === 'dim' ? 2 : 3)
+      const opening = chunks.slice(0, dim ? 2 : 3)
         .reduce((sum, block) => sum + block.height, 9 + headHeight)
       if (page.length && used + opening > capacity) flush()
       chunks.forEach(add)
@@ -170,7 +180,7 @@ export function reportPlan(schema, report, job, { density = 1 } = {}) {
   // sheet the planner has to have reserved.
   if (approvals) {
     const boxes = approvals.fields.filter((f) => !f.showIf || f.showIf(v)).length + extraApprovers(v).length
-    add({ id: 'approvals', kind: 'signatures', title: approvals.title, section: approvals, height: 34 + Math.max(0, Math.ceil(boxes / 4) - 1) * 28 })
+    add({ id: 'approvals', kind: 'signatures', title: approvals.title, section: approvals, height: 54 + Math.max(0, Math.ceil(boxes / 4) - 1) * 48 })
   }
   const photos = report.photos || []
   if (!photos.length) add({ id: 'no-photos', kind: 'note', title: 'Evidence register', text: 'No photographic evidence or document pages attached.', height: 12 })
