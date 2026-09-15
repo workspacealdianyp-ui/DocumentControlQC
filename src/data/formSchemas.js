@@ -41,13 +41,35 @@ export const IDENT_GROUPS = [
   { id: 'job', title: 'Job detail', sub: 'From the job order — the master record' },
 ]
 
+/* The two signatures a report cannot be filed without, and room for
+   whoever else actually signed it.
+
+   Two was never the real number. A dimensional report that engineering
+   witnessed carries three; one a third party attended carries four; a
+   customer's own inspector makes five. The form had exactly two boxes,
+   so those signatures were either left off the record or written into
+   the NCR notes. `extra: true` turns the section into two fixed roles
+   plus a list the inspector adds to — a name, the position they hold,
+   and the capacity they are signing in. */
 const approvals = (roles) => ({
-  id: 'approvals', title: 'Approvals',
+  id: 'approvals', title: 'Approvals', extra: true,
   fields: roles.map((r, i) => ({
     id: i === 0 ? 'signInspector' : i === 1 ? 'signQc' : i === 2 ? 'signClient' : `sign${i}`,
     label: r, type: 'sign', req: i < 2 ? 'M' : 'O',
   })),
 })
+
+/* Every approver the inspector added, in the order they were added,
+   with the signature that was captured against each. Held in `values`
+   under a generated id so it travels with the report the same way any
+   other field does, and so the existing signature plumbing — which is
+   keyed by field id — works on them unchanged. */
+export const APPROVER_SIGN = (id) => `signExtra_${id}`
+export const extraApprovers = (v = {}) => (Array.isArray(v.approvers) ? v.approvers : [])
+export const approverFields = (v = {}) => extraApprovers(v).map((a) => ({
+  id: APPROVER_SIGN(a.id), type: 'sign', req: 'O',
+  label: a.capacity || 'Approver', name: a.name, position: a.position,
+}))
 
 /* The shared header calls page 1's date "Inspection / Testing Date",
    which is what it is on a test report. Nothing was tested on that date
@@ -378,29 +400,52 @@ export const FORM_SCHEMAS = {
          no way to know where on the unit any of them was taken. It goes
          above the table, at the size it has to be read at, because it is
          what the table is read against. */
+      /* Two facts, not four. The drawing number and the stage it was
+         measured at are what a reader needs to find the same drawing
+         again; "view / area shown" and "tag number" were a description
+         of the picture sitting next to the picture, and the tag was
+         filled "N/A" on every report in the register. */
       { id: 'drawing', title: 'Measurement Point Map',
         subtitle: 'The marked-up drawing the table refers to — balloon each point A, B, C…',
         fields: [
-          { id: 'drawingNo', label: 'Drawing No. / Rev', type: 'text', req: 'M', half: true },
-          { id: 'viewName', label: 'View / area shown', type: 'text', half: true, placeholder: 'e.g. TOP CLOSURE' },
+          /* `tagFor` sends this to the printed sheet as a stamp in the
+             corner of the drawing it names, rather than as a fact in a
+             table above the picture. It stays a fact when no drawing was
+             attached, so the number is never lost. */
+          { id: 'drawingNo', label: 'Drawing No. / Rev', type: 'text', req: 'M', half: true, tagFor: 'drawingFile' },
           { id: 'inspStage', label: 'Inspection stage', type: 'text', half: true, placeholder: 'e.g. AFTER WELDING' },
-          { id: 'tagNumber', label: 'Tag number', type: 'text', half: true, placeholder: 'N/A if none' },
           { id: 'drawingFile', label: 'Point map', type: 'photos-inline',
             hint: 'Photograph or export the marked drawing. Each balloon letter is a row below.' },
         ]},
-      { id: 'results', title: 'Measurement Grid', subtitle: 'Actual outside Min–Max is rejected automatically', type: 'results',
+      { id: 'results', title: 'Measurement Grid',
+        subtitle: 'One row per balloon on the map: what it should be, what it measured. Actual outside Min–Max is rejected automatically. All dimensions in mm.',
+        type: 'results',
         judgeKey: 'rowStatus', accValue: 'Accept', rejValue: 'Reject', autoJudge: 'dim',
         columns: [
           /* The balloon letter leads: it is what ties the row to the map
              above it, and it is the first thing anybody reading the two
-             together looks for. */
-          { id: 'itemNo', label: 'Dim.', type: 'text', req: 'M', half: true, placeholder: 'A' },
-          { id: 'description', label: 'Description', type: 'text', req: 'M', half: true, placeholder: 'e.g. Overall Length' },
-          { id: 'nominal', label: 'Nominal', type: 'number', unit: 'mm', half: true },
-          { id: 'min', label: 'Min', type: 'number', unit: 'mm', half: true, req: 'M', placeholder: 'lower limit' },
-          { id: 'max', label: 'Max', type: 'number', unit: 'mm', half: true, req: 'M', placeholder: 'upper limit' },
-          { id: 'actual', label: 'Actual', type: 'number', unit: 'mm', half: true, req: 'M' },
-          { id: 'note', label: 'Note', type: 'text' },
+             together looks for.
+
+             Both of the first two carry a line saying what goes in them.
+             "Dim." and "Description" over two empty boxes is a label
+             naming itself: an inspector filling the form for the first
+             time has to guess whether Dim. wants the letter, the
+             dimension or the drawing's callout number. */
+          { id: 'itemNo', label: 'Point', type: 'text', req: 'M', span: 2, spanSm: 3, placeholder: 'A',
+            hint: 'The balloon letter on the map above' },
+          { id: 'description', label: 'Description', type: 'text', req: 'M', span: 4, spanSm: 3, placeholder: 'Overall length',
+            hint: 'What was measured at that point' },
+          /* Nominal is the drawing dimension and Min/Max are the
+             tolerance either side of it, so they belong on one line in
+             that proportion: the figure at two thirds, the pair that
+             qualifies it sharing the last third. */
+          { id: 'nominal', label: 'Nominal', type: 'number', unit: 'mm', span: 4, spanSm: 6,
+            hint: 'The drawing dimension; Min and Max are its tolerance' },
+          { id: 'min', label: 'Min', type: 'number', unit: 'mm', span: 1, spanSm: 3, req: 'M' },
+          { id: 'max', label: 'Max', type: 'number', unit: 'mm', span: 1, spanSm: 3, req: 'M' },
+          { id: 'actual', label: 'Actual', type: 'number', unit: 'mm', span: 3, req: 'M',
+            hint: 'What the instrument read' },
+          { id: 'note', label: 'Note', type: 'text', span: 3 },
         ]},
       { id: 'photos', title: 'Photo Evidence', type: 'photos' },
       { id: 'result', title: 'Summary', fields: [
@@ -470,7 +515,7 @@ export function dimDeviation(row) {
 // Hydrotest approvals: inspector + QC + client, optional 4th third-party
 function approvalsHydro() {
   return {
-    id: 'approvals', title: 'Approvals',
+    id: 'approvals', title: 'Approvals', extra: true,
     fields: [
       { id: 'signInspector', label: 'Inspector', type: 'sign', req: 'M' },
       { id: 'signQc', label: 'QC Supervisor / Engineering', type: 'sign', req: 'M' },

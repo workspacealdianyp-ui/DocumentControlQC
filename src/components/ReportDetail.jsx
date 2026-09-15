@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
-import { dimRowStatus, dimDeviation } from '../data/formSchemas.js'
+import { dimRowStatus, dimDeviation, approverFields } from '../data/formSchemas.js'
 import { MR } from '../lib/compute.js'
 import { fmtDate } from '../lib/status.js'
 import { buildResume } from '../lib/resume.js'
@@ -119,6 +119,9 @@ function DetailPhotos({ photos, onZoom }) {
   )
 }
 
+/* The two roles the schema names, then whoever else the inspector
+   recorded — each under the capacity they signed in, with the position
+   they hold beneath their name. */
 function DetailSignatures({ fields, v }) {
   const vis = fields.filter((f) => showField(f, v))
   return (
@@ -127,10 +130,10 @@ function DetailSignatures({ fields, v }) {
         const s = v[f.id]
         return (
           <div className="detail-sign" key={f.id}>
-            <span className="detail-sign-role">{f.label}</span>
+            <span className="detail-sign-role">{typeof f.label === 'function' ? f.label(v) : f.label}</span>
             {s
-              ? <>{s.img ? <img className="detail-sign-img" src={s.img} alt="" /> : <div className="detail-sign-script">{s.name}</div>}<span className="detail-sign-name">{s.name}</span><span className="detail-sign-date">{fmtDate(s.at)}</span></>
-              : <span className="detail-sign-pending">Pending</span>}
+              ? <>{s.img ? <img className="detail-sign-img" src={s.img} alt="" /> : <div className="detail-sign-script">{s.name}</div>}<span className="detail-sign-name">{s.name}</span>{f.position && <span className="detail-sign-post">{f.position}</span>}<span className="detail-sign-date">{fmtDate(s.at)}</span></>
+              : <>{f.name && <span className="detail-sign-name">{f.name}</span>}{f.position && <span className="detail-sign-post">{f.position}</span>}<span className={`detail-sign-pending${f.name ? ' is-named' : ''}`}>Pending</span></>}
           </div>
         )
       })}
@@ -249,7 +252,7 @@ export default function ReportDetail({ schema, report, job, deliverable, status,
         {shown.map((s) => (
           <section className={`card detail-card${view === "paged" ? " is-paged" : ""}`} key={s.id}>
             <h3>{s.title}{s.subtitle ? <small>{s.subtitle}</small> : null}</h3>
-            {s.id === 'approvals' ? <DetailSignatures fields={s.fields} v={v} />
+            {s.id === 'approvals' ? <DetailSignatures fields={[...s.fields, ...approverFields(v)]} v={v} />
               : s.type === 'recording' ? <DetailRecording report={report} />
                 : s.type === 'results' ? <DetailResults sec={s} report={report} />
                   : s.type === 'dft' ? <DetailDft report={report} />

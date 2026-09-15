@@ -59,13 +59,48 @@ describe('the dimensional form asks for what the sheet prints', () => {
     expect(ids.indexOf('drawing')).toBeLessThan(ids.indexOf('results'))
     const f = sec('drawing').fields.map((x) => x.id)
     expect(f).toContain('drawingFile')
-    expect(f).toContain('viewName')
     expect(f).toContain('inspStage')
+  })
+
+  // Two facts locate a drawing again: which drawing, and the stage it
+  // was measured at. "View / area shown" described the picture printed
+  // directly beneath it, and the tag number was filled N/A on every
+  // report in the register.
+  it('asks only what the drawing does not already show', () => {
+    const f = sec('drawing').fields.map((x) => x.id)
+    expect(f).toEqual(['drawingNo', 'inspStage', 'drawingFile'])
+  })
+
+  // The number is stamped in the corner of the drawing it names rather
+  // than set as a fact in a table above the picture.
+  it('stamps the drawing number on the drawing', () => {
+    expect(sec('drawing').fields.find((x) => x.id === 'drawingNo').tagFor).toBe('drawingFile')
   })
 
   it('leads the table with the balloon letter, and requires one', () => {
     const cols = sec('results').columns
     expect(cols[0].id).toBe('itemNo')
     expect(cols[0].req).toBe('M')
+  })
+
+  /* The nominal is the drawing dimension and Min/Max are the tolerance
+     either side of it, so the three sit on one line in that proportion:
+     the figure at four sixths, the pair that qualifies it sharing the
+     last two. Stacked, one dimension cost three lines. */
+  it('sets the nominal against its tolerance on one line', () => {
+    const by = Object.fromEntries(sec('results').columns.map((c) => [c.id, c]))
+    expect(by.nominal.span).toBe(4)
+    expect(by.min.span).toBe(1)
+    expect(by.max.span).toBe(1)
+    expect(by.nominal.span + by.min.span + by.max.span).toBe(6)
+  })
+
+  // A label naming itself is not an instruction: "Dim." over an empty
+  // box does not say whether it wants the letter, the dimension or the
+  // drawing's callout number.
+  it('says what goes in the columns a label cannot explain', () => {
+    const by = Object.fromEntries(sec('results').columns.map((c) => [c.id, c]))
+    expect(by.itemNo.hint).toBeTruthy()
+    expect(by.description.hint).toBeTruthy()
   })
 })

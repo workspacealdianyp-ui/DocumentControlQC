@@ -1,6 +1,6 @@
 import { Fragment, useEffect, useRef, useState } from 'react'
 import { MR } from '../lib/compute.js'
-import { dimRowStatus, dimDeviation, dimLimits } from '../data/formSchemas.js'
+import { dimRowStatus, dimDeviation, dimLimits, approverFields } from '../data/formSchemas.js'
 import { buildResume } from '../lib/resume.js'
 import { useFitToPage, pageSpans, sameFit, oneEach, tighten, useSheetZoom } from '../lib/pagefit.js'
 import { reportPlan, printValues, printValue, printDate, printStatus, resultColumnWidths, resultColumnLabel, recordingLayout } from '../lib/printLayout.js'
@@ -31,14 +31,17 @@ function ResultsTable({ section, report, v, from, to }) {
       const limits = dimLimits(row), result = dimRowStatus(row)
       return <>
         <td className="ps-left"><strong>{printValue(row.itemNo || index + 1)}</strong><span className="ps-dim-description">{printValue(row.description)}</span>{row.note != null && row.note !== '' && <small className="ps-dim-note">Note: {printValue(row.note)}</small>}</td>
-        <td>{printValue(row.nominal)}<small>Min {printValue(limits.lo)}<br />Max {printValue(limits.hi)}</small></td>
+        {/* The nominal, and beside it the tolerance either side of it.
+            Stacking all three cost the row a third line for a figure
+            that is read as one thing: 90, −2 / +2. */}
+        <td className="ps-dim-spec"><span className="ps-dim-nom">{printValue(row.nominal)}</span><span className="ps-dim-tol">Min {printValue(limits.lo)}<br />Max {printValue(limits.hi)}</span></td>
         <td className="ps-measured">{printValue(row.actual)}<small>Δ {printValue(dimDeviation(row))}</small></td>
         <td className={result === 'Reject' ? 'ps-result-rej' : ''}>{result || 'Not judged'}</td>
       </>
     }
-    const headings = <><th className="ps-left">Point / description</th><th>Nominal / limits</th><th>Actual / Δ</th><th>Result</th></>
+    const headings = <><th className="ps-left">Point / description</th><th>Nominal / tolerance</th><th>Actual / Δ</th><th>Result</th></>
     return <><div className="ps-dim-legend">All dimensions in mm · Δ = actual − nominal · Read left to right, then down</div><table className="ps-grid ps-dim-grid">
-      <colgroup>{[31, 26, 17, 19, 4, 31, 26, 17, 19].map((width, i) => <col key={i} style={{ width: `${width}mm` }} />)}</colgroup>
+      <colgroup>{[28, 29, 17, 19, 4, 28, 29, 17, 19].map((width, i) => <col key={i} style={{ width: `${width}mm` }} />)}</colgroup>
       <thead><tr>{headings}<th className="ps-dim-gutter" aria-hidden="true" />{headings}</tr></thead>
       <tbody>{pairs.map((pair, i) => <tr key={from + i * 2}>{cells(pair[0], from + i * 2)}<td className="ps-dim-gutter" aria-hidden="true" />{cells(pair[1], from + i * 2 + 1)}</tr>)}
         {!all.length && <tr><td colSpan={9} className="ps-na">No measurements recorded</td></tr>}</tbody>
@@ -64,20 +67,36 @@ function DftTable({ report, from, to }) {
   </table>
 }
 
+/* The signature block, four boxes to a row.
+
+   The schema names two roles; the rest are whoever the inspector added —
+   engineering, a third party, the customer's own inspector — and each of
+   those carries the capacity it signed in as its heading and the
+   position the person holds under their name. Five approvers in one row
+   of a 190mm sheet is 38mm a box, which is narrower than a signature, so
+   they wrap. */
 export function Signatures({ fields, v }) {
   const visible = fields.filter((f) => !f.showIf || f.showIf(v))
-  return <table className="ps-sign-table"><tbody><tr className="ps-sign-head">{visible.map((f) => <td key={f.id}>{f.label}</td>)}</tr>
-    <tr>{visible.map((f) => {
+  const rows = []
+  for (let from = 0; from < visible.length; from += 4) rows.push(visible.slice(from, from + 4))
+  return <table className="ps-sign-table"><tbody>{rows.map((group, r) => <Fragment key={r}>
+    <tr className="ps-sign-head">{group.map((f) => <td key={f.id}>{typeof f.label === 'function' ? f.label(v) : f.label}</td>)}</tr>
+    <tr>{group.map((f) => {
       const sign = v[f.id], img = typeof sign === 'string' ? sign : sign?.img
-      const name = typeof sign === 'string' ? '' : sign?.name
+      const name = (typeof sign === 'string' ? '' : sign?.name) || f.name || ''
       const date = typeof sign === 'string' ? '' : sign?.at
-      return <td key={f.id}><div className="ps-sign-space">{img && <img className="ps-sign-img" src={img} alt="Recorded signature" />}</div><div className="ps-sign-name">{name || (img ? '' : 'Name / signature')}</div><div className="ps-sign-date">{date ? printDate(date) : img ? '' : 'Date:'}</div></td>
-    })}</tr></tbody></table>
+      return <td key={f.id}><div className="ps-sign-space">{img && <img className="ps-sign-img" src={img} alt="Recorded signature" />}</div><div className="ps-sign-name">{name || (img ? '' : 'Name / signature')}</div>{f.position ? <div className="ps-sign-post">{f.position}</div> : null}<div className="ps-sign-date">{date ? printDate(date) : img ? '' : 'Date:'}</div></td>
+    })}</tr>
+  </Fragment>)}</tbody></table>
 }
 
 function Evidence({ block }) {
   return <div className={`ps-evidence${block.full ? ' ps-evidence-full' : ''}${block.map ? ' ps-evidence-map' : ''}`}><table className="ps-photo-grid"><tbody><tr>{block.photos.map((photo, i) => <td key={i}>
-    <div className="ps-photo-frame">{photo?.img ? <img className="ps-photo" src={photo.img} alt={photo.label || 'Recorded evidence'} /> : <p className="ps-na">Image unavailable</p>}</div>
+    {/* The drawing number belongs on the drawing. It was a fact in a
+        two-column table above the picture it names; stamped in the
+        corner of the frame it is where a reader looks for it on any
+        drawing they have ever held. */}
+    <div className="ps-photo-frame">{block.tag && <span className="ps-photo-tag">{block.tag}</span>}{photo?.img ? <img className="ps-photo" src={photo.img} alt={photo.label || 'Recorded evidence'} /> : <p className="ps-na">Image unavailable</p>}</div>
     <div className="ps-photo-cap"><strong>{block.map ? 'Figure' : block.full ? 'Page' : 'Evidence'} {(block.from || 0) + i + 1}{block.total ? ` of ${block.total}` : ''}</strong>{photo?.label && <span>{photo.label}</span>}</div>
   </td>)}</tr></tbody></table></div>
 }
@@ -124,7 +143,7 @@ export function ReportSheets({ schema, report, job, deliverable, status = report
               : block.kind === 'results' ? <ResultsTable section={block.section} report={report} v={v} from={block.from} to={block.to} />
                 : block.kind === 'recording' ? <RecordingTable report={report} v={v} from={block.from} to={block.to} />
                   : block.kind === 'dft' ? <DftTable report={report} from={block.from} to={block.to} />
-                    : block.kind === 'signatures' ? <Signatures fields={block.section.fields} v={v} />
+                    : block.kind === 'signatures' ? <Signatures fields={[...block.section.fields, ...approverFields(v)]} v={v} />
                       : block.kind === 'verdict' ? <div className="ps-overall-result"><span>Overall result</span><strong>{block.text}</strong></div>
                         : block.kind === 'evidence' ? <Evidence block={block} />
                           : block.kind === 'chart' ? <><ChartSummary schema={schema} report={report} job={job} /><PressureChart report={report} /><Observations report={report} /></>

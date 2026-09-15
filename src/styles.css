@@ -1615,8 +1615,39 @@ td.th-action { display: flex; gap: 6px; justify-content: flex-end; align-items: 
 .rowcard { background: var(--surface-2); border: 1px solid var(--line); border-radius: var(--r); padding: 13px; }
 .rowcard.rej { border-color: var(--overdue); background: var(--overdue-bg); }
 .rowcard-head { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
-.rowcard-body { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-.rowcard-body .field-full { grid-column: 1 / -1; }
+/* Six tracks, not two. A row card used to be two equal halves, which is
+   why a dimension came out as three lines — the nominal on one and its
+   Min and Max on the next two. Sixths let a column say what share of the
+   row it takes: the nominal at four with Min and Max sharing the last
+   two reads as the figure and the tolerance either side of it.
+
+   A bare .field is still a half, so every other row card in the app
+   keeps the layout it had. */
+.rowcard-body { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; }
+.rowcard-body > .field { grid-column: span 3; min-width: 0; }
+.rowcard-body > .field-full { grid-column: 1 / -1; }
+.rowcard-body > [data-span='1'] { grid-column: span 1; }
+.rowcard-body > [data-span='2'] { grid-column: span 2; }
+.rowcard-body > [data-span='3'] { grid-column: span 3; }
+.rowcard-body > [data-span='4'] { grid-column: span 4; }
+.rowcard-body > [data-span='5'] { grid-column: span 5; }
+.rowcard-body > [data-span='6'] { grid-column: span 6; }
+/* Narrow: the same proportions would put a four-digit millimetre reading
+   in 51px. Each column states the share it takes at this width instead. */
+@media (max-width: 620px) {
+  .rowcard-body > [data-span-sm='1'] { grid-column: span 1; }
+  .rowcard-body > [data-span-sm='2'] { grid-column: span 2; }
+  .rowcard-body > [data-span-sm='3'] { grid-column: span 3; }
+  .rowcard-body > [data-span-sm='4'] { grid-column: span 4; }
+  .rowcard-body > [data-span-sm='5'] { grid-column: span 5; }
+  .rowcard-body > [data-span-sm='6'] { grid-column: span 6; }
+}
+
+/* An approver the form did not name: three lines of who, then the mark.
+   The capacity spans the row because it is the heading the signature is
+   printed under, not a detail of the person. */
+.appr-extra { display: flex; flex-direction: column; gap: 12px; margin-top: 4px; }
+.appr-nil { margin: 0; font-size: 13px; color: var(--text-2); }
 .dft-pts { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; }
 .dft-pts input { text-align: center; font-family: var(--mono); padding: 0 6px; min-height: 42px; }
 
@@ -2136,7 +2167,14 @@ td.th-action { display: flex; gap: 6px; justify-content: flex-end; align-items: 
 .detail-sign-script { font-family: 'Segoe Script', 'Brush Script MT', cursive; font-size: 22px; color: var(--text); min-height: 40px; display: flex; align-items: center; }
 .detail-sign-name { font-weight: 700; font-size: 12.5px; color: var(--text); border-top: 1px solid var(--line-2); padding-top: 4px; width: 100%; }
 .detail-sign-date { font-size: 11px; color: var(--text-3); }
+/* The position the person holds, under their name; the heading above the
+   card already says the capacity they signed in. */
+.detail-sign-post { font-size: 11px; color: var(--text-2); }
 .detail-sign-pending { font-size: 12px; color: var(--text-3); font-style: italic; min-height: 64px; display: flex; align-items: center; }
+/* An approver who was named but has not signed already fills the card
+   with their name and position, so the word does not also hold the
+   height of an empty signature space. */
+.detail-sign-pending.is-named { min-height: 0; margin-top: 2px; }
 
 /* ════ top customers — KPI cards (transparent glass) ════ */
 .cust-card { display: flex; flex-direction: column; }

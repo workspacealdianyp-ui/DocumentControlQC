@@ -1,4 +1,5 @@
 import { reportResult } from './verdict.js'
+import { extraApprovers } from '../data/formSchemas.js'
 
 // Physical dimensions shared by the preview fitter and the report planner.
 export const PRINT_GEOMETRY = { width: 210, height: 297, top: 12, bottom: 14, side: 10, body: 208, minZoom: 0.9 }
@@ -37,7 +38,10 @@ const lines = (value, width) => String(value).split('\n').reduce((count, paragra
   return count + total
 }, 0)
 const fieldsHeight = (row) => 2.1 + Math.max(...row.map((f) => Math.max(lines(f.label, 24), lines(f.value, row.length === 1 ? 114 : 44)))) * 3.8
-const dimHeight = (row) => 2.2 + Math.max(3, 1 + lines(printValue(row.description), 19) + (row.note ? lines(`Note: ${row.note}`, 21) : 0), lines(printValue(row.nominal), 17) + 2) * 3.7
+/* A dimensional row is as tall as its tallest column. The spec column
+   is two lines now — the nominal with Min over Max beside it — where it
+   used to be three, so the floor comes down with it. */
+const dimHeight = (row) => 2.2 + Math.max(2, 1 + lines(printValue(row.description), 17) + (row.note ? lines(`Note: ${row.note}`, 19) : 0)) * 3.7
 
 // Long notes become explicitly labelled continuations; no text is ellipsized.
 function fieldPieces(field) {
@@ -105,18 +109,29 @@ export function reportPlan(schema, report, job, { density = 1 } = {}) {
         chunks.push({ id, kind: section.type, title: section.title, section, from: i, to,
           height: section.autoJudge === 'dim' ? Math.max(...rows.slice(i, to).map(dimHeight)) : 2.6 + count * 4.1, headHeight })
       }
-      // A results heading needs a useful opening group, not a token row at
-      // the bottom of an otherwise administrative page.
-      const completeTable = chunks.reduce((sum, block) => sum + block.height, 9 + headHeight)
-      // A short table and its decision/signatures read as one result.
-      // Longer tables still continue in useful row groups.
-      const opening = completeTable <= 85 ? completeTable + 57
-        : chunks.slice(0, section.autoJudge === 'dim' ? 2 : 3).reduce((sum, block) => sum + block.height, 9 + headHeight)
+      /* A results heading needs a useful opening group, not a token row
+         at the bottom of an otherwise administrative page. What it does
+         not need is the whole table plus the decision and signatures:
+         reserving that turned a page carrying a 80mm point map into a
+         page carrying a point map and 75mm of nothing, because the
+         short grid that follows a map insisted on starting overleaf
+         with its verdict.
+
+         So the reservation is the heading and a useful opening group —
+         two paired rows of dimensions, three of anything else. The
+         decision and the signatures have their own guard further down
+         and will move themselves if they do not fit. */
+      const opening = chunks.slice(0, section.autoJudge === 'dim' ? 2 : 3)
+        .reduce((sum, block) => sum + block.height, 9 + headHeight)
       if (page.length && used + opening > capacity) flush()
       chunks.forEach(add)
       continue
     }
+    // `tagFor` names a photo block this field is stamped onto. It stays
+    // a fact only when there is no picture to carry it.
+    const tagged = (f) => f.tagFor && (Array.isArray(v[f.tagFor]) ? v[f.tagFor].length : 0) > 0
     const fields = (section.fields || []).filter((f) => (!f.showIf || f.showIf(v)) && !['sign','photos','photos-inline','jobsearch'].includes(f.type)
+      && !tagged(f)
       && !(id === 'header' && ['reportId', 'inspDate', 'inspector'].includes(f.id)))
       .flatMap((f) => fieldPieces(printField(f, v, report)))
     const fieldRows = []
@@ -133,7 +148,9 @@ export function reportPlan(schema, report, job, { density = 1 } = {}) {
     for (const f of section.fields || []) {
       if (!['photos', 'photos-inline'].includes(f.type) || (f.showIf && !f.showIf(v))) continue
       const images = Array.isArray(v[f.id]) ? v[f.id] : []
-      images.forEach((photo, i) => add({ id: `${id}-map-${i}`, kind: 'evidence', title: `${typeof f.label === 'function' ? f.label(v) : f.label} ${i + 1} of ${images.length}`, photos: [photo], from: i, total: images.length, full: true, map: true, height: 84 + lines(photo.label || '', 100) * 4 }))
+      const tag = (section.fields || []).find((g) => g.tagFor === f.id)
+      const stamp = tag ? printValue(v[tag.id]) : ''
+      images.forEach((photo, i) => add({ id: `${id}-map-${i}`, kind: 'evidence', title: `${typeof f.label === 'function' ? f.label(v) : f.label} ${i + 1} of ${images.length}`, photos: [photo], from: i, total: images.length, full: true, map: true, tag: stamp === '—' ? '' : stamp, height: 80 + lines(photo.label || '', 100) * 4 }))
       if (!images.length && /map|drawing/i.test(f.id)) add({ id, kind: 'note', text: `No ${String(f.label).toLowerCase()} attached.`, height: 9 })
     }
   }
@@ -149,7 +166,12 @@ export function reportPlan(schema, report, job, { density = 1 } = {}) {
     add({ id: 'overall-result', kind: 'verdict', text: result, height: 12 })
     fields.forEach((field) => add({ id: 'overall-notes', kind: 'fields', rows: [[field]], height: fieldsHeight([field]) }))
   }
-  if (approvals) add({ id: 'approvals', kind: 'signatures', title: approvals.title, section: approvals, height: 34 })
+  // Four boxes to a row, and every row past the first is another 28mm of
+  // sheet the planner has to have reserved.
+  if (approvals) {
+    const boxes = approvals.fields.filter((f) => !f.showIf || f.showIf(v)).length + extraApprovers(v).length
+    add({ id: 'approvals', kind: 'signatures', title: approvals.title, section: approvals, height: 34 + Math.max(0, Math.ceil(boxes / 4) - 1) * 28 })
+  }
   const photos = report.photos || []
   if (!photos.length) add({ id: 'no-photos', kind: 'note', title: 'Evidence register', text: 'No photographic evidence or document pages attached.', height: 12 })
   flush()
