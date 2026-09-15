@@ -1091,36 +1091,38 @@ td.th-action { display: flex; gap: 6px; justify-content: flex-end; align-items: 
 .job-hero .ring-label strong { color: #fff; }
 .job-hero .ring-label small { color: #8295ad; }
 /* ── the order, at a glance ─────────────────────────────────────────
-   Five or six short facts: a stamped label and, under it, the figure.
-   They pack to the width rather than dividing into a fixed three or
-   four columns — a fixed grid stranded the last fact on a row of its
-   own and made a 250px card out of 60px of writing. It is 73px now: one
-   dense row down to tablet width, two columns on a phone.
+   The unit's facts: a stamped label and, under it, the figure. One row
+   of equal columns, however many facts there are — grid-auto-flow:
+   column, so the row is divided by the number of items rather than the
+   items being poured into a fixed count of tracks. That is what keeps
+   the right edge reached: a fixed four-track grid left the last fact
+   alone on a row of its own, and a wide cell at the end left 200px of
+   blank card beside it.
 
-   The rules between them are drawn by the cells themselves — a hairline
-   inset on each cell's top and left edge, with the grid pulled 1px up
-   and left so the outermost ones clip away against the card. That is
-   what lets an unknown number of columns divide cleanly: no cell has to
-   know whether it is the one that starts a row. It replaces a 2px bar
-   bolted to the left of every item, which at six items was six marks
-   competing with the writing they were separating. */
+   It came down from 250px to 76px in the doing. The rules between the
+   cells are drawn by the cells themselves — a hairline inset on each
+   one's top and left edge, with the grid pulled 1px up and left so the
+   outermost marks clip away against the card. No cell has to know
+   whether it is the one that starts a row, which is what lets the
+   column count change at every width. It replaces a 2px bar bolted to
+   the left of every item: at six items that was six marks competing
+   with the writing they were separating.
+
+   16px of side padding, which is what the document rows below use, so
+   the card's writing starts on the same line theirs does rather than
+   two pixels inside it. */
 .jd-meta-card { padding: 0; overflow: hidden; }
 .meta-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(132px, 1fr));
-  /* auto-fit, so when a job carries no PO or no separate type the
-     remaining facts widen instead of leaving the row half-built. */
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(0, 1fr);
   margin: -1px 0 0 -1px;
 }
 .meta-item {
   display: flex; flex-direction: column; gap: 3px;
-  min-width: 0; padding: 12px 14px 13px;
+  min-width: 0; padding: 12px 16px 13px;
   box-shadow: inset 1px 0 0 var(--line), inset 0 1px 0 var(--line);
 }
-/* Target delivery is the one fact with a second line under it and a
-   badge beside it, so it takes two tracks rather than being squeezed
-   into 132px. */
-.meta-item.is-wide { grid-column: span 2; }
 
 .meta-label {
   font-family: var(--mono); font-size: 10px; font-weight: 500;
@@ -1129,13 +1131,24 @@ td.th-action { display: flex; gap: 6px; justify-content: flex-end; align-items: 
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
 /* The figure, tabular: a card of dates and part numbers should line up
-   down its columns the way it does on the order it was copied from. */
+   down its columns the way it does on the order it was copied from.
+
+   min-height holds the line at the height of the tallest thing that can
+   sit on it, which is the status chip. Without it the one cell carrying
+   a chip pushed its own note down and the card read as two heights. */
 .meta-value {
   display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
-  margin: 0;
+  margin: 0; min-height: 21px;
   font-size: 13.5px; font-weight: 550; line-height: 1.3;
   font-variant-numeric: tabular-nums;
   overflow-wrap: anywhere;
+}
+/* The status, in the badge it wears everywhere else in the app. Same
+   12px face — a status is not a thing to set smaller than the figures
+   around it — with the padding brought in so it sits on the value's own
+   line rather than pushing it open. */
+.meta-value .chip {
+  padding: 0 9px 0 7px; gap: 5px;
 }
 /* A second reading of the same fact, set quieter than the fact. Target
    delivery uses it to say how much working time is left; the date is
@@ -1152,25 +1165,21 @@ td.th-action { display: flex; gap: 6px; justify-content: flex-end; align-items: 
 .meta-note.is-soon { color: var(--amber-ink); }
 .meta-note.is-late { color: var(--overdue); }
 
-/* The status, standing against the fact it is a verdict on. It comes
-   down to the figure's own size and gives up the chip's padding —
-   beside 13.5px of type a full-sized badge is the loudest thing in the
-   card, and it is the date that is being read. */
-.report-state.is-compact {
-  padding: 1px 7px 2px;
-  font-family: var(--mono); font-size: 9.5px; font-weight: 600;
-  letter-spacing: 0.06em; text-transform: uppercase;
-  border-radius: 5px;
-}
+/* Below a desk the row wraps, and it wraps into a count the facts
+   divide into: three columns, then two on a phone. Six facts fill both
+   exactly — at four or five columns they would not, and a fact table
+   that ends mid-row is the thing this card was rebuilt to stop doing.
 
-/* Two columns on a phone, where three put every part number across two
-   lines. The target delivery takes the whole of the last row rather than
-   two of the three tracks — a wide cell that stops short leaves a blank
-   corner, and it is the fact the card is closing on. */
+   1200px is where it turns, not where the cells get tight: at six
+   columns a card narrower than about 920px leaves the countdown 104px
+   to say "48 working days left" in, and it broke to a second line and
+   took the whole row's height with it. */
+@media (max-width: 1200px) {
+  .meta-grid { grid-auto-flow: row; grid-template-columns: repeat(3, 1fr); }
+}
 @media (max-width: 560px) {
-  .meta-grid { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); }
-  .meta-item { padding: 11px 13px 12px; }
-  .meta-item.is-wide { grid-column: 1 / -1; }
+  .meta-grid { grid-template-columns: repeat(2, 1fr); }
+  .meta-item { padding: 11px 14px 12px; }
 }
 
 /* deliverable rows */
@@ -5352,34 +5361,25 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber-line); out
 }
 /* The name, in the shop's yellow and set the way the shop sets it:
    uppercase, heavy, and the largest thing on the page. One yellow in
-   both themes — --amber, #ffc400, the colour on the machine.
+   both themes — --amber, #ffc400, the colour on the machine — on the
+   band itself, with nothing behind it and nothing around it.
 
-   On the dark band the fill carries itself. On the light one it cannot:
-   #ffc400 on white measures 1.6:1, below every threshold there is, and
-   this is an app read on a tablet in a workshop under whatever light the
-   roof lets in. So in light the letters are contoured in ink and the
-   contour is what does the reading — the same device a stencilled sign
-   uses, and the reason it survives sun on the glass. The stroke is
-   painted under the fill, so the letterforms keep their weight instead
-   of being eaten inwards by it.
+   Two devices stood here before it and both came out: an ink contour
+   around the letters, and an ink plate under them. Each carried the
+   reading; neither was clean, and clean is what the name is for.
 
-   The alternative was the darker --amber-line at 3.7:1, which is what
-   stood here: legible, but a different yellow from the dark theme's,
-   and being one colour in both is what was asked for. */
+   So the number, stated plainly: #ffc400 measures 11.6:1 on the night
+   band and 1.6:1 on the day one. In light it is the accent doing the
+   work of a title, not a contrast pairing — the eyebrow above it and the
+   job line below it are the two that hold their own on that ground, and
+   they are what a reader falls back on. */
 .masthead.is-job .masthead-txt h2 {
   font-family: var(--display);
   font-size: 30px; font-weight: 750;
   letter-spacing: -0.012em; line-height: 1.08;
   text-transform: uppercase;
   color: var(--amber);
-  -webkit-text-stroke: var(--jd-title-stroke, 2.5px) var(--ink);
-  paint-order: stroke fill;
   font-variation-settings: 'opsz' 32;
-}
-/* Dark needs none of it: #ffc400 on the dark plate measures 11.2:1, and
-   a contour there would only thicken the type. */
-:root[data-theme="dark"] .masthead.is-job .masthead-txt h2 {
-  -webkit-text-stroke: 0;
 }
 
 .masthead.is-job .masthead-id {
@@ -5576,9 +5576,6 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber-line); out
   .masthead.is-job .masthead-txt h2 {
     grid-area: name; margin-top: 4px;
     font-size: 20px; font-weight: 750; letter-spacing: -0.004em;
-    /* The contour comes down with the type: 2.5px around 20px letters
-       closes their counters. */
-    --jd-title-stroke: 1.75px;
     /* A phone splits a report title across three words where a desktop
        takes two, and the band's whole job is to name the document. */
     -webkit-line-clamp: 3;
