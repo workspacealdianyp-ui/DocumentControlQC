@@ -3,7 +3,7 @@ import { MR } from '../lib/compute.js'
 import { dimRowStatus, dimDeviation, dimLimits, approverFields } from '../data/formSchemas.js'
 import { buildResume } from '../lib/resume.js'
 import { useFitToPage, pageSpans, sameFit, oneEach, tighten, useSheetZoom } from '../lib/pagefit.js'
-import { reportPlan, printValues, printValue, printDate, printStatus, resultColumnWidths, resultColumnLabel, recordingLayout } from '../lib/printLayout.js'
+import { reportPlan, printValues, printValue, printDate, printStatus, resultColumnWidths, resultColumnLabel, recordingLayout, dimPaired } from '../lib/printLayout.js'
 import { PrintHeader, PrintFooter, PrintToolbar } from './PrintDocument.jsx'
 
 function FieldRows({ rows }) {
@@ -25,23 +25,48 @@ function ResultsTable({ section, report, v, from, to }) {
   const all = report.results || []
   const rows = all.slice(from, to)
   if (section.autoJudge === 'dim') {
+    /* Six points and up read two to a line; five and under do not.
+       Pairing a short grid halves the page it could have used and puts
+       the note in a 28mm column for no reason — at this length there is
+       room to give the note a column of its own and let every figure sit
+       in a wide, evenly divided cell. */
+    const paired = dimPaired(all)
+    const spec = (row) => {
+      const limits = dimLimits(row)
+      /* The nominal, and beside it the tolerance either side of it.
+         Stacking all three cost the row a third line for a figure that
+         is read as one thing: 90, −2 / +2. */
+      return <td className="ps-dim-spec-cell"><span className="ps-dim-spec"><span className="ps-dim-nom">{printValue(row.nominal)}</span><span className="ps-dim-tol">Min {printValue(limits.lo)}<br />Max {printValue(limits.hi)}</span></span></td>
+    }
+    const measured = (row) => <td className="ps-measured">{printValue(row.actual)}<small>Δ {printValue(dimDeviation(row))}</small></td>
+    const verdict = (row) => {
+      const result = dimRowStatus(row)
+      return <td className={result === 'Reject' ? 'ps-result-rej' : ''}>{result || 'Not judged'}</td>
+    }
+    const legend = <div className="ps-dim-legend">All dimensions in mm · Δ = actual − nominal{paired ? ' · Read left to right, then down' : ''}</div>
+    if (!paired) {
+      return <>{legend}<table className="ps-grid ps-dim-grid ps-dim-one">
+        <colgroup>{[22, 56, 40, 32, 40].map((width, i) => <col key={i} style={{ width: `${width}mm` }} />)}</colgroup>
+        <thead><tr><th>Point</th><th>Nominal / tolerance</th><th>Actual / Δ</th><th>Result</th><th className="ps-left">Note</th></tr></thead>
+        <tbody>{rows.map((row, i) => <tr key={from + i}>
+          <td><strong>{printValue(row.itemNo || from + i + 1)}</strong></td>
+          {spec(row)}{measured(row)}{verdict(row)}
+          <td className="ps-left ps-dim-note-cell">{row.note == null || row.note === '' ? '' : printValue(row.note)}</td>
+        </tr>)}
+          {!all.length && <tr><td colSpan={5} className="ps-na">No measurements recorded</td></tr>}</tbody>
+      </table></>
+    }
     const pairs = Array.from({ length: Math.ceil(rows.length / 2) }, (_, i) => rows.slice(i * 2, i * 2 + 2))
     const cells = (row, index) => {
       if (!row) return <td colSpan={4} className="ps-dim-empty" aria-hidden="true" />
-      const limits = dimLimits(row), result = dimRowStatus(row)
       return <>
-        <td className="ps-left"><strong>{printValue(row.itemNo || index + 1)}</strong><span className="ps-dim-description">{printValue(row.description)}</span>{row.note != null && row.note !== '' && <small className="ps-dim-note">Note: {printValue(row.note)}</small>}</td>
-        {/* The nominal, and beside it the tolerance either side of it.
-            Stacking all three cost the row a third line for a figure
-            that is read as one thing: 90, −2 / +2. */}
-        <td className="ps-dim-spec"><span className="ps-dim-nom">{printValue(row.nominal)}</span><span className="ps-dim-tol">Min {printValue(limits.lo)}<br />Max {printValue(limits.hi)}</span></td>
-        <td className="ps-measured">{printValue(row.actual)}<small>Δ {printValue(dimDeviation(row))}</small></td>
-        <td className={result === 'Reject' ? 'ps-result-rej' : ''}>{result || 'Not judged'}</td>
+        <td className="ps-left"><strong>{printValue(row.itemNo || index + 1)}</strong>{row.note != null && row.note !== '' && <small className="ps-dim-note">{printValue(row.note)}</small>}</td>
+        {spec(row)}{measured(row)}{verdict(row)}
       </>
     }
-    const headings = <><th className="ps-left">Point / description</th><th>Nominal / tolerance</th><th>Actual / Δ</th><th>Result</th></>
-    return <><div className="ps-dim-legend">All dimensions in mm · Δ = actual − nominal · Read left to right, then down</div><table className="ps-grid ps-dim-grid">
-      <colgroup>{[28, 29, 17, 19, 4, 28, 29, 17, 19].map((width, i) => <col key={i} style={{ width: `${width}mm` }} />)}</colgroup>
+    const headings = <><th className="ps-left">Point</th><th>Nominal / tolerance</th><th>Actual / Δ</th><th>Result</th></>
+    return <>{legend}<table className="ps-grid ps-dim-grid">
+      <colgroup>{[28, 29, 18, 18, 4, 28, 29, 18, 18].map((width, i) => <col key={i} style={{ width: `${width}mm` }} />)}</colgroup>
       <thead><tr>{headings}<th className="ps-dim-gutter" aria-hidden="true" />{headings}</tr></thead>
       <tbody>{pairs.map((pair, i) => <tr key={from + i * 2}>{cells(pair[0], from + i * 2)}<td className="ps-dim-gutter" aria-hidden="true" />{cells(pair[1], from + i * 2 + 1)}</tr>)}
         {!all.length && <tr><td colSpan={9} className="ps-na">No measurements recorded</td></tr>}</tbody>
@@ -55,6 +80,11 @@ function ResultsTable({ section, report, v, from, to }) {
       {!all.length && <tr><td colSpan={columns.length + 1} className="ps-na">No inspection rows recorded</td></tr>}</tbody>
   </table>
 }
+
+/* Satisfactory and Not evaluated are the other two words this line can
+   carry, and only two of the four are a judgement about conformance. */
+const verdictTone = (text) => /reject|unsatis|fail/i.test(text) ? ' is-rej'
+  : /accept|satisfactory/i.test(text) ? ' is-acc' : ''
 
 function DftTable({ report, from, to }) {
   const all = report.coats || []
@@ -85,7 +115,20 @@ export function Signatures({ fields, v }) {
       const sign = v[f.id], img = typeof sign === 'string' ? sign : sign?.img
       const name = (typeof sign === 'string' ? '' : sign?.name) || f.name || ''
       const date = typeof sign === 'string' ? '' : sign?.at
-      return <td key={f.id}><div className="ps-sign-space">{img && <img className="ps-sign-img" src={img} alt="Recorded signature" />}</div><div className="ps-sign-name">{name || (img ? '' : 'Name / signature')}</div>{f.position ? <div className="ps-sign-post">{f.position}</div> : null}<div className="ps-sign-date">{date ? printDate(date) : img ? '' : 'Date:'}</div></td>
+      /* Name over the rule, position and date under it — the order a
+         signature block is read in, and the order it was not in: the
+         name sat below the line with nothing above it but the mark. */
+      return <td key={f.id} className="ps-sign-cell">
+        <div className="ps-sign-space" />
+        {/* The mark belongs to the rule, so it hangs off the rule: the
+            name's own bottom edge is the line, and the signature is
+            centred on it, straddling it the way a pen does. */}
+        <div className="ps-sign-name">{name || '\u00a0'}{img && <img className="ps-sign-img" src={img} alt="Recorded signature" />}</div>
+        <div className="ps-sign-foot">
+          <span className="ps-sign-post">{f.position || '\u00a0'}</span>
+          <span className="ps-sign-date">{date ? printDate(date) : img ? '\u00a0' : 'Date:'}</span>
+        </div>
+      </td>
     })}</tr>
   </Fragment>)}</tbody></table>
 }
@@ -132,7 +175,12 @@ export function ReportSheets({ schema, report, job, deliverable, status = report
     const [from, to] = pageMap?.[i] || [i + 1, i + 1]
     return <div key={i} className={`print-sheet${i || breakFirst ? ' ps-sheet-break' : ''}`}>
       {watermark && <div className="ps-watermark" aria-hidden="true">{watermark}</div>}
-      <table className="ps-doc"><PrintHeader title={title} number={number} compact={blocks[0]?.kind === 'evidence'} form={schema.formNo} revision={report.formRevision ?? schema.revision} from={from} to={to} total={pageTotal || pages.length} subtitle={schema.kind === 'record' ? 'Filed document record' : 'Inspection & test record'} metadata={[
+      {/* Page 1 states the identity of the record. Pages after it say
+          which record they continue, in the line below the letterhead
+          and again in the footer — a second copy of the report number,
+          job, date and inspector on every sheet is four facts restated
+          to say nothing new. */}
+      <table className="ps-doc"><PrintHeader title={title} number={number} continuation={i > 0} compact={blocks[0]?.kind === 'evidence'} form={schema.formNo} revision={report.formRevision ?? schema.revision} from={from} to={to} total={pageTotal || pages.length} subtitle={schema.kind === 'record' ? 'Filed document record' : 'Inspection & test record'} metadata={[
         ['Form', schema.formNo], ['Job', v.jobNo], [schema.kind === 'record' ? 'Date filed' : 'Inspection date', printDate(v.inspDate)], ['Inspector', v.inspector]
       ]} /><PrintFooter number={number} form={schema.formNo} jobNo={v.jobNo} from={from} to={to} total={pageTotal || pages.length} />
         <tbody><tr><td className="ps-runcell ps-body">
@@ -144,7 +192,7 @@ export function ReportSheets({ schema, report, job, deliverable, status = report
                 : block.kind === 'recording' ? <RecordingTable report={report} v={v} from={block.from} to={block.to} />
                   : block.kind === 'dft' ? <DftTable report={report} from={block.from} to={block.to} />
                     : block.kind === 'signatures' ? <Signatures fields={[...block.section.fields, ...approverFields(v)]} v={v} />
-                      : block.kind === 'verdict' ? <div className="ps-overall-result"><span>Overall result</span><strong>{block.text}</strong></div>
+                      : block.kind === 'verdict' ? <div className={`ps-overall-result${verdictTone(block.text)}`}><span>Overall result</span><strong>{block.text}</strong></div>
                         : block.kind === 'evidence' ? <Evidence block={block} />
                           : block.kind === 'chart' ? <><ChartSummary schema={schema} report={report} job={job} /><PressureChart report={report} /><Observations report={report} /></>
                             : <p className="ps-na">{block.text}</p>}

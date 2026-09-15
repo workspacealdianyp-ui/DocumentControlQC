@@ -1,11 +1,12 @@
 import { useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
-import { dimRowStatus, dimDeviation, approverFields } from '../data/formSchemas.js'
+import { dimRowStatus, dimDeviation, approverFields, extraApprovers, APPROVER_SIGN, APPROVER_ACTS } from '../data/formSchemas.js'
 import { MR } from '../lib/compute.js'
 import { fmtDate } from '../lib/status.js'
 import { buildResume } from '../lib/resume.js'
-import { IconPrint, IconPen, IconApprove, IconSend, IconXCircle, IconReturn } from './Icons.jsx'
+import { IconPrint, IconPen, IconApprove, IconSend, IconXCircle, IconReturn, IconPlus } from './Icons.jsx'
 import { canApprove } from '../lib/store.js'
+import SignaturePad from './SignaturePad.jsx'
 import Masthead from './Masthead.jsx'
 import { artFor } from '../lib/productArt.js'
 
@@ -119,9 +120,13 @@ function DetailPhotos({ photos, onZoom }) {
   )
 }
 
-/* The two roles the schema names, then whoever else the inspector
-   recorded — each under the capacity they signed in, with the position
-   they hold beneath their name. */
+/* The two acts the schema names — prepared by, reviewed by — then
+   whoever else signed, each under the act they signed for.
+
+   Name over the rule, position and date under it, which is the order a
+   signature block is read in. It was the other way round: the mark, then
+   a line, then the name, so the rule read as an underscore on the
+   signature rather than the line it was signed above. */
 function DetailSignatures({ fields, v }) {
   const vis = fields.filter((f) => showField(f, v))
   return (
@@ -129,11 +134,17 @@ function DetailSignatures({ fields, v }) {
       {vis.map((f) => {
         const s = v[f.id]
         return (
-          <div className="detail-sign" key={f.id}>
+          <div className={`detail-sign${s ? '' : ' is-pending'}`} key={f.id}>
             <span className="detail-sign-role">{typeof f.label === 'function' ? f.label(v) : f.label}</span>
-            {s
-              ? <>{s.img ? <img className="detail-sign-img" src={s.img} alt="" /> : <div className="detail-sign-script">{s.name}</div>}<span className="detail-sign-name">{s.name}</span>{f.position && <span className="detail-sign-post">{f.position}</span>}<span className="detail-sign-date">{fmtDate(s.at)}</span></>
-              : <>{f.name && <span className="detail-sign-name">{f.name}</span>}{f.position && <span className="detail-sign-post">{f.position}</span>}<span className={`detail-sign-pending${f.name ? ' is-named' : ''}`}>Pending</span></>}
+            <span className="detail-sign-space" />
+            {/* The mark hangs off the rule the name sits on, centred and
+                straddling it, the way a pen does on a printed form. */}
+            <span className="detail-sign-name">
+              {s?.name || f.name || '\u00a0'}
+              {s && (s.img ? <img className="detail-sign-img" src={s.img} alt="" /> : <span className="detail-sign-script">{s.name}</span>)}
+            </span>
+            <span className="detail-sign-post">{f.position || '\u00a0'}</span>
+            <span className="detail-sign-date">{s ? fmtDate(s.at) : 'Not signed'}</span>
           </div>
         )
       })}
@@ -141,11 +152,59 @@ function DetailSignatures({ fields, v }) {
   )
 }
 
+/* Adding a signature to a report that is already in. Offered only to
+   somebody who could approve it and only while it is waiting: an
+   approved document has been relied on, and changing one is a new issue
+   rather than an edit. */
+function AddSignature({ session, onSign, onCancel }) {
+  const [act, setAct] = useState(APPROVER_ACTS[0])
+  const [name, setName] = useState(session?.name || '')
+  const [post, setPost] = useState('')
+  const [pad, setPad] = useState(false)
+  return (
+    <div className="card appr-add">
+      <div className="rowcard-body">
+        <div className="field" data-span="6">
+          <label>Signing as</label>
+          {/* The same switch the form uses, across the width of the
+              panel: one answer with five positions, not five pills. */}
+          <div className="seg is-wrap" role="radiogroup">
+            {APPROVER_ACTS.map((o) => (
+              <button key={o} type="button" role="radio" aria-checked={act === o}
+                className={`seg-btn${act === o ? ' active' : ''}`} onClick={() => setAct(o)}>{o}</button>
+            ))}
+          </div>
+        </div>
+        <div className="field" data-span="3">
+          <label>Name</label>
+          <input value={name} placeholder="As it is signed" onChange={(e) => setName(e.target.value)} />
+        </div>
+        <div className="field" data-span="3">
+          <label>Position</label>
+          <input value={post} placeholder="e.g. QC Engineer" onChange={(e) => setPost(e.target.value)} />
+        </div>
+      </div>
+      <div className="appr-add-acts">
+        <button type="button" className="btn btn-ghost btn-sm" onClick={onCancel}>Cancel</button>
+        <button type="button" className="btn btn-primary btn-sm" disabled={!name.trim()} onClick={() => setPad(true)}>
+          <IconPen size={14} /> Sign
+        </button>
+      </div>
+      {pad && createPortal(
+        <SignaturePad name={name.trim()} saved=""
+          onClose={() => setPad(false)}
+          onSave={(sig) => { setPad(false); onSign({ act, name: name.trim(), post: post.trim(), sig }) }} />,
+        document.body)}
+    </div>
+  )
+}
+
 const VIEW_KEY = 'qc.detailView'
 
-export default function ReportDetail({ schema, report, job, deliverable, status, role, session, onBack, onPdf, onApprove, onReturn, onEdit }) {
+export default function ReportDetail({ schema, report, job, deliverable, status, role, session, onBack, onPdf, onApprove, onReturn, onEdit, onSign }) {
   const v = report.values || {}
   const [zoom, setZoom] = useState(null)
+  const [adding, setAdding] = useState(false)
   const secs = schema.sections.filter((s) => !s.noPrint && s.id !== 'setup')
   const r = buildResume(schema, report, job)
 
@@ -159,6 +218,12 @@ export default function ReportDetail({ schema, report, job, deliverable, status,
     setView(mode)
     try { localStorage.setItem(VIEW_KEY, mode) } catch { /* private mode */ }
   }
+  /* The same gate the Approve button uses. Somebody who cannot approve
+     the report cannot add a name to its approvals either, and once it is
+     approved the document is fixed — a further signature is a new issue,
+     not an edit to this one. */
+  const canSign = !!onSign && role?.canOverride && status === 'submitted' && canApprove(report, session?.name)
+
   const [page, setPage] = useState(0)
   const at = Math.min(page, secs.length - 1)
   useEffect(() => { setPage(0) }, [report.id])
@@ -252,7 +317,21 @@ export default function ReportDetail({ schema, report, job, deliverable, status,
         {shown.map((s) => (
           <section className={`card detail-card${view === "paged" ? " is-paged" : ""}`} key={s.id}>
             <h3>{s.title}{s.subtitle ? <small>{s.subtitle}</small> : null}</h3>
-            {s.id === 'approvals' ? <DetailSignatures fields={[...s.fields, ...approverFields(v)]} v={v} />
+            {s.id === 'approvals' ? <>
+              <DetailSignatures fields={[...s.fields, ...approverFields(v)]} v={v} />
+              {canSign && (adding
+                ? <AddSignature session={session} onCancel={() => setAdding(false)} onSign={(entry) => {
+                  const list = extraApprovers(v)
+                  const id = String(1 + Math.max(0, ...list.map((a) => Number(a.id) || 0)))
+                  if (onSign({
+                    approvers: [...list, { id, name: entry.name, position: entry.post, capacity: entry.act }],
+                    [APPROVER_SIGN(id)]: entry.sig,
+                  }) !== false) setAdding(false)
+                }} />
+                : <button type="button" className="btn btn-secondary btn-sm appr-add-btn" onClick={() => setAdding(true)}>
+                  <IconPlus size={15} /> Add a signature
+                </button>)}
+            </>
               : s.type === 'recording' ? <DetailRecording report={report} />
                 : s.type === 'results' ? <DetailResults sec={s} report={report} />
                   : s.type === 'dft' ? <DetailDft report={report} />

@@ -133,6 +133,75 @@ describe('compact controlled forms', () => {
     expect(spec.querySelector('.ps-dim-tol').textContent).toBe('Min 88Max 92')
   })
 
+  /* Six points and up read two to a line; five and under get the width
+     to themselves, with the note in a column of its own. Pairing a short
+     grid halves the page it could have used for nothing. */
+  it('gives a short grid the width and pairs a long one', () => {
+    const rows = (n) => Array.from({ length: n }, (_, i) => ({ itemNo: String.fromCharCode(65 + i), nominal: 90, min: 88, max: 92, actual: 90, note: i ? '' : 'Checked twice' }))
+    const short = doc('dimensional', record('dimensional', { results: rows(5) }))
+    expect(short.querySelectorAll('.ps-dim-one')).toHaveLength(1)
+    expect(short.querySelectorAll('.ps-dim-grid thead th')).toHaveLength(5)
+    expect(short.querySelector('.ps-dim-grid thead').textContent).toContain('Note')
+    expect(short.querySelector('.ps-dim-note-cell').textContent).toBe('Checked twice')
+    expect(short.querySelectorAll('.ps-dim-grid tbody tr')).toHaveLength(5)
+
+    const long = doc('dimensional', record('dimensional', { results: rows(6) }))
+    expect(long.querySelectorAll('.ps-dim-one')).toHaveLength(0)
+    expect(long.querySelectorAll('.ps-dim-grid tbody tr')).toHaveLength(3)
+  })
+
+  // The map already says what each balloon measures; the column made an
+  // inspector retype it.
+  it('does not print a description column', () => {
+    const results = [{ itemNo: 'A', description: 'Overall length', nominal: 90, min: 88, max: 92, actual: 91 }]
+    const output = doc('dimensional', record('dimensional', { results }))
+    expect(output.querySelector('.ps-dim-grid thead').textContent).not.toContain('description')
+    expect(output.querySelector('.ps-dim-grid tbody').textContent).not.toContain('Overall length')
+  })
+
+  /* Page 1 states what the record is. Pages after it say which record
+     they continue, and nothing else — the report number, job, date and
+     inspector restated on every sheet say nothing new. */
+  it('drops the identity table from continuation pages', () => {
+    const results = Array.from({ length: 80 }, (_, i) => ({ itemNo: `P${i + 1}`, nominal: 90, min: 88, max: 92, actual: 90 }))
+    const output = doc('dimensional', record('dimensional', { results }))
+    const sheets = [...output.querySelectorAll('.print-sheet')]
+    expect(sheets.length).toBeGreaterThan(1)
+    expect(sheets[0].querySelectorAll('.ps-control')).toHaveLength(1)
+    sheets.slice(1).forEach((sheet) => {
+      expect(sheet.querySelectorAll('.ps-control')).toHaveLength(0)
+      expect(sheet.querySelector('.ps-cont-note')).toBeTruthy()
+      // still identified, by the line under the letterhead and the footer
+      expect(sheet.textContent).toContain('QC/dimensional/01')
+    })
+  })
+
+  // Accept and reject are told apart by the colour of the word, and the
+  // block is one rule rather than a box inside the section's own box.
+  it('colours the overall result and leaves the section unboxed', () => {
+    const pass = doc('dimensional', record('dimensional', { results: [{ itemNo: 'A', nominal: 90, min: 88, max: 92, actual: 90 }] }))
+    expect(pass.querySelector('.ps-overall-result').className).toContain('is-acc')
+    const fail = doc('dimensional', record('dimensional', { results: [{ itemNo: 'A', nominal: 90, min: 88, max: 92, actual: 99 }] }))
+    expect(fail.querySelector('.ps-overall-result').className).toContain('is-rej')
+  })
+
+  /* Name over the rule, position and date under it. The heading says the
+     act — prepared by, reviewed by — not the job title. */
+  it('sets the signature block in reading order, act over name over position', () => {
+    const report = record('dimensional', { values: { inspDate: '2026-09-09',
+      signInspector: { name: 'Inspector Two', at: '2026-09-09T09:00:00.000Z' } } })
+    const output = doc('dimensional', report)
+    const head = output.querySelector('.ps-sign-head')
+    expect(head.textContent).toContain('Prepared by')
+    expect(head.textContent).toContain('Reviewed by')
+    expect(head.textContent).not.toContain('QC Supervisor')
+    const box = output.querySelector('.ps-sign-table tr:not(.ps-sign-head) td')
+    const order = [...box.children].map((n) => n.className)
+    expect(order).toEqual(['ps-sign-space', 'ps-sign-name', 'ps-sign-foot'])
+    expect(box.querySelector('.ps-sign-name').textContent).toBe('Inspector Two')
+    expect(box.querySelector('.ps-sign-foot').textContent).toContain('Inspector')
+  })
+
   /* A point map is 80mm of sheet. The grid that follows it used to
      reserve the whole table plus the decision and the signatures before
      it would start, so a short grid pushed itself overleaf and left the

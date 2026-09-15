@@ -51,13 +51,27 @@ export const IDENT_GROUPS = [
    the NCR notes. `extra: true` turns the section into two fixed roles
    plus a list the inspector adds to — a name, the position they hold,
    and the capacity they are signing in. */
+/* What the box over a signature says is the act, not the job title.
+   "Inspector" and "QC Supervisor / Engineering" are positions, and a
+   data book is read for who prepared the record and who reviewed it —
+   the same two people may hold different titles on the next order. So
+   the heading is the function and the position goes under the name,
+   where a signature block has always put it. */
+const APPROVAL_ACT = ['Prepared by', 'Reviewed by', 'Approved by', 'Witnessed by']
 const approvals = (roles) => ({
   id: 'approvals', title: 'Approvals', extra: true,
   fields: roles.map((r, i) => ({
     id: i === 0 ? 'signInspector' : i === 1 ? 'signQc' : i === 2 ? 'signClient' : `sign${i}`,
-    label: r, type: 'sign', req: i < 2 ? 'M' : 'O',
+    label: APPROVAL_ACT[i] || 'Signed by', position: r, hint: r,
+    type: 'sign', req: i < 2 ? 'M' : 'O',
   })),
 })
+
+/* The acts an added signature can be. A third party witnesses, a client
+   approves, engineering reviews — and which of those it was is the
+   thing the sheet has to say, so it is chosen from the list rather than
+   typed as free text and spelled six ways across a register. */
+export const APPROVER_ACTS = ['Witnessed by', 'Reviewed by', 'Approved by', 'Verified by', 'Acknowledged by']
 
 /* Every approver the inspector added, in the order they were added,
    with the signature that was captured against each. Held in `values`
@@ -68,7 +82,7 @@ export const APPROVER_SIGN = (id) => `signExtra_${id}`
 export const extraApprovers = (v = {}) => (Array.isArray(v.approvers) ? v.approvers : [])
 export const approverFields = (v = {}) => extraApprovers(v).map((a) => ({
   id: APPROVER_SIGN(a.id), type: 'sign', req: 'O',
-  label: a.capacity || 'Approver', name: a.name, position: a.position,
+  label: a.capacity || 'Signed by', name: a.name, position: a.position,
 }))
 
 /* The shared header calls page 1's date "Inspection / Testing Date",
@@ -414,38 +428,39 @@ export const FORM_SCHEMAS = {
              attached, so the number is never lost. */
           { id: 'drawingNo', label: 'Drawing No. / Rev', type: 'text', req: 'M', half: true, tagFor: 'drawingFile' },
           { id: 'inspStage', label: 'Inspection stage', type: 'text', half: true, placeholder: 'e.g. AFTER WELDING' },
-          { id: 'drawingFile', label: 'Point map', type: 'photos-inline',
-            hint: 'Photograph or export the marked drawing. Each balloon letter is a row below.' },
+          /* One drawing. The table below is balloon-ed against a single
+             marked-up view, and a second attachment made "Point map 1 of
+             2" on the sheet with no way to say which balloons belonged
+             to which. */
+          { id: 'drawingFile', label: 'Point map', type: 'photos-inline', max: 1,
+            hint: 'Photograph or export the marked drawing. Each balloon is a row below.' },
         ]},
       { id: 'results', title: 'Measurement Grid',
         subtitle: 'One row per balloon on the map: what it should be, what it measured. Actual outside Min–Max is rejected automatically. All dimensions in mm.',
         type: 'results',
         judgeKey: 'rowStatus', accValue: 'Accept', rejValue: 'Reject', autoJudge: 'dim',
         columns: [
-          /* The balloon letter leads: it is what ties the row to the map
-             above it, and it is the first thing anybody reading the two
-             together looks for.
+          /* The balloon identifies the row, and that is all it needs to
+             do: the map above carries what each one measures, drawn on
+             the drawing, and a "Description" column made the inspector
+             write the same words the drawing already says — 46 reports
+             of "Overall length" typed by hand next to a dimension line
+             labelled A.
 
-             Both of the first two carry a line saying what goes in them.
-             "Dim." and "Description" over two empty boxes is a label
-             naming itself: an inspector filling the form for the first
-             time has to guess whether Dim. wants the letter, the
-             dimension or the drawing's callout number. */
-          { id: 'itemNo', label: 'Point', type: 'text', req: 'M', span: 2, spanSm: 3, placeholder: 'A',
-            hint: 'The balloon letter on the map above' },
-          { id: 'description', label: 'Description', type: 'text', req: 'M', span: 4, spanSm: 3, placeholder: 'Overall length',
-            hint: 'What was measured at that point' },
+             It takes any notation a drawing uses, a letter or a numbered
+             one, which is why it says so rather than saying "Dim." */
+          { id: 'itemNo', label: 'Point', type: 'text', req: 'M', span: 1, spanSm: 2, placeholder: 'A',
+            hint: 'Balloon on the map — A, 1a…' },
           /* Nominal is the drawing dimension and Min/Max are the
-             tolerance either side of it, so they belong on one line in
-             that proportion: the figure at two thirds, the pair that
-             qualifies it sharing the last third. */
-          { id: 'nominal', label: 'Nominal', type: 'number', unit: 'mm', span: 4, spanSm: 6,
+             tolerance either side of it, so the three read as one line:
+             the figure, then the pair that qualifies it. */
+          { id: 'nominal', label: 'Nominal', type: 'number', unit: 'mm', span: 3, spanSm: 4,
             hint: 'The drawing dimension; Min and Max are its tolerance' },
           { id: 'min', label: 'Min', type: 'number', unit: 'mm', span: 1, spanSm: 3, req: 'M' },
           { id: 'max', label: 'Max', type: 'number', unit: 'mm', span: 1, spanSm: 3, req: 'M' },
-          { id: 'actual', label: 'Actual', type: 'number', unit: 'mm', span: 3, req: 'M',
+          { id: 'actual', label: 'Actual', type: 'number', unit: 'mm', span: 2, spanSm: 3, req: 'M',
             hint: 'What the instrument read' },
-          { id: 'note', label: 'Note', type: 'text', span: 3 },
+          { id: 'note', label: 'Note', type: 'text', span: 4, spanSm: 3 },
         ]},
       { id: 'photos', title: 'Photo Evidence', type: 'photos' },
       { id: 'result', title: 'Summary', fields: [
@@ -517,10 +532,10 @@ function approvalsHydro() {
   return {
     id: 'approvals', title: 'Approvals', extra: true,
     fields: [
-      { id: 'signInspector', label: 'Inspector', type: 'sign', req: 'M' },
-      { id: 'signQc', label: 'QC Supervisor / Engineering', type: 'sign', req: 'M' },
-      { id: 'signClient', label: 'Client / Customer', type: 'sign', req: 'O' },
-      { id: 'signThird', label: 'Third Party (LRQA)', type: 'sign', req: 'O', showIf: (v) => v.thirdParty === 'Yes' },
+      { id: 'signInspector', label: 'Prepared by', position: 'Inspector', hint: 'Inspector', type: 'sign', req: 'M' },
+      { id: 'signQc', label: 'Reviewed by', position: 'QC Supervisor / Engineering', hint: 'QC Supervisor / Engineering', type: 'sign', req: 'M' },
+      { id: 'signClient', label: 'Approved by', position: 'Client / Customer', hint: 'Client / Customer', type: 'sign', req: 'O' },
+      { id: 'signThird', label: 'Witnessed by', position: 'Third Party (LRQA)', hint: 'Third Party (LRQA)', type: 'sign', req: 'O', showIf: (v) => v.thirdParty === 'Yes' },
     ],
   }
 }
