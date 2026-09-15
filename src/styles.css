@@ -32,6 +32,11 @@
   --amber-line: #a87f00;   /* the accent, dark enough to show against a light
                               ground: edges, and the marks that carry data */
   --on-amber: #171b20;     /* what gets printed on the fill (10.8:1) */
+  /* What gets printed on a solid status fill. The status tokens are dark
+     by day, so it is white; at night they are the light things on the
+     screen, so it is ink. Measured against each of the four: white on
+     --inprog 4.7:1, --review 8.3:1, --done 4.6:1, --overdue 5.9:1. */
+  --on-status: #ffffff;
   --amber-soft: #fff8e0;
   --amber-tint: #ffeec2;   /* the rail's active pill */
   --file-line: #e8cf8a;    /* the hairline a required jacket is drawn with */
@@ -175,6 +180,7 @@
   --amber-ink: #ffd05a;
   --amber-line: #d9aa35;
   --on-amber: #171b20;
+  --on-status: #14171c;
   --amber-soft: #2b2410;
   --amber-tint: #342b12;
   /* On #17171b the light hairline vanishes; the jacket keeps its hue by
@@ -4209,25 +4215,35 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber-line); out
 .rep-card:active { transform: scale(0.995); }
 .rep-card:focus-visible { outline: none; border-color: var(--amber-line); box-shadow: 0 0 0 3px var(--amber-soft); }
 
-/* The mark carries the form code, tinted by the report's state. Two
-   facts, one object — and the badge beside it still names the state in
-   words, so the colour is never the only signal. */
+/* The mark: a sheet of paper with the form's code on a tab.
+
+   It was the code alone in a rounded square, tinted by the report's
+   state — a square that said nothing about what the row was. The sheet
+   says it, and the tab keeps the code and takes the tint, so the state
+   is still carried by colour there and by the badge's words beside it. */
 .rep-code {
-  grid-area: code;
-  display: grid; place-items: center;
-  width: 42px; height: 42px;
-  border-radius: 12px;
-  border: 1px solid var(--line);
-  background: var(--surface-2); color: var(--text-2);
-  font-family: var(--mono); font-size: 12px; font-weight: 700;
-  letter-spacing: 0.02em;
+  grid-area: code; position: relative;
+  width: 38px; height: 46px; flex: none;
+  color: var(--line-2);
 }
-.rep-card.tone-draft     .rep-code { background: var(--inprog-bg); color: var(--inprog); border-color: var(--inprog-bg); }
-.rep-card.tone-submitted .rep-code { background: rgba(127, 176, 255, 0.16); color: #2f6fd0; border-color: transparent; }
-.rep-card.tone-approved  .rep-code { background: var(--done-bg); color: var(--done); border-color: var(--done-bg); }
-.rep-card.tone-returned  .rep-code { background: var(--overdue-bg); color: var(--overdue); border-color: var(--overdue-bg); }
-.rep-card.tone-ncr       .rep-code { background: var(--overdue-bg); color: var(--overdue); border-color: var(--overdue-bg); }
-:root[data-theme="dark"] .rep-card.tone-submitted .rep-code { color: #7fb0ff; }
+.rep-code svg { display: block; width: 100%; height: 100%; }
+.rep-code .rep-sheet { fill: var(--surface-2); }
+.rep-code .rep-rule { color: var(--line-2); opacity: 0.85; }
+.rep-code b {
+  position: absolute; right: -4px; bottom: 3px;
+  padding: 2px 5px; border-radius: 4px;
+  font-family: var(--mono); font-size: 9px; font-weight: 700;
+  letter-spacing: 0.04em; line-height: 1.25; white-space: nowrap;
+  background: var(--notstart); color: var(--on-status);
+  /* Cut out of the card's ground, so the tab reads as a label stuck on
+     the sheet rather than a shape sharing its outline. */
+  box-shadow: 0 0 0 2px var(--surface);
+}
+.rep-card.tone-draft     .rep-code b { background: var(--inprog); }
+.rep-card.tone-submitted .rep-code b { background: var(--review); }
+.rep-card.tone-approved  .rep-code b { background: var(--done); }
+.rep-card.tone-returned  .rep-code b { background: var(--overdue); }
+.rep-card.tone-ncr       .rep-code b { background: var(--overdue); }
 
 .rep-id {
   grid-area: id; align-self: end;
@@ -4248,19 +4264,67 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber-line); out
 }
 .rep-dot { color: var(--text-3); }
 
-/* Delete sits on the last line rather than beside the state badge: it is
-   the rarest thing anyone does here, and putting it next to the status
-   made two very different actions look like a pair. */
-.rep-del {
+/* The commands stand together at the right, on the line the eye already
+   goes to for the state. Approve used to sit loose at the bottom-left
+   of the card, under three lines of meta that have nothing to do with
+   it, and the bin was one tap away at the far right. */
+.rep-act {
   grid-area: act; align-self: center; justify-self: end;
+  display: flex; align-items: center; gap: 6px;
+}
+/* .rep-menu, not .rep-more: that name already belongs to the "Show N
+   more" block at the foot of the list. */
+.rep-menu {
   display: grid; place-items: center;
-  width: 30px; height: 30px; margin-right: -4px;
+  width: 32px; height: 32px; margin-right: -4px;
   border: 0; border-radius: 9px;
   background: none; color: var(--text-3);
-  cursor: pointer; transition: color .14s ease, background .14s ease;
+  cursor: pointer; transition: color .14s ease, background-color .14s ease;
 }
-.rep-del:hover { color: var(--overdue); background: var(--overdue-bg); }
-.rep-del:focus-visible { outline: none; color: var(--overdue); box-shadow: 0 0 0 3px var(--amber-soft); }
+.rep-menu:hover { color: var(--text); background: var(--surface-2); }
+.rep-menu:focus-visible { outline: 2px solid var(--steel); outline-offset: 1px; }
+
+/* The hold. A rule fills along the card's bottom edge while the pointer
+   is down, so the wait is something the reader can see happening rather
+   than a second of nothing. */
+.rep-hold {
+  position: absolute; left: 0; bottom: 0; height: 2px;
+  border-radius: 0 0 13px 13px;
+  background: var(--amber-line);
+  animation: rep-hold 1s linear forwards;
+}
+@keyframes rep-hold { from { width: 0; } to { width: 100%; } }
+.rep-card.is-held { border-color: var(--amber-line); }
+
+/* The bar the hold reveals, over the card rather than beside it: the
+   command cannot be hit while the row is still reading as a row. */
+.rep-sheet-acts {
+  position: absolute; inset: 0; z-index: 1;
+  display: flex; align-items: center; justify-content: flex-end; gap: 8px;
+  padding: 0 12px; border-radius: inherit;
+  background: var(--surface);
+  animation: rep-acts-in .16s cubic-bezier(0.2, 0, 0, 1);
+}
+@keyframes rep-acts-in { from { opacity: 0; transform: translateX(6px); } to { opacity: 1; transform: none; } }
+.rep-card.is-open { border-color: var(--line-2); cursor: default; }
+.rep-cmd {
+  display: inline-flex; align-items: center; gap: 7px;
+  min-height: 38px; padding: 0 14px;
+  border: 1px solid var(--line-2); border-radius: 9px;
+  background: var(--surface); color: var(--text);
+  font-family: var(--sans); font-size: 13px; font-weight: 600;
+  cursor: pointer; transition: background-color .12s ease, border-color .12s ease, color .12s ease, transform .12s ease;
+}
+.rep-cmd:hover { background: var(--surface-2); }
+.rep-cmd:active { transform: scale(0.96); }
+.rep-cmd:focus-visible { outline: 2px solid var(--steel); outline-offset: 2px; }
+.rep-cmd.is-danger { color: var(--overdue); border-color: var(--overdue-line); }
+.rep-cmd.is-danger:hover { background: var(--overdue-bg); }
+
+@media (prefers-reduced-motion: reduce) {
+  .rep-hold { animation: none; width: 100%; opacity: 0.4; }
+  .rep-sheet-acts { animation: none; }
+}
 
 /* Narrow, the card tightens rather than sheds. The state keeps its word
    — a glyph alone asks people to learn three icons — and the numbers
@@ -4268,7 +4332,8 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber-line); out
    this list for. */
 @media (max-width: 430px) {
   .rep-card { padding: 11px 12px; column-gap: 10px; }
-  .rep-code { width: 38px; height: 38px; border-radius: 11px; font-size: 11px; }
+  .rep-code { width: 34px; height: 41px; }
+  .rep-code b { font-size: 8.5px; padding: 2px 4px; }
   .rep-state .report-state { padding: 3px 8px 3px 6px; font-size: 11.5px; gap: 4px; }
   .rep-sub, .rep-foot { font-size: 11px; }
   /* A report number is an identifier: truncating it loses the revision
@@ -4294,13 +4359,24 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber-line); out
   }
   .rep-state { align-self: center; min-width: 96px; }
   .rep-state .report-state { width: 100%; justify-content: center; }
-  /* Room for the bin, and only where there is a bin. The reserve was on
-     every card, so a job's document rows — which have no bin — ended
-     their last line 34px short of the rows next to them in the other
-     tab, and the two lists read as different widths when they are the
-     same width. */
-  .rep-card:has(.rep-del) .rep-foot { padding-right: 34px; }
-  .rep-del { position: absolute; right: 9px; bottom: 8px; margin-right: 0; }
+  /* A phone has no room beside the badge for both commands, and laying
+     them over the meta cut the inspector's name in half. They take a
+     row of their own at the foot, right-aligned — and only on cards
+     that have commands, so a job's document rows keep their height. */
+  .rep-card:has(.rep-act) {
+    grid-template-areas:
+      "code id   state"
+      "code sub  sub"
+      "code foot foot"
+      "act  act  act";
+  }
+  .rep-act {
+    grid-area: act; position: static; justify-self: end;
+    margin-top: 8px; padding-top: 8px;
+    border-top: 1px solid var(--line); width: 100%; justify-content: flex-end;
+  }
+  .rep-approve { font-size: 12px; padding: 7px 12px; }
+  .rep-cmd { min-height: 38px; padding: 0 12px; font-size: 12.5px; }
 }
 
 :root[data-theme="dark"] .rep-card:hover { box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4); }
@@ -6415,10 +6491,11 @@ div.deliv-row.tappable:focus-visible { outline: 2px solid var(--amber-line); out
   .vt-ncr { order: 2; }
 }
 
-/* Approving from the register. It is the one thing the second report
-   list could do that this one could not, so it came across with it. */
+/* Approving from the register. It sits in the command row at the right
+   now, on the line the state is read from — it used to be placed by
+   `grid-area: auto`, which dropped it into whatever cell was free and
+   left it loose under three lines of meta. */
 .rep-approve {
-  grid-area: auto; align-self: center; justify-self: end;
   display: inline-flex; align-items: center; gap: 5px;
   padding: 6px 11px; border-radius: 7px;
   border: 1px solid var(--ink); background: var(--ink); color: #fff;

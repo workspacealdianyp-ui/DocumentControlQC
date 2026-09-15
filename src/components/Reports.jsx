@@ -1,4 +1,4 @@
-import { useMemo, useState, useEffect } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { useApp, navigate } from '../App.jsx'
 import { FORM_SCHEMAS } from '../data/formSchemas.js'
 import {
@@ -8,7 +8,7 @@ import ConfirmDialog from './ConfirmDialog.jsx'
 import { ncrReports, fmtDateTime } from '../lib/status.js'
 import { reportResult } from '../lib/verdict.js'
 import { StateBadge } from './StatusChip.jsx'
-import { IconTrash, IconDownload, IconCloudOff, IconFilter, IconGroup, IconApprove, IconXCircle } from './Icons.jsx'
+import { IconTrash, IconDownload, IconCloudOff, IconFilter, IconGroup, IconApprove, IconXCircle, IconMenu, IconClose } from './Icons.jsx'
 import { SearchField, ToolButton, PopCheck, PopRadio, PopFooter } from './RegisterBar.jsx'
 import { downloadCsv, stampToday } from '../lib/csv.js'
 import { scopeReports, sortWork, sortReview } from '../lib/reportScope.js'
@@ -79,30 +79,119 @@ export const ReportId = ({ id }) => (
    tinted by the report's state, which the badge beside it also names in
    words. Colour and text, so neither has to carry it alone. */
 const ACT_WORD = { delete: 'Delete', withdraw: 'Withdraw', void: 'Void' }
+const ACT_ICON = { delete: IconTrash, withdraw: IconXCircle, void: IconXCircle }
+
+/* How long the card has to be held before it gives up its commands.
+
+   The point is not the wait; it is that deleting or voiding a record
+   cannot be the thing your thumb does by accident on a scrolling list.
+   A second is long enough to be a decision and short enough that nobody
+   thinks the screen has frozen — and the command it reveals still has
+   to pass the confirm dialog, which asks for a reason in writing. So
+   three deliberate steps, not a three-second stare. */
+const HOLD_MS = 1000
+
+/* The mark: a sheet of paper with the form's code on a tab.
+
+   It used to be the code alone in a rounded square, tinted by the
+   report's state. The square said nothing about what the row was — the
+   sheet does, and the tab keeps the code and takes the tint, so the
+   state is still carried by colour there and by the badge's own words
+   beside it. */
+export function ReportMark({ code, hint }) {
+  return (
+    <span className="rep-code" aria-hidden="true" title={hint}>
+      <svg viewBox="0 0 36 44" fill="none" stroke="currentColor" strokeWidth="1.5"
+        strokeLinecap="round" strokeLinejoin="round">
+        <path className="rep-sheet" d="M3 4a3 3 0 0 1 3-3h15l12 12v27a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3V4Z" />
+        <path d="M21 1v8a3 3 0 0 0 3 3h9" />
+        <g className="rep-rule" strokeWidth="2">
+          <path d="M9 21h13" /><path d="M9 26h18" /><path d="M9 31h9" />
+        </g>
+      </svg>
+      <b>{code}</b>
+    </span>
+  )
+}
 
 function ReportCard({ r, tone, code, title, sub, foot, onOpen, onDelete, canDelete, onApprove, action }) {
+  /* The card's commands are behind a hold. Open is the tap, because
+     opening is what anyone came here to do; the one command that
+     changes the record is not reachable by the same gesture.
+
+     `fired` is what stops the hold from also counting as a tap: a
+     pointer that has been down for a second still raises click when it
+     lifts, and without this the sheet would open the report underneath
+     the commands it just revealed. */
+  const [held, setHeld] = useState(false)
+  const [open, setOpen] = useState(false)
+  const timer = useRef(0)
+  const fired = useRef(false)
+  const sheet = useRef(null)
+
+  const stop = () => { clearTimeout(timer.current); timer.current = 0; setHeld(false) }
+  const start = (e) => {
+    if (!canDelete || open || e.button > 0) return
+    fired.current = false
+    setHeld(true)
+    timer.current = setTimeout(() => { fired.current = true; setHeld(false); setOpen(true) }, HOLD_MS)
+  }
+
+  useEffect(() => stop, [])
+  // Opened, the commands take the focus; closed, it goes back to the card.
+  useEffect(() => { if (open) sheet.current?.querySelector('button')?.focus() }, [open])
+
+  const Act = ACT_ICON[action] || IconTrash
+  const word = ACT_WORD[action] || 'Delete'
+
   return (
-    <div className={`rep-card tone-${tone}`} role="button" tabIndex={0}
-      onClick={onOpen}
-      onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onOpen() } }}>
-      <span className="rep-code" aria-hidden="true">{code}</span>
+    <div className={`rep-card tone-${tone}${held ? ' is-held' : ''}${open ? ' is-open' : ''}`}
+      role="button" tabIndex={0}
+      onClick={() => { if (fired.current) { fired.current = false; return } if (!open) onOpen() }}
+      onKeyDown={(e) => {
+        if (e.key === 'Escape' && open) { e.stopPropagation(); setOpen(false); return }
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); if (!open) onOpen() }
+      }}
+      onPointerDown={start} onPointerUp={stop} onPointerLeave={stop} onPointerCancel={stop}
+      onContextMenu={canDelete ? (e) => { e.preventDefault(); setOpen(true) } : undefined}>
+      <ReportMark code={code} />
       <strong className="rep-id">{title}</strong>
       <span className="rep-state"><StateBadge status={r.status} /></span>
       <small className="rep-sub">{sub}</small>
       <small className="rep-foot">{foot}</small>
-      {onApprove && (
-        <button className="rep-approve" onClick={(e) => { e.stopPropagation(); onApprove() }}>
-          <IconApprove size={13} /> Approve
-        </button>
+
+      <span className="rep-act">
+        {onApprove && (
+          <button className="rep-approve" onClick={(e) => { e.stopPropagation(); onApprove() }}>
+            <IconApprove size={13} /> Approve
+          </button>
+        )}
+        {/* The hold is a shortcut, not the only way in: a keyboard never
+            gets a long press, and a pointer user has no way to guess one
+            is there. This is the same door, standing open. */}
+        {canDelete && (
+          <button className="rep-menu" aria-label={`Commands for ${r.reportId}`} aria-expanded={open}
+            title="Commands" onClick={(e) => { e.stopPropagation(); setOpen(true) }}>
+            <IconMenu size={15} />
+          </button>
+        )}
+      </span>
+
+      {/* The bar the hold reveals. It sits over the card rather than
+          beside it, so the command cannot be hit while the row is still
+          reading as a row. */}
+      {open && (
+        <span className="rep-sheet-acts" ref={sheet} role="group" aria-label={`Commands for ${r.reportId}`}
+          onClick={(e) => e.stopPropagation()}>
+          <button className="rep-cmd is-danger" onClick={onDelete}>
+            <Act size={14} /> {word}
+          </button>
+          <button className="rep-cmd" onClick={(e) => { e.stopPropagation(); setOpen(false) }}>
+            <IconClose size={14} /> Cancel
+          </button>
+        </span>
       )}
-      {canDelete && (
-        // The label says which of the three this is, so a screen reader
-        // is not told "delete" about a report that will be kept.
-        <button className="rep-del" aria-label={`${ACT_WORD[action] || 'Delete'} ${r.reportId}`}
-          title={`${ACT_WORD[action] || 'Delete'} ${r.reportId}`} onClick={onDelete}>
-          {action === 'void' ? <IconXCircle size={14} /> : <IconTrash size={14} />}
-        </button>
-      )}
+      {held && <span className="rep-hold" aria-hidden="true" />}
     </div>
   )
 }
@@ -266,10 +355,6 @@ export default function Reports({ query }) {
             )}
           </ToolButton>
         </div>
-        <span className="mon-count">
-          {matched.length} report{matched.length === 1 ? '' : 's'}
-          {matched.length > shown.length && <> · showing {shown.length}</>}
-        </span>
       </div>
 
       {matched.length === 0 ? (
