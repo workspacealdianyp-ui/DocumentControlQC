@@ -73,11 +73,8 @@
 .home-tabs button[aria-pressed="true"] { color: var(--text); font-weight: 600; border-bottom-color: var(--text-2); background: var(--surface-2); }
 .home-records { list-style: none; margin: 0; padding: 0; }
 .home-records > li { border-top: 1px solid var(--line); }
-.home-report-row { display: grid; grid-template-columns: 32px minmax(0, 1fr) auto; gap: 10px; align-items: start; padding: 10px 14px; color: var(--text); }
+.home-report-row { display: grid; grid-template-columns: 38px minmax(0, 1fr) auto; gap: 10px; align-items: start; padding: 10px 14px; color: var(--text); }
 .home-report-row:hover, .home-job-row:hover, .home-summary-row:hover, .home-updates a:hover { background: var(--surface-2); }
-.home-form-code { display: grid; place-items: center; min-height: 30px; border: 1px solid var(--line-2); border-radius: var(--r-sm); font-size: 11px; font-weight: 600; }
-.home-form-code.is-returned { background: var(--overdue-bg); color: var(--overdue); }
-.home-form-code.is-submitted { background: var(--review-bg); color: var(--review); }
 .home-report-copy, .home-job-copy { display: grid; gap: 3px; overflow-wrap: anywhere; }
 .home-report-copy strong, .home-job-copy strong { font-size: 13px; font-weight: 600; line-height: 1.4; font-variant-numeric: tabular-nums; }
 .home-report-copy > span, .home-job-copy > span { font-size: 12px; color: var(--text-2); line-height: 1.4; }
@@ -188,12 +185,12 @@
    form's code, what it is, and where it has got to. */
 .home-updates { display: grid; grid-template-columns: 1fr; border-top: 1px solid var(--line); }
 .home-updates a {
-  display: grid; grid-template-columns: 32px minmax(0, 1fr);
+  display: grid; grid-template-columns: 38px minmax(0, 1fr);
   align-items: start; gap: 4px 10px;
   padding: 10px 14px; color: var(--text); overflow-wrap: anywhere;
   transition: background-color .12s ease;
 }
-.home-updates .home-form-code { grid-column: 1; grid-row: 1 / span 2; }
+.home-updates .rep-code { grid-column: 1; grid-row: 1 / span 2; }
 .home-update-copy { grid-column: 2; display: grid; gap: 1px; min-width: 0; }
 .home-update-copy strong { font-size: 12.5px; font-weight: 600; line-height: 1.35; }
 .home-update-copy small { font-size: 12px; color: var(--text-2); line-height: 1.4; font-variant-numeric: tabular-nums; }
@@ -245,7 +242,7 @@
   .home-readings > a { grid-template-columns: 1fr; }
   .home-readings strong { grid-column: 1; grid-row: 2; }
   .home-row-action { grid-column: 2; }
-  .home-report-row { grid-template-columns: 30px minmax(0, 1fr); }
+  .home-report-row { grid-template-columns: 38px minmax(0, 1fr); }
 }
 @media (pointer: coarse) {
   .home-page :is(button, .home-panel-footer a, .home-register a, .home-workload a) { min-height: 44px; }

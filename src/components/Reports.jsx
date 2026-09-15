@@ -98,9 +98,9 @@ const HOLD_MS = 1000
    sheet does, and the tab keeps the code and takes the tint, so the
    state is still carried by colour there and by the badge's own words
    beside it. */
-export function ReportMark({ code, hint }) {
+export function ReportMark({ code, tone, hint }) {
   return (
-    <span className="rep-code" aria-hidden="true" title={hint}>
+    <span className={`rep-code${tone ? ` is-${tone}` : ''}`} aria-hidden="true" title={hint}>
       <svg viewBox="0 0 36 44" fill="none" stroke="currentColor" strokeWidth="1.5"
         strokeLinecap="round" strokeLinejoin="round">
         <path className="rep-sheet" d="M3 4a3 3 0 0 1 3-3h15l12 12v27a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3V4Z" />
@@ -154,7 +154,7 @@ function ReportCard({ r, tone, code, title, sub, foot, onOpen, onDelete, canDele
       }}
       onPointerDown={start} onPointerUp={stop} onPointerLeave={stop} onPointerCancel={stop}
       onContextMenu={canDelete ? (e) => { e.preventDefault(); setOpen(true) } : undefined}>
-      <ReportMark code={code} />
+      <ReportMark code={code} tone={tone} />
       <strong className="rep-id">{title}</strong>
       <span className="rep-state"><StateBadge status={r.status} /></span>
       <small className="rep-sub">{sub}</small>
